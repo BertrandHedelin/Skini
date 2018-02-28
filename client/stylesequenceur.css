@@ -1,0 +1,204 @@
+.button {
+  background-color: #4CAF50; /* Green */
+  border: 4px;
+  color: white;
+  margin: 2px;
+  // text-align: center;
+  text-decoration: none;
+  // display: inline-block;
+  font-size: 12px;
+  border-radius: 4px;
+  width:70px;
+  height:70px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.boutonsCommande {
+  text-align: center;
+}
+
+.texteNote {
+  //background-color: #ffffff; /* blanc */
+  color: white;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+ }
+
+.listBoutonsPad {
+    white-space: nowrap;
+    //text-align: center;
+    overflow: auto;
+    width:1200px;
+    height: 400px;
+}
+
+.padBouton {
+  background-color: #636f64; /* gris léger */
+  border: 4px;
+  color: white;
+  margin: 2px;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 4px;
+  width:60px;
+  height:60px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.padBoutonVert {
+  background-color: #4CAF50; /* vert */
+  border: 4px;
+  color: white;
+  margin: 2px;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 4px;
+  width:60px;
+  height:60px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.padBoutonBleu {
+  background-color: #008CBA;
+  border: 4px;
+  color: white;
+  margin: 2px;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 4px;
+  width:60px;
+  height:60px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+
+.wrapButtons {
+    text-align: center;
+    overflow: auto;
+    //width:1200px;
+    height: 400px;
+}
+
+.boutonsSons {
+  width:308px;
+  font-size: 20px;
+  background-color: #464545;
+  color: white;
+  border: 4px;
+  text-align: center;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.boutonsResolution {
+  background-color: #797bbf;
+}
+
+
+
+.boutonsSons1 {
+  background-color: #797bbf;
+}
+
+.boutonsSons2 {
+  background-color: #4CAF50;
+}
+
+.boutonsSons3 {
+  background-color: #666633;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.button1 {
+  background-color: #CF1919; /* red */
+}
+
+.button2 {
+  background-color: #008CBA; /* Blue */
+}
+
+.buttonListen {
+  background-color: #008CBA; /* Blue */
+}
+
+.buttonStop {
+  background-color: #CF1919; /* Red */
+}
+
+.button3 {
+  background-color: #666633; /* caca d'oie */
+}
+
+.buttonPseudo {
+  background-color: #4CAF50; /* Green */
+  width:250px; 
+  height:55px;
+  font-size: 24px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+body {
+  margin: 0 auto;
+  background-color: #222;
+  padding: 0 20px 20px 20px;
+  font-family: "Arial", Georgia, Serif;
+  /* border: 5px solid #111; */
+}
+
+body.inplay {
+  background-color: #e8dfdf;
+  transition: none;
+  color: white;
+}
+
+body.black-again {
+  background-color: #222;
+  transition: 2s all;
+}
+
+#monPseudo {
+  border-radius: 4px;
+  text-align: center;
+  width:250px;
+  height:50px;
+  font-size: 24px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.text-spectacle {
+  font-size: 24px;
+  color: white;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.info-spectateur {
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  font-family: "Arial", Georgia, Serif;
+}
+
+
+.em  {
+  font-style: normal;
+  color: white;
+  font-size: 20px;
+  font-family: "Arial", Georgia, Serif;
+}
+
+.sonChoisi {
+  font-style: normal;
+  color: white;
+  font-size: 20px;
+  font-family: "Arial", Georgia, Serif;
+  text-align: center;
+}
+
+

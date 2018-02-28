@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./client/stylegolem.css" >
+        <meta charset="UTF-8" name="viewport" content="width=device-width, height=device-height, shrink-to-fit=yes, intial-scale=1" />
+    </head>
+    <body onload="initWSSocket(8383);">
+      <script type='text/javascript' src='./client/golembundle.js'></script>
+      <div class="wrapper">
+        <input type="text" id="monPseudo" placeholder="Votre prénom">
+      </div>  
+      <div class="wrapper">
+        <button class="button buttonPseudo" id="leBoutonPseudo" onclick="initialisation();">OK</button>
+      </div>
+      <br class="breakAccueil" style="display:none">
+      <div class="wrapper"> 
+          <button  id="buttonType1" style="display:none" class="button boutonsSons1" onclick="clickButton(1);">Percu</button>
+          <button  id="buttonType2" style="display:none" class="button boutonsSons2" onclick="clickButton(2);">Voix</button>
+          <button  id="buttonType3" style="display:none" class="button boutonsSons3" onclick="clickButton(3);">Ambiances</button>
+          <button  id="buttonRetour" style="display:none" class="button button3" onclick="clickButton(4);">...</button>
+      </div> 
+      <br class="breakAccueil" style="display:none">
+
+      <div class="wrapper"> 
+      <em id="labelSons" color="white" style="display:none">Sons disponibles</em>
+      
+      <div class="wrapButtons" id="listButton" style="display:none" >
+      <div id="listBoutonsSons"></div>
+      </div>
+
+      </div>
+
+      <div class="sonChoisi"> <span id="sonChoisi" style="display:none" ></span></div>
+
+      <br class="breakAccueil" style="display:none">
+      <div class="wrapper">
+        <button  id="buttonEcouter" class="button buttonListen" style="display:none" onclick="startListenClip();">ECOUTER</button>
+        <button  id="buttonStop" class="button buttonStop" style="display:none" onclick="stopListenClip();">STOP</button>
+        <button  id="buttonStart" class="button" style="display:none" onclick="startClip();">JOUER</button>
+      </div>
+      <br class="breakAccueil" style="display:none">
+      <div class="wrapper">
+        <em class="texteSon" id="textProgressbar1" style="display:none"></em>
+        <progress class="progressBar" id="progressbar1" value="0" max="30" style="display:none"></progress>
+        <br>
+        <em class="texteSon" id="textProgressbar2" style="display:none"></em>
+        <progress class="progressBar" id="progressbar2" value="0" max="30" style="display:none"></progress>
+        <br>
+        <em class="texteSon" id="textProgressbar3" style="display:none"></em>
+        <progress class="progressBar" id="progressbar3" value="0" max="30" style="display:none"></progress>
+      </div>
+
+      <p style="color:white" id="pseudo"></p> 
+      <div class="info-spectateur"> <span id="MessageDuServeur"> Bonjour, donnez votre prénom</span></div>
+      <hr>
+      <div class="text-spectacle"> <span id="Broadcast"> </span></div>
+      <div class="text-spectacle"> <span id="demandeDeSons" class="breakAccueil" style="display:none"> </span></div>
+
+    </body>
+
+</html>
