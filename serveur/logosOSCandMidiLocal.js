@@ -15,8 +15,10 @@ var par = require('./logosParametres');
 var fs = require('fs');
 
 var outportForMIDI       = par.outportForMIDI;
+var outportProcessing    = par.outportProcessing;
 var remoteIPAddressSound = par.remoteIPAddressSound;
 var remoteIPAddressAbleton = par.remoteIPAddressAbleton;
+var remoteIPAddressImage = par.remoteIPAddressImage;
 
 var debug = false;
 

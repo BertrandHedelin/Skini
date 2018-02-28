@@ -255,7 +255,7 @@ serv.on('connection', function (ws) {
 			msg.son = msgRecu.clipChoisi[3];
 		    ws.send(JSON.stringify(msg));
 
-			// oscMidi.sendProcessing( "/abletonPseudo", msgRecu.pseudo ).post();
+			oscMidiLocal.sendProcessing( "/abletonPseudo", msgRecu.pseudo );
 
 		    // Informe tout le monde
 			var messageBroadcast = msgRecu.pseudo + " a choisi " + msgRecu.clipChoisi[3];

@@ -129,3 +129,5 @@
 {"date":"28:02:2018:16:30:56","source":"controleAbleton.js","type":"COMMANDE ABLETON ENVOYEE","note":27,"instrumentNo":11,"pseudo":"fghfgh","id":785538,"nomSon":"Mussolini1"}
 {"date":"28:02:2018:16:48:56","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"sdfsdfsdf","id":259866}
 {"date":"28:02:2018:16:53:30","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"dfgdfgdfg","id":398334}
+{"date":"28:02:2018:18:39:20","source":"websocketServerSkini.js","type":"abletonStartClip","note":"FM8-8","pseudo":"sdfsdfds","id":582279,"text":"sdfsdfds a choisi FM8-8"}
+{"date":"28:02:2018:18:39:20","source":"controleAbleton.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"sdfsdfds","id":582279,"note":30,"instrumentNo":8,"nomSon":"FM8-8"}

@@ -595,7 +595,7 @@ function giveMenu(init) {
 
 },{"../serveur/logosParametres":3,"jquery":4}],2:[function(require,module,exports){
 module.exports={
-	"remoteIPAddressImage": "192.168.1.7",
+	"remoteIPAddressImage": "192.168.1.102",
 	"remoteIPAddressSound": "192.168.1.7",
 	"remoteIPAddressAbleton": "192.168.1.7",
 	"remoteIPAddressLumiere": "192.168.1.7",
