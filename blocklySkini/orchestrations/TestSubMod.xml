@@ -1,0 +1,81 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="2Uz6?k!_NGb[**N#h#v?">toto</variable>
+    <variable id="=*J%(jQjMC=:E;+0NkPX">tick</variable>
+  </variables>
+  <block type="orchestration" id="=#fjuKM=u63mnVeLH?bB" x="-220" y="-376">
+    <field name="trajet">1</field>
+    <statement name="MODULES">
+      <block type="submoduleHH" id="o%mA~^}X!QT1Y`)YJtFX">
+        <value name="MOD_NAME">
+          <block type="variables_get" id="`+2RT!Vq#}nH|#0!xJ|T">
+            <field name="VAR" id="2Uz6?k!_NGb[**N#h#v?">toto</field>
+          </block>
+        </value>
+        <statement name="SIGNAL">
+          <block type="refer_signals" id="e,%P|w_x4y=yhpd0=M4{">
+            <value name="signal">
+              <block type="variables_get" id="cd!Pupc7%u9/p`kr.6{}">
+                <field name="VAR" id="=*J%(jQjMC=:E;+0NkPX">tick</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="NAME">
+          <block type="every" id="tfulY#45It`AGwelY##v">
+            <value name="EVERY0">
+              <block type="now" id="Fq,*Oum^;DE@OXEQbb@9">
+                <value name="signal">
+                  <block type="variables_get" id="?EDEbG6Ja)}~[XCHTYd~">
+                    <field name="VAR" id="=*J%(jQjMC=:E;+0NkPX">tick</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="print_serveur" id="!!863zw6(`z(|7xa@A0J">
+                <value name="signal">
+                  <block type="text" id="Dv4X+fGB2cO5/X,Dcmpb">
+                    <field name="TEXT">Ceci est toto</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="await" id="JM98:Qn;OUk.OSmc5jwN">
+        <value name="AWAIT0">
+          <block type="count_signal" id="T5Hw3m=-%?zLXS9XKGs|">
+            <field name="count">5</field>
+            <value name="signal">
+              <block type="now" id="U=:KjCL_0C]bhp|-ZGN5">
+                <value name="signal">
+                  <block type="variables_get" id="vOyM4w,g%cky{P0}DntR">
+                    <field name="VAR" id="=*J%(jQjMC=:E;+0NkPX">tick</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="run_module" id="P3,2+rLw?+kLd`h_U1UN">
+            <value name="module">
+              <block type="variables_get" id="]];2@GIH?ZTo9D[}ES=;">
+                <field name="VAR" id="2Uz6?k!_NGb[**N#h#v?">toto</field>
+              </block>
+            </value>
+            <next>
+              <block type="set_tempo" id="m^[aJkr$+?o[gmhYCBS@">
+                <field name="tempo">90</field>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

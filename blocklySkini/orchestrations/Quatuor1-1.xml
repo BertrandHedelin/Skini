@@ -1,0 +1,357 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="fIBRRCtszz6aKk.4JPe^">transposition</variable>
+    <variable id="in90`tBL?dDxw)2WA-P%">tick</variable>
+    <variable id="Kt*7-m8G{q(x@eRD5^b(">violon2</variable>
+    <variable id="D])nKE/RU*4e_1UuV?Pm">violon1</variable>
+    <variable id="a}LPwwqQM4v/WJd*$q,;">alto</variable>
+    <variable id="1vAwtoab(YisjI_c]wp4">cello</variable>
+    <variable id="fWb(?m%1TUW||Pdf3a}T">violon1A</variable>
+    <variable id="A`JZL`*vm|_,n2w.#T7^">violon2A</variable>
+    <variable id="AjE;!;f$q17iPF{ouI$1">altoA</variable>
+    <variable id="BqBif_F|i3cU,`^hqCAi">celloA</variable>
+  </variables>
+  <block type="orchestration" id="r_L)[}}kjV9E*-;(Jn@~" x="113" y="123">
+    <field name="trajet">1</field>
+    <statement name="MODULES">
+      <block type="submoduleHH" id=".Q}SBUYAg/7OD+la5;+K">
+        <value name="MOD_NAME">
+          <block type="variables_get" id="Mt~2LsT8Bnq^,J]tU3~$">
+            <field name="VAR" id="fIBRRCtszz6aKk.4JPe^">transposition</field>
+          </block>
+        </value>
+        <statement name="NAME">
+          <block type="loop_body" id="*,HceyD7kR=h5HPnxdMD">
+            <statement name="NAME">
+              <block type="wait_for" id="nCR9g2/vYs#.f-k%82CZ">
+                <field name="TIMES">16</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id="8oYAs,Bc0t2bO3hrMsZ#">
+                    <field name="VAR" id="in90`tBL?dDxw)2WA-P%">tick</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="transpose" id="uLPTo|Yiay0R(I|WoxPY">
+                    <field name="channelMidi">1</field>
+                    <field name="CCInstr">16</field>
+                    <field name="valeur">2</field>
+                    <next>
+                      <block type="wait_for" id="!pIcDKQAF(AL6g(gVqKD">
+                        <field name="TIMES">16</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="90c,x;/0i.L*f/*rr:3f">
+                            <field name="VAR" id="in90`tBL?dDxw)2WA-P%">tick</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="transpose" id="8eK%U*;^O{7d}cj~pAPF">
+                            <field name="channelMidi">1</field>
+                            <field name="CCInstr">16</field>
+                            <field name="valeur">2</field>
+                            <next>
+                              <block type="wait_for" id="gw/q!m#oeL([bQ(7OY*|">
+                                <field name="TIMES">16</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="bGYpMPagLlL2xOV6)u%e">
+                                    <field name="VAR" id="in90`tBL?dDxw)2WA-P%">tick</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="transpose" id="(2[CmrE~5Y5=7Ks=[.Z;">
+                                    <field name="channelMidi">1</field>
+                                    <field name="CCInstr">16</field>
+                                    <field name="valeur">-2</field>
+                                    <next>
+                                      <block type="wait_for" id="?f#rs(e`(l:d||L4wMIk">
+                                        <field name="TIMES">16</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="D)^m=c^R[6Vfb@Tn3Vjf">
+                                            <field name="VAR" id="in90`tBL?dDxw)2WA-P%">tick</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="transpose" id="yikw$4*x+=Cb=]gWw3dS">
+                                            <field name="channelMidi">1</field>
+                                            <field name="CCInstr">16</field>
+                                            <field name="valeur">-2</field>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="addSceneScore" id=",BFt[wUu`(Kd?qV/Kk+K">
+        <field name="number">1</field>
+        <next>
+          <block type="set_tempo" id="5$?CuaJ;@%nDWOdt0ONn">
+            <field name="tempo">80</field>
+            <next>
+              <block type="reset_transpose" id="!v|CoJFEn0GOACAq5QLP">
+                <field name="channelMidi">1</field>
+                <field name="CCInstr">16</field>
+                <next>
+                  <block type="random_group" id="z=LrxtLbB^Bds/D;0#pb">
+                    <field name="number_of_groups">1</field>
+                    <field name="user_group">255</field>
+                    <field name="number_of_ticks">20</field>
+                    <value name="GROUPS">
+                      <block type="lists_create_with" id="}WO6XAzy*2s`?vmd,VdD">
+                        <mutation items="4"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get" id="ft$W~{hfGENqNIbCdBy*">
+                            <field name="VAR" id="Kt*7-m8G{q(x@eRD5^b(">violon2</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get" id="lzjwqjZeV+{kfeiz{[c3">
+                            <field name="VAR" id="D])nKE/RU*4e_1UuV?Pm">violon1</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="variables_get" id="i@~E0{?Zv*``5o/lM#$j">
+                            <field name="VAR" id="a}LPwwqQM4v/WJd*$q,;">alto</field>
+                          </block>
+                        </value>
+                        <value name="ADD3">
+                          <block type="variables_get" id="OlVc?*D^fNJ[@G7R[^:J">
+                            <field name="VAR" id="1vAwtoab(YisjI_c]wp4">cello</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="cleanqueues" id="+uPpg2-0OD1W)tF}t57i">
+                        <next>
+                          <block type="fork_body" id="}yymSoEPtfvEO!^,(J2e">
+                            <statement name="fork">
+                              <block type="set_group_during_ticks" id="B$t]VuoqC|9O?XSw5/._">
+                                <field name="user_group">255</field>
+                                <field name="number_of_ticks">30</field>
+                                <value name="GROUPS">
+                                  <block type="lists_create_with" id="NtuI`O6=2c9PZSN:W[8~">
+                                    <mutation items="4"></mutation>
+                                    <value name="ADD0">
+                                      <block type="variables_get" id="{yG?TRm`gL#Wqf{Zas)]">
+                                        <field name="VAR" id="Kt*7-m8G{q(x@eRD5^b(">violon2</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD1">
+                                      <block type="variables_get" id="_n5_r:G?rJra5JIv9;/I">
+                                        <field name="VAR" id="D])nKE/RU*4e_1UuV?Pm">violon1</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD2">
+                                      <block type="variables_get" id="L@)m7Y4q?3hB|?7{UPp(">
+                                        <field name="VAR" id="a}LPwwqQM4v/WJd*$q,;">alto</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD3">
+                                      <block type="variables_get" id="[5U.y(j%zO$)D{,PZnb?">
+                                        <field name="VAR" id="1vAwtoab(YisjI_c]wp4">cello</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="random_group" id="b#`ms~U|mFEtQq)KCMbI">
+                                    <field name="number_of_groups">1</field>
+                                    <field name="user_group">255</field>
+                                    <field name="number_of_ticks">20</field>
+                                    <value name="GROUPS">
+                                      <block type="lists_create_with" id="}irAdnDY2#-617]Re.xB">
+                                        <mutation items="4"></mutation>
+                                        <value name="ADD0">
+                                          <block type="variables_get" id="R,%hlO8as[0Ud)(L,+~6">
+                                            <field name="VAR" id="Kt*7-m8G{q(x@eRD5^b(">violon2</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD1">
+                                          <block type="variables_get" id="x{|.MF(jWrSA)@0}8ag^">
+                                            <field name="VAR" id="D])nKE/RU*4e_1UuV?Pm">violon1</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD2">
+                                          <block type="variables_get" id="!,_HWKksMVZF0W7/5$$i">
+                                            <field name="VAR" id="a}LPwwqQM4v/WJd*$q,;">alto</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD3">
+                                          <block type="variables_get" id="#CGM107xzKwy`5vzPZs.">
+                                            <field name="VAR" id="1vAwtoab(YisjI_c]wp4">cello</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="cleanqueues" id="r,H8}~oiP6eFmKJU$fW|">
+                                        <next>
+                                          <block type="set_tempo" id="}{3*kURN0r]e3AxB^n{0">
+                                            <field name="tempo">90</field>
+                                            <next>
+                                              <block type="random_group" id="Y3*%#Bv/=4Sw^P`4=X`.">
+                                                <field name="number_of_groups">1</field>
+                                                <field name="user_group">255</field>
+                                                <field name="number_of_ticks">20</field>
+                                                <value name="GROUPS">
+                                                  <block type="lists_create_with" id="%yr%kv*n2z+im8i5B}I~">
+                                                    <mutation items="4"></mutation>
+                                                    <value name="ADD0">
+                                                      <block type="variables_get" id="[-YO+tq:iX;S3*s_E?$P">
+                                                        <field name="VAR" id="fWb(?m%1TUW||Pdf3a}T">violon1A</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD1">
+                                                      <block type="variables_get" id="Ln@1tK?C+`%MuFwS*|DV">
+                                                        <field name="VAR" id="A`JZL`*vm|_,n2w.#T7^">violon2A</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="variables_get" id="z)4ly;wc`T*;tDHYFe]a">
+                                                        <field name="VAR" id="AjE;!;f$q17iPF{ouI$1">altoA</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD3">
+                                                      <block type="variables_get" id="%fSt]IY1d*F}KdGZLkO%">
+                                                        <field name="VAR" id="BqBif_F|i3cU,`^hqCAi">celloA</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="set_group_during_ticks" id="Qrv);%[Y~;,wBC?:dAJ[">
+                                                    <field name="user_group">255</field>
+                                                    <field name="number_of_ticks">30</field>
+                                                    <value name="GROUPS">
+                                                      <block type="lists_create_with" id="Yec2=M{zQBlY?_*Kqm.+">
+                                                        <mutation items="4"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="variables_get" id="EK?n7w]`%Y6Naq=QFcq#">
+                                                            <field name="VAR" id="fWb(?m%1TUW||Pdf3a}T">violon1A</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD1">
+                                                          <block type="variables_get" id="Q,H0wf$aiX`C..X;wnBF">
+                                                            <field name="VAR" id="A`JZL`*vm|_,n2w.#T7^">violon2A</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD2">
+                                                          <block type="variables_get" id="eJ(G^Y?a!v=nl30}5ZA6">
+                                                            <field name="VAR" id="AjE;!;f$q17iPF{ouI$1">altoA</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD3">
+                                                          <block type="variables_get" id="|75PZlU{r*=%0XXYu81[">
+                                                            <field name="VAR" id="BqBif_F|i3cU,`^hqCAi">celloA</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="cleanqueues" id="4-g(/I=zrw+9qKCem)v,">
+                                                        <next>
+                                                          <block type="random_group" id="PxU]DhJe~.oX5Yp,?%H^">
+                                                            <field name="number_of_groups">1</field>
+                                                            <field name="user_group">255</field>
+                                                            <field name="number_of_ticks">20</field>
+                                                            <value name="GROUPS">
+                                                              <block type="lists_create_with" id="SyCF,qW*?M7m`]$F4F]p">
+                                                                <mutation items="4"></mutation>
+                                                                <value name="ADD0">
+                                                                  <block type="variables_get" id="b!}xQjInj57n;~FX!Qy;">
+                                                                    <field name="VAR" id="fWb(?m%1TUW||Pdf3a}T">violon1A</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD1">
+                                                                  <block type="variables_get" id="G;_9orV7[oZsPSu1A[cb">
+                                                                    <field name="VAR" id="A`JZL`*vm|_,n2w.#T7^">violon2A</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD2">
+                                                                  <block type="variables_get" id="4C5k9YRD,[|zUDoF3tTN">
+                                                                    <field name="VAR" id="AjE;!;f$q17iPF{ouI$1">altoA</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD3">
+                                                                  <block type="variables_get" id="Ok0.eb~k,T8jRb[O)|=A">
+                                                                    <field name="VAR" id="BqBif_F|i3cU,`^hqCAi">celloA</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="bestScore" id="]fsxoLi7mA]adsbmR/#!">
+                                                                <next>
+                                                                  <block type="cleanqueues" id="kX@YD5@p)[/~b.qQ$QmB"></block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <statement name="par">
+                              <block type="run_module" id="l:G:$h`L|}%~OF!Xq03Y">
+                                <value name="module">
+                                  <block type="variables_get" id="06LQPoN;7}(iF}?l`?oh">
+                                    <field name="VAR" id="fIBRRCtszz6aKk.4JPe^">transposition</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="par_body" id="Qw0:t5R+Z39FQIk|EApu">
+                                <statement name="NAME">
+                                  <block type="move_tempo" id="3$M[NA8.!5aaX(bT2Z,H">
+                                    <field name="VALUE">1</field>
+                                    <field name="EVERY">2</field>
+                                    <field name="LIMIT">15</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="6kpVqV-WX++.(e;vMUVk">
+                                        <field name="VAR" id="in90`tBL?dDxw)2WA-P%">tick</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

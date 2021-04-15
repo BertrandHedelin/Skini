@@ -1,0 +1,70 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="s`2^?hVnTV)T28hpcW#{">toto</variable>
+    <variable id="piNpc)La3hEAgfmJv0kY">titi</variable>
+  </variables>
+  <block type="moduleHH" id="iDDiiDnk~Afs%@SW[l_$" x="56" y="-160">
+    <statement name="SIGNAL">
+      <block type="refer_signals" id="_Sh}G[W}IIt+$8hD=#uD">
+        <value name="signal">
+          <block type="variables_get" id="upl#AB$QySq5WhmjKU5y">
+            <field name="VAR" id="s`2^?hVnTV)T28hpcW#{">toto</field>
+          </block>
+        </value>
+        <next>
+          <block type="refer_signals" id="YdUn{C:XohADr}@vb^M?">
+            <value name="signal">
+              <block type="variables_get" id="h/({9/S]o~,u|S9EC7@o">
+                <field name="VAR" id="piNpc)La3hEAgfmJv0kY">titi</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="await" id="6~(1V#7AV,Gf]eXsGcOE">
+        <value name="AWAIT0">
+          <block type="count_signal" id=";3Ch_ipN5Szh$l;1F-4m">
+            <field name="count">1</field>
+            <value name="signal">
+              <block type="now" id=".k`1B~*aj*f~}6.)qxV~">
+                <value name="signal">
+                  <block type="variables_get" id="poJ0LbHZyAyjKXhOF5$V">
+                    <field name="VAR" id="s`2^?hVnTV)T28hpcW#{">toto</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="every" id="c..|bU!1iy[DDsiI2eK:">
+            <value name="EVERY0">
+              <block type="immediate" id="t_wtt*ykt;%pR|~_)y/x">
+                <value name="signal">
+                  <block type="now" id="{#1eVE^PXKUfPnPd(*60">
+                    <value name="signal">
+                      <block type="variables_get" id="Sy0dcR|:G9pn(!=CbMIX">
+                        <field name="VAR" id="piNpc)La3hEAgfmJv0kY">titi</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="print_serveur" id="zSL$+40T+3EYFxZ?Wrve">
+                <value name="signal">
+                  <block type="text" id="6;g?1.B^zYc4yGXmgDzQ">
+                    <field name="TEXT">AAAAAAAAAAAAAAa</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

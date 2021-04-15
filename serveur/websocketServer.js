@@ -9,6 +9,7 @@ var par = require('./logosParametres');
 var fs = require("fs");
 var oscMidiLocal = require('./logosOSCandMidiLocal');
 var ableton = require('./controleAbleton');
+var generatedDir = "./myReact/"
 
 const tripleCrocheTR = 2;
 const tripleCrocheR = 3;
@@ -31,7 +32,8 @@ var tempo = 60; 				// à la minute
 var canalMidi = 1;
 var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes
 
-var debug = true;
+var debug = false;
+var debug1 = true;
 var previousTime =0;
 var currentTime = 0;
 var timeToPlay = 0;
@@ -94,7 +96,7 @@ serv.on('connection', function (ws) {
 	var listClips;
 
 	// Pour informer que l'on est bien connecté
-	if (debug) console.log( "Web Socket Server: connection established:");
+	if (debug1) console.log( "Web Socket Server: connection established:");
     msg.type = "message";
     msg.text = "Bienvenue chez GOLEM !"
 	ws.send(JSON.stringify(msg));
@@ -143,7 +145,7 @@ serv.on('connection', function (ws) {
 	});
 
   	ws.on('message', function (message) {
-	    console.log('received: %s', message);
+	    if(debug) console.log('received: %s', message);
 
 	    var msgRecu = JSON.parse(message);
 		var mixReaper;
@@ -309,6 +311,36 @@ serv.on('connection', function (ws) {
 			if (debug) console.log("WebSocket Serveur: CHANGE REAPER MIX: "+ msgRecu.scene + ": " + msgRecu.conf + ": " + msgRecu.channel + ": " + msgRecu.value);
 			oscMidi.changeReaperMix(msgRecu.scene, msgRecu.conf, msgRecu.channel, msgRecu.value);
 			break;
+
+		case "saveBlocklyGeneratedFile":
+			if(debug1) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName , "\n--------------------");
+			if(debug1) console.log(msgRecu.text);
+			fs.writeFile(generatedDir + msgRecu.fileName + ".js", msgRecu.text, function (err) {
+			  if (err) return console.log(err);
+			  console.log(msgRecu.fileName + ".js", " written");
+			});
+
+			fs.writeFile(generatedDir + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
+			  if (err) return console.log(err);
+			  console.log(msgRecu.fileName + ".xml", " written");
+			});
+			break;
+
+		case "loadBlocks":
+			fs.readFile(generatedDir + msgRecu.fileName, 'utf8' , (err, data) => {
+				if (err) {
+				  console.error(err);
+				  return;
+				}
+				console.log(data);
+				var msg = {
+			  		type: "blocksLoaded",
+			  		data: data,
+			  	}	
+				ws.send(JSON.stringify(msg));
+			});
+			break;
+
 	    default:  console.log( "Web Socket Serveur: Type de message inconnu : " , msgRecu);
 	}
   });

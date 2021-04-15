@@ -131,3 +131,4 @@
 {"date":"28:02:2018:16:53:30","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"dfgdfgdfg","id":398334}
 {"date":"28:02:2018:18:39:20","source":"websocketServerSkini.js","type":"abletonStartClip","note":"FM8-8","pseudo":"sdfsdfds","id":582279,"text":"sdfsdfds a choisi FM8-8"}
 {"date":"28:02:2018:18:39:20","source":"controleAbleton.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"sdfsdfds","id":582279,"note":30,"instrumentNo":8,"nomSon":"FM8-8"}
+{"date":"15:04:2021:13:37:20","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"desz"}

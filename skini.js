@@ -44,6 +44,10 @@ app.get('/', function(req, res) {
  res.sendFile(path.join(__dirname+'/client/golem.html'));
 });
 
+app.get('/block', function(req, res) {
+ res.sendFile(path.join(__dirname+'/blocklySkini/blocklySkini.html'));
+});
+
 app.listen(80);
 
 

@@ -1,0 +1,84 @@
+{
+  "_from": "blockly",
+  "_id": "blockly@3.20200924.0",
+  "_inBundle": false,
+  "_integrity": "sha512-mOZiXi908oNFAcVb8Q5LKJNRZ5jtBJtgNilddqTYMAXEdqSY/BhcnU2rgytWARDnu2iSQlI374kEafCNuUEWKQ==",
+  "_location": "/blockly",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "blockly",
+    "name": "blockly",
+    "escapedName": "blockly",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/blockly/-/blockly-3.20200924.0.tgz",
+  "_shasum": "b6c5a8e88308b49ca5c2e298a6c9d0619e1f7396",
+  "_spec": "blockly",
+  "_where": "C:\\Users\\berpetit.AD\\Documents\\tmp\\blockly-samples-master",
+  "author": {
+    "name": "Neil Fraser"
+  },
+  "browser": {
+    "./node.js": "./browser.js",
+    "./core.js": "./core-browser.js",
+    "./blockly-node.js": "./blockly.js"
+  },
+  "bugs": {
+    "url": "https://github.com/google/blockly/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "jsdom": "^15.2.1"
+  },
+  "deprecated": false,
+  "description": "Blockly is a library for building visual programming editors.",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-es5": "^1.5.0",
+    "google-closure-compiler": "^20200830.0.0",
+    "google-closure-deps": "^20200719.0.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-series": "^1.0.2",
+    "gulp-shell": "^0.8.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-umd": "^2.0.0",
+    "js-green-licenses": "^2.0.1",
+    "mocha": "^8.1.1",
+    "rimraf": "^3.0.2",
+    "selenium-standalone": "^6.17.0",
+    "through2": "^4.0.2",
+    "typescript-closure-tools": "^0.0.7",
+    "webdriverio": "^6.5.2",
+    "yargs": "^16.0.3"
+  },
+  "homepage": "https://developers.google.com/blockly/",
+  "keywords": [
+    "blockly"
+  ],
+  "license": "Apache-2.0",
+  "main": "./index.js",
+  "name": "blockly",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/google/blockly.git"
+  },
+  "types": "./index.d.ts",
+  "umd": "./blockly.min.js",
+  "unpkg": "./blockly.min.js",
+  "version": "3.20200924.0"
+}

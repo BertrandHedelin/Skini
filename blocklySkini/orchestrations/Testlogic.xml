@@ -1,0 +1,113 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="moduleHH" id="iDDiiDnk~Afs%@SW[l_$" x="-305" y="-405">
+    <statement name="SIGNAL">
+      <block type="refer_signals" id="_Sh}G[W}IIt+$8hD=#uD">
+        <value name="signal">
+          <block type="text" id="5VYWJBWp$sX`eX5DsRpE">
+            <field name="TEXT">toto</field>
+          </block>
+        </value>
+        <next>
+          <block type="refer_signals" id="YdUn{C:XohADr}@vb^M?">
+            <value name="signal">
+              <block type="text" id="J^x)i_Byi*DfO;ztxyWV">
+                <field name="TEXT">titi</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="await" id="6~(1V#7AV,Gf]eXsGcOE">
+        <value name="AWAIT0">
+          <block type="count_signal" id=";3Ch_ipN5Szh$l;1F-4m">
+            <field name="count">1</field>
+            <value name="signal">
+              <block type="now" id="o_HPGWT1v|qXgCH3w-[d">
+                <value name="signal">
+                  <block type="text" id="Ew?5$r(-bR(fFvD?75j#">
+                    <field name="TEXT">toto</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="await" id="6(Do9))oP@H,^6;e2.!X">
+            <value name="AWAIT0">
+              <block type="count_signal" id="GSM51LB!/]1mH9yE~hp:">
+                <field name="count">1</field>
+                <value name="signal">
+                  <block type="logic_operationHH" id="@9JP?[rM+Yt1E^Nyscqz">
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="now" id="r$AGk56HX[aGPW0b.`v/">
+                        <value name="signal">
+                          <block type="text" id="jH_(Ngr9iZsvWvRhWlMl">
+                            <field name="TEXT">toto</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="now" id="v0CdRU1JU0WTSXdCPJX:">
+                        <value name="signal">
+                          <block type="text" id="x/o!}}I~Be0T5YQG*??D">
+                            <field name="TEXT">titi</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="every" id="c..|bU!1iy[DDsiI2eK:">
+                <value name="EVERY0">
+                  <block type="count_signal" id="XGjbatuC-(:ip|kS97Pd">
+                    <field name="count">1</field>
+                    <value name="signal">
+                      <block type="logic_operationHH" id="8/#Wh5DjqptE2]Hdd)+8">
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="now" id="+f?9s;NRf=jaxDGwp[Zp">
+                            <value name="signal">
+                              <block type="text" id="K2C6-Gkp[;WqTa4E3xn+">
+                                <field name="TEXT">toto</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="now" id="{#1eVE^PXKUfPnPd(*60">
+                            <value name="signal">
+                              <block type="text" id="_dut]T*p#2;oLzp^U(nI">
+                                <field name="TEXT">titi</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="print_serveur" id="zSL$+40T+3EYFxZ?Wrve">
+                    <value name="signal">
+                      <block type="text" id="6;g?1.B^zYc4yGXmgDzQ">
+                        <field name="TEXT">toto</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

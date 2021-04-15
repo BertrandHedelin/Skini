@@ -1,0 +1,231 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="axA^nS@rm[3?Z~G(*SKM">saxo</variable>
+    <variable id="%,svm*NhxLU0K_b{0L$y">guitareSolo</variable>
+  </variables>
+  <block type="orchestration" id="=#fjuKM=u63mnVeLH?bB" x="-451" y="93">
+    <field name="trajet">1</field>
+    <statement name="MODULES">
+      <block type="tank" id="iNL85/sAJCAZxHhghjFN" collapsed="true">
+        <field name="groupeClient">2</field>
+        <statement name="SIGNAL">
+          <block type="variables_set" id="VxX)L8!3BX6kdxAb@U^%">
+            <field name="VAR" id="axA^nS@rm[3?Z~G(*SKM">saxo</field>
+            <value name="VALUE">
+              <block type="lists_create_with" id="UZJ*B@:L[827V4*K)*Qd">
+                <mutation items="13"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="Sjr6.g`{C.nJYQYD(o-v">
+                    <field name="TEXT">saxo1</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="text" id="4{V]%xZFonbmI0#|cF6{">
+                    <field name="TEXT">saxo2</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="text" id="0Y[]8=SAh6iEW~~r:xT%">
+                    <field name="TEXT">saxo3</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="text" id="cOa20!TPk#c-,8Exd7:V">
+                    <field name="TEXT">saxo4</field>
+                  </block>
+                </value>
+                <value name="ADD4">
+                  <block type="text" id="Gh0Iyq(`v5~3[r-UbP6I">
+                    <field name="TEXT">saxo5</field>
+                  </block>
+                </value>
+                <value name="ADD5">
+                  <block type="text" id="QNKGrqp]=1wmfOI7y|Ly">
+                    <field name="TEXT">saxo6</field>
+                  </block>
+                </value>
+                <value name="ADD6">
+                  <block type="text" id="vdNlvr%C%vX(sk/+t{RW">
+                    <field name="TEXT">saxo7</field>
+                  </block>
+                </value>
+                <value name="ADD7">
+                  <block type="text" id="0[9kC5+8t,_1:~RVLry,">
+                    <field name="TEXT">saxo8</field>
+                  </block>
+                </value>
+                <value name="ADD8">
+                  <block type="text" id="dbH}gIw{1@i#TzALt)^$">
+                    <field name="TEXT">saxo9</field>
+                  </block>
+                </value>
+                <value name="ADD9">
+                  <block type="text" id="V{#nv+rYho6t6k4m+!|c">
+                    <field name="TEXT">saxo10</field>
+                  </block>
+                </value>
+                <value name="ADD10">
+                  <block type="text" id="*cX|u.0!5C;Y[sf%h6Y3">
+                    <field name="TEXT">saxo11</field>
+                  </block>
+                </value>
+                <value name="ADD11">
+                  <block type="text" id="JDH9A`/_x@9]:dr(mX,)">
+                    <field name="TEXT">saxo12</field>
+                  </block>
+                </value>
+                <value name="ADD12">
+                  <block type="text" id="fBd8(w:!0i$Xhl(ojhkX">
+                    <field name="TEXT">saxo13</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="tank" id="FT5;wvaz$zd}X!*S3nZJ" collapsed="true">
+            <field name="groupeClient">255</field>
+            <statement name="SIGNAL">
+              <block type="variables_set" id="8=~95v2eX^Nqz[qzq#ba">
+                <field name="VAR" id="%,svm*NhxLU0K_b{0L$y">guitareSolo</field>
+                <value name="VALUE">
+                  <block type="lists_create_with" id="oam[Zd=;0[:Y1jx^0sVD">
+                    <mutation items="13"></mutation>
+                    <value name="ADD0">
+                      <block type="text" id="*oh#fa$n~[gbtiG8t7PP">
+                        <field name="TEXT">guitareSolo1</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="text" id="Y)},:cx%[(eEZU(6?g?F">
+                        <field name="TEXT">guitareSolo2</field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="text" id="m_CmC*`j8/qJOf-=xTn*">
+                        <field name="TEXT">guitareSolo3</field>
+                      </block>
+                    </value>
+                    <value name="ADD3">
+                      <block type="text" id="xbm%NT=GS:2d5B+;VZJ_">
+                        <field name="TEXT">guitareSolo4</field>
+                      </block>
+                    </value>
+                    <value name="ADD4">
+                      <block type="text" id="w.PN/]mZ=;YFN-A1yUXL">
+                        <field name="TEXT">guitareSolo5</field>
+                      </block>
+                    </value>
+                    <value name="ADD5">
+                      <block type="text" id="?qYPv!7yt/Jm9OHOF)m%">
+                        <field name="TEXT">guitareSolo6</field>
+                      </block>
+                    </value>
+                    <value name="ADD6">
+                      <block type="text" id="G/YN(|-5Rv5K25WNX!.x">
+                        <field name="TEXT">guitareSolo7</field>
+                      </block>
+                    </value>
+                    <value name="ADD7">
+                      <block type="text" id="knJ2ZB~L(x*#),Ry-inU">
+                        <field name="TEXT">guitareSolo8</field>
+                      </block>
+                    </value>
+                    <value name="ADD8">
+                      <block type="text" id="|+m}Mehku/h*R#fM8|}R">
+                        <field name="TEXT">guitareSolo9</field>
+                      </block>
+                    </value>
+                    <value name="ADD9">
+                      <block type="text" id="ggyDfj$lO{RnY2ygl$,t">
+                        <field name="TEXT">guitareSolo10</field>
+                      </block>
+                    </value>
+                    <value name="ADD10">
+                      <block type="text" id="hV)Dc:7iF8i$CbJbl28K">
+                        <field name="TEXT">guitareSolo11</field>
+                      </block>
+                    </value>
+                    <value name="ADD11">
+                      <block type="text" id="QPJfB*i~|9g7~f{nZ)UN">
+                        <field name="TEXT">guitareSolo12</field>
+                      </block>
+                    </value>
+                    <value name="ADD12">
+                      <block type="text" id="/w0|B?n%g#B#vCPatx=;">
+                        <field name="TEXT">guitareSolo13</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="print_serveur" id="sZ~s`Ma,Fg2Pp|E@Dayl">
+        <value name="signal">
+          <block type="text" id="8#k`z/faEqi.3)E,m*,-">
+            <field name="TEXT">--- BluesSkini 1</field>
+          </block>
+        </value>
+        <next>
+          <block type="set_timer_division" id="47{v4ArNJA)t)_e{^g;u">
+            <field name="timer">1</field>
+            <next>
+              <block type="patternListLength" id="[LZuGtbVh!WQY0~HHkdB">
+                <field name="valeur">10</field>
+                <field name="groupe">0</field>
+                <next>
+                  <block type="addSceneScore" id="kb~l_Si=lsBTb;muJ*VC">
+                    <field name="number">1</field>
+                    <next>
+                      <block type="set_tempo" id="(-@42)A#l]R05Ui_!P=g">
+                        <field name="tempo">120</field>
+                        <next>
+                          <block type="set_group" id="N}n7YPcu0jk3tBMnN8Wj">
+                            <field name="groupe">255</field>
+                            <next>
+                              <block type="print_serveur" id="xa87|sb8fV-z$Pd=JpMl">
+                                <value name="signal">
+                                  <block type="text" id=".2|-/cwVz=PgqW,0Pk8M">
+                                    <field name="TEXT">--- Guitare Solo</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="run_module" id="T6buvC!RS_.as%*|T#UL">
+                                    <value name="module">
+                                      <block type="variables_get" id="TK+~pNfh@0NuWTUAu@Of">
+                                        <field name="VAR" id="%,svm*NhxLU0K_b{0L$y">guitareSolo</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="print_serveur" id="deMo,}tfJ!9@*Ih=*{PC">
+                                        <value name="signal">
+                                          <block type="text" id="K2x:_Jz|c~(Onutlotf)">
+                                            <field name="TEXT">--- Fin</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,471 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="v?nTxky@4[36$;)r2FIc">transpose</variable>
+    <variable id="4l}A%#]%`7}#+/efl~ek">depart</variable>
+    <variable id="y^DrDOAWD1pw]~Pu.*rL">tick</variable>
+    <variable id="I4YXF|13)+yO)9N0ar`0">saxo</variable>
+    <variable id="1hiO9tBK3n,{;%;uxf:!">synth</variable>
+    <variable id="*.cOJ(u[BDtTkyi^xDjX">drums</variable>
+    <variable id="TWhc+d0M-!Zft#4N]`?S">bass</variable>
+    <variable id="=X:})k-Y7}ehv-_(=HZZ">piano</variable>
+  </variables>
+  <block type="orchestration" id="`R?Jd$R1tO}B/OeUUT/g" x="133" y="87">
+    <field name="trajet">1</field>
+    <statement name="MODULES">
+      <block type="submoduleHH" id="KvLrXC):SdOkNNwn2%LX">
+        <value name="MOD_NAME">
+          <block type="variables_get" id="4cSJ.c=*$~;x{k]qxdOm">
+            <field name="VAR" id="v?nTxky@4[36$;)r2FIc">transpose</field>
+          </block>
+        </value>
+        <statement name="SIGNAL">
+          <block type="refer_signals" id="AbOq63T@j*F=QFM2QxYp">
+            <value name="signal">
+              <block type="variables_get" id="6Y!kz{JvgJ;2xBR{GKTV">
+                <field name="VAR" id="4l}A%#]%`7}#+/efl~ek">depart</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="NAME">
+          <block type="wait_for" id="pp){M`3vHif|Fvl|lAqB">
+            <field name="TIMES">1</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="n-~mggK:e#T0UG-@sQOZ">
+                <field name="VAR" id="4l}A%#]%`7}#+/efl~ek">depart</field>
+              </block>
+            </value>
+            <next>
+              <block type="loop_body" id="X9-Kuw;J{a_^qD1Eb+r6">
+                <statement name="NAME">
+                  <block type="wait_for" id="tzUY(u[y4PK-/Jl}Qh^9">
+                    <field name="TIMES">2</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="It7)L*|HyZL[I?;t%K{+">
+                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="send_midi_cc" id="*Wl/I=z^gcFHKpN9Gn,w">
+                        <field name="channelMidi">1</field>
+                        <field name="CCMidi">16</field>
+                        <field name="valueMidi">64</field>
+                        <next>
+                          <block type="wait_for" id="8}lZLV1K1XA!GwF$f*o!">
+                            <field name="TIMES">2</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="dIt:tPj(a%EAo:s%ik09">
+                                <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="send_midi_cc" id="4LVw|:Q4(fSQNusKzLg@">
+                                <field name="channelMidi">1</field>
+                                <field name="CCMidi">16</field>
+                                <field name="valueMidi">75</field>
+                                <next>
+                                  <block type="wait_for" id="v9}=0ZtTeguj{Q/cw:vW">
+                                    <field name="TIMES">2</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="9/BeeSyQ0OX.-gCf/lN!">
+                                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="send_midi_cc" id="WGpE_fy!XS2W56EHUjc@">
+                                        <field name="channelMidi">1</field>
+                                        <field name="CCMidi">16</field>
+                                        <field name="valueMidi">64</field>
+                                        <next>
+                                          <block type="wait_for" id="2S*tmivN/3Oq*jQM0oTN">
+                                            <field name="TIMES">2</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="G$G?s3i#iv;.lSLt-X0A">
+                                                <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="send_midi_cc" id="0RjxifOBT*PiK=*}D_{*">
+                                                <field name="channelMidi">1</field>
+                                                <field name="CCMidi">16</field>
+                                                <field name="valueMidi">52</field>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="declare_signal" id="BnuD+^A=35F%z(wNg=[2">
+        <value name="signal">
+          <block type="variables_get" id="3Qq+nDVeu-~V/E`rF4w6">
+            <field name="VAR" id="4l}A%#]%`7}#+/efl~ek">depart</field>
+          </block>
+        </value>
+        <next>
+          <block type="fork_body" id="xwm4U}U#z4vEGOFT{#_=">
+            <statement name="fork">
+              <block type="loop_body" id="zLlNCRCepzqK2(;U}qky">
+                <statement name="NAME">
+                  <block type="seq_body" id="l*4m}wO:lsGldc!q{rMd">
+                    <statement name="NAME">
+                      <block type="set_timer_division" id="KWWReTSa#q;y-TG=aCt!">
+                        <field name="timer">4</field>
+                        <next>
+                          <block type="addSceneScore" id="rY-._%w9a-WH5-~T$]FG">
+                            <field name="number">1</field>
+                            <next>
+                              <block type="alertInfoScoreON" id="G[~3AI?VSV]-BVQ0eZcT">
+                                <value name="message">
+                                  <block type="text" id="iyK8U:EFQgJ`Y.M1v0oO">
+                                    <field name="TEXT"> Skini : Fais ton solo </field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="wait_for" id="g,X$@VG3k6}2S_Db$6m.">
+                                    <field name="TIMES">2</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="l[.Hh_?itbf|oxou33]^">
+                                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="alertInfoScoreOFF" id="nJ1PfQeB+z{X#B1d,uu:">
+                                        <next>
+                                          <block type="transpose" id="rt/WM_|QqMo2%*2Nem](">
+                                            <field name="channelMidi">1</field>
+                                            <field name="CCInstr">16</field>
+                                            <field name="valeur">0</field>
+                                            <next>
+                                              <block type="set_group" id="Mx-Wh+Zl]JaB78+e@{XX">
+                                                <field name="groupe">2</field>
+                                                <value name="GROUPS">
+                                                  <block type="variables_get" id="IH}pjwx#Ua%|#k5J@Vgo">
+                                                    <field name="VAR" id="*.cOJ(u[BDtTkyi^xDjX">drums</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="wait_for" id=")CY#-ZGfIaCyc$_yB`N|">
+                                                    <field name="TIMES">2</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="RYVZYOa9m{Vy~*0t!a7h">
+                                                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="set_group" id="bOj1I+Z$-Ywx6T+|%U.y">
+                                                        <field name="groupe">2</field>
+                                                        <value name="GROUPS">
+                                                          <block type="variables_get" id="Ry`)FXr.=E096YAG~c^I">
+                                                            <field name="VAR" id="TWhc+d0M-!Zft#4N]`?S">bass</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="set_group" id="DKf]}oqz!l45b=ldiUiq">
+                                                            <field name="groupe">2</field>
+                                                            <value name="GROUPS">
+                                                              <block type="variables_get" id="z.1v*khs_q.v+L)+ybr|">
+                                                                <field name="VAR" id="=X:})k-Y7}ehv-_(=HZZ">piano</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="emit" id="lE;Rz{Ijs/eOyo=]KKRY">
+                                                                <value name="SIGNAL">
+                                                                  <block type="variables_get" id="Bs)T|~_20fa0hxF0(Qvk">
+                                                                    <field name="VAR" id="4l}A%#]%`7}#+/efl~ek">depart</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="seq_body" id="EX_9sju7Mk==4o+7$|?c">
+                        <statement name="NAME">
+                          <block type="pauseOneQueue" id="[UN99,B;U.Wlclip^8)y">
+                            <field name="number">5</field>
+                            <next>
+                              <block type="alertInfoScoreON" id="1_V!2?r{)=*ABz$J%/7|">
+                                <value name="message">
+                                  <block type="text" id="xr[Y9ztd$RlL4V5bTmY$">
+                                    <field name="TEXT"> Prépare le saxo </field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="set_group" id="IAUt6$}_byAzvW@jWTY1">
+                                    <field name="groupe">0</field>
+                                    <value name="GROUPS">
+                                      <block type="variables_get" id="{,$_3q|o/yV*rb/i%WEK">
+                                        <field name="VAR" id="I4YXF|13)+yO)9N0ar`0">saxo</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="wait_for_signal_in_group" id="V},!*h~t8y^Ey]`1lb#M">
+                                        <field name="TIMES">1</field>
+                                        <comment pinned="false" h="80" w="160">Attente que la liste ait été envoyée. Il faut reactOnPlay False dans la config de la pièce.</comment>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="v:Z-vN;96xRNP@J{W@d8">
+                                            <field name="VAR" id="I4YXF|13)+yO)9N0ar`0">saxo</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="resumeOneQueue" id="m`+`fFg`-IiPNb0u@#@V">
+                                            <field name="number">5</field>
+                                            <next>
+                                              <block type="cleanChoiceList" id="@aQicKj?BZRI0Qcc)?/#">
+                                                <field name="groupe">0</field>
+                                                <next>
+                                                  <block type="unset_group" id="SQuq]gvrR1Ol`]W7GHF`">
+                                                    <field name="groupe">0</field>
+                                                    <value name="GROUPS">
+                                                      <block type="variables_get" id="Hhorh|),p0*44m^NK/9/">
+                                                        <field name="VAR" id="I4YXF|13)+yO)9N0ar`0">saxo</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="alertInfoScoreOFF" id="?QN#V]z0T+V90gthW~ob">
+                                                        <next>
+                                                          <block type="bestScore" id="$FFb[Z{Vu`M(AH$@m#%r">
+                                                            <next>
+                                                              <block type="alertInfoScoreON" id="!?]oD{@5_u}br`@I2!e`">
+                                                                <value name="message">
+                                                                  <block type="text" id="nV-whCIg*Lm`.r1TOdkj">
+                                                                    <field name="TEXT"> On joue le solo de saxo </field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="wait_for" id="W_6^_spM~+?t|ry@a{ut">
+                                                                    <field name="TIMES">5</field>
+                                                                    <value name="SIGNAL">
+                                                                      <block type="variables_get" id="NqUZPl)Go}S?8R`d:jWR">
+                                                                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="alertInfoScoreOFF" id="tg$TbO[`CTzaQHX9=bI8"></block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="seq_body" id="FVkLc[@ZA?#`5}mR)P1p">
+                            <statement name="NAME">
+                              <block type="pauseOneQueue" id="BJHju+JDbQNUOY1aZS,6">
+                                <field name="number">3</field>
+                                <next>
+                                  <block type="alertInfoScoreON" id="@oz9C`}/n~[9;#_kL{FS">
+                                    <value name="message">
+                                      <block type="text" id="[:q:RRdP0RjM`qbkOg8U">
+                                        <field name="TEXT"> Prépare le Synth </field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="set_group" id="WIwfIS:61oxyYh({?d1J">
+                                        <field name="groupe">1</field>
+                                        <value name="GROUPS">
+                                          <block type="variables_get" id="}7Sy7M,[W(0-tT)%Q{lH">
+                                            <field name="VAR" id="1hiO9tBK3n,{;%;uxf:!">synth</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="wait_for_signal_in_group" id="k-uta%N,QFGwvPoi473P">
+                                            <field name="TIMES">1</field>
+                                            <comment pinned="false" h="80" w="160">Attente que la liste ait été envoyée. Il faut reactOnPlay False dans la config de la pièce.</comment>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="O*1}{=n.5tjqtCoszWC?">
+                                                <field name="VAR" id="1hiO9tBK3n,{;%;uxf:!">synth</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="resumeOneQueue" id="oMz@odQ`ngt,jVX.sP9+">
+                                                <field name="number">3</field>
+                                                <next>
+                                                  <block type="cleanChoiceList" id="L~dQdOaS6#}PRmai6xh`">
+                                                    <field name="groupe">1</field>
+                                                    <next>
+                                                      <block type="unset_group" id="ew%pu%FWHNym,~+3EKgS">
+                                                        <field name="groupe">1</field>
+                                                        <value name="GROUPS">
+                                                          <block type="variables_get" id="`l`4pX8*L?P;h0G9Bh]~">
+                                                            <field name="VAR" id="1hiO9tBK3n,{;%;uxf:!">synth</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="bestScore" id="(QQH?BAvk3=,)r$`9%QP">
+                                                            <next>
+                                                              <block type="alertInfoScoreON" id="lFf7U1/~7#Wwy]kHPw#7">
+                                                                <value name="message">
+                                                                  <block type="text" id="Q3k.BWu}S|SOrHp:#G-|">
+                                                                    <field name="TEXT"> On joue le solo de Synth </field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="wait_for" id="b]^VOZKH?RVsGxK6mj%7">
+                                                                    <field name="TIMES">5</field>
+                                                                    <value name="SIGNAL">
+                                                                      <block type="variables_get" id="MNk%HuB#13kO0/6FN[H4">
+                                                                        <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="alertInfoScoreOFF" id="Erzdvf]v#VnsoxAM7@*x"></block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="seq_body" id="-+_^Css7_N^M-%t|:$UL">
+                                <statement name="NAME">
+                                  <block type="alertInfoScoreON" id="6t0!?[4?PZw:Z7@3|00j">
+                                    <value name="message">
+                                      <block type="text" id="{)RDHutj6lxLzk=z}K|:">
+                                        <field name="TEXT"> Fin du tour </field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="wait_for" id="((;1!,UnE2Ns.%cQd)Od">
+                                        <field name="TIMES">1</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="xT]7T`=_+1m?0H-un9%u">
+                                            <field name="VAR" id="y^DrDOAWD1pw]~Pu.*rL">tick</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="alertInfoScoreOFF" id="an4yq8#BoIu9-l=`K4+O">
+                                            <next>
+                                              <block type="unset_group" id="K:f#!Pr7:DI!3H(_t]h*">
+                                                <field name="groupe">255</field>
+                                                <value name="GROUPS">
+                                                  <block type="lists_create_with" id="=hA.5^teE_9}NfEId%9z">
+                                                    <mutation items="3"></mutation>
+                                                    <value name="ADD0">
+                                                      <block type="variables_get" id="qhfcJ_J`!1y7RN@[6P?F">
+                                                        <field name="VAR" id="*.cOJ(u[BDtTkyi^xDjX">drums</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD1">
+                                                      <block type="variables_get" id="?YMBkS5c%vt7{?1@nN6q">
+                                                        <field name="VAR" id="TWhc+d0M-!Zft#4N]`?S">bass</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="variables_get" id="Em08}3Lk+AQty!@J$GPM">
+                                                        <field name="VAR" id="=X:})k-Y7}ehv-_(=HZZ">piano</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="cleanqueues" id="vbRAF[S,`AM+4#==K?2N">
+                                                    <next>
+                                                      <block type="bestScore" id="3wECr9HP83!skr|.l9sK">
+                                                        <next>
+                                                          <block type="refreshSceneScore" id="r/b/HP4miD0Ysfhz[KS1"></block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+            <statement name="par">
+              <block type="run_module" id="Q~#X_FR.E2^daPL*xS!)">
+                <value name="module">
+                  <block type="variables_get" id="n[VdM}wgYFN39Vj(:3rn">
+                    <field name="VAR" id="v?nTxky@4[36$;)r2FIc">transpose</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

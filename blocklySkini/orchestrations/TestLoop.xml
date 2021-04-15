@@ -1,0 +1,127 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="{7lh=#Qd@@+XwaE72YTi">tata</variable>
+    <variable id="EYi1f;9,9humh=ah-Xvx">toto</variable>
+    <variable id="tze)sg~0s*EQ(X3#nJjd">tutu</variable>
+  </variables>
+  <block type="moduleHH" id="]D[=S;7Kv(vr|!FKhA_~" x="-121" y="-148">
+    <statement name="SIGNAL">
+      <block type="refer_signals" id=";Ct$6L)8qP.{0MPi7af+">
+        <value name="signal">
+          <block type="variables_get" id="x|Cw?VT~F}DrWy-(k3J/">
+            <field name="VAR" id="{7lh=#Qd@@+XwaE72YTi">tata</field>
+          </block>
+        </value>
+        <next>
+          <block type="refer_signals" id=".nO^.O`Ol}KJHNxJ6an%">
+            <value name="signal">
+              <block type="variables_get" id="[b:gDZtpxi!J0a;vNb5j">
+                <field name="VAR" id="EYi1f;9,9humh=ah-Xvx">toto</field>
+              </block>
+            </value>
+            <next>
+              <block type="refer_signals" id="/Th0L|LPzy1R:n_3wrh2">
+                <value name="signal">
+                  <block type="variables_get" id="BFgw5~}@q-QdzQxN]bRi">
+                    <field name="VAR" id="tze)sg~0s*EQ(X3#nJjd">tutu</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="fork_body" id="D}1ykKbGQV;Eh,kQgqtf">
+        <statement name="fork">
+          <block type="print_serveur" id=".URDDf7tdtv385.`T0;U">
+            <value name="signal">
+              <block type="text" id="+q;aCbAjhDq8w|}IAFNz">
+                <field name="TEXT">test Loop</field>
+              </block>
+            </value>
+            <next>
+              <block type="emit" id="L,4@^UDNtqS~*2lb,4^%">
+                <value name="SIGNAL">
+                  <block type="variables_get" id="YODJyA~zbd38*@Kwh`{g">
+                    <field name="VAR" id="EYi1f;9,9humh=ah-Xvx">toto</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="yield" id=":Z8UljM]s{]mb@(b6Bu:">
+                    <next>
+                      <block type="emit" id="Gwn#yNK5NeC%e]UJP+`Z">
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="?Rlqul+z:n=Hx~Fp`^MA">
+                            <field name="VAR" id="{7lh=#Qd@@+XwaE72YTi">tata</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="par">
+          <block type="loop_body" id="_LbCt:JNuHKi}Op7WP#f">
+            <statement name="NAME">
+              <block type="await" id="?2woqsEoB+EwHY5VUrCa">
+                <value name="AWAIT0">
+                  <block type="now" id="fH^`~|JFLWX+|F[/;ZxJ">
+                    <value name="signal">
+                      <block type="variables_get" id="gJD1Ip.9[80(aZ*H-.iN">
+                        <field name="VAR" id="EYi1f;9,9humh=ah-Xvx">toto</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="print_serveur" id="E(:kec2eU(4~z4c~MVW[">
+                    <value name="signal">
+                      <block type="text" id="YOwawI}21PjOxJY8XxjC">
+                        <field name="TEXT">dddd</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="par_body" id="$l)(t7VU%T+k@VE!$B/E">
+            <statement name="NAME">
+              <block type="loop_body" id="m`ilk;P40no69@Ka0]9K">
+                <statement name="NAME">
+                  <block type="await" id="FM6#$1+nS);4gR!N(-?N">
+                    <value name="AWAIT0">
+                      <block type="now" id="F0c}%uy8kb^Iug;/O2Ld">
+                        <value name="signal">
+                          <block type="variables_get" id="W87g?o$I=6?|5C/.d^aF">
+                            <field name="VAR" id="{7lh=#Qd@@+XwaE72YTi">tata</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="print_serveur" id="+3CU:Ds{V,38g)bH.Kj9">
+                        <value name="signal">
+                          <block type="text" id="V+BVN6u!`/YS(nK,hFl[">
+                            <field name="TEXT">ggggg</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

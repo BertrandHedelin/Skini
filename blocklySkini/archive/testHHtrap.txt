@@ -1,0 +1,262 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="Z^1H[PGB!4G6n[5fW1G}">tempo</variable>
+    <variable id="Es8:x4zFN6Rq!CQ+8n~5">Value</variable>
+    <variable id="?qeVehBDiz#J.7^IG+he">tempoMax</variable>
+    <variable id="54U-Pms2LNZ!.L!-ls[K">tempoMin</variable>
+  </variables>
+  <block type="procedures_defnoreturn" id="F?EusVajWGOIecCl)Gz(" x="-34" y="-794">
+    <mutation>
+      <arg name="Value" varid="Es8:x4zFN6Rq!CQ+8n~5"></arg>
+    </mutation>
+    <field name="NAME">timer</field>
+    <comment pinned="false" h="80" w="160">Fonction Javascript</comment>
+    <statement name="STACK">
+      <block type="print_serveur" id="A.#KPdtnuSz@[X;AqWE6">
+        <value name="signal">
+          <block type="variables_get" id="PST]n~2FAbZW]HRi3kW,">
+            <field name="VAR" id="Es8:x4zFN6Rq!CQ+8n~5">Value</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="VJOoN^JMEA6Pt55_YH0G" x="287" y="-796">
+    <mutation>
+      <arg name="Value" varid="Es8:x4zFN6Rq!CQ+8n~5"></arg>
+    </mutation>
+    <field name="NAME">fonc1</field>
+    <comment pinned="false" h="80" w="160">fonc1</comment>
+    <statement name="STACK">
+      <block type="print_serveur" id="n}53F{4cju.0DeoYH~OH">
+        <value name="signal">
+          <block type="variables_get" id="0m}bMInGw,qO/kJ-N3$(">
+            <field name="VAR" id="Es8:x4zFN6Rq!CQ+8n~5">Value</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get" id="E~kubQkL,)HDdx~p6zeI">
+        <field name="VAR" id="Es8:x4zFN6Rq!CQ+8n~5">Value</field>
+      </block>
+    </value>
+  </block>
+  <block type="moduleHH" id="v2t[RRH#q_s+cS#zYW[w" x="-31" y="-647">
+    <statement name="SIGNAL">
+      <block type="declare_signal" id="r5#cGH7)be]}33gDk#LQ">
+        <value name="signal">
+          <block type="text" id="=*1X^P*hecyI3Pm{LVX@">
+            <field name="TEXT">toto</field>
+          </block>
+        </value>
+        <next>
+          <block type="declare_signal" id="6}HV-=4(!wb[DgY2ei:g">
+            <value name="signal">
+              <block type="text" id="6kyaz#cw:tfXW[{FX,z|">
+                <field name="TEXT">tata</field>
+              </block>
+            </value>
+            <next>
+              <block type="declare_signal" id="2GEjT/j80ScG,bZwM5Zn">
+                <value name="signal">
+                  <block type="text" id="k=3eY*di35K{~G;d/_Kn">
+                    <field name="TEXT">titi</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="NAME">
+      <block type="JS_statement" id="2j{JIfZa($A+W5FhE6h5">
+        <statement name="NAME">
+          <block type="procedures_callnoreturn" id="^Q5/RL,)1VetCbP;Sr5G">
+            <mutation name="setTempo2">
+              <arg name="tempo"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="math_number" id="C*UTw87PPE;~PnH7h_lF">
+                <field name="NUM">150</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="trap" id="]=.C^*m6JYsp{2a#_N9S">
+            <value name="TRAP_NAME">
+              <block type="text" id="N!ebq*_q84;9GwDV8I12">
+                <field name="TEXT">trap</field>
+              </block>
+            </value>
+            <statement name="BODY">
+              <block type="fork_body" id="Iu?O7m[{~N`Sx$al)?kV">
+                <statement name="fork">
+                  <block type="every" id="Y4cv--DzCMqxEGKV+EJw">
+                    <value name="EVERY0">
+                      <block type="logic_operation" id="Ds;ROw(=gBCxli2=F]Wq">
+                        <field name="OP">AND</field>
+                        <value name="A">
+                          <block type="now" id="mk=y@N@WWSbwGorKdefk">
+                            <value name="signal">
+                              <block type="text" id="fy|bnElL?ZdNN-:9.0w%">
+                                <field name="TEXT">toto</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="now" id="v1sPM(9dU64_KGhT6s;6">
+                            <value name="signal">
+                              <block type="text" id="*nJ,4h#W:24A=iIP;I|a">
+                                <field name="TEXT">tata</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="JS_statement" id="41g398zgnmp(@^QWoD3?">
+                        <statement name="NAME">
+                          <block type="print_serveur" id="mXXfJ;^sU#5$gCCTz?(K">
+                            <value name="signal">
+                              <block type="text" id="SrtV1(=LU2R/zpS2hEgd">
+                                <field name="TEXT">toto</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="procedures_callnoreturn" id="nx{))@{|qh+)/IgtDwSU">
+                                <mutation name="timer">
+                                  <arg name="Value"></arg>
+                                </mutation>
+                                <value name="ARG0">
+                                  <block type="math_number" id="PMckxN51QQHC*$}gH}dc">
+                                    <field name="NUM">1234</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+                <statement name="par">
+                  <block type="await" id="8?4{QE)V$kJf%7#u%mb_">
+                    <value name="AWAIT0">
+                      <block type="now" id="BDPbz~@z:(6`tou{!)wm">
+                        <value name="signal">
+                          <block type="text" id="*%vm9@R!s@xgi1]0J}P@">
+                            <field name="TEXT">titi</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="break" id=":w$r*8iO_~ME$t`/C3+T">
+                        <value name="TRAP_NAME">
+                          <block type="text" id="l=Grk]f9IBgFP+;}[saQ">
+                            <field name="TEXT">trap</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="(]W];RD5_;Q6hYG!/cu*" collapsed="true" x="435" y="-552">
+    <mutation>
+      <arg name="tempo" varid="Z^1H[PGB!4G6n[5fW1G}"></arg>
+    </mutation>
+    <field name="NAME">setTempo2</field>
+    <comment pinned="false" h="80" w="160">Pour fixer le tempo</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="]tGIWSaN!!|Xv.1ILjdG">
+        <field name="VAR" id="?qeVehBDiz#J.7^IG+he">tempoMax</field>
+        <value name="VALUE">
+          <block type="math_number" id="p=^3Y?=m:BxMZ3]q0ZeA">
+            <field name="NUM">200</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="rI+X=^dh/hHUYV@^}Y`9">
+            <field name="VAR" id="54U-Pms2LNZ!.L!-ls[K">tempoMin</field>
+            <value name="VALUE">
+              <block type="math_number" id="?1:$ON:i|4tqhkf/6,#R">
+                <field name="NUM">30</field>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_ifreturn" id="2ik;S5p;O6!d;K]Exj.S">
+                <mutation value="0"></mutation>
+                <value name="CONDITION">
+                  <block type="logic_operation" id="_sQvVRT`B4h0y~!@vv]6">
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="logic_compare" id="ll,CP-Oo!gOTLg-i.#d3">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="variables_get" id="P(#Fcap2e}P@@637k#Vd">
+                            <field name="VAR" id="Z^1H[PGB!4G6n[5fW1G}">tempo</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="variables_get" id="4D2{6136Tuu^]iBpQYQ/">
+                            <field name="VAR" id="?qeVehBDiz#J.7^IG+he">tempoMax</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="logic_compare" id="(,$dUz0,xtvCwI=F-X)b">
+                        <field name="OP">LT</field>
+                        <value name="A">
+                          <block type="variables_get" id="H?V[8[kd+M@$(~*S43mS">
+                            <field name="VAR" id="Z^1H[PGB!4G6n[5fW1G}">tempo</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="variables_get" id="}~W`-yU!Cb_*_moPMi*j">
+                            <field name="VAR" id="54U-Pms2LNZ!.L!-ls[K">tempoMin</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="print_serveur" id="QqNyb4/@6$3wM%ZN!ey~">
+                    <value name="signal">
+                      <block type="text" id="NVD#YC9NOc|6@;Q9$^mT">
+                        <field name="TEXT">Tempo set to:</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="print_serveur" id="x^9Ca9s`]48v(K0l$CKx">
+                        <value name="signal">
+                          <block type="variables_get" id="RUTh(aM#of|0]J9i)xWw">
+                            <field name="VAR" id="Z^1H[PGB!4G6n[5fW1G}">tempo</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

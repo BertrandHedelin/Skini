@@ -1,0 +1,8 @@
+*.zip
+archive/**
+mp3/**
+**/.DS_Store
+skinilog.json
+**/*.out.js
+serveur/ipConfig.json
+sounds/**
