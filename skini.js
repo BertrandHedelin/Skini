@@ -27,11 +27,10 @@ setInterval(function() {
     ableton.displayQueues();
 }, timerFilesDattente90 );
 
-/*var timerFilesDattente120 = 500 * 8 ; // Pour un tempo de 120 sur une mesure 4/4 x 2
-setInterval(function() {
+//var timerFilesDattente120 = 500 * 8 ; // Pour un tempo de 120 sur une mesure 4/4 x 2
+//setInterval(function() {
    //machineServeur.inputAndReact("tick", 120);
-}, timerFilesDattente120 );
-*/
+//}, timerFilesDattente120 );
 
 var app = express();
 app.use(express.static('./'));
@@ -48,7 +47,10 @@ app.get('/block', function(req, res) {
  res.sendFile(path.join(__dirname+'/blocklySkini/blocklySkini.html'));
 });
 
-app.listen(80);
+var port = 8080;
+app.listen(port, () => {
+  console.log(`app listening at http://localhost:${port}`)
+});
 
 
 

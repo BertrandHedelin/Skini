@@ -1,0 +1,68 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="orchestration" id="!he$,{:BvI4cMR~f;LCj" x="91" y="81">
+    <field name="trajet">1</field>
+    <statement name="SIGNALS">
+      <block type="declare_signal" id="EvQt@OyI=6kW8SKav(aP">
+        <value name="signal">
+          <block type="text" id="`spZRm85frm)/UW5%;1~">
+            <field name="TEXT">tata</field>
+          </block>
+        </value>
+        <next>
+          <block type="declare_signal" id="a1;_E2V`*nwZx$Ls7!)]">
+            <value name="signal">
+              <block type="text" id=".yJy9h/w@EIKc75TxQ+$">
+                <field name="TEXT">tutu</field>
+              </block>
+            </value>
+            <next>
+              <block type="declare_signal" id="AG|)bwxW,?1q/TYh1r.a">
+                <value name="signal">
+                  <block type="text" id="X5}DGYN_|(,+W!|r`%2t">
+                    <field name="TEXT">titi</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="declare_signal" id="3mobHNQ4mT2H{Q(XQ+wP">
+                    <value name="signal">
+                      <block type="text" id="/x[v5L*I0AqQ{)4c#qlb">
+                        <field name="TEXT">yaya</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="seq_body" id="57cD7,$[Y+/1qIWvLU=$">
+        <statement name="BODY">
+          <block type="abort" id="qe9r+^BI]%:FZ3[}Yf5)">
+            <field name="TIMES">1</field>
+            <value name="SIGNAL">
+              <block type="text" id="{OXnI82M.9__PvW^QWGi">
+                <field name="TEXT">yaya</field>
+              </block>
+            </value>
+            <statement name="BODY">
+              <block type="loop_body" id="~KG`9H}?P-)ycbo9Asv~">
+                <statement name="NAME">
+                  <block type="print_serveur" id="F+L4yddMHhfx{$k${U=0">
+                    <value name="TEXT">
+                      <block type="text" id="Hia7,Uk-e.?ydrj*YZTw">
+                        <field name="TEXT">titi</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

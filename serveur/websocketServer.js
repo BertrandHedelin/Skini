@@ -478,5 +478,3 @@ function getDateTime() {
 
 
 
-
-

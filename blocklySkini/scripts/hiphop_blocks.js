@@ -2,6 +2,8 @@
 var english = true;
 var debug1 = true;
 
+var branchIndex = 0;
+
 /**************************************
 
 Avril 2021
@@ -159,6 +161,7 @@ Blockly.JavaScript['sustain'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "emit_value",
@@ -188,7 +191,41 @@ Blockly.JavaScript['emit_value'] = function(block) {
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
 
   let value = value_signal.replace(/\'|\(|\)/g, "");
-  var code = 'emit '+ value + '(' + number_signal_value + ');\n';
+  var code = '\nmr._emit("'+ value + '",' + number_signal_value + '),';
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "await_do",
+  "message0": "await_do %1 count %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "Signal_Value",
+      "value": 0
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await_do",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['await_do'] = function(block) {
+  var number_signal_value = block.getFieldValue('Signal_Value');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+  var code = '\nmr._await_do("'+ value + '",' + number_signal_value + `,() => {console.log("await do ->` + value + `"); return true;}),`;
   return code;
 };
 
@@ -219,6 +256,7 @@ Blockly.JavaScript['await_immediate'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "wait_for",
@@ -248,7 +286,7 @@ Blockly.JavaScript['wait_for'] = function(block) {
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
   let times = block.getFieldValue('TIMES'); 
-  var code = 'await count (' + times + "," + value + '.now);\n';
+  var code = `mr._await("` + value + `", `+ times + `),\n`;
   return code;
 };
 
@@ -411,31 +449,6 @@ Blockly.JavaScript['fork_body'] = function(block) {
 
 Blockly.defineBlocksWithJsonArray([
 {
-  "type": "par_body",
-  "message0": "par %1",
-  "args0": [
-    {
-      "type": "input_statement",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 230,
-  "tooltip": "par",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['par_body'] = function(block) {
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  console.log("statements body:\n", statements_name);
-  var code = 'par{\n' + statements_name + '}\n';
-  return code;
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
  "type": "random_body",
   "message0": "Choose randomly a block among %1 blocks %2 block 1 %3 block 2 %4",
   "args0": [
@@ -530,7 +543,7 @@ Blockly.defineBlocksWithJsonArray([
   "args0": [
     {
       "type": "input_statement",
-      "name": "NAME"
+      "name": "BODY"
     }
   ],
   "previousStatement": null,
@@ -542,12 +555,78 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['seq_body'] = function(block) {
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  console.log("statements seq:\n", statements_name);
-  var code = '{\n' + statements_name + '\n}';
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  branchIndex ++;
+
+  var code = `
+  // Debut de seq
+  mr._seq(
+    [`+ statements_body +`]
+  ),
+  `;
   return code;
 };
 
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "par_body",
+  "message0": "par %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "par",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['par_body'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de par
+  mr._par(
+    [`+ statements_body +`]
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "branch_body",
+  "message0": "body %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['branch_body'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  branchIndex ++;
+
+  var code = `
+  // Debut de body
+  [`+ statements_body +`
+  ],
+  `;
+  return code;
+};
+
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "declare_signal",
@@ -570,7 +649,8 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['declare_signal'] = function(block) {
   var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
-  var code = 'signal ' + value + ';\n';
+
+  var code = `mr.createSignal("` + value + `");\n`;
   return code;
 };
 
@@ -717,7 +797,7 @@ Blockly.JavaScript['nowval'] = function(block) {
 
 Blockly.defineBlocksWithJsonArray([
 {
-  "type": "moduleHH",
+  "type": "moduleMyReact",
   "message0": "signal %1 mod %2",
   "args0": [
     {
@@ -808,7 +888,7 @@ Blockly.JavaScript['submoduleHH'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "orchestration",
-  "message0": "Orch. %1 %2 Mod. %3 Body %4 ",
+  "message0": "Orch. %1 %2 Sig. %3 Body %4 ",
   "args0": [
     {
       "type": "field_number",
@@ -821,11 +901,11 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
       "type": "input_statement",
-      "name": "MODULES"
+      "name": "SIGNALS"
     },
     {
       "type": "input_statement",
-      "name": "NAME"
+      "name": "BODY"
     }
   ],
   //"previousStatement": null,
@@ -838,114 +918,27 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['orchestration'] = function(block) {
   var number_trajet = block.getFieldValue('trajet');
+  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
 
-  var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
-
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   var code = `
-'use strict'
-"use hopscript"
-'use hiphop'
+  var mr = require("./myReactNodeSkini.js");
+  ` + statements_signals + `
+  var instructions = [` + statements_body + `];
 
-var par = require('../logosParametres');
-var ableton = require('../controleAbleton');
-var oscMidiLocal = require("../logosOSCandMidiLocal.js");
-var gcs = require("./groupeClientsSons.js");
-var orch = require("./orchestration.js", "hiphop");
-const opus4Int = require("./automateInt.js");
-var hh = require("hiphop");
+  var prog = mr.createModule(prog, instructions);
 
-var CCChannel = 1;
-var CCTempo = 100;
-var tempoMax = 160;// Valeur fixée dans DAW
-var tempoMin = 40; // Valeur fixée dans DAW
-var trajet = ` + number_trajet + `-1;
-var tempoGlobal = 60;
-var aleaRandomBlock281289 = 0; 
-var transposeValue = 0;
+  mr.createProg(prog);
 
-function setTempo(value){
-  if ( value > tempoMax || value < tempoMin) {
-    console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
-    return;
-  }
-  var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
-  //console.log("--- Set tempo:", value);
-  tempoGlobal = value;
-  oscMidiLocal.controlChange(par.busMidiAbleton, CCChannel, CCTempo, tempo);
-}
+  console.log(" 1 ----------------");
+  mr.runProg(prog);
 
-var countInverseBougeTempo = 10;
-var bougeTempoRythme = 2;
-var bougeTempoValue = 2;
+  console.log(" 2 ----------------");
+  mr.runProg(prog);
 
-var bougeTempo = hiphop module (tick, abortBougeTempo)
-implements ` + "$" + `{opus4Int.creationInterfaces(par.groupesDesSons[trajet])}{
- signal inverseTempo;
-  abort (abortBougeTempo.now){
-    loop{
-      fork {
-        every count (countInverseBougeTempo, tick.now) {
-          emit inverseTempo();
-        }
-      }par{
-        loop{
-          abort(inverseTempo.now){
-              every count (bougeTempoRythme, tick.now) {
-                hop{
-                  tempoGlobal += bougeTempoValue;
-                  setTempo(tempoGlobal);
-                }
-              }
-            }
-          abort(inverseTempo.now){
-            every count (bougeTempoRythme, tick.now) {
-              hop{
-                tempoGlobal -= bougeTempoValue;
-                setTempo(tempoGlobal);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-`;
-
-code +=  "\n" + statements_modules + "\n";
-
-code += "var trajetModule" + number_trajet + `= hiphop module (in start, stop, tick, abletonON,
-  setTimerDivision, resetMatriceDesPossibles, in patternSignal, in midiSignal, in emptyQueueSignal,
-  out cleanChoiceList, out patternListLength, out setComputeScoreClass, out setComputeScorePolicy)` +
-"\n  implements ${opus4Int.creationInterfaces(par.groupesDesSons[" + (number_trajet-1) + "])}" +
-`{
-  signal temps=0, size, stopReservoir, abortBougeTempo;
-  emit setTimerDivision(1);
-  loop{
-    abort(stop.now){
-      await immediate (start.now);
-      hop{console.log("-- Démarrage automate des possibles");}
-      fork{
-        every immediate (tick.now){
-          emit temps(temps.preval + 1);
-          hop{gcs.setTickOnControler(temps.nowval);}
-        }
-      }par{
-      ` + statements_name + `
-      }
-    }
-    emit resetMatriceDesPossibles();
-    hop{ ableton.cleanQueues();}
-    emit temps(0);
-    yield;
-  }
-}
-exports.trajetModule` + number_trajet + "= trajetModule" + number_trajet + ";";
+  mr.printProgram(prog, false);
+  `;
   return code;
-
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -1704,6 +1697,7 @@ Blockly.JavaScript['run_tank'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "loop_body",
@@ -1725,7 +1719,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['loop_body'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   console.log("statements loop:\n", statements_name);
-  var code = 'loop {\n' + statements_name + '}\n';
+  var code = 'mr._loop( [' + statements_name + ']),\n';
   return code;
 };
 
@@ -1747,109 +1741,94 @@ Blockly.JavaScript['yield'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "every",
-  "message0": "every %1",
+  "message0": "every %1 signal %2 do %3",
   "args0": [
+     {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
     {
       "type": "input_value",
-      "name": "EVERY0",
-      "check": "Any"
-    }
-  ],
-  "message1": "do %1",
-  "args1": [
+      "name": "SIGNAL",
+      "check": "String"
+    },
     {
       "type": "input_statement",
-      "name": "DO0"
+      "name": "BODY"
     }
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "style": "logic_blocks",
+  "colour": 180,
+  "tooltip": "seq",
   "helpUrl": ""
 }
 ]);
 
 Blockly.JavaScript['every'] = function(block) {
-  var n = 0;
-  var code = '', branchCode, conditionCode;
-  if (Blockly.JavaScript.STATEMENT_PREFIX) {
-    // Automatic prefix insertion is switched off for this block.  Add manually.
-    code += Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,
-        block);
-  }
+  let times = block.getFieldValue('TIMES');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  let value = value_signal.replace(/\'|\(|\)/g, "");
 
-    conditionCode = Blockly.JavaScript.valueToCode(block, 'EVERY' + n,
-        Blockly.JavaScript.ORDER_NONE) || 'false';
-    branchCode = Blockly.JavaScript.statementToCode(block, 'DO' + n);
-    if (Blockly.JavaScript.STATEMENT_SUFFIX) {
-      branchCode = Blockly.JavaScript.prefixLines(
-          Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX,
-          block), Blockly.JavaScript.INDENT) + branchCode;
-    }
-
-    // Pas terrible mais c'est la syntaxe HH, count met des paranthèses
-    // donc il n'en faut pas ici si count est dans la ligne
-    if( conditionCode.includes("count") || conditionCode.includes("immediate") ){
-      code += 'every ' + conditionCode + ' {\n' + branchCode + '}\n';
-    }else{
-      code += 'every (' + conditionCode + ') {\n' + branchCode + '}\n';
-    }
-  return code + '\n';
+  var code = `
+  // Debut de every
+  mr._every("` + value + `",` + times + `,
+    [`+ statements_body +`]
+  ),
+  `;
+  return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "abort",
-  "message0": "abort %1",
+  "message0": "abort %1 signal %2 do %3",
   "args0": [
+     {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
     {
       "type": "input_value",
-      "name": "ABORT0",
-      "check": "Boolean"
-    }
-  ],
-  "message1": "do %1",
-  "args1": [
+      "name": "SIGNAL",
+      "check": "String"
+    },
     {
       "type": "input_statement",
-      "name": "DO0"
+      "name": "BODY"
     }
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "style": "logic_blocks",
+  "colour": 180,
+  "tooltip": "seq",
   "helpUrl": ""
 }
 ]);
 
 Blockly.JavaScript['abort'] = function(block) {
-  var n = 0;
-  var code = '', branchCode, conditionCode;
-  if (Blockly.JavaScript.STATEMENT_PREFIX) {
-    // Automatic prefix insertion is switched off for this block.  Add manually.
-    code += Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,
-        block);
-  }
-  conditionCode = Blockly.JavaScript.valueToCode(block, 'ABORT' + n,
-      Blockly.JavaScript.ORDER_NONE) || 'false';
-  branchCode = Blockly.JavaScript.statementToCode(block, 'DO' + n);
-  if (Blockly.JavaScript.STATEMENT_SUFFIX) {
-    branchCode = Blockly.JavaScript.prefixLines(
-        Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX,
-        block), Blockly.JavaScript.INDENT) + branchCode;
-  }
+  let times = block.getFieldValue('TIMES');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  let value = value_signal.replace(/\'|\(|\)/g, "");
 
-  // Pas terrible mais c'est la syntaxe HH, count met des paranthèses
-  // donc il n'en faut pas ici si count est dans la ligne
-  if( conditionCode.includes("count") || conditionCode.includes("immediate") ){
-    code += 'abort ' + conditionCode + ' {\n' + branchCode + '}\n';
-  }else{
-    code += 'abort (' + conditionCode + ') {\n' + branchCode + '}\n';
-  }
-  return code + '\n';
+  var code = `
+  // Debut de abort
+  mr._abort("` + value + `",` + times + `,
+    [`+ statements_body +`]
+  ),
+  `;
+  return code;
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -2162,6 +2141,7 @@ Blockly.JavaScript['JS_statement'] = function(block) {
   return code;
 };
 
+//NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "print_serveur",
@@ -2169,7 +2149,7 @@ Blockly.defineBlocksWithJsonArray([
   "args0": [
     {
       "type": "input_value",
-      "name": "signal",
+      "name": "TEXT",
       "check": "String"
     }
   ],
@@ -2182,8 +2162,8 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['print_serveur'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'hop {console.log(' + value_signal + ');}\n';
+  var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = '\nmr._atom( ()=> {console.log(' + value_text + ');} ),\n';
   return code;
 };
 

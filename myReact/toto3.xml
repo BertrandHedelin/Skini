@@ -1,8 +1,0 @@
-<xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="orchestration" id="7iY/C5819x2l}Ea30v~C" x="97" y="-384">
-    <field name="trajet">1</field>
-    <statement name="NAME">
-      <block type="fork_body" id=")aoP2`kfm.bN9;-kr]4o"></block>
-    </statement>
-  </block>
-</xml>

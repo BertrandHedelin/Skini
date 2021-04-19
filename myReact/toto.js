@@ -1,97 +1,59 @@
-'use strict'
-"use hopscript"
-'use hiphop'
+  var mr = require("./myReactNodeSkini.js");
+    mr.createSignal("tata");
+  mr.createSignal("tutu");
+  mr.createSignal("titi");
+  mr.createSignal("yaya");
 
-var par = require('../logosParametres');
-var ableton = require('../controleAbleton');
-var oscMidiLocal = require("../logosOSCandMidiLocal.js");
-var gcs = require("./groupeClientsSons.js");
-var orch = require("./orchestration.js", "hiphop");
-const opus4Int = require("./automateInt.js");
-var hh = require("hiphop");
+  var instructions = [
+    // Debut de par
+    mr._par(
+      [
+      // Debut de seq
+      mr._seq(
+        [
+      mr._emit("tata",0),
+      mr._emit("tutu",0),]
+      ),
 
-var CCChannel = 1;
-var CCTempo = 100;
-var tempoMax = 160;// Valeur fixée dans DAW
-var tempoMin = 40; // Valeur fixée dans DAW
-var trajet = 1-1;
-var tempoGlobal = 60;
-var aleaRandomBlock281289 = 0;
-var transposeValue = 0;
+      // Debut de seq
+      mr._seq(
+        [  mr._await("tata", 1),
 
-function setTempo(value){
-  if ( value > tempoMax || value < tempoMin) {
-    console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
-    return;
-  }
-  var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
-  //console.log("--- Set tempo:", value);
-  tempoGlobal = value;
-  oscMidiLocal.controlChange(par.busMidiAbleton, CCChannel, CCTempo, tempo);
-}
+      mr._atom( ()=> {console.log('tata');} ),
+      mr._await("tutu", 1),
 
-var countInverseBougeTempo = 10;
-var bougeTempoRythme = 2;
-var bougeTempoValue = 2;
+      mr._atom( ()=> {console.log('tutu');} ),
+    ]
+      ),
 
-var bougeTempo = hiphop module (tick, abortBougeTempo)
-implements ${opus4Int.creationInterfaces(par.groupesDesSons[trajet])}{
- signal inverseTempo;
-  abort (abortBougeTempo.now){
-    loop{
-      fork {
-        every count (countInverseBougeTempo, tick.now) {
-          emit inverseTempo();
-        }
-      }par{
-        loop{
-          abort(inverseTempo.now){
-              every count (bougeTempoRythme, tick.now) {
-                hop{
-                  tempoGlobal += bougeTempoValue;
-                  setTempo(tempoGlobal);
-                }
-              }
-            }
-          abort(inverseTempo.now){
-            every count (bougeTempoRythme, tick.now) {
-              hop{
-                tempoGlobal -= bougeTempoValue;
-                setTempo(tempoGlobal);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+      // Debut de seq
+      mr._seq(
+        [
+        // Debut de abort
+        mr._abort("yaya",1,
+          [
+          // Debut de every
+          mr._every("titi",1,
+            [
+          mr._atom( ()=> {console.log('titi');} ),
+        ]
+          ),
+          ]
+        ),
+        ]
+      ),
+      ]
+    ),
+    ];
 
+  var prog = mr.createModule(prog, instructions);
 
+  mr.createProg(prog);
 
-var trajetModule1= hiphop module (in start, stop, tick, abletonON,
-  setTimerDivision, resetMatriceDesPossibles, in patternSignal, in midiSignal, in emptyQueueSignal,
-  out cleanChoiceList, out patternListLength, out setComputeScoreClass, out setComputeScorePolicy)
-  implements ${opus4Int.creationInterfaces(par.groupesDesSons[0])}{
-  signal temps=0, size, stopReservoir, abortBougeTempo;
-  emit setTimerDivision(1);
-  loop{
-    abort(stop.now){
-      await immediate (start.now);
-      hop{console.log("-- Démarrage automate des possibles");}
-      fork{
-        every immediate (tick.now){
-          emit temps(temps.preval + 1);
-          hop{gcs.setTickOnControler(temps.nowval);}
-        }
-      }par{
+  console.log(" 1 ----------------");
+  mr.runProg(prog);
 
-      }
-    }
-    emit resetMatriceDesPossibles();
-    hop{ ableton.cleanQueues();}
-    emit temps(0);
-    yield;
-  }
-}
-exports.trajetModule1= trajetModule1;
+  console.log(" 2 ----------------");
+  mr.runProg(prog);
+
+  mr.printProgram(prog, false);

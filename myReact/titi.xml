@@ -1,0 +1,110 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="orchestration" id="!he$,{:BvI4cMR~f;LCj" x="91" y="81">
+    <field name="trajet">1</field>
+    <statement name="SIGNALS">
+      <block type="declare_signal" id="5::3QQ.v)zmb1Ob~FOu7">
+        <value name="signal">
+          <block type="text" id="o0X-03L8Q?/R-um$%s`r">
+            <field name="TEXT">toto</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="par_body" id="-h,hX-..$g,mP+2,dveQ">
+        <statement name="BODY">
+          <block type="branch_body" id="{8.A!0#3K54g-|_sp3+I">
+            <statement name="BODY">
+              <block type="emit_value" id="8#fZ*V4|Yr5rAyv=C;^j">
+                <field name="Signal_Value">0</field>
+                <value name="SIGNAL">
+                  <block type="text" id="{v,kR9D@_bLgDl1-l(sw">
+                    <field name="TEXT">toto</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="emit_value" id=";(+xfU~SaI:z:H0@TB-J">
+                    <field name="Signal_Value">0</field>
+                    <value name="SIGNAL">
+                      <block type="text" id="llJq9G8n+c#`o5|GXqh[">
+                        <field name="TEXT">titi</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="branch_body" id=")qmHrq!~~?Y{e2SN0amc">
+                <statement name="BODY">
+                  <block type="await_do" id="}yDPpK1c_BwpNiH^+OV]">
+                    <field name="Signal_Value">1</field>
+                    <value name="SIGNAL">
+                      <block type="text" id="Osl}jDq|0l@U?=nW|[aK">
+                        <field name="TEXT">toto</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="emit_value" id="inX0_qOx/?/U8eZ+3$V)">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="text" id="dn!!0PVVGl#/MP6x-62k">
+                            <field name="TEXT">tutu</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="emit_value" id="ZES4IYL,nM]b@#2N:INp">
+                            <field name="Signal_Value">0</field>
+                            <value name="SIGNAL">
+                              <block type="text" id="uoejUoxEh~sBMYdmt4!k">
+                                <field name="TEXT">tata</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="seq_body" id="glP?vu5%wUW/#aQ.lW(r">
+            <statement name="BODY">
+              <block type="emit_value" id="i?`)rv5ZPfu{C[?~*-v/">
+                <field name="Signal_Value">0</field>
+                <value name="SIGNAL">
+                  <block type="text" id="vP=Jw0sD2@nKM{fxGN{R">
+                    <field name="TEXT">tata</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="await_do" id="Q*bTFZl(3:`PaTp~Rn@X">
+                    <field name="Signal_Value">1</field>
+                    <value name="SIGNAL">
+                      <block type="text" id="j8,c6D1)PHKju@SWJhFC">
+                        <field name="TEXT">toto</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="emit_value" id="m-;kyD|n{:qGMJ:1`pTf">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="text" id="Z,[I7]$Q?Tx!6lcci3*S">
+                            <field name="TEXT">tutu</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
