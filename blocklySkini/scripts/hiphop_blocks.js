@@ -2,8 +2,6 @@
 var english = true;
 var debug1 = true;
 
-var branchIndex = 0;
-
 /**************************************
 
 Avril 2021
@@ -17,30 +15,6 @@ pas d'un générateur indépendant de JavaScript.
 © Copyright 2019-2021, B. Petit-Heidelein
 
 ****************************************/
-
-/*****************************
-Essai d'automate local mais pas
- utile dans notre cas où l'automate est sur le serveur
-*****************************/
-/*const hh = require("hiphop");
-
-hiphop module automate(in display, out toto){
-  loop{
-    await (display.now);
-    emit toto();
-  }
-}
-
-var HipHopMachine = new hh.ReactiveMachine(automate, "automate");
-
-function runHH(){
-  HipHopMachine.react("display");
-}
-exports.runHH = runHH;
-
-HipHopMachine.addEventListener("toto", function(evt) {
-  console.log("toto from HipHop");
-});*/
 
 /**************************
 
@@ -95,40 +69,9 @@ function createRandomListe(index, liste){
 
 /**************************
 
- Les blocks HH
+ Les blocks myReact
 
 ***************************/
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "emit",
-  "message0": "emit signal %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "SIGNAL"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 20,
-  "tooltip": "Emit",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['emit'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
-
-  // Ceci n'est pas beau, mais on utilise des mécanismes pour la génération de code JS 
-  // Nous allons retouver ce travail de filtrage assez souvent.
-  // Dans le cas du développement d'un générteur propore à HH, ce sera au pire inutile
-  // mais ne devrait pas poser de problème.
-  let value = value_signal.replace(/\'|\(|\)/g, "");
-
-  var code = 'emit '+ value + '();\n';
-  return code;
-};
 
 Blockly.defineBlocksWithJsonArray([
 {
@@ -556,8 +499,6 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['seq_body'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  branchIndex ++;
-
   var code = `
   // Debut de seq
   mr._seq(
@@ -616,8 +557,6 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['branch_body'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  branchIndex ++;
-
   var code = `
   // Debut de body
   [`+ statements_body +`
@@ -651,32 +590,6 @@ Blockly.JavaScript['declare_signal'] = function(block) {
   let value = value_signal.replace(/\'/g, "");
 
   var code = `mr.createSignal("` + value + `");\n`;
-  return code;
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "refer_signals",
-  "message0": "create signal %1 in module",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "signal",
-      "check": "String"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 20,
-  "tooltip": "signal",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['refer_signals'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
-  let value = value_signal.replace(/\'/g, "");
-  var code =  value + ',' ;
   return code;
 };
 
@@ -718,59 +631,6 @@ Blockly.JavaScript['count_signal'] = function(block) {
 
 Blockly.defineBlocksWithJsonArray([
 {
-  "type": "now",
-  "message0": "now %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "signal",
-      "check": "String"
-    }
-  ],
-  "inputsInline": false,
-  "output": null,
-  "colour": 15,
-  "tooltip": "",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['now'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = value_signal.replace(/\'/g, "") + ".now";
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "immediate",
-  "message0": "immediate %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "signal",
-      "check": "String"
-    }
-  ],
-  "inputsInline": false,
-  "output": null,
-  "colour": 15,
-  "tooltip": "",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['immediate'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'immediate ' + value_signal.replace(/\'/g, "");
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-
-Blockly.defineBlocksWithJsonArray([
-{
   "type": "nowval",
   "message0": "nowval %1",
   "args0": [
@@ -795,96 +655,7 @@ Blockly.JavaScript['nowval'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "moduleMyReact",
-  "message0": "signal %1 mod %2",
-  "args0": [
-    {
-      "type": "input_statement",
-      "name": "SIGNAL",
-      "check": "String"
-    },
-    {
-      "type": "input_statement",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 160,
-  "tooltip": "module",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['moduleHH'] = function(block) {
-  // Traitement des signaux en paramètre
-  var statements_name1 = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
-  let value = statements_name1.replace(/\'/g, "").replace(/signal/g, "").replace(/;/g, ",");
-  var statements_name2 = Blockly.JavaScript.statementToCode(block, 'NAME');
-
-  var code = `
-'use strict'
-"use hopscript"
-'use hiphop'
-
-exports.hh = hiphop module (` + value + ') {\n'
- 	code += statements_name2;
- 	code += '}';
-  return code;
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "submoduleHH",
-  "message0": "name %1 signal %2 submod %3",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "MOD_NAME",
-      "check": "String"
-    },
-    {
-      "type": "input_statement",
-      "name": "SIGNAL",
-      "check": "String"
-    },
-    {
-      "type": "input_statement",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 300,
-  "tooltip": "module",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['submoduleHH'] = function(block) {
-  var value_name = Blockly.JavaScript.valueToCode(block, 'MOD_NAME', Blockly.JavaScript.ORDER_ATOMIC)
-  let mod_name = value_name.replace(/\'/g, "");
-
-  // Traitement des signaux en paramètre
-  var statements_name1 = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
-  let value = statements_name1.replace(/\'/g, "").replace(/signal/g, "").replace(/;/g, ",");
-
-  var statements_name2 = Blockly.JavaScript.statementToCode(block, 'NAME');
-
-  var code = '\n' + mod_name + ' = hiphop module(' + value + ' stopReservoir,'
-    code +=' tick, abletonON, setTimerDivision, resetMatriceDesPossibles, in patternSignal,';
-    code +=' resetMatriceDesPossibles, in midiSignal, out cleanChoiceList, out patternListLength,';
-    code +=' out setComputeScoreClass, out setComputeScorePolicy)\n';
-    code += "implements ${opus4Int.creationInterfaces(par.groupesDesSons[trajet])}{\n";
-    code += statements_name2;
-    code += '\n}';
-
-  return code;
-};
-
-
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "orchestration",
@@ -916,19 +687,18 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// NodeSkini
 Blockly.JavaScript['orchestration'] = function(block) {
   var number_trajet = block.getFieldValue('trajet');
   var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
 
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   var code = `
-  var mr = require("./myReactNodeSkini.js");
+  var mr = require("./myReact.min.js");
   ` + statements_signals + `
   var instructions = [` + statements_body + `];
 
-  var prog = mr.createModule(prog, instructions);
-
-  mr.createProg(prog);
+  var prog = mr.createModule(instructions);
 
   console.log(" 1 ----------------");
   mr.runProg(prog);
@@ -937,6 +707,76 @@ Blockly.JavaScript['orchestration'] = function(block) {
   mr.runProg(prog);
 
   mr.printProgram(prog, false);
+  `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "module_myReact",
+  "message0": "module %1 %2",
+  "args0": [
+     {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['module_myReact'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  let value = value_name.replace(/\'|\(|\)/g, "");
+
+  var code = `
+  // Debut de module
+  ` + value + ` = [
+    `+ statements_body +`
+  ];
+  `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "run_module",
+  "message0": "run %1",
+  "args0": [
+     {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['run_module'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_name.replace(/\'|\(|\)/g, "");
+
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de run module
+    mr._run(`+ value +`),
   `;
   return code;
 };
@@ -1643,32 +1483,6 @@ Blockly.JavaScript['unset_group'] = function(block) {
 
 Blockly.defineBlocksWithJsonArray([
 {
-  "type": "run_module",
-  "message0": "run %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "module",
-      "check": "String"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 300,
-  "tooltip": "module",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['run_module'] = function(block) {
-  var value_module = Blockly.JavaScript.valueToCode(block, 'module', Blockly.JavaScript.ORDER_ATOMIC);
-  let value = value_module.replace(/\'/g, "");
-  var code = 'run ${' + value + '}(...);\n';
-  return code;
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
   "type": "run_tank",
   "message0": "run tank(s) %1",
   "args0": [
@@ -1880,64 +1694,6 @@ Blockly.JavaScript['suspend'] = function(block) {
     code += 'suspend (' + conditionCode + ') {\n' + branchCode + '}\n';
   }
   return code + '\n';
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "trap",
-  "message0": "trap %1 do %2",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "TRAP_NAME",
-      "check": "String"
-    },
-    {
-      "type": "input_statement",
-      "name": "BODY"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 270,
-  "tooltip": "trap",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['trap'] = function(block) {
-  var value_name = Blockly.JavaScript.valueToCode(block, 'TRAP_NAME', Blockly.JavaScript.ORDER_ATOMIC)
-  let trap_name = value_name.replace(/\'/g, "");
-  var statements = Blockly.JavaScript.statementToCode(block, 'BODY');
-  var code = "\n" + trap_name + ':' + '{\n'
-    code += statements;
-    code += '}\n';
-  return code;
-};
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "break",
-  "message0": "break %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "TRAP_NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 270,
-  "tooltip": "break",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['break'] = function(block) {
-  var value_signal = Blockly.JavaScript.valueToCode(block, 'TRAP_NAME', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
-  let value = value_signal.replace(/\'/g, "");
-  var code = 'break '+ value + ';\n';
-  return code;
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -2166,33 +1922,6 @@ Blockly.JavaScript['print_serveur'] = function(block) {
   var code = '\nmr._atom( ()=> {console.log(' + value_text + ');} ),\n';
   return code;
 };
-
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "exec_serveur",
-  "message0": "exec %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "statements",
-      "check": "String"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 160,
-  "tooltip": "exec_serveur",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['exec_serveur'] = function(block) {
-  var value = Blockly.JavaScript.valueToCode(block, 'statements', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = value.replace(/\'/g, "");
-  code += '\n';
-  return code;
-};
-
 
 Blockly.defineBlocksWithJsonArray([
 {

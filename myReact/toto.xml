@@ -1,34 +1,79 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="gp.Bm(j^?)+YDi3Au3U,">tete</variable>
+    <variable id="^dClo.}S0];3/(C+l#62">unModule</variable>
+    <variable id="Yy4vmS;TjcOx+8CxhN2F">titi</variable>
+    <variable id="WDmXA$|}Vw+vL+[CZ)I*">tutu</variable>
+    <variable id="~]Akm+43C$a9P/6x}t:M">yaya</variable>
+  </variables>
   <block type="orchestration" id="!he$,{:BvI4cMR~f;LCj" x="91" y="81">
     <field name="trajet">1</field>
     <statement name="SIGNALS">
       <block type="declare_signal" id="EvQt@OyI=6kW8SKav(aP">
         <value name="signal">
-          <block type="text" id="`spZRm85frm)/UW5%;1~">
-            <field name="TEXT">tata</field>
+          <block type="variables_get" id="U3|V`xo=lot?3NN.sbf)">
+            <field name="VAR" id="gp.Bm(j^?)+YDi3Au3U,">tete</field>
           </block>
         </value>
         <next>
           <block type="declare_signal" id="a1;_E2V`*nwZx$Ls7!)]">
             <value name="signal">
-              <block type="text" id=".yJy9h/w@EIKc75TxQ+$">
-                <field name="TEXT">tutu</field>
+              <block type="variables_get" id="FQFC9%`beq3nT?y+b.0$">
+                <field name="VAR" id="Yy4vmS;TjcOx+8CxhN2F">titi</field>
               </block>
             </value>
             <next>
               <block type="declare_signal" id="AG|)bwxW,?1q/TYh1r.a">
                 <value name="signal">
-                  <block type="text" id="X5}DGYN_|(,+W!|r`%2t">
-                    <field name="TEXT">titi</field>
+                  <block type="variables_get" id=";B8(=bh*S?pEKay`WS0f">
+                    <field name="VAR" id="WDmXA$|}Vw+vL+[CZ)I*">tutu</field>
                   </block>
                 </value>
                 <next>
                   <block type="declare_signal" id="3mobHNQ4mT2H{Q(XQ+wP">
                     <value name="signal">
-                      <block type="text" id="/x[v5L*I0AqQ{)4c#qlb">
-                        <field name="TEXT">yaya</field>
+                      <block type="variables_get" id="aobJS;vE?h!hhRkKCDQB">
+                        <field name="VAR" id="~]Akm+43C$a9P/6x}t:M">yaya</field>
                       </block>
                     </value>
+                    <next>
+                      <block type="module_myReact" id="qdu#x^jFGywDti3w[+#/">
+                        <value name="NAME">
+                          <block type="variables_get" id="-I$B[s:H=+6/]FQ$X8ug">
+                            <field name="VAR" id="^dClo.}S0];3/(C+l#62">unModule</field>
+                          </block>
+                        </value>
+                        <statement name="BODY">
+                          <block type="print_serveur" id="Y.2v6egF3LQV0kE~T*Qw">
+                            <value name="TEXT">
+                              <block type="text" id="Y|bF)G1h-okO^Ynf{_m_">
+                                <field name="TEXT">debut de un module</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="wait_for" id="8o.v!i-.OjD9=E7GQJeP">
+                                <field name="TIMES">1</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="4O}UqWV2ZqiPZq{)#-Y#">
+                                    <field name="VAR" id="gp.Bm(j^?)+YDi3Au3U,">tete</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="wait_for" id="Nok5m[!a;@|jsd;uo+yf">
+                                    <field name="TIMES">1</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="Ap:%n.}qXly%HIbm@/%i">
+                                        <field name="VAR" id="WDmXA$|}Vw+vL+[CZ)I*">tutu</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
                   </block>
                 </next>
               </block>
@@ -38,106 +83,115 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="par_body" id="-h,hX-..$g,mP+2,dveQ">
-        <statement name="BODY">
-          <block type="seq_body" id="glP?vu5%wUW/#aQ.lW(r">
+      <block type="run_module" id="pwt~90Z]kjv`x%1w9/uk">
+        <value name="NAME">
+          <block type="variables_get" id="nFN77|jKrABW36$~7_8}">
+            <field name="VAR" id="^dClo.}S0];3/(C+l#62">unModule</field>
+          </block>
+        </value>
+        <next>
+          <block type="par_body" id="-h,hX-..$g,mP+2,dveQ">
             <statement name="BODY">
-              <block type="emit_value" id="i?`)rv5ZPfu{C[?~*-v/">
-                <field name="Signal_Value">0</field>
-                <value name="SIGNAL">
-                  <block type="text" id="vP=Jw0sD2@nKM{fxGN{R">
-                    <field name="TEXT">tata</field>
-                  </block>
-                </value>
-                <next>
-                  <block type="emit_value" id="m-;kyD|n{:qGMJ:1`pTf">
+              <block type="seq_body" id="glP?vu5%wUW/#aQ.lW(r">
+                <statement name="BODY">
+                  <block type="emit_value" id="i?`)rv5ZPfu{C[?~*-v/">
                     <field name="Signal_Value">0</field>
                     <value name="SIGNAL">
-                      <block type="text" id="Z,[I7]$Q?Tx!6lcci3*S">
-                        <field name="TEXT">tutu</field>
-                      </block>
-                    </value>
-                  </block>
-                </next>
-              </block>
-            </statement>
-            <next>
-              <block type="seq_body" id="/QXAmZbIu+[Bsfmq;Npo">
-                <statement name="BODY">
-                  <block type="wait_for" id="}KK(bZWEo:w%ymx1AWnl">
-                    <field name="TIMES">1</field>
-                    <value name="SIGNAL">
-                      <block type="text" id="8Q^[-p~tq[l!|QsZu];Y">
-                        <field name="TEXT">tata</field>
+                      <block type="variables_get" id="h=2qLfy;AZn/O-9@EA%5">
+                        <field name="VAR" id="gp.Bm(j^?)+YDi3Au3U,">tete</field>
                       </block>
                     </value>
                     <next>
-                      <block type="print_serveur" id="$aY7J!fgH=#s^!;-wv.C">
-                        <value name="TEXT">
-                          <block type="text" id="c-:ueyzIc;3A{^J{+^2n">
-                            <field name="TEXT">tata</field>
+                      <block type="emit_value" id="m-;kyD|n{:qGMJ:1`pTf">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="6*@RveWzx|OJY;As~kPb">
+                            <field name="VAR" id="WDmXA$|}Vw+vL+[CZ)I*">tutu</field>
                           </block>
                         </value>
-                        <next>
-                          <block type="wait_for" id="-L}*D;stM!.7i=/b@0($">
-                            <field name="TIMES">1</field>
-                            <value name="SIGNAL">
-                              <block type="text" id="O?=VahAM~M!dkJ@^x.9f">
-                                <field name="TEXT">tutu</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="print_serveur" id="jbqK)SP9VYke}tOV*KXm">
-                                <value name="TEXT">
-                                  <block type="text" id="}cn;odHIywVIj^k(]^x~">
-                                    <field name="TEXT">tutu</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </next>
-                          </block>
-                        </next>
                       </block>
                     </next>
                   </block>
                 </statement>
                 <next>
-                  <block type="seq_body" id="57cD7,$[Y+/1qIWvLU=$">
+                  <block type="seq_body" id="/QXAmZbIu+[Bsfmq;Npo">
                     <statement name="BODY">
-                      <block type="abort" id="qe9r+^BI]%:FZ3[}Yf5)">
+                      <block type="wait_for" id="}KK(bZWEo:w%ymx1AWnl">
                         <field name="TIMES">1</field>
                         <value name="SIGNAL">
-                          <block type="text" id="{OXnI82M.9__PvW^QWGi">
-                            <field name="TEXT">yaya</field>
+                          <block type="variables_get" id="Kys[j2{zh%OsjJcoUTT=">
+                            <field name="VAR" id="gp.Bm(j^?)+YDi3Au3U,">tete</field>
                           </block>
                         </value>
+                        <next>
+                          <block type="print_serveur" id="$aY7J!fgH=#s^!;-wv.C">
+                            <value name="TEXT">
+                              <block type="text" id="c-:ueyzIc;3A{^J{+^2n">
+                                <field name="TEXT">tata</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="wait_for" id="-L}*D;stM!.7i=/b@0($">
+                                <field name="TIMES">1</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="O@rLuEj%Pw=odrLCVNG|">
+                                    <field name="VAR" id="WDmXA$|}Vw+vL+[CZ)I*">tutu</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="print_serveur" id="jbqK)SP9VYke}tOV*KXm">
+                                    <value name="TEXT">
+                                      <block type="text" id="}cn;odHIywVIj^k(]^x~">
+                                        <field name="TEXT">tutu</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="seq_body" id="57cD7,$[Y+/1qIWvLU=$">
                         <statement name="BODY">
-                          <block type="every" id="]-%Z6Ml-p|I+eHT46E;1">
+                          <block type="abort" id="qe9r+^BI]%:FZ3[}Yf5)">
                             <field name="TIMES">1</field>
                             <value name="SIGNAL">
-                              <block type="text" id="?kJZdPGDrTZB+vE.8*q3">
-                                <field name="TEXT">titi</field>
+                              <block type="variables_get" id="M*x5nfNTFu[A`f%WaH%0">
+                                <field name="VAR" id="~]Akm+43C$a9P/6x}t:M">yaya</field>
                               </block>
                             </value>
                             <statement name="BODY">
-                              <block type="print_serveur" id="Fp9SU?.yHl#G0kDtYHA1">
-                                <value name="TEXT">
-                                  <block type="text" id="#I.X}2#1#$$yeq2UQn%+">
-                                    <field name="TEXT">titi</field>
+                              <block type="every" id="]-%Z6Ml-p|I+eHT46E;1">
+                                <field name="TIMES">1</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="Xp))u;Ir;j9%i$AWN.$F">
+                                    <field name="VAR" id="Yy4vmS;TjcOx+8CxhN2F">titi</field>
                                   </block>
                                 </value>
+                                <statement name="BODY">
+                                  <block type="print_serveur" id="Fp9SU?.yHl#G0kDtYHA1">
+                                    <value name="TEXT">
+                                      <block type="text" id="#I.X}2#1#$$yeq2UQn%+">
+                                        <field name="TEXT">titi</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
                               </block>
                             </statement>
                           </block>
                         </statement>
                       </block>
-                    </statement>
+                    </next>
                   </block>
                 </next>
               </block>
-            </next>
+            </statement>
           </block>
-        </statement>
+        </next>
       </block>
     </statement>
   </block>

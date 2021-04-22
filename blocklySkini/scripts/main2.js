@@ -447,16 +447,6 @@ function init() {
             "kind": "block",
             "type": "declare_signal"
           },
-          /*
-          {
-            "kind": "block",
-            "type": "refer_signals"
-          },
-          {
-            "kind": "block",
-            "type": "emit"
-          },
-          */
           {
             "kind": "block",
             "type": "emit_value"
@@ -475,10 +465,6 @@ function init() {
           },
           {
             "kind": "block",
-            "type": "now"
-          },
-          {
-            "kind": "block",
             "type": "nowval"
           },
           {
@@ -488,10 +474,6 @@ function init() {
           {
             "kind": "block",
             "type": "count_signal"
-          },
-          {
-            "kind": "block",
-            "type": "immediate"
           },
           {
             "kind": "block",
@@ -516,18 +498,14 @@ function init() {
         "name": "Module",
         "categorystyle" : "list_category",
         "contents": [
-/*          {
+          {
             "kind": "block",
-            "type": "submoduleHH"
+            "type": "module_myReact"
           },
           {
             "kind": "block",
             "type": "run_module"
           },
-          {
-            "kind": "block",
-            "type": "fork_body"
-          },*/
           {
             "kind": "block",
             "type": "par_body"
@@ -558,20 +536,9 @@ function init() {
           },
           {
             "kind": "block",
-            "type": "trap"
-          },
-          {
-            "kind": "block",
-            "type": "break"
-          },
-          {
-            "kind": "block",
             "type": "controls_if"
           },
-          {
-            "kind": "block",
-            "type": "exec_serveur"
-          },*/
+*/
           {
             "kind": "block",
             "type": "print_serveur"
@@ -581,77 +548,7 @@ function init() {
             "type": "text"
           }
         ]
-      },
-
-/*      {
-        "kind": "category",
-        "categorystyle" : "list_category",
-        "name": "Javascript",
-        "contents": [
-          {
-            "kind": "block",
-            "type": "JS_statement"
-          },
-          {
-            "kind": "block",
-            "type": "math_number"
-          },
-          {
-            "kind": "block",
-            "type": "procedures_ifreturn"
-          },
-          {
-            "kind": "block",
-            "type": "controls_if"
-          },
-          {
-            "kind": "block",
-            "type": "controls_ifelse"
-          },
-          {
-            "kind": "block",
-            "type": "logic_boolean"
-          },
-          {
-            "kind": "block",
-            "type": "logic_compare"
-          },
-          {
-            "kind": "block",
-            "type": "logic_operation"
-          },
-          {
-            "kind": "block",
-            "type": "logic_negate"
-          }
-        ]
-      },
-      {
-        "kind": "category",
-        "categorystyle" : "list_category",
-        "name": "Functions",
-        "contents": [
-          {
-            "kind": "block",
-            "type": "procedures_defnoreturn"
-          },
-          {
-            "kind": "block",
-            "type": "procedures_defreturn"
-          }
-        ]
-      },
-      {
-        "kind": "category",
-        "categorystyle" : "loop_category",
-        "name": "Modules HH",
-        "contents": [
-          {
-            "kind": "block",
-            "type": "moduleHH"
-          }
-        ]
-      },*/
+      }
     ]
   }
 
