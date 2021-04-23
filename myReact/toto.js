@@ -19,7 +19,7 @@ var tete, unModule, titi, tutu, yaya;
 
   var instructions = [
     // Debut de run module
-      mr._seq(unModule),
+      mr._run(unModule),
 
     // Debut de par
     mr._par(

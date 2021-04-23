@@ -14,13 +14,14 @@ var currentButtons;
 var positionBouton = [];
 var arbre;
 
-var par = require('../serveur/logosParametres');
+var par = require('../serveur/skiniParametres');
+var ipConfig = require('../serveur/ipConfig');
 
 var id = Math.floor((Math.random() * 1000000) + 1 ); // Pour identifier le client
 var listenMachine;
 var buttonMachine;
 var src = -1;
-var abletonON = 1;
+var DAWON = 1;
 var demandeDeSons = ' '; 
 var pseudo;
 var debug = true;
@@ -82,20 +83,20 @@ function initialisation() {
     document.getElementById( "leBoutonPseudo" ).style.display = "none";
 
 	var el = document.getElementById( "buttonType1" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; }
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; }
 	el = document.getElementById( "buttonType2" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; }
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; }
 	el = document.getElementById( "buttonType3" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
 
 	el = document.getElementById( "labelSons" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
 
 	el = document.getElementById( "sonChoisi" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
 
 	el = document.getElementById( "buttonEcouter" );
-	if (abletonON) { 
+	if (DAWON) { 
 			el.style.display = "inline"; 
 			//audioInit.play();
 			vibration([2000,30,2000]);
@@ -104,23 +105,23 @@ function initialisation() {
 			el.style.display = "none";
 	} 
 	el = document.getElementById( "buttonStart" );
-	if (abletonON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
+	if (DAWON) { el.style.display = "inline"; } else { el.style.display = "none"; } 
 	
-	if (abletonON) document.getElementById("MessageDuServeur").textContent = "";
+	if (DAWON) document.getElementById("MessageDuServeur").textContent = "";
 	else document.getElementById("MessageDuServeur").textContent = pseudo;
 
 	var elements = document.getElementsByClassName("breakAccueil");
 	for ( var i=0; i< elements.length; i++) {
-		if (abletonON) { 
+		if (DAWON) { 
 			elements[i].style.display = "inline"; 
 		} else { elements[i].style.display = "none"; } 
 	}
 
 	// Attention block et pas inline pour les div
 	el = document.getElementById( "listButton" );
-	if (abletonON) { el.style.display = "block"; } else { el.style.display = "none"; } 
+	if (DAWON) { el.style.display = "block"; } else { el.style.display = "none"; } 
 
-	actionSurAbletonON(); // N'est pas là dans la version hop, se déclenche sur abletonON
+	actionSurDAWON(); // N'est pas là dans la version hop, se déclenche sur DAWON
 
 }
 window.initialisation = initialisation;
@@ -178,18 +179,18 @@ function decreaseProgressBar(progressBar) {
 
 // Utiliser à partir du broadcast mais aussi du message WS.
 // WS est utilisé en cas de reconnexion.
-function actionSurAbletonON() {
+function actionSurDAWON() {
 
-/*	if ( abletonON == false ) {
+/*	if ( DAWON == false ) {
 		initialisation();
 		return;
 	}*/
 	// Plusieurs configurations de menu possibles
-	if 		(abletonON == 1) arbre = arbre1;
-	else if (abletonON == 2) arbre = arbre2;
+	if 		(DAWON == 1) arbre = arbre1;
+	else if (DAWON == 2) arbre = arbre2;
 	else 	 arbre = arbre1; // Protection, inutile normalement
 	giveMenu(true);
-	//console.log("WS Recu : abletonON:", abletonON);
+	//console.log("WS Recu : DAWON:", DAWON);
 	//initialisation(); //Pour le cas où le client recharge sa page en cours d'interaction
 
 	// Pour initaliser la liste complete des sons disponibles
@@ -199,9 +200,10 @@ function actionSurAbletonON() {
 
 function initWSSocket(port) {
 	//ws = new WebSocket( "ws://" + par.serverIPAddress + ":" + port + "/hop/serv", [ "bar", "foo" ] );
-	ws = new WebSocket("ws://" + par.serverIPAddress + ":8383"); // NODE JS
+	ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
 
-	//console.log("clientgolem.js WS: ", "ws://" + par.serverIPAddress + ":" + port + "/hop/serv" );
+	console.log("clientgolem.js WS: ", "ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+
 	ws.onopen = function( event ) {
 		msg.type = "startSpectateur";
 		msg.text = "client";
@@ -224,11 +226,11 @@ function initWSSocket(port) {
 						afficheAttente(msgRecu.text, msgRecu.son);
 						break;
 
-			case "abletonON": 
-						//Permet de savoir si Ableton est actif quand on recharge un client, le serveur envoie l'info à la connexion 
-						// C'est le même scénario que quand on reçoit un broadcast de "abletonStatus".
-						abletonON = msgRecu.value;
-						actionSurAbletonON();
+			case "DAWON": 
+						//Permet de savoir si DAW est actif quand on recharge un client, le serveur envoie l'info à la connexion 
+						// C'est le même scénario que quand on reçoit un broadcast de "DAWStatus".
+						DAWON = msgRecu.value;
+						actionSurDAWON();
 						break;
 
 			case "listClips":
@@ -250,8 +252,8 @@ function initWSSocket(port) {
 				}
 				break;
 
-			case "infoPlayAbleton": // Reçu par broadcast
-				if (debug) console.log("infoPlayAbleton", msgRecu);
+			case "infoPlayDAW": // Reçu par broadcast
+				if (debug) console.log("infoPlayDAW", msgRecu);
 				ajusteProgressBar(msgRecu.id, msgRecu.nom);
 				break;
 
@@ -282,14 +284,14 @@ function initWSSocket(port) {
 window.initWSSocket = initWSSocket;
 
 function sendPseudo( texte ) { // Le pseudo est aussi envoyé au moment de la lecture, mais Websocket n'en fait rien pour le moment.
-	msg.type = "abletonPseudo";
+	msg.type = "DAWPseudo";
 	msg.pseudo= texte;
 	ws.send(JSON.stringify(msg));
 }
 
 function ajusteProgressBar(idRecu, nomRecu) {
 
-		if (debug) console.log("Reçu Texte Broadcast infoPlayAbleton:", event.value );
+		if (debug) console.log("Reçu Texte Broadcast infoPlayDAW:", event.value );
 		if ( idRecu === id ){
 			document.getElementById("MessageDuServeur").textContent = " "; // Nettoyage
 			vibration(2000);
@@ -323,7 +325,7 @@ function ajusteProgressBar(idRecu, nomRecu) {
 				document.getElementById("progressbar3").style.display = "none";
 				return;
 			} 
-			console.log("clientGolem.js: afficheAttente: infoPlayAbleton : PAS DE PROGRESS BAR ", event.value);
+			console.log("clientGolem.js: afficheAttente: infoPlayDAW : PAS DE PROGRESS BAR ", event.value);
 		}
 }
 
@@ -338,7 +340,7 @@ window.onbeforeunload = function () {
 
 //========== Controle des CLIPS =================================
 function selectListClips(niveaux) { // golemV2
-	msg.type = "abletonSelectListClips";
+	msg.type = "DAWSelectListClips";
 	msg.niveaux = niveaux;
 	ws.send(JSON.stringify(msg));
 }
@@ -368,7 +370,7 @@ function startClip() {
 		return -1;
 	}
 	--nombreSonsPossible;
-	msg.type = "abletonStartClip";
+	msg.type = "DAWStartClip";
 	msg.clipChoisi = listClips[indexChoisi];
 	msg.pseudo = pseudo;
 	ws.send(JSON.stringify(msg));

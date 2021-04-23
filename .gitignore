@@ -6,3 +6,4 @@ skinilog.json
 **/*.out.js
 serveur/ipConfig.json
 sounds/**
+node_modules/**

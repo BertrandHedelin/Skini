@@ -1,6 +1,8 @@
 /************************************
 
-	VESRION NODE JS du dev en HOP/HIPHOP
+	VERsION NODE JS de SKINI
+
+  © Copyright 2017-2021, B. Petit-Hédelin
 
 *************************************/
 
@@ -9,28 +11,26 @@ var url = require('url');
 var fs = require('fs');
 var express = require('express');
 var path    = require("path");
+var ipConfig = require('./serveur/ipConfig');
 
-//var info1 = require("./serveur/info1"); // pour test au cas où p de websocket
-//info1.info();
-
-// Charge le fichier des sons initiaux qui sont dans Ableton
-var ableton = require('./serveur/controleAbleton');
-ableton.initAbletonTable("controleAbletonAgitV2.csv");
+// Charge le fichier des sons initiaux qui sont dans DAW
+var DAW = require('./serveur/controleDAW');
+DAW.initDAWTable("controleDAWAgitV2.csv");
 
 // Websocket dans le Serveur
 var ws = require('./serveur/websocketServer');
 
-// Timer pour les files d'attente, à faire autrement c'était un automate en hiphop
-var timerFilesDattente90 = 666 * 8 ; // Pour un tempo de 90 sur une mesure 4/4 x 2 (synchro sur 2 bars dans Ableton)
-setInterval(function() {
-    ableton.playAndShiftEventAbleton();
-    ableton.displayQueues();
-}, timerFilesDattente90 );
+var oscReceiveDAW = require("./serveur/midimix.js");
+var machineServeur = 0;
 
-//var timerFilesDattente120 = 500 * 8 ; // Pour un tempo de 120 sur une mesure 4/4 x 2
-//setInterval(function() {
-   //machineServeur.inputAndReact("tick", 120);
-//}, timerFilesDattente120 );
+oscReceiveDAW.midimix(machineServeur,ws);
+
+// Timer pour les files d'attente, à faire autrement c'était un automate en hiphop
+var timerFilesDattente90 = 666 * 8 ; // Pour un tempo de 90 sur une mesure 4/4 x 2 (synchro sur 2 bars dans DAW)
+setInterval(function() {
+    DAW.playAndShiftEventDAW();
+    DAW.displayQueues();
+}, timerFilesDattente90 );
 
 var app = express();
 app.use(express.static('./'));
@@ -47,9 +47,14 @@ app.get('/block', function(req, res) {
  res.sendFile(path.join(__dirname+'/blocklySkini/blocklySkini.html'));
 });
 
-var port = 8080;
+app.get('/controleur', function(req, res) {
+ res.sendFile(path.join(__dirname+'/client/controleur/controleur.html'));
+});
+
+var port = ipConfig.webserveurPort;
+var addressServer = ipConfig.serverIPAddress;
 app.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`)
+  console.log(`app listening at http://${addressServer}:${port}`);
 });
 
 

@@ -1,0 +1,68 @@
+11,10,0,Piano sounds,piano1,1,0,1,0,0,4
+12,10,0,The piano plays,piano2,1,0,3,0,0,4
+13,10,0,This is not Mozart,piano3,1,0,4,0,0,4
+14,10,0,The piano keeps calm,piano4,1,0,4,0,0,4
+15,10,0,I would like to play the piano,piano5,1,0,2,0,0,4
+16,10,0,I prefer the harpsichord,piano6,1,0,4,0,0,4
+17,10,0,The piano flies,piano7,1,0,3,0,0,4
+18,10,0,Piano but not forte,piano8,1,0,1,0,0,4
+31,30,0,Sound the bass,basse1,2,0,4,0,1,4
+32,30,0,Fender,basse2,2,0,4,0,1,4
+33,30,0,Musicman,basse3,2,0,4,0,1,4
+34,30,0,Warwick,basse4,2,0,4,0,1,4
+35,30,0,Why not slap,basse5,2,0,4,0,1,4
+36,30,0,Sea Bass in the band,basse6,2,0,4,0,1,4
+37,30,0,Basso Continuo,basse7,2,0,4,0,1,4
+38,30,0,An extrabass,basse8,2,0,4,0,1,4
+51,50,0,Almost Miles,synth1,3,0,1,0,2,4
+52,50,0,Remember Randy Brecker,synth2,3,0,1,0,2,4
+53,50,0,What about Don Cherry,synth3,3,0,2,0,2,4
+54,50,0,I like Ornette Coleman,synth4,3,0,2,0,2,4
+55,50,0,Not realy Kenny Dorham,synth5,3,0,4,0,2,4
+56,50,0,Neither Roy Eldridge,synth6,3,0,3,0,2,4
+57,50,0,Dizziy Gillespie,synth7,3,0,3,0,2,4
+58,50,0,Neal Hefti plays also the tumpet,synth8,3,0,4,0,2,4
+71,70,0,Powerfull beat,batterie1,4,0,4,0,3,4
+72,70,0,Steady beat,batterie2,4,0,4,0,3,4
+73,70,0,Pulse beat,batterie3,4,0,4,0,3,4
+74,70,0,Beat together,batterie4,4,0,4,0,3,4
+75,70,0,Beat the game,batterie5,4,0,4,0,3,4
+76,70,0,Beat the cream,batterie6,4,0,4,0,3,4
+77,70,0,Beat and Kick,batterie7,4,0,4,0,3,4
+78,70,0,Bang the drum,batterie8,4,0,4,0,3,4
+79,70,0,Beat a retreat,batterie9,4,0,4,0,3,4
+80,70,0,Beat box,batterie10,4,0,4,0,3,4
+81,70,0,Beat the air,batterie11,4,0,4,0,3,4
+82,70,0,A dead beat,batterie12,4,0,4,0,3,4
+83,70,0,I cant beat that,batterie13,4,0,4,0,3,4
+84,70,0,Dont skip a beat,batterie14,4,0,4,0,3,4
+85,70,0,Can you beat it,batterie15,4,0,4,0,3,4
+86,70,0,Dont that beat all!,batterie16,4,0,2,0,3,4
+87,70,0,I beat my brain out,batterie17,4,0,2,0,3,4
+88,70,0,I can not beat that,batterie18,4,0,2,0,3,4
+89,70,0,To beat or not to beat,batterie19,4,0,2,0,3,4
+90,70,0,Beat else,batterie20,4,0,2,0,3,4
+96,95,0,Michael Brecker,saxo1,5,0,4,0,4,4
+97,95,0,Ornette Coleman,saxo2,5,0,1,0,4,4
+98,95,0,John Coltrane,saxo3,5,0,1,0,4,4
+99,95,0,Bud Freeman,saxo4,5,0,2,0,4,4
+100,95,0,Dexter Gordon,saxo5,5,0,3,0,4,4
+101,95,0,Coleman Hawkins,saxo6,5,0,2,0,4,4
+102,95,0,Joe Henderson,saxo7,5,0,2,0,4,4
+103,95,0,Mezz Mezzrow,saxo8,5,0,1,0,4,4
+111,110,0,DX7,grid1,6,0,1,0,5,4
+112,110,0,Phantom,grid2,6,0,4,0,5,4
+113,110,0,Moog,grid3,6,0,1,0,5,4
+114,110,0,FM8,grid4,6,0,2,0,5,4
+115,110,0,Ensoniq,grid5,6,0,3,0,5,4
+116,110,0,ARP,grid6,6,0,2,0,5,4
+117,110,0,Oberheim,grid7,6,0,4,0,5,4
+118,110,0,Polymoog,grid8,6,0,1,0,5,4
+121,120,0,Joshua Redman,saxo9,7,0,1,0,6,4
+122,120,0,Sonny Rollins,saxo10,7,0,2,0,6,4
+123,120,0,Archie Shepp,saxo11,7,0,3,0,6,4
+124,120,0,Wayne Shorter,saxo12,7,0,2,0,6,4
+125,120,0,Lester Young,saxo13,7,0,1,0,6,4
+126,120,0,Charlie Parker,saxo14,7,0,3,0,6,4
+127,120,0,Eric Marienthal,saxo15,7,0,4,0,6,4
+128,120,0,Marceo Parker,saxo16,7,0,4,0,6,4

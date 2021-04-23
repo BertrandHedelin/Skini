@@ -132,3 +132,44 @@
 {"date":"28:02:2018:18:39:20","source":"websocketServerSkini.js","type":"abletonStartClip","note":"FM8-8","pseudo":"sdfsdfds","id":582279,"text":"sdfsdfds a choisi FM8-8"}
 {"date":"28:02:2018:18:39:20","source":"controleAbleton.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"sdfsdfds","id":582279,"note":30,"instrumentNo":8,"nomSon":"FM8-8"}
 {"date":"15:04:2021:13:37:20","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"desz"}
+{"date":"23:04:2021:09:56:41","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive1","pseudo":"desz","id":260171,"text":"desz a choisi Massive1"}
+{"date":"23:04:2021:09:58:53","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Giant1","pseudo":"desz","id":511580,"text":"desz a choisi Giant1"}
+{"date":"23:04:2021:09:58:56","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":511580,"note":10,"instrumentNo":1,"nomSon":"Giant1"}
+{"date":"23:04:2021:09:59:03","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive4","pseudo":"desz","id":511580,"text":"desz a choisi Massive4"}
+{"date":"23:04:2021:09:59:06","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":511580,"note":25,"instrumentNo":6,"nomSon":"Massive4"}
+{"date":"23:04:2021:10:03:57","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Round1","pseudo":"desz","id":62547,"text":"desz a choisi Round1"}
+{"date":"23:04:2021:10:04:01","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":62547,"note":12,"instrumentNo":3,"nomSon":"Round1"}
+{"date":"23:04:2021:10:06:27","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Giant1","pseudo":"desz","id":787600,"text":"desz a choisi Giant1"}
+{"date":"23:04:2021:10:07:50","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Giant1","pseudo":"desz","id":379648,"text":"desz a choisi Giant1"}
+{"date":"23:04:2021:10:09:53","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Giant1","pseudo":"desz","id":878087,"text":"desz a choisi Giant1"}
+{"date":"23:04:2021:10:09:54","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":878087,"note":10,"instrumentNo":1,"nomSon":"Giant1"}
+{"date":"23:04:2021:10:10:07","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive2","pseudo":"desz","id":878087,"text":"desz a choisi Massive2"}
+{"date":"23:04:2021:10:10:10","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":878087,"note":23,"instrumentNo":6,"nomSon":"Massive2"}
+{"date":"23:04:2021:10:17:42","source":"websocketServerSkini.js","type":"DAWStartClip","note":"FM8-2","pseudo":"desz","id":813267,"text":"desz a choisi FM8-2"}
+{"date":"23:04:2021:10:17:44","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":813267,"note":15,"instrumentNo":8,"nomSon":"FM8-2"}
+{"date":"23:04:2021:10:17:56","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive4","pseudo":"desz","id":813267,"text":"desz a choisi Massive4"}
+{"date":"23:04:2021:10:18:00","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":813267,"note":25,"instrumentNo":6,"nomSon":"Massive4"}
+{"date":"23:04:2021:12:08:19","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive2","pseudo":"desz","id":150818,"text":"desz a choisi Massive2"}
+{"date":"23:04:2021:12:08:21","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":150818,"note":23,"instrumentNo":6,"nomSon":"Massive2"}
+{"date":"23:04:2021:12:14:10","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Polyplex3","pseudo":"desz","id":156772,"text":"desz a choisi Polyplex3"}
+{"date":"23:04:2021:12:14:12","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":19,"instrumentNo":2,"nomSon":"Polyplex3"}
+{"date":"23:04:2021:13:17:08","source":"websocketServerSkini.js","type":"DAWStartClip","note":"FM8-3","pseudo":"desz","id":156772,"text":"desz a choisi FM8-3"}
+{"date":"23:04:2021:13:17:10","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":21,"instrumentNo":8,"nomSon":"FM8-3"}
+{"date":"23:04:2021:13:17:25","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive4","pseudo":"desz","id":156772,"text":"desz a choisi Massive4"}
+{"date":"23:04:2021:13:17:26","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":25,"instrumentNo":6,"nomSon":"Massive4"}
+{"date":"23:04:2021:13:17:36","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Hebreu3","pseudo":"desz","id":156772,"text":"desz a choisi Hebreu3"}
+{"date":"23:04:2021:13:17:37","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":33,"instrumentNo":12,"nomSon":"Hebreu3"}
+{"date":"23:04:2021:13:17:50","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Giant1","pseudo":"desz","id":156772,"text":"desz a choisi Giant1"}
+{"date":"23:04:2021:13:17:53","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":10,"instrumentNo":1,"nomSon":"Giant1"}
+{"date":"23:04:2021:13:17:59","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive2","pseudo":"desz","id":156772,"text":"desz a choisi Massive2"}
+{"date":"23:04:2021:13:18:03","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":23,"instrumentNo":6,"nomSon":"Massive2"}
+{"date":"23:04:2021:13:18:23","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Polyplex4","pseudo":"desz","id":156772,"text":"desz a choisi Polyplex4"}
+{"date":"23:04:2021:13:18:25","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":156772,"note":32,"instrumentNo":2,"nomSon":"Polyplex4"}
+{"date":"23:04:2021:13:57:10","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Massive1","pseudo":"desz","id":82505,"text":"desz a choisi Massive1"}
+{"date":"23:04:2021:13:57:13","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":82505,"note":14,"instrumentNo":6,"nomSon":"Massive1"}
+{"date":"23:04:2021:15:25:16","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Polyplex2","pseudo":"desz","id":777486,"text":"desz a choisi Polyplex2"}
+{"date":"23:04:2021:15:25:17","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":777486,"note":11,"instrumentNo":2,"nomSon":"Polyplex2"}
+{"date":"23:04:2021:17:41:04","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Polyplex2","pseudo":"desz","id":482170,"text":"desz a choisi Polyplex2"}
+{"date":"23:04:2021:17:41:04","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":482170,"note":11,"instrumentNo":2,"nomSon":"Polyplex2"}
+{"date":"23:04:2021:18:34:20","source":"websocketServerSkini.js","type":"DAWStartClip","note":"Percu2","pseudo":"desz","id":794240,"text":"desz a choisi Percu2"}
+{"date":"23:04:2021:18:34:22","source":"controleDAW.js","type":"COMMANDE ABLETON ENVOYEE","pseudo":"desz","id":794240,"note":12,"instrumentNo":1,"nomSon":"Percu2"}

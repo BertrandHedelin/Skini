@@ -123,45 +123,10 @@ var violon1, violon2, violon3, tick, stopTankViolon, groupePercuON, stopTankPian
 
   var prog = mr.createModule(instructions);
 
- mr.addEventListener("groupePercuON", ()=> {console.log("*** groupePercuON")});
-mr.addEventListener("groupeTrompetteON", ()=> {console.log("*** groupeTrompetteON")});
-
-mr.addEventListener("groupePercuOFF", ()=> {console.log("*** groupePercuOFF")});
-mr.addEventListener("groupeTrompetteOFF", ()=> {console.log("*** groupeTrompetteOFF")});
-
-mr.addEventListener("stopTankViolon", ()=> {console.log("*** emit stopTankViolon")});
-mr.addEventListener("stopTankPiano", ()=> {console.log("*** emit stopTankPiano")});
-
-// Fin du programme -----------------------
-console.log(" ** testOrchestration1 **");
-var currentTime = Date.now();
-
-console.log(" 1 ----------------");
-for(var i=0; i < 5; i++){
-  mr.activateSignal("tick", 1);
-  mr.runProg(prog);
-}
-var currentTimeNew = Date.now();
-console.log("Durée du prog:", currentTimeNew - currentTime, "ms" );
-
-console.log(" 2 ----------------");
-for(var i=0; i < 6; i++){
-  mr.activateSignal("tick", 1);
-  mr.runProg(prog);
-}
-
-  mr.activateSignal("violon1", 1);
+  console.log(" 1 ----------------");
   mr.runProg(prog);
 
-  mr.activateSignal("piano1", 1);
-  mr.activateSignal("violon2", 1);
+  console.log(" 2 ----------------");
   mr.runProg(prog);
 
-  mr.activateSignal("violon3", 1);
-  mr.runProg(prog);
-
-console.log(" 3 ----------------");
-for(var i=0; i < 6; i++){
-  mr.activateSignal("tick", 1);
-  mr.runProg(prog);
-}
+  mr.printProgram(prog, false);

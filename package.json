@@ -1,0 +1,21 @@
+{
+  "name": "nodeskini",
+  "version": "1.0.0",
+  "description": "Pour Blockly:",
+  "main": "skini.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://srv-indes/user/berpetit/home/nodeskini.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-array": "^0.0.22",
+    "express": "^4.17.1",
+    "osc-min": "^1.1.2",
+    "ws": "^7.4.5"
+  }
+}

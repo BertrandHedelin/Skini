@@ -1,15 +1,17 @@
 "use hopscript"
 
+
+// ***************** FETE DE LA SCIENCE 2018 *****************************
+
 /* Configuration de l'architecture IP, OSC, Websocket ====================
-24/1/2017 BH
 
                 websocket en 8080
    SERVEUR <----------------------> CLIENT  OSC OUT: 10000 (vers Processing Visu)
       ^ OSC IN:13000                  ^  ^  OSC OUT: 12000 (vers Processing Midi)
-      |                               |  |
-      |         |---------------------|  |                   
-      |         |         OSC            | OSC
-      v         V                        |
+      |                                            |  |
+      |         |----------------------------|  |
+      |         |         OSC                    | OSC
+      v         V                                  |
     Processing MIDI                      v
      OSC IN:  12000                  Processing Visu (Uniquement en réception)
      OSC OUT: 13000                   OSC IN: 10000
@@ -19,38 +21,15 @@ faut passer par Processing (ou autre outil).
 L'avantage de Processing est son indépendance vis à vis de l'OS.
 Dans cette architecture, il n'y a que le serveur qui doit tourner sous Linux (ou Mac ?).
 
-Attention: Lors de la mise en place de la spatialisation dans Reaktor.
-Si la communication se fait en OSC, il faudra un port supplémentaire pour Reaktor soit depuis
-le client, soit depuis le serveur.
-Si la communication se fait en Midi, il faudra passer par Processing MIDI en l'état.
-Le scénario OSC est intéressant d'un point de vue démonstration.
+===========================================================================*/
 
-   track1 = calame
-   track2 = FM8
-   track3 = Absynth
-   track4 = Prism
-   track5 = Guitar Rig
-   track6 = Massive
-   track7 = Voix Elodie
-   track8 = GR1 pour la voix Voix
-   track9 = GR2 pour la voix Voix
-   track10= GR3 pour la voix Voix
-   track11= GR4 pour la voix Voix
-   track12= Voix Frank
-   track13= Piano
-   track14= Quadri
-===========================================================================
-*/
 exports.outportProcessing =  10000; // Automate vers Processing visu
 exports.outportForMIDI =     12000; // Automate vers Processing OSC -> Midi
 exports.portWebSocket =      13000; // Port de récéption des commandes OSC
 exports.outportLumiere =      7700;
 exports.inportLumiere =       9000;
 
-//exports.remoteIPAddressImage =    "192.168.43.78"; // IP du serveur Processing pour la Visu
-//exports.remoteIPAddressSound =    "192.168.43.78"; // IP du serveur Procesing pour les commandes MIDI
-
-var ipConfig = require("./ipConfig.json"); 
+var ipConfig = require("./ipConfig.json");
 exports.remoteIPAddressImage = ipConfig.remoteIPAddressImage; // IP du serveur Processing pour la Visu
 exports.remoteIPAddressSound = ipConfig.remoteIPAddressSound; // IP du serveur Procesing pour les commandes MIDI REAPER
 exports.remoteIPAddressAbleton = ipConfig.remoteIPAddressAbleton; // IP du serveur Procesing pour les commandes MIDI Ableton
@@ -58,12 +37,37 @@ exports.remoteIPAddressLumiere = ipConfig.remoteIPAddressLumiere; // Application
 exports.serverIPAddress = ipConfig.serverIPAddress; // IP du serveur pour les Websockets, donc de cette machine
 						    // Ne pas utiliser 127.0.0.1 ni localshot ça pose pb avec les websockets
 
-exports.abletonON = true;
+// Indexation des bus Midi dans Processing
+exports.busMidiFM8  = 0;
+exports.busMidiAbsynth  = 1;
+exports.busMidiPrism  = 2;
+exports.busMidiGuitarRig = 3;
+exports.busMidiReaper = 4;
+exports.busMidiMassive = 5;
+exports.busMidiAbleton = 6; // Indispensable
+exports.busMidiEffetVoix1 = 7;
+exports.busMidiEffetVoix2 = 8;
+exports.busMidiEffetVoix3 = 9;
+exports.busMidiEffetVoix4 = 10;
+exports.busMidiQuadri1 = 11;
 
-exports.canWidth  = 10; // Pas utile si pas de tablette, 500
-exports.canHeight = 10; // Pas utile si pas de tablette, 250
+// Pour charger les fonctions et modules de scenes de type GOLEM
+exports.scenesON = false;
 
-// Graphique seul
+/***************************************************
+
+ Indexation des bus Midi dans Processing
+ pour les séquenceurs.
+
+****************************************************/
+exports.busMidiInstrumentSequenceur     = [0, 1, 2, 3];
+exports.canauxMidiInstrumentSequenceur  = [2, 3, 4, 1];
+
+/*******************************************************
+
+CONTROLE PROCESSING GRAPHIQUE
+
+*******************************************************/
 exports.ECRAN_NOIR   = 0;
 exports.ATTRACTOR    = 1;
 exports.BOUGE_LETTRE = 2;
@@ -74,30 +78,252 @@ exports.CAMERA_BRIGHTNESS = 6;
 exports.CAMERA_POINTILLIZE = 7;
 exports.CALAME       = 8;
 exports.MORPH_LIGNE_CERCLE = 9;
-exports.ARAIGNEE     = 10;
+exports.ARAIGNEE  = 10;
 exports.CHAOS     = 11;
-exports.CHAOS2     = 12;
-exports.ABLETON1     = 13;
-exports.CHAOS3 = 14;
-exports.CHAOS4 = 15;
+exports.CHAOS2    = 12;
+exports.ABLETON1  = 13;
+exports.CHAOS3    = 14;
+exports.CHAOS4    = 15;
 
-// Reaper
-exports.MUTE_ON = 127;
-exports.MUTE_OFF = 0;
+/********************************************************
 
-// ******* ABLETON LIVE ************
-exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
+AUTOMATE HIPHOP
+
+*********************************************************/
+// Les fichiers Hiphop que décrivent les trajets
+// Les signaux à utiliser dans ces programmes sont décrirs dans groupeDesSons
+
+exports.automate1 = './autoOrchestre';
+exports.automate2 = './autoTechno';
+exports.automate3 ='./autoGrandloupV2';
+
+// CC undefined dans la norme MIDI. Le controle du tempo dans Ableton ne se fait pas de façon absolu mais
+// selon un minimum et un maximum entre lesquels sont affectées des valeurs au controleur midi.
+// Ce n'est pas trés évident comme mécanisme.
+exports.tempo_ABL = 20;
+
+/*****************************************************************************
+
+Gestion de la Matrice des possibles
+Automate de gestion de la matrice des possibles
+
+******************************************************************************/
+exports.nbeDeGroupesClients = 2;
+
+// Ces données sont trés sensibles sur le bon déroulement de l'interaction
+// Des timers trop lents induisent des "trous" dans l'exécution.
+exports.timer1  = 1000 * 4;// Orchestre 100 * 4 Pour un tempo de 50 sur une mesure 4/4
+exports.timer2  = 450 * 4; // Techno Pour un tempo de 120 sur une mesure 4/4
+exports.timer3  = 520 * 4; // grandloup 108
+
+exports.timerDivision1  = 4; 
+exports.timerDivision2  = 4;
+exports.timerDivision3  = 8;  // 2 mesures à 4 temps
+
+// La synchro midi est émise par processing qui la reçoit d'Ablrton ou autre source
+exports.synchoOnMidiClock = true;
+
+// Dénomination des groupes de sons
+exports.groupesDesSons = [
+[  // Orchestre
+  ["violonsStac", 0], // nom de l'instrument, n° du groupe de son dans le fichier csv
+  ["violonsTrem", 1],
+  ["violonsSord", 2],
+  ["celloSord",   3],
+  ["celloPizz",   4],
+  ["celloSust",   5],
+  ["contrebasseSust", 6],
+  ["contrebassePizz", 7],
+  ["clarinettesP", 8],
+  ["clarinettesStac", 9],
+  ["clarinettesSfz", 10],
+  ["flutesSfz", 11],
+  ["flutesPhrases", 12],
+  ["boisSfz", 13],
+  ["corsF", 14],
+  ["corsSfz", 15],
+  ["trombonesP", 16],
+  ["trompettesF", 17],
+  ["xylo", 18],
+  ["percu", 19],
+  ["harpe", 20],
+  ["rise", 21]
+],
+
+[  // Techno
+  ["evolve", 0],
+  ["poly", 1],
+  ["fm", 2],
+  ["massive", 3],
+  ["round", 4],
+  ["absynth", 5],
+  ["drone", 6],
+  ["alien", 7],
+  ["notes", 8]
+],
+[  // Grandloup
+  ["GLpiano", 0],
+  ["GLpercu", 1],
+  ["GLbasse", 2],
+  ["GLtrompette", 3],
+  ["GLbatterie", 4],
+  ["GLsaxo", 5],
+  ["GLguitare", 6]
+]
+
+];
+
+/************************************
+
+CONFIGURATION DU SEQUENCEUR
+
+***********************************/
+const tripleCrocheTR = 2;
+const tripleCrocheR = 3;
+const doubleCrocheTR = 4;
+const doubleCrocheR = 6;
+const crocheTR = 8;
+const crocheR = 12;
+const noireTR = 16;
+const noireR = 24;
+const blancheTR = 32;
+const blancheR = 48;
+const rondeTR = 64;
+const rondeR = 96;
+
+exports.tempsMesure = 4;        // Partie haute de la mesure, nombre de temps dans la mesure
+exports.divisionMesure = noireR;  // Partie basse de la mesure
+exports.nbeDeMesures = 2;
+exports.tempo = 108;    // à la minute
+
+// En mettre 6, même vides, sinon pb sur le client
+exports.notesInstrument = [
+  ["Drum",[ // POLYPLEX Leg Day
+      ["TOM",  60], // C
+      ["SNARE",  62], // D
+      ["CLOSE", 64], // E
+      ["OPEN",65], // F
+      ["BIG DRUM",67],  // G
+      ["CLAP",  69], // A
+      ["HEY",  71], // H
+      ["CYM",   72], // C
+    ]
+  ],
+  ["Lead",[
+    ["Debut",42],
+    ["Fin",120]
+  ]],
+  ["Pad",[
+    ["Debut",40],
+    ["Fin",70]
+  ]],
+  ["Bass",[
+    ["Debut",29],
+    ["Fin",65]
+  ]],
+  ["",[
+    ["Debut",10],
+    ["Fin",127]
+  ]],
+   ["",[
+    ["Debut",10],
+    ["Fin",127]
+  ]]
+];
+
+/*************************************
+
+CHEMIN DES FICHIERS SONS MP3 pour les clients
+
+Le choix se fait sur le client en fonction d'abletonON donc 
+de la pièce choisie dans la contrôleur.
+
+*************************************/
+
+exports.soundFilesPath1 = "";
+exports.soundFilesPath2 = "";
+exports.soundFilesPath3 = "grandloup";
+
+/************************************
+
+FICHIERS DES CLIPS CSV ET MENU CLIENT SELECTEUR
+
+************************************/
+// Fichiers CSV à mettre dans l'ordre selon les choix dans le controleur
+// mise à jour dans websocketServer, sur demande client "loadAbletonTable"
+
+exports.configClips = [
+"./pieces/orchestreV2.csv",
+"./pieces/techno.csv",
+"./pieces/grandloupV2.csv"
+];
+
+// Arbres utilisé dans le selecteur uniquement.
+// Arborescences du client selecteur qui doit être en phase avec configClips
+// arbre1 <=> configClips[0] ...
+// Orchestre
+exports.arbre1 = [
+  [ // N0
+  "cordes", "vents", "percuharpe"
+  ],
+  [ // N1
+    ["violons", "cellos", "contrebasses" ],
+    ["bois", "cuivres", "clarinettes"],
+    ["percu","xylo","harpe"]
+  ]
+];
+
+exports.arbre2 = [
+  [ // N0
+  "gamelan", "percu", "flutes"
+  ],
+  [ // N1
+    ["kettleLaSol", "kettleMiRe", "kettleDoLa" ],
+    ["GongCloche", "gangsa", "taiko"],
+    ["afrique","shakuAttaque","shakuDoux"]
+  ]
+];
+
+// Techno
+exports.arbre3 = [
+  [ // N0
+  "beats", "sequences", "sounds"
+  ],
+  [ // N1
+    ["evolve", "poly", "FM" ],
+    ["massive", "round", "absynth"],
+    ["drone","alien","notes"]
+  ]
+];
+
+
+
+/********************************************************
+ POUR TEST DES SCENES
+
+ ABLETON LIVE
+
+*********************************************************/
+exports.tempo_ABL = 20;
+// CC undefined dans la norme MIDI. Le controle du tempo dans Ableton ne se fait pas de façon absolu mais
+// selon un minimum et un maximum entre lesquels sont affectées des valeurs au controleur midi.
+// Ce n'est pas trés évident comme mécanisme.
+
+/****************
+SPECIFIQUE GOLEM
+*****************/
 
 // Attention à la cohérence des commandes Midi ici et dans controleAbletonAgit.csv
 // Les notes de controleAbletonAgit.csv peuvent > 127, mais pas les paramètres ici.
 
 // LE GOLEM AGIT: controleAbletonAgit.csv : 10 à 93 - 120 à 220
-// FETE DE LA MORT DU GOLEM: attention de 220 à 413 pour les notes dans contrôleAbletonMortDuGolem
+// FETE DE LA MORT DU GOLEM: attention prendre de 220 à 413 pour les notes dans contrôleAbletonMortDuGolem
 
 // Prendre de 94 à 119 pour des contrôles divers
-// C'est un peu au milieu de la plage de GOLEM AGIT, mais je n'ai pas envie de refaire ça... 
+// C'est un peu au milieu de la plage de GOLEM AGIT, mais je n'ai pas envie de refaire ça...
 // (La raison de tout ça est qu'au début je m'étais limité à 128, après j'ai étendu à 16 * 128= 2048 notes midi)
 // ABLETON pour Golem dérive, ce sont des lectures de fichiers son
+
 exports.StopAll_ABL = 98;
 exports.StopTrompette_ABL = 99;
 exports.Trompette1_ABL = 100;
@@ -114,15 +340,19 @@ exports.CTLQuadri1_ABL = 110; //Pour l'initialisation de la quadri dans la MORT 
 exports.CTLQuadri2_ABL = 111;
 exports.CTLQuadri3_ABL = 112;
 
-//******* FIN ABLETON LIVE *************
 
-// Pour le client Golem
-exports.nombreDeNiveaux = 2;
+/********************************************************
 
-// Indexation des bus Midi dans OSCmidiHop de processing
-exports.busMidiFM8 	= 0;
+CONTROLE REAPER
+
+*********************************************************/
+exports.MUTE_ON = 127;
+exports.MUTE_OFF = 0;
+
+// Indexation des bus Midi dans Processing
+exports.busMidiFM8  = 0;
 exports.busMidiAbsynth  = 1;
-exports.busMidiPrism 	= 2;
+exports.busMidiPrism  = 2;
 exports.busMidiGuitarRig = 3;
 exports.busMidiReaper = 4;
 exports.busMidiMassive = 5;
@@ -146,15 +376,6 @@ exports.CCmuteTrack9 = 109;
 exports.CCmuteTrack10 = 110;
 exports.CCmuteTrack11 = 111;
 exports.CCmuteTrack12 = 112;
-
-// Pas utilisé, pour Reaper normalement
-/*
-exports.CCToggleMuteTrack1 = 111;
-exports.CCToggleMuteTrack2 = 112;
-exports.CCToggleMuteTrack3 = 113;
-exports.CCToggleMuteTrack4 = 114;
-exports.CCToggleMuteTrack5 = 115;
-*/
 
 // Pour le mixeur dans Reaper, les 8 premières valeurs correspondent à MidiMix Akai
 exports.potardVolume  = 19;
