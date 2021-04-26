@@ -1,12 +1,11 @@
 <html>
   <head>
       <link rel="stylesheet" type="text/css" href="./client/controleur/stylecontroleur.css" >
-      <meta charset="UTF-8" name="viewport" />
+      <meta charset="UTF-8" name="viewport" content="width=device-width, height=device-height, shrink-to-fit=yes, intial-scale=1" />
       <script type='text/javascript' src='./client/controleur/controleurbundle.js'></script>
   </head>
-    
-    <body onload="initControleur();">
-      
+
+  <body onload="initControleur(window.location.hostname);">
       <div class="wrapper">
       <div id="listBoutonsLiens" class="listBoutonsPad" style="display:none"></div>
       </div>
@@ -19,11 +18,7 @@
       <button  id="buttonLoadDAW2" class="button" onclick="loadDAW(2);">ORCH2</button>
       <button  id="buttonLoadDAW3" class="button" onclick="loadDAW(3);">ORCH3</button>
 
-      <!--
-      <button  id="buttonStartDAW" class="button buttonStartDAW"  onclick=~{clientControleur.startDAW();}>START</button>
-      <button  id="buttonStopDAW" class="button buttonStopDAW" style="display:none" onclick=~{clientControleur.stopDAW();}>STOP</button>
-       -->
-      <button  id="buttonStopAutomate" class="button buttonStopAutomate" style="display:none" onclick=~{clientControleur.stopAutomate();}>AUT OFF</button>
+      <button  id="buttonStopAutomate" class="button buttonStopAutomate" style="display:none" onclick="stopAutomate();">AUT OFF</button>
       <button  id="buttonStartAutomate" class="button buttonStartAutomate"  onclick="startAutomate();">AUT ON</button>
       <button  id="buttonResetSequenceur" class="button button1"  onclick="resetSequenceur();">RAZ SEQ</button>
       <button  id="buttonLoadSession" class="button"  onclick="checkSession();">CHECK</button>
@@ -44,7 +39,6 @@
       <span id="FileAttente"></span>
       </div>
       <div class="info-spectateur"><span id="MessageDuServeur"></span></div>
+  </body>
 
-    </body>
-
-   </html>
+</html>

@@ -78,7 +78,7 @@ function creationPad() {
 		var em = document.createElement("button");
 		em.dataset.colone = j;
 		em.setAttribute("class", "numColone");
-		em.addEventListener("click", function(event) { clientControleur.clickColoneBouton(this.dataset.colone); });
+		em.addEventListener("click", function(event) { clickColoneBouton(this.dataset.colone); });
 		place.appendChild(em);
 		em.innerHTML = j;
 	}
@@ -101,7 +101,7 @@ function creationPad() {
 			  bouton.dataset.colone = j;
 
 			  bouton.setAttribute("class", "padBouton");
-			  bouton.addEventListener("click", function(event) { clientControleur.clickPadBouton(this.id); });
+			  bouton.addEventListener("click", function(event) { clickPadBouton(this.id); });
 			  place.appendChild(bouton);
 		}
 		var el = document.createElement("br");
@@ -201,7 +201,7 @@ function clickColoneBouton(colone) {
 		id += nbeColonesPad;
 	}
 }
-exports.clickColoneBouton = clickColoneBouton;
+window.clickColoneBouton = clickColoneBouton;
 
 // Quand on clique un bouton (X,Y)
 function clickPadBouton(padBouton) {
@@ -300,11 +300,6 @@ function initialisation() {
 	el.style.display = "block";
 
 	initServerListener();
-
-// Le temps de mettre en place
-/*	setInterval(function() {
-		getNbeDeSpectateurs();
-	}, 1000 );*/
 }
 exports.initialisation = initialisation;
 
@@ -363,17 +358,6 @@ function stopDAW() {
 }
 window.stopDAW = stopDAW;
 
-/*
-function startDAW() {
-	msg.type = "setDAWON";
-	msg.value = DAWTableEnCours;
-	ws.send(JSON.stringify(msg));
-	document.getElementById( "buttonStartDAW").style.display = "none";
-	document.getElementById( "buttonStopDAW").style.display = "inline";
-}
-exports.startDAW = startDAW;
-*/ 
-
 function startAutomate() {
 	msg.type = "setDAWON";
 	if (DAWTableEnCours !== 0 ) {
@@ -400,32 +384,6 @@ function stopAutomate() {
 	cleanQueues();
 }
 window.stopAutomate = stopAutomate;
-
-/*function saveSession(){
-	var reponse = window.prompt("Enter le nom de la session");
-	if(reponse === undefined || reponse === '') return;
-
-	var fileName;
-	fileName = par.sequencerFilePath + reponse + '.csv';
-	if(debug1) console.log("saveSession:", fileName);
-	msg.type = "saveSession";
-	msg.fileName = fileName;
-	ws.send(JSON.stringify(msg));
-}
-window.saveSession = saveSession;
-
-function loadSession(){
-	var reponse = window.prompt("Enter le nom de la session");
-	if(reponse === undefined || reponse === '') return;
-
-	var fileName;
-	fileName = par.sequencerFilePath + reponse + '.csv';
-	if(debug1) console.log("loadSession:", fileName);
-	msg.type = "loadSession";
-	msg.fileName = fileName;
-	ws.send(JSON.stringify(msg));
-}
-window.loadSession = loadSession;*/
 
 function checkSession(){
 	msg.type = "checkSession";
@@ -489,16 +447,14 @@ function initWSSocket() {
 				automateEncours = false;
 				break;
 
-
 			case "sessionLoaded":
 				document.getElementById("MessageDuServeur").innerHTML = "Session loaded :" + msgRecu.fileName;
 				break;
 
 			case "message":  
 				if (debug) console.log(msgRecu.text);
-				/*var element = document.getElementById("MessageDuServeur");
-				element.innerHTML = msgRecu.text;*/
 				break;
+
 			case "setInMatrix":
 				setPadButton(msgRecu.son, msgRecu.groupe, msgRecu.status);
 				break;
@@ -516,9 +472,7 @@ function initWSSocket() {
 				document.getElementById("MessageDuServeur").innerHTML = "Tick:" + msgRecu.tick;
 				break;
 
-
-
-			default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu );
+			default: if (debug1) console.log("Le Client reçoit un message inconnu", msgRecu );
 		}
 	};
 
@@ -532,6 +486,7 @@ function initWSSocket() {
 		if (debug1) console.log( "clientcontroleur.js : ON CLOSE");
    	}
 }
+
 
 function initServerListener() {
 /*    	server.addEventListener('etatDeLaFileAttente', function( event ) {
@@ -586,11 +541,11 @@ function initServerListener() {
 
 },{"../../serveur/ipConfig":2,"../../serveur/skiniParametres":3}],2:[function(require,module,exports){
 module.exports={
-	"remoteIPAddressImage": "192.168.1.75",
-	"remoteIPAddressSound": "192.168.1.75",
-	"remoteIPAddressLumiere": "192.168.1.75",
-	"remoteIPAddressGame": "192.168.1.75",
-	"serverIPAddress": "192.168.1.75",
+	"remoteIPAddressImage": "192.168.95.96",
+	"remoteIPAddressSound": "192.168.95.96",
+	"remoteIPAddressLumiere": "192.168.95.96",
+	"remoteIPAddressGame": "192.168.95.96",
+	"serverIPAddress": "192.168.95.96",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,
@@ -663,7 +618,7 @@ FICHIERS DES CLIPS CSV
 // Fichiers CSV à mettre dans l'ordre selon les choix dans le controleur
 // mise à jour dans websocketServer, sur demande client "loadAbletonTable"
 
-exports.configClips = "./pieces/trouveLaPercu.csv";
+exports.configClips = "pieces/trouveLaPercu.csv";
 
 /*************************************
 CHEMIN DES FICHIERS SONS MP3 pour les clients

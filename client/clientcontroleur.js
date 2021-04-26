@@ -11,8 +11,8 @@ Version Node.js
 **************************/
 "use strict"
 
-var par = require('../../serveur/skiniParametres');
-var ipConfig = require('../../serveur/ipConfig');
+var par = require('../serveur/skiniParametres');
+var ipConfig = require('../serveur/ipConfig');
 
 var port;
 var ws;
@@ -36,7 +36,7 @@ var debug1 = true;
 
 var DAWTableEnCours = 0;
 var automateEncours = false;
-
+var serverHostname;
 // Autres déclarations
 
 var msg = { // On met des valeurs pas defaut, mais ce n'est pas nécessaire.
@@ -309,8 +309,8 @@ function getNbeDeSpectateurs() {
 	ws.send(JSON.stringify(msg));
 }
 
-function initControleur() {
-	initWSSocket();
+function initControleur(serverHostname) {
+	initWSSocket(serverHostname);
 	initialisation();
 }
 window.initControleur = initControleur;
@@ -391,9 +391,10 @@ function checkSession(){
 window.checkSession = checkSession;
 
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
-function initWSSocket() {
+function initWSSocket(host) {
 
-	ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
+	//ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
+	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
 	if (debug1) console.log("clientcontroleur.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
 	ws.onopen = function( event ) {

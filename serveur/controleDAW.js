@@ -22,6 +22,8 @@ var filesDattente = [ [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ],
 
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
+var nbeDeGroupesSons = 0;
+var nombreInstruments = 0;
 
 // ===================  Pour le log du comportements de l'interaction ==========================
 var msg = {
@@ -35,6 +37,12 @@ var messageLog = {
     pseudo: "",
     id: ""
   };
+
+function setAutomatePossible(automate) {
+  automatePossibleMachine = automate; 
+}
+exports.setAutomatePossible = setAutomatePossible;
+
 
 function logInfoDAW(message){
   message.date = getDateTime();
@@ -147,6 +155,11 @@ function loadDAWTable(fichier) {
 }
 exports.loadDAWTable = loadDAWTable;
 
+function displaySession(){
+  console.log(tableDesCommandes);
+}
+exports.displaySession = displaySession;
+
 // ======================= Initialisation pour Broadcast =============================
 
 function initBroadCastServer(serveur) {
@@ -178,12 +191,96 @@ function initDAWTable(fichier) {
         // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
         if (tableDesCommandes[i][5] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][5];
       }
-      if(debug1) console.log("controleDAW.js: Lecture ", fichier, tableDesCommandes[0] );
-      if(debug1) console.log("ControleDAW.js: Nbe de files d'attente: ", nbeDeFileDattentes);
-      //if(debug) console.log("ControleDAW.js: TableDesCommandes : ", tableDesCommandes);
+
+      if(debug) console.log("controleAbleton.js: Lecture une ligne de: ", fichier, tableDesCommandes[0] );
+      if(debug) console.log("ControleAbleton.js: Nbe de files d'attente: ", nbeDeFileDattentes);
+      if(debug) console.log("ControleAbleton.js: TableDesCommandes : ", tableDesCommandes);
+
+      nbeDeGroupesSons = 0;
+      var tableLength = tableDesCommandes.length;
+
+      // Calcul du nombre de groupe de son
+      for (var index=0; index<tableLength; index++) {
+        if (tableDesCommandes[index][9] > nbeDeGroupesSons ) nbeDeGroupesSons = tableDesCommandes[index][9]; // nbeDeGroupesSons++ ;
+          if (debug) console.log("---------------------------nbeDeGroupesSons:", nbeDeGroupesSons);
+      }
     }, false);
 };
 exports.initDAWTable = initDAWTable;
+
+function getNbeDeGroupesSons() {
+  return nbeDeGroupesSons;
+}
+exports.getNbeDeGroupesSons = getNbeDeGroupesSons;
+
+function getPatternNameFromNote(noteSkini){
+  var tableLength = tableDesCommandes.length;
+  for (var index=0; index < tableLength; index++) {
+    if (tableDesCommandes[index][0] === noteSkini ){
+      return tableDesCommandes[index][3];
+    }
+  }
+  return undefined;
+}
+exports.getPatternNameFromNote = getPatternNameFromNote;
+
+function getPatternFromNote(noteSkini){
+  var tableLength = tableDesCommandes.length;
+  for (var index=0; index < tableLength; index++) {
+    if (tableDesCommandes[index][0] == noteSkini ){ // atention pas de ===, on récupère du texte
+      return tableDesCommandes[index];
+    }
+  }
+  return undefined;
+}
+exports.getPatternFromNote = getPatternFromNote;
+
+// Pour mettre des patterns en file d'attente sans interaction.
+// Cette fonction permet d'uitiliser Skini comme un séquenceur sans interaction.
+// Le mécanisme de FIFO est utilisé, ce qui permet une combinaison avec les interactions
+// et permet tous les usages des mécanismes de lecture des FIFO.
+// Assez similaire à pushClipAbleton() de websocketServer.
+function putPatternInQueue(patternName){
+  var tableLength = tableDesCommandes.length;
+  var commande;
+
+  // On identifie le pattern par son nom, cad le texte du champ "nom"
+  for (var index=0; index < tableLength; index++) {
+    if (tableDesCommandes[index][3] === patternName ){
+      commande = tableDesCommandes[index];
+    }
+  }
+
+  if(debug) console.log("controleBAleton: putPatternInQueue: commande :", commande);
+
+  if (commande !== undefined){
+    var abletonNote = commande[0];
+    var abletonChannel = Math.floor(abletonNote / 127) + 1;
+    abletonNote = abletonNote % 127;
+    if (abletonChannel > 15) {
+      if (debug) console.log("Web Socket Server.js : pushClipAbleton: Nombre de canaux midi dépassé.");
+      return;
+    }
+    var nom = commande[3];
+    var abletonInstrument = commande[5];
+    var dureeClip = commande[10];
+    var signal = groupesClientSon.getSignalFromGroup(commande[9]) + "IN";
+    var id = 0;
+
+    var signalComplet =  { [signal] : commande[9] };
+
+    if(debug) console.log("controleAbleton:putPatternInQueue: signalComplet:", signalComplet);
+    //if(debug1) console.log("controleAbleton:putPatternInQueue:", par.busMidiAbleton, abletonChannel, abletonInstrument, abletonNote, 125, id, "Automate", dureeClip, nom, signal);
+    var dureeAttente = pushEventAbleton(par.busMidiAbleton, abletonChannel, abletonInstrument, abletonNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
+
+  }else{
+    console.log("WARN: constroleAbleton.js: Le pattern n'existe pas:", patternName);
+    return undefined;
+  }
+  return dureeAttente;
+}
+exports.putPatternInQueue = putPatternInQueue;
+
 
 // ================= Gestion des files d'attente ===========================
 function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom) {
@@ -306,12 +403,30 @@ function playAndShiftEventDAW() {
 exports.playAndShiftEventDAW = playAndShiftEventDAW;
 
 function cleanQueues() {
-  filesDattente = [ [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ],
-                  [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ] ];
+  var messageLog = { date: "" };
+  if(debug) console.log("controleDAW.js : cleanQueues", filesDattenteJouables, compteursDattente, filesDattente);
+
+  for(var i = 0; i < filesDattente.length ; i++){
+    filesDattenteJouables[i] = true;
+    compteursDattente[i] = 0;
+    filesDattente[i] = [];
+  }
+
+  messageLog.source = "controleDAW.js";
   messageLog.type = "VIDAGE FILES ATTENTES";
   logInfoDAW(messageLog);
+  if (debug1) console.log("controleDAW: cleanQueues");
+  // 255 => tous les instruments
+
+  var msg = {
+    type: "etatDeLaFileAttente",
+    value : filesDattente
+  }
+  serv.broadcast(JSON.stringify(msg));
+  //hop.broadcast('cleanQueues', 255);
 }
 exports.cleanQueues = cleanQueues;
+
 
 // ================= Visualisation de la table des commandes ===============
 

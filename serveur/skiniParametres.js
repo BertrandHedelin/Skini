@@ -45,8 +45,8 @@ AUTOMATE
 // Les signaux à utiliser dans ces programmes sont décrirs dans groupeDesSons
 
 exports.automate1 = './autoTrouveLaPercu-1';
-exports.automate2 = './autoTrouveLaPercu-2';
-exports.automate3 = './autoTrouveLaPercu-3';
+exports.automate2 = '';
+exports.automate3 = '';
 
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
 exports.canBeReloaded = true;
@@ -59,7 +59,7 @@ FICHIERS DES CLIPS CSV
 // Fichiers CSV à mettre dans l'ordre selon les choix dans le controleur
 // mise à jour dans websocketServer, sur demande client "loadAbletonTable"
 
-exports.configClips = "./pieces/trouveLaPercu.csv";
+exports.configClips = "pieces/trouveLaPercu.csv";
 
 /*************************************
 CHEMIN DES FICHIERS SONS MP3 pour les clients
@@ -68,8 +68,8 @@ de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
 exports.soundFilesPath1 = "trouveLaPercu";
-exports.soundFilesPath2 = "trouveLaPercu";
-exports.soundFilesPath3 = "trouveLaPercu";
+exports.soundFilesPath2 = "";
+exports.soundFilesPath3 = "";
 
 /***************************************
 CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
@@ -77,8 +77,8 @@ CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
 exports.avecMusicien = false; // Pour mettre en place les spécificités au jeu avec des musiciens.
 exports.decalageFIFOavecMusicien = 4; // Décalage de la FIFO vide avant le premier pattern dans une FIFO.
 exports.patternScorePath1 = "trouveLaPercu";
-exports.patternScorePath2 = "trouveLaPercu";
-exports.patternScorePath3 = "trouveLaPercu";
+exports.patternScorePath2 = "";
+exports.patternScorePath3 = "";
 
 /*****************************************************************************
 
@@ -115,7 +115,7 @@ const terre = '#A76611';
 const grisvert = '#039879';
 const grisbleu = '#315A93';
 
-const groups = [
+const groupesDesSons = [
   // Pour group: nom du groupe (0), index du groupe (1), type (2), x(3), y(4), nbe d'éléments(5), color(6), prédécesseurs(7), n° de scène graphique
   ["groupe1",   0, "group", 170, 100, 20, rouge, [], 1 ],  //0 index d'objet graphique
   ["groupe2",   1, "group", 20, 240, 20, bleu, [], 1 ],     //1
@@ -129,6 +129,5 @@ const groups = [
   ["djembe",    9, "group", 740,200, 20, rose, [], 1 ],
   ["piano",    10,"group", 740,340, 20, rose, [], 1 ]
 ];
+exports.groupesDesSons = groupesDesSons;
 
-// Nomage des groupes de sons
-exports.groupesDesSons = [ groups, groups, groups];

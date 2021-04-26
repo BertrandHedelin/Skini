@@ -15,7 +15,7 @@ var ipConfig = require('./serveur/ipConfig');
 
 // Charge le fichier des sons initiaux qui sont dans DAW
 var DAW = require('./serveur/controleDAW');
-DAW.initDAWTable("controleDAWAgitV2.csv");
+//DAW.initDAWTable("controleDAWAgitV2.csv");
 
 // Websocket dans le Serveur
 var ws = require('./serveur/websocketServer');
@@ -47,7 +47,13 @@ app.get('/block', function(req, res) {
  res.sendFile(path.join(__dirname+'/blocklySkini/blocklySkini.html'));
 });
 
-app.get('/controleur', function(req, res) {
+// Avec /controleur ça plante le client ???
+/*app.get('/controleur', function(req, res) {
+ res.sendFile(path.join(__dirname+'/client/controleur/controleur.html'));
+});
+*/
+
+app.get('/contr', function(req, res) {
  res.sendFile(path.join(__dirname+'/client/controleur/controleur.html'));
 });
 

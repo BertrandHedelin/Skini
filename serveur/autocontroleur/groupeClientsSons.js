@@ -40,7 +40,7 @@ var fs = require("fs");
 
 var serv;
 
-var automateUn, automateDeux, automateTrois;
+var orchestration;
 
 if(debug) console.log("groupeClientsSons.js: require initial des automates: passé");
 
@@ -61,16 +61,15 @@ var nombreDePatternsPossibleEnListe = [[3, 255]]; // init pour client memorySort
  // patterns ainsi que les précédentes listes envoyées. Mis à jour dans websocketServeur.
 var clientsEnCours = [];
 
-// Devient le tableau des groupes de sons en cours
+// Devient le tableau des groupes de patterns
 var groupesSon;
 
 var groupeName = "";
-
+var myReactOrchestration = "../../myReact/orchestration.js";
 var socketControleur;
 
 var computeScorePolicy = 0;
 var computeScoreClass = 0;
-
 
 function initBroadCastServer(serveur) {
   if(debug1) console.log("groupecliensSons: initBroadCastServer ");
@@ -239,9 +238,9 @@ exports.getComputeScoreClass = getComputeScoreClass;
 
 function setSocketControleur(socket) {
 	socketControleur = socket;
-	if (automateUn !== undefined) automateUn.setSocketControleur(socket);
-	if (automateDeux !== undefined) automateDeux.setSocketControleur(socket);
-	if (automateTrois !== undefined) automateTrois.setSocketControleur(socket);
+	//if (automateUn !== undefined) automateUn.setSocketControleur(socket);
+	//if (automateDeux !== undefined) automateDeux.setSocketControleur(socket);
+	//if (automateTrois !== undefined) automateTrois.setSocketControleur(socket);
 	//console.log("groupeClientsSons:socketControleur:", socketControleur);
 }
 exports.setSocketControleur = setSocketControleur;
@@ -464,8 +463,7 @@ function setGroupesSon(DAWState) {
 		return -1;
 	}
 	
-	groupesSon = par.groupesDesSons[DAWState - 1]; // On compte les status DAW depuis 1 et non 0
-	
+	groupesSon = par.groupesDesSons;
 	if (groupesSon == undefined ) {
 		console.log("ERR: groupeClientSons.js: setGroupesSon: groupesSon:undefined:DAWStatus:", DAWState);
 		return -1;
@@ -476,9 +474,14 @@ function setGroupesSon(DAWState) {
 		return -1;
 	}
 
+	var msg = {
+		type: "setPatternGroups",
+		text : groupesSon
+	}
+	serv.broadcast(JSON.stringify(msg));
 	// !!!  hop.broadcast('setPatternGroups', par.groupesDesSons[DAWState-1] ); // Pour score et clients
 	
-	if (debug) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
+	if (debug1) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
 	return 0;
 }
 exports.setGroupesSon = setGroupesSon;
@@ -504,7 +507,7 @@ function createMatriceDesPossibles() {
 exports.createMatriceDesPossibles = createMatriceDesPossibles;
 
 function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
-	if (debug) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
+	if (debug1) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
 
  	if (groupeClient === 255) { // On traite tous les groupes
 		for (var i=0; i < par.nbeDeGroupesClients; i++) {
@@ -572,216 +575,66 @@ function resetMatriceDesPossibles() {
 }
 exports.resetMatriceDesPossibles = resetMatriceDesPossibles;
 
+function displayMatriceDesPossibles(){
+	console.log("Matrice des possibles DEBUT ---------------------------");
+	console.log(matriceDesPossibles);
+	console.log("Matrice des possibles FIN ---------------------------");
+}
+exports.displayMatriceDesPossibles = displayMatriceDesPossibles;
+
 /*************************************************************
 
 AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
 
 **************************************************************/
-
-// Cette fonction devrait disparaitre au profit de la suivante makeOneAutomatePossibleMachine
-// quand toutes les orchestrations seront créées sous forme d'expression de fonction.
-function makeAutomatePossibleMachine () {
-
-	/*
-    if(debug) console.log("groupeClientsSons.js: makeAutomatePossibleMachine");
-
-	// On recharge par = require('../logosParametres');
-	// Il ne s'agit pas du fichier de configuration de la pièce
-	// mais de sa copie dans logosParametres.js.
-	// Réfléchir pour faire ça proprement...
-	//delete require.cache[require.resolve('../logosParametres.js')];
-	//par = require("../logosParametres.js");
-	//if(debug1) console.log("groupesClientSons:makeAutomatePossibleMachine:Pour test:", par.groupesDesSons[0][0]);
-
-	// Pour chargement et rechargerment de l'automate
-	// On utilise des automates vides pour les orchestrations non déclarées
-	// pour éviter de retoucher les mécanismes liés à DAWON
-	if (par.automate1 !== undefined && par.automate1 !== ''){
-		delete require.cache[require.resolve(par.automate1)];
-		try{
-			var automateUn = require(par.automate1, "hiphop");
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
-	}else{
-		var automateUn =  require("./autoVide1.js", "hiphop");
-	}
-	if (par.automate2 !== undefined && par.automate2 !== ''){
-		delete require.cache[require.resolve(par.automate2)];
-		try{
-			var automateDeux = require(par.automate2, "hiphop");
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
-	}else{
-		var automateDeux =  require("./autoVide2.js", "hiphop");
-	}
-	if (par.automate3 !== undefined && par.automate3 !== ''){
-		delete require.cache[require.resolve(par.automate3)];
-		try{
-			var automateTrois = require(par.automate3, "hiphop");
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
-	}else{
-		var automateTrois =  require("./autoVide3.js", "hiphop");
-	}
-
-  	function creationModule( lesSons ) {
-	// Pour debug création des signaux à partir de logosparameters
-	//console.log( automateInt.creationInterfaces(par.groupesDesSons[0]));
-		return hiphop module (in start, in stop, in tick, in DAWON,
-		    out setTimerDivision, out resetMatriceDesPossibles,
-		    out cleanQueues, out cleanOneQueue,
-		    out pauseQueues, out resumeQueues, out pauseOneQueue, out resumeOneQueue,
-		    out patternListLength,
-		    out cleanChoiceList,
-		    in patternSignal, in controlFromVideo, in pulsation, in midiSignal, in emptyQueueSignal,
-		    out setComputeScoreClass, out setComputeScorePolicy)
-			implements
-				${automateInt.creationInterfaces(lesSons[0])},
-				${automateInt.creationInterfaces(lesSons[1])},
-				${automateInt.creationInterfaces(lesSons[2])},
-			 	${automateInt.creationInterfacesGameIn(par.gameOSCIn)},
- 				${automateInt.creationInterfacesGameOut(par.gameOSCOut)}  {
-
-			fork {
-				//run spy(...);
-			} par {
-				every immediate (DAWON.now) {
-				 	if ( DAWON.nowval === 1 ) {
-						run ${automateUn.trajetModule1}(...);
-					} else if ( DAWON.nowval === 2 ){
-						run ${automateDeux.trajetModule2}(...);
-					} else if ( DAWON.nowval === 3 ){
-						run ${automateTrois.trajetModule3}(...);
-					}
-				}
-			}
-		}
-	}
-	var machine = new hh.ReactiveMachine( creationModule( par.groupesDesSons) );
-
-	// Création des listeners des signaux
-	for (var j=0; j < par.groupesDesSons.length; j ++) {
-		makeSignalsListeners(machine, j);
-	}
-	makeListener(machine);
-	return machine;
-*/
+function test1(text){
+	console.log("groupecliensSons: test1", text)
 }
-exports.makeAutomatePossibleMachine = makeAutomatePossibleMachine;
+exports.test1 = test1;
 
-// Cette fonction est très proche de la précédente
-// Elle permet de ne traiter qu'un automate lors que ceux-ci sont rechargeables
-// On garde la précédente pour maintenir une compatibilité ascendante avec 
-// les pièces musicales déjà produites qui sont non prévues pour des rechargements.
-
-// On utilise des automates vides pour les orchestrations non déclarées
-// pour éviter de retoucher les mécanismes assez compliqués liés à DAWON
 function makeOneAutomatePossibleMachine (numAuto) {
 
-	/*
-    if(debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
+    if(debug1) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
 
-	// Pour chargement et rechargerment de l'automate
-	if (numAuto === 1 && par.automate1 !== undefined && par.automate1 !== ''){
-		delete require.cache[require.resolve(par.automate1)];
+    delete require.cache[require.resolve(myReactOrchestration)];
 		try{
-			var automateUn = require(par.automate1, "hiphop");
+			orchestration = require(myReactOrchestration);
+			//console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
 		}catch(err){
 			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
 			throw err;
 		}
-	}else{
-		var automateUn =  require("./autoVide1.js", "hiphop");
-	}
-	if (numAuto === 2 && par.automate2 !== undefined && par.automate2 !== ''){
-		delete require.cache[require.resolve(par.automate2)];
-		try{
-			var automateDeux = require(par.automate2, "hiphop");
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
-	}else{
-		var automateDeux =  require("./autoVide2.js", "hiphop");
-	}
-	if (numAuto === 3 && par.automate3 !== undefined && par.automate3 !== ''){
-		delete require.cache[require.resolve(par.automate3)];
-		try{
-			var automateTrois = require(par.automate3, "hiphop");;
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
-	}else{
-		var automateTrois =  require("./autoVide3.js", "hiphop");
-	}
 
-  	function creationModule( lesSons, numAuto ) {
-		return hiphop module (in start, in stop, in tick, in DAWON,
-		    out setTimerDivision, out resetMatriceDesPossibles,
-		    out cleanQueues, out cleanOneQueue,
-		    out pauseQueues, out resumeQueues, out pauseOneQueue, out resumeOneQueue,
-		    out patternListLength,
-		    out cleanChoiceList,
-		    out setComputeScoreClass, out setComputeScorePolicy,
-		    in patternSignal, in controlFromVideo, in pulsation, in midiSignal, in emptyQueueSignal)
-			implements 
-				${automateInt.creationInterfaces(lesSons[numAuto-1])},
-			 	${automateInt.creationInterfacesGameIn(par.gameOSCIn)},
- 				${automateInt.creationInterfacesGameOut(par.gameOSCOut)}  {
+		orchestration.setSkini(this);
 
-			fork {
-				//run spy(...);
-			} par {
-				every immediate (DAWON.now) {
-				 	if ( DAWON.nowval === 1 ) {
-						run ${automateUn.trajetModule1}(...);
-					} else if ( DAWON.nowval === 2 ){
-						run ${automateDeux.trajetModule2}(...);
-					} else if ( DAWON.nowval === 3 ){
-						run ${automateTrois.trajetModule3}(...);
-					}
-				}
-			}
-		}
-	}
-	var machine = new hh.ReactiveMachine( creationModule( par.groupesDesSons, numAuto) );
-	makeSignalsListeners(machine, numAuto-1);
-	makeListener(machine);
-	return machine;
+		// Pour test
+		orchestration.runProg();
 
-	*/
+		return orchestration;
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 
-function makeSignalsListeners(machine, orchestration){
+function makeSignalsListeners(orchestration){
 
-	/*
 	// Création des listeners des signaux
-	for (var i=0; i < par.groupesDesSons[orchestration].length; i++) {
-		var signal = par.groupesDesSons[orchestration][i][0] + "OUT";
+	for (var i=0; i < par.groupesDesSons.length; i++) {
+		var signal = par.groupesDesSons[i][0] + "OUT";
 
-		//if (debug1) console.log("Addeventlisterner:signal:",signal);
-		machine.addEventListener( signal , function(evt) {
+		if (debug1) console.log("Addeventlisterner:signal:",signal);
+
+		orchestration.createListener( signal , function(groupClient, status) {
 			// Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-			var groupeSonLocal = getGroupeSons(evt.signalName);
+			var groupeSonLocal = getGroupeSons(signal);
 			if (groupeSonLocal == -1) {
-				console.log("ERR: groupeClientsSons.js:creationModule:Addeventlisterner: signal inconnu:",evt.signalName);
+				console.log("ERR: groupeClientsSons.js:creationModule:Addeventlisterner: signal inconnu:", signal);
 				return;
 			}
 			if (debug) console.log("groupeClientSOns.js:creationModule:Addeventlisterner: groupeSons:", groupeSonLocal,
-				"signalName:", evt.signalName,
-				"groupeClientsNo:", evt.signalValue[1],
-				"statut:", evt.signalValue[0],
-				"signalValue:", evt.signalValue);
+				"signalName:", signal,
+				"groupeClientsNo:", groupeSonLocal,
+				"status:", status);
 
-			if ( setInMatriceDesPossibles(evt.signalValue[1], groupeSonLocal, evt.signalValue[0]) === -1) {
+			if ( setInMatriceDesPossibles(groupClient, groupeSonLocal, status) === -1) {
 				return;
 			}
 
@@ -789,8 +642,8 @@ function makeSignalsListeners(machine, orchestration){
 			var message = {
 				type: "setInMatrix",
 				son: groupeSonLocal, 
-				groupe: evt.signalValue[1],
-				status: evt.signalValue[0]
+				groupe: groupClient,
+				status: status
 			}
 			//console.log("groupecliensSons:socketControleur automate:", socketControleur);
 			if (socketControleur.readyState == 1 ) {
@@ -800,15 +653,14 @@ function makeSignalsListeners(machine, orchestration){
 			}
 
 			// Info pour les scrutateurs [groupeClient, groupeDeSons, status];
-			var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
-			hop.broadcast("setInMatriceDesPossibles", messageScrut);
+			//var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
+			//hop.broadcast("setInMatriceDesPossibles", messageScrut);
 
 			messageLog.type = "signal";
 			messageLog.value = signal;
 			logInfoAutomate(messageLog);
 		});
 	}
-	*/
 }
 
 function makeListener(machine){

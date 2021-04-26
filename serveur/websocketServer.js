@@ -291,6 +291,10 @@ serv.on('connection', function (ws) {
 
 	  switch(msgRecu.type) {
 
+		case "checkSession":
+			DAW.displaySession();
+			break;
+
 		case "clientScenes": // Pas trés utile, c'est dans scenes.js
 			ws.id = msgRecu.value;
 			break;
@@ -389,13 +393,13 @@ serv.on('connection', function (ws) {
 		case "loadDAWTable" : // Piloté par le controleur, charge une config et les automates
 			// Controle de l'existence de la table (déclaration du fichier csv) avant de la charger
 			DAWTableReady = false;
-			if ( par.configClips[msgRecu.value] != "" && par.configClips[msgRecu.value] != undefined ) {
+			if ( par.configClips != "" && par.configClips != undefined ) {
 				try{
 					DAW.loadDAWTable(par.configClips).then(function() {
 						DAWStatus = msgRecu.value + 1; // !! La valeur reçue est un index et non la valeur d'DAWON
 						if(debug1) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
 
-/*						try{
+						try{
 							automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);
 						}catch(err){
 							console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
@@ -404,23 +408,23 @@ serv.on('connection', function (ws) {
 						}
 						// Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
 						if(par.gameOSCIn !== undefined){
-							gameOSC.setOrchestration(automatePossibleMachine);
-							gameOSC.init();
+							//gameOSC.setOrchestration(automatePossibleMachine);
+							//gameOSC.init();
 						}
 						DAW.setAutomatePossible(automatePossibleMachine);
 						console.log("INFO: websocketServer: loadDAWTable: HipHop compiled\n");
-						hop.broadcast('consoleBlocklySkini', "HipHop compiled");
+						//hop.broadcast('consoleBlocklySkini', "HipHop compiled");
 
 						try{
-							reactAutomatePossible( {DAWON :  DAWStatus} );
+							// reactAutomatePossible( {DAWON :  DAWStatus} );
 						}catch(e){
 							console.log("websocketServerSkini:loadDAWTable:catch react:", e);
 					   	}
-					   	DAWTableReady = true;*/
+					   	DAWTableReady = true;
 					   	
 					}).catch( function(err) {
-						console.log("ERR: websocketServer: loadDAWTable :", par.configClips[msgRecu.value], err.toString());
-					   	hop.broadcast('consoleBlocklySkini', err.toString());
+						console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());
+					   	// hop.broadcast('consoleBlocklySkini', err.toString());
 					   	throw err;
 					});
 				}catch (err){
@@ -480,6 +484,36 @@ serv.on('connection', function (ws) {
 			putEventInPlayBuffer(listeDesLatences[ws.id], msgRecu);
 	  		break;
 
+		case "putInMatriceDesPossibles":
+			if(debug) console.log("websocketserver:putInMatriceDesPossibles:", msgRecu);
+			groupesClientSon.setInMatriceDesPossibles(msgRecu.clients, msgRecu.sons, msgRecu.status);   // groupe de clients, n° du groupe de sons, booleen
+			groupeName = groupesClientSon.getNameGroupeSons(msgRecu.sons);
+
+			if(debug1) groupesClientSon.displayMatriceDesPossibles();
+
+			var msg = {
+				type: "groupeClientStatus",
+				groupeClient: msgRecu.clients, // Pour indentifier le groupe de clients
+				groupeName: groupeName,
+				status: msgRecu.status
+			}
+			serv.broadcast(JSON.stringify(msg));
+			//hop.broadcast('groupeClientStatus',JSON.stringify(msg));
+			break;
+
+		case "ResetMatriceDesPossibles":
+			groupesClientSon.resetMatriceDesPossibles();
+			groupeName = "";
+			var msg = {
+				groupeClient: 255,
+				groupeName: groupeName,
+				status : false
+			}
+			serv.broadcast(JSON.stringify(msg));
+			//hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
+			break;
+
+
 		case "saveBlocklyGeneratedFile":
 			if(debug1) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName , "\n--------------------");
 			if(debug1) console.log(msgRecu.text);
@@ -494,6 +528,49 @@ serv.on('connection', function (ws) {
 			});
 			break;
 
+		case "setAllMatriceDesPossibles":
+			groupesClientSon.setMatriceDesPossibles();
+			groupeName = "";
+			var msg = {
+				groupeClient: 255,
+				groupeName: groupeName,
+				status: true
+			}
+			serv.broadcast(JSON.stringify(msg));
+			//hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
+			break;
+
+		case "setDAWON":
+			// msgRecu.value > 0 => ableton Actif
+			DAWStatus = msgRecu.value;
+			if (DAWTableReady) {
+			    if(debug) console.log("websocketServer:setDAWON:", DAWStatus);
+
+				DAW.cleanQueues();
+
+				var msg = {
+					type: "DAWStatus",
+					value : msgRecu.value
+				}
+				serv.broadcast(JSON.stringify(msg));
+				//hop.broadcast('DAWStatus', msgRecu.value );
+
+				initMatriceDesPossibles(DAWStatus);
+				// Pour être en phase avec la création du pad controleur
+				groupesClientSon.resetMatriceDesPossibles();
+			} else {
+				console.log("WARNING: Table des commandes DAW pas encore chargée: ", DAWStatus);
+				var msg = {
+					type: "DAWTableNotReady",
+					text : msgRecu.value
+				}
+
+				msg.type = "DAWTableNotReady";
+            	msg.text = "Table des commandes DAW pas encore chargée";
+            	ws.send(JSON.stringify(msg));
+			}
+			break;
+
 		case "startSpectateur": // On récupère l'ID du client
 			ws.id = msgRecu.id;
 			
@@ -505,7 +582,7 @@ serv.on('connection', function (ws) {
 			// On ne permet donc qu'un seul controleur.
 			// Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.
 			if ( msgRecu.text === "controleur") {
-				if (debug) console.log("webSocketServeur: startSpectateur: un controleur connecté");
+				if (debug1) console.log("webSocketServeur: startSpectateur: un controleur connecté");
 				socketControleur = ws;
 				groupesClientSon.setSocketControleur(ws);
 				initMatriceDesPossibles(DAWStatus);
