@@ -67,6 +67,10 @@ function initWSSocket(serverIPAddress) {
         Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(msgRecu.data), workspace);
         break;
 
+      case "consoleBlocklySkini":
+        document.getElementById('consoleArea').value = msgRecu.text;
+        break;
+
       default: console.log("Le Client reçoit un message inconnu", msgRecu );
     }
   };

@@ -16,9 +16,6 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 
 var generatedDir = "./myReact/"
 
-var groupeEncours = 0;
-
-
 const tripleCrocheTR = 2;
 const tripleCrocheR = 3;
 const doubleCrocheTR = 4;
@@ -40,13 +37,15 @@ var tempo = 60; 				// à la minute
 var canalMidi = 1;
 var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes
 
-var debug = false;
-var debug1 = true;
+
 var previousTime =0;
 var currentTime = 0;
 var timeToPlay = 0;
 var previousTimeToPlay = 0;
 var defautDeLatence;
+
+var debug = false;
+var debug1 = true;
 
 // Automate des possibles
 var DAWStatus = 0;
@@ -68,6 +67,9 @@ var computeScoreClass = 0;
 
 // CONTROLEUR
 var DAWTableReady = false;
+
+var clientsEnCours = [];
+var groupeEncours = 0;
 
 /*************************************************
  
@@ -113,18 +115,21 @@ function receivedTickFromDaw(){
 	if(debug) console.log("websocketserver : receivedTickFromDaw: tick received");
 	currentTimeClockMidi = Date.now();
 	tempoTime = currentTimeClockMidi - previousTimeClockMidi; // Real duration of a quater note
-	if (debug) console.log("websocketserver:dureeDuTickHorlogeMidi:tempoTime=", tempoTime, compteurDivisionMesure,
+	if (debug) console.log("websocketserver:dureeDuTickHorlogeMidi:tempoTime=", tempoTime,
+		compteurDivisionMesure,
 		groupesClientSon.getTimerDivision());
+
 	previousTimeClockMidi = currentTimeClockMidi;
 
-/*	if(par.pulsationON ){
+	/*if(par.pulsationON ){
 		reactAutomatePossible( { pulsation:  undefined } );
 	}
+	*/
 
 	// La remise à jour de la durée des patterns est possible depuis les automates.
 	// Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
 	// donnée dans le fichier de config de la pièce. (compatibilté ascendante)
-	if ( groupesClientSon.getTimerDivision() !== undefined){
+	if (groupesClientSon.getTimerDivision() !== undefined){
 		timerDivision = groupesClientSon.getTimerDivision();
 	}
 
@@ -135,7 +140,7 @@ function receivedTickFromDaw(){
 		}
 	}
 	// Ceci est la définition du tick. 
-	compteurDivisionMesure = (compteurDivisionMesure + 1) % timerDivision;*/
+	compteurDivisionMesure = (compteurDivisionMesure + 1) % timerDivision;
 }
 
 /*************************************************************************************
@@ -143,6 +148,31 @@ function receivedTickFromDaw(){
 MATRICE DES POSSIBLES, AUTOMATE
 
 **************************************************************************************/
+function getAutomatePossible(){
+	if (automatePossibleMachine !== undefined){
+		return automatePossibleMachine;
+	}else{
+		console.log("ERR: websocketserverSini.js: getAutomatePossible: automatePossibleMachine undefined")
+	}
+}
+exports.getAutomatePossible = getAutomatePossible;
+
+function reactAutomatePossible(signal, val){
+	if (automatePossibleMachine !== undefined){
+		automatePossibleMachine.activateSignal( signal, val );
+		automatePossibleMachine.runProg();
+		return true;
+	}else{
+		console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
+		return false;
+	}
+}
+
+if(debug) console.log("websocketserver:automatePossibleMachine: passé");
+
+if(par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined){
+	//DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
+}
 
 function initMatriceDesPossibles(DAWState) {
 
@@ -177,10 +207,10 @@ function actionOnTick(timerDivision) {
 		console.log("webSocketServeur:actionOnTick:diff de temps:", currentTimeMidi - currentTimePrevMidi, ":", timerDivision );
 	}
 
-/*	if(!reactAutomatePossible( { tick:  undefined } )) {
+	if(!reactAutomatePossible( "tick", 0)) {
 		console.log("WARN: websocketserver: actionOnTick: automate not ready");
 		return false;
-	}*/
+	}
 	DAW.playAndShiftEventDAW(timerDivision);
 	DAW.displayQueues();
 	return true;
@@ -412,11 +442,17 @@ serv.on('connection', function (ws) {
 							//gameOSC.init();
 						}
 						DAW.setAutomatePossible(automatePossibleMachine);
-						console.log("INFO: websocketServer: loadDAWTable: HipHop compiled\n");
+						console.log("INFO: websocketServer: loadDAWTable: table loaded\n");
+
+						var msg = {
+							type: "consoleBlocklySkini",
+							text: "Orchestration loaded"
+						}
+						serv.broadcast(JSON.stringify(msg));
 						//hop.broadcast('consoleBlocklySkini', "HipHop compiled");
 
 						try{
-							// reactAutomatePossible( {DAWON :  DAWStatus} );
+							reactAutomatePossible("DAWON", DAWStatus);
 						}catch(e){
 							console.log("websocketServerSkini:loadDAWTable:catch react:", e);
 					   	}
@@ -424,7 +460,14 @@ serv.on('connection', function (ws) {
 					   	
 					}).catch( function(err) {
 						console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());
+
+						var msg = {
+							type: "consoleBlocklySkini",
+							text: err.toString()
+						}
+						serv.broadcast(JSON.stringify(msg));
 					   	// hop.broadcast('consoleBlocklySkini', err.toString());
+
 					   	throw err;
 					});
 				}catch (err){
@@ -569,6 +612,17 @@ serv.on('connection', function (ws) {
             	msg.text = "Table des commandes DAW pas encore chargée";
             	ws.send(JSON.stringify(msg));
 			}
+			break;
+
+		case "startAutomate": // Lance l'automate orchestrateur de la matrice des possibles
+			if (DAWTableReady) {
+				if (debug) console.log("webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
+				reactAutomatePossible( "start", 0);
+ 				if (!par.synchoOnMidiClock) setMonTimer();
+ 			}
+
+ 			//compScore.resetClientEnCours(clientsEnCours);
+ 			groupesClientSon.setClientsEncours(clientsEnCours);
 			break;
 
 		case "startSpectateur": // On récupère l'ID du client
