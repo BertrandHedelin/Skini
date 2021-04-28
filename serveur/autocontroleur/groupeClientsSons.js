@@ -291,7 +291,7 @@ var messageLog = {
 Gestion des info vers les clients
 
 ******************/
-/*
+
 function informSelecteurOnMenuChange(groupe, sons, status) {
 	if (sons == undefined ) {
 		groupeName = "";
@@ -329,8 +329,6 @@ function getNombreDePatternsPossibleEnListe(){
 	return nombreDePatternsPossibleEnListe;
 }
 exports.getNombreDePatternsPossibleEnListe = getNombreDePatternsPossibleEnListe;
-
-*/
 
 /******************
 
@@ -485,7 +483,7 @@ function setGroupesSon(DAWState) {
 	serv.broadcast(JSON.stringify(msg));
 	// !!!  hop.broadcast('setPatternGroups', par.groupesDesSons[DAWState-1] ); // Pour score et clients
 	
-	if (debug1) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
+	if (debug) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
 	return 0;
 }
 exports.setGroupesSon = setGroupesSon;
@@ -511,7 +509,7 @@ function createMatriceDesPossibles() {
 exports.createMatriceDesPossibles = createMatriceDesPossibles;
 
 function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
-	if (debug1) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
+	if (debug) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
 
  	if (groupeClient === 255) { // On traite tous les groupes
 		for (var i=0; i < par.nbeDeGroupesClients; i++) {
@@ -529,11 +527,10 @@ function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
 	var message = [groupeClient, groupeDeSons, status];
 	var msg = {
 		type: "setInMatriceDesPossibles",
-		message : message
+		//message : message
 	}
 	serv.broadcast(JSON.stringify(msg));
 	// !!! hop.broadcast("setInMatriceDesPossibles", message);
-
 	return 0;
 }
 exports.setInMatriceDesPossibles = setInMatriceDesPossibles;
@@ -616,7 +613,7 @@ function makeOneAutomatePossibleMachine (numAuto) {
 		for (var i=0; i < par.groupesDesSons.length; i++) {
 			var signal = par.groupesDesSons[i][0] + "OUT";
 			var action = makeSignalsListeners(signal);
-			if (debug1) console.log("makeSignalsListeners: Addeventlisterner:signal:",signal, action);
+			if (debug) console.log("makeSignalsListeners: Addeventlisterner:signal:",signal, action);
 			orchestration.createListener( signal , action);
 		}
 		return orchestration;

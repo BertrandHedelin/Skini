@@ -57,6 +57,10 @@ app.get('/contr', function(req, res) {
  res.sendFile(path.join(__dirname+'/client/controleur/controleur.html'));
 });
 
+app.get('/skini', function(req, res) {
+ res.sendFile(path.join(__dirname+'/client/clientListe/clientListe.html'));
+});
+
 var port = ipConfig.webserveurPort;
 var addressServer = ipConfig.serverIPAddress;
 app.listen(port, () => {

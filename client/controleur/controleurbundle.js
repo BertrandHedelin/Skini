@@ -37,7 +37,7 @@ var debug1 = true;
 
 var DAWTableEnCours = 0;
 var automateEncours = false;
-
+var serverHostname;
 // Autres déclarations
 
 var msg = { // On met des valeurs pas defaut, mais ce n'est pas nécessaire.
@@ -310,8 +310,8 @@ function getNbeDeSpectateurs() {
 	ws.send(JSON.stringify(msg));
 }
 
-function initControleur() {
-	initWSSocket();
+function initControleur(serverHostname) {
+	initWSSocket(serverHostname);
 	initialisation();
 }
 window.initControleur = initControleur;
@@ -328,7 +328,7 @@ function loadDAW(val) {
 	if ( !automateEncours) {
 		console.log("clientControleur:loadDAW:", val);
 
-		var bout; 
+/*		var bout; 
 		msg.type = "loadDAWTable";
 		msg.value = val -1; // Pour envoyer un index
 		DAWTableEnCours = val;
@@ -336,9 +336,16 @@ function loadDAW(val) {
 
 		for (var i=1; i < 4; i++ ) {
 			bout = "buttonLoadDAW" + i;
-			document.getElementById( bout ).style.backgroundColor = "#4CAF50"; /* Green */
+			document.getElementById( bout ).style.backgroundColor = "#4CAF50"; // Green
 		}
-		bout = "buttonLoadDAW" + val;
+		bout = "buttonLoadDAW" + val;*/
+ 
+		msg.type = "loadDAWTable";
+		msg.value = 0; // Pour envoyer un index
+		DAWTableEnCours = val;
+		ws.send(JSON.stringify(msg));
+
+		var bout = "buttonLoadDAW";
 		document.getElementById( bout ).style.backgroundColor = "#008CBA"; // bleu
 	} else {
 		alert("WARNING: Automaton running, stop before selecting another one.")
@@ -377,9 +384,13 @@ window.startAutomate = startAutomate;
 function stopAutomate() {
 	document.getElementById( "buttonStartAutomate").style.display = "inline";
 	document.getElementById( "buttonStopAutomate").style.display = "none";
+
+	var bout = "buttonLoadDAW";
+	document.getElementById( bout ).style.backgroundColor =  "#4CAF50"; // Green
+
 	msg.type = "stopAutomate";
 	ws.send(JSON.stringify(msg));
-	//resetAllPad();
+	resetAllPad();
 	automateEncours = false;
 	cleanQueues();
 }
@@ -392,9 +403,10 @@ function checkSession(){
 window.checkSession = checkSession;
 
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
-function initWSSocket() {
+function initWSSocket(host) {
 
-	ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
+	//ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
+	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
 	if (debug1) console.log("clientcontroleur.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
 	ws.onopen = function( event ) {
@@ -541,11 +553,11 @@ function initServerListener() {
 
 },{"../../serveur/ipConfig":2,"../../serveur/skiniParametres":3}],2:[function(require,module,exports){
 module.exports={
-	"remoteIPAddressImage": "192.168.95.96",
-	"remoteIPAddressSound": "192.168.82.96",
-	"remoteIPAddressLumiere": "192.168.95.96",
-	"remoteIPAddressGame": "192.168.95.96",
-	"serverIPAddress": "192.168.82.96",
+	"remoteIPAddressImage": "192.168.82.96",
+	"remoteIPAddressSound": "192.168.92.96",
+	"remoteIPAddressLumiere": "192.168.82.96",
+	"remoteIPAddressGame": "192.168.82.96",
+	"serverIPAddress": "192.168.92.96",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,

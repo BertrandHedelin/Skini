@@ -230,7 +230,7 @@ function createInstruction(name, signal, signalValue, count, action, nextInstr){
 		index: instrIndex
 	};
 
-	if(debug1) console.log("createInstruction", instruction.name, instruction.signal,
+	if(debug) console.log("createInstruction", instruction.name, instruction.signal,
 		instruction.signalValue, instruction.index);
 
 	instrIndex++;

@@ -415,8 +415,7 @@ function cleanQueues() {
   messageLog.source = "controleDAW.js";
   messageLog.type = "VIDAGE FILES ATTENTES";
   logInfoDAW(messageLog);
-  if (debug1) console.log("controleDAW: cleanQueues");
-  // 255 => tous les instruments
+  if (debug) console.log("controleDAW: cleanQueues");
 
   var msg = {
     type: "etatDeLaFileAttente",
@@ -441,6 +440,37 @@ function nbeDeSpectateursConnectes() {
 
 }
 exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
+
+function getAllClips(groupeDeClients, matriceDesPossibles) { 
+  if ( matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {
+    console.log("WARN:controleAbleton:getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
+    return -1;
+  }
+
+  var clipsActifs  = new Array();
+
+  var tableLength = tableDesCommandes.length;
+  // Pour chaque élément (clip, pattern) de la table des commandes, je prend son groupe
+  // et je cherche dans la matrice des possibles si ce groupe est actif.
+  // Si le groupe est actif, j'ajoute l'élément dans la lsite des clipsActifs.
+  // C'est assez consommateur comme traitement.
+  for (var i=0; i < tableLength; i++) {
+    for (var j=0; j < matriceDesPossibles[groupeDeClients].length ; j ++) {
+      if (matriceDesPossibles[groupeDeClients][j] === true) { // "j" me donne un groupe de sons actifs
+        // Le groupe est en 9 dans la table des commandes
+        if(tableDesCommandes[i][9] !== undefined ) {
+          if(tableDesCommandes[i][9] === j ) {
+            clipsActifs.push(tableDesCommandes[i]);
+            break;
+          }
+        }
+      }
+    }
+  }
+  return clipsActifs;
+}
+exports.getAllClips = getAllClips;
+
 
 //================== Algorithmes de sélection V2 ===============================
 function getListClips(niv) {

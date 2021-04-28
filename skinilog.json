@@ -325,3 +325,205 @@
 {"date":"27:04:2021:16:46:03","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
 {"date":"27:04:2021:16:46:03","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
 {"date":"27:04:2021:16:46:11","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"27:04:2021:16:50:07","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"27:04:2021:16:50:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"27:04:2021:16:50:27","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"27:04:2021:16:50:27","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"27:04:2021:16:50:35","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:08:59:10","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:08:59:10","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:00:27","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:01:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:01:01","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:01:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:01:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:01:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:01:42","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:02:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:02:01","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:02:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:03:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:03:30","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:03:49","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:03:49","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:03:57","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:12:36","source":"websocketServerSkini.js","type":"closeSpectateur","id":259354}
+{"date":"28:04:2021:09:13:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:13:46","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:14:05","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:14:05","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:14:13","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:15:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:15:05","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:15:25","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:15:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:15:33","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:21:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:21:18","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:21:36","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:21:36","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:21:44","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:23:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:23:43","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:23:57","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:23:57","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:24:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:24:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:24:32","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:24:32","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:24:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:24:49","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:25:08","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:25:08","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:25:16","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:29:08","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:29:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:29:28","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:29:28","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:29:36","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:29:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:29:49","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:30:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:30:07","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:30:15","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:30:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:30:41","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:31:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:31:01","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:31:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:47:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:47:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:47:35","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:47:35","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:47:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:47:39","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:47:57","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:47:57","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:48:05","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:52:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:52:49","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:52:58","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:52:58","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:53:18","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:53:18","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:09:53:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:53:33","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:09:53:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:09:53:41","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:11:06:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:11:06:39","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:11:06:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:11:06:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:11:06:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:11:30:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:11:30:13","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:11:30:33","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:11:30:33","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:11:30:41","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:54:52","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:15:54:52","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:55:13","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:55:13","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:55:21","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:56:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:15:56:30","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:56:50","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:56:50","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:56:58","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:57:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:15:57:46","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:58:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:15:58:07","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:58:15","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:15:59:22","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":755315}
+{"date":"28:04:2021:16:02:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:02:31","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:05:22","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:05:22","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:05:41","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:05:41","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:12:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:12:30","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:14:53","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:14:53","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:17:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:17:23","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:19:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:19:37","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:26:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:26:41","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:27:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:27:01","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:27:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:28:01","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:28:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:28:22","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:28:22","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:28:30","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:30:25","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:30:25","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:30:45","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:30:45","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:30:53","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:31:07","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:31:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:31:10","source":"websocketServerSkini.js","type":"closeSpectateur","id":243999}
+{"date":"28:04:2021:16:31:27","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:31:27","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:31:35","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:32:32","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:32:32","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:32:53","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:32:53","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:33:01","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:34:11","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":30996}
+{"date":"28:04:2021:16:41:49","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"toto","id":532288}
+{"date":"28:04:2021:16:42:58","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":535171}
+{"date":"28:04:2021:16:45:22","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:45:22","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:45:43","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:45:43","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:45:51","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:50:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:50:34","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:50:55","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:50:55","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:51:03","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:51:29","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":235165}
+{"date":"28:04:2021:16:55:56","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:55:56","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:56:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:56:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:56:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:58:48","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:16:58:48","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:59:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:16:59:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:16:59:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:17:08:04","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":955902}
+{"date":"28:04:2021:17:17:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:17:30","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:17:17:36","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:17:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:17:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:17:48","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:17:48","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:17:17:50","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":678278}
+{"date":"28:04:2021:17:18:08","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:17:18:08","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:17:18:16","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:17:22:30","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":86300}
+{"date":"28:04:2021:17:22:35","source":"websocketServerSkini.js","type":"closeSpectateur","id":891553}
+{"date":"28:04:2021:17:22:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"28:04:2021:17:22:37","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:17:22:48","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":49863}
+{"date":"28:04:2021:17:22:56","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"28:04:2021:17:22:56","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:17:23:04","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"28:04:2021:17:27:28","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":555550}
+{"date":"28:04:2021:17:28:01","source":"websocketServerSkini.js","type":"closeSpectateur","id":722273}
+{"date":"28:04:2021:17:28:26","source":"websocketServerSkini.js","type":"closeSpectateur","id":694907}
+{"date":"28:04:2021:17:31:09","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":209707}
+{"date":"28:04:2021:17:32:03","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":917559}
+{"date":"28:04:2021:17:39:03","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":260327}
+{"date":"28:04:2021:17:40:12","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":409479}

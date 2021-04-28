@@ -14,18 +14,14 @@ function setSkini(skiniMaster){
 }
 exports.setSkini = setSkini;
 
-/*	mr.createSignal("violon1", 0);
-	mr.createSignal("violon2", 0);
-	mr.createSignal("violon3", 0);*/
-	mr.createSignal("stopTankViolon", 0);
-	mr.createSignal("stopTankPiano", 0);
-  //mr.createSignal("start", 0);
+mr.createSignal("stopTankViolon", 0);
+mr.createSignal("stopTankPiano", 0);
 
-  // A mettre dans Blockly
-  mr.createSignal("tick", 0);
-  mr.createSignal("DAWON", 0);
+// A mettre dans Blockly
+mr.createSignal("tick", 0);
+mr.createSignal("DAWON", 0);
 
-    // Debut de module
+// Debut de module
 tankViolon = [
   // Debut de abort
   mr._abort("stopTankViolon",1,
@@ -43,7 +39,7 @@ tankViolon = [
   mr._atom( ()=> {console.log('Tank Violon tué !');} ),
 ];
 
-    // Debut de module
+// Debut de module
 tankPiano = [
   // Debut de abort
   mr._abort("stopTankPiano",1,
@@ -63,76 +59,81 @@ tankPiano = [
 
   var instructions = [
     // Debut de par
-    mr._await("start", 1),
-    mr._par(
+    mr._abort("stop",1,
       [
-      // Debut de seq
-        mr._seq(
+        mr._await("start", 1),
+        mr._par(
           [
-            mr._atom( ()=> {console.log('Début orchestration 1');} ),
-            mr._emit("groupe1OUT", [true, 255]),
-            mr._await("tick", 5),
-            mr._atom( ()=> {console.log('Après 5 ticks');} ),
-
-        // Debut de par
-            mr._par(
+          // Debut de seq
+            mr._seq(
               [
-                // Debut de par
+                mr._atom( ()=> {console.log('Début orchestration 1');} ),
+                mr._emit("groupe1OUT", [true, 255]),
+                mr._await("tick", 5),
+                mr._atom( ()=> {console.log('Après 5 ticks');} ),
+
+            // Debut de par
                 mr._par(
                   [
-                    // Debut de run module
-                      mr._run(tankViolon),
+                    // Debut de par
+                    mr._par(
+                      [
+                        // Debut de run module
+                          mr._run(tankViolon),
 
-                      // Debut de seq
-                      mr._seq(
-                        [  
-                          mr._await("tick", 5),
-                          mr._atom( ()=> {console.log('Après 5 ticks violon');} ),
-                          mr._emit("stopTankViolon",0),
+                          // Debut de seq
+                          mr._seq(
+                            [  
+                              mr._await("tick", 5),
+                              mr._atom( ()=> {console.log('Après 5 ticks violon');} ),
+                              mr._emit("stopTankViolon",0),
+                            ]
+                          ),
                         ]
                       ),
-                    ]
-                  ),
 
-                // Debut de par
-                mr._par(
-                  [
-                    // Debut de run module
-                    mr._run(tankPiano),
-                    // Debut de seq
-                    mr._seq(
-                      [ 
-                        mr._await("tick", 5),
-                        mr._atom( ()=> {console.log('Après 5 ticks piano');} ),
-                        mr._emit("stopTankPiano",0),
+                    // Debut de par
+                    mr._par(
+                      [
+                        // Debut de run module
+                        mr._run(tankPiano),
+                        // Debut de seq
+                        mr._seq(
+                          [ 
+                            mr._await("tick", 5),
+                            mr._atom( ()=> {console.log('Après 5 ticks piano');} ),
+                            mr._emit("stopTankPiano",0),
+                          ]
+                        ),
                       ]
                     ),
                   ]
                 ),
+
+                mr._emit("groupe1OUT",[false, 255]),
+                mr._emit("groupe2OUT",[true, 255]),
+                mr._await("tick", 5),
+                mr._emit("groupe2OUT",[false, 255]),
+                mr._atom( ()=> {console.log('Fin orchestration');} ),
               ]
             ),
 
-            mr._emit("groupe1OUT",[false, 255]),
-            mr._emit("groupe2OUT",[true, 255]),
-            mr._await("tick", 5),
-            mr._emit("groupe2OUT",[false, 255]),
-            mr._atom( ()=> {console.log('Fin orchestration');} ),
-          ]
-        ),
-
-        // Debut de every
-        mr._every("start",1,
-          [
-            mr._atom( ()=> {console.log('orchestration: start');} ),
-          ]
-        ),
-        mr._every("tick",1,
-          [
-            mr._atom( ()=> {console.log('orchestration: tick');} ),
+            // Debut de every
+            mr._every("start",1,
+              [
+                mr._atom( ()=> {console.log('orchestration: start');} ),
+              ]
+            ),
+            mr._every("tick",1,
+              [
+                mr._atom( ()=> {console.log('orchestration: tick');} ),
+              ]
+            ),
           ]
         ),
       ]
     ),
+    mr._atom( ()=> {console.log('Orchestration Stop');} ),
   ];
 
 // A mettre dans Blockly
