@@ -105,6 +105,7 @@ function initWSocket(host) {
 			console.log("ERR: onopen getPatternGroups:", err);
 		}
 
+		// Pour la définition de la longueur de la lsite de choix
 		var msg = {
 			type : "getNombreDePatternsPossibleEnListe",
 		}
@@ -122,14 +123,25 @@ function initWSocket(host) {
 	ws.onmessage = function( event ) {
 		var msgRecu = JSON.parse(event.data);
 		//console.log( "Client: received [%s]", event.data );
+		//console.log( "Client: received:", msgRecu.type );
+
 		switch(msgRecu.type) {
 
 			case "DAWON": 
 				//Permet de savoir si DAW est actif quand on recharge un client, le serveur envoie l'info à la connexion 
 				// C'est le même scénario que quand on reçoit un broadcast de "DAWStatus".
+
 				DAWON = msgRecu.value;
-				if (debug) console.log("reçu message DAWON: ", DAWON);
+				if (debug1) console.log("***** reçu message DAWON: ", DAWON);
 				actionSurDAWON();
+				break;
+
+			case "DAWStatus":
+				if (debug1) console.log("**** Reçu DAWStatus:", msgRecu.value ); 
+				DAWON = msgRecu.value ;
+				selectAllClips();
+				cleanChoiceList();
+				initDisplay();
 				break;
 
 			case "delaiInstrument":
@@ -165,9 +177,9 @@ function initWSocket(host) {
 				break;
 
 			case "infoPlayDAW":
-				if (debug) console.log("Reçu Texte Broadcast infoPlayDAW:", event.value );
+				if (debug1) console.log("Reçu Texte Broadcast infoPlayDAW:", msgRecu );
 
-				if ( event.value[4] === idClient ){ // C'est la position de l'idClient (wsid) dans la file d'attente ([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom]);
+				if ( msgRecu.value[4] === idClient ){ // C'est la position de l'idClient (wsid) dans la file d'attente ([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom]);
 					//document.getElementById("MessageDuServeur").textContent = " "; // Nettoyage
 					vibration(2000);
 				   	document.body.className = "inplay";
@@ -176,7 +188,7 @@ function initWSocket(host) {
 					// Retirer le pattern de la liste si c'est un des miens envoyer dans la séquence
 					if(debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW", event.value[7]);
 					for(var i=0; i < patternsListSent.length; i++){
-						if(patternsListSent[i].patternName === event.value[7]){
+						if(patternsListSent[i].patternName === msgRecu.value[7]){
 
 							mr.activateSignal("infoPlayDAW", 1);
 							mr.runProg(progCommunication);
@@ -310,7 +322,10 @@ function initWSocket(host) {
 				break;
 
 			case "patternSequenceAck":
-				communicationMachine.inputAndReact("patternSequenceAck", msgRecu);
+				mr.activateSignal("patternSequenceAck", msgRecu); // Quid du message reçu ?
+				mr.runProg(progCommunication);
+				//communicationMachine.inputAndReact("patternSequenceAck", msgRecu);
+
 				if(english){
 					$('#demandeDeSons').text("My score: " + msgRecu.score);
 				}else{

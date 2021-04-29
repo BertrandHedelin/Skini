@@ -8,6 +8,7 @@ var csv = require('csv-array');
 
 var oscMidi = require("./OSCandMidi");
 var fs = require("fs");
+var par = require('./skiniParametres');
 
 var debug = false;
 var debug1 = true;
@@ -20,10 +21,25 @@ var tableDesCommandes;
 var filesDattente = [ [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ],
                     [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ] ];
 
+var filesDattenteJouables = new Array(filesDattente.length);
+
+// Il en faut autant que de files d'attente
+var compteursDattente = [ 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0 ];
+
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
 var nbeDeGroupesSons = 0;
 var nombreInstruments = 0;
+
+var avecMusicien = false;
+var decalageFIFOavecMusicien = 0;
+
+const typeDebut = 1;
+const typeMilieu = 2;
+const typeFin = 3;
+const typeNeutre = 4;
+const typeMauvais = 5;
+
 
 // ===================  Pour le log du comportements de l'interaction ==========================
 var msg = {
@@ -147,7 +163,7 @@ function loadDAWTable(fichier) {
         if(debug) console.log("ControleDAW.js: nbeDeGroupesSons:", nbeDeGroupesSons);
         resolve();}
       catch(e) {
-        console.log("controlABleton:loadDAW:catch", e);
+        console.log("controlDAW:loadDAW:catch", e);
         throw(e);
       }
     }, false);
@@ -192,9 +208,9 @@ function initDAWTable(fichier) {
         if (tableDesCommandes[i][5] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][5];
       }
 
-      if(debug) console.log("controleAbleton.js: Lecture une ligne de: ", fichier, tableDesCommandes[0] );
-      if(debug) console.log("ControleAbleton.js: Nbe de files d'attente: ", nbeDeFileDattentes);
-      if(debug) console.log("ControleAbleton.js: TableDesCommandes : ", tableDesCommandes);
+      if(debug) console.log("controleDAW.js: Lecture une ligne de: ", fichier, tableDesCommandes[0] );
+      if(debug) console.log("ControleDAW.js: Nbe de files d'attente: ", nbeDeFileDattentes);
+      if(debug) console.log("ControleDAW.js: TableDesCommandes : ", tableDesCommandes);
 
       nbeDeGroupesSons = 0;
       var tableLength = tableDesCommandes.length;
@@ -239,7 +255,7 @@ exports.getPatternFromNote = getPatternFromNote;
 // Cette fonction permet d'uitiliser Skini comme un séquenceur sans interaction.
 // Le mécanisme de FIFO est utilisé, ce qui permet une combinaison avec les interactions
 // et permet tous les usages des mécanismes de lecture des FIFO.
-// Assez similaire à pushClipAbleton() de websocketServer.
+// Assez similaire à pushClipDAW() de websocketServer.
 function putPatternInQueue(patternName){
   var tableLength = tableDesCommandes.length;
   var commande;
@@ -254,27 +270,31 @@ function putPatternInQueue(patternName){
   if(debug) console.log("controleBAleton: putPatternInQueue: commande :", commande);
 
   if (commande !== undefined){
-    var abletonNote = commande[0];
-    var abletonChannel = Math.floor(abletonNote / 127) + 1;
-    abletonNote = abletonNote % 127;
-    if (abletonChannel > 15) {
-      if (debug) console.log("Web Socket Server.js : pushClipAbleton: Nombre de canaux midi dépassé.");
+    var DAWNote = commande[0];
+    var DAWChannel = Math.floor(DAWNote / 127) + 1;
+    DAWNote = DAWNote % 127;
+    if (DAWChannel > 15) {
+      if (debug) console.log("Web Socket Server.js : pushClipDAW: Nombre de canaux midi dépassé.");
       return;
     }
     var nom = commande[3];
-    var abletonInstrument = commande[5];
+    var DAWInstrument = commande[5];
     var dureeClip = commande[10];
     var signal = groupesClientSon.getSignalFromGroup(commande[9]) + "IN";
     var id = 0;
 
+    // Contient le signal et le pattern
     var signalComplet =  { [signal] : commande[9] };
 
-    if(debug) console.log("controleAbleton:putPatternInQueue: signalComplet:", signalComplet);
-    //if(debug1) console.log("controleAbleton:putPatternInQueue:", par.busMidiAbleton, abletonChannel, abletonInstrument, abletonNote, 125, id, "Automate", dureeClip, nom, signal);
-    var dureeAttente = pushEventAbleton(par.busMidiAbleton, abletonChannel, abletonInstrument, abletonNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
+
+    if(debug) console.log("controleDAW:putPatternInQueue: signalComplet:", signalComplet);
+    //if(debug1) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal);
+    //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
+    var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal, typeNeutre);
+
 
   }else{
-    console.log("WARN: constroleAbleton.js: Le pattern n'existe pas:", patternName);
+    console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
     return undefined;
   }
   return dureeAttente;
@@ -283,43 +303,65 @@ exports.putPatternInQueue = putPatternInQueue;
 
 
 // ================= Gestion des files d'attente ===========================
-function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom) {
-  var dureeAttente =0;
 
-  if(debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel, instrument, note, velocity, wsid, pseudo, nom); 
+function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern) {
+  var dureeAttente =0;
+  var messageLog = { date: "" };
+
+  if(debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel, instrument, note, velocity, wsid, pseudo, nom, signal, typePattern); 
   var longeurDeLafile = filesDattente[instrument].length;
 
-  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5
+  // Scénario spécifique pour les interfaces avec les musiciens.
+  if( longeurDeLafile === 0 && avecMusicien){
+    // On met une demande vide dans la file d'attente pour décaler le démarrage du premier élément de la FIFO
+    // et laisser au musicien le temps de se préparer au pattern.
+    // file d'attente = [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
+    // On met une note négative qui ne sera pas jouée, bien que dans la FIFO.
 
-  // Protection contre les répétitions abusives sur le clip et le wsid, à approfondir c'est trop simpliste
-  if ( longeurDeLafile  > 2 ) {
-    if (filesDattente[instrument][longeurDeLafile -1][4] === filesDattente[instrument][longeurDeLafile -2][4] &&
-        filesDattente[instrument][longeurDeLafile -1][2] === filesDattente[instrument][longeurDeLafile -2][2] ) {
-        if(debug) console.log("ControleDAW.js: REPETITION DETECTEE dans pushEventDAW", filesDattente[instrument][longeurDeLafile -1] ); 
-
-        // Log des répétitions
-        messageLog.type = "REPETITION DETECTEE";
-        messageLog.note = filesDattente[instrument][longeurDeLafile -1][2];
-        messageLog.instrumentNo = instrument;       
-        messageLog.pseudo = filesDattente[instrument][longeurDeLafile -1][5];  
-        messageLog.id = filesDattente[instrument][longeurDeLafile -1][4];
-        logInfoDAW(messageLog);
-        return -1; // On n'envoi un code d'erreur car il y a répétition systématique de la même note par la même personne
-    }
+    // ATTENTION: Le pseudo devient l'instrument pour le décodage par les clients musiciens.
+    // Le serveur nomme le pattern "void" quand il s'agit d'un pattern qu'on ne doit pas jouer.
+    // et qui sert à permettre au musicien de se préparer.
+    // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
+    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void"]);
   }
 
+  if(par.algoGestionFifo !== undefined){
+    if(par.algoGestionFifo === 1){
+      // Ici on prend en compte le type de pattern pour le placer dans la Fifo
+      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]);
+    }else{
+      // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
+      filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+    }
+  }else{
+    // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
+    filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+  }
+
+  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
   for (var i=0; i < longeurDeLafile; i++) {
       dureeAttente = dureeAttente + filesDattente[instrument][i][6];
   }
 
-  // On met la demande dans la file d'attente
-  filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom]); // Push à la fin du tableau
-
   // On retourne la longueur de la file d'attente pour une estimation de la durée d'attente qui sera transmise au spectateur
   return dureeAttente;
 }
 exports.pushEventDAW  = pushEventDAW;
+
+/*function getDelayEventDAW(instrument) {
+  var dureeAttente =0;
+
+  if(debug) console.log("ControleDAW.js: getDelayEventDAW ", instrument); 
+  var longeurDeLafile = filesDattente[instrument].length;
+  // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
+  for (var i=0; i < longeurDeLafile; i++) {
+      dureeAttente = dureeAttente + filesDattente[instrument][i][6];
+  }
+  // On retourne la longueur de la file d'attente pour une estimation de la durée d'attente qui sera transmise au spectateur
+  return dureeAttente;
+}
+exports.getDelayEventDAW  = getDelayEventDAW;*/
 
 // Revu pour node js
 function displayQueues() {
@@ -375,10 +417,10 @@ function playAndShiftEventDAW() {
         if ( commandebDAW === undefined ) continue;
 
         // On peut envoyer l'évènement à DAW
-        if(debug) console.log("ControleDAW.js : playAndShiftEventDAW : COMMANDE ABLETON A JOUER", commandebDAW);
+        if(debug) console.log("ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER", commandebDAW);
   
         // Log pour analyse a posteriori
-        messageLog.type = "COMMANDE ABLETON ENVOYEE";
+        messageLog.type = "COMMANDE DAW ENVOYEE";
         messageLog.note = commandebDAW[2];
         messageLog.instrumentNo = i;        
         messageLog.pseudo = commandebDAW[5];        
@@ -391,12 +433,12 @@ function playAndShiftEventDAW() {
         //Rappel des paramètres: par.busMidiDAW, DAWChannel, DAWNote, velocity
         //oscMidi.sendProcessing( "/DAWPseudo", commandebDAW[5] ).post();
         // Pour avertir le browser du demandeur du son
-        msg.type = "infoPlayDAW";
-        msg.id = commandebDAW[4];
-        msg.nom = commandebDAW[7];
+        var msg = {
+          type: "infoPlayDAW",
+          value: commandebDAW
+        }
         serv.broadcast(JSON.stringify(msg));
         //hop.broadcast('infoPlayDAW', commandebDAW );
-
     }
     return;
 }
@@ -443,7 +485,7 @@ exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
 
 function getAllClips(groupeDeClients, matriceDesPossibles) { 
   if ( matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {
-    console.log("WARN:controleAbleton:getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
+    console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
     return -1;
   }
 
@@ -520,3 +562,110 @@ function getListClips(niv) {
 }
 
 exports.getListClips = getListClips;
+
+//************** Réorganisation des Fifos **************
+// Le méanisme est décrit dans la doc utilisateur de Skini.
+// 
+
+function putPatternBetween(fifo, avant, apres, pattern){
+  for( var i=fifo.length-1; i > 0; i--){
+    if(debug) console.log("-- putPatternBetween:", fifo.length, i);
+    if(fifo[i][9] === apres){
+      if(fifo[i-1][9] === avant){
+        if(debug) console.log("---- putPatternBetween: On met le pattern:", pattern[7], "de type:", pattern[9], 
+          "en", i," (entre types", apres, " et ", avant, ")");
+        fifo.splice(i,0, pattern);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
+  if(debug) console.log("---- putPatternFirstWithoutSecond");
+
+  for( var i=fifo.length-1; i > 0; i--){
+    if(fifo[i][9] === avant){
+      if(fifo[i-1][9] !== apres){
+        if(debug1) console.log("---- putPatternFirstWithoutSecond: On met le pattern:", pattern[7], "de type:", pattern[9],
+          "en", i," (entre types", apres, " et ", avant, ")");
+        fifo.splice(i,0, pattern);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function ordonneFifo(fifo, pattern){
+  // On ordonne la fifo en partant de l'indice haut qui correspond au denier pattern entré
+  // ceci évite de trop perturber le timing d'éntrée des patterns dans la fifo.
+  // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
+
+  if(fifo.length === 0 || pattern[9] === typeNeutre){
+    if(debug) console.log("ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    fifo.push(pattern);
+    return;
+  }
+
+  if(fifo.length === 0 && pattern[9] === typeMilieu){
+    if(debug) console.log("ordonneFifo: M tout seul, on le jette");
+    return;
+  }
+
+  switch(pattern[9]){
+    case typeFin : 
+      if(fifo.length-1 > 0){
+        if(putPatternBetween(fifo, typeDebut, typeDebut, pattern)){ return; }
+        if(putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)){ return; }
+        if(fifo[fifo.length-1][9] === typeFin){ // le dernier élément est déjà une fin F
+          if(putPatternBetween(fifo, typeDebut, typeMilieu, pattern)){ return; }
+        }
+      }
+      break; // On pousse
+
+    case typeDebut :
+      if(fifo.length-1 > 0){
+        if(putPatternBetween(fifo, typeFin, typeFin, pattern)){ return; }
+        if(putPatternBetween(fifo, typeFin, typeMilieu, pattern)){ return; }
+      }else{
+        if(fifo[0][9] === typeFin){
+          if(debug) console.log("---- ordonneFifo: Permuttons F et D");
+          fifo.splice(0,0, pattern);
+          return;
+        }
+      }
+      break; // On pousse
+
+    case typeMilieu :
+      if(fifo.length-1 > 0){
+        if(putPatternBetween(fifo, typeDebut, typeFin, pattern)){ return; }
+        if(putPatternBetween(fifo, typeMilieu, typeFin, pattern)){ return; }
+        if(putPatternBetween(fifo, typeFin, typeFin, pattern)){ return; }
+      }else{ // Il n'y a qu'un élément dans la Fifo.
+        if(fifo[0][9] === typeFin){ // Si c'est une fin
+          if(debug) console.log("---- ordonneFifo: Permuttons F et M");
+          fifo.splice(0,0, pattern);
+        }
+        else{ // C'est qu'on a un debut avant, mais on pourra avoir un début apres ou un autre milieu
+          if(debug) console.log("---- Un pattern Milieu seul dans la fifo: on le jette");
+          return; // On perd le pattern sinon, donc pas utilisable en interaction.
+        }
+      }
+      // Attention : Ce return est une façon de ne placer un milieu que si on est certain de l'avoir caser proprement.
+      // On perd le pattern sinon, donc pas utilisable en interaction.
+      if(debug) console.log("---- Un pattern Milieu supprimé");
+      return;
+
+      break; // On pousse
+
+    case typeMauvais :
+      // On ne fait rien dans ce cas.
+      break;
+
+    default: if(debug) console.log("Pattern de type inconnu");
+  }
+  if(debug) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
+  fifo.push(pattern);
+}

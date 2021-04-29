@@ -38,7 +38,6 @@ var tempo = 60; 				// à la minute
 var canalMidi = 1;
 var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes
 
-
 var previousTime =0;
 var currentTime = 0;
 var timeToPlay = 0;
@@ -49,7 +48,7 @@ var debug = false;
 var debug1 = true;
 
 // Automate des possibles
-var DAWStatus = 0;
+var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
 var setTimer;
 var timer = 1000;
 var timerDivision = 4;
@@ -292,7 +291,16 @@ serv.on('connection', function (ws) {
 	}
 	ws.send(JSON.stringify(msgTempo));
 
-	function pushClipDAW(clip) {
+	ws.on('close', function() {
+		if (debug) console.log( "Web Socket Server: Socket closed by client." );
+	});
+
+	ws.on('error', function( event ){
+	  	console.log( "Web Socket Server: Erreur sur socket:", ws.socket, " ", event );
+	});
+
+
+	function pushClipDAW(clip, signal, leGroupe, pseudo, monId) {
 		var DAWNote = clip[0];
 		var DAWChannel = Math.floor(DAWNote / 127) + 1;
 		DAWNote = DAWNote % 127;
@@ -302,20 +310,101 @@ serv.on('connection', function (ws) {
 		}
 		var nom = clip[3];
 		var DAWInstrument = clip[5];
+		var typePattern = clip[7];
 		var dureeClip = clip[10];
-		var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, ws.id, pseudo, dureeClip, nom);
-		console.log("Web Socket Server.js : pushNoteOnDAW: DAWInstrument", DAWInstrument, " durée: ", dureeAttente);
+
+		// Avec Hop/HH
+		//var signalComplet =  { [signal] : clip[3] }; // avec le nom du pattern
+		//var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, ws.id, pseudo, dureeClip, nom);
+
+		// ici signal au lieu de signal complet, attention
+		var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
+			DAWNote, 125, monId, pseudo, dureeClip, nom, signal, typePattern);		
+
+		// Envoi du signal vers l'automate au moment de la demande si reactOnPlay n'existe pas ou est false.
+		// Il y a un autre scénario dans controleAbleton.js où on envoie le signal au moment ou la commande Midi part
+		// Ce sont deux scénarios différents, celui fonctionne mieux en termes de synchro Midi car les demandes sont réparties dans
+		// le temps au fur et à mesure qu'elles arrivent. Il n'y a pas de risque de react successifs au même moment du tick midi.
+		// Il traite les activations avant que les patterns aient été jouées.
+		if (par.reactOnPlay === undefined){
+			reactAutomatePossible(signal, clip[3] );
+		} else if (!par.reactOnPlay){
+			reactAutomatePossible(signal, clip[3] );
+		}
+		if (debug) console.log("Web Socket Server.js : pushClipAbleton:nom ", nom, " pseudo: ", pseudo);
+
+		console.log("Web Socket Server.js: pushClipDAW: DAWInstrument", DAWInstrument, " durée: ", dureeAttente);
 
 		return dureeAttente;
 	}
 
-	ws.on('close', function() {
-		if (debug) console.log( "Web Socket Server: Socket closed by client." );
-	});
+	function playPattern(unPseudo, groupe, pattern, monId){
 
-	ws.on('error', function( event ){
-	  	console.log( "Web Socket Server: Erreur sur socket:", ws.socket, " ", event );
-	});
+    	if (pattern === undefined ) return; // Protection si pas de selection sur le client
+        if (debug) console.log("Web Socket Serveur: playPattern: clipChoisi", pattern, " pour ID: ", monId);
+		if (debug) console.log('Websocket serveur : playPattern: demandeDeSonParPseudo : ', unPseudo, "groupe:", groupe, "pattern:",  pattern[4]);
+		if (debug) console.log("-----webSocketServeur: playPattern: Pattern reçu:", pattern[0]);
+
+		var signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
+		if (debug) console.log("webSocketServeur: playPattern, signal reçu:", pattern, signal);
+
+		var legroupe =  groupe; // groupe d'utilisateur
+
+		// Pour la gestion des messages qui ne sont pas des patterns, on utilise des patterns dont les
+		// commandes MIDI sont négatives. Dans ce cas on émet des signaux sans faire appel au player de patterns
+		// On appelle jamais pushClipAbleton avec une note négative issue de la config.
+		if (pattern[0] < 0){
+			// Pour associer le nom du pattern au signal de groupe IN
+			// C'est plus pour être cohérent que par besoin
+
+			reactAutomatePossible(signal);
+			//reactAutomatePossible({ [signal] :  pattern[3] });
+			return;
+		}
+
+		var dureeAttente = pushClipDAW(pattern, signal, legroupe, unPseudo, monId);
+
+/*
+		// DureeAttente est la somme des durées de la FIFO de l'instrument.
+		if ( dureeAttente === -1) {
+			return; // On est dans un cas de note sans durée
+		}
+
+		// Conversion in real waiting time
+        dureeAttente = Math.floor(dureeAttente * tempoTime / 1000);
+        if (debug) console.log("Web Socket Serveur: abletonStartClip:dureeAttente",  dureeAttente);
+		// On communique au client le temps d'attente en sec. avant d'entendre.
+		msg.type = "dureeAttente";
+		msg.text = dureeAttente;
+		msg.son = pattern[3];
+	    ws.send(JSON.stringify(msg));
+
+	    // Informe tout le monde
+		var messageBroadcast = {
+			soundName:  pattern[3],
+			soundFileName: pattern[4],
+			instrument: pattern[5],
+			group:  pattern[9],
+			pseudo: unPseudo,
+			idClient: monId
+		}
+		hop.broadcast('demandeDeSonParPseudo', JSON.stringify(messageBroadcast));
+
+		var messageInstrument = {
+			instrument: pattern[5],
+			attente : dureeAttente
+		}
+		hop.broadcast('attenteInstrument', JSON.stringify(messageInstrument));
+*/
+		// Log la manip
+		messageLog.note = pattern[3];
+		messageLog.id = ws.id;
+		messageLog.pseudo = unPseudo;
+		logInfoSocket(messageLog);
+
+		delete messageLog.note;
+		delete messageLog.text;
+	}
 
   	ws.on('message', function (message) {
 	    if(debug) console.log('received: %s', message);
@@ -439,20 +528,20 @@ serv.on('connection', function (ws) {
 			break;
 
 		case "getDelayInstrument":
-			if (debug) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
+			if (debug1) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
 			if (msgRecu.clipChoisi === undefined ) {
 				msg.text = -1;
 			} else {
-				var dureeAttente = DAW.getDelayEventAbleton(msgRecu.clipChoisi[5]);
+				/*var dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
 				if ( dureeAttente === -1) {
 					break; // On est dans un cas de note répétée
 				}
-				msg.text = dureeAttente;
+				msg.text = dureeAttente;*/
 			}
 			// On communique au client le délai avant d'entendre.
-			msg.type = "delaiInstrument";
+/*			msg.type = "delaiInstrument";
 			msg.son = msgRecu.clipChoisi[3];
-		    ws.send(JSON.stringify(msg));
+		    ws.send(JSON.stringify(msg));*/
 			break;
 
 		case "getNombreDePatternsPossibleEnListe": // Pour l'initialisation de memorySortable
@@ -472,7 +561,7 @@ serv.on('connection', function (ws) {
 			 	}
 				ws.send(JSON.stringify(msg));
 			}else{
-				console.log("WARN: websocketserver: getPatternGroups: abletonStatus not yet defined");
+				console.log("WARN: websocketserver: getPatternGroups: DAWStatus not yet defined");
 			}
 			break;
 
@@ -483,7 +572,7 @@ serv.on('connection', function (ws) {
 				try{
 					DAW.loadDAWTable(par.configClips).then(function() {
 						DAWStatus = msgRecu.value + 1; // !! La valeur reçue est un index et non la valeur d'DAWON
-						if(debug1) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
+						if(debug) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
 
 						try{
 							automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);
@@ -588,7 +677,7 @@ serv.on('connection', function (ws) {
 			groupesClientSon.setInMatriceDesPossibles(msgRecu.clients, msgRecu.sons, msgRecu.status);   // groupe de clients, n° du groupe de sons, booleen
 			groupeName = groupesClientSon.getNameGroupeSons(msgRecu.sons);
 
-			if(debug1) groupesClientSon.displayMatriceDesPossibles();
+			if(debug) groupesClientSon.displayMatriceDesPossibles();
 
 			var msg = {
 				type: "groupeClientStatus",
@@ -661,7 +750,7 @@ serv.on('connection', function (ws) {
 			var scoreTotal = compScore.updateScore(msgRecu.pseudo, monScore, clientsEnCours);
 
 			for(var i=0; i < patternSequence.length ; i++){
-				var pattern = ableton.getPatternFromNote(patternSequence[i]);
+				var pattern = DAW.getPatternFromNote(patternSequence[i]);
 				if (pattern === undefined){
 					console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
 					var msg = {
@@ -740,6 +829,14 @@ serv.on('connection', function (ws) {
 
  			//compScore.resetClientEnCours(clientsEnCours);
  			groupesClientSon.setClientsEncours(clientsEnCours);
+
+ 			// Au cas où le client serait connecté avant le début de l'orchestration.
+			if (debug) console.log("Web Socket Server: startAutomate DAWON:", DAWStatus);
+			    var msg = {
+			    type: "DAWON",
+				value: DAWStatus
+			}
+			ws.send(JSON.stringify(msg));
 			break;
 
 		case "startSpectateur": // On récupère l'ID du client
@@ -748,7 +845,7 @@ serv.on('connection', function (ws) {
 			//timeToPlay = msgRecu.date; // On initialise l'heure venu du client.
 			//testLatence(ws);
 
-			if(debug1) console.log("websocketserbeur: startSpectateur: ", msgRecu);
+			if(debug1) console.log("*** websocketserbeur: startSpectateur: ", msgRecu);
 
 			// On ne permet donc qu'un seul controleur.
 			// Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.
@@ -772,7 +869,7 @@ serv.on('connection', function (ws) {
 					groupesClientSon.putIdInGroupClient(ws.id, par.nbeDeGroupesClients-1);
 
 					// Pour dire à l'ouverture au simulateur si on est ou pas dans une scène où DAW est actif.
-				    if (debug) console.log("Web Socket Server: DAWON:", par.DAWON);
+				    if (debug1) console.log("Web Socket Server: startSpectateur: simulateur: DAWON:", DAWStatus );
 				    var msg = {
 					    type: "DAWON",
 						value: DAWStatus
@@ -803,6 +900,7 @@ serv.on('connection', function (ws) {
 			if( par.nbeDeGroupesClients === 1 && par.simulatorInAseperateGroup){
 				console.log("WARN: ATENTION PAS DE GROUPE ASSIGNE A L'AUDIENCE !");
 			}
+
 			groupeEncours++;
 			if(par.simulatorInAseperateGroup){
 				groupeEncours %= par.nbeDeGroupesClients - 1;
@@ -815,9 +913,9 @@ serv.on('connection', function (ws) {
 			//testLatence(ws);
 
 			// Pour dire à l'ouverture au client si on est ou pas dans une scène où DAW est actif.
-		    if (debug) console.log("Web Socket Server: DAWON:", par.DAWON);
+		    if (debug) console.log("Web Socket Server: startSpectateur: emission DAWStatus:", DAWStatus);
 		    var msg = {
-			    type : "DAWON",
+			    type : "DAWStatus",
 				value: DAWStatus
 			}
 			ws.send(JSON.stringify(msg));

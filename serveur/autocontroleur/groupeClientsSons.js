@@ -299,13 +299,16 @@ function informSelecteurOnMenuChange(groupe, sons, status) {
 		groupeName = sons;
 	}
 	var message = {
+		type: 'groupeClientStatus',
 		groupeClient: groupe,
 		groupeName: groupeName,
 		status : status
 	};
 	// Informe les selecteurs et simulateurs
 	if(debug) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
-	hop.broadcast('groupeClientStatus',JSON.stringify(message));
+
+	serv.broadcast(JSON.stringify(message));
+	//hop.broadcast('groupeClientStatus',JSON.stringify(message));
 }
 exports.informSelecteurOnMenuChange = informSelecteurOnMenuChange;
 
@@ -577,9 +580,9 @@ function resetMatriceDesPossibles() {
 exports.resetMatriceDesPossibles = resetMatriceDesPossibles;
 
 function displayMatriceDesPossibles(){
-	console.log("Matrice des possibles DEBUT ---------------------------");
+	console.log("groupecliensSons: displayMatriceDesPossibles : DEBUT ---------------------------");
 	console.log(matriceDesPossibles);
-	console.log("Matrice des possibles FIN ---------------------------");
+	console.log("groupecliensSons: displayMatriceDesPossibles : FIN ---------------------------");
 }
 exports.displayMatriceDesPossibles = displayMatriceDesPossibles;
 

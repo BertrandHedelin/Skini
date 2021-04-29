@@ -3,6 +3,8 @@
 var violon1, violon2, violon3, tick, stopTankViolon, groupePercuON, stopTankPiano, groupeTrompetteON, groupeTrompetteOFF, groupePercuOFF, tankViolon, tankPiano, piano1, piano2, piano3;
 
 var mr = require("./myReact.js");
+var gcs = require("../serveur/autocontroleur/groupeClientsSons.js");
+
 var debug1 = true;
 var debug = false;
 
@@ -69,6 +71,7 @@ tankPiano = [
               [
                 mr._atom( ()=> {console.log('Début orchestration 1');} ),
                 mr._emit("groupe1OUT", [true, 255]),
+                mr._atom( ()=> { gcs.informSelecteurOnMenuChange(255,"groupe1",true);}),
                 mr._await("tick", 5),
                 mr._atom( ()=> {console.log('Après 5 ticks');} ),
 
@@ -111,9 +114,16 @@ tankPiano = [
                 ),
 
                 mr._emit("groupe1OUT",[false, 255]),
+                mr._atom( ()=> { gcs.informSelecteurOnMenuChange(255,"groupe1",false);}),
+
                 mr._emit("groupe2OUT",[true, 255]),
+                mr._atom( ()=> { gcs.informSelecteurOnMenuChange(255,"groupe2",true);}),
+
                 mr._await("tick", 5),
+
                 mr._emit("groupe2OUT",[false, 255]),
+                mr._atom( ()=> { gcs.informSelecteurOnMenuChange(255,"groupe2",false);}),
+
                 mr._atom( ()=> {console.log('Fin orchestration');} ),
               ]
             ),
