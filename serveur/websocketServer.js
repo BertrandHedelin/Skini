@@ -532,7 +532,7 @@ serv.on('connection', function (ws) {
 			break;
 
 		case "getDelayInstrument":
-			if(debug1) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
+			if(debug) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
 			var msg = {
 				type: "delaiInstrument"
 			}
@@ -871,7 +871,7 @@ serv.on('connection', function (ws) {
 			//timeToPlay = msgRecu.date; // On initialise l'heure venu du client.
 			//testLatence(ws);
 
-			if(debug1) console.log("*** websocketserbeur: startSpectateur: ", msgRecu);
+			if(debug1) console.log("websocketserbeur: startSpectateur: ", msgRecu.id);
 
 			// On ne permet donc qu'un seul controleur.
 			// Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.

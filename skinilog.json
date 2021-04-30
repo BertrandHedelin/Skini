@@ -2523,3 +2523,967 @@
 {"date":"30:04:2021:13:42:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
 {"date":"30:04:2021:13:42:22","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":30,"instrumentNo":7,"nomSon":"Percu21"}
 {"date":"30:04:2021:13:42:22","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":61,"instrumentNo":8,"nomSon":"Percu13"}
+{"date":"30:04:2021:13:45:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:13:45:47","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:45:47","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu11","pseudo":"sim695599","id":695599}
+{"date":"30:04:2021:13:45:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:45:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:13:45:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":11,"instrumentNo":1,"nomSon":"Percu11"}
+{"date":"30:04:2021:13:45:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:13:45:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:45:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:45:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:45:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu9"}
+{"date":"30:04:2021:13:45:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":15,"instrumentNo":1,"nomSon":"Percu9"}
+{"date":"30:04:2021:13:45:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:45:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:45:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:13:45:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu12"}
+{"date":"30:04:2021:13:45:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:13:45:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:13:45:52","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:45:52","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:45:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:45:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:45:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":16,"instrumentNo":1,"nomSon":"Percu12"}
+{"date":"30:04:2021:13:45:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:13:45:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:13:45:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:13:45:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:45:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:45:55","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:45:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu24"}
+{"date":"30:04:2021:13:45:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu20"}
+{"date":"30:04:2021:13:45:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu15"}
+{"date":"30:04:2021:13:45:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":17,"instrumentNo":1,"nomSon":"Percu24"}
+{"date":"30:04:2021:13:45:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":16,"instrumentNo":4,"nomSon":"Percu20"}
+{"date":"30:04:2021:13:45:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":29,"instrumentNo":7,"nomSon":"Percu15"}
+{"date":"30:04:2021:13:55:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:13:55:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:55:09","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu7","pseudo":"sim695599","id":695599}
+{"date":"30:04:2021:13:55:09","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu2"}
+{"date":"30:04:2021:13:55:09","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:55:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":12,"instrumentNo":1,"nomSon":"Percu2"}
+{"date":"30:04:2021:13:55:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:55:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:13:55:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:55:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:55:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu3"}
+{"date":"30:04:2021:13:55:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":1,"nomSon":"Percu3"}
+{"date":"30:04:2021:13:55:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:55:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:55:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:13:55:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:13:55:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:13:55:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:13:55:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:13:55:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:13:55:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu1"}
+{"date":"30:04:2021:13:55:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:55:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:55:18","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:55:18","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:55:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":1,"nomSon":"Percu1"}
+{"date":"30:04:2021:13:55:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:55:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:55:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu13"}
+{"date":"30:04:2021:13:55:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu16"}
+{"date":"30:04:2021:13:55:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu20"}
+{"date":"30:04:2021:13:55:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":18,"instrumentNo":1,"nomSon":"Percu16"}
+{"date":"30:04:2021:13:55:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":16,"instrumentNo":4,"nomSon":"Percu20"}
+{"date":"30:04:2021:13:55:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":61,"instrumentNo":8,"nomSon":"Percu13"}
+{"date":"30:04:2021:13:55:20","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:55:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:13:55:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:13:55:35","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:55:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:13:55:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:55:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu2"}
+{"date":"30:04:2021:13:55:36","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":12,"instrumentNo":1,"nomSon":"Percu2"}
+{"date":"30:04:2021:13:55:36","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:13:55:36","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:55:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:55:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:55:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:13:55:37","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu9"}
+{"date":"30:04:2021:13:55:37","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:13:55:37","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:13:55:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":15,"instrumentNo":1,"nomSon":"Percu9"}
+{"date":"30:04:2021:13:55:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:55:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:55:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu1"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu12"}
+{"date":"30:04:2021:13:55:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:13:55:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":1,"nomSon":"Percu1"}
+{"date":"30:04:2021:13:55:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:13:55:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:13:55:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:55:40","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu5","pseudo":"Marc","id":954256}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":16,"instrumentNo":1,"nomSon":"Percu12"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:13:55:41","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:13:55:41","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu2"}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:13:55:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":12,"instrumentNo":1,"nomSon":"Percu2"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":954256,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:13:55:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:13:55:43","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:13:55:43","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:13:55:43","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:13:55:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:14:08:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:08:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:08:16","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:08:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:14:08:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu3"}
+{"date":"30:04:2021:14:08:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:14:08:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:14:08:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":1,"nomSon":"Percu3"}
+{"date":"30:04:2021:14:08:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:14:08:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:14:08:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:14:08:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu1"}
+{"date":"30:04:2021:14:08:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":1,"nomSon":"Percu1"}
+{"date":"30:04:2021:14:08:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:14:08:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:14:08:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:14:08:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:14:08:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:14:08:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:14:08:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:14:08:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:14:08:23","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:08:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu9"}
+{"date":"30:04:2021:14:08:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:14:08:23","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:08:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:14:08:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":15,"instrumentNo":1,"nomSon":"Percu9"}
+{"date":"30:04:2021:14:08:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:14:08:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:14:08:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:08:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu22"}
+{"date":"30:04:2021:14:08:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu24"}
+{"date":"30:04:2021:14:08:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu20"}
+{"date":"30:04:2021:14:08:25","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":17,"instrumentNo":1,"nomSon":"Percu24"}
+{"date":"30:04:2021:14:08:25","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":16,"instrumentNo":4,"nomSon":"Percu20"}
+{"date":"30:04:2021:14:08:25","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":59,"instrumentNo":8,"nomSon":"Percu22"}
+{"date":"30:04:2021:14:09:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:09:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:09:45","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:09:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:14:09:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu2"}
+{"date":"30:04:2021:14:09:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:14:09:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":12,"instrumentNo":1,"nomSon":"Percu2"}
+{"date":"30:04:2021:14:09:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:14:09:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu11"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu5"}
+{"date":"30:04:2021:14:09:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu8"}
+{"date":"30:04:2021:14:09:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":11,"instrumentNo":1,"nomSon":"Percu11"}
+{"date":"30:04:2021:14:09:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:14:09:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:14:09:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:14:09:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":4,"nomSon":"Percu5"}
+{"date":"30:04:2021:14:09:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":27,"instrumentNo":7,"nomSon":"Percu8"}
+{"date":"30:04:2021:14:09:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu7"}
+{"date":"30:04:2021:14:09:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu4"}
+{"date":"30:04:2021:14:09:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu9"}
+{"date":"30:04:2021:14:09:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu6"}
+{"date":"30:04:2021:14:09:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu10"}
+{"date":"30:04:2021:14:09:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu1"}
+{"date":"30:04:2021:14:09:50","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:09:50","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:09:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu19"}
+{"date":"30:04:2021:14:09:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu15"}
+{"date":"30:04:2021:14:09:51","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:09:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim695599","id":695599,"note":"Percu13"}
+{"date":"30:04:2021:14:09:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":15,"instrumentNo":1,"nomSon":"Percu9"}
+{"date":"30:04:2021:14:09:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:14:09:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":28,"instrumentNo":7,"nomSon":"Percu6"}
+{"date":"30:04:2021:14:09:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":57,"instrumentNo":8,"nomSon":"Percu7"}
+{"date":"30:04:2021:14:09:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":13,"instrumentNo":1,"nomSon":"Percu1"}
+{"date":"30:04:2021:14:09:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":15,"instrumentNo":4,"nomSon":"Percu19"}
+{"date":"30:04:2021:14:09:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":29,"instrumentNo":7,"nomSon":"Percu15"}
+{"date":"30:04:2021:14:09:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":58,"instrumentNo":8,"nomSon":"Percu10"}
+{"date":"30:04:2021:14:09:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim695599","id":695599,"note":61,"instrumentNo":8,"nomSon":"Percu13"}
+{"date":"30:04:2021:14:10:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:10:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:10:18","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:10:38","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:10:38","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:10:46","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:11:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:11:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:11:14","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:12:13","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:12:13","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:12:21","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:12:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:12:42","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:12:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:13:39","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:13:39","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:13:47","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:14:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:14:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:14:57","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:15:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:15:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:15:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:15:59","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:16:00","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:16:18","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:16:38","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:16:38","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:16:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:16:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:17:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:17:10","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:17:12","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:17:31","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:17:51","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:17:51","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:17:56","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:17:57","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:17:57","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:18:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:18:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:18:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:18:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:18:38","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:18:57","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:19:17","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:19:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:19:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:24:19","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:24:28","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:24:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:24:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:24:43","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:24:53","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:24:53","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:24:57","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:25:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:25:10","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:25:15","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:25:20","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:25:20","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:25:22","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:27:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:27:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:27:56","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:28:06","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:14:28:06","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:28:10","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:14:35:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:35:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:35:19","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:35:19","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:35:31","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu52","pseudo":"Marc","id":209906}
+{"date":"30:04:2021:14:35:32","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:14:36:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:36:48","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:36:51","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:36:51","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:37:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":209906,"note":"Percu54"}
+{"date":"30:04:2021:14:37:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":209906,"note":"Percu52"}
+{"date":"30:04:2021:14:37:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:14:37:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:14:37:11","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:37:24","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:37:25","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:37:27","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:37:27","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:37:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":209906,"note":"Percu52"}
+{"date":"30:04:2021:14:37:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:14:37:41","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:39:15","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:39:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:39:19","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:39:19","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:39:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":209906,"note":"Percu51"}
+{"date":"30:04:2021:14:39:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":209906,"note":"Percu55"}
+{"date":"30:04:2021:14:39:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":37,"instrumentNo":5,"nomSon":"Percu55"}
+{"date":"30:04:2021:14:39:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":209906,"note":66,"instrumentNo":8,"nomSon":"Percu51"}
+{"date":"30:04:2021:14:39:40","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:42:29","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:42:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:42:33","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:42:33","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:43:59","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:00","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:03","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:44:03","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:44:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:21","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:24","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:44:24","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:44:41","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":209906}
+{"date":"30:04:2021:14:44:42","source":"websocketServerSkini.js","type":"closeSpectateur","id":735401}
+{"date":"30:04:2021:14:44:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:50","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:44:53","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:44:53","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:45:27","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:45:29","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:45:31","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:45:31","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:45:41","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":738607}
+{"date":"30:04:2021:14:45:42","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":738607,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:14:45:49","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:46:08","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:46:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:46:11","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:46:11","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:46:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":738607,"note":"Percu54"}
+{"date":"30:04:2021:14:46:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":738607,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:14:46:24","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:47:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:47:06","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:14:47:08","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:14:47:08","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:14:47:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":738607,"note":"Percu54"}
+{"date":"30:04:2021:14:47:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":738607,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:14:47:24","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:01:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:01:45","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:01:45","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:01:52","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":146631}
+{"date":"30:04:2021:15:01:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":146631,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:02:00","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:04:00","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:04:03","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:04:03","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:04:11","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":850315}
+{"date":"30:04:2021:15:04:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":850315,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:04:19","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:05:32","source":"websocketServerSkini.js","type":"closeSpectateur","id":240031}
+{"date":"30:04:2021:15:05:36","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:05:38","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:05:38","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:05:45","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":491498}
+{"date":"30:04:2021:15:05:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":491498,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:05:53","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:06:50","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:06:53","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:06:53","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:06:57","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":741149}
+{"date":"30:04:2021:15:06:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":741149,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:07:05","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:13:21","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:13:24","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:13:24","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:13:29","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":544876}
+{"date":"30:04:2021:15:13:29","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":544876,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:13:37","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:16:43","source":"websocketServerSkini.js","type":"closeSpectateur","id":255058}
+{"date":"30:04:2021:15:16:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:16:48","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:16:48","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:16:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":544876,"note":"Percu54"}
+{"date":"30:04:2021:15:16:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":544876,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:17:01","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:17:44","source":"websocketServerSkini.js","type":"closeSpectateur","id":803360}
+{"date":"30:04:2021:15:17:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:17:48","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:17:48","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:17:58","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":544876,"note":"Percu54"}
+{"date":"30:04:2021:15:17:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":544876,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:18:06","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:18:59","source":"websocketServerSkini.js","type":"closeSpectateur","id":959816}
+{"date":"30:04:2021:15:19:01","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:19:03","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:19:03","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:19:08","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":544876}
+{"date":"30:04:2021:15:19:10","source":"websocketServerSkini.js","type":"closeSpectateur","id":469392}
+{"date":"30:04:2021:15:19:16","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":573969}
+{"date":"30:04:2021:15:19:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:19:24","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:21:01","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:21:03","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:21:05","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:21:05","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:21:06","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Djembe7","pseudo":"sim320890","id":320890}
+{"date":"30:04:2021:15:21:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:21:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:21:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:21:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:21:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:21:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:21:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:21:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:21:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:21:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:21:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:21:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:21:10","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:21:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:21:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:21:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:21:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:21:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:21:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:21:13","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:21:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:21:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:21:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:21:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:21:15","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:21:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:21:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:21:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:21:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:21:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:21:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:21:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:21:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:21:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:21:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:21:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:21:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":573969,"note":"Percu54"}
+{"date":"30:04:2021:15:21:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:21:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:21:21","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:21:21","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:21:21","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:21:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:21:22","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:21:22","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:21:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:21:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:21:23","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:21:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:21:24","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:21:25","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:21:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:21:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:21:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:21:26","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:21:27","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:21:27","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:21:27","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:21:27","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:21:27","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:21:27","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:21:28","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:21:29","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:21:30","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:21:31","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:21:32","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:21:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:21:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:24:02","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:24:04","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:24:06","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:24:06","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:24:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:24:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:24:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:24:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:24:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:24:08","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:25:25","source":"websocketServerSkini.js","type":"closeSpectateur","id":516154}
+{"date":"30:04:2021:15:25:27","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:25:30","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:25:30","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:25:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:25:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:25:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:25:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:25:34","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:25:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:25:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:25:35","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:25:35","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:25:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:25:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:25:36","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:25:36","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:25:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:25:38","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:25:38","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:25:38","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:25:38","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:25:38","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:25:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:25:40","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:25:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:25:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:25:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:25:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":573969,"note":"Percu54"}
+{"date":"30:04:2021:15:25:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:25:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:25:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:25:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:25:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:25:42","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:25:43","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:25:43","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:25:44","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:25:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:25:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:25:45","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:25:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:25:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:25:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:25:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:25:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:25:47","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:25:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:25:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:25:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:25:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:25:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:25:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:25:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:25:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:26:56","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:26:57","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:27:00","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:27:00","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:27:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:27:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:27:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:27:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:27:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:27:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:27:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:27:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:27:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:27:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:27:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:27:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:27:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:27:07","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:27:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:27:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:27:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:27:10","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:27:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:27:12","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:27:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:27:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":573969,"note":"Percu52"}
+{"date":"30:04:2021:15:27:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":573969,"note":"Percu54"}
+{"date":"30:04:2021:15:27:13","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":573969,"note":"Percu50"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":65,"instrumentNo":8,"nomSon":"Percu50"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":573969,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:27:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:27:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:27:15","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:27:16","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:27:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:27:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:27:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:27:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:27:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:27:18","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:27:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:27:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:27:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:27:18","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:27:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:27:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:38:38","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:38:42","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:38:42","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:38:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:38:44","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Djembe12","pseudo":"sim320890","id":320890}
+{"date":"30:04:2021:15:38:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:38:44","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:38:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:38:46","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:38:46","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:38:46","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:38:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:38:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:38:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:38:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:38:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:38:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:38:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:38:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:38:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:38:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:38:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:38:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:38:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:38:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:38:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:38:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:38:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:38:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:38:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:38:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:38:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:38:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:38:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:38:55","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:38:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:38:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:38:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:38:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:38:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:38:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:38:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:38:59","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"Marc","id":770939}
+{"date":"30:04:2021:15:38:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":770939,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:38:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:38:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:38:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:38:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:39:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:39:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:39:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:39:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:39:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:39:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:39:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:39:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:39:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:39:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:39:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:39:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:39:05","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:39:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:40:15","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:42:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:42:48","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:42:48","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:42:50","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Djembe11","pseudo":"sim320890","id":320890}
+{"date":"30:04:2021:15:42:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:42:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:42:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:42:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:42:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:42:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:42:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:42:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:42:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:42:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:42:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:42:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:42:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:42:55","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:42:55","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:42:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:42:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:42:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:42:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:42:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:42:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:42:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:42:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:42:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:42:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:43:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:43:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:43:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:43:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:43:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:43:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:43:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:43:02","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:43:02","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:43:02","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:43:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:43:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:43:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:43:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:43:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:43:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:43:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:43:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:43:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:43:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:43:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:43:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:43:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:43:09","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:43:09","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:43:09","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:43:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:43:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:43:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:43:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:43:10","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:43:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:43:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:43:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:43:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:43:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:43:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:43:13","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:43:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:43:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:43:14","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:43:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:43:15","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu55","pseudo":"Marc","id":711332}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":711332,"note":"Percu57"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":711332,"note":"Percu52"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":711332,"note":"Percu55"}
+{"date":"30:04:2021:15:43:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":711332,"note":"Percu52"}
+{"date":"30:04:2021:15:43:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":35,"instrumentNo":4,"nomSon":"Percu57"}
+{"date":"30:04:2021:15:43:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":37,"instrumentNo":5,"nomSon":"Percu55"}
+{"date":"30:04:2021:15:43:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:43:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:15:43:16","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:43:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:43:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:43:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:43:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":37,"instrumentNo":5,"nomSon":"Percu55"}
+{"date":"30:04:2021:15:43:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:43:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":40,"instrumentNo":5,"nomSon":"Percu52"}
+{"date":"30:04:2021:15:43:18","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:43:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:43:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:43:19","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:43:19","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:43:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:43:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:43:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:43:20","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:43:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:43:21","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:43:22","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:43:22","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:50:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:50:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:50:44","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:50:44","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:50:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:50:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:50:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:50:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:50:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:50:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:50:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:50:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:50:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:50:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:50:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:50:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:50:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:50:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:50:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:50:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:50:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:50:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:50:51","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:50:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:50:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:50:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:50:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:50:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:50:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:50:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:50:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:50:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:50:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:50:55","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:50:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:50:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:50:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:50:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:50:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:50:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:50:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:50:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:50:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:50:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:50:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:50:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:50:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:50:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":711332,"note":"Percu54"}
+{"date":"30:04:2021:15:50:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":711332,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:50:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:51:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:51:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:51:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:51:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:51:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:51:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:51:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:51:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:51:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:51:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:51:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:51:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:51:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:51:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:51:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:51:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:51:05","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:51:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:51:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:51:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:51:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:51:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:51:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:52:36","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:52:39","source":"groupeClientSons.js","type":"signal","value":"djembeOUT"}
+{"date":"30:04:2021:15:52:39","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:52:39","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Djembe3","pseudo":"sim320890","id":320890}
+{"date":"30:04:2021:15:52:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:52:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:52:40","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":114,"instrumentNo":6,"nomSon":"Djembe3"}
+{"date":"30:04:2021:15:52:41","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:52:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:52:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:52:41","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:42","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:52:42","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:52:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:52:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:52:42","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:43","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:52:44","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:52:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:52:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:52:44","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:52:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:52:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:52:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:52:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:52:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:52:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:52:48","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:52:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:52:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:52:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:52:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:52:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:52:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:52:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:52:52","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:52:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:52:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:52:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:52:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:52:53","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:52:53","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:52:54","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:52:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:52:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:52:55","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe7"}
+{"date":"30:04:2021:15:52:55","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:52:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:52:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:52:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:52:56","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:52:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:52:58","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:52:58","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:52:58","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:52:58","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:52:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:52:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:52:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:52:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:53:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":113,"instrumentNo":6,"nomSon":"Djembe2"}
+{"date":"30:04:2021:15:53:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:53:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:53:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe10"}
+{"date":"30:04:2021:15:53:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":118,"instrumentNo":6,"nomSon":"Djembe7"}
+{"date":"30:04:2021:15:53:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":119,"instrumentNo":6,"nomSon":"Djembe8"}
+{"date":"30:04:2021:15:53:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe12"}
+{"date":"30:04:2021:15:53:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:53:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:53:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":123,"instrumentNo":6,"nomSon":"Djembe12"}
+{"date":"30:04:2021:15:53:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:53:04","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:53:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:53:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:53:04","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:53:05","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu56","pseudo":"Marc","id":679546}
+{"date":"30:04:2021:15:53:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":679546,"note":"Percu55"}
+{"date":"30:04:2021:15:53:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":679546,"note":"Percu54"}
+{"date":"30:04:2021:15:53:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":679546,"note":36,"instrumentNo":4,"nomSon":"Percu56"}
+{"date":"30:04:2021:15:53:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":679546,"note":37,"instrumentNo":5,"nomSon":"Percu55"}
+{"date":"30:04:2021:15:53:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":121,"instrumentNo":6,"nomSon":"Djembe10"}
+{"date":"30:04:2021:15:53:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe9"}
+{"date":"30:04:2021:15:53:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe5"}
+{"date":"30:04:2021:15:53:06","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:53:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":679546,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:15:53:06","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:53:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":116,"instrumentNo":6,"nomSon":"Djembe5"}
+{"date":"30:04:2021:15:53:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:53:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe8"}
+{"date":"30:04:2021:15:53:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:53:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":115,"instrumentNo":6,"nomSon":"Djembe4"}
+{"date":"30:04:2021:15:53:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":120,"instrumentNo":6,"nomSon":"Djembe9"}
+{"date":"30:04:2021:15:53:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":117,"instrumentNo":6,"nomSon":"Djembe6"}
+{"date":"30:04:2021:15:53:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe2"}
+{"date":"30:04:2021:15:53:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe4"}
+{"date":"30:04:2021:15:53:10","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe6"}
+{"date":"30:04:2021:15:53:10","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}
+{"date":"30:04:2021:15:53:11","source":"groupeClientSons.js","type":"signal","value":"groupe5OUT"}
+{"date":"30:04:2021:15:53:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:15:53:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe3"}
+{"date":"30:04:2021:15:53:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe11"}
+{"date":"30:04:2021:15:53:11","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"sim320890","id":320890,"note":"Djembe1"}
+{"date":"30:04:2021:15:53:11","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":122,"instrumentNo":6,"nomSon":"Djembe11"}
+{"date":"30:04:2021:15:53:12","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"sim320890","id":320890,"note":112,"instrumentNo":6,"nomSon":"Djembe1"}

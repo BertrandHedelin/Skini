@@ -254,6 +254,23 @@ function resetAllPad() {
 }
 window.resetAllPad =resetAllPad;
 
+function cleanPad() {
+	if (automateEncours) {
+		var id = 0;
+		for(var j=0; j < nbeLignesPad ; j++){
+			for(var i=0; i < nbeColonesPad; i++){
+				var bouton = document.getElementById("padBouton" + id.toString());
+				if ( bouton == undefined ) {
+			 		console.log("setAllPad:undefined", colone);
+			 		return;
+			 	}
+				bouton.setAttribute("class", "padBouton");
+				id++;
+			}
+		}
+	}
+}
+
 function setAllPad() {
 	if (automateEncours) {
 		var id = 0;
@@ -436,7 +453,7 @@ function initWSSocket(host) {
 				break;
 
 			case "etatDeLaFileAttente":
-				if (debug1) console.log("etatDeLaFileAttente:", msgRecu);
+				if (debug) console.log("etatDeLaFileAttente:", msgRecu);
 
 			    var texteAffiche = ' ';
 
@@ -452,12 +469,11 @@ function initWSSocket(host) {
 		    		}
 	    		}
 
-	    		if (debug1) console.log("etatDeLaFileAttente:", texteAffiche);
 	    		document.getElementById("FileAttente").innerHTML = texteAffiche;
 				break;
 
 			case "groupesClientLength":
-				if (debug1) console.log("groupesClientLength:", msgRecu.longueurs);
+				if (debug) console.log("groupesClientLength:", msgRecu.longueurs);
 
 				var groupesDisplay = " ";
 				for ( var i=0; i < msgRecu.longueurs.length; i++) {
@@ -481,6 +497,10 @@ function initWSSocket(host) {
 
 			case "message":  
 				if (debug) console.log(msgRecu.text);
+				break;
+
+			case "resetMatriceDesPossibles":
+				cleanPad();
 				break;
 
 			case "setInMatrix":
@@ -517,6 +537,7 @@ function initWSSocket(host) {
 
 
 function initServerListener() {
+
 /*    	server.addEventListener('etatDeLaFileAttente', function( event ) {
     		var texteAffiche = ' ';
     		//if (debug) console.log("Reçu Broadcast:", event.value );

@@ -216,7 +216,7 @@ exports.getGroupScore = getGroupScore;
 /*===========================================================================
 getTimerDivision, getComputeScorePolicy, getComputeScoreClass
 
-Fonctions passerelle entre websocketServerSkini.js
+Fonctions passerelle entre websocketServerSkini.js, controleDAW.js
 et les orchestrations car il n'y a pas de lien direct de l'orchestration
 vers websocketServerSkini. Il y en a dans l'autre sens via des react().
 
@@ -250,15 +250,76 @@ function setComputeScoreClass(scoreClass) {
 }
 exports.setComputeScoreClass = setComputeScoreClass;
 
+function setTimerDivision(timer){
+	timerDivision = timer;
+}
+exports.setTimerDivision = setTimerDivision;
 
 function setSocketControleur(socket) {
 	socketControleur = socket;
-	//if (automateUn !== undefined) automateUn.setSocketControleur(socket);
-	//if (automateDeux !== undefined) automateDeux.setSocketControleur(socket);
-	//if (automateTrois !== undefined) automateTrois.setSocketControleur(socket);
-	//console.log("groupeClientsSons:socketControleur:", socketControleur);
 }
 exports.setSocketControleur = setSocketControleur;
+
+function cleanQueues(){
+	DAW.cleanQueues();
+}
+exports.cleanQueues = cleanQueues;
+
+function cleanOneQueue(queue){
+	DAW.cleanQueue(queue);
+}
+exports.cleanOneQueue = cleanOneQueue;
+
+function pauseQueues(queue){
+	DAW.pauseQueues();
+}
+exports.pauseQueues = pauseQueues;
+
+function pauseOneQueue(queue){
+	DAW.pauseQueue(queue);
+}
+exports.pauseOneQueue = pauseOneQueue;
+
+function resumeQueues(queue){
+	DAW.resumeQueues();
+}
+exports.resumeQueues = resumeQueues;
+
+function resumeOneQueue(queue){
+	DAW.resumeQueue(queue);
+}
+exports.resumeOneQueue = resumeOneQueue;
+
+function resetMatrice(){
+	resetMatriceDesPossibles();
+}
+exports.resetMatrice = resetMatrice;
+
+function setpatternListLength(param){
+
+	function sendMessage(nbePatternsListes){
+		if(debug) console.log("groupecliensSons.js: patternListLength:", nbePatternsListes);
+		var msg = {
+			type: 'nombreDePatternsPossible',
+			value: nbePatternsListes
+		}
+		serv.broadcast(JSON.stringify(msg));
+		//hop.broadcast('nombreDePatternsPossible', nbePatternsListes);
+	}
+
+	// Mise à jour du suivi des longueurs de listes
+	for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
+		if(	nombreDePatternsPossibleEnListe[i][1] === param[1]){
+			nombreDePatternsPossibleEnListe[i][0] = param[0];
+			sendMessage(nombreDePatternsPossibleEnListe);
+			return;
+		}
+	}
+	nombreDePatternsPossibleEnListe.push([param[0], param[1]]);
+	sendMessage(nombreDePatternsPossibleEnListe);
+}
+exports.setpatternListLength = setpatternListLength;
+
 
 /*********************************************************
 
@@ -604,7 +665,7 @@ function resetMatriceDesPossibles() {
 			matriceDesPossibles[i][j] = false;
 		}
 	}
-	//if (debug) console.log("groupeClientSons:resetMatriceDesPossibles:", matriceDesPossibles);
+	if (debug) console.log("groupeClientSons:resetMatriceDesPossibles:", matriceDesPossibles);
 	// Info pour les scrutateurs
 	var msg = {
 		type: "resetMatriceDesPossibles",
@@ -719,26 +780,6 @@ function makeListener(machine){
 		}
 	}
 
-	// Par ordre alphabétique des messages
-	machine.addEventListener( "cleanQueues" , function(evt) {
-		DAW.cleanQueues();
-		if(debug){ 
-		  console.log("INFO: groupeClientSons.js:listerner cleanQueues");
-		}
-	});
-
-	machine.addEventListener( "cleanOneQueue" , function(evt) {
-		DAW.cleanQueue( evt.signalValue);
-		if(debug){ 
-		  console.log("INFO: groupeClientSons.js:listerner cleanOneQueue:", evt.signalValue);
-		}
-	});
-
-	machine.addEventListener( "cleanChoiceList" , function(evt) {
-		if(debug1) console.log("groupecliensSons.js: cleanChoiceList:", evt.signalValue);
-		hop.broadcast('cleanChoiceList', evt.signalValue);
-	});
-
 	machine.addEventListener( "patternListLength" , function(evt) {
 
 		function sendMessage(nbePatternsListes){
@@ -756,62 +797,6 @@ function makeListener(machine){
 		}
 		nombreDePatternsPossibleEnListe.push([evt.signalValue[0], evt.signalValue[1]]);
 		sendMessage(nombreDePatternsPossibleEnListe);
-	});
-
-	machine.addEventListener( "pauseOneQueue" , function(evt) {
-		DAW.pauseQueue( evt.signalValue);
-		if(debug1){ 
-		  console.log("INFO: groupeClientSons.js:listerner pauseOneQueue",  evt.signalValue);
-		}
-	});
-
-	machine.addEventListener( "pauseQueues" , function(evt) {
-		DAW.pauseQueues();
-		if(debug1){
-		  console.log("INFO: groupeClientSons.js:listerner pauseQueues");
-		}
-	});
-
-	machine.addEventListener( "resetMatriceDesPossibles" , function(evt) {
-		resetMatriceDesPossibles();
-		if(debug){ 
-		  console.log("INFO: groupeClientSons.js:listerner resetMatriceDesPossibles");
-		}
-	});
-
-	machine.addEventListener( "resumeOneQueue" , function(evt) {
-		DAW.resumeQueue( evt.signalValue);
-		if(debug1){ 
-		  console.log("INFO: groupeClientSons.js:listerner resumeOneQueue:", evt.signalValue);
-		}
-	});
-
-	machine.addEventListener( "resumeQueues" , function(evt) {
-		DAW.resumeQueues();
-		if(debug1){
-		  console.log("INFO: groupeClientSons.js:listerner resumeQueues");
-		}
-	});
-
-	machine.addEventListener( "setTimerDivision" , function(evt) {
-		if(debug1){ 
-		  console.log("INFO: groupeClientSons.js:listener setTimerDivision: ", evt.signalValue);
-		}
-		timerDivision = evt.signalValue;
-	});
-
-	machine.addEventListener( "setComputeScorePolicy" , function(evt) {
-		if(debug1){ 
-		  console.log("INFO: groupeClientSons.js:listener setComputeScorePolicy: ", evt.signalValue);
-		}
-		computeScorePolicy = evt.signalValue;
-	});
-
-	machine.addEventListener( "setComputeScoreClass" , function(evt) {
-		if(debug1){ 
-		  console.log("INFO: groupeClientSons.js:listener setComputeScoreClass: ", evt.signalValue);
-		}
-		computeScoreClass = evt.signalValue;
 	});
 
 	*/
