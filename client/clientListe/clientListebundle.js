@@ -78,8 +78,6 @@ var srcInit = "../../sounds/FM8-6.mp3";
 var playPromiseInit;
 
 function initWSocket(host) {
-	//initServerListener();
-
 	if( host !== undefined){
 		ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 		console.log("clientListe.js WS://" + host + ":" + ipConfig.websocketServeurPort);
@@ -141,13 +139,13 @@ function initWSocket(host) {
 				if (debug) console.log("Reçu DAWStatus:", msgRecu.value ); 
 				DAWON = msgRecu.value ;
 				selectAllClips();
+
 				// On peut recevoir DAWStatus avant d'avoir créer les Listes
 				// auquel cas cleanChoiceList n'est pas encore une fonction.
 				if( typeof cleanChoiceList == "function"){
 					cleanChoiceList();
 					initDisplay();
 				}
-				
 				break;
 
 			case "delaiInstrument":
@@ -497,300 +495,31 @@ mr.createSignal("sendPatternSequence", 0);
 		// du jeu complet de la liste
 		patternsListSent = patternsChoisis.slice();
 	});
-
-/*
-	var automateCom = hiphop module(
-		out sendPatternSequence,
-		out alertSequenceOnGoing,
-		out startTempo,
-		out stopListOfPatterns,
-		out resumeListOfPatterns,
-		out resetPatternSequenceSent,
-		in receivedAllPatternPlayed,
-		in clickPatternSequence,
-		in patternSequenceAck,
-		in infoPlayDAW,
-		in initialisation,
-		in endTempo,
-		in cleanAllQueues,
-		in clickOnListOfPatterns,
-		in onAddPattern) {
-		hop{console.log("Communication automate started");}
-
-		every immediate (initialisation.now || cleanAllQueues.now){
-			emit resetPatternSequenceSent();
-			if (cleanAllQueues.now){
-				hop{
-					console.log("-- cleanQueues");
-					cleanChoiceList();
-				}
-			}
-			emit resumeListOfPatterns();
-
-			fork{
-				loop{
-					await immediate (clickPatternSequence.now);
-					hop{console.log("-- clickPatternSequence")}
-					emit startTempo();
-					emit sendPatternSequence();
-					abort (receivedAllPatternPlayed.now || endTempo.now){
-						every (clickPatternSequence.now){
-							emit alertSequenceOnGoing();
-						}
-					}
-					hop{console.log("-- Tout les patterns joués ou fin tempo");}
-				}
-			}par{
-				every (infoPlayDAW.now){
-					hop{console.log("-- infoPlayDAW", infoPlayDAW.nowval[7])}
-				}
-			}par{
-				every (patternSequenceAck.now){
-					hop{console.log("-- patternSequenceAck: ", patternSequenceAck.nowval);}
-				}
-			}par{
-
-			}
-		}
-	}
-
-	communicationMachine = new hh.ReactiveMachine(automateCom, "automateCom");
-
-	var timeOut;
-	communicationMachine.addEventListener("startTempo", function(evt) {
-		if(timeOut !== undefined) clearTimeout(timeOut);
-		console.log("-- startTempo");
-		// Ne devrait pas être nécessaire, on garde en réserve...
-		timeOut = setTimeout(function(){
-			console.log("-- endTempo");
-			//communicationMachine.inputAndReact("endTempo");
-		}, 15000); // tempo si on ne reçoit pas d'info sur les patterns à jouer
-	});
-
-	communicationMachine.addEventListener("resetPatternSequenceSent", function(evt) {
-		if(debug) console.log("-- resetPatternSequenceSent");
-		patternsListSent = [];
-	});
-
-	communicationMachine.addEventListener("alertSequenceOnGoing", function(evt) {
-		if(debug) console.log("-- alertSequenceOnGoing");
-		alert("Séquence en cours");
-	});
-
-	communicationMachine.addEventListener("stopListOfPatterns", function(evt) {
-		if(debug) console.log("-- clickOnListOfPatterns");
-		actionSurGroupeClientPossible = false;
-	});
-
-	communicationMachine.addEventListener("resumeListOfPatterns", function(evt) {
-		if(debug) console.log("-- resumeListOfPatterns");
-		actionSurGroupeClientPossible = true;
-	});
-
-	communicationMachine.addEventListener("sendPatternSequence", function(evt) {
-		if(debug) console.log("-- sendPatternSequence");
-		sequenceLocale = [];
-
-		if(debug) console.log("sendPatternSequence: patternsChoisis: ", patternsChoisis);
-
-		if(patternsChoisis.length === 0){
-			console.log("WARN: sendPatternSequence: sequence vide");
-			return;
-		}
-		for(var i=0; i < patternsChoisis.length; i++){
-			sequenceLocale[i] = patternsChoisis[i].note;
-		}
-		if(debug1) console.log("-- sendPatternSequence", sequenceLocale);
-		msg.type = "sendPatternSequence";
-		msg.patternSequence = sequenceLocale;
-		msg.pseudo = pseudo;
-		msg.groupe = monGroupe;
-		msg.idClient = idClient;
-		ws.send(JSON.stringify(msg));
-
-		// Met en place les données pour le mécanisme d'attente
-		// du jeu complet de la liste
-		patternsListSent = patternsChoisis.slice();
-	});
-	return communicationMachine;
-*/
-}
-
-/**********************************
-
-	Ecoute des broadcasts HOP
-
-***********************************/
-function initServerListener() {
-
-	// Mise à jour de la durée d'attente sur un instrument
-	// Les valeurs des attentes sont conservés quand on reçoit une modifictaion de la liste des clips
-/*	server.addEventListener('attenteInstrument', function( event ) {
-		var retour = JSON.parse(event.value); 
-		if (debug) console.log("Reçu Broadcast: attenteInstrument:", retour, retour.instrument, retour.attente );
-
-		for(var i=0;i< listClips.length ;i++){
-			if ( listClips[i][5] === retour.instrument ) {
-				listClips[i][11] = retour.attente; // Extension ou mise à jour de la liste des clips avec la duréé d'attente
-				var bouton = document.getElementById(i);
-				// On vérifie que le bouton existe toujours
-				if(bouton !== null){
-					bouton.innerHTML = listClips[i][3].toString() + " " + retour.attente.toString() +"s";
-					//console.log("----------------attenteInstrument:", listClips[i][3].toString() + " " + retour.attente.toString() +"s" );
-				}
-			}
-		}
-	});
-*/
-
-/*
-
-	server.addEventListener('alertInfoScoreON', function( event ) {
-		if (debug1) console.log("Reçu alertInfoScoreON:", event.value ); 
-		$('#MessageDuServeur').text(event.value);
-	});
-
-	server.addEventListener('alertInfoScoreOFF', function( event ) {
-		if (debug1) console.log("Reçu alertInfoScoreOFF:", event.value ); 
-		$('#MessageDuServeur').text(" ");
-	});
-
-	server.addEventListener('DAWStatus', function( event ) {
-		if (debug) console.log("Reçu DAWStatus:", event.value ); 
-		DAWON = event.value ;
-		if (debug) console.log("reçu broadcast DAWON: ", DAWON);
-		
-		selectAllClips();
-		cleanChoiceList();
-		initDisplay();
-
-		//actionSurDAWON();
-	});
-
-	server.addEventListener('cleanQueues', function( event ) {
-		if (debug1) console.log("Reçu Broadcast:cleanQueues", event.value );
-		// On pourrait traiter l'instrument concerné donné dans event.value
-		// Mais est-ce bien utile ? C'est compliqué mais faisable, event.value donne un instrument et non un
-		// groupe de clients.
-		communicationMachine.inputAndReact("cleanAllQueues");
-	});
-
-	server.addEventListener('cleanChoiceList', function( event ) {
-		var retour = event.value;
-		if (debug1) console.log("Reçu Broadcast: cleanChoiceList:", retour);
-		if (retour === monGroupe || retour === 255) {
-			if(cleanChoiceList !== null) cleanChoiceList();
-		}
-	});
-
-/*	server.addEventListener('demandeDeSonParPseudo', function( event ) {
-		if (debug) console.log("Reçu Texte Broadcast demande de son par pseudo:", event.value );
-		if ( event.value === ' ') {
-			document.getElementById("demandeDeSons").innerHTML =  " ";
-			demandeDeSons = " ";
-		} else {
-			var msgBroadcast = JSON.parse(event.value); 
-			demandeDeSons = msgBroadcast.soundName + "("+ msgBroadcast.pseudo + ")" + " <br> " + demandeDeSons;
-			//demandeDeSons = event.value + " <br> " + demandeDeSons;
-
-			// On tronque aussi la chaine de caractère        
-			document.getElementById("demandeDeSons").innerHTML = demandeDeSons.slice(0, 50);
-		}
-	}); */
-
-/*
-	server.addEventListener('groupeClientStatus', function( event ) {
-		var retour = JSON.parse(event.value); 
-		if (debug) console.log("Reçu Broadcast: groupeClientStatus:", retour, retour.groupeClient );
-		if (retour.groupeClient == monGroupe || retour.groupeClient == 255) {
-			//if(actionSurGroupeClientPossible) actionSurGroupeClientStatus(retour.groupeName, retour.status);
-			actionSurGroupeClientStatus(retour.groupeName, retour.status);
-		}
-	});
-
-	server.addEventListener('infoPlayDAW', function( event ) {
-		if (debug) console.log("Reçu Texte Broadcast infoPlayDAW:", event.value );
-
-		if ( event.value[4] === idClient ){ // C'est la position de l'idClient (wsid) dans la file d'attente ([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom]);
-			//document.getElementById("MessageDuServeur").textContent = " "; // Nettoyage
-			vibration(2000);
-		   	document.body.className = "inplay";
-	   		setTimeout( function() { document.body.className = "black-again" }, 1000 );
-
-			// Retirer le pattern de la liste si c'est un des miens envoyer dans la séquence
-			if(debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW", event.value[7]);
-			for(var i=0; i < patternsListSent.length; i++){
-				if(patternsListSent[i].patternName === event.value[7]){
-					communicationMachine.inputAndReact("infoPlayDAW", event.value);
-					patternsListSent.splice(i, 1); // Enlève la position
-					if(debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW: nouvelle liste: ", patternsListSent);
-				}
-			}
-			if(patternsListSent.length === 0){ // On a joué tous les patterns
-				if(debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW: tous les patterns joues");
-				communicationMachine.inputAndReact("receivedAllPatternPlayed");
-				if(debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW: nombreSonsPossible:", nombreSonsPossible);
-			}
-		}
-	});
-
-	server.addEventListener('nombreDePatternsPossible', function( event ) {
-		if (debug) console.log("Reçu Broadcast: nombreDePatternsPossible:", event.value );
-		var nombreDePatternsPossibleEnListe = event.value;
-
-		// Mise à jour du suivi des longueurs de listes d'abord / au groupe
-		for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
-			if(	nombreDePatternsPossibleEnListe[i][1] === monGroupe ){
-				nombreSonsPossibleInit = nombreDePatternsPossibleEnListe[i][0];
-				if (debug1) console.log("Reçu Broadcast: nombreDePatternsPossible:nombreSonsPossibleInit ", nombreSonsPossibleInit );
-				return;
-			}
-		} // Sinon en fonction du broadcast 255
-		for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
-			if( nombreDePatternsPossibleEnListe[i][1] === 255 ){
-				nombreSonsPossibleInit = nombreDePatternsPossibleEnListe[i][0];
-				if (debug1) console.log("Reçu Broadcast: nombreDePatternsPossible:nombreSonsPossibleInit ", nombreSonsPossibleInit );
-				return;
-			}
-		}
-		if(debug1) console.log("nombreDePatternsPossible : ne suis pas concerné : ", event);
-	});
-
-	server.addEventListener('setPatternGroups', function( event ) {
-		if (debug) console.log("Reçu setPatternGroups:", event.value ); 
-		groupesDesSons = event.value ;
-	});
-
-	server.addEventListener('texteServeur', function( event ) {
-		if (debug) console.log("Reçu Broadcast:", event.value );
-		var element = document.getElementById("Broadcast");
-		element.innerHTML = event.value;
-	});
-
-	*/    
 }
 
 /**************************************************
 
- Automate des boutons de sélection et d'écoute
+ Boutons de sélection et d'écoute
 
  ***************************************************/
 // Ecoute en local
-function startListenClip() {
+function startPlayListe() {
+	if(debug1) console.log("startListenClip");
+
 	document.getElementById( "buttonEcouter").style.display = "none";
 	document.getElementById( "buttonStop").style.display = "inline";
 	startSound();
 }
-window.startListenClip = startListenClip;
+window.startPlayListe = startPlayListe;
 
 // Arret de l'écoute en local
-function stopListenClip() {
+function stopPlayListe() {
 	document.getElementById( "buttonEcouter").style.display = "inline";
 	document.getElementById( "buttonStop").style.display = "none";
-	src.pause();
+	if(audio !== undefined) audio.pause();
+	enablePatternChoice();
 }
-window.stopListenClip = stopListenClip;
-
+window.stopPlayListe = stopPlayListe;
 
 var endedListener = null;
 var nextListener = null;
@@ -820,7 +549,10 @@ function startSound() {
 
 		// Remet drag and dop
 		enablePatternChoice();
-		//thisIsdone();
+
+		// Remet l'affichage en place à la fin de la liste
+		document.getElementById( "buttonEcouter").style.display = "inline";
+		document.getElementById( "buttonStop").style.display = "none";
 	}
 
 	nextListener = function() {
@@ -857,74 +589,6 @@ function startSound() {
 	}
 	nextListener();
 }
-
-/*
-	var automate = hiphop module(in DAWON, in start, in stop, in isChoices, in isPatterns,
-		out displayStop, out displayStart, out displayEcouter) {
-
-		fork{
-			every immediate (DAWON.now){
-				if(DAWON.nowval && !isChoices.nowval){
-					emit displayEcouter(true);
-					emit displayStop(false);
-					emit displayStart(true);
-				}else{
-					emit displayEcouter(false);
-					emit displayStop(false);
-					emit displayStart(false);
-				}
-			}
-		}par{
-			every immediate (start.now) {
-				abort (stop.now) {
-					emit displayStop(true);
-					emit displayEcouter(false);
-
-					// async bloque ESTEREL en attendant this.notifyAndReac ou kill (ou ONSUSP ou ONRES)
-	                // Si this.notifyAndReac est activé quelque part on débloque en passant à la suite, cas de la fin de la lecture audio
-	                // Si c'est l'ABORT qui se produit, on est dans la cas d'un kill et on exécute audio.pause()
-	                // On prend donc assez simplement en compte deux cas, la fin naturelle et l'abort.
-	                async {
-	                	startSound( () => {this.notify(); this.react()} );
-	                } kill {
-						audio.pause();
-						enablePatternChoice();
-	                }
-				}
-				emit displayStop(false);
-				emit displayEcouter(true);
-			}
-		}
-	}
-
-    listenMachine = new hh.ReactiveMachine(automate, "automate");
-
-	listenMachine.addEventListener("displayStop", function(evt) {
-		if (evt.signalValue) {
-			document.getElementById( "buttonStop").style.display = "inline";
-		} else {
-			document.getElementById( "buttonStop").style.display = "none";
-		}
-	});
-
-	listenMachine.addEventListener("displayStart", function(evt) {
-		if (evt.signalValue) {
-			document.getElementById( "buttonStart").style.display = "inline";
-		} else {
-			document.getElementById( "buttonStart").style.display = "none";
-		}
-	});
-
-	listenMachine.addEventListener("displayEcouter", function(evt) {
-		if (evt.signalValue) {
-			document.getElementById( "buttonEcouter").style.display = "inline";
-		} else {
-			document.getElementById( "buttonEcouter").style.display = "none";
-		}
-	});
-	return listenMachine;
-*/
-
 
 /****************************************
 

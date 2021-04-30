@@ -1047,3 +1047,46 @@
 {"date":"30:04:2021:09:22:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"toto","id":329827,"note":"Percu54"}
 {"date":"30:04:2021:09:22:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"toto","id":329827,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
 {"date":"30:04:2021:09:22:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"toto","id":329827,"note":31,"instrumentNo":7,"nomSon":"Percu30"}
+{"date":"30:04:2021:09:25:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:25:46","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:26:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:26:07","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:26:14","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:28:36","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Toi","id":431684}
+{"date":"30:04:2021:09:31:01","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":815065}
+{"date":"30:04:2021:09:34:12","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":816542}
+{"date":"30:04:2021:09:35:42","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":787927}
+{"date":"30:04:2021:09:36:18","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":809009}
+{"date":"30:04:2021:09:37:12","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":307244}
+{"date":"30:04:2021:09:38:09","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":874941}
+{"date":"30:04:2021:09:43:05","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu43","pseudo":"Marc","id":861537}
+{"date":"30:04:2021:09:43:05","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":861537,"note":"Percu49"}
+{"date":"30:04:2021:09:43:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":861537,"note":33,"instrumentNo":4,"nomSon":"Percu49"}
+{"date":"30:04:2021:09:43:07","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":861537,"note":35,"instrumentNo":5,"nomSon":"Percu43"}
+{"date":"30:04:2021:09:45:23","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":861537}
+{"date":"30:04:2021:09:48:03","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":529430}
+{"date":"30:04:2021:09:48:32","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":883803}
+{"date":"30:04:2021:09:48:57","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu40","pseudo":"Marc","id":374103}
+{"date":"30:04:2021:09:48:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":374103,"note":"Percu42"}
+{"date":"30:04:2021:09:48:57","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":374103,"note":34,"instrumentNo":4,"nomSon":"Percu40"}
+{"date":"30:04:2021:09:48:57","source":"controleDAW.js","type":"Etat de la file d'attente","longeurFileAttente":1,"file":[[6,1,32,125,374103,"Marc",12,"Percu42","groupe4IN"]]}
+{"date":"30:04:2021:09:48:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":374103,"note":32,"instrumentNo":4,"nomSon":"Percu42"}
+{"date":"30:04:2021:09:50:15","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":374103}
+{"date":"30:04:2021:09:50:22","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu42","pseudo":"Marc","id":482757}
+{"date":"30:04:2021:09:50:22","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":482757,"note":"Percu39"}
+{"date":"30:04:2021:09:50:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":482757,"note":32,"instrumentNo":4,"nomSon":"Percu42"}
+{"date":"30:04:2021:09:50:23","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":482757,"note":63,"instrumentNo":8,"nomSon":"Percu39"}
+{"date":"30:04:2021:09:50:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":482757,"note":"Percu40"}
+{"date":"30:04:2021:09:50:49","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":482757,"note":"Percu39"}
+{"date":"30:04:2021:09:50:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":482757,"note":34,"instrumentNo":4,"nomSon":"Percu40"}
+{"date":"30:04:2021:09:50:51","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":482757,"note":63,"instrumentNo":8,"nomSon":"Percu39"}
+{"date":"30:04:2021:09:55:59","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":482757}
+{"date":"30:04:2021:09:56:29","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu42","pseudo":"Marc","id":971463}
+{"date":"30:04:2021:09:56:29","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":971463,"note":"Percu41"}
+{"date":"30:04:2021:09:56:31","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":971463,"note":32,"instrumentNo":4,"nomSon":"Percu42"}
+{"date":"30:04:2021:09:56:31","source":"controleDAW.js","type":"Etat de la file d'attente","longeurFileAttente":1,"file":[[6,1,29,125,971463,"Marc",12,"Percu41","groupe4IN"]]}
+{"date":"30:04:2021:09:56:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":971463,"note":29,"instrumentNo":4,"nomSon":"Percu41"}
+{"date":"30:04:2021:09:56:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":971463,"note":"Percu38"}
+{"date":"30:04:2021:09:56:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":971463,"note":64,"instrumentNo":8,"nomSon":"Percu38"}
+{"date":"30:04:2021:09:57:00","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":971463,"note":"Percu38"}
+{"date":"30:04:2021:09:57:00","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":971463,"note":64,"instrumentNo":8,"nomSon":"Percu38"}
