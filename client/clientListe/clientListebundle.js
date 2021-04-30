@@ -131,18 +131,23 @@ function initWSocket(host) {
 			case "DAWON": 
 				//Permet de savoir si DAW est actif quand on recharge un client, le serveur envoie l'info à la connexion 
 				// C'est le même scénario que quand on reçoit un broadcast de "DAWStatus".
-
+				// Version Node JS: est bien utile ?
 				DAWON = msgRecu.value;
 				if (debug1) console.log("***** reçu message DAWON: ", DAWON);
 				actionSurDAWON();
 				break;
 
 			case "DAWStatus":
-				if (debug1) console.log("**** Reçu DAWStatus:", msgRecu.value ); 
+				if (debug) console.log("Reçu DAWStatus:", msgRecu.value ); 
 				DAWON = msgRecu.value ;
 				selectAllClips();
-				cleanChoiceList();
-				initDisplay();
+				// On peut recevoir DAWStatus avant d'avoir créer les Listes
+				// auquel cas cleanChoiceList n'est pas encore une fonction.
+				if( typeof cleanChoiceList == "function"){
+					cleanChoiceList();
+					initDisplay();
+				}
+				
 				break;
 
 			case "delaiInstrument":
@@ -290,7 +295,9 @@ function initWSocket(host) {
 			case "message":  
 				if (debug) console.log(msgRecu.text);
 				var element = document.getElementById("MessageDuServeur");
-				element.innerHTML = msgRecu.text;
+				if(msgRecu.text !== undefined){
+					element.innerHTML = msgRecu.text;
+				}
 				break;
 
 			// Donne une liste qui contient la longueur des listes en fonction du groupe
@@ -1360,8 +1367,8 @@ function selectClipBouton(id, listClips) {
 	getDelayClip(); // Pas utile pour le moment
 }
 
-
 function findColorOfTheGroup(id, listOfgroups) {
+	if(debug) console.log("findColorOfTheGroup:", id, listOfgroups);
 	if(listOfgroups === undefined)  return undefined;
 	
 	for(var i=0; i < listOfgroups.length; i++){
@@ -1730,8 +1737,10 @@ function initSortable() {
 						selectedPattern.sound = getSoundFile(fileName);
 						selectedPattern.patternName = patternName;
 						patternsChoisis.splice(evt.newIndex, 0, selectedPattern); // Insére à la nouvelle position
+
 						// Il faut regénerer l'automate avec la nouvelle liste
-						makeListenMachine();
+						//makeListenMachine();
+
 					}else{
 						console.log("WARN: sortableChoice: onUpdate: note no more in the list of patterns");
 					}
@@ -1801,7 +1810,7 @@ function initSortable() {
 				}
 
 				// Il faut regénerer l'automate avec la nouvelle liste
-				makeListenMachine();
+				//makeListenMachine();
 			}
 
 			// same properties as onEnd
@@ -2511,10 +2520,10 @@ exports._restart = _restart;
 },{}],3:[function(require,module,exports){
 module.exports={
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "192.168.247.96",
+	"remoteIPAddressSound": "192.168.25.96",
 	"remoteIPAddressLumiere": "192.168.82.96",
 	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "192.168.247.96",
+	"serverIPAddress": "192.168.25.96",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,

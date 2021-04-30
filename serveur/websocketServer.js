@@ -720,7 +720,7 @@ serv.on('connection', function (ws) {
 		case "selectAllClips":
             var listClips = DAW.getAllClips(msgRecu.groupe, groupesClientSon.matriceDesPossibles );
             if (listClips !== -1){
-	    		if (debug1) console.log("Web Socket Serveur: selectAllClips:", ws.id, "groupe:", msgRecu.groupe, listClips[0]); 
+	    		if (debug) console.log("Web Socket Serveur: selectAllClips:", ws.id, "groupe:", msgRecu.groupe, listClips[0]); 
 	    		var msg = {
 		            type: "listClips",
 		            listClips: listClips
@@ -829,6 +829,14 @@ serv.on('connection', function (ws) {
 
  			//compScore.resetClientEnCours(clientsEnCours);
  			groupesClientSon.setClientsEncours(clientsEnCours);
+
+ 			// Sinon n'est envoyé qu'au onopen de la Socket
+ 			// nécessaire pour les couleurs sur les clients
+			var msg = {
+				type:"setPatternGroups",
+				value: par.groupesDesSons
+			}
+			serv.broadcast(JSON.stringify(msg));
 
  			// Au cas où le client serait connecté avant le début de l'orchestration.
 			if (debug) console.log("Web Socket Server: startAutomate DAWON:", DAWStatus);

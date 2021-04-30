@@ -134,11 +134,11 @@ tankPiano = [
                 mr._atom( ()=> {console.log('orchestration: start');} ),
               ]
             ),
-            mr._every("tick",1,
+/*            mr._every("tick",1,
               [
                 mr._atom( ()=> {console.log('orchestration: tick');} ),
               ]
-            ),
+            ),*/
           ]
         ),
       ]

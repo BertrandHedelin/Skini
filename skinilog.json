@@ -880,3 +880,170 @@
 {"date":"29:04:2021:16:10:40","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
 {"date":"29:04:2021:16:10:40","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
 {"date":"29:04:2021:16:10:48","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:12:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:12:14","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:12:35","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:12:35","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:12:43","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:13:47","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":428340}
+{"date":"29:04:2021:16:13:55","source":"websocketServerSkini.js","type":"closeSpectateur","id":711999}
+{"date":"29:04:2021:16:14:06","source":"websocketServerSkini.js","type":"closeSpectateur","id":466294}
+{"date":"29:04:2021:16:14:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:14:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:14:31","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:14:31","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:14:40","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:14:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:14:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:14:46","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:15:06","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:15:06","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:15:14","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:20:03","source":"websocketServerSkini.js","type":"closeSpectateur","id":667518}
+{"date":"29:04:2021:16:20:27","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:20:29","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:20:29","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:20:49","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:20:49","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:20:57","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:21:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:21:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:21:16","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:21:36","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:21:36","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:21:44","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:22:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:22:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:22:35","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:22:56","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:22:56","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:23:04","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:26:02","source":"websocketServerSkini.js","type":"closeSpectateur","id":551770}
+{"date":"29:04:2021:16:28:09","source":"websocketServerSkini.js","type":"closeSpectateur","id":383369}
+{"date":"29:04:2021:16:31:15","source":"websocketServerSkini.js","type":"closeSpectateur","id":533053}
+{"date":"29:04:2021:16:37:02","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":546151}
+{"date":"29:04:2021:16:58:54","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:58:54","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:59:21","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:16:59:21","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:59:29","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:16:59:53","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:59:53","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:16:59:54","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:00:15","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:17:00:15","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:00:23","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:17:05:48","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu28","pseudo":"Marc","id":886883}
+{"date":"29:04:2021:17:05:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":886883,"note":"Percu29"}
+{"date":"29:04:2021:17:05:48","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":886883,"note":"Percu30"}
+{"date":"29:04:2021:17:05:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":17,"instrumentNo":1,"nomSon":"Percu28"}
+{"date":"29:04:2021:17:05:49","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":31,"instrumentNo":7,"nomSon":"Percu30"}
+{"date":"29:04:2021:17:05:49","source":"controleDAW.js","type":"Etat de la file d'attente","longeurFileAttente":1,"file":[[6,2,18,125,886883,"Marc",8,"Percu29","groupe3IN"]]}
+{"date":"29:04:2021:17:05:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":18,"instrumentNo":1,"nomSon":"Percu29"}
+{"date":"29:04:2021:17:06:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":886883,"note":"Percu28"}
+{"date":"29:04:2021:17:06:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":886883,"note":"Percu29"}
+{"date":"29:04:2021:17:06:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":886883,"note":"Percu30"}
+{"date":"29:04:2021:17:06:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":17,"instrumentNo":1,"nomSon":"Percu28"}
+{"date":"29:04:2021:17:06:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":31,"instrumentNo":7,"nomSon":"Percu30"}
+{"date":"29:04:2021:17:06:03","source":"controleDAW.js","type":"Etat de la file d'attente","longeurFileAttente":1,"file":[[6,2,18,125,886883,"Marc",8,"Percu29","groupe3IN"]]}
+{"date":"29:04:2021:17:06:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":886883,"note":18,"instrumentNo":1,"nomSon":"Percu29"}
+{"date":"29:04:2021:17:38:25","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":886883}
+{"date":"29:04:2021:17:40:32","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":326086}
+{"date":"29:04:2021:17:40:46","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"toto","id":196097}
+{"date":"29:04:2021:17:40:58","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:41:00","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:41:01","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:41:22","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:41:22","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:17:41:30","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:17:47:10","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"toto","id":151911}
+{"date":"29:04:2021:17:49:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:49:11","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":935238}
+{"date":"29:04:2021:17:49:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:49:16","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:49:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:49:22","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"29:04:2021:17:49:22","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:49:43","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"29:04:2021:17:49:43","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"29:04:2021:17:49:51","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:20:26","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:20:26","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:21:00","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu4","pseudo":"Marc","id":873419}
+{"date":"30:04:2021:08:21:01","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"Marc","id":873419,"note":14,"instrumentNo":4,"nomSon":"Percu4"}
+{"date":"30:04:2021:08:21:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:21:09","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:21:17","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:28:58","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:29:00","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":873419}
+{"date":"30:04:2021:08:29:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:29:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:29:23","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":418815}
+{"date":"30:04:2021:08:29:29","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:29:29","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:29:37","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:32:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:32:13","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:32:34","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:32:34","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:32:42","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:55:40","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:55:40","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:55:45","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":18263}
+{"date":"30:04:2021:08:56:00","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:56:00","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:56:08","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:56:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:56:09","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:56:30","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:56:30","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:56:38","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:58:56","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:08:58:56","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:59:16","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:08:59:16","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:08:59:24","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:00:24","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"opo","id":123606}
+{"date":"30:04:2021:09:02:25","source":"websocketServerSkini.js","type":"closeSpectateur","id":934080}
+{"date":"30:04:2021:09:02:34","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":722961}
+{"date":"30:04:2021:09:02:44","source":"websocketServerSkini.js","type":"closeSpectateur","id":273671}
+{"date":"30:04:2021:09:02:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:02:46","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:03:07","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:03:07","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:03:15","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:05:28","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":402626}
+{"date":"30:04:2021:09:11:28","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":45080}
+{"date":"30:04:2021:09:12:36","source":"websocketServerSkini.js","type":"closeSpectateur","id":40653}
+{"date":"30:04:2021:09:13:53","source":"websocketServerSkini.js","type":"closeSpectateur","id":116690}
+{"date":"30:04:2021:09:14:03","source":"websocketServerSkini.js","type":"closeSpectateur","id":524490}
+{"date":"30:04:2021:09:14:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:14:05","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:14:25","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:14:25","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:14:33","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:15:32","source":"websocketServerSkini.js","type":"closeSpectateur","id":201019}
+{"date":"30:04:2021:09:15:39","source":"websocketServerSkini.js","type":"closeSpectateur","id":760187}
+{"date":"30:04:2021:09:15:48","source":"websocketServerSkini.js","type":"closeSpectateur","id":224989}
+{"date":"30:04:2021:09:16:13","source":"websocketServerSkini.js","type":"closeSpectateur","id":979392}
+{"date":"30:04:2021:09:17:11","source":"websocketServerSkini.js","type":"closeSpectateur","id":862937}
+{"date":"30:04:2021:09:17:14","source":"websocketServerSkini.js","type":"closeSpectateur","id":234273}
+{"date":"30:04:2021:09:18:11","source":"websocketServerSkini.js","type":"closeSpectateur","id":359546}
+{"date":"30:04:2021:09:18:32","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":436117}
+{"date":"30:04:2021:09:18:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:18:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:18:44","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:19:05","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:19:05","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:19:13","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:21:03","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"30:04:2021:09:21:03","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:21:24","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
+{"date":"30:04:2021:09:21:24","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:21:33","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
+{"date":"30:04:2021:09:21:55","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu54","pseudo":"toto","id":329827}
+{"date":"30:04:2021:09:21:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"toto","id":329827,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:09:22:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"toto","id":329827,"note":"Percu30"}
+{"date":"30:04:2021:09:22:03","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"toto","id":329827,"note":"Percu54"}
+{"date":"30:04:2021:09:22:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"toto","id":329827,"note":38,"instrumentNo":5,"nomSon":"Percu54"}
+{"date":"30:04:2021:09:22:05","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","pseudo":"toto","id":329827,"note":31,"instrumentNo":7,"nomSon":"Percu30"}
