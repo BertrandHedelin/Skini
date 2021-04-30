@@ -349,7 +349,7 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
 }
 exports.pushEventDAW  = pushEventDAW;
 
-/*function getDelayEventDAW(instrument) {
+function getDelayEventDAW(instrument) {
   var dureeAttente =0;
 
   if(debug) console.log("ControleDAW.js: getDelayEventDAW ", instrument); 
@@ -361,7 +361,7 @@ exports.pushEventDAW  = pushEventDAW;
   // On retourne la longueur de la file d'attente pour une estimation de la durée d'attente qui sera transmise au spectateur
   return dureeAttente;
 }
-exports.getDelayEventDAW  = getDelayEventDAW;*/
+exports.getDelayEventDAW  = getDelayEventDAW;
 
 // Revu pour node js
 function displayQueues() {

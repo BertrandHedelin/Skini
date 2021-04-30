@@ -60,7 +60,9 @@ tankPiano = [
 ];
 
   var instructions = [
-    // Debut de par
+    mr._atom( ()=> { gcs.setComputeScorePolicy(2); } ),
+    mr._atom( ()=> { gcs.setComputeScoreClass(1); } ),
+
     mr._abort("stop",1,
       [
         mr._await("start", 1),
@@ -125,6 +127,8 @@ tankPiano = [
                 mr._atom( ()=> { gcs.informSelecteurOnMenuChange(255,"groupe2",false);}),
 
                 mr._atom( ()=> {console.log('Fin orchestration');} ),
+                mr._atom( ()=> { gcs.cleanChoiceList(255); } ),
+                mr._atom( ()=> { gcs.alertInfoScoreON('Fin orchestration'); } ),
               ]
             ),
 
@@ -144,6 +148,8 @@ tankPiano = [
       ]
     ),
     mr._atom( ()=> {console.log('Orchestration Stop');} ),
+    mr._atom( ()=> { gcs.cleanChoiceList(255); } ),
+    mr._atom( ()=> { gcs.alertInfoScoreON('Orchestration Stop'); } ),
   ];
 
 // A mettre dans Blockly

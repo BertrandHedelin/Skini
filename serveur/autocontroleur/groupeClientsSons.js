@@ -240,6 +240,17 @@ function getComputeScoreClass() {
 }
 exports.getComputeScoreClass = getComputeScoreClass;
 
+function setComputeScorePolicy(policy) {
+	computeScorePolicy = policy;
+}
+exports.setComputeScorePolicy = setComputeScorePolicy;
+
+function setComputeScoreClass(scoreClass) {
+	computeScoreClass = scoreClass;
+}
+exports.setComputeScoreClass = setComputeScoreClass;
+
+
 function setSocketControleur(socket) {
 	socketControleur = socket;
 	//if (automateUn !== undefined) automateUn.setSocketControleur(socket);
@@ -291,6 +302,31 @@ var messageLog = {
 Gestion des info vers les clients
 
 ******************/
+function cleanChoiceList(groupe){
+	var message = {
+		type: 'cleanClientChoiceList',
+		group: groupe
+	};
+	serv.broadcast(JSON.stringify(message));
+}
+exports.cleanChoiceList = cleanChoiceList;
+
+function alertInfoScoreON(texte){
+	var message = {
+		type: 'alertInfoScoreON',
+		text: texte
+	};
+	serv.broadcast(JSON.stringify(message));
+}
+exports.alertInfoScoreON = alertInfoScoreON;
+
+function alertInfoScoreOFF(){
+	var message = {
+		type: 'alertInfoScoreOFF',
+	};
+	serv.broadcast(JSON.stringify(message));
+}
+exports.alertInfoScoreOFF = alertInfoScoreOFF;
 
 function informSelecteurOnMenuChange(groupe, sons, status) {
 	if (sons == undefined ) {

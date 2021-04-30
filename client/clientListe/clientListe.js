@@ -125,6 +125,22 @@ function initWSocket(host) {
 
 		switch(msgRecu.type) {
 
+			case "alertInfoScoreON":
+				$('#MessageDuServeur').text(msgRecu.text);
+				break;
+
+			case "alertInfoScoreOFF":
+				$('#MessageDuServeur').text(" ");
+				break;
+
+			case "cleanClientChoiceList":
+				if( typeof cleanChoiceList == "function"){
+					if (msgRecu.group === monGroupe || msgRecu.group === 255) {
+						cleanChoiceList();
+					}
+				}
+				break;
+
 			case "DAWON": 
 				//Permet de savoir si DAW est actif quand on recharge un client, le serveur envoie l'info à la connexion 
 				// C'est le même scénario que quand on reçoit un broadcast de "DAWStatus".
@@ -148,7 +164,7 @@ function initWSocket(host) {
 				break;
 
 			case "delaiInstrument":
-				if (debug) console.log("delayInstrument:delai:", msgRecu.text, "pour son:", msgRecu.son);
+				if (debug1) console.log("delayInstrument:delai:", msgRecu.text, "pour son:", msgRecu.son);
 				//if ( msgRecu.text != -1) {
 				//	document.getElementById("sonChoisi").innerHTML = msgRecu.son + " dans " + msgRecu.text + "s";
 				//}

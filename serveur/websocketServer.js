@@ -428,7 +428,7 @@ serv.on('connection', function (ws) {
 
 		case "clientPseudo":
 			if(debug) console.log("websocketserver: clientPseudo", msgRecu );
-			//compScore.putInClientsEnCours(msgRecu.pseudo, ws.id, msgRecu.groupe, clientsEnCours);
+			compScore.putInClientsEnCours(msgRecu.pseudo, ws.id, msgRecu.groupe, clientsEnCours);
 			if(debug) console.log("websocketserver: clientPseudo : clientsEnCours:", clientsEnCours);
 			break;
 
@@ -528,20 +528,23 @@ serv.on('connection', function (ws) {
 			break;
 
 		case "getDelayInstrument":
-			if (debug1) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
-			if (msgRecu.clipChoisi === undefined ) {
+			if(debug1) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
+			var msg = {
+				type: "delaiInstrument"
+			}
+
+			if(msgRecu.clipChoisi === undefined ) {
 				msg.text = -1;
-			} else {
-				/*var dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
+			}else{
+				var dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
 				if ( dureeAttente === -1) {
 					break; // On est dans un cas de note répétée
 				}
-				msg.text = dureeAttente;*/
+				msg.text = dureeAttente;
 			}
 			// On communique au client le délai avant d'entendre.
-/*			msg.type = "delaiInstrument";
 			msg.son = msgRecu.clipChoisi[3];
-		    ws.send(JSON.stringify(msg));*/
+		    ws.send(JSON.stringify(msg));
 			break;
 
 		case "getNombreDePatternsPossibleEnListe": // Pour l'initialisation de memorySortable
@@ -735,7 +738,7 @@ serv.on('connection', function (ws) {
 			// Pour définir la façon dont sera calculé le score pour cette séquence de patterns
 			computeScorePolicy = groupesClientSon.getComputeScorePolicy();
 			computeScoreClass = groupesClientSon.getComputeScoreClass();
-			if(debug) console.log("websocketserver: reçu : sendPatternSequence: computeScorePolicy, computeScoreClass:", computeScorePolicy, computeScoreClass);
+			if(debug1) console.log("websocketserver: reçu : sendPatternSequence: computeScorePolicy, computeScoreClass:", computeScorePolicy, computeScoreClass);
 
 			var maPreSequence = compScore.getPreSequence(msgRecu.pseudo, clientsEnCours); //Une liste d'index (notes Skini midi)
 			if(debug) console.log("websocketserver: reçu : sendPatternSequence", patternSequence, msgRecu.pseudo, maPreSequence);
@@ -827,7 +830,7 @@ serv.on('connection', function (ws) {
  				if (!par.synchoOnMidiClock) setMonTimer();
  			}
 
- 			//compScore.resetClientEnCours(clientsEnCours);
+ 			compScore.resetClientEnCours(clientsEnCours);
  			groupesClientSon.setClientsEncours(clientsEnCours);
 
  			// Sinon n'est envoyé qu'au onopen de la Socket
