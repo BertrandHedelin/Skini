@@ -71,6 +71,10 @@ var DAWTableReady = false;
 var clientsEnCours = [];
 var groupeEncours = 0;
 
+
+var currentTimePrevMidi =0;
+var currentTimeMidi = 0;
+
 /*************************************************
  
 	WEBSOCKET EN NODE JS
@@ -333,7 +337,7 @@ serv.on('connection', function (ws) {
 		}
 		if (debug) console.log("Web Socket Server.js : pushClipAbleton:nom ", nom, " pseudo: ", pseudo);
 
-		console.log("Web Socket Server.js: pushClipDAW: DAWInstrument", DAWInstrument, " durée: ", dureeAttente);
+		if(debug) console.log("Web Socket Server.js: pushClipDAW: DAWInstrument", DAWInstrument, " durée: ", dureeAttente);
 
 		return dureeAttente;
 	}
@@ -547,6 +551,17 @@ serv.on('connection', function (ws) {
 		    ws.send(JSON.stringify(msg));
 			break;
 
+		case "getGroupesClientLength":
+			var longueurs = groupesClientSon.getGroupesClientLength();
+
+			if(debug) console.log("websocketserver: getGroupesClientLength: ", longueurs);
+			var msg = {
+				type: "groupesClientLength",
+				longueurs: longueurs
+			}
+			ws.send(JSON.stringify(msg));
+			break;
+
 		case "getNombreDePatternsPossibleEnListe": // Pour l'initialisation de memorySortable
 			var nombreDePatternsPossible = groupesClientSon.getNombreDePatternsPossibleEnListe();
 			var mesReponse = {
@@ -738,7 +753,7 @@ serv.on('connection', function (ws) {
 			// Pour définir la façon dont sera calculé le score pour cette séquence de patterns
 			computeScorePolicy = groupesClientSon.getComputeScorePolicy();
 			computeScoreClass = groupesClientSon.getComputeScoreClass();
-			if(debug1) console.log("websocketserver: reçu : sendPatternSequence: computeScorePolicy, computeScoreClass:", computeScorePolicy, computeScoreClass);
+			if(debug) console.log("websocketserver: reçu : sendPatternSequence: computeScorePolicy, computeScoreClass:", computeScorePolicy, computeScoreClass);
 
 			var maPreSequence = compScore.getPreSequence(msgRecu.pseudo, clientsEnCours); //Une liste d'index (notes Skini midi)
 			if(debug) console.log("websocketserver: reçu : sendPatternSequence", patternSequence, msgRecu.pseudo, maPreSequence);

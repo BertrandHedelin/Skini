@@ -230,9 +230,13 @@ function initWSSocket(port) {
 		msg.type = "startSpectateur";
 		msg.text = monIdentite;
 		msg.id = id;
-		ws.send(JSON.stringify(msg));
+		// Node est super rapide
+		//setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
+ 		ws.send(JSON.stringify(msg));
 
 		msg.type = "getNombreDePatternsPossibleEnListe";
+		// Node est super rapide
+		//setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
 		ws.send(JSON.stringify(msg));
 	};
 
@@ -399,12 +403,12 @@ function initWSSocket(port) {
 	};
 
 	ws.onerror = function (event) {
-		//console.log( "simulateur.js : received ERROR on WS");
-		console.log( "reconnecting...");
+		console.log( "simulateur.js : received ERROR on WS");
+/*		console.log( "reconnecting...");
 		setTimeout(function() {
 			initTempi();
 			initWSSocket(port);
-		}, 5000);
+		}, 5000);*/
 	}
 
  	ws.onclose = function( event ) {

@@ -371,11 +371,12 @@ function displayQueues() {
   var messageLog = { date: "" };
   for (var i=0; i < filesDattente.length; i++) {
     if ( filesDattente[i].length  > 0 ) {
-      messageLog.source = "controleDAW.js";
+
+/*    messageLog.source = "controleDAW.js";
       messageLog.type = "Etat de la file d'attente";
       messageLog.longeurFileAttente = filesDattente[i].length;
       messageLog.file = filesDattente[i];
-      logInfoDAW(messageLog);
+      logInfoDAW(messageLog);*/
 
       contenuDeLaFile = [];
       for ( var j=0; j<filesDattente[i].length; j++){
@@ -393,6 +394,8 @@ function displayQueues() {
   }
   serv.broadcast(JSON.stringify(msg));
   //hop.broadcast('etatDeLaFileAttente', file);
+
+  if(debug) console.log("controleDAW: displayQueue: ", msg);
 
   // Pour les musiciens
   var msg = {

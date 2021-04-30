@@ -300,6 +300,10 @@ function initialisation() {
 	el.style.display = "block";
 
 	initServerListener();
+
+	setInterval(function() {
+		getNbeDeSpectateurs();
+	}, 1000 );
 }
 exports.initialisation = initialisation;
 
@@ -432,15 +436,24 @@ function initWSSocket(host) {
 				break;
 
 			case "etatDeLaFileAttente":
+				if (debug1) console.log("etatDeLaFileAttente:", msgRecu);
+
 			    var texteAffiche = ' ';
-			    if(msg.value === undefined){
+
+			    if(msgRecu.value === undefined){
 			    	console.log("WARN: clientcontroleur: etatDeLaFileAttente undefined");
 			    	break;
 			    }
-	    		for (var i = 0; i < msg.value.length ; i++ ) {
-	    			texteAffiche += "[" + msg.value[i][0] + ":" + msg.value[i][1] + "] " ; 
+	    		for (var i = 0; i < msgRecu.value.length ; i++ ) {
+	    			if(msgRecu.value[i].length !== 0 ){
+		    			texteAffiche += "[" + i + ":" + msgRecu.value[i].length + "] " ; 
+		    		}else{
+		    			texteAffiche += " " ;
+		    		}
 	    		}
-	    		document.getElementById("FileAttente").innerHTML =texteAffiche;
+
+	    		if (debug1) console.log("etatDeLaFileAttente:", texteAffiche);
+	    		document.getElementById("FileAttente").innerHTML = texteAffiche;
 				break;
 
 			case "groupesClientLength":
@@ -452,6 +465,9 @@ function initWSSocket(host) {
 					groupesDisplay = groupesDisplay + msgRecu.longueurs[i] + "]";
 				}
 				document.getElementById("tailleDesGroupes").innerHTML = groupesDisplay;
+				break;
+
+			case "lesFilesDattente":
 				break;
 
 			case "noAutomaton":
@@ -554,10 +570,10 @@ function initServerListener() {
 },{"../../serveur/ipConfig":2,"../../serveur/skiniParametres":3}],2:[function(require,module,exports){
 module.exports={
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "192.168.92.96",
+	"remoteIPAddressSound": "192.168.25.96",
 	"remoteIPAddressLumiere": "192.168.82.96",
 	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "192.168.92.96",
+	"serverIPAddress": "192.168.25.96",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,
@@ -606,6 +622,15 @@ exports.busMidiDAW = 6;
 exports.scenesON = false;
 
 exports.english = true;
+
+/***********************************
+  Paramètres du simulateur
+  Si ces valeurs ne sont pas données c'est celle qui
+  sont dans le simulateur qui sont utilisées
+************************************/
+exports.tempoMax =  3000; // En ms
+exports.tempoMin = 1000; // En ms
+exports.limiteDureeAttente = 33; // En pulsations
 
 /********************************************************
 

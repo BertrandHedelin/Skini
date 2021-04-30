@@ -299,6 +299,10 @@ function initialisation() {
 	el.style.display = "block";
 
 	initServerListener();
+
+	setInterval(function() {
+		getNbeDeSpectateurs();
+	}, 1000 );
 }
 exports.initialisation = initialisation;
 
@@ -431,15 +435,24 @@ function initWSSocket(host) {
 				break;
 
 			case "etatDeLaFileAttente":
+				if (debug1) console.log("etatDeLaFileAttente:", msgRecu);
+
 			    var texteAffiche = ' ';
-			    if(msg.value === undefined){
+
+			    if(msgRecu.value === undefined){
 			    	console.log("WARN: clientcontroleur: etatDeLaFileAttente undefined");
 			    	break;
 			    }
-	    		for (var i = 0; i < msg.value.length ; i++ ) {
-	    			texteAffiche += "[" + msg.value[i][0] + ":" + msg.value[i][1] + "] " ; 
+	    		for (var i = 0; i < msgRecu.value.length ; i++ ) {
+	    			if(msgRecu.value[i].length !== 0 ){
+		    			texteAffiche += "[" + i + ":" + msgRecu.value[i].length + "] " ; 
+		    		}else{
+		    			texteAffiche += " " ;
+		    		}
 	    		}
-	    		document.getElementById("FileAttente").innerHTML =texteAffiche;
+
+	    		if (debug1) console.log("etatDeLaFileAttente:", texteAffiche);
+	    		document.getElementById("FileAttente").innerHTML = texteAffiche;
 				break;
 
 			case "groupesClientLength":
@@ -451,6 +464,9 @@ function initWSSocket(host) {
 					groupesDisplay = groupesDisplay + msgRecu.longueurs[i] + "]";
 				}
 				document.getElementById("tailleDesGroupes").innerHTML = groupesDisplay;
+				break;
+
+			case "lesFilesDattente":
 				break;
 
 			case "noAutomaton":

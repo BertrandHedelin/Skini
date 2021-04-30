@@ -49,7 +49,7 @@ exports.sendOSCProcessing = sendOSCProcessing;
 
 function sendNoteOnDAW( bus, channel, note, velocity ) {
     var buf;
-    if (debug1) console.log("OSCandMidi : sending osc messages NoteOn " + note + "  Bus :" + bus + " to channel " + channel);
+    if (debug) console.log("OSCandMidi : sending osc messages NoteOn " + note + "  Bus :" + bus + " to channel " + channel);
     buf = osc.toBuffer({ address: "/noteOn" , args: [ bus, channel, note, velocity ]  });
 
     return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
