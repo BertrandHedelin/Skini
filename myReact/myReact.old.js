@@ -69,7 +69,6 @@
 // signals est utilisé pour les addEventListeners,
 // les véritables signaux sont locaux aux instructions
 var signals = []; 
-var instrIndex = 0;
 
 var debug = false;
 var debug1 = true;
@@ -214,6 +213,8 @@ exports.printProgram = printProgram;
 * Un programme est un arbre d'objets instructions
 *
 =============================================================*/
+ 
+var instrIndex = 0;
 
 function createInstruction(name, signal, signalValue, count, action, nextInstr){
 	var instruction = {
@@ -247,8 +248,6 @@ function execInstruction(command, branch){
 	if(!command.burnt){ // Elle n'a pas encore été jouée
 		switch(command.name){
 
-			// Si dans un par, emit AVANT abort, prise en compte immédiate
-			// Si dans un par, emit APRES abort, prise en compte à la prochaine réaction
 			case "abort":
 				if(debug) console.log("abort: signal", command.signal, 
 					", abort burnt:", command.burnt,
@@ -374,11 +373,15 @@ function execInstruction(command, branch){
 						command.count = 0;
 						if(debug) console.log("every: command.branch", i, command.nextInstr[0]);
 
-						// On a pris le signal en compte, il faudra
-						// ne rien faire la prochaine fois s'il n'est plus là...
+						// On brule le signal pour la branche controlée par every
+						// pour éviter la prise en compte du signal
+						// absorbé par cette every
+						//setSignal(command.nextInstr, command.signal, 
+						//	command.signalValue, false);
+
 						command.signalActivated = false;
 
-						// reset des instructions
+						// reset des instructions selon la sémantique Estérel
 						// pour repartir du début de la branche.
 						// On pourrait aussi ne pas recommencer du début
 						// de la branche en commentant cette ligne.
