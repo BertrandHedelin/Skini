@@ -1,6 +1,7 @@
 "use strict"
 
 /*------------------------------------------------------------------------------
+3052021-1
 
  myReact.js
 
@@ -372,11 +373,13 @@ function execInstruction(command, branch){
 						command.count = 0;
 						if(debug) console.log("every: command.branch", i, command.nextInstr[0]);
 
-						// On le brule pour la branch
+						// On brule le signal pour la branche controlée par every
 						// pour éviter la prise en compte du signal
 						// absorbé par cette every
-						setSignal(branch, command.signal, 
-							command.signalValue, false);
+						//setSignal(command.nextInstr, command.signal, 
+						//	command.signalValue, false);
+
+						command.signalActivated = false;
 
 						// reset des instructions selon la sémantique Estérel
 						// pour repartir du début de la branche.
