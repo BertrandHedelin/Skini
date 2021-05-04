@@ -1329,7 +1329,7 @@ function initSortable() {
 	    	put: ['listBoutonsSons']
 	    },
 	    animation: 150,
-	    sort: false, // To disable sorting: set sort to false
+	    sort: true, // To disable sorting: set sort to false
 		disabled: false, // nécessaire ? mais pas dans la doc. Inopérant sur cette liste.
 		delay : 100, // Pour permettre le click sur un bouton sur Android
 
@@ -1519,6 +1519,7 @@ function initSortable() {
 "use strict"
 
 /*------------------------------------------------------------------------------
+3052021-1
 
  myReact.js
 
@@ -1586,6 +1587,7 @@ function initSortable() {
 // signals est utilisé pour les addEventListeners,
 // les véritables signaux sont locaux aux instructions
 var signals = []; 
+var instrIndex = 0;
 
 var debug = false;
 var debug1 = true;
@@ -1593,8 +1595,8 @@ var program;
 
 /*============================================================
 *
-* Les objets signaux et leurs traitements
-*
+* Les objets signaux pour les listeneres et les emits
+* ainsi que leurs traitements
 *
 =============================================================*/
 
@@ -1688,6 +1690,12 @@ function setSignalActivated(sig, val){
 	return -1;
 }
 
+/*============================================================
+*
+* Les objets signaux dans les commandes et leurs traitements
+*
+=============================================================*/
+
 function isSignalActivatedInInstruction(instr, signal){
 	if(instr.signal === signal){
 		if(instr.signalActivated) return true;
@@ -1731,8 +1739,6 @@ exports.printProgram = printProgram;
 *
 =============================================================*/
  
-var instrIndex = 0;
-
 function createInstruction(name, signal, signalValue, count, action, nextInstr){
 	var instruction = {
 		name: name,
@@ -1745,7 +1751,8 @@ function createInstruction(name, signal, signalValue, count, action, nextInstr){
 		burnt: false,
 		broadcast: false,
 		nextInstr: nextInstr,
-		index: instrIndex
+		index: instrIndex,
+		branchStarted: false
 	};
 
 	if(debug) console.log("createInstruction", instruction.name, instruction.signal,
@@ -1765,6 +1772,8 @@ function execInstruction(command, branch){
 	if(!command.burnt){ // Elle n'a pas encore été jouée
 		switch(command.name){
 
+			// Si dans un par, emit AVANT abort, prise en compte immédiate
+			// Si dans un par, emit APRES abort, prise en compte à la prochaine réaction
 			case "abort":
 				if(debug) console.log("abort: signal", command.signal, 
 					", abort burnt:", command.burnt,
@@ -1818,7 +1827,6 @@ function execInstruction(command, branch){
 			case "await":
 				// Si le signal est actif
 				if(isSignalActivatedInInstruction(command, command.signal)){
-				//if(isSignalActivated(command.signal)){
 					command.count++;
 					if(command.count >= command.countMax){
 						command.count = 0;
@@ -1883,42 +1891,74 @@ function execInstruction(command, branch){
 
 				return true;
 
+			// A revoir n'est pas conforme à la sémantique HH
+			// Quand le signal est actif on déclenche le corps de l'every
+			// en remettant les instructions en unburnt. On joue alors le corps du every.
+			// A la prochaine réaction si le signal n'est pas actif on ne fait rien du tout.
+			// Ce qui n'est pas correct. Il faudrait continuer à jouer le corps de l'every.
+
 			case "every":
+				// Le corps du every a déjà été commencé
+				if(command.branchStarted){
+					// Continue le corps de l'every
+					for(var i=0; i < command.nextInstr.length ; i++){
+						if(debug) console.log("every: branchStarted nextInstr[i].name", i, command.nextInstr[i].name, command.nextInstr.length);
+						if(!runBranch(command.nextInstr[i], command.nextInstr)){
+							return false;
+						}
+						// Si on est à la dernière branche, le corps du every est fini.
+						// mais pas every.
+						if(i === command.nextInstr.length -1){
+							command.burnt = false; // every n'est jamais terminé
+							// Mais on est au bout de la branche
+							command.branchStarted = false;
+							return false;
+						}
+					}
+					// On n'est pas au bout de la branche et le corps a été commencé.
+					command.burnt = false;
+					return false;
+				}
+
 				if(isSignalActivatedInInstruction(command, command.signal)){
 					command.count++;
 					if(command.count >= command.countMax){
 						command.count = 0;
 						if(debug) console.log("every: command.branch", i, command.nextInstr[0]);
 
-						// On le brule pour la branch
-						// pour éviter la prise en compte du signal
-						// absorbé par cette every
-						setSignal(branch, command.signal, 
-							command.signalValue, false);
+						// On a pris le signal en compte, il faudra
+						// ne pas tout recommencer la prochaine fois s'il n'est plus là...
+						command.signalActivated = false;
 
-						// reset des instructions selon la sémantique Estérel
-						// pour repartir du début de la branche.
+						// reset des instructions
+						// pour repartir du début de la branche puisqu'on repoart du début de l'every.
 						// On pourrait aussi ne pas recommencer du début
 						// de la branche en commentant cette ligne.
 						unburnBranch(command.nextInstr);
 
+						// Le corps du every est donc commencée
+						command.branchStarted = true;
+
+						// Joue le corps de l'every
 						for(var i=0; i < command.nextInstr.length ; i++){
 							if(debug) console.log("every: seq command.branch", i, command.nextInstr[i].name);
 							if(!runBranch(command.nextInstr[i], command.nextInstr)){
 								return false;
 							}
-							// Si on est à la dernière branche, la branche du every est fini.
+							// Si on est à la dernière branche, le corps du every est fini.
 							// mais pas every.
 							if(i === command.nextInstr.length - 1){
 								command.burnt = false; // every n'est jamais terminé
+								// Mais on est au bout de la branche
+								command.branchStarted = false;
 								return false;
 							}
 						}
-					}else{
+					}else{ // On n'a pas atteint le décompte.
 						command.burnt = false;
 						return false;
 					}
-				}else{
+				}else{ // Signal non activé
 					command.burnt = false;
 					return false;
 				}
@@ -2200,10 +2240,10 @@ exports._restart = _restart;
 },{}],3:[function(require,module,exports){
 module.exports={
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "192.168.25.96",
+	"remoteIPAddressSound": "192.168.1.75",
 	"remoteIPAddressLumiere": "192.168.82.96",
 	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "192.168.25.96",
+	"serverIPAddress": "192.168.1.75",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,
@@ -2252,6 +2292,15 @@ exports.busMidiDAW = 6;
 exports.scenesON = false;
 
 exports.english = true;
+
+/***********************************
+  Paramètres du simulateur
+  Si ces valeurs ne sont pas données c'est celle qui
+  sont dans le simulateur qui sont utilisées
+************************************/
+exports.tempoMax =  3000; // En ms
+exports.tempoMin = 1000; // En ms
+exports.limiteDureeAttente = 33; // En pulsations
 
 /********************************************************
 

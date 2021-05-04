@@ -150,7 +150,7 @@ exports.midimix =  function(machineServeur, websocketServer) {
 			// dont je ne connais pas la signification
 			if(noteSkini > 0 ) {
 				insertInPreviousNotes(noteSkini);
-				websocketServer.sendSignalFromAbleton(noteSkini);
+				websocketServer.sendSignalFromDAW(noteSkini);
 			}
 
 			break;

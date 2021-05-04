@@ -700,23 +700,24 @@ function makeOneAutomatePossibleMachine (numAuto) {
     // Recharge l'orchestration depuis le fichier généré par Blockly,
     // fichier éventuellement mis à jour à la main pour test.
     delete require.cache[require.resolve(myReactOrchestration)];
-		try{
-			orchestration = require(myReactOrchestration);
-			//console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
-		}catch(err){
-			console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
-			throw err;
-		}
+ 
+	try{
+		orchestration = require(myReactOrchestration);
+		//console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
+	}catch(err){
+		console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
+		throw err;
+	}
 
-		orchestration.setSkini(this);
+	orchestration.setSkini(this);
 
-		for (var i=0; i < par.groupesDesSons.length; i++) {
-			var signal = par.groupesDesSons[i][0] + "OUT";
-			var action = makeSignalsListeners(signal);
-			if (debug) console.log("makeSignalsListeners: Addeventlisterner:signal:",signal, action);
-			orchestration.createListener( signal , action);
-		}
-		return orchestration;
+	for (var i=0; i < par.groupesDesSons.length; i++) {
+		var signal = par.groupesDesSons[i][0] + "OUT";
+		var action = makeSignalsListeners(signal);
+		if (debug) console.log("makeSignalsListeners: Addeventlisterner:signal:",signal, action);
+		orchestration.createListener( signal , action);
+	}
+	return orchestration;
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 

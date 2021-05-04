@@ -1328,7 +1328,7 @@ function initSortable() {
 	    	put: ['listBoutonsSons']
 	    },
 	    animation: 150,
-	    sort: false, // To disable sorting: set sort to false
+	    sort: true, // To disable sorting: set sort to false
 		disabled: false, // nécessaire ? mais pas dans la doc. Inopérant sur cette liste.
 		delay : 100, // Pour permettre le click sur un bouton sur Android
 

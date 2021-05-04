@@ -27,10 +27,8 @@ mr.createSignal("stopTimer", 0);
 // un module c'est toujours le même et pas un nouvel objet
 // Le module ici n'est qu'une facilité de présentation du code.
 var timer = [
-  mr._loop(
-    [
-      mr._seq(
-        [
+  mr._loop([
+      mr._seq([
           mr._await("startTimer", 1),
           mr._atom( ()=> { gcs.alertInfoScoreON('Il reste 10s pour jouer'); } ),
           mr._atom( ()=> {console.log('Début timer');} ),
@@ -45,10 +43,8 @@ var timer = [
           mr._await("tick", 2),
           mr._atom( ()=> { gcs.alertInfoScoreOFF(); } ),
           mr._emit("stopTimer", 0),
-        ]
-      ),
-    ]
-  ),
+        ]),
+    ]),
 ];
 
 var timeCounter = 0;
@@ -94,9 +90,9 @@ var instructions = [
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(0,"groupe5OUT",true);}),
 
               mr._await("groupe5IN", 1),
+              mr._atom( ()=> { console.log("groupe5IN djembé"); } ),
 
               mr._emit("startTimer", 0),
-              //mr._await("tick", 10), // Voir pourquoi il faut 2 fois plus de ticks pour être en phase ?
               mr._await("stopTimer", 1),
 
               mr._emit("groupe5OUT", [false, 0]),
@@ -111,6 +107,7 @@ var instructions = [
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(1,"groupe6OUT",true);}),
 
               mr._await("groupe6IN", 1),
+              mr._atom( ()=> { console.log("groupe6IN djembé"); } ),
 
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
@@ -138,6 +135,7 @@ var instructions = [
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(0,"groupe1OUT",true);}),
 
               mr._await("groupe1IN", 1),
+              mr._atom( ()=> { console.log("groupe1IN derwish"); } ),
 
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
@@ -150,14 +148,16 @@ var instructions = [
               // Séquence derwish pour groupe 1
               mr._atom( ()=> { gcs.alertInfoScoreON(' derwish pour groupe Skini 1 '); } ),
 
-              mr._emit("groupe1OUT", [true, 1]),
+              mr._emit("groupe2OUT", [true, 1]),
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(1,"groupe1OUT",true);}),
 
-              mr._await("groupe1IN", 1),
+              mr._await("groupe2IN", 1),
+              mr._atom( ()=> { console.log("groupe1IN derwish 2"); } ),
+
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
 
-              mr._emit("groupe1OUT", [false, 1]),
+              mr._emit("groupe2OUT", [false, 1]),
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(1,"groupe1OUT",false);}),
 
               mr._atom( ()=> { gcs.cleanChoiceList(1); } ),
@@ -180,6 +180,7 @@ var instructions = [
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(0,"groupe7OUT",true);}),
 
               mr._await("groupe7IN", 1),
+              mr._atom( ()=> { console.log("groupe7IN latino"); } ),
 
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
@@ -192,15 +193,16 @@ var instructions = [
               // Séquence Latino pour groupe 1
               mr._atom( ()=> { gcs.alertInfoScoreON(' Latino pour groupe Skini 1 '); } ),
 
-              mr._emit("groupe7OUT", [true, 1]),
+              mr._emit("groupe3OUT", [true, 1]),
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(1,"groupe7OUT",true);}),
 
-              mr._await("groupe7IN", 1),
+              mr._await("groupe3IN", 1),
+              mr._atom( ()=> { console.log("groupe7IN latino 2"); } ),
 
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
 
-              mr._emit("groupe7OUT", [false, 1]),
+              mr._emit("groupe3OUT", [false, 1]),
               mr._atom( ()=> { gcs.informSelecteurOnMenuChange(1,"groupe7OUT",false);}),
 
               mr._atom( ()=> { gcs.cleanChoiceList(1); } ),
@@ -212,6 +214,7 @@ var instructions = [
 
               // Pour finir ----------------------------------------------------------
               mr._await("tick", 20),
+              mr._atom( ()=> { gcs.alertInfoScoreON('Jeu terminé'); } ),
             ]
           ),
         ],
@@ -221,15 +224,15 @@ var instructions = [
   mr._atom( ()=> {console.log('Orchestration Stop');} ),
   mr._atom( ()=> { gcs.resetMatrice(); } ),
   mr._atom( ()=> { gcs.cleanQueues(); } ),
-  mr._atom( ()=> { gcs.alertInfoScoreON('Orchestration Stop'); } ),
+
 ];
 
-mr.addEventListener("startTimer", function(val) {console.log("*** emit startTimer")});
+//mr.addEventListener("startTimer", function(val) {console.log("*** emit startTimer")});
 
 // A mettre dans Blockly
 var prog = mr.createModule(instructions);
 
-mr.printProgram(prog, false);
+//mr.printProgram(prog, false);
 
 // A mettre dans Blockly
 function runProg(){

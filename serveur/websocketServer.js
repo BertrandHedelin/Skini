@@ -99,6 +99,64 @@ serv.broadcast = function broadcast(data) {
 DAW.initBroadCastServer(serv);
 groupesClientSon.initBroadCastServer(serv);
 
+/************************************************************************************
+
+Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
+
+*************************************************************************************/
+
+  function sendSignalFromDAW(noteSkini){
+  	var patternName = DAW.getPatternNameFromNote(noteSkini);
+  	if (patternName !== undefined){
+  		reactAutomatePossible("patternSignal", [noteSkini, patternName] );
+  	}else{
+  		console.log("WARN: webSocketServeur: sendSignalFromAbleton:", noteSkini, patternName );
+  	}
+  }
+  exports.sendSignalFromDAW = sendSignalFromDAW;
+
+  function sendSignalFromMIDI(noteSkini){
+  	if(debug1) console.log("webSocketServeur: sendSignalFromMIDI:", noteSkini);
+
+ 	if( !reactAutomatePossible( "midiSignal", [noteSkini])){;
+		console.log("WARN: webSocketServeur: sendSignalFromMIDI:", noteSkini);
+	}
+  }
+  exports.sendSignalFromMIDI = sendSignalFromMIDI;
+
+  function sendSignalStopFromMIDI(){
+  	if( !reactAutomatePossible("stop", undefined)){
+		console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
+	}
+  }
+  exports.sendSignalStopFromMIDI = sendSignalStopFromMIDI;
+
+  function sendSignalStartFromMIDI(){
+  	if( !reactAutomatePossible("start", undefined)){
+		console.log("WARN: webSocketServeur: sendSignalStartFromMIDI");
+	}
+  }
+  exports.sendSignalStartFromMIDI = sendSignalStartFromMIDI;
+
+ /************************************************************************************
+
+Fonction pour émission de signaux depuis midimix.js vers l'automatePossibleMachine.
+Utilisable pour synchro vidéo ou jeu via des notes Midi
+
+*************************************************************************************/
+
+  function sendSignalFromMidiMix(noteSkini){
+  		reactAutomatePossible( "controlFromVideo", [noteSkini] );
+  }
+  exports.sendSignalFromMidiMix = sendSignalFromMidiMix;
+
+function sendOSCTick(){
+	if(debug) console.log("websocketserver: sendOSCTick");
+	receivedTickFromDaw();
+}
+exports.sendOSCTick = sendOSCTick;
+
+
 /*************************************************************************************
 
 RECEPTION DES TICK MIDI OU BITWIG
@@ -335,7 +393,7 @@ serv.on('connection', function (ws) {
 		} else if (!par.reactOnPlay){
 			reactAutomatePossible(signal, clip[3] );
 		}
-		if (debug) console.log("Web Socket Server.js : pushClipAbleton:nom ", nom, " pseudo: ", pseudo);
+		if (debug) console.log("Web Socket Server.js : pushClipDAW :nom ", nom, " pseudo: ", pseudo);
 
 		if(debug) console.log("Web Socket Server.js: pushClipDAW: DAWInstrument", DAWInstrument, " durée: ", dureeAttente);
 

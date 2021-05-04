@@ -77,8 +77,8 @@ var program;
 
 /*============================================================
 *
-* Les objets signaux et leurs traitements
-*
+* Les objets signaux pour les listeneres et les emits
+* ainsi que leurs traitements
 *
 =============================================================*/
 
@@ -172,6 +172,12 @@ function setSignalActivated(sig, val){
 	return -1;
 }
 
+/*============================================================
+*
+* Les objets signaux dans les commandes et leurs traitements
+*
+=============================================================*/
+
 function isSignalActivatedInInstruction(instr, signal){
 	if(instr.signal === signal){
 		if(instr.signalActivated) return true;
@@ -182,7 +188,7 @@ function isSignalActivatedInInstruction(instr, signal){
 // Quand on active un signal c'est pour tout le programme
 // idée de broadcast
 function activateSignal(sig){
-	if(debug) console.log("activateSignal", sig, val);
+	if(debug) console.log("activateSignal", sig);
 	setSignalAll(program, sig, true);
 	return true;
 }
@@ -206,7 +212,29 @@ function setSignalAll(prog, sig, activated){
 	if(debug) console.log("- setSignalAll");
 	setSignal(prog.instructions, sig, activated);
 }
-exports.printProgram = printProgram;
+exports.setSignalAll = setSignalAll;
+
+function resetSignal(instr){
+	if(debug) console.log("-- resetSignal: ", instr);
+
+	if(instr === undefined) return;
+
+	for(var i=0; i < instr.length; i++){
+		instr[i].signalActivated = false;
+
+		if(debug) console.log("-- resetSignal", instr[i].name,
+			instr[i].signal, instr[i].signalActivated);
+
+		resetSignal(instr[i].nextInstr);
+	}
+}
+exports.resetSignal = resetSignal;
+
+function resetSignalAll(prog){
+	if(debug) console.log("- resetSignalAll :", prog);
+	resetSignal(prog);
+}
+exports.resetSignalAll = resetSignalAll;
 
 /*============================================================
 *
@@ -214,7 +242,7 @@ exports.printProgram = printProgram;
 * Un programme est un arbre d'objets instructions
 *
 =============================================================*/
-
+ 
 function createInstruction(name, signal, signalValue, count, action, nextInstr){
 	var instruction = {
 		name: name,
@@ -227,7 +255,8 @@ function createInstruction(name, signal, signalValue, count, action, nextInstr){
 		burnt: false,
 		broadcast: false,
 		nextInstr: nextInstr,
-		index: instrIndex
+		index: instrIndex,
+		branchStarted: false
 	};
 
 	if(debug) console.log("createInstruction", instruction.name, instruction.signal,
@@ -302,7 +331,6 @@ function execInstruction(command, branch){
 			case "await":
 				// Si le signal est actif
 				if(isSignalActivatedInInstruction(command, command.signal)){
-				//if(isSignalActivated(command.signal)){
 					command.count++;
 					if(command.count >= command.countMax){
 						command.count = 0;
@@ -367,7 +395,35 @@ function execInstruction(command, branch){
 
 				return true;
 
+			// A revoir n'est pas conforme à la sémantique HH
+			// Quand le signal est actif on déclenche le corps de l'every
+			// en remettant les instructions en unburnt. On joue alors le corps du every.
+			// A la prochaine réaction si le signal n'est pas actif on ne fait rien du tout.
+			// Ce qui n'est pas correct. Il faudrait continuer à jouer le corps de l'every.
+
 			case "every":
+				// Le corps du every a déjà été commencé
+				if(command.branchStarted){
+					// Continue le corps de l'every
+					for(var i=0; i < command.nextInstr.length ; i++){
+						if(debug) console.log("every: branchStarted nextInstr[i].name", i, command.nextInstr[i].name, command.nextInstr.length);
+						if(!runBranch(command.nextInstr[i], command.nextInstr)){
+							return false;
+						}
+						// Si on est à la dernière branche, le corps du every est fini.
+						// mais pas every.
+						if(i === command.nextInstr.length -1){
+							command.burnt = false; // every n'est jamais terminé
+							// Mais on est au bout de la branche
+							command.branchStarted = false;
+							return false;
+						}
+					}
+					// On n'est pas au bout de la branche et le corps a été commencé.
+					command.burnt = false;
+					return false;
+				}
+
 				if(isSignalActivatedInInstruction(command, command.signal)){
 					command.count++;
 					if(command.count >= command.countMax){
@@ -375,32 +431,38 @@ function execInstruction(command, branch){
 						if(debug) console.log("every: command.branch", i, command.nextInstr[0]);
 
 						// On a pris le signal en compte, il faudra
-						// ne rien faire la prochaine fois s'il n'est plus là...
+						// ne pas tout recommencer la prochaine fois s'il n'est plus là...
 						command.signalActivated = false;
 
 						// reset des instructions
-						// pour repartir du début de la branche.
+						// pour repartir du début de la branche puisqu'on repoart du début de l'every.
 						// On pourrait aussi ne pas recommencer du début
 						// de la branche en commentant cette ligne.
 						unburnBranch(command.nextInstr);
 
+						// Le corps du every est donc commencée
+						command.branchStarted = true;
+
+						// Joue le corps de l'every
 						for(var i=0; i < command.nextInstr.length ; i++){
 							if(debug) console.log("every: seq command.branch", i, command.nextInstr[i].name);
 							if(!runBranch(command.nextInstr[i], command.nextInstr)){
 								return false;
 							}
-							// Si on est à la dernière branche, la branche du every est fini.
+							// Si on est à la dernière branche, le corps du every est fini.
 							// mais pas every.
 							if(i === command.nextInstr.length - 1){
 								command.burnt = false; // every n'est jamais terminé
+								// Mais on est au bout de la branche
+								command.branchStarted = false;
 								return false;
 							}
 						}
-					}else{
+					}else{ // On n'a pas atteint le décompte.
 						command.burnt = false;
 						return false;
 					}
-				}else{
+				}else{ // Signal non activé
 					command.burnt = false;
 					return false;
 				}
@@ -510,7 +572,7 @@ function createModule(instr){
 	var module = {
 		name: "Program",
 		signal: undefined,
-		signalActivated: undefined,
+		signalActivated: false,
 		burnt: false,
 		instructions: instr
 	}
@@ -599,7 +661,7 @@ function printInstructions(instr, option){
 			console.log(instr[i]);
 			console.log("------------------------------");
 		}else{
-			console.log("-> ", instr[i].name, ": index:", instr[i].index);
+			console.log("-> ", instr[i].name, ": index:", instr[i].index,  ", signal :", instr[i].signal, ", signalActivated :", instr[i].signalActivated);
 		}
 		printInstructions(instr[i].nextInstr, option);
 	}
