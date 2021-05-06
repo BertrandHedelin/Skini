@@ -200,6 +200,7 @@ function setSignal(instr, sig, activated){
 	for(var i=0; i < instr.length; i++){
 		if(instr[i].signal === sig){
 			instr[i].signalActivated = activated;
+			//return;
 		}
 		if(debug) console.log("-- setSignal", instr[i].name,
 			instr[i].signal, instr[i].signalActivated);
@@ -334,9 +335,9 @@ function execInstruction(command, branch){
 					command.count++;
 					if(command.count >= command.countMax){
 						command.count = 0;
-						// On brule le signal pour cet await
+						// On désactive le signal pour cet await
 						command.signalActivated = false;
-						// On le brule pour la branch de cet await
+						// On le désactive aussi pour la branch de cet await
 						// pour éviter la prise en compte du signal
 						// absorbé par cette await
 						if(debug) console.log("await dans la branche:", branch);
@@ -361,9 +362,9 @@ function execInstruction(command, branch){
 					if(command.count >= command.countMax){
 						command.action();
 						command.count = 0;
-						// On brule le signal pour cet await
+						// On désactive le signal pour cet await
 						command.signalActivated = false;
-						// On le brule pour la branch de cet await
+						// On le désactive aussi pour la branch de cet await
 						// pour éviter la prise en compte du signal
 						// absorbé par cette await
 						setSignal(branch, command.signal, 

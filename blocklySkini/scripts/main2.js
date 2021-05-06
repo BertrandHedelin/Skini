@@ -552,6 +552,57 @@ function init() {
             "type": "text"
           }
         ]
+      },
+      {
+        "kind": "category",
+        "name": "HipHop",
+        "categorystyle" : "list_category",
+        "contents": [
+          {
+            "kind": "block",
+            "type": "hh_orchestration"
+          },
+          {
+            "kind": "block",
+            "type": "hh_declare_signal"
+          },
+          {
+            "kind": "block",
+            "type": "hh_emit_value"
+          },
+          {
+            "kind": "block",
+            "type": "hh_wait_for"
+          },
+          {
+            "kind": "block",
+            "type": "hh_print_serveur"
+          },
+          {
+            "kind": "block",
+            "type": "hh_pause"
+          },
+          {
+            "kind": "block",
+            "type": "hh_sequence"
+          },
+          {
+            "kind": "block",
+            "type": "hh_fork"
+          },
+          {
+            "kind": "block",
+            "type": "hh_loop"
+          },
+          {
+            "kind": "block",
+            "type": "hh_every"
+          },
+          {
+            "kind": "block",
+            "type": "hh_abort"
+          }
+        ]
       }
     ]
   }

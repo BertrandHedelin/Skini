@@ -1,0 +1,83 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="0^7$5-;a/K@2Cz|KaQ9C">toto</variable>
+    <variable id="(2c$M@^y9[abd!HliHvm">titi</variable>
+  </variables>
+  <block type="hh_orchestration" id="Km0C#~!Ug+_Sl82?#rxU" x="120" y="45">
+    <field name="trajet">1</field>
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="|g6v*h`mK5j7}d`N|/zA">
+        <field name="TYPE">IN</field>
+        <value name="signal">
+          <block type="variables_get" id="cq}f$~5{%h;w#?f6fHf{">
+            <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_declare_signal" id="lF#OIVFyRv~lXo,j?6zm">
+            <field name="TYPE">OUT</field>
+            <value name="signal">
+              <block type="variables_get" id="bDqv}Hh=]KTEs04hrs{,">
+                <field name="VAR" id="(2c$M@^y9[abd!HliHvm">titi</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_fork" id="Bdf=*ZZ7az0Z`Twy3=pl">
+        <statement name="BODY">
+          <block type="hh_sequence" id="p;LrV!,jk+6SDBU=}rJo">
+            <statement name="BODY">
+              <block type="hh_print_serveur" id="XAKSu:fXW][BW)PJ`/$R">
+                <value name="TEXT">
+                  <block type="text" id=")}Ffbd8nF-Ol0tNX^sxV">
+                    <field name="TEXT">message serveur</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_emit_value" id="pHuBchAQYvjaWmq}TsQ^">
+                    <field name="Signal_Value">25</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="4]g),jsSwOyCBi5[%H?+">
+                        <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_sequence" id="T;+r=a(KM/lp${YpO_j*">
+                <statement name="BODY">
+                  <block type="hh_abort" id="GXI_k^jdUynsAiSXg3$2">
+                    <field name="TIMES">2</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="iji2*ks@;q(;X4X$5.L.">
+                        <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+                      </block>
+                    </value>
+                    <statement name="BODY">
+                      <block type="hh_loop" id="3ikdXy^//Hp;wuA^fBz:">
+                        <statement name="BODY">
+                          <block type="hh_print_serveur" id="(=}lv]1iuuQZ#$bjyqXA">
+                            <value name="TEXT">
+                              <block type="text" id="RK_D:tH5QMu:[ssBu1gq">
+                                <field name="TEXT">message serveur 2</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

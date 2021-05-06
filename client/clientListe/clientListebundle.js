@@ -285,8 +285,12 @@ function initWSocket(host) {
 				break;
 
 			case "nombreDePatternsPossible":
-				if (debug) console.log("Reçu Broadcast: nombreDePatternsPossible:", event.value );
-				var nombreDePatternsPossibleEnListe = event.value;
+				if (debug1) console.log("Reçu Broadcast: nombreDePatternsPossible:", msgRecu.nombreDePatternsPossible );
+				
+				// Protection à l'initilialisation
+				if(msgRecu.nombreDePatternsPossible === undefined) break;
+
+				var nombreDePatternsPossibleEnListe = msgRecu.nombreDePatternsPossible;
 
 				// Mise à jour du suivi des longueurs de listes d'abord / au groupe
 				for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
@@ -303,7 +307,7 @@ function initWSocket(host) {
 						return;
 					}
 				}
-				if(debug1) console.log("nombreDePatternsPossible : ne suis pas concerné : ", event);
+				if(debug1) console.log("nombreDePatternsPossible : ne suis pas concerné : ", msgRecu);
 				break;
 
 			case "message":  
@@ -1706,7 +1710,7 @@ function isSignalActivatedInInstruction(instr, signal){
 // Quand on active un signal c'est pour tout le programme
 // idée de broadcast
 function activateSignal(sig){
-	if(debug) console.log("activateSignal", sig, val);
+	if(debug) console.log("activateSignal", sig);
 	setSignalAll(program, sig, true);
 	return true;
 }
@@ -1730,7 +1734,29 @@ function setSignalAll(prog, sig, activated){
 	if(debug) console.log("- setSignalAll");
 	setSignal(prog.instructions, sig, activated);
 }
-exports.printProgram = printProgram;
+exports.setSignalAll = setSignalAll;
+
+function resetSignal(instr){
+	if(debug) console.log("-- resetSignal: ", instr);
+
+	if(instr === undefined) return;
+
+	for(var i=0; i < instr.length; i++){
+		instr[i].signalActivated = false;
+
+		if(debug) console.log("-- resetSignal", instr[i].name,
+			instr[i].signal, instr[i].signalActivated);
+
+		resetSignal(instr[i].nextInstr);
+	}
+}
+exports.resetSignal = resetSignal;
+
+function resetSignalAll(prog){
+	if(debug) console.log("- resetSignalAll :", prog);
+	resetSignal(prog);
+}
+exports.resetSignalAll = resetSignalAll;
 
 /*============================================================
 *
@@ -2068,7 +2094,7 @@ function createModule(instr){
 	var module = {
 		name: "Program",
 		signal: undefined,
-		signalActivated: undefined,
+		signalActivated: false,
 		burnt: false,
 		instructions: instr
 	}
@@ -2157,7 +2183,7 @@ function printInstructions(instr, option){
 			console.log(instr[i]);
 			console.log("------------------------------");
 		}else{
-			console.log("-> ", instr[i].name, ": index:", instr[i].index);
+			console.log("-> ", instr[i].name, ": index:", instr[i].index,  ", signal :", instr[i].signal, ", signalActivated :", instr[i].signalActivated);
 		}
 		printInstructions(instr[i].nextInstr, option);
 	}

@@ -2716,3 +2716,512 @@ Blockly.JavaScript['abort_move_tempo'] = function(block) {
   var code = 'emit abortBougeTempo();\n';
   return code;
 };
+
+/*******************************************************
+*
+* Blocs HipHop
+*
+********************************************************/
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_orchestration",
+  "message0": "Orch. %1 %2 Sig. %3 Body %4 ",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "trajet",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "SIGNALS"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  //"previousStatement": null,
+  //"nextStatement": null,
+  "colour": 240,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+// NodeSkini
+Blockly.JavaScript['hh_orchestration'] = function(block) {
+  var number_trajet = block.getFieldValue('trajet');
+  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
+
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  
+  var code = `
+hh = require("../hiphop/hiphop.js");
+
+prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
+
+  ` + statements_signals + `
+
+  ` + statements_body + `
+
+);
+
+module.exports=prg;
+
+prg.react();
+
+`;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_declare_signal",
+  "message0": "local signal %1 %2",
+  "args0": [
+      {
+      "type": "field_dropdown",
+      "name": "TYPE",
+      "options": [
+        [
+          "INOUT",
+          "INOUT",
+        ],
+        [
+          "IN",
+          "IN"
+        ],
+        [
+          "OUT",
+          "OUT"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "signal",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "signal",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_declare_signal'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+
+  var dropdown_type = block.getFieldValue('TYPE');
+
+  var code = `
+  hh.SIGNAL({
+    "%location":{},
+    "direction":"` + dropdown_type  + `",
+    "name":"` + value + `"
+  }),
+`;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_emit_value",
+  "message0": "emit signal %1 with value %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "Signal_Value",
+      "value": 0
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "Emit",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_emit_value'] = function(block) {
+  var number_signal_value = block.getFieldValue('Signal_Value');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+
+  var code = `
+    hh.EMIT(
+      {
+        "%location":{},
+        "%tag":"emit", 
+        "`+ value + `":"`+ value + `",
+        "apply":function (){
+          return ((() => {
+            //const `+ value + `=this["`+ value + `"];
+            return `+ number_signal_value + `;
+          })());
+        }
+      },
+      hh.SIGACCESS({
+        "signame":"`+ value + `",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
+    `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_wait_for",
+  "message0": "wait for %1 signal %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_wait_for'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES'); 
+
+  var code = `
+hh.AWAIT(
+  {
+    "%location":{},
+    "%tag":"await",
+    "immediate":false,
+    "apply":function () {
+      return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+      })());
+    },
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  })
+),
+`;
+  return code;
+};
+
+//NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_print_serveur",
+  "message0": "print %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TEXT",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "print_serveur",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_print_serveur'] = function(block) {
+  var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {console.log(` + value_text + `);}
+  }
+),
+`;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_pause",
+  "message0": "pause",
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_pause'] = function(block) {
+  var code = `
+hh.PAUSE(
+  {
+    "%location":{},
+    "%tag":"yield"
+  }
+),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_sequence",
+  "message0": "seq %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_sequence'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+      hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+  
+  `+ statements_body +`
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_fork",
+  "message0": "par %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_fork'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+      hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+  
+  `+ statements_body +`
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_loop",
+  "message0": "loop %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_loop'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+hh.LOOP(
+    {
+      "%location":{loop: 1},
+      "%tag":"loop"
+    },
+    `+ statements_body +`
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_every",
+  "message0": "every %1 signal %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_every'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES'); 
+
+  var code = `
+
+hh.LOOPEACH(
+  {
+    "%location":{every: ` + value + `},
+    "%tag":"do/every",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body +`
+),
+`;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_abort",
+  "message0": "abort %1 signal %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_abort'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES'); 
+
+  var code = `
+
+hh.ABORT(
+  {
+    "%location":{abort: ` + value + `},
+    "%tag":"abort",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body +`
+),
+`;
+  return code;
+};
+
+
+
+

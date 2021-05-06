@@ -284,8 +284,12 @@ function initWSocket(host) {
 				break;
 
 			case "nombreDePatternsPossible":
-				if (debug) console.log("Reçu Broadcast: nombreDePatternsPossible:", event.value );
-				var nombreDePatternsPossibleEnListe = event.value;
+				if (debug1) console.log("Reçu Broadcast: nombreDePatternsPossible:", msgRecu.nombreDePatternsPossible );
+				
+				// Protection à l'initilialisation
+				if(msgRecu.nombreDePatternsPossible === undefined) break;
+
+				var nombreDePatternsPossibleEnListe = msgRecu.nombreDePatternsPossible;
 
 				// Mise à jour du suivi des longueurs de listes d'abord / au groupe
 				for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
@@ -302,7 +306,7 @@ function initWSocket(host) {
 						return;
 					}
 				}
-				if(debug1) console.log("nombreDePatternsPossible : ne suis pas concerné : ", event);
+				if(debug1) console.log("nombreDePatternsPossible : ne suis pas concerné : ", msgRecu);
 				break;
 
 			case "message":  

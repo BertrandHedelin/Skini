@@ -92,6 +92,18 @@ var instructions = [
               mr._await("groupe5IN", 1),
               mr._atom( ()=> { console.log("groupe5IN djembé"); } ),
 
+/*              mr._emit("startTimer", 0),
+              mr._abort("stopTimer", 1 ,
+                [
+                  mr._loop(
+                    [
+                      mr._await("groupe5IN", 1),
+                      mr._atom( ()=> { console.log("groupe5IN"); } ),
+                    ]
+                  ),
+                ]
+              ),*/
+                
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
 
@@ -109,6 +121,18 @@ var instructions = [
               mr._await("groupe6IN", 1),
               mr._atom( ()=> { console.log("groupe6IN djembé"); } ),
 
+/*              mr._emit("startTimer", 0),
+              mr._abort("stopTimer", 1 ,
+                [
+                  mr._loop(
+                    [
+                      mr._await("groupe5IN", 1),
+                      mr._atom( ()=> { console.log("groupe5IN"); } ),
+                    ]
+                  ),
+                ]
+              ),
+*/
               mr._emit("startTimer", 0),
               mr._await("stopTimer", 1),
 
