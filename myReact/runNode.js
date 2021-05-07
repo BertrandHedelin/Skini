@@ -20,13 +20,10 @@ exports.prg = new hh.ReactiveMachine( main, "run2" );*/
 
 "use strict";
 
-var hh;
-let sub;
-let main;
+var hh = require("../hiphop/hiphop.js");
+const decache = require('decache');
 
-hh = require("../hiphop/hiphop.js");
-
-sub = hh.MODULE(
+var sub = hh.MODULE(
 	{
 		"id":"sub",
 		"%location":{},
@@ -45,7 +42,7 @@ sub = hh.MODULE(
 	          {
 	            "%location":{},
 	            "%tag":"node",
-	            "apply":function () {console.log('message serveur');}
+	            "apply":function () {console.log('message serveur 1');}
 	          }),
 			hh.IF(
 				{"%location":{"filename":"run.hh.js","pos":113},"%tag":"if","apply":function (){return ((() => {const S=this["S"];return S.now;})());}
@@ -56,7 +53,13 @@ sub = hh.MODULE(
 		),
 		hh.SEQUENCE(
 			{"%location":{"filename":"run.hh.js","pos":140},"%tag":"par"},
-				hh.IF({"%location":{"filename":"run.hh.js","pos":152},"%tag":"if","apply":function (){return ((() => {const U=this["U"];return U.now;})());}
+			hh.ATOM(
+	          {
+	            "%location":{},
+	            "%tag":"node",
+	            "apply":function () {console.log('message serveur 2');}
+	          }),
+			hh.IF({"%location":{"filename":"run.hh.js","pos":152},"%tag":"if","apply":function (){return ((() => {const U=this["U"];return U.now;})());}
 			},
 			hh.SIGACCESS({"signame":"U","pre":false,"val":false,"cnt":false}),
 	
@@ -65,7 +68,7 @@ sub = hh.MODULE(
 	)
 );
 
-main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%tag":"module"},
+var main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%tag":"module"},
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":202},"direction":"IN","name":"S"}),
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":208},"direction":"IN","name":"U"}),
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":214},"direction":"INOUT","name":"A"}),
@@ -83,16 +86,38 @@ main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%t
 );
 
 var prg = new hh.ReactiveMachine(main,"run2");
-
 exports.prg = prg;
-exports.react = prg.react;
+
+function callReact(sig){
+	if(sig !== undefined){
+		prg.react(sig);
+	}else{
+		prg.react();
+	}
+}
+exports.callReact = callReact;
+
+function setListener(sig, func){
+	prg.addEventListener(sig, func );
+}
+exports.setListener = setListener;
 
 prg.addEventListener("A", ()=> console.log("A") );
 prg.addEventListener("B", ()=> console.log("B") );
 
-
-/*prg.react();
+prg.react();
 prg.input("S");
 prg.react();
-prg.react("S");
-prg.react("U");*/
+prg.react("A");
+prg.react("B");
+console.log("--");
+prg.react();
+console.log("--");
+prg.react();
+console.log("--");
+prg.react();
+console.log("--");
+prg.react();
+console.log("--");
+prg.react();
+console.log("--");
