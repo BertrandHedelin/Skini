@@ -2867,19 +2867,19 @@ Blockly.JavaScript['hh_run'] = function(block) {
   let listGroupes = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
   var code = `
-    hh.RUN({
-    "%location":{},
-    "%tag":"run",
-    "module": hh.getModule(  "` + modulehh + `", {}),
-    `
+hh.RUN({
+  "%location":{},
+  "%tag":"run",
+  "module": hh.getModule(  "` + modulehh + `", {}),
+  `
     for(var i=0; i < listGroupes.length; i++){
       code += `"` + listGroupes[i] + `":"",
-      `
+  `
     } 
     
    code += ` 
-  }),
-  `;
+}),
+`;
 
   return code;
 };

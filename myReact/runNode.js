@@ -84,11 +84,15 @@ main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%t
 
 var prg = new hh.ReactiveMachine(main,"run2");
 
+exports.prg = prg;
+exports.react = prg.react;
+
 prg.addEventListener("A", ()=> console.log("A") );
 prg.addEventListener("B", ()=> console.log("B") );
 
-prg.react();
+
+/*prg.react();
 prg.input("S");
 prg.react();
 prg.react("S");
-prg.react("U");
+prg.react("U");*/

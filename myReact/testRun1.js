@@ -141,14 +141,14 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
           }
         ),
 
-            hh.RUN({
-            "%location":{},
-            "%tag":"run",
-            "module": hh.getModule(  "sub1", {}),
-            "toto":"",
-              "titi":"",
+        hh.RUN({
+          "%location":{},
+          "%tag":"run",
+          "module": hh.getModule(  "sub1", {}),
+          "toto":"",
+          "titi":"",
 
-          }),
+        }),
 
       ),
 
