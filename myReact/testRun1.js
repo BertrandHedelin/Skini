@@ -1,8 +1,50 @@
-var toto, titi;
+var sub1, toto, titi;
 
 
 
 hh = require("../hiphop/hiphop.js");
+
+
+  sub1 = hh.MODULE({"id":"sub1","%location":{},"%tag":"module"},
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"IN",
+        "name":"toto"
+      }),
+
+
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const toto=this["toto"];
+            return toto.now;
+          })());
+        },
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"toto",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {console.log('Sub1');}
+      }
+    ),
+
+  );
+
 
 prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
@@ -73,16 +115,16 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
 
 
-      hh.ABORT(
+      hh.LOOPEACH(
         {
-          "%location":{abort: toto},
-          "%tag":"abort",
+          "%location":{every: toto},
+          "%tag":"do/every",
           "immediate":false,
           "apply": function (){return ((() => {
               const toto=this["toto"];
               return toto.now;
           })());},
-          "countapply":function (){ return 2;}
+          "countapply":function (){ return 1;}
         },
         hh.SIGACCESS({
           "signame":"toto",
@@ -91,21 +133,22 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
           "cnt":false
         }),
 
-        hh.LOOP(
-            {
-              "%location":{loop: 1},
-              "%tag":"loop"
-            },
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('message serveur 2');}
+          }
+        ),
 
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {console.log('message serveur 2');}
-            }
-          ),
+            hh.RUN({
+            "%location":{},
+            "%tag":"run",
+            "module": hh.getModule(  "sub1", {}),
+            "toto":"",
+              "titi":"",
 
-          ),
+          }),
 
       ),
 

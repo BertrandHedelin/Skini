@@ -2727,7 +2727,7 @@ Blockly.JavaScript['abort_move_tempo'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_orchestration",
-  "message0": "Orch. %1 %2 Sig. %3 Body %4 ",
+  "message0": "Orch %1 %2 mod %3 sig %4 body %5 ",
   "args0": [
     {
       "type": "field_number",
@@ -2737,6 +2737,10 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
       "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "MODULES"
     },
     {
       "type": "input_statement",
@@ -2760,10 +2764,14 @@ Blockly.JavaScript['hh_orchestration'] = function(block) {
   var number_trajet = block.getFieldValue('trajet');
   var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
 
+  var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
+
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   
   var code = `
 hh = require("../hiphop/hiphop.js");
+
+  ` + statements_modules + `
 
 prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
@@ -2781,11 +2789,106 @@ prg.react();
   return code;
 };
 
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_module",
+  "message0": "mod %1 sig %2 body %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "SIGNALS"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 240,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+// NodeSkini
+Blockly.JavaScript['hh_module'] = function(block) {
+  
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  let name = value_name.replace(/\'/g, "");
+
+  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  
+  var code = `
+` + name + ` = hh.MODULE({"id":"` + name + `","%location":{},"%tag":"module"},
+  ` + statements_signals + `
+  ` + statements_body + `
+);
+`;
+  return code;
+};
+
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_run",
+  "message0": "run %1 with sig %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "MODULE",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNALS",
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 270,
+  "tooltip": "hh_run",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_run'] = function(block) {
+  var value_module = Blockly.JavaScript.valueToCode(block, 'MODULE', Blockly.JavaScript.ORDER_ATOMIC);
+  let modulehh = value_module.replace(/\'/g, "");
+
+  let signals_name = Blockly.JavaScript.valueToCode(block, 'SIGNALS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+  let value = signals_name.replace(/;\n/g, "");
+  let listGroupes = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
+
+  var code = `
+    hh.RUN({
+    "%location":{},
+    "%tag":"run",
+    "module": hh.getModule(  "` + modulehh + `", {}),
+    `
+    for(var i=0; i < listGroupes.length; i++){
+      code += `"` + listGroupes[i] + `":"",
+      `
+    } 
+    
+   code += ` 
+  }),
+  `;
+
+  return code;
+};
+
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_declare_signal",
-  "message0": "local signal %1 %2",
+  "message0": "signal %1 %2",
   "args0": [
       {
       "type": "field_dropdown",
@@ -3007,8 +3110,11 @@ hh.PAUSE(
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_sequence",
-  "message0": "seq %1",
+  "message0": "seq %1 %2",
   "args0": [
+    {
+      "type": "input_dummy"
+    },
     {
       "type": "input_statement",
       "name": "BODY"
@@ -3040,8 +3146,11 @@ Blockly.JavaScript['hh_sequence'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_fork",
-  "message0": "par %1",
+  "message0": "par %1 %2",
   "args0": [
+    {
+      "type": "input_dummy"
+    },
     {
       "type": "input_statement",
       "name": "BODY"

@@ -23239,3 +23239,5 @@
 {"date":"05:05:2021:10:01:58","source":"groupeClientSons.js","type":"signal","value":"groupe1OUT"}
 {"date":"05:05:2021:10:01:58","source":"groupeClientSons.js","type":"signal","value":"groupe2OUT"}
 {"date":"06:05:2021:11:28:27","source":"websocketServerSkini.js","type":"closeSpectateur","id":378283}
+{"date":"07:05:2021:10:47:04","source":"websocketServerSkini.js","type":"closeSpectateur","id":939328}
+{"date":"07:05:2021:10:47:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}

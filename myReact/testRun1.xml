@@ -1,0 +1,142 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="F`_Bt{-~uAL(p*!L}D7b">sub1</variable>
+    <variable id="0^7$5-;a/K@2Cz|KaQ9C">toto</variable>
+    <variable id="(2c$M@^y9[abd!HliHvm">titi</variable>
+  </variables>
+  <block type="hh_orchestration" id="Km0C#~!Ug+_Sl82?#rxU" x="120" y="45">
+    <field name="trajet">1</field>
+    <statement name="MODULES">
+      <block type="hh_module" id="4#]%A=PmO!g{s?FRhu*G">
+        <value name="NAME">
+          <block type="variables_get" id="tJ(1b_.SfO@Y5tY0uZ6z">
+            <field name="VAR" id="F`_Bt{-~uAL(p*!L}D7b">sub1</field>
+          </block>
+        </value>
+        <statement name="SIGNALS">
+          <block type="hh_declare_signal" id="=M)p|,F1:O_()O#1{fAe">
+            <field name="TYPE">IN</field>
+            <value name="signal">
+              <block type="variables_get" id="2?vuY1Nx1gE^zCZdP3tO">
+                <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="BODY">
+          <block type="hh_wait_for" id="7o_F,=[9]}wMtRs~4T?c">
+            <field name="TIMES">1</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="J:Q8GGk:wFV5Ex2`Lsyq">
+                <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_print_serveur" id="kxff*jn$p}Kh[|g^b+r|">
+                <value name="TEXT">
+                  <block type="text" id="6N??!s_,bJa!Yb8n$]I[">
+                    <field name="TEXT">Sub1</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="|g6v*h`mK5j7}d`N|/zA">
+        <field name="TYPE">IN</field>
+        <value name="signal">
+          <block type="variables_get" id="cq}f$~5{%h;w#?f6fHf{">
+            <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_declare_signal" id="lF#OIVFyRv~lXo,j?6zm">
+            <field name="TYPE">OUT</field>
+            <value name="signal">
+              <block type="variables_get" id="bDqv}Hh=]KTEs04hrs{,">
+                <field name="VAR" id="(2c$M@^y9[abd!HliHvm">titi</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_fork" id="Bdf=*ZZ7az0Z`Twy3=pl">
+        <statement name="BODY">
+          <block type="hh_sequence" id="p;LrV!,jk+6SDBU=}rJo">
+            <statement name="BODY">
+              <block type="hh_print_serveur" id="XAKSu:fXW][BW)PJ`/$R">
+                <value name="TEXT">
+                  <block type="text" id=")}Ffbd8nF-Ol0tNX^sxV">
+                    <field name="TEXT">message serveur</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_emit_value" id="pHuBchAQYvjaWmq}TsQ^">
+                    <field name="Signal_Value">25</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="4]g),jsSwOyCBi5[%H?+">
+                        <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_sequence" id="T;+r=a(KM/lp${YpO_j*">
+                <statement name="BODY">
+                  <block type="hh_every" id="[zsK0sLpXVeU~cL|D|o#">
+                    <field name="TIMES">1</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="NvMl7XhY*80#~@?`=UP]">
+                        <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+                      </block>
+                    </value>
+                    <statement name="BODY">
+                      <block type="hh_print_serveur" id="(=}lv]1iuuQZ#$bjyqXA">
+                        <value name="TEXT">
+                          <block type="text" id="RK_D:tH5QMu:[ssBu1gq">
+                            <field name="TEXT">message serveur 2</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_run" id="3q]RVv3;23/`cRS3Q+1f">
+                            <value name="MODULE">
+                              <block type="variables_get" id="X?LF)8+X+Je~(/u+:D@2">
+                                <field name="VAR" id="F`_Bt{-~uAL(p*!L}D7b">sub1</field>
+                              </block>
+                            </value>
+                            <value name="SIGNALS">
+                              <block type="lists_create_with" id="mgsBgfU=2Af2o={2gk9{">
+                                <mutation items="2"></mutation>
+                                <value name="ADD0">
+                                  <block type="variables_get" id="?6dLx|(uZ.}%NCr3M{1r">
+                                    <field name="VAR" id="0^7$5-;a/K@2Cz|KaQ9C">toto</field>
+                                  </block>
+                                </value>
+                                <value name="ADD1">
+                                  <block type="variables_get" id="f%+$oH#8Foq2w+Z0D@~e">
+                                    <field name="VAR" id="(2c$M@^y9[abd!HliHvm">titi</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -75,7 +75,7 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
       hh.LOOPEACH(
         {
-          "%location":{},
+          "%location":{every: toto},
           "%tag":"do/every",
           "immediate":false,
           "apply": function (){return ((() => {
@@ -112,9 +112,11 @@ module.exports=prg;
 
 prg.react();
 prg.react();
+prg.react("toto");
+prg.react("toto");
+prg.react("toto");
+prg.react("toto");
+
 prg.react();
-console.log("1")
-prg.react("toto");
-console.log("2")
-prg.react("toto");
-console.log("3")
+prg.react();
+prg.react();

@@ -4,6 +4,8 @@ var toto, titi;
 
 hh = require("../hiphop/hiphop.js");
 
+
+
 prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
 
@@ -73,10 +75,10 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
 
 
-      hh.ABORT(
+      hh.LOOPEACH(
         {
-          "%location":{abort: toto},
-          "%tag":"abort",
+          "%location":{every: toto},
+          "%tag":"do/every",
           "immediate":false,
           "apply": function (){return ((() => {
               const toto=this["toto"];
@@ -91,21 +93,13 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
           "cnt":false
         }),
 
-        hh.LOOP(
-            {
-              "%location":{loop: 1},
-              "%tag":"loop"
-            },
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {console.log('message serveur 2');}
-            }
-          ),
-
-          ),
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('message serveur 2');}
+          }
+        ),
 
       ),
 
@@ -118,4 +112,11 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
 module.exports=prg;
 
+prg.react();
+prg.react();
+prg.react("toto");
+prg.react("toto");
+
+prg.react();
+prg.react();
 prg.react();

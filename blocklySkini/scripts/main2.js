@@ -568,6 +568,14 @@ function init() {
           },
           {
             "kind": "block",
+            "type": "hh_module"
+          },
+          {
+            "kind": "block",
+            "type": "hh_run"
+          },
+          {
+            "kind": "block",
             "type": "hh_emit_value"
           },
           {
