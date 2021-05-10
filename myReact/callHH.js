@@ -9,11 +9,18 @@ var prg;
 
 sub = require("./runNode2.js");
 
-main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%tag":"module"},
-	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":202},"direction":"IN","name":"S"}),
-	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":208},"direction":"IN","name":"U"}),
-	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":214},"direction":"INOUT","name":"A"}),
-	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":217},"direction":"INOUT","name":"B"}),
+var sigS = hh.SIGNAL({"%location":{},"direction":"IN","name":"S"});
+var sigU = hh.SIGNAL({"%location":{},"direction":"IN","name":"U"});
+var sigA = hh.SIGNAL({"%location":{},"direction":"INOUT","name":"A"});
+var sigB = hh.SIGNAL({"%location":{},"direction":"INOUT","name":"B"});
+
+var signals = [
+	sigS, sigU, sigA, sigB
+];
+
+main = hh.MODULE(
+	{"id":"main","%location":{},"%tag":"module"},
+	signals,
 	
     hh.ATOM(
       {
@@ -22,6 +29,28 @@ main = hh.MODULE({"id":"main","%location":{"filename":"run.hh.js","pos":189},"%t
         "apply":function () {console.log('Main1');}
       }
     ),
+
+	hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "A":"A",
+          "apply":function (){
+            return ((() => {
+              const A=this["A"];
+              return 25;
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"A",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ),
+
+
 	hh.RUN({
 		"%location":{},
 		"%tag":"run",

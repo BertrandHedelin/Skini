@@ -52,6 +52,11 @@ var sub = hh.MODULE(
 		),
 		hh.SEQUENCE(
 			{"%location":{"filename":"run.hh.js","pos":140},"%tag":"par"},
+				hh.ATOM({
+		            "%location":{},
+		            "%tag":"node",
+		            "apply":function () {console.log('message serveur 2');}
+		        }),
 				hh.IF({"%location":{"filename":"run.hh.js","pos":152},"%tag":"if","apply":function (){return ((() => {const U=this["U"];return U.now;})());}
 			},
 			hh.SIGACCESS({"signame":"U","pre":false,"val":false,"cnt":false}),

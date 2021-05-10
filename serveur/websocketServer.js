@@ -108,7 +108,7 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   function sendSignalFromDAW(noteSkini){
   	var patternName = DAW.getPatternNameFromNote(noteSkini);
   	if (patternName !== undefined){
-  		reactAutomatePossible("patternSignal", [noteSkini, patternName] );
+  		reactAutomatePossible( { patternSignal: [noteSkini, patternName]});
   	}else{
   		console.log("WARN: webSocketServeur: sendSignalFromAbleton:", noteSkini, patternName );
   	}
@@ -118,21 +118,21 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   function sendSignalFromMIDI(noteSkini){
   	if(debug1) console.log("webSocketServeur: sendSignalFromMIDI:", noteSkini);
 
- 	if( !reactAutomatePossible( "midiSignal", [noteSkini])){;
+ 	if( !reactAutomatePossible( {midiSignal:  [noteSkini]} )){;
 		console.log("WARN: webSocketServeur: sendSignalFromMIDI:", noteSkini);
 	}
   }
   exports.sendSignalFromMIDI = sendSignalFromMIDI;
 
   function sendSignalStopFromMIDI(){
-  	if( !reactAutomatePossible("stop", undefined)){
+  	if( !reactAutomatePossible( {stop: undefined} )){
 		console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
 	}
   }
   exports.sendSignalStopFromMIDI = sendSignalStopFromMIDI;
 
   function sendSignalStartFromMIDI(){
-  	if( !reactAutomatePossible("start", undefined)){
+  	if( !reactAutomatePossible( {start: undefined} )){
 		console.log("WARN: webSocketServeur: sendSignalStartFromMIDI");
 	}
   }
@@ -146,7 +146,7 @@ Utilisable pour synchro vidéo ou jeu via des notes Midi
 *************************************************************************************/
 
   function sendSignalFromMidiMix(noteSkini){
-  		reactAutomatePossible( "controlFromVideo", [noteSkini] );
+  		reactAutomatePossible( {controlFromVideo:  [noteSkini]});
   }
   exports.sendSignalFromMidiMix = sendSignalFromMidiMix;
 
@@ -183,10 +183,10 @@ function receivedTickFromDaw(){
 
 	previousTimeClockMidi = currentTimeClockMidi;
 
-	/*if(par.pulsationON ){
+	if(par.pulsationON ){
 		reactAutomatePossible( { pulsation:  undefined } );
 	}
-	*/
+
 
 	// La remise à jour de la durée des patterns est possible depuis les automates.
 	// Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
@@ -219,10 +219,12 @@ function getAutomatePossible(){
 }
 exports.getAutomatePossible = getAutomatePossible;
 
-function reactAutomatePossible(signal, val){
+function reactAutomatePossible(signal){
 	if (automatePossibleMachine !== undefined){
-		automatePossibleMachine.activateSignal( signal, val );
-		automatePossibleMachine.runProg();
+		automatePossibleMachine.react( signal );
+
+		//automatePossibleMachine.activateSignal( signal, val );
+		//automatePossibleMachine.runProg();
 		return true;
 	}else{
 		console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
@@ -237,6 +239,8 @@ if(par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined)
 }
 
 function initMatriceDesPossibles(DAWState) {
+
+	if (debug1) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState );
 
 	if ( DAWState == 0 ) {
 		if (debug) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState à 0" );
@@ -269,7 +273,7 @@ function actionOnTick(timerDivision) {
 		console.log("webSocketServeur:actionOnTick:diff de temps:", currentTimeMidi - currentTimePrevMidi, ":", timerDivision );
 	}
 
-	if(!reactAutomatePossible( "tick", 0)) {
+	if(!reactAutomatePossible( { tick:  undefined } )) {
 		console.log("WARN: websocketserver: actionOnTick: automate not ready");
 		return false;
 	}
@@ -376,12 +380,11 @@ serv.on('connection', function (ws) {
 		var dureeClip = clip[10];
 
 		// Avec Hop/HH
-		//var signalComplet =  { [signal] : clip[3] }; // avec le nom du pattern
+		var signalComplet =  { [signal] : clip[3] }; // avec le nom du pattern
 		//var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, ws.id, pseudo, dureeClip, nom);
 
-		// ici signal au lieu de signal complet, attention
 		var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
-			DAWNote, 125, monId, pseudo, dureeClip, nom, signal, typePattern);		
+			DAWNote, 125, monId, pseudo, dureeClip, nom, signalComplet, typePattern);		
 
 		// Envoi du signal vers l'automate au moment de la demande si reactOnPlay n'existe pas ou est false.
 		// Il y a un autre scénario dans controleAbleton.js où on envoie le signal au moment ou la commande Midi part
@@ -389,9 +392,9 @@ serv.on('connection', function (ws) {
 		// le temps au fur et à mesure qu'elles arrivent. Il n'y a pas de risque de react successifs au même moment du tick midi.
 		// Il traite les activations avant que les patterns aient été jouées.
 		if (par.reactOnPlay === undefined){
-			reactAutomatePossible(signal, clip[3] );
+			reactAutomatePossible( signalComplet );
 		} else if (!par.reactOnPlay){
-			reactAutomatePossible(signal, clip[3] );
+			reactAutomatePossible( signalComplet );
 		}
 		if (debug) console.log("Web Socket Server.js : pushClipDAW :nom ", nom, " pseudo: ", pseudo);
 
@@ -419,8 +422,8 @@ serv.on('connection', function (ws) {
 			// Pour associer le nom du pattern au signal de groupe IN
 			// C'est plus pour être cohérent que par besoin
 
-			reactAutomatePossible(signal);
-			//reactAutomatePossible({ [signal] :  pattern[3] });
+			//reactAutomatePossible(signal);
+			reactAutomatePossible({ [signal] :  pattern[3] });
 			return;
 		}
 
@@ -673,7 +676,7 @@ serv.on('connection', function (ws) {
 						//hop.broadcast('consoleBlocklySkini', "HipHop compiled");
 
 						try{
-							reactAutomatePossible("DAWON", DAWStatus);
+							reactAutomatePossible( {DAWON: DAWStatus} );
 						}catch(e){
 							console.log("websocketServerSkini:loadDAWTable:catch react:", e);
 					   	}
@@ -898,8 +901,8 @@ serv.on('connection', function (ws) {
 
 		case "startAutomate": // Lance l'automate orchestrateur de la matrice des possibles
 			if (DAWTableReady) {
-				if (debug) console.log("webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
-				reactAutomatePossible( "start", 0);
+				if (debug1) console.log("webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
+				reactAutomatePossible(  { start:  undefined } );
  				if (!par.synchoOnMidiClock) setMonTimer();
  			}
 
@@ -1008,7 +1011,7 @@ serv.on('connection', function (ws) {
 		case "stopAutomate":
 			if (DAWTableReady) {
 				if ( setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
-				reactAutomatePossible( "stop", 0);
+				reactAutomatePossible(  {  stop: undefined } );
 				DAWStatus = 0;
 
 				var msg = {

@@ -182,16 +182,16 @@ class ReactiveMachine {
    react( signals ) {
       let d = this._debugger;
       if( d && d.stepper ) {
-	 d.stepper_pending_reaction++;
-	 d.stepper_update();
+      	 d.stepper_pending_reaction++;
+      	 d.stepper_update();
       }
 
       if( typeof signals === "string" ) {
-	 this.input( signals, undefined );
+	        this.input( signals, undefined );
       } else {
-      	 for( let k in signals ) {
-	    this.input( k, signals[ k ] );
-      	 }
+      	for( let k in signals ) {
+	        this.input( k, signals[ k ] );
+      	}
       }
       
       this.tick++;

@@ -32,14 +32,16 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
 var debug = false;
 var debug1 = true;
 
-var mr = require('../../myReact/myReact.min.js');
+var hh = require("../../hiphop/hiphop.js");
+const decache = require('decache');
+
+var mr = require('../../myReact/myReact.js');
 var par = require('../skiniParametres');
 var DAW = require('../controleDAW');
 var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
 var fs = require("fs");
 
 var serv;
-
 var orchestration;
 
 if(debug) console.log("groupeClientsSons.js: require initial des automates: passé");
@@ -66,9 +68,8 @@ var groupesSon;
 
 var groupeName = "";
 
-// Chemin du fichier créé pour myReact
 // On créé ce fichier à partir du xml de Blockly
-var myReactOrchestration = "../../myReact/orchestration.js";
+var myReactOrchestration = "../../myReact/orchestrationHH.js";
 
 var socketControleur;
 
@@ -531,7 +532,7 @@ function getGroupeSons(signal) {
 
 	var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
-	if (debug) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
+	if (debug1) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
 	for (var i = 0; i < nbeDeGroupesSons ; i++) {
 		if  ( groupesSon[i][0] === undefined) {
@@ -583,7 +584,7 @@ function setGroupesSon(DAWState) {
 	serv.broadcast(JSON.stringify(msg));
 	// !!!  hop.broadcast('setPatternGroups', par.groupesDesSons[DAWState-1] ); // Pour score et clients
 	
-	if (debug) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
+	if (debug1) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
 	return 0;
 }
 exports.setGroupesSon = setGroupesSon;
@@ -688,82 +689,83 @@ exports.displayMatriceDesPossibles = displayMatriceDesPossibles;
 AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
 
 **************************************************************/
-function test1(text){
-	console.log("groupecliensSons: test1", text)
-}
-exports.test1 = test1;
-
 function makeOneAutomatePossibleMachine (numAuto) {
 
-    if(debug1) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
+    if(debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
 
     // Recharge l'orchestration depuis le fichier généré par Blockly,
     // fichier éventuellement mis à jour à la main pour test.
-    delete require.cache[require.resolve(myReactOrchestration)];
+    decache(myReactOrchestration);
  
 	try{
 		orchestration = require(myReactOrchestration);
-		//console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
+		if(debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
 	}catch(err){
 		console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
 		throw err;
 	}
 
-	orchestration.setSkini(this);
-
-	for (var i=0; i < par.groupesDesSons.length; i++) {
-		var signal = par.groupesDesSons[i][0] + "OUT";
-		var action = makeSignalsListeners(signal);
-		if (debug) console.log("makeSignalsListeners: Addeventlisterner:signal:",signal, action);
-		orchestration.createListener( signal , action);
+	// Crée la machine avec les signaux
+	function makeSigListeners(mach){
+		makeSignalsListeners(mach);
 	}
-	return orchestration;
+
+	var machine = orchestration.setSignals(makeSigListeners);
+
+	return machine;
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 
-function makeSignalsListeners(signal){
+function makeSignalsListeners(machine){
 
-	var action = function(val) {
-		if (debug) console.log("groupeClientsSons: orchestration: listener:", signal, val);
+	//machine.addEventListener( "djembeOUT" , function(evt) { console.log("djembeOUT:", evt)});
+	//machine.addEventListener( "groupe1OUT" , function(evt) { console.log("groupe1OUT:", evt)});
 
-		// Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-		var groupeSonLocal = getGroupeSons(signal);
-		if (groupeSonLocal == -1) {
-			console.log("ERR: groupeClientsSons.js:creationModule:Addeventlisterner: signal inconnu:", signal);
-			return;
-		}
-		if (debug) console.log("groupeClientSOns.js:creationModule:Addeventlisterner: groupeSons:", groupeSonLocal,
-			"signalName:", signal,
-			"groupeClientsNo:", val[1],
-			"status:", val[0]);
+	// Création des listeners des signaux
+	for (var i=0; i < par.groupesDesSons.length; i++) {
+		var signal = par.groupesDesSons[i][0] + "OUT";
 
-		if (setInMatriceDesPossibles(val[1], groupeSonLocal, val[0]) === -1) {
-			return;
-		}
+		if (debug1) console.log("Addeventlisterner:signal:",signal);
+		machine.addEventListener( signal , function(evt) {
+			// Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
+			var groupeSonLocal = getGroupeSons(evt.signalName);
+			if (groupeSonLocal == -1) {
+				console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:",evt.signalName);
+				return;
+			}
+			if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
+				"signalName:", evt.signalName,
+				"groupeClientsNo:", evt.signalValue[1],
+				"statut:", evt.signalValue[0],
+				"signalValue:", evt.signalValue);
 
-		// INFORMATION VERS CLIENT CONTROLEUR POUR AFFICHAGE (son, groupe, status)
-		var message = {
-			type: "setInMatrix",
-			son: groupeSonLocal, 
-			groupe: val[1],
-			status: val[0]
-		}
-		//console.log("groupecliensSons:socketControleur automate:", socketControleur);
-		if (socketControleur.readyState == 1 ) {
-			socketControleur.send(JSON.stringify(message));
-		} else {
-			console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
-		}
+			if ( setInMatriceDesPossibles(evt.signalValue[1], groupeSonLocal, evt.signalValue[0]) === -1) {
+				return;
+			}
 
-		// Info pour les scrutateurs [groupeClient, groupeDeSons, status];
-		//var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
-		//hop.broadcast("setInMatriceDesPossibles", messageScrut);
+			// INFORMATION VERS CLIENT CONTROLEUR POUR AFFICHAGE (son, groupe, status)
+			var message = {
+				type: "setInMatrix",
+				son: groupeSonLocal, 
+				groupe: evt.signalValue[1],
+				status: evt.signalValue[0]
+			}
+			//console.log("groupecliensSons:socketControleur automate:", socketControleur);
+			if (socketControleur.readyState == 1 ) {
+				socketControleur.send(JSON.stringify(message));
+			} else {
+				console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
+			}
 
-		messageLog.type = "signal";
-		messageLog.value = signal;
-		logInfoAutomate(messageLog);
+			// Info pour les scrutateurs [groupeClient, groupeDeSons, status];
+			var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
+			hop.broadcast("setInMatriceDesPossibles", messageScrut);
+
+			messageLog.type = "signal";
+			messageLog.value = signal;
+			logInfoAutomate(messageLog);
+		});
 	}
-	return action;
 }
 
 function makeListener(machine){
