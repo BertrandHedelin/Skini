@@ -32,6 +32,7 @@ var sub = hh.MODULE(
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":85},"direction":"INOUT","name":"U"}),
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":88},"direction":"INOUT","name":"W"}),
 	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":91},"direction":"INOUT","name":"Z"}),
+	hh.SIGNAL({"%location":{"filename":"run.hh.js","pos":88},"direction":"INOUT","name":"A"}),
 
 	hh.FORK(
 		{"%location":{"filename":"run.hh.js","pos":100},"%tag":"fork"},
@@ -43,6 +44,28 @@ var sub = hh.MODULE(
 	            "%tag":"node",
 	            "apply":function () {console.log('message serveur');}
 	          }),
+
+			hh.EMIT(
+		        {
+		          "%location":{},
+		          "%tag":"emit",
+		          "A":"A",
+		          "apply":function (){
+		            return ((() => {
+		              const A=this["A"];
+		              return 25;
+		            })());
+		          }
+		        },
+		        hh.SIGACCESS({
+		          "signame":"A",
+		          "pre":true,
+		          "val":true,
+		          "cnt":false
+		        })
+		    ),
+
+
 			hh.IF(
 				{"%location":{"filename":"run.hh.js","pos":113},"%tag":"if","apply":function (){return ((() => {const S=this["S"];return S.now;})());}
 			},

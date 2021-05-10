@@ -8,7 +8,7 @@ var debug1 = true;
 //var signals;
 
 // Création des signaux OUT de contrôle de la matrice des possibles
-
+// Ici et immédiatement.
 var signals = [];
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
@@ -35,19 +35,9 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 	signals.push(signal);
 }
 
-/*var sig1 = hh.SIGNAL({"%location":{},"direction":"OUT","name":"djembeOUT"});
-var sig2 = hh.SIGNAL({"%location":{},"direction":"OUT","name":"groupe1OUT"});
-
-signals = [
-	sig1, sig2
-];
-*/
-function setSignals(makeSigListeners){
-
-	if(debug1) console.log("orchestrationHH: setSignals: ", signals);
+function setSignals(){
+	if(debug) console.log("orchestrationHH: setSignals: ", signals);
 	var machine = new hh.ReactiveMachine( orchestration );
-	makeSigListeners(machine);
-
 	return machine;
 }
 exports.setSignals = setSignals;
@@ -121,8 +111,8 @@ var trajet = hh.MODULE(
 	          "djembeOUT":"djembeOUT",
 	          "apply":function (){
 	            return ((() => {
-	              const djembeOUT=this["djembeOUT"];
-	              return 25;
+	              const djembeOUT = this["djembeOUT"];
+	              return [true, 255];
 	            })());
 	          }
 	        },
@@ -133,6 +123,30 @@ var trajet = hh.MODULE(
 	          "cnt":false
 	        })
 	    ),
+
+/*		hh.AWAIT(
+			{
+				"%location":{},
+				"%tag":"await",
+				"immediate":true,
+				"apply":function (){
+					return ((() => {
+						const djembeOUT =this["djembeOUT"];
+						return djembeOUT.now;
+					})());},
+				//"countapply":function (){return 3;}
+			}
+			,
+			hh.SIGACCESS({"signame":"djembeOUT","pre":false,"val":false,"cnt":false})
+		),*/
+
+        hh.ATOM(
+		    {
+		    "%location":{},
+		    "%tag":"node",
+		    "apply":function () {console.log('Après emit');}
+		    }
+		),
 
 		hh.LOOPEACH(
 			{
@@ -196,26 +210,6 @@ var orchestration = hh.MODULE(
 	      }
 	    ),
 
-		hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "djembeOUT":"djembeOUT",
-              "apply":function (){
-                return ((() => {
-                  const djembeOUT=this["djembeOUT"];
-                  return 25;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"djembeOUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-        ),
-
 		hh.RUN({
 			"%location":{},
 			"%tag":"run",
@@ -223,7 +217,8 @@ var orchestration = hh.MODULE(
 			"start":"",
 			"stop":"",
 			"tick":"",
-			"DAWON":""
+			"DAWON":"",
+			"djembeOUT":"djembeOUT" // signal OUT Ne marche pas comme les signaux hh.SIGNAL IN du module ????
 		})
 	);
 exports.orchestration = orchestration;

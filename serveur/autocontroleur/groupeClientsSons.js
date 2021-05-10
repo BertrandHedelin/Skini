@@ -547,6 +547,25 @@ function getGroupeSons(signal) {
 	return -1;
 }
 
+/*function getGroupeSons(signal) {
+
+	var signalLocal = signal.slice(0, -3); // Pour enlever OUT
+
+	if (debug1) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "groupesDesSons.length:", par.groupesDesSons.length);
+
+	for (var i = 0; i < par.groupesDesSons.length ; i++) {
+		if  ( par.groupesDesSons[i][0] === undefined) {
+			console.log("ERR: getGroupeSons: groupesSon[", i ,"i][0]: undefined, table groupesSon pas encore à jour");
+			return -1;
+		}
+		if ( par.groupesDesSons[i][0] === signalLocal) {
+			return par.groupesDesSons[i][1];
+		}
+	}
+	console.log("ERR: groupeClientSons.js: getGroupeSons: signal inconnu", signalLocal);
+	return -1;
+}*/
+
 function getNameGroupeSons(index) {
 	for (var i = 0; i < groupesSon.length ; i++) {
 		if ( groupesSon[i][1] == index) { // Attention pas de === ici, il y a changementde type
@@ -584,7 +603,7 @@ function setGroupesSon(DAWState) {
 	serv.broadcast(JSON.stringify(msg));
 	// !!!  hop.broadcast('setPatternGroups', par.groupesDesSons[DAWState-1] ); // Pour score et clients
 	
-	if (debug1) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
+	if (debug) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
 	return 0;
 }
 exports.setGroupesSon = setGroupesSon;
@@ -610,7 +629,8 @@ function createMatriceDesPossibles() {
 exports.createMatriceDesPossibles = createMatriceDesPossibles;
 
 function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
-	if (debug) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
+	if(debug) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
+	if(debug) console.log("groupeClientSons.js: setInMatriceDesPossibles:", matriceDesPossibles);
 
  	if (groupeClient === 255) { // On traite tous les groupes
 		for (var i=0; i < par.nbeDeGroupesClients; i++) {
@@ -705,12 +725,8 @@ function makeOneAutomatePossibleMachine (numAuto) {
 		throw err;
 	}
 
-	// Crée la machine avec les signaux
-	function makeSigListeners(mach){
-		makeSignalsListeners(mach);
-	}
-
-	var machine = orchestration.setSignals(makeSigListeners);
+	var machine = orchestration.setSignals();
+	makeSignalsListeners(machine);
 
 	return machine;
 }
@@ -718,22 +734,22 @@ exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 
 function makeSignalsListeners(machine){
 
-	//machine.addEventListener( "djembeOUT" , function(evt) { console.log("djembeOUT:", evt)});
-	//machine.addEventListener( "groupe1OUT" , function(evt) { console.log("groupe1OUT:", evt)});
-
 	// Création des listeners des signaux
 	for (var i=0; i < par.groupesDesSons.length; i++) {
 		var signal = par.groupesDesSons[i][0] + "OUT";
 
 		if (debug1) console.log("Addeventlisterner:signal:",signal);
+
 		machine.addEventListener( signal , function(evt) {
 			// Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
+			if (debug1) console.log("groupeClientSons: listerner:signal:",evt.signalName);
+
 			var groupeSonLocal = getGroupeSons(evt.signalName);
 			if (groupeSonLocal == -1) {
 				console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:",evt.signalName);
 				return;
 			}
-			if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
+			if (debug1) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
 				"signalName:", evt.signalName,
 				"groupeClientsNo:", evt.signalValue[1],
 				"statut:", evt.signalValue[0],
@@ -759,7 +775,7 @@ function makeSignalsListeners(machine){
 
 			// Info pour les scrutateurs [groupeClient, groupeDeSons, status];
 			var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
-			hop.broadcast("setInMatriceDesPossibles", messageScrut);
+			//hop.broadcast("setInMatriceDesPossibles", messageScrut);
 
 			messageLog.type = "signal";
 			messageLog.value = signal;

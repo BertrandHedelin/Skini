@@ -30,7 +30,7 @@ main = hh.MODULE(
       }
     ),
 
-	hh.EMIT(
+/*	hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
@@ -48,7 +48,7 @@ main = hh.MODULE(
           "val":true,
           "cnt":false
         })
-    ),
+    ),*/
 
 
 	hh.RUN({
@@ -57,7 +57,7 @@ main = hh.MODULE(
 		"module": hh.getModule("sub", {}),
 		"S":"",
 		"U":"",
-		"W":"A",
+		"A":"A",
 		"Z":"B"
 	})
 );

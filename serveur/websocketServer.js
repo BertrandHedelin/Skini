@@ -676,7 +676,7 @@ serv.on('connection', function (ws) {
 						//hop.broadcast('consoleBlocklySkini', "HipHop compiled");
 
 						try{
-							reactAutomatePossible( {DAWON: DAWStatus} );
+							//reactAutomatePossible( {DAWON: DAWStatus} ); // !!! en cours
 						}catch(e){
 							console.log("websocketServerSkini:loadDAWTable:catch react:", e);
 					   	}
