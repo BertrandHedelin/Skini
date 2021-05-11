@@ -115,7 +115,7 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 
 
 
-      hh.LOOPEACH(
+      hh.EVERY(
         {
           "%location":{every: toto},
           "%tag":"do/every",

@@ -1205,6 +1205,7 @@ Blockly.JavaScript['reset_orchestration'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "cleanqueues",
@@ -1218,8 +1219,19 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['cleanqueues'] = function(block) {
-  var code = 'hop{ ableton.cleanQueues();}\n';
-  code += "emit cleanChoiceList(255);\n";
+
+ var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          DAW.cleanQueues();
+          cleanChoiceList(255);
+        }
+      }
+    ),
+`
   return code;
 };
 
@@ -1240,6 +1252,7 @@ Blockly.JavaScript['stopTanks'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "cleanOneQueue",
@@ -1261,7 +1274,17 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 Blockly.JavaScript['cleanOneQueue'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `hop{ableton.cleanQueue(` + number + ");}\n";
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          DAW.cleanQueue(` + number + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
@@ -1399,6 +1422,7 @@ Blockly.JavaScript['putPatternInQueue'] = function(block) {
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_group",
@@ -1432,10 +1456,36 @@ Blockly.JavaScript['set_group'] = function(block) {
 
   var code = "";
   for(var i=0; i < listGroupes.length; i++){
-    code += "emit " + listGroupes[i] + "OUT([true, " + groupeClient + "]);\n";
-    code += "hop{ gcs.informSelecteurOnMenuChange(" + groupeClient + ",\"" + listGroupes[i] + "\", true); }\n";
+
+    code += `
+    hh.EMIT(
+      {
+        "%location":{},
+        "%tag":"emit",
+        "` + listGroupes[i] + `OUT": "` + listGroupes[i] + `OUT",
+        "apply":function (){
+          return ((() => {
+            const ` + listGroupes[i] + `OUT = this["` + listGroupes[i] + `OUT"];
+            return [true,` + groupeClient +`];
+          })());
+        }
+      },
+      hh.SIGACCESS({
+        "signame": "` + listGroupes[i] + `OUT",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () { informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",true); }
+      }
+  ),
+  `
   }
-  code += "yield;\n";
   return code;
 };
 
@@ -1474,10 +1524,35 @@ Blockly.JavaScript['unset_group'] = function(block) {
 
   var code = "";
   for(var i=0; i < listGroupes.length; i++){
-    code += "emit " + listGroupes[i] + "OUT([false, " + groupeClient + "]);\n";
-    code += "hop{ gcs.informSelecteurOnMenuChange(" + groupeClient + ",\"" + listGroupes[i] + "\", false); }\n";
+    code += `
+    hh.EMIT(
+      {
+        "%location":{},
+        "%tag":"emit",
+        "` + listGroupes[i] + `OUT": "` + listGroupes[i] + `OUT",
+        "apply":function (){
+          return ((() => {
+            const ` + listGroupes[i] + `OUT = this["` + listGroupes[i] + `OUT"];
+            return [false,` + groupeClient +`];
+          })());
+        }
+      },
+      hh.SIGACCESS({
+        "signame": "` + listGroupes[i] + `OUT",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () { informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",false); }
+      }
+  ),
+  `
   }
-  code += "yield;\n";
   return code;
 };
 
@@ -1555,7 +1630,7 @@ Blockly.JavaScript['yield'] = function(block) {
   return code;
 };
 
-// NodeSkini
+// Revu node HH
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "every",
@@ -1592,11 +1667,27 @@ Blockly.JavaScript['every'] = function(block) {
   let value = value_signal.replace(/\'|\(|\)/g, "");
 
   var code = `
-  // Debut de every
-  mr._every("` + value + `",` + times + `,
-    [`+ statements_body +`]
-  ),
-  `;
+
+hh.EVERY(
+  {
+      "%location":{},
+      "%tag":"every",
+      "immediate":false,
+      "apply": function (){return ((() => {
+            const ` + value + ` = this["` + value + `"];
+            return ` + value + `.now;
+      })());},
+      "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+      "signame":"` + value + `",
+      "pre":false,
+      "val":false,
+      "cnt":false
+  }),
+`+ statements_body +`
+),
+`;
   return code;
 };
 
@@ -2727,7 +2818,7 @@ Blockly.JavaScript['abort_move_tempo'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_orchestration",
-  "message0": "Orch %1 %2 mod %3 sig %4 body %5 ",
+  "message0": "Orch Test %1 %2 mod %3 sig %4 body %5 ",
   "args0": [
     {
       "type": "field_number",
@@ -2785,6 +2876,172 @@ module.exports=prg;
 
 prg.react();
 
+`;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_ORCHESTRATION",
+  "message0": "Orch %1 mod %2 sig %3 body %4 ",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "MODULES"
+    },
+    {
+      "type": "input_statement",
+      "name": "SIGNALS"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  //"previousStatement": null,
+  //"nextStatement": null,
+  "colour": 240,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+// NodeSkini
+Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
+  var number_trajet = block.getFieldValue('trajet');
+  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
+
+  var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
+
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  
+  var code = `
+
+"use strict";
+
+var hh = require("../hiphop/hiphop.js");
+var par = require('../serveur/skiniParametres');
+var gcs = require("../serveur/autocontroleur/groupeClientsSons.js");
+var DAW ; // = require('../serveur/controleDAW.js');
+
+var debug = false;
+var debug1 = true;
+
+var serveur;
+
+function setServ(ser, daw){
+  console.log("setServ");
+  DAW = daw;
+  serveur = ser;
+}
+exports.setServ = setServ;
+
+function informSelecteurOnMenuChange(groupe, sons, status) {
+  if (sons == undefined ) {
+    groupeName = "";
+  } else {
+    groupeName = sons;
+  }
+  var message = {
+    type: 'groupeClientStatus',
+    groupeClient: groupe,
+    groupeName: groupeName,
+    status : status
+  };
+  // Informe les selecteurs et simulateurs
+  if(debug1) console.log("orchestration :informSelecteurOnMenuChange:", groupe, sons, status);
+
+  if(serveur !== undefined){
+    serveur.broadcast(JSON.stringify(message));
+  }else{
+    console.log("ERR: orchestration: informSelecteurOnMenuChange: serv undefined");
+  }
+}
+
+function cleanChoiceList(groupe){
+  var message = {
+    type: 'cleanClientChoiceList',
+    group: groupe
+  };
+
+  if(serveur !== undefined){
+    serveur.broadcast(JSON.stringify(message));
+  }else{
+    console.log("ERR: orchestration: cleanChoiceList: serv undefined");
+  }
+}
+
+// Création des signaux OUT de contrôle de la matrice des possibles
+// Ici et immédiatement.
+var signals = [];
+
+for (var i=0; i < par.groupesDesSons.length; i++) {
+  var signalName = par.groupesDesSons[i][0] + "OUT";
+
+  var signal = hh.SIGNAL({
+    "%location":{},
+    "direction":"OUT",
+    "name":signalName,
+    "init_func":function (){return [false, -1];}
+  });
+  signals.push(signal);
+}
+
+// Création des signaux IN de sélection de patterns
+for (var i=0; i < par.groupesDesSons.length; i++) {
+  var signalName = par.groupesDesSons[i][0] + "IN";
+
+  var signal = hh.SIGNAL({
+    "%location":{},
+    "direction":"IN",
+    "name":signalName
+  });
+  signals.push(signal);
+}
+
+function setSignals(){
+  if(debug) console.log("orchestrationHH: setSignals: ", signals);
+  var machine = new hh.ReactiveMachine( orchestration );
+  return machine;
+}
+exports.setSignals = setSignals;
+
+  ` + statements_modules + `
+
+var orchestration = hh.MODULE(
+    {"id":"Orchestration","%location":{},"%tag":"module"},
+    signals,
+
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"start"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setTimerDivision"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resetMatriceDesPossibles"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseQueues"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeQueues"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseOneQueue"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeOneQueue"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"patternListLength"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"cleanChoiceList"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScoreClass"}),
+    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScorePolicy"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
+
+  ` + statements_signals + `
+
+  ` + statements_body + `
+
+);
+exports.orchestration = orchestration;
 `;
   return code;
 };
@@ -3213,6 +3470,67 @@ hh.LOOP(
 
 Blockly.defineBlocksWithJsonArray([
 {
+  "type": "hh_loopeach",
+  "message0": "loopeach %1 signal %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_loopeach'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES'); 
+
+  var code = `
+
+hh.LOOPEACH(
+  {
+    "%location":{loopeach: ` + value + `},
+    "%tag":"do/every",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body +`
+),
+`;
+  return code;
+};
+
+
+Blockly.defineBlocksWithJsonArray([
+{
   "type": "hh_every",
   "message0": "every %1 signal %2 %3",
   "args0": [
@@ -3248,7 +3566,7 @@ Blockly.JavaScript['hh_every'] = function(block) {
 
   var code = `
 
-hh.LOOPEACH(
+hh.EVERY(
   {
     "%location":{every: ` + value + `},
     "%tag":"do/every",
@@ -3270,6 +3588,7 @@ hh.LOOPEACH(
 `;
   return code;
 };
+
 
 Blockly.defineBlocksWithJsonArray([
 {
@@ -3304,6 +3623,7 @@ Blockly.JavaScript['hh_abort'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
+
   let times = block.getFieldValue('TIMES'); 
 
   var code = `

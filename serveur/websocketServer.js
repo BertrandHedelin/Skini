@@ -89,10 +89,16 @@ serv.broadcast = function broadcast(data) {
   //if(debug) console.log("Web Socket Server: broadcast: ", data);
   serv.clients.forEach(function each(client) {
     if (client.readyState === WebSocketServer.OPEN) {
-      client.send(data);
+    	try{
+    		client.send(data);
+  		}catch(err){
+			console.log("ERR: websocketserver.js: broadcast", err);
+			throw err;
+			return;
+		}
     }
   });
-};
+}
 
 // Pour les broadcasts depuis controle DAW, c'est la structure dans HOP que je garde.
 DAW.initBroadCastServer(serv);
@@ -124,7 +130,7 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   exports.sendSignalFromMIDI = sendSignalFromMIDI;
 
   function sendSignalStopFromMIDI(){
-  	if( !reactAutomatePossible( {stop: undefined} )){
+  	if( !reactAutomatePossible( {halt: undefined} )){
 		console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
 	}
   }
@@ -1015,7 +1021,7 @@ serv.on('connection', function (ws) {
 		case "stopAutomate":
 			if (DAWTableReady) {
 				if ( setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
-				reactAutomatePossible(  {  stop: undefined } );
+				reactAutomatePossible(  {  halt: undefined } );
 				DAWStatus = 0;
 
 				var msg = {

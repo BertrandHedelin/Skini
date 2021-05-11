@@ -76,6 +76,11 @@ var socketControleur;
 var computeScorePolicy = 0;
 var computeScoreClass = 0;
 
+/*==========================================================================
+
+Pour les broadcasts
+
+============================================================================*/
 function initBroadCastServer(serveur) {
   if(debug1) console.log("groupecliensSons: initBroadCastServer ");
   serv = serveur;
@@ -261,15 +266,15 @@ function setSocketControleur(socket) {
 }
 exports.setSocketControleur = setSocketControleur;
 
-function cleanQueues(){
+/*function cleanQueues(){
 	DAW.cleanQueues();
 }
-exports.cleanQueues = cleanQueues;
+exports.cleanQueues = cleanQueues;*/
 
-function cleanOneQueue(queue){
+/*function cleanOneQueue(queue){
 	DAW.cleanQueue(queue);
 }
-exports.cleanOneQueue = cleanOneQueue;
+exports.cleanOneQueue = cleanOneQueue;*/
 
 function pauseQueues(queue){
 	DAW.pauseQueues();
@@ -390,6 +395,8 @@ function alertInfoScoreOFF(){
 }
 exports.alertInfoScoreOFF = alertInfoScoreOFF;
 
+// Cette fonction est dupliquée avec Blockly, on perd le serveur avec
+// les rechargements des orchestrations.
 function informSelecteurOnMenuChange(groupe, sons, status) {
 	if (sons == undefined ) {
 		groupeName = "";
@@ -403,10 +410,14 @@ function informSelecteurOnMenuChange(groupe, sons, status) {
 		status : status
 	};
 	// Informe les selecteurs et simulateurs
-	if(debug) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
+	if(debug1) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
 
-	serv.broadcast(JSON.stringify(message));
-	//hop.broadcast('groupeClientStatus',JSON.stringify(message));
+	if(serv !== undefined){
+		serv.broadcast(JSON.stringify(message));
+		//hop.broadcast('groupeClientStatus',JSON.stringify(message));
+	}else{
+		console.log("ERR: groupecliensSons: informSelecteurOnMenuChange: serv undefined");
+	}
 }
 exports.informSelecteurOnMenuChange = informSelecteurOnMenuChange;
 
@@ -716,7 +727,9 @@ function makeOneAutomatePossibleMachine (numAuto) {
     // Recharge l'orchestration depuis le fichier généré par Blockly,
     // fichier éventuellement mis à jour à la main pour test.
     decache(myReactOrchestration);
- 
+
+ 	//delete require.cache[require.resolve(myReactOrchestration)];
+
 	try{
 		orchestration = require(myReactOrchestration);
 		if(debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
@@ -724,6 +737,9 @@ function makeOneAutomatePossibleMachine (numAuto) {
 		console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
 		throw err;
 	}
+
+	// Pour permettre les broadcasts depuis l'orchestration
+	orchestration.setServ(serv, DAW);
 
 	var machine = orchestration.setSignals();
 	makeSignalsListeners(machine);

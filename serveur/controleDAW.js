@@ -528,7 +528,7 @@ function playAndShiftEventDAW(timerDivision) {
         }
       }else{
         emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
-        automatePossibleMachine.react(emptyQueueSignal);
+        // automatePossibleMachine.react(emptyQueueSignal); // !! A ajouter
         if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", emptyQueueSignal);
       }
     }
@@ -574,6 +574,37 @@ function cleanQueues() {
   //hop.broadcast('cleanQueues', 255);
 }
 exports.cleanQueues = cleanQueues;
+
+function cleanQueue(instrument) {
+  var messageLog = { date: "" };
+
+  if(instrument === 255){
+    cleanQueues();
+    return;
+  }
+
+  if(filesDattente[instrument] === undefined){
+    console.log("ERR: controleAbleton.js: cleanQueue d'un instrument inexistant.");
+    return;
+  }
+
+  filesDattente[instrument]= [ ];
+  compteursDattente[instrument] = 0;
+
+  messageLog.source = "controleAbleton.js";
+  messageLog.type = "VIDAGE FILE ATTENTE " + instrument;
+  logInfoDAW(messageLog);
+  if (debug) console.log("controleAbleton: cleanQueue: ", instrument);
+
+  // Avec l'instrument concerné
+  var msg = {
+    type: "cleanQueues",
+    instrument : instrument
+  }
+  serv.broadcast(JSON.stringify(msg));
+  //hop.broadcast('cleanQueues', instrument);
+}
+exports.cleanQueue = cleanQueue;
 
 // ================= Visualisation de la table des commandes ===============
 

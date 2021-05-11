@@ -564,6 +564,10 @@ function init() {
           },
           {
             "kind": "block",
+            "type": "hh_ORCHESTRATION"
+          },
+          {
+            "kind": "block",
             "type": "hh_declare_signal"
           },
           {
@@ -601,6 +605,10 @@ function init() {
           {
             "kind": "block",
             "type": "hh_loop"
+          },
+          {
+            "kind": "block",
+            "type": "hh_loopeach"
           },
           {
             "kind": "block",
