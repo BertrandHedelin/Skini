@@ -30,6 +30,7 @@ var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
 var nbeDeGroupesSons = 0;
 var nombreInstruments = 0;
+var automatePossibleMachine;
 
 var avecMusicien = false;
 var decalageFIFOavecMusicien = 0;
@@ -58,7 +59,6 @@ function setAutomatePossible(automate) {
   automatePossibleMachine = automate; 
 }
 exports.setAutomatePossible = setAutomatePossible;
-
 
 function logInfoDAW(message){
   message.date = getDateTime();
@@ -407,43 +407,147 @@ function displayQueues() {
 }
 exports.displayQueues = displayQueues;
 
-// Fontion appelée de façon régulière avec Td = Intervalle d'appel dans HOP > Tqa = Temps de quantization dans DAW
-function playAndShiftEventDAW() {
-  var commandeDAW;
+// Fonction appelée de façon régulière avec Td = Intervalle d'appel dans HOP > Tqa = Temps de quantization dans Ableton
+var compteurTest = 0; // Pour controler la transmission depuis les clients, on le compte.
+var laClef;
+var leSignal;
+var emptyQueueSignal;
 
-  //console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
+function playAndShiftEventDAW(timerDivision) {
+  var commandeDAW;
+  var messageLog = { date: "" };
+
+  if(debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if ( filesDattente === undefined ) return; // Protection
 
-  for (var i=0; i < filesDattente.length; i++) {      // Pour chaque file d'attente
-
-        commandebDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
-        if ( commandebDAW === undefined ) continue;
-
-        // On peut envoyer l'évènement à DAW
-        if(debug) console.log("ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER", commandebDAW);
-  
-        // Log pour analyse a posteriori
-        messageLog.type = "COMMANDE DAW ENVOYEE";
-        messageLog.note = commandebDAW[2];
-        messageLog.instrumentNo = i;        
-        messageLog.pseudo = commandebDAW[5];        
-        messageLog.id = commandebDAW[4];
-        messageLog.nomSon = commandebDAW[7];
-        logInfoDAW(messageLog);
-
-        oscMidi.sendNoteOnDAW(commandebDAW[0],  commandebDAW[1], commandebDAW[2], commandebDAW[3]);
-        
-        //Rappel des paramètres: par.busMidiDAW, DAWChannel, DAWNote, velocity
-        //oscMidi.sendProcessing( "/DAWPseudo", commandebDAW[5] ).post();
-        // Pour avertir le browser du demandeur du son
-        var msg = {
-          type: "infoPlayDAW",
-          value: commandebDAW
-        }
-        serv.broadcast(JSON.stringify(msg));
-        //hop.broadcast('infoPlayDAW', commandebDAW );
+  for (var i=0; i < filesDattente.length ; i++) {  // Pour chaque file d'attente
+    // Mécanisme de pause d'une file d'attente
+    if(filesDattenteJouables[i] !== undefined){
+      if(filesDattenteJouables[i] === false){
+        continue;
+      }
     }
-    return;
+    if(debug) console.log("--- ControleDAW.js:FIFO", i ," length:", filesDattente[i].length);
+
+    if(debug) console.log("---0 ControleDAW.js:compteursDattente:", i, ":", compteursDattente[i]);
+    // file d'attente = [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
+    // Si la file n'est pas vide
+    if(filesDattente[i] !== undefined){
+      if(filesDattente[i].length !== 0){
+        if(debug) console.log("--- ControleDAW.js:FIFO:", i ,":", filesDattente[i][0][7]);
+        if(debug) console.log("--- ControleDAW.js:FIFO:", i ,":", filesDattente[i]);
+        if(debug) console.log("\n---0 ControleDAW.js:FIFO:", i, " Durée d'attente du clip:", compteursDattente[i], " timer:", timerDivision);
+
+        // Si l'attente est à 0 on joue le clip suivant
+        if(compteursDattente[i] === 0){
+          //Passe au clip suivant
+          commandeDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
+
+          if ( commandeDAW === undefined ) continue;
+          
+          if(debug) console.log("---1 ControleDAW.js:commande:", commandeDAW[7], "compteursDattente[i]:",compteursDattente[i]);
+
+          // On peut envoyer l'évènement à DAW
+          if(debug) console.log("--- ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER"); //, commandeDAW);
+          // Log pour analyse a posteriori
+          messageLog.source = "controleDAW.js";
+          messageLog.type = "COMMANDE DAW ENVOYEE";
+          messageLog.note = commandeDAW[2];
+          messageLog.instrumentNo = i;        
+          messageLog.pseudo = commandeDAW[5];        
+          messageLog.id = commandeDAW[4];
+          messageLog.nomSon = commandeDAW[7];
+          logInfoDAW(messageLog);
+
+          compteurTest ++;
+
+          // Joue le clip, mais pas si la note n'est pas négative et que l'on est avec des musiciens.
+          // si Note < 0 on est dans le cas d'un pattern d'info pour les musiciens.
+          // On fait rien pour la DAW.
+          // !! à vérifier.
+          if( commandeDAW[2] >= 0 ){
+            oscMidi.sendNoteOnDAW(commandeDAW[0],  commandeDAW[1], commandeDAW[2], commandeDAW[3] );
+            //Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
+          }
+
+          if(commandeDAW[6] % timerDivision !== 0) console.log("WARN: controleDAW.js: playAndShiftEventDAW: le pattern", commandeDAW[7], " a une durée qui n'est pas un multiple de timer division");
+          if(debug) console.log("---2 ControleDAW.js:sendNoteOnDAW:", commandeDAW[7]);
+
+          // Via OSC on perd les accents, donc on passe pas une WebSocket
+          if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[7], ":", commandeDAW[5]);
+
+          // Pour affichage avec un programme Processing
+          // oscMidi.sendProcessingDisplayNames( "demandeDeSonParPseudo", commandeDAW[7] );
+
+          // La ligne automatePossibleMachine.react(commandeDAW[8]) est activé selon reactOnPlay
+          // Si reactOnPlay existe à true on envoie le signal, qui correspond au lancement d'un pattern, au moment de le jouer
+          // Au niveau timing cela signifie que l'on prend en compte une activation au moment où elle est jouée
+          // et pas au moment où elle est demandée.
+          // L'autre scénario est dans websocketserver où on envoie le signal au moment de la demande
+          // Ce sont deux scénarios différents. Celui-ci peut poser des pb de performance si les react s'enchainent
+          // quand on joue la file d'attente.
+          
+          // Pour associer le nom du pattern au signal de groupe
+          laClef = Object.keys(commandeDAW[8]);
+          leSignal = JSON.parse('{"' + laClef[0] + '":"' + commandeDAW[7] + '"}');
+
+          if(debug) console.log("controleDAW:playAndShiftEventDAW: laclef:", laClef,", leSignal: ", leSignal);
+
+          if (par.reactOnPlay !== undefined){
+            if (par.reactOnPlay){
+              automatePossibleMachine.react(leSignal);
+            }
+          }
+
+          // Pour avertir le browser du demandeur du son et les musiciens s'il y en a.
+          var msg = {
+            type: "infoPlayDAW",
+            value : filesDattente
+          }
+          serv.broadcast(JSON.stringify(msg));
+          //hop.broadcast('infoPlayDAW', commandeDAW );
+
+          if(debug) console.log("controleDAW:playAndShiftEventDAW: broadcast commandeDAW", commandeDAW);
+
+          //Met à jour l'attente quand on a joué le pattern.
+          compteursDattente[i] = commandeDAW[6]; // On recharge le compteur d'attente pour le pattern en cours, en comptant le tick en cours
+          
+          //Gestion d'une erreur possible dans la programmation de l'orchestration
+          //si des patterns ont des durées < timeDivision, donc inférieures au tick.
+          // Ce cas n'est plus traité à cause de la ligne 508, mais le pb reste
+          if(compteursDattente[i] < 0 ){
+            console.log("WARN: Problème sur Pattern", commandeDAW[7], ", sa durée est inférieure au timerDivision");
+            compteursDattente[i] = 0;
+          }
+          if(debug) console.log("---3 ControleDAW.js:compteursDattente:", i, ":", compteursDattente[i]);
+
+        }else{
+          if(compteursDattente[i] > 0){
+            if(debug) console.log("---4 ControleDAW.js:compteursDattente:", compteursDattente[i]);
+          }
+        }
+      }else{
+        emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
+        automatePossibleMachine.react(emptyQueueSignal);
+        if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", emptyQueueSignal);
+      }
+    }
+  } // Fin du for
+
+  // -- Mettre à jour les attentes
+  // On décrémente les compteurs d'attente de la durée du tick
+  // Dans la file d'attente la durée du pattern devient le temps d'attente en fonction de la durée du tick.
+  // C'est une façon de gérer des patterns plus longs que le tick.
+  for (var i=0; i < compteursDattente.length ; i++) {
+    if(avecMusicien && decalageFIFOavecMusicien < timerDivision){
+      console.log("ERR: Le décalage pour musicien doit être un multiple de timerDivision !");
+    }
+    if( compteursDattente[i] >= timerDivision){
+      compteursDattente[i] -= timerDivision;
+    }
+  }
+  if(debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivision);
+  return;
 }
 exports.playAndShiftEventDAW = playAndShiftEventDAW;
 
@@ -470,7 +574,6 @@ function cleanQueues() {
   //hop.broadcast('cleanQueues', 255);
 }
 exports.cleanQueues = cleanQueues;
-
 
 // ================= Visualisation de la table des commandes ===============
 

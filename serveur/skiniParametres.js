@@ -18,7 +18,7 @@
 
 ===========================================================================*/
 
-exports.DAWON = true;
+//exports.DAWON = true;
 
 exports.canWidth  = 10; // Pas utile si pas de tablette, 500
 exports.canHeight = 10; // Pas utile si pas de tablette, 250

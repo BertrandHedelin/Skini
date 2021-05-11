@@ -2,6 +2,8 @@
 
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
+var gcs = require("../serveur/autocontroleur/groupeClientsSons.js");
+
 var debug = false;
 var debug1 = true;
 
@@ -100,7 +102,7 @@ var trajet = hh.MODULE(
 		    {
 		    "%location":{},
 		    "%tag":"node",
-		    "apply":function () {console.log('Après start 888');}
+		    "apply":function () {console.log('Après start 111');}
 		    }
 		),
 
@@ -144,34 +146,86 @@ var trajet = hh.MODULE(
 		    {
 		    "%location":{},
 		    "%tag":"node",
-		    "apply":function () {console.log('Après emit');}
+		    "apply":function () { gcs.informSelecteurOnMenuChange(255,"djembeOUT",true); }
 		    }
 		),
 
-		hh.LOOPEACH(
+        hh.ATOM(
+		    {
+		    "%location":{},
+		    "%tag":"node",
+		    "apply":function () {console.log('Après emit'); }
+		    }
+		),
+
+		hh.FORK(
 			{
-			    "%location":{},
-			    "%tag":"do/every",
-			    "immediate":false,
-			    "apply": function (){return ((() => {
-			          const tick = this["tick"];
-			          return tick.now;
-			    })());},
-			    "countapply":function (){ return 2;}
+				"%location":{},
+				"%tag":"fork"
 			},
-			hh.SIGACCESS({
-			    "signame":"tick",
-			    "pre":false,
-			    "val":false,
-			    "cnt":false
-			}),
-			hh.ATOM(
-			    {
-			    "%location":{},
-			    "%tag":"node",
-			    "apply":function () {console.log('Tick');}
-			    }
+			hh.SEQUENCE(
+				{
+					"%location":{},
+					"%tag":"fork"
+				},
+				hh.LOOPEACH(
+					{
+					    "%location":{},
+					    "%tag":"do/every",
+					    "immediate":false,
+					    "apply": function (){return ((() => {
+					          const tick = this["tick"];
+					          return tick.now;
+					    })());},
+					    //"countapply":function (){ return 2;}
+					},
+					hh.SIGACCESS({
+					    "signame":"tick",
+					    "pre":false,
+					    "val":false,
+					    "cnt":false
+					}),
+					hh.ATOM(
+					    {
+					    "%location":{},
+					    "%tag":"node",
+					    "apply":function () {console.log('Tick');}
+					    }
+					),
+				),
 			),
+			hh.SEQUENCE(
+				{
+					"%location":{},
+					"%tag":"fork"
+				},
+
+				hh.EVERY(
+					{
+					    "%location":{},
+					    "%tag":"every",
+					    "immediate":false,
+					    "apply": function (){return ((() => {
+					          const djembeIN = this["djembeIN"];
+					          return djembeIN.now;
+					    })());},
+					    //"countapply":function (){ return 2;}
+					},
+					hh.SIGACCESS({
+					    "signame":"djembeIN",
+					    "pre":false,
+					    "val":false,
+					    "cnt":false
+					}),
+					hh.ATOM(
+					    {
+					    "%location":{},
+					    "%tag":"node",
+					    "apply":function () {console.log('********************  djembeIN');}
+					    }
+					),
+				),
+			)
 		)
 	)
 );
@@ -218,7 +272,8 @@ var orchestration = hh.MODULE(
 			"stop":"",
 			"tick":"",
 			"DAWON":"",
-			"djembeOUT":"djembeOUT" // signal OUT Ne marche pas comme les signaux hh.SIGNAL IN du module ????
+			"djembeOUT":"djembeOUT", // Pour utiliser les eventListener depuis un sous module il faut faire ce lien.
+			"djembeIN":"",
 		})
 	);
 exports.orchestration = orchestration;

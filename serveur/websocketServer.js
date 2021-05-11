@@ -66,11 +66,10 @@ var computeScorePolicy = 0;
 var computeScoreClass = 0;
 
 // CONTROLEUR
-var DAWTableReady = false;
+var DAWTableReady = false; // Pour pouvoir vérifier que la pièce a bien été chargée.
 
 var clientsEnCours = [];
 var groupeEncours = 0;
-
 
 var currentTimePrevMidi =0;
 var currentTimeMidi = 0;
@@ -394,6 +393,7 @@ serv.on('connection', function (ws) {
 		if (par.reactOnPlay === undefined){
 			reactAutomatePossible( signalComplet );
 		} else if (!par.reactOnPlay){
+			if(debug1) console.log("websocketServeur: pushClipDAW: reactAutomatePossible:", signalComplet);
 			reactAutomatePossible( signalComplet );
 		}
 		if (debug) console.log("Web Socket Server.js : pushClipDAW :nom ", nom, " pseudo: ", pseudo);
@@ -838,7 +838,7 @@ serv.on('connection', function (ws) {
 					}
 					ws.send(JSON.stringify(msg));
 				}
-				if(debug) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
+				if(debug1) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
 				playPattern(msgRecu.pseudo, msgRecu.groupe, pattern, msgRecu.idClient);
 			}
 
@@ -871,6 +871,10 @@ serv.on('connection', function (ws) {
 			//hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
 			break;
 
+		// DAWON est le signal d'activation ou désactivation de l'orchestration
+		// DAWStatus est une variable qui permet de savoir quelle était l'orchestration choisie
+		// danc cette version on n'utilise qu'une seule orchestration. DAWStatus pouvait avoir des valeur de 1 à 3.
+		// Il y a redondance entre les deux puisque DAWStatus = 0 signifie pas d'orchestration en cours.
 		case "setDAWON":
 			// msgRecu.value > 0 => DAW Active
 			DAWStatus = msgRecu.value;
