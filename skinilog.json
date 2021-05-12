@@ -24708,3 +24708,24 @@
 {"date":"12:05:2021:12:38:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
 {"date":"12:05:2021:12:38:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
 {"date":"12:05:2021:12:38:51","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:23:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:18:23:46","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:23:46","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:18:23:46","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:18:23:46","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:23:46","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:23:48","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:18:23:48","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:23:48","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:23:55","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:24:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:18:24:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:18:24:18","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:24:18","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:18:24:18","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:18:24:18","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:24:18","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:18:24:21","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:18:24:21","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:24:21","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:18:24:27","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
