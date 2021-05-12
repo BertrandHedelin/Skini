@@ -104,6 +104,15 @@ serv.broadcast = function broadcast(data) {
 DAW.initBroadCastServer(serv);
 groupesClientSon.initBroadCastServer(serv);
 
+function getBroadCastServer(){
+	if(serv === undefined){
+		console.log("ERR: websocketServer: getBroadCastServer: serv undefined");
+		return false;
+	}
+	return serv;
+}
+exports.getBroadCastServer = getBroadCastServer;
+
 /************************************************************************************
 
 Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.

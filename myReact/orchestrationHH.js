@@ -2,60 +2,24 @@ var halt, start, djembe, groupe1, tick;
 
 
 
-
 "use strict";
-
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
-var gcs = require("../serveur/autocontroleur/groupeClientsSons.js");
-var DAW ; // = require('../serveur/controleDAW.js');
+var gcs;
+var DAW;
 
 var debug = false;
 var debug1 = true;
 
-var serveur;
+//var serveur;
 
-function setServ(ser, daw){
+function setServ(ser, daw, groupeCS){
   console.log("setServ");
   DAW = daw;
   serveur = ser;
+  gcs = groupeCS;
 }
 exports.setServ = setServ;
-
-function informSelecteurOnMenuChange(groupe, sons, status) {
-  if (sons == undefined ) {
-    groupeName = "";
-  } else {
-    groupeName = sons;
-  }
-  var message = {
-    type: 'groupeClientStatus',
-    groupeClient: groupe,
-    groupeName: groupeName,
-    status : status
-  };
-  // Informe les selecteurs et simulateurs
-  if(debug1) console.log("orchestration :informSelecteurOnMenuChange:", groupe, sons, status);
-
-  if(serveur !== undefined){
-    serveur.broadcast(JSON.stringify(message));
-  }else{
-    console.log("ERR: orchestration: informSelecteurOnMenuChange: serv undefined");
-  }
-}
-
-function cleanChoiceList(groupe){
-  var message = {
-    type: 'cleanClientChoiceList',
-    group: groupe
-  };
-
-  if(serveur !== undefined){
-    serveur.broadcast(JSON.stringify(message));
-  }else{
-    console.log("ERR: orchestration: cleanChoiceList: serv undefined");
-  }
-}
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
@@ -102,16 +66,6 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setTimerDivision"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resetMatriceDesPossibles"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseQueues"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeQueues"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseOneQueue"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeOneQueue"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"patternListLength"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"cleanChoiceList"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScoreClass"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScorePolicy"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
@@ -121,13 +75,53 @@ var orchestration = hh.MODULE(
 
 
 
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.setTimerDivision(1);
+      }
+    }
+  ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+             gcs.setpatternListLength([5,255]);
+          }
+        }
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            gcs.setComputeScorePolicy(1);
+          }
+        }
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            gcs.setComputeScoreClass(1);
+          }
+        }
+      ),
+
       hh.ATOM(
         {
           "%location":{},
           "%tag":"node",
           "apply":function () {
             DAW.cleanQueues();
-            cleanChoiceList(255);
+            gcs.cleanChoiceList(255);
           }
         }
       ),
@@ -138,6 +132,45 @@ var orchestration = hh.MODULE(
           "%tag":"node",
           "apply":function () {
             DAW.cleanQueue(1);
+          }
+        }
+      ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        DAW.pauseQueues();
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        DAW.resumeQueues();
+      }
+    }
+  ),
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.pauseQueue(1);
+          }
+        }
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.resumeQueue(1);
           }
         }
       ),
@@ -165,7 +198,7 @@ var orchestration = hh.MODULE(
       {
         "%location":{},
         "%tag":"node",
-        "apply":function () {console.log('Après abort');}
+        "apply":function () {console.log('Début en attente d\'abort');}
       }
     ),
 
@@ -194,7 +227,7 @@ var orchestration = hh.MODULE(
       {
         "%location":{},
         "%tag":"node",
-        "apply":function () {console.log('Debut');}
+        "apply":function () {console.log('Debut apres start');}
       }
     ),
 
@@ -221,7 +254,7 @@ var orchestration = hh.MODULE(
           {
           "%location":{},
           "%tag":"node",
-          "apply":function () { informSelecteurOnMenuChange(255 , "djembeOUT",true); }
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "djembeOUT",true); }
           }
       ),
 
@@ -248,7 +281,7 @@ var orchestration = hh.MODULE(
           {
           "%location":{},
           "%tag":"node",
-          "apply":function () { informSelecteurOnMenuChange(255 , "groupe1OUT",true); }
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",true); }
           }
       ),
 
@@ -263,7 +296,7 @@ var orchestration = hh.MODULE(
             return tick.now;
           })());
         },
-        "countapply":function (){ return 4;}
+        "countapply":function (){ return 15;}
       },
       hh.SIGACCESS({
         "signame":"tick",
@@ -296,9 +329,19 @@ var orchestration = hh.MODULE(
           {
           "%location":{},
           "%tag":"node",
-          "apply":function () { informSelecteurOnMenuChange(255 , "djembeOUT",false); }
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "djembeOUT",false); }
           }
       ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              gcs.cleanChoiceList(255);
+            }
+          }
+        ),
 
 
     hh.EVERY(
@@ -323,12 +366,22 @@ var orchestration = hh.MODULE(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {console.log('Every');}
+          "apply":function () {console.log('Every tick');}
         }
       ),
 
     ),
 
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.resetMatrice();
+      }
+    }
   ),
 
 

@@ -606,6 +606,86 @@ function cleanQueue(instrument) {
 }
 exports.cleanQueue = cleanQueue;
 
+function pauseQueues() {
+  var messageLog = { date: "" };
+  if(debug) console.log("controleDAW.js : pauseQueues", filesDattenteJouables, compteursDattente, filesDattente);
+
+  for(var i = 0; i < filesDattente.length ; i++){
+    filesDattenteJouables[i] = false;
+  }
+
+  messageLog.source = "controleDAW.js";
+  messageLog.type = "PAUSE DES FILES ATTENTES";
+  logInfoDAW(messageLog);
+  if (debug1) console.log("controleDAW: pauseQueues");
+
+  var msg = {
+    type: "pauseQueues",
+    instrument : 255
+  }
+  serv.broadcast(JSON.stringify(msg));
+  //hop.broadcast('pauseQueues', 255);
+}
+exports.pauseQueues = pauseQueues;
+
+function resumeQueues() {
+  var messageLog = { date: "" };
+  if(debug) console.log("controleDAW.js : pauseQueues", filesDattenteJouables, compteursDattente, filesDattente);
+
+  for(var i = 0; i < filesDattente.length ; i++){
+    filesDattenteJouables[i] = true;
+  }
+  messageLog.source = "controleDAW.js";
+  messageLog.type = "REPRISE DES FILES ATTENTES";
+  logInfoDAW(messageLog);
+  if (debug1) console.log("controleDAW: resumeQueues");
+  // 255 => tous les instruments
+  var msg = {
+    type: "resumeQueues",
+    instrument : 255
+  }
+  serv.broadcast(JSON.stringify(msg));
+  //hop.broadcast('resumeQueues', 255);
+}
+exports.resumeQueues = resumeQueues;
+
+function pauseQueue(instrument) {
+  var messageLog = { date: "" };
+
+  filesDattenteJouables[instrument] = false;
+  messageLog.source = "controleDAW.js";
+  messageLog.type = "PAUSE FILE ATTENTE " + instrument;
+  logInfoDAW(messageLog);
+  if (debug1) console.log("controleDAW: pauseQueue: ", instrument);
+
+  var msg = {
+    type: "pauseOneQueue",
+    instrument : instrument
+  }
+  serv.broadcast(JSON.stringify(msg));
+  // Avec l'instrument concerné
+  //hop.broadcast('pauseOneQueue', instrument);
+}
+exports.pauseQueue = pauseQueue;
+
+function resumeQueue(instrument) {
+  var messageLog = { date: "" };
+
+  filesDattenteJouables[instrument] = true;
+  messageLog.source = "controleDAW.js";
+  messageLog.type = "REPRISE FILE ATTENTE " + instrument;
+  logInfoDAW(messageLog);
+  if (debug1) console.log("controleDAW: resumeQueue: ", instrument);
+
+  var msg = {
+    type: "resumeOneQueue",
+    instrument : instrument
+  }
+  serv.broadcast(JSON.stringify(msg));
+  //hop.broadcast('resumeOneQueue', instrument);
+}
+exports.resumeQueue = resumeQueue;
+
 // ================= Visualisation de la table des commandes ===============
 
 function nbeDeSpectateursConnectes() {

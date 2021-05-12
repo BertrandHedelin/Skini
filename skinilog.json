@@ -24312,3 +24312,399 @@
 {"date":"11:05:2021:18:37:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"sim570347","id":570347,"nomSon":"Percu5"}
 {"date":"11:05:2021:18:37:03","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":28,"instrumentNo":7,"pseudo":"sim570347","id":570347,"nomSon":"Percu6"}
 {"date":"11:05:2021:18:37:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:02:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:02:33","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:02:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:02:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:02:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:02:41","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:03:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:03:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:03:13","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:03:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:03:13","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:03:13","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:03:21","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:26","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:07:26","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:07:32","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:07:32","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:32","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:38","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:07:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:07:42","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:07:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:07:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:07:54","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:08:56","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:08:56","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:09:05","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:09:05","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:09:05","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:09:07","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:09:10","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:09:10","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:19:24","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:19:24","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:19:28","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:19:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:19:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:19:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:19:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:21:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:21:47","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:21:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:21:49","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:21:49","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:21:51","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:47","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:22:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:49","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:22:49","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:22:51","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:53","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:53","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:22:54","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:22:54","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:22:54","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:23:01","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:41:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:34","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:41:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:37","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:41:37","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:41:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:42","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:41:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:41:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:41:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:50","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:41:50","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:45:02","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:02","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:45:12","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:12","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:12","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:16","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:45:26","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:26","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:26","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:32","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:34","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:34","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:45:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:45:35","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:35","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:45:42","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:47:58","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:47:58","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:48:02","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:02","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:02","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:08","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:10","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:12","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:12","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:48:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:18","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:18","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:24","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:28","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:30","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:48:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:48:31","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:31","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:48:38","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:23","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:50:25","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:25","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:25","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:31","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:35","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:50:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:37","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:37","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:45","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:50:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:50:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:50:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:52:31","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:52:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:52:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:41","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:52:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:52:45","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:52:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:52:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:52:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:17","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:58:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:27","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:28","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:31","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:58:38","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:40","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:43","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:09:58:47","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:09:58:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:09:58:55","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:02:12","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:02:15","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:02:15","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:02:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:02:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:02:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:02:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:15:17","source":"websocketServerSkini.js","type":"closeSpectateur","id":986955}
+{"date":"12:05:2021:10:15:19","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:15:19","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:15:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:15:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:15:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:15:22","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:19:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:19:24","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:19:24","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:19:28","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:19:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:19:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:19:29","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:20:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:20:15","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:20:15","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:20:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:20:16","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:20:16","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:20:18","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:20:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:28:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:28:31","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:42:45","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:42:45","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:44:40","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:44:40","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:44:40","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:44:40","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:44:40","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:44:40","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:44:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:44:41","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:44:41","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:44:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:11","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:11","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:23","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:24","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:24","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:24","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:24","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:24","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:24","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:31","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:37","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:37","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:37","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:37","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:45:37","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:37","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:45:40","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:45:40","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:40","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:45:42","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:52:29","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:52:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:52:31","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:52:31","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:52:31","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:52:31","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:52:31","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:52:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:52:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:52:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:52:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:52:39","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu5","pseudo":"Marc","id":115817}
+{"date":"12:05:2021:10:52:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu4"}
+{"date":"12:05:2021:10:52:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu5"}
+{"date":"12:05:2021:10:52:45","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu4"}
+{"date":"12:05:2021:10:53:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:53:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:53:42","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:53:42","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:53:42","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:10:53:42","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:53:42","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:10:53:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:10:53:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:53:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:53:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:10:53:50","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu5"}
+{"date":"12:05:2021:10:53:50","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu5"}
+{"date":"12:05:2021:10:53:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu4"}
+{"date":"12:05:2021:10:53:54","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu5"}
+{"date":"12:05:2021:10:53:56","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu4"}
+{"date":"12:05:2021:10:53:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu4"}
+{"date":"12:05:2021:10:53:57","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu5"}
+{"date":"12:05:2021:10:54:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu4"}
+{"date":"12:05:2021:10:54:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu4"}
+{"date":"12:05:2021:10:54:01","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":115817,"note":"Percu5"}
+{"date":"12:05:2021:10:54:02","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu5"}
+{"date":"12:05:2021:10:54:08","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu4"}
+{"date":"12:05:2021:10:54:14","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu5"}
+{"date":"12:05:2021:10:54:20","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu4"}
+{"date":"12:05:2021:10:54:26","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu4"}
+{"date":"12:05:2021:10:54:32","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":115817,"nomSon":"Percu5"}
+{"date":"12:05:2021:12:19:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:23:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:23:42","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:23:42","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:23:42","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:23:42","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:23:42","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:23:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:23:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:23:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:23:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:24:44","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:24:44","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:24:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:24:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:24:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:24:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:25:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:25:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:25:17","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:25:17","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:25:17","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:25:17","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:25:17","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:25:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:25:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:25:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:25:22","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:26:02","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:26:03","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:26:03","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:26:03","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:26:03","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:26:03","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:26:03","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:26:04","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:26:04","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:26:04","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:26:05","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:26:16","source":"websocketServerSkini.js","type":"closeSpectateur","pseudo":"Marc","id":110854}
+{"date":"12:05:2021:12:34:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:32","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:32","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:32","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:34:32","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:32","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:34:32","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:36","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:36","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:34:36","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:34:38","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:34:48","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:49","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:49","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:34:49","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:34:49","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:49","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:34:51","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:34:51","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:34:51","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:34:52","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:36:17","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:36:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:36:18","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:36:18","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:36:18","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:36:18","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:36:18","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:36:19","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:36:19","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:36:19","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:36:21","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:36:35","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:37:27","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:37:27","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:37:27","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:37:27","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:37:27","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:37:27","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:37:28","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:37:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:02","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:03","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:03","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:03","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:38:03","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:38:03","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:03","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:04","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:04","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:04","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:06","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:44","source":"controleAbleton.js","type":"VIDAGE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"PAUSE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"REPRISE DES FILES ATTENTES"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"PAUSE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"REPRISE FILE ATTENTE 1"}
+{"date":"12:05:2021:12:38:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"12:05:2021:12:38:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:44","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"12:05:2021:12:38:51","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}

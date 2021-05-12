@@ -42,6 +42,8 @@ var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
 var fs = require("fs");
 
 var serv;
+exports.serv = serv;
+
 var orchestration;
 
 if(debug) console.log("groupeClientsSons.js: require initial des automates: passé");
@@ -230,6 +232,11 @@ Les setTimerDivision, setComputeScorePolicy, setComputeScoreClass
 sont faits directement depuis l'orchestration avec des addEventListeners.
 
 =============================================================================*/
+function testGCS(text){
+	console.log("testGCS+++++++++++++:", text, serv);
+	return serv;
+}
+exports.testGCS = testGCS;
 
 function getTimerDivision() {
 	return timerDivision;
@@ -265,36 +272,6 @@ function setSocketControleur(socket) {
 	socketControleur = socket;
 }
 exports.setSocketControleur = setSocketControleur;
-
-/*function cleanQueues(){
-	DAW.cleanQueues();
-}
-exports.cleanQueues = cleanQueues;*/
-
-/*function cleanOneQueue(queue){
-	DAW.cleanQueue(queue);
-}
-exports.cleanOneQueue = cleanOneQueue;*/
-
-function pauseQueues(queue){
-	DAW.pauseQueues();
-}
-exports.pauseQueues = pauseQueues;
-
-function pauseOneQueue(queue){
-	DAW.pauseQueue(queue);
-}
-exports.pauseOneQueue = pauseOneQueue;
-
-function resumeQueues(queue){
-	DAW.resumeQueues();
-}
-exports.resumeQueues = resumeQueues;
-
-function resumeOneQueue(queue){
-	DAW.resumeQueue(queue);
-}
-exports.resumeOneQueue = resumeOneQueue;
 
 function resetMatrice(){
 	resetMatriceDesPossibles();
@@ -739,7 +716,7 @@ function makeOneAutomatePossibleMachine (numAuto) {
 	}
 
 	// Pour permettre les broadcasts depuis l'orchestration
-	orchestration.setServ(serv, DAW);
+	orchestration.setServ(serv, DAW, this);
 
 	var machine = orchestration.setSignals();
 	makeSignalsListeners(machine);

@@ -1188,6 +1188,7 @@ Blockly.JavaScript['set_groups_waiting_for_patterns'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "reset_orchestration",
@@ -1201,7 +1202,18 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['reset_orchestration'] = function(block) {
-  var code = 'emit resetMatriceDesPossibles();\n';
+
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () { 
+      gcs.resetMatrice();
+    }
+  }
+),
+`
   return code;
 };
 
@@ -1227,7 +1239,7 @@ Blockly.JavaScript['cleanqueues'] = function(block) {
         "%tag":"node",
         "apply":function () { 
           DAW.cleanQueues();
-          cleanChoiceList(255);
+          gcs.cleanChoiceList(255);
         }
       }
     ),
@@ -1288,6 +1300,7 @@ Blockly.JavaScript['cleanOneQueue'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "pauseQueues",
@@ -1301,10 +1314,21 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['pauseQueues'] = function(block) {
-  var code = 'hop{ ableton.pauseQueues();}\n';
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () { 
+      DAW.pauseQueues();
+    }
+  }
+),
+`
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "pauseOneQueue",
@@ -1324,12 +1348,25 @@ Blockly.defineBlocksWithJsonArray([
   "helpUrl": ""
 }
 ]);
+
 Blockly.JavaScript['pauseOneQueue'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `hop{ableton.pauseQueue(` + number + ");}\n";
+
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          DAW.pauseQueue(` + number + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "resumeQueues",
@@ -1343,10 +1380,20 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['resumeQueues'] = function(block) {
-  var code = 'hop{ ableton.resumeQueues();}\n';
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () { 
+      DAW.resumeQueues();
+    }
+  }
+),`
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "resumeOneQueue",
@@ -1368,7 +1415,17 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 Blockly.JavaScript['resumeOneQueue'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `hop{ableton.resumeQueue(` + number + ");}\n";
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          DAW.resumeQueue(` + number + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
@@ -1481,7 +1538,7 @@ Blockly.JavaScript['set_group'] = function(block) {
       {
       "%location":{},
       "%tag":"node",
-      "apply":function () { informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",true); }
+      "apply":function () { gcs.informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",true); }
       }
   ),
   `
@@ -1548,7 +1605,7 @@ Blockly.JavaScript['unset_group'] = function(block) {
       {
       "%location":{},
       "%tag":"node",
-      "apply":function () { informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",false); }
+      "apply":function () { gcs.informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",false); }
       }
   ),
   `
@@ -2041,6 +2098,7 @@ Blockly.JavaScript['set_tempo'] = function(block) {
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_timer_division",
@@ -2063,9 +2121,19 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['set_timer_division'] = function(block) {
   var number_timer = block.getFieldValue('timer');
-  //var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'emit setTimerDivision(' + number_timer + ');\n';
-  return code;
+  
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () { 
+      gcs.setTimerDivision(` + number_timer + `);
+    }
+  }
+),
+`
+   return code;
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -2255,6 +2323,7 @@ Blockly.JavaScript['reset_transpose'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "patternListLength",
@@ -2284,10 +2353,21 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['patternListLength'] = function(block) {
   var number_valeur = block.getFieldValue('valeur');
   var number_groupe = block.getFieldValue('groupe');
-  var code = "emit patternListLength([" + number_valeur + "," + number_groupe + "]);\n"
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+           gcs.setpatternListLength([` + number_valeur + `,` + number_groupe + `]);
+        }
+      }
+    ),
+`
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "cleanChoiceList",
@@ -2310,11 +2390,17 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['cleanChoiceList'] = function(block) {
   var number_groupe = block.getFieldValue('groupe');
-
-  var code =  "hop{ hop.broadcast('cleanChoiceList', " + number_groupe + ");}";
-
-  //La version avec signal n'est pas indispensable et n'apporte rien en blockly
-  //var code = "emit cleanChoiceList(" + number_groupe + ");\n"
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          gcs.cleanChoiceList(` + number_groupe + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
@@ -2511,7 +2597,7 @@ Blockly.JavaScript['displayScoreGroup'] = function(block) {
   return code;
 };
 
-
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_score_policy",
@@ -2534,10 +2620,21 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['set_score_policy'] = function(block) {
   var number_policy = block.getFieldValue('policy');
-  var code = 'emit setComputeScorePolicy(' + number_policy + ');\n';
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          gcs.setComputeScorePolicy(` + number_policy + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_score_class",
@@ -2560,7 +2657,18 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['set_score_class'] = function(block) {
   var number_class = block.getFieldValue('class');
-  var code = 'emit setComputeScoreClass(' + number_class + ');\n';
+
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          gcs.setComputeScoreClass(` + number_class + `);
+        }
+      }
+    ),
+`
   return code;
 };
 
@@ -2920,60 +3028,24 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   
   var code = `
-
 "use strict";
-
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
-var gcs = require("../serveur/autocontroleur/groupeClientsSons.js");
-var DAW ; // = require('../serveur/controleDAW.js');
+var gcs;
+var DAW;
 
 var debug = false;
 var debug1 = true;
 
-var serveur;
+//var serveur;
 
-function setServ(ser, daw){
+function setServ(ser, daw, groupeCS){
   console.log("setServ");
   DAW = daw;
   serveur = ser;
+  gcs = groupeCS;
 }
 exports.setServ = setServ;
-
-function informSelecteurOnMenuChange(groupe, sons, status) {
-  if (sons == undefined ) {
-    groupeName = "";
-  } else {
-    groupeName = sons;
-  }
-  var message = {
-    type: 'groupeClientStatus',
-    groupeClient: groupe,
-    groupeName: groupeName,
-    status : status
-  };
-  // Informe les selecteurs et simulateurs
-  if(debug1) console.log("orchestration :informSelecteurOnMenuChange:", groupe, sons, status);
-
-  if(serveur !== undefined){
-    serveur.broadcast(JSON.stringify(message));
-  }else{
-    console.log("ERR: orchestration: informSelecteurOnMenuChange: serv undefined");
-  }
-}
-
-function cleanChoiceList(groupe){
-  var message = {
-    type: 'cleanClientChoiceList',
-    group: groupe
-  };
-
-  if(serveur !== undefined){
-    serveur.broadcast(JSON.stringify(message));
-  }else{
-    console.log("ERR: orchestration: cleanChoiceList: serv undefined");
-  }
-}
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
@@ -3020,16 +3092,6 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setTimerDivision"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resetMatriceDesPossibles"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseQueues"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeQueues"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"pauseOneQueue"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"resumeOneQueue"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"patternListLength"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"cleanChoiceList"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScoreClass"}),
-    hh.SIGNAL({"%location":{},"direction":"OUT","name":"setComputeScorePolicy"}), 
     hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
@@ -3046,6 +3108,7 @@ exports.orchestration = orchestration;
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_module",
@@ -3073,7 +3136,6 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
-// NodeSkini
 Blockly.JavaScript['hh_module'] = function(block) {
   
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
@@ -3091,7 +3153,7 @@ Blockly.JavaScript['hh_module'] = function(block) {
   return code;
 };
 
-
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_run",
@@ -3340,6 +3402,7 @@ hh.ATOM(
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_pause",
@@ -3364,6 +3427,7 @@ hh.PAUSE(
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_sequence",
@@ -3400,6 +3464,7 @@ Blockly.JavaScript['hh_sequence'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_fork",
@@ -3436,6 +3501,7 @@ Blockly.JavaScript['hh_fork'] = function(block) {
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_loop",
@@ -3468,6 +3534,7 @@ hh.LOOP(
   return code;
 };
 
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_loopeach",
@@ -3528,7 +3595,7 @@ hh.LOOPEACH(
   return code;
 };
 
-
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_every",
@@ -3589,7 +3656,7 @@ hh.EVERY(
   return code;
 };
 
-
+// NodeSkini
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_abort",
