@@ -1,12 +1,45 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
+    <variable id="uYtY/7giK^Y2q2#O7o2F">tankTest</variable>
+    <variable id="E}[@+UnfN1KQ^+Vibn;i">groupe1</variable>
+    <variable id="hf3zEJan`ym~0qeoJKi|">groupe2</variable>
+    <variable id="I}2]wS/Z,BVunE@4Ey/S">groupe3</variable>
     <variable id="DoMa$K6ha)IT~2)HtIac">halt</variable>
     <variable id="f0e%qGG}?S5`I[-+if%N">start</variable>
     <variable id="~YxadVt:@N-|nQbbUt5Y">djembe</variable>
-    <variable id="E}[@+UnfN1KQ^+Vibn;i">groupe1</variable>
     <variable id="hchBnoEv(z!xIgDRVuzY">tick</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="173" y="110">
+    <statement name="MODULES">
+      <block type="tank" id="1St5GLB8}~`|0:%,eLgO">
+        <field name="groupeClient">255</field>
+        <statement name="SIGNAL">
+          <block type="variables_set" id=",3jAB~1qS]wHZL6kgM8w">
+            <field name="VAR" id="uYtY/7giK^Y2q2#O7o2F">tankTest</field>
+            <value name="VALUE">
+              <block type="lists_create_with" id="^^f*q8$~k`u+oJB:l^]l">
+                <mutation items="3"></mutation>
+                <value name="ADD0">
+                  <block type="variables_get" id="a`M.Ag)]0b9~kS1V;5X+">
+                    <field name="VAR" id="E}[@+UnfN1KQ^+Vibn;i">groupe1</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="variables_get" id="D8$lSNOCQFxSURaQ4HzN">
+                    <field name="VAR" id="hf3zEJan`ym~0qeoJKi|">groupe2</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="variables_get" id="4:1Y;?{,_/iEVk}p-HTm">
+                    <field name="VAR" id="I}2]wS/Z,BVunE@4Ey/S">groupe3</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
     <statement name="BODY">
       <block type="set_timer_division" id="YDVkr_g1PL6TJPSgP1tS">
         <field name="timer">1</field>
