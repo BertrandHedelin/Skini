@@ -1,4 +1,4 @@
-var tankTest, start, moduleTest, groupe1, groupe2, groupe3, halt, djembe, tick;
+var tankTest, moduleTest, groupe1, groupe2, groupe3, halt, start, djembe, tick;
 
 
 
@@ -26,14 +26,9 @@ exports.setServ = setServ;
 var signals = [];
 var signalsText = [];
 
-
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "OUT";
   signalsText.push(signalName);
-
-  //var sigTextTemp = signalName + ":\"\"";
-  //sigTextTemp = sigTextTemp.replace(/'/g, "");
-  //signalsText.push(sigTextTemp);
 
   var signal = hh.SIGNAL({
     "%location":{},
@@ -49,9 +44,6 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "IN";
   signalsText.push(signalName);
 
-  //var sigTextTemp = signalName + ":\"\"";
-  //signalsText.push(sigTextTemp);
-
   var signal = hh.SIGNAL({
     "%location":{},
     "direction":"IN",
@@ -61,21 +53,17 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  if(debug1) console.log("orchestrationHH: setSignalsText: ", signalsText[0]);
+  if(debug) console.log("orchestrationHH: setSignals: ", signals);
   var machine = new hh.ReactiveMachine( orchestration );
   return machine;
 }
 exports.setSignals = setSignals;
 
 
-    // Module tank tankTest + groupe1
-    tankTest = hh.MODULE({"id":"tankTest","%location":{},"%tag":"module"},
+      tankTest  = hh.MODULE({"id":"  tankTest ","%location":{},"%tag":"module"},
     hh.SIGNAL({"%location":{},"direction":"IN", "name":"groupe1IN"}),
       hh.SIGNAL({"%location":{},"direction":"IN", "name":"groupe2IN"}),
       hh.SIGNAL({"%location":{},"direction":"IN", "name":"groupe3IN"}),
-      hh.SIGNAL({"%location":{},"direction":"OUT", "name":"groupe1OUT"}),
-      hh.SIGNAL({"%location":{},"direction":"OUT", "name":"groupe2OUT"}),
-      hh.SIGNAL({"%location":{},"direction":"OUT", "name":"groupe3OUT"}),
       hh.SIGNAL({"%location":{},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -104,7 +92,7 @@ exports.setSignals = setSignals;
             "%location":{},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "groupe1" );
+                console.log("--- MAKE RESERVOIR:", groupe1 );
               var msg = {
                 type: 'startTank',
                 value:  "groupe1"
@@ -131,17 +119,7 @@ exports.setSignals = setSignals;
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit groupe1OUT true
-        hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- makeReservoir:  atom:", "groupe1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "groupe1OUT", true);
-              }
-            }
-        ),
+          ), // Fin emit groupe1OUT true,
         hh.EMIT(
               {
                 "%location":{},
@@ -160,17 +138,7 @@ exports.setSignals = setSignals;
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit groupe2OUT true
-        hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- makeReservoir:  atom:", "groupe2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "groupe2OUT", true);
-              }
-            }
-        ),
+          ), // Fin emit groupe2OUT true,
         hh.EMIT(
               {
                 "%location":{},
@@ -195,11 +163,11 @@ exports.setSignals = setSignals;
             "%location":{},
             "%tag":"node",
             "apply":function () {
-                console.log("-- makeReservoir:  atom:", "groupe3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "groupe3OUT", true);
+                gcs.informSelecteurOnMenuChange(255 , "groupe1", true);
               }
             }
         ),
+
         hh.FORK( // debut du fork de makeAwait avec en premiere position:groupe1
         {
           "%location":{},
@@ -405,7 +373,7 @@ exports.setSignals = setSignals;
         "%tag":"node",
         "apply":function () {
             gcs.informSelecteurOnMenuChange(255 , "groupe1", false);
-            console.log("--- ABORT RESERVOIR:", "groupe1");
+            console.log("--- ABORT RESERVOIR:", groupe1);
             var msg = {
             type: 'killTank',
             value:  "groupe1"
@@ -443,67 +411,17 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}),
-    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
 
 
 
-
-  hh.AWAIT(
-    {
-      "%location":{},
-      "%tag":"await",
-      "immediate":false,
-      "apply":function () {
-        return ((() => {
-          const start=this["start"];
-          return start.now;
-        })());
-      },
-      "countapply":function (){ return 1;}
-    },
-    hh.SIGACCESS({
-      "signame":"start",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    })
-  ),
-  //tankTest:groupe1,groupe2,groupe3
-  // "groupe1IN":"",
-      // "groupe1OUT":"",
-      // "groupe2IN":"",
-      // "groupe2OUT":"",
-      // "groupe3IN":"",
-      // "groupe3OUT":"",
 
   hh.RUN({
-      "%location":{"filename":"","pos":1},
-      "%tag":"run",
-      "module": hh.getModule("tankTest", {"filename":"","pos":2}),
-      "stopReservoir":"",
-      "groupe1IN":"",
-      "groupe1OUT":"",
-      "groupe2IN":"",
-      "groupe2OUT":"",
-      "groupe3IN":"",
-      "groupe3OUT":"",
+    "%location":{},
+    "%tag":"run",
+    "module": hh.getModule(  "moduleTest", {}),
+    "''":"",
 
-  /*    "groupe1IN":"",
-      "groupe2IN":"",
-      "groupe3IN":"",
-      "groupe1OUT":"",
-      "groupe2OUT":"",
-      "groupe3OUT":""*/
-
-    }),
-
-    hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
-      }
-    ),
-
+  }),
 
 
 );

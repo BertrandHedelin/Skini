@@ -842,15 +842,55 @@ function  makeAwait(instrument, groupe) {
   return codeTotal;
 }
 
-function makeReservoir(name, instrument, groupe) {
+function makeReservoirDebug(name, instrument, groupe) {
+  name = name.replace(/ /g, "");
+
   var codeTotal = `
+  // Module tank `+ name + ` + `+ instrument[0] +`
   `+ name + ` = hh.MODULE({"id":"`+ name + `","%location":{},"%tag":"module"},
   `;
-
   for(var i=0; i < instrument.length; i++ ) {
     codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"`+ instrument[i] +`IN"}),
     `
   }
+
+  for(var i=0; i < instrument.length; i++ ) {
+    codeTotal += `hh.SIGNAL({"%location":{},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
+    `
+  }
+
+  codeTotal += `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+          console.log("--- ABORT RESERVOIR:", ` + instrument[0] + `);
+        }
+      }
+  ) // Fin atom,
+); // Fin module
+`;
+   return codeTotal;
+}
+
+function makeReservoir(name, instrument, groupe) {
+  name = name.replace(/ /g, "");
+
+  var codeTotal = ` 
+  // Module tank `+ name + ` + `+ instrument[0] +`
+  `+ name + ` = hh.MODULE({"id":"`+ name + `","%location":{},"%tag":"module"},
+  `;
+  for(var i=0; i < instrument.length; i++ ) {
+    codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"`+ instrument[i] +`IN"}),
+    `
+  }
+
+  for(var i=0; i < instrument.length; i++ ) {
+    codeTotal += `hh.SIGNAL({"%location":{},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
+    `
+  }
+
   codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"stopReservoir"}),
   hh.TRAP(
   {
@@ -879,7 +919,7 @@ function makeReservoir(name, instrument, groupe) {
           "%location":{},
           "%tag":"node",
           "apply":function () {
-              console.log("--- MAKE RESERVOIR:", ` + instrument[0] + ` );
+              console.log("-- MAKE RESERVOIR:", "` + instrument[0] + `" );
             var msg = {
               type: 'startTank',
               value:  "` + instrument[0] + `"
@@ -908,21 +948,21 @@ function makeReservoir(name, instrument, groupe) {
               "val":true,
               "cnt":false
             })
-        ), // Fin emit ` +  val + `OUT true`
-        return code;
-    })
-
-    + `
+        ), // Fin emit ` +  val + `OUT true
       hh.ATOM(
           {
           "%location":{},
           "%tag":"node",
           "apply":function () {
-              gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + instrument[0] + `", true);
+              console.log("-- makeReservoir:  atom:", "` +  val + `OUT");
+              gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + val + `OUT", true);
             }
           }
-      ),
-      ` +
+      )`;
+        return code;
+      })
+    + `,`
+    +
     makeAwait(instrument, groupe)
 
     + `
@@ -966,7 +1006,7 @@ function makeReservoir(name, instrument, groupe) {
       "%tag":"node",
       "apply":function () {
           gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + instrument[0] + `", false);
-          console.log("--- ABORT RESERVOIR:", ` + instrument[0] + `);
+          console.log("--- ABORT RESERVOIR:", "` + instrument[0] + `");
           var msg = {
           type: 'killTank',
           value:  "` + instrument[0] + `"
@@ -1023,6 +1063,108 @@ Blockly.JavaScript['tank'] = function(block) {
   */
   //return code;
   return makeReservoir(value[0], value[1], number_groupeClient);
+};
+
+// Revu HH Node
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "run_tank",
+  "message0": "run tank(s) V2 %1 %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TANKS",
+    },
+    {
+      "type": "input_statement",
+      "name": "SIGNAL",
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 300,
+  "tooltip": "module",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['run_tank'] = function(block) {
+  let statements_name = Blockly.JavaScript.valueToCode(block, 'TANKS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+  let value = statements_name.replace(/;\n/g, ""); //.split('=');
+  let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
+
+  let signals_name = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
+  let signals = signals_name.replace(/;\n/g, "").split('=');
+  signals[1] = signals[1].replace(/ /g,"");
+  signals[1] = signals[1].replace(/\]/g,"");
+  signals[1] = signals[1].replace(/\[/g,"");
+  signals[1] = signals[1].split(',');
+
+  signals[0] = signals[0].replace(/ /g, "");
+
+/*  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { 
+          //console.log("test run tank:", signalsText,`+ listTanks +`);
+          console.log("test run tank:", signalsText[0]);
+        }
+      }
+    ),
+`;
+*/
+
+  var code = "//" + signals[0] + ":" + signals[1] + "\n";
+  signals[1].map(function(val){
+    code += `// "`+ val +`IN":"",
+    `;
+    code += `// "`+ val +`OUT":"",
+    `;
+  });
+
+ for(var i=0; i < listTanks.length; i++){
+   var theTank = listTanks[i].replace(/ /g, "");
+   code +=
+
+` 
+hh.RUN({
+    "%location":{"filename":"","pos":1},
+    "%tag":"run",
+    "module": hh.getModule("`+ signals[0] +`", {"filename":"","pos":2}),
+    "stopReservoir":"",
+    `;
+  
+  signals[1].map(function(val){
+    code += `"`+ val +`IN":"",
+    `;
+    code += `"`+ val +`OUT":"",
+    `;
+  });
+
+  code += 
+  `
+/*    "groupe1IN":"",
+    "groupe2IN":"",
+    "groupe3IN":"",
+    "groupe1OUT":"",
+    "groupe2OUT":"",
+    "groupe3OUT":""*/
+
+  }),
+
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  ),
+
+  `;
+}
+
+  return code;
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -1751,6 +1893,7 @@ Blockly.JavaScript['set_group'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "unset_group",
@@ -1818,35 +1961,6 @@ Blockly.JavaScript['unset_group'] = function(block) {
   return code;
 };
 
-Blockly.defineBlocksWithJsonArray([
-{
-  "type": "run_tank",
-  "message0": "run tank(s) %1",
-  "args0": [
-    {
-      "type": "input_value",
-      "name": "TANKS",
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 300,
-  "tooltip": "module",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['run_tank'] = function(block) {
-  let statements_name = Blockly.JavaScript.valueToCode(block, 'TANKS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
-  let value = statements_name.replace(/;\n/g, ""); //.split('=');
-  let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
-  var code = "";
-  for(var i=0; i < listTanks.length; i++){
-    code += "run ${" + listTanks[i] + "}(...);\n";
-  }
-  code += "yield;\n";
-  return code;
-};
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -3255,9 +3369,16 @@ exports.setServ = setServ;
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
+var signalsText = [];
+
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "OUT";
+  signalsText.push(signalName);
+  
+  //var sigTextTemp = signalName + ":\\"\\"";
+  //sigTextTemp = sigTextTemp.replace(/\'/g, "");
+  //signalsText.push(sigTextTemp);
 
   var signal = hh.SIGNAL({
     "%location":{},
@@ -3271,6 +3392,10 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 // Création des signaux IN de sélection de patterns
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "IN";
+  signalsText.push(signalName);
+  
+  //var sigTextTemp = signalName + ":\\"\\"";
+  //signalsText.push(sigTextTemp);
 
   var signal = hh.SIGNAL({
     "%location":{},
@@ -3281,7 +3406,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  if(debug) console.log("orchestrationHH: setSignals: ", signals);
+  if(debug1) console.log("orchestrationHH: setSignalsText: ", signalsText[0]);
   var machine = new hh.ReactiveMachine( orchestration );
   return machine;
 }
@@ -3302,6 +3427,7 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
+    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
 
   ` + statements_signals + `
 

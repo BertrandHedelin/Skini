@@ -162,3 +162,7 @@ prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
 module.exports=prg;
 
 prg.react();
+prg.react("toto");
+prg.react("toto");
+prg.react("toto");
+prg.react("toto");
