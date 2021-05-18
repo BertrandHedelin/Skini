@@ -1,4 +1,4 @@
-var tankTest, start, moduleTest, groupe1, groupe2, groupe3, halt, djembe, tick;
+var tankTest, moduleTest, start, groupe1, groupe2, groupe3, halt, djembe, tick;
 
 
 
@@ -235,7 +235,7 @@ exports.setSignals = setSignals;
             "apply":function (){
               return ((() => {
                 const groupe1OUT = this["groupe1OUT"];
-                return [true, 255];
+                return [false, 255];
               })());
             }
             },
@@ -277,7 +277,7 @@ exports.setSignals = setSignals;
             "apply":function (){
               return ((() => {
                 const groupe2OUT = this["groupe2OUT"];
-                return [true, 255];
+                return [false, 255];
               })());
             }
             },
@@ -319,7 +319,7 @@ exports.setSignals = setSignals;
             "apply":function (){
               return ((() => {
                 const groupe3OUT = this["groupe3OUT"];
-                return [true, 255];
+                return [false, 255];
               })());
             }
             },
@@ -341,6 +341,12 @@ exports.setSignals = setSignals;
       ) // Fin Abort
     ), // Fin Trap
 
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    ),
 
     hh.EMIT(
         {
@@ -405,7 +411,7 @@ exports.setSignals = setSignals;
         "%tag":"node",
         "apply":function () {
             gcs.informSelecteurOnMenuChange(255 , "groupe1", false);
-            console.log("--- ABORT RESERVOIR:", "groupe1");
+            console.log("--- FIN RESERVOIR:", "groupe1");
             var msg = {
             type: 'killTank',
             value:  "groupe1"
@@ -448,6 +454,16 @@ var orchestration = hh.MODULE(
 
 
 
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.setTimerDivision(1);
+      }
+    }
+  ),
+
   hh.AWAIT(
     {
       "%location":{},
@@ -468,41 +484,20 @@ var orchestration = hh.MODULE(
       "cnt":false
     })
   ),
-  //tankTest:groupe1,groupe2,groupe3
-  // "groupe1IN":"",
-      // "groupe1OUT":"",
-      // "groupe2IN":"",
-      // "groupe2OUT":"",
-      // "groupe3IN":"",
-      // "groupe3OUT":"",
 
   hh.RUN({
       "%location":{"filename":"","pos":1},
       "%tag":"run",
       "module": hh.getModule("tankTest", {"filename":"","pos":2}),
-      "stopReservoir":"",
-      "groupe1IN":"",
-      "groupe1OUT":"",
-      "groupe2IN":"",
-      "groupe2OUT":"",
-      "groupe3IN":"",
-      "groupe3OUT":"",
-
-  /*    "groupe1IN":"",
-      "groupe2IN":"",
-      "groupe3IN":"",
-      "groupe1OUT":"",
-      "groupe2OUT":"",
-      "groupe3OUT":""*/
-
+      "autocomplete":true
     }),
 
-    hh.PAUSE(
+  /*  hh.PAUSE(
       {
         "%location":{},
         "%tag":"yield"
       }
-    ),
+    ),*/
 
 
 

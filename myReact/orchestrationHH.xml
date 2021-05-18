@@ -1,8 +1,8 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="uYtY/7giK^Y2q2#O7o2F">tankTest</variable>
-    <variable id="f0e%qGG}?S5`I[-+if%N">start</variable>
     <variable id="Sk=)C%r}uS^6M}fR]Hxt">moduleTest</variable>
+    <variable id="f0e%qGG}?S5`I[-+if%N">start</variable>
     <variable id="E}[@+UnfN1KQ^+Vibn;i">groupe1</variable>
     <variable id="hf3zEJan`ym~0qeoJKi|">groupe2</variable>
     <variable id="I}2]wS/Z,BVunE@4Ey/S">groupe3</variable>
@@ -60,48 +60,23 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="hh_wait_for" id=";Vc*!:ne2A{|o]4[Ku$0">
-        <field name="TIMES">1</field>
-        <value name="SIGNAL">
-          <block type="variables_get" id="uMUkeF]6C)XGr}OnQ;.Q">
-            <field name="VAR" id="f0e%qGG}?S5`I[-+if%N">start</field>
-          </block>
-        </value>
+      <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+        <field name="timer">1</field>
         <next>
-          <block type="run_tank" id="DytTIs#9bL]yN3Z(:)Ve">
-            <value name="TANKS">
-              <block type="variables_get" id=")L/WA^3l(k/K%+U_3$Y2">
-                <field name="VAR" id="uYtY/7giK^Y2q2#O7o2F">tankTest</field>
+          <block type="hh_wait_for" id=";Vc*!:ne2A{|o]4[Ku$0">
+            <field name="TIMES">1</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="uMUkeF]6C)XGr}OnQ;.Q">
+                <field name="VAR" id="f0e%qGG}?S5`I[-+if%N">start</field>
               </block>
             </value>
-            <statement name="SIGNAL">
-              <block type="variables_set" id="@H..GlRjVf[wIT?tx,3t">
-                <field name="VAR" id="uYtY/7giK^Y2q2#O7o2F">tankTest</field>
-                <value name="VALUE">
-                  <block type="lists_create_with" id="N{bjwYxb]XyZOYOXafo{">
-                    <mutation items="3"></mutation>
-                    <value name="ADD0">
-                      <block type="variables_get" id="Lwg{giOBt$EnX!fB;#U-">
-                        <field name="VAR" id="E}[@+UnfN1KQ^+Vibn;i">groupe1</field>
-                      </block>
-                    </value>
-                    <value name="ADD1">
-                      <block type="variables_get" id="7|e~/r0%^JbuY,%Yn)a)">
-                        <field name="VAR" id="hf3zEJan`ym~0qeoJKi|">groupe2</field>
-                      </block>
-                    </value>
-                    <value name="ADD2">
-                      <block type="variables_get" id="?Z%Rk=mtAH@585]a7}D;">
-                        <field name="VAR" id="I}2]wS/Z,BVunE@4Ey/S">groupe3</field>
-                      </block>
-                    </value>
+            <next>
+              <block type="run_tank" id="DytTIs#9bL]yN3Z(:)Ve">
+                <value name="TANKS">
+                  <block type="variables_get" id=")L/WA^3l(k/K%+U_3$Y2">
+                    <field name="VAR" id="uYtY/7giK^Y2q2#O7o2F">tankTest</field>
                   </block>
                 </value>
-              </block>
-            </statement>
-            <next>
-              <block type="set_timer_division" id="YDVkr_g1PL6TJPSgP1tS" disabled="true">
-                <field name="timer">1</field>
                 <next>
                   <block type="set_group" id="#%_ID]u@5/l?ej{dxx0A" disabled="true">
                     <field name="groupe">255</field>
@@ -183,7 +158,7 @@
                                                                                 </value>
                                                                                 <next>
                                                                                   <block type="hh_wait_for" id="tXdI*~Alz%@sxxBql%~!">
-                                                                                    <field name="TIMES">15</field>
+                                                                                    <field name="TIMES">10</field>
                                                                                     <value name="SIGNAL">
                                                                                       <block type="variables_get" id="9oZ*Rc1za_GR|@27W*ej">
                                                                                         <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>

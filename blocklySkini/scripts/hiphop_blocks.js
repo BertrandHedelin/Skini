@@ -822,7 +822,7 @@ function  makeAwait(instrument, groupe) {
           "apply":function (){
             return ((() => {
               const ` +  val + `OUT = this["` +  val + `OUT"];
-              return [true, ` + groupe + `];
+              return [false, ` + groupe + `];
             })());
           }
           },
@@ -840,38 +840,6 @@ function  makeAwait(instrument, groupe) {
 
   codeTotal += `    ), // Fin fork de make await avec en premiere position:` +  instrument[0];
   return codeTotal;
-}
-
-function makeReservoirDebug(name, instrument, groupe) {
-  name = name.replace(/ /g, "");
-
-  var codeTotal = `
-  // Module tank `+ name + ` + `+ instrument[0] +`
-  `+ name + ` = hh.MODULE({"id":"`+ name + `","%location":{},"%tag":"module"},
-  `;
-  for(var i=0; i < instrument.length; i++ ) {
-    codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"`+ instrument[i] +`IN"}),
-    `
-  }
-
-  for(var i=0; i < instrument.length; i++ ) {
-    codeTotal += `hh.SIGNAL({"%location":{},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
-    `
-  }
-
-  codeTotal += `
-  hh.ATOM(
-      {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-          console.log("--- ABORT RESERVOIR:", ` + instrument[0] + `);
-        }
-      }
-  ) // Fin atom,
-); // Fin module
-`;
-   return codeTotal;
 }
 
 function makeReservoir(name, instrument, groupe) {
@@ -975,6 +943,12 @@ function makeReservoir(name, instrument, groupe) {
     ) // Fin Abort 
   ), // Fin Trap
 
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  ),
     ` +
     instrument.map( function(val) {
       var code = `
@@ -1006,7 +980,7 @@ function makeReservoir(name, instrument, groupe) {
       "%tag":"node",
       "apply":function () {
           gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + instrument[0] + `", false);
-          console.log("--- ABORT RESERVOIR:", "` + instrument[0] + `");
+          console.log("--- FIN RESERVOIR:", "` + instrument[0] + `");
           var msg = {
           type: 'killTank',
           value:  "` + instrument[0] + `"
@@ -1054,14 +1028,6 @@ Blockly.JavaScript['tank'] = function(block) {
   value[1] = value[1].replace(/\]/g,"");
   value[1] = value[1].replace(/\[/g,"");
   value[1] = value[1].split(',');
-
- /* var code =`
-  `+ value[0] + `
-  `+ number_groupeClient + `
-  `+ value[1] + `
-  `;
-  */
-  //return code;
   return makeReservoir(value[0], value[1], number_groupeClient);
 };
 
@@ -1069,15 +1035,11 @@ Blockly.JavaScript['tank'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "run_tank",
-  "message0": "run tank(s) V2 %1 %2",
+  "message0": "run tank(s) %1",
   "args0": [
     {
       "type": "input_value",
       "name": "TANKS",
-    },
-    {
-      "type": "input_statement",
-      "name": "SIGNAL",
     }
   ],
   "previousStatement": null,
@@ -1093,77 +1055,28 @@ Blockly.JavaScript['run_tank'] = function(block) {
   let value = statements_name.replace(/;\n/g, ""); //.split('=');
   let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  let signals_name = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
-  let signals = signals_name.replace(/;\n/g, "").split('=');
-  signals[1] = signals[1].replace(/ /g,"");
-  signals[1] = signals[1].replace(/\]/g,"");
-  signals[1] = signals[1].replace(/\[/g,"");
-  signals[1] = signals[1].split(',');
+var code = "";
 
-  signals[0] = signals[0].replace(/ /g, "");
-
-/*  var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          //console.log("test run tank:", signalsText,`+ listTanks +`);
-          console.log("test run tank:", signalsText[0]);
-        }
-      }
-    ),
-`;
-*/
-
-  var code = "//" + signals[0] + ":" + signals[1] + "\n";
-  signals[1].map(function(val){
-    code += `// "`+ val +`IN":"",
-    `;
-    code += `// "`+ val +`OUT":"",
-    `;
-  });
-
- for(var i=0; i < listTanks.length; i++){
-   var theTank = listTanks[i].replace(/ /g, "");
-   code +=
-
+  for(var i=0; i < listTanks.length; i++){
+    var theTank = listTanks[i].replace(/ /g, "");
+    code +=
 ` 
 hh.RUN({
     "%location":{"filename":"","pos":1},
     "%tag":"run",
-    "module": hh.getModule("`+ signals[0] +`", {"filename":"","pos":2}),
-    "stopReservoir":"",
-    `;
-  
-  signals[1].map(function(val){
-    code += `"`+ val +`IN":"",
-    `;
-    code += `"`+ val +`OUT":"",
-    `;
-  });
-
-  code += 
-  `
-/*    "groupe1IN":"",
-    "groupe2IN":"",
-    "groupe3IN":"",
-    "groupe1OUT":"",
-    "groupe2OUT":"",
-    "groupe3OUT":""*/
-
+    "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+    "autocomplete":true
   }),
 
-  hh.PAUSE(
+/*  hh.PAUSE(
     {
       "%location":{},
       "%tag":"yield"
     }
-  ),
+  ),*/
 
   `;
-}
-
+  }
   return code;
 };
 

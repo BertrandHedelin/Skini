@@ -26178,3 +26178,152 @@
 {"date":"17:05:2021:20:08:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
 {"date":"17:05:2021:20:08:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
 {"date":"17:05:2021:20:08:53","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:52:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:52:44","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:52:45","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:52:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:52:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:52:45","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:56:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:56:41","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:56:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:56:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:08:56:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:56:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:56:43","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:58:49","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:08:58:49","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu5","pseudo":"Marc","id":207162}
+{"date":"18:05:2021:08:58:52","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":4,"pseudo":"Marc","id":207162,"nomSon":"Percu5"}
+{"date":"18:05:2021:09:00:31","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:00:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:00:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:00:42","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:00:42","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:00:42","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:00:42","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:01:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:01:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:01:19","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:01:19","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:01:19","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:01:19","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:01:19","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:01:39","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:01:40","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:11","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:12","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:13","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:14","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:50","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:02:54","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:02:54","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:02:54","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:03:01","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:03:46","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:06:12","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:06:12","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:06:12","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:06:16","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:06:18","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:06:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:06:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:06:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:16","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:16","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:16","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:24","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:10:26","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:10:27","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:27","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:27","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:10:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:11:07","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:11:20","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:11:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:11:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:11:20","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:11:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:11:28","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu2"}
+{"date":"18:05:2021:09:11:28","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":12,"instrumentNo":1,"pseudo":"Marc","id":207162,"nomSon":"Percu2"}
+{"date":"18:05:2021:09:11:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu7"}
+{"date":"18:05:2021:09:11:33","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu2"}
+{"date":"18:05:2021:09:11:33","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":57,"instrumentNo":8,"pseudo":"Marc","id":207162,"nomSon":"Percu7"}
+{"date":"18:05:2021:09:11:36","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":12,"instrumentNo":1,"pseudo":"Marc","id":207162,"nomSon":"Percu2"}
+{"date":"18:05:2021:09:11:39","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:11:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu35"}
+{"date":"18:05:2021:09:11:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu7"}
+{"date":"18:05:2021:09:11:39","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":207162,"note":"Percu2"}
+{"date":"18:05:2021:09:11:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":25,"instrumentNo":4,"pseudo":"Marc","id":207162,"nomSon":"Percu35"}
+{"date":"18:05:2021:09:11:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":57,"instrumentNo":8,"pseudo":"Marc","id":207162,"nomSon":"Percu7"}
+{"date":"18:05:2021:09:11:44","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":12,"instrumentNo":1,"pseudo":"Marc","id":207162,"nomSon":"Percu2"}
+{"date":"18:05:2021:09:12:58","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:12:58","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:12:58","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:12:58","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:30","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:13:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:30","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:37","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:37","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu2","pseudo":"Marc","id":560341}
+{"date":"18:05:2021:09:13:37","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":12,"instrumentNo":1,"pseudo":"Marc","id":560341,"nomSon":"Percu2"}
+{"date":"18:05:2021:09:13:47","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:13:47","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":560341,"note":"Percu23"}
+{"date":"18:05:2021:09:13:47","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":22,"instrumentNo":1,"pseudo":"Marc","id":560341,"nomSon":"Percu23"}
+{"date":"18:05:2021:09:21:33","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:21:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:21:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:21:33","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:21:46","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:21:46","source":"websocketServerSkini.js","type":"sendPatternSequence","note":"Percu1","pseudo":"Marc","id":510919}
+{"date":"18:05:2021:09:21:46","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":13,"instrumentNo":1,"pseudo":"Marc","id":510919,"nomSon":"Percu1"}
+{"date":"18:05:2021:09:21:59","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:21:59","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu15"}
+{"date":"18:05:2021:09:21:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":29,"instrumentNo":7,"pseudo":"Marc","id":510919,"nomSon":"Percu15"}
+{"date":"18:05:2021:09:22:08","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:22:08","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu33"}
+{"date":"18:05:2021:09:22:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:22:09","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":32,"instrumentNo":7,"pseudo":"Marc","id":510919,"nomSon":"Percu33"}
+{"date":"18:05:2021:09:22:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:22:10","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:07","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:29:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:29:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:15","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:15","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu4"}
+{"date":"18:05:2021:09:29:15","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":510919,"nomSon":"Percu4"}
+{"date":"18:05:2021:09:29:25","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:25","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu17"}
+{"date":"18:05:2021:09:29:25","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":19,"instrumentNo":1,"pseudo":"Marc","id":510919,"nomSon":"Percu17"}
+{"date":"18:05:2021:09:29:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:34","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu30"}
+{"date":"18:05:2021:09:29:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:34","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:29:34","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":31,"instrumentNo":7,"pseudo":"Marc","id":510919,"nomSon":"Percu30"}
+{"date":"18:05:2021:09:37:06","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:37:09","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:09:37:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:09","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:17","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu16"}
+{"date":"18:05:2021:09:37:17","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:17","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu4"}
+{"date":"18:05:2021:09:37:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":18,"instrumentNo":1,"pseudo":"Marc","id":510919,"nomSon":"Percu16"}
+{"date":"18:05:2021:09:37:17","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Marc","id":510919,"nomSon":"Percu4"}
+{"date":"18:05:2021:09:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:28","source":"websocketServerSkini.js","type":"sendPatternSequence","pseudo":"Marc","id":510919,"note":"Percu30"}
+{"date":"18:05:2021:09:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:28","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:09:37:28","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":31,"instrumentNo":7,"pseudo":"Marc","id":510919,"nomSon":"Percu30"}
+{"date":"18:05:2021:11:48:43","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:11:48:49","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:11:48:50","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"18:05:2021:11:48:50","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:11:48:50","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
+{"date":"18:05:2021:11:48:50","source":"groupeClientSons.js","type":"signal","value":"pianoOUT"}
