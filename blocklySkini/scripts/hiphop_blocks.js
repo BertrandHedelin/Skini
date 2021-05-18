@@ -233,6 +233,7 @@ Blockly.JavaScript['wait_for'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "wait_for_signal_in_group",
@@ -262,37 +263,23 @@ Blockly.JavaScript['wait_for_signal_in_group'] = function(block) {
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
   let times = block.getFieldValue('TIMES'); 
-  var code = 'await count (' + times + "," + value + 'IN.now);\n';
+  var code = `
+  hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function (){return ((() => {
+          const `+ value +`IN =this["`+ value +`IN"];
+          return `+ value +`IN.now;})());},
+        "countapply":function (){return `+ times +`;}
+    },
+    hh.SIGACCESS({"signame":"`+ value +`IN","pre":false,"val":false,"cnt":false})
+  ),
+`
   return code;
 };
 
-/*Blockly.defineBlocksWithJsonArray([
-{
-  "type": "await",
-  "message0": "await %1",
-  "args0": [
-    {
-      "type": "input_statement",
-      "name": "SIGNAL",
-      "check": "String"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": "String",
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}
-]);
-
-Blockly.JavaScript['await'] = function(block) {
-  //var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_signal = Blockly.JavaScript.statementToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
-  let value = value_signal.replace(/\'/g, "");
-  var code = 'await ' + value + ';\n';
-  return code;
-};
-*/
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "await",
@@ -333,6 +320,7 @@ Blockly.JavaScript['await'] = function(block) {
   return code + '\n';
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "await_pattern",
@@ -346,7 +334,7 @@ Blockly.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 160,
+  "colour": 20,
   "tooltip": "await_pattern",
   "helpUrl": ""
 }
@@ -354,7 +342,20 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['await_pattern'] = function(block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = "await (patternSignal.now && (patternSignal.nowval[1] === " + value + "));\n"
+  var code = `
+    hh.AWAIT(
+      {"%location":{},
+      "%tag":"await","immediate":false,
+      "apply":function (){
+          return ((() => {
+            const patternSignal=this["patternSignal"];
+            return patternSignal.now && (patternSignal.nowval[1] === ` + value + `);
+          })());
+        }
+      },
+    hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
+    ),
+  `
   return code;
 };
 
@@ -1689,6 +1690,7 @@ Blockly.JavaScript['resumeOneQueue'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "waitForEmptyQueue",
@@ -1710,10 +1712,24 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 Blockly.JavaScript['waitForEmptyQueue'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `await (emptyQueueSignal.now && emptyQueueSignal.nowval ==` + number + ");\n";
+  var code = `
+    hh.AWAIT(
+      {"%location":{},
+      "%tag":"await","immediate":false,
+      "apply":function (){
+          return ((() => {
+            const emptyQueueSignal=this["emptyQueueSignal"];
+            return emptyQueueSignal.now && emptyQueueSignal.nowval == `+ number +`;
+          })());
+        }
+      },
+    hh.SIGACCESS({"signame":"emptyQueueSignal","pre":false,"val":false,"cnt":false})
+    ),
+  `
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "putPatternInQueue",
@@ -1735,7 +1751,17 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['putPatternInQueue'] = function(block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = "hop{ableton.putPatternInQueue(" + value + ");}\n"
+  var code = `
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        DAW.putPatternInQueue(` + value + `);
+      }
+    }
+  ),
+  `
   return code;
 };
 
@@ -3265,11 +3291,10 @@ var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
 var gcs;
 var DAW;
+var serveur;
 
 var debug = false;
 var debug1 = true;
-
-//var serveur;
 
 function setServ(ser, daw, groupeCS){
   console.log("setServ");
@@ -3282,17 +3307,12 @@ exports.setServ = setServ;
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var signalsText = [];
-
+var halt, start, emptyQueueSignal, patternSignal;
+var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "OUT";
-  signalsText.push(signalName);
   
-  //var sigTextTemp = signalName + ":\\"\\"";
-  //sigTextTemp = sigTextTemp.replace(/\'/g, "");
-  //signalsText.push(sigTextTemp);
-
   var signal = hh.SIGNAL({
     "%location":{},
     "direction":"OUT",
@@ -3305,11 +3325,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 // Création des signaux IN de sélection de patterns
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "IN";
-  signalsText.push(signalName);
   
-  //var sigTextTemp = signalName + ":\\"\\"";
-  //signalsText.push(sigTextTemp);
-
   var signal = hh.SIGNAL({
     "%location":{},
     "direction":"IN",
@@ -3319,7 +3335,6 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  if(debug1) console.log("orchestrationHH: setSignalsText: ", signalsText[0]);
   var machine = new hh.ReactiveMachine( orchestration );
   return machine;
 }
@@ -3343,9 +3358,99 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
 
   ` + statements_signals + `
+  hh.LOOP(
+    {
+     "%location":{loop: 1},
+      "%tag":"loop"
+    },
+    hh.ABORT(
+      {
+        "%location":{abort: halt},
+        "%tag":"abort",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const halt=this["halt"];
+            return halt.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"halt",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
 
-  ` + statements_body + `
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":true,
+          "apply":function () {
+            return ((() => {
+              const start=this["start"];
+              return start.now;
+            })());
+          },
+        },
+        hh.SIGACCESS({
+          "signame":"start",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
 
+      hh.FORK(
+        {"%location":{},"%tag":"fork"},
+        hh.SEQUENCE(
+         {"%location":{},"%tag":"fork"},
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              console.log("Début en attente d\'abort");
+              tickCounter = 0;
+            }
+          }
+        ),
+
+        ` + statements_body + `
+        ),
+        hh.SEQUENCE(
+        {"%location":{},"%tag":"fork"},
+        hh.EVERY(
+          {
+            "%location":{},
+            "%tag":"every",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                  const tick = this["tick"];
+                  return tick.now;
+            })());},
+          },
+          hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+          }),
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  gcs.setTickOnControler(tickCounter);
+                  tickCounter++;
+                }
+              }
+            )
+          )
+        )
+      )
+    )
+  )
 );
 exports.orchestration = orchestration;
 `;

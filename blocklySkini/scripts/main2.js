@@ -147,7 +147,7 @@ function init() {
         "contents": [
           {
             "kind": "block",
-            "type": "orchestration"
+            "type": "hh_ORCHESTRATION"
           },
 /*
           {
@@ -442,7 +442,7 @@ function init() {
           }
         ]
       },
-      {
+/*      {
         "kind": "category",
         "categorystyle" : "list_category",
         "name": "Signals",
@@ -462,42 +462,10 @@ function init() {
           {
             "kind": "block",
             "type": "wait_for"
-          },
-          /*{
-            "kind": "block",
-            "type": "sustain"
-          },
-          {
-            "kind": "block",
-            "type": "nowval"
-          },
-          {
-            "kind": "block",
-            "type": "await"
-          },
-          {
-            "kind": "block",
-            "type": "count_signal"
-          },
-          {
-            "kind": "block",
-            "type": "logic_operationHH"
-          },
-          {
-            "kind": "block",
-            "type": "logic_compare"
-          },
-          {
-            "kind": "block",
-            "type": "math_number"
-          },
-          {
-            "kind": "block",
-            "type": "logic_boolean"
-          }*/
+          }
         ]
-      },
-      {
+      },*/
+/*      {
         "kind": "category",
         "name": "Module",
         "categorystyle" : "list_category",
@@ -522,10 +490,6 @@ function init() {
             "kind": "block",
             "type": "loop_body"
           },
-/*          {
-            "kind": "block",
-            "type": "yield"
-          },*/
           {
             "kind": "block",
             "type": "every"
@@ -534,15 +498,6 @@ function init() {
             "kind": "block",
             "type": "abort"
           },
-/*          {
-            "kind": "block",
-            "type": "suspend"
-          },
-          {
-            "kind": "block",
-            "type": "controls_if"
-          },
-*/
           {
             "kind": "block",
             "type": "print_serveur"
@@ -552,16 +507,16 @@ function init() {
             "type": "text"
           }
         ]
-      },
+      },*/
       {
         "kind": "category",
         "name": "HipHop",
         "categorystyle" : "list_category",
         "contents": [
-          {
+/*          {
             "kind": "block",
             "type": "hh_orchestration"
-          },
+          },*/
           {
             "kind": "block",
             "type": "hh_ORCHESTRATION"

@@ -1,4 +1,4 @@
-var tankTest, moduleTest, start, groupe1, groupe2, groupe3, halt, djembe, tick;
+var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, tick, djembe;
 
 
 
@@ -7,11 +7,10 @@ var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
 var gcs;
 var DAW;
+var serveur;
 
 var debug = false;
 var debug1 = true;
-
-//var serveur;
 
 function setServ(ser, daw, groupeCS){
   console.log("setServ");
@@ -24,16 +23,11 @@ exports.setServ = setServ;
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var signalsText = [];
-
+var halt, start, emptyQueueSignal, patternSignal;
+var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "OUT";
-  signalsText.push(signalName);
-
-  //var sigTextTemp = signalName + ":\"\"";
-  //sigTextTemp = sigTextTemp.replace(/'/g, "");
-  //signalsText.push(sigTextTemp);
 
   var signal = hh.SIGNAL({
     "%location":{},
@@ -47,10 +41,6 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 // Création des signaux IN de sélection de patterns
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "IN";
-  signalsText.push(signalName);
-
-  //var sigTextTemp = signalName + ":\"\"";
-  //signalsText.push(sigTextTemp);
 
   var signal = hh.SIGNAL({
     "%location":{},
@@ -61,7 +51,6 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  if(debug1) console.log("orchestrationHH: setSignalsText: ", signalsText[0]);
   var machine = new hh.ReactiveMachine( orchestration );
   return machine;
 }
@@ -422,19 +411,6 @@ exports.setSignals = setSignals;
     ) // Fin atom,
   ); // Fin module
 
-  moduleTest = hh.MODULE({"id":"moduleTest","%location":{},"%tag":"module"},
-
-
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {console.log('Module de Test');}
-      }
-    ),
-
-  );
-
 
 var orchestration = hh.MODULE(
     {"id":"Orchestration","%location":{},"%tag":"module"},
@@ -452,6 +428,63 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
 
 
+  hh.LOOP(
+    {
+     "%location":{loop: 1},
+      "%tag":"loop"
+    },
+    hh.ABORT(
+      {
+        "%location":{abort: halt},
+        "%tag":"abort",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const halt=this["halt"];
+            return halt.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"halt",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":true,
+          "apply":function () {
+            return ((() => {
+              const start=this["start"];
+              return start.now;
+            })());
+          },
+        },
+        hh.SIGACCESS({
+          "signame":"start",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.FORK(
+        {"%location":{},"%tag":"fork"},
+        hh.SEQUENCE(
+         {"%location":{},"%tag":"fork"},
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              console.log("Début en attente d'abort");
+              tickCounter = 0;
+            }
+          }
+        ),
 
 
   hh.ATOM(
@@ -464,26 +497,96 @@ var orchestration = hh.MODULE(
     }
   ),
 
-  hh.AWAIT(
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          DAW.putPatternInQueue('Percu4');
+        }
+      }
+    ),
+
+  hh.ATOM(
     {
       "%location":{},
-      "%tag":"await",
-      "immediate":false,
-      "apply":function () {
-        return ((() => {
-          const start=this["start"];
-          return start.now;
-        })());
-      },
-      "countapply":function (){ return 1;}
-    },
-    hh.SIGACCESS({
-      "signame":"start",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    })
+      "%tag":"node",
+      "apply":function () {console.log('Début Orchestration');}
+    }
   ),
+
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe1OUT": "groupe1OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe1OUT = this["groupe1OUT"];
+              return [true,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",true); }
+        }
+    ),
+
+    hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function (){return ((() => {
+            const groupe1IN =this["groupe1IN"];
+            return groupe1IN.now;})());},
+          "countapply":function (){return 1;}
+      },
+      hh.SIGACCESS({"signame":"groupe1IN","pre":false,"val":false,"cnt":false})
+    ),
+
+      hh.AWAIT(
+        {"%location":{},
+        "%tag":"await","immediate":false,
+        "apply":function (){
+            return ((() => {
+              const patternSignal=this["patternSignal"];
+              return patternSignal.now && (patternSignal.nowval[1] === 'Percu1');
+            })());
+          }
+        },
+      hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
+      ),
+
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  ),
+
+      hh.AWAIT(
+        {"%location":{},
+        "%tag":"await","immediate":false,
+        "apply":function (){
+            return ((() => {
+              const emptyQueueSignal=this["emptyQueueSignal"];
+              return emptyQueueSignal.now && emptyQueueSignal.nowval == 1;
+            })());
+          }
+        },
+      hh.SIGACCESS({"signame":"emptyQueueSignal","pre":false,"val":false,"cnt":false})
+      ),
 
   hh.RUN({
       "%location":{"filename":"","pos":1},
@@ -501,5 +604,69 @@ var orchestration = hh.MODULE(
 
 
 
+  hh.EVERY(
+    {
+        "%location":{},
+        "%tag":"every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+              const tick = this["tick"];
+              return tick.now;
+        })());},
+        "countapply":function (){ return 1;}
+    },
+    hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+    }),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {console.log('Every tick');}
+      }
+    ),
+
+  ),
+
+        ),
+        hh.SEQUENCE(
+        {"%location":{},"%tag":"fork"},
+        hh.EVERY(
+          {
+            "%location":{},
+            "%tag":"every",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                  const tick = this["tick"];
+                  return tick.now;
+            })());},
+          },
+          hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+          }),
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  gcs.setTickOnControler(tickCounter);
+                  tickCounter++;
+                }
+              }
+            )
+          )
+        )
+      )
+    )
+  )
 );
 exports.orchestration = orchestration;
+
+halt;

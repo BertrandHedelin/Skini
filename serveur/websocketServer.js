@@ -120,11 +120,12 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
 *************************************************************************************/
 
   function sendSignalFromDAW(noteSkini){
+  	if(debug1) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
   	var patternName = DAW.getPatternNameFromNote(noteSkini);
   	if (patternName !== undefined){
   		reactAutomatePossible( { patternSignal: [noteSkini, patternName]});
   	}else{
-  		console.log("WARN: webSocketServeur: sendSignalFromAbleton:", noteSkini, patternName );
+  		console.log("WARN: webSocketServeur: sendSignalFromDAW:", noteSkini, patternName );
   	}
   }
   exports.sendSignalFromDAW = sendSignalFromDAW;

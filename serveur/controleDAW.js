@@ -9,6 +9,7 @@ var csv = require('csv-array');
 var oscMidi = require("./OSCandMidi");
 var fs = require("fs");
 var par = require('./skiniParametres');
+var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 
 var debug = false;
 var debug1 = true;
@@ -528,8 +529,10 @@ function playAndShiftEventDAW(timerDivision) {
         }
       }else{
         emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
-        // automatePossibleMachine.react(emptyQueueSignal); // !! A ajouter
-        if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", emptyQueueSignal);
+        if(automatePossibleMachine !== undefined){
+          automatePossibleMachine.react(emptyQueueSignal);
+          if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", emptyQueueSignal);
+        }
       }
     }
   } // Fin du for
