@@ -572,6 +572,14 @@ function init() {
           {
             "kind": "block",
             "type": "hh_abort"
+          },
+          {
+            "kind": "block",
+            "type": "hh_trap"
+          },
+          {
+            "kind": "block",
+            "type": "hh_break"
           }
         ]
       }

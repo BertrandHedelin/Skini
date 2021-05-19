@@ -294,3 +294,9 @@
 {"date":"19:05:2021:14:55:31","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":20,"instrumentNo":1,"pseudo":"Marc","id":269491,"nomSon":"Percu14"}
 {"date":"19:05:2021:14:55:31","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":25,"instrumentNo":4,"pseudo":"Marc","id":269491,"nomSon":"Percu35"}
 {"date":"19:05:2021:14:55:39","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":12,"instrumentNo":1,"pseudo":"Marc","id":269491,"nomSon":"Percu2"}
+{"date":"19:05:2021:15:21:15","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"19:05:2021:15:21:15","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Automate","id":0,"nomSon":"Percu4"}
+{"date":"19:05:2021:15:21:57","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"19:05:2021:15:21:59","source":"controleDAW.js","type":"VIDAGE FILES ATTENTES"}
+{"date":"19:05:2021:15:21:59","source":"controleDAW.js","type":"COMMANDE DAW ENVOYEE","note":14,"instrumentNo":4,"pseudo":"Automate","id":0,"nomSon":"Percu4"}
+{"date":"19:05:2021:16:15:41","source":"websocketServerSkini.js","type":"closeSpectateur","id":597406}

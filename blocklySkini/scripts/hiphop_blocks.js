@@ -4239,5 +4239,79 @@ hh.ABORT(
 };
 
 
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_trap",
+  "message0": "trap %1 %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TRAP",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
 
+Blockly.JavaScript['hh_trap'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var value_trap = Blockly.JavaScript.valueToCode(block, 'TRAP', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_trap.replace(/\'/g, "");
 
+  var code = `
+  hh.TRAP(
+  {
+    "`+ value + `":"`+ value + `",
+    "%location":{},
+    "%tag":"`+ value + `"
+  },
+  `+ statements_body +`
+),
+`;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "hh_break",
+  "message0": "break %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TRAP",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['hh_break'] = function(block) {
+  var value_trap = Blockly.JavaScript.valueToCode(block, 'TRAP', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_trap.replace(/\'/g, "");
+
+  var code = `
+  hh.EXIT(
+  {
+    "` + value + `":"` + value + `",
+    "%location":{},
+    "%tag":"break"
+  }),
+`;
+  return code;
+};

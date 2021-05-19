@@ -1,4 +1,4 @@
-var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, stopReservoir, tick, djembe;
+var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, trap1, tick, stopReservoir, djembe;
 
 
 
@@ -515,90 +515,105 @@ var orchestration = hh.MODULE(
     }
   ),
 
-  hh.LOCAL(
+    hh.TRAP(
     {
+      "trap1":"trap1",
       "%location":{},
-      "%tag":"signal"
+      "%tag":"trap1"
     },
-    hh.SIGNAL({
-      "name":"stop849514"
-    }),
 
-        hh.FORK(
+          hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+
+
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+
+
+
+        hh.EVERY(
           {
-            "%location":{},
-            "%tag":"fork"
+              "%location":{},
+              "%tag":"every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                    const tick = this["tick"];
+                    return tick.now;
+              })());},
+              "countapply":function (){ return 1;}
           },
-          hh.SEQUENCE(
+          hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+          }),
+
+          hh.ATOM(
             {
               "%location":{},
-              "%tag":"seq"
-            },
-
-          hh.RUN(
-            {
-              "%location":{"filename":"","pos":1},
-              "%tag":"run",
-              "module": hh.getModule("tankTest", {"filename":"","pos":2}),
-              "autocomplete":true,
-              "stopReservoir":"stop849514"
+              "%tag":"node",
+              "apply":function () {console.log('Every tick');}
             }
           ),
 
         ),
-        hh.SEQUENCE(
+
+        ),
+
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+
+
+        hh.AWAIT(
           {
             "%location":{},
-            "%tag":"seq"
+            "%tag":"await",
+            "immediate":false,
+            "apply":function () {
+              return ((() => {
+                const tick=this["tick"];
+                return tick.now;
+              })());
+            },
+            "countapply":function (){ return 5;}
           },
-          hh.AWAIT(
-              {
-                "%location":{},
-                "%tag":"await",
-                "immediate":false,
-                "apply":function (){return ((() => {
+          hh.SIGACCESS({
+            "signame":"tick",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          })
+        ),
 
-                     const groupe1IN =this["groupe1IN"];
-                     const groupe2IN =this["groupe2IN"];
-                     const groupe3IN =this["groupe3IN"];
-                   return groupe1 || groupe2 || groupe3;
-                  })());},
-                "countapply":function (){return 2;}
-            },
-               hh.SIGACCESS({"signame":"groupe1IN","pre":false,"val":false,"cnt":false}),
-               hh.SIGACCESS({"signame":"groupe2IN","pre":false,"val":false,"cnt":false}),
-               hh.SIGACCESS({"signame":"groupe3IN","pre":false,"val":false,"cnt":false}),
-  ),
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              //"stopReservoir":"stopReservoir",
-              "stop849514" : "stop849514",
-              "apply":function (){
-                return ((() => {
-                  //const stopReservoir = this["stopReservoir"];
-                  const stop849514 = this["stop849514"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              //"signame":"stopReservoir",
-              "signame":"stop849514",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-        )
+          hh.EXIT(
+          {
+            "trap1":"trap1",
+            "%location":{},
+            "%tag":"break"
+          }),
+
+        ),
+
       ),
-    hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
-      }
-    )
+
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {console.log('Fin trap');}
+    }
   ),
 
   hh.PAUSE(
