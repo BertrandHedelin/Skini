@@ -816,16 +816,16 @@ function  makeAwait(instrument, groupe) {
           "cnt":false})
         ), // Fin await ` +  val + `IN
         hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "` +  val + `OUT" : "` +  val + `OUT",
-          "apply":function (){
-            return ((() => {
-              const ` +  val + `OUT = this["` +  val + `OUT"];
-              return [false, ` + groupe + `];
-            })());
-          }
+          {
+            "%location":{},
+            "%tag":"emit",
+            "` +  val + `OUT" : "` +  val + `OUT",
+            "apply":function (){
+              return ((() => {
+                const ` +  val + `OUT = this["` +  val + `OUT"];
+                return [false, ` + groupe + `];
+              })());
+            }
           },
           hh.SIGACCESS({
             "signame":"` +  val + `OUT",
@@ -883,17 +883,17 @@ function makeReservoir(name, instrument, groupe) {
          "val":false,
          "cnt":false
       }),
-          hh.ATOM(
+      hh.ATOM(
           {
           "%location":{},
           "%tag":"node",
           "apply":function () {
               console.log("-- MAKE RESERVOIR:", "` + instrument[0] + `" );
-            var msg = {
-              type: 'startTank',
-              value:  "` + instrument[0] + `"
-            }
-            serveur.broadcast(JSON.stringify(msg));
+              var msg = {
+                type: 'startTank',
+                value:  "` + instrument[0] + `"
+              }
+              serveur.broadcast(JSON.stringify(msg));
             }
           }
       ),` +
@@ -2930,6 +2930,7 @@ Blockly.JavaScript['set_score_class'] = function(block) {
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "open_tank",
@@ -2961,27 +2962,107 @@ Blockly.JavaScript['open_tank'] = function(block) {
   let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
   let times = block.getFieldValue('TIMES'); 
-  let signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  //let signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
 
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
-
   //let code = 'hop{console.log: (\" open_tank: tank \",' + tank + ",\" time:\", " + times + ",\" signal\", " + signal + ");}\n" ;
-  let code = "signal stop" + varRandom + ";\n";
-  code += "trap" + varRandom + ":{ \n"
-  code += "  fork{\n";
+  
+  var code = `
+hh.LOCAL(
+  {
+    "%location":{},
+    "%tag":"signal"
+  },
+  hh.SIGNAL({
+    "name":"stop` + varRandom + `"
+  }),
+`;
+
+  code += `
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+`;
+
   for(var i=0; i < listTanks.length; i++){
-    code += "run ${" + listTanks[i] + "}(..., stopReservoir as stop" + varRandom + ");\n";
+    var theTank = listTanks[i].replace(/ /g, "");
+      code +=
+        ` 
+        hh.RUN(
+          {
+            "%location":{"filename":"","pos":1},
+            "%tag":"run",
+            "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+            "autocomplete":true,
+            "stopReservoir":"stop` + varRandom + `"
+          }
+        ),
+        `;
   }
-  code += "  }par{\n"
-  code += "    await count (" + times + ", tick.now);\n"
-  code += "    emit stop" + varRandom + "();\n"
-  code += "    break trap" + varRandom + ";\n" ;
-  code += "  }\n";
-  code += "}\n";
-  code += "yield;\n";
+  code +=
+        ` 
+      ),
+      hh.SEQUENCE(
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+        hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const tick =this["tick"];
+                return tick.now;})());},
+              "countapply":function (){return `+ times +`;}
+          },
+          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+        ),
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            //"stopReservoir":"stopReservoir",
+            "stop` + varRandom + `" : "stop` + varRandom + `",
+            "apply":function (){
+              return ((() => {
+                //const stopReservoir = this["stopReservoir"];
+                const stop` + varRandom + ` = this["stop` + varRandom + `"];
+                return 0;
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            //"signame":"stopReservoir",
+            "signame":"stop` + varRandom + `",
+            
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ), // Fin emit
+      )
+    ),
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  )
+),
+`;
   return code;
 };
 
+// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "run_tank_during_patterns_in_groups",
@@ -3024,25 +3105,115 @@ Blockly.JavaScript['run_tank_during_patterns_in_groups'] = function(block) {
 
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
 
-  //let code = 'hop{console.log: (\" open_tank: tank \",' + tank + ",\" time:\", " + times + ",\" signal\", " + signal + ");}\n" ;
-  let code = "signal stop" + varRandom + ";\n";
-  code += "trap" + varRandom + ":{ \n"
-  code += "  fork{\n";
-  for(var i=0; i < listTanks.length; i++){
-    code += "run ${" + listTanks[i] + "}(..., stopReservoir as stop" + varRandom + ");\n";
-  }
-  code += "  }par{\n"
-  code += "    await count (" + number_of_patterns + "," + in_listGroups[0] + "IN.now";
+  //var code = "";
 
-  for(var i=1; i < in_listGroups.length; i++){
-    code += "|| " + in_listGroups[i] + "IN.now"
+ var code = `
+hh.LOCAL(
+  {
+    "%location":{},
+    "%tag":"signal"
+  },
+  hh.SIGNAL({
+    "name":"stop` + varRandom + `"
+  }),
+`;
+
+  code += `
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+`;
+
+  for(var i=0; i < listTanks.length; i++){
+    var theTank = listTanks[i].replace(/ /g, "");
+      code +=
+        ` 
+        hh.RUN(
+          {
+            "%location":{"filename":"","pos":1},
+            "%tag":"run",
+            "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+            "autocomplete":true,
+            "stopReservoir":"stop` + varRandom + `"
+          }
+        ),
+        `;
   }
-  code += ");\n";
-  code += "  emit stop" + varRandom + "();\n"
-  code += "  break trap" + varRandom + ";\n";
-  code += "  }\n";
-  code += "}\n";
-  code += "yield;\n";
+  code +=
+        ` 
+      ),
+      hh.SEQUENCE(
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+        hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+`
+  for(var i=0; i < in_listGroups.length; i++){
+  code += `                   const `+ in_listGroups[i] +`IN =this["`+ in_listGroups[i] +`IN"];
+`
+  };
+
+  code += `                 return ` + in_listGroups[0];
+  for(var i=1; i < in_listGroups.length; i++){
+    code += ` || ` + in_listGroups[i] ;
+  };
+
+  code += `;
+                })());},
+              "countapply":function (){return `+ number_of_patterns +`;}
+          },
+`
+  for(var i=0; i < in_listGroups.length; i++){
+  code += `             hh.SIGACCESS({"signame":"`+ in_listGroups[i] +`IN","pre":false,"val":false,"cnt":false}),
+`
+  };
+  code += 
+        `),
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            //"stopReservoir":"stopReservoir",
+            "stop` + varRandom + `" : "stop` + varRandom + `",
+            "apply":function (){
+              return ((() => {
+                //const stopReservoir = this["stopReservoir"];
+                const stop` + varRandom + ` = this["stop` + varRandom + `"];
+                return 0;
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            //"signame":"stopReservoir",
+            "signame":"stop` + varRandom + `",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ), // Fin emit
+      )
+    ),
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  )
+),
+`;
   return code;
 };
 
@@ -3307,7 +3478,7 @@ exports.setServ = setServ;
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var halt, start, emptyQueueSignal, patternSignal;
+var halt, start, emptyQueueSignal, patternSignal, stopReservoir;
 var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {

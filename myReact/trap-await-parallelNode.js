@@ -1,27 +1,30 @@
-/* "use hiphop"
+"use hiphop"
 "use hopscript"
 
 const hh = require( "hiphop" );
 hiphop module prg( A, B ) {
-   EXIT: fork {
+   signal toto;
+
+   await count( 3,  A.now || B.now );
+/*   TRAP1: fork {
       await( A.now );
       hop { console.log( "A" ) }
-      break EXIT;
+      break TRAP1;
    } par {
       await( B.now );
       hop { console.log( "B" ) }
-      break EXIT;
+      break TRAP1;
    }
-
+   */
    hop { console.log( "end" ) } ;
 }
 const m = new hh.ReactiveMachine( prg );
 
 m.react();
 m.inputAndReact( "B" );
-*/
 
-"use strict";
+
+/*"use strict";
 var hh;
 var m;
 
@@ -90,4 +93,31 @@ prg=hh.MODULE(
 
 m=new hh.ReactiveMachine(prg,"atom");
 m.react();
-m.inputAndReact("B");
+m.inputAndReact("B");*/
+
+
+var __hh_module;const hh=require("hiphop");let prg;let m;__hh_module=require("hiphop");
+
+prg=__hh_module.MODULE({"id":"prg","%location":{"filename":"trap-await-parallelNode.js","pos":69},"%tag":"module"},
+   __hh_module.SIGNAL({"%location":{"filename":"trap-await-parallelNode.js","pos":81},"direction":"INOUT","name":"A"}),
+   __hh_module.SIGNAL({"%location":{"filename":"trap-await-parallelNode.js","pos":84},"direction":"INOUT","name":"B"}),
+   __hh_module.LOCAL({"%location":{"filename":"trap-await-parallelNode.js","pos":93},"%tag":"signal"},
+      __hh_module.SIGNAL({"name":"toto"}),
+
+      __hh_module.AWAIT(
+         {
+            "%location":{"filename":"trap-await-parallelNode.js","pos":110},
+            "%tag":"await",
+            "immediate":false,
+            "apply":function (){
+               return ((() => {
+                  const A=this["A"];
+                  const B=this["B"];
+                  return A.now || B.now;
+               })());
+            },
+            "countapply":function (){return 3;}
+}
+
+,__hh_module.SIGACCESS({"signame":"A","pre":false,"val":false,"cnt":false}),__hh_module.SIGACCESS({"signame":"B","pre":false,"val":false,"cnt":false})),__hh_module.ATOM({"%location":{"filename":"trap-await-parallelNode.js","pos":337},"%tag":"hop","apply":function (){console.log("end");}
+})));m=new hh.ReactiveMachine(prg);m.react();m.inputAndReact("B");

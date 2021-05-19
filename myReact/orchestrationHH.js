@@ -1,4 +1,4 @@
-var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, tick, djembe;
+var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, stopReservoir, tick, djembe;
 
 
 
@@ -23,7 +23,7 @@ exports.setServ = setServ;
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var halt, start, emptyQueueSignal, patternSignal;
+var halt, start, emptyQueueSignal, patternSignal, stopReservoir;
 var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
@@ -88,17 +88,17 @@ exports.setSignals = setSignals;
            "val":false,
            "cnt":false
         }),
-            hh.ATOM(
+        hh.ATOM(
             {
             "%location":{},
             "%tag":"node",
             "apply":function () {
                 console.log("-- MAKE RESERVOIR:", "groupe1" );
-              var msg = {
-                type: 'startTank',
-                value:  "groupe1"
-              }
-              serveur.broadcast(JSON.stringify(msg));
+                var msg = {
+                  type: 'startTank',
+                  value:  "groupe1"
+                }
+                serveur.broadcast(JSON.stringify(msg));
               }
             }
         ),
@@ -217,16 +217,16 @@ exports.setSignals = setSignals;
             "cnt":false})
           ), // Fin await groupe1IN
           hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            "groupe1OUT" : "groupe1OUT",
-            "apply":function (){
-              return ((() => {
-                const groupe1OUT = this["groupe1OUT"];
-                return [false, 255];
-              })());
-            }
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe1OUT" : "groupe1OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe1OUT = this["groupe1OUT"];
+                  return [false, 255];
+                })());
+              }
             },
             hh.SIGACCESS({
               "signame":"groupe1OUT",
@@ -259,16 +259,16 @@ exports.setSignals = setSignals;
             "cnt":false})
           ), // Fin await groupe2IN
           hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            "groupe2OUT" : "groupe2OUT",
-            "apply":function (){
-              return ((() => {
-                const groupe2OUT = this["groupe2OUT"];
-                return [false, 255];
-              })());
-            }
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe2OUT" : "groupe2OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe2OUT = this["groupe2OUT"];
+                  return [false, 255];
+                })());
+              }
             },
             hh.SIGACCESS({
               "signame":"groupe2OUT",
@@ -301,16 +301,16 @@ exports.setSignals = setSignals;
             "cnt":false})
           ), // Fin await groupe3IN
           hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            "groupe3OUT" : "groupe3OUT",
-            "apply":function (){
-              return ((() => {
-                const groupe3OUT = this["groupe3OUT"];
-                return [false, 255];
-              })());
-            }
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe3OUT" : "groupe3OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe3OUT = this["groupe3OUT"];
+                  return [false, 255];
+                })());
+              }
             },
             hh.SIGACCESS({
               "signame":"groupe3OUT",
@@ -515,121 +515,97 @@ var orchestration = hh.MODULE(
     }
   ),
 
-      hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "groupe1OUT": "groupe1OUT",
-          "apply":function (){
-            return ((() => {
-              const groupe1OUT = this["groupe1OUT"];
-              return [true,255];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame": "groupe1OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
+  hh.LOCAL(
+    {
+      "%location":{},
+      "%tag":"signal"
+    },
+    hh.SIGNAL({
+      "name":"stop849514"
+    }),
+
+        hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+          hh.SEQUENCE(
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+
+          hh.RUN(
+            {
+              "%location":{"filename":"","pos":1},
+              "%tag":"run",
+              "module": hh.getModule("tankTest", {"filename":"","pos":2}),
+              "autocomplete":true,
+              "stopReservoir":"stop849514"
+            }
+          ),
+
+        ),
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){return ((() => {
+
+                     const groupe1IN =this["groupe1IN"];
+                     const groupe2IN =this["groupe2IN"];
+                     const groupe3IN =this["groupe3IN"];
+                   return groupe1 || groupe2 || groupe3;
+                  })());},
+                "countapply":function (){return 2;}
+            },
+               hh.SIGACCESS({"signame":"groupe1IN","pre":false,"val":false,"cnt":false}),
+               hh.SIGACCESS({"signame":"groupe2IN","pre":false,"val":false,"cnt":false}),
+               hh.SIGACCESS({"signame":"groupe3IN","pre":false,"val":false,"cnt":false}),
+  ),
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              //"stopReservoir":"stopReservoir",
+              "stop849514" : "stop849514",
+              "apply":function (){
+                return ((() => {
+                  //const stopReservoir = this["stopReservoir"];
+                  const stop849514 = this["stop849514"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              //"signame":"stopReservoir",
+              "signame":"stop849514",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+        )
       ),
-      hh.ATOM(
-        {
+    hh.PAUSE(
+      {
         "%location":{},
-        "%tag":"node",
-        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",true); }
-        }
-    ),
-
-    hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function (){return ((() => {
-            const groupe1IN =this["groupe1IN"];
-            return groupe1IN.now;})());},
-          "countapply":function (){return 1;}
-      },
-      hh.SIGACCESS({"signame":"groupe1IN","pre":false,"val":false,"cnt":false})
-    ),
-
-      hh.AWAIT(
-        {"%location":{},
-        "%tag":"await","immediate":false,
-        "apply":function (){
-            return ((() => {
-              const patternSignal=this["patternSignal"];
-              return patternSignal.now && (patternSignal.nowval[1] === 'Percu1');
-            })());
-          }
-        },
-      hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
-      ),
+        "%tag":"yield"
+      }
+    )
+  ),
 
   hh.PAUSE(
     {
       "%location":{},
       "%tag":"yield"
     }
-  ),
-
-      hh.AWAIT(
-        {"%location":{},
-        "%tag":"await","immediate":false,
-        "apply":function (){
-            return ((() => {
-              const emptyQueueSignal=this["emptyQueueSignal"];
-              return emptyQueueSignal.now && emptyQueueSignal.nowval == 1;
-            })());
-          }
-        },
-      hh.SIGACCESS({"signame":"emptyQueueSignal","pre":false,"val":false,"cnt":false})
-      ),
-
-  hh.RUN({
-      "%location":{"filename":"","pos":1},
-      "%tag":"run",
-      "module": hh.getModule("tankTest", {"filename":"","pos":2}),
-      "autocomplete":true
-    }),
-
-  /*  hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
-      }
-    ),*/
-
-
-
-  hh.EVERY(
-    {
-        "%location":{},
-        "%tag":"every",
-        "immediate":false,
-        "apply": function (){return ((() => {
-              const tick = this["tick"];
-              return tick.now;
-        })());},
-        "countapply":function (){ return 1;}
-    },
-    hh.SIGACCESS({
-        "signame":"tick",
-        "pre":false,
-        "val":false,
-        "cnt":false
-    }),
-
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {console.log('Every tick');}
-      }
-    ),
-
   ),
 
         ),
