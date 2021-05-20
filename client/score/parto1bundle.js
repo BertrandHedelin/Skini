@@ -1,16 +1,22 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /**************************************
   SKINI
 
   © Copyright 2019, B. Petit-Heidelein
 
 ***************************************/
-"use hopscript"
 "use strict"
+
+var ipConfig = require('../../serveur/ipConfig');
 
 var debug = false;
 var debug1 = true;
 var demandeDeSons = "";
 var par;
+var ws;
+var msg;
+var index = Math.floor((Math.random() * 1000000) + 1 ); // Pour identifier le client;
+
 //var abletonON;
 var refProcessing;
 var noScore = false;
@@ -506,29 +512,33 @@ class infoQueues {
     this.processing.textSize(30);
   	this.processing.text(legende, this.width -  (this.processing.textWidth(legende) + 3), this.yStart +30);
 
-    for (var i = 0; i < queuesMessages.length ; i++ ) { // chaque Instrument
-      texte1EnPixel = 0;
-      texte2EnPixel = 0;
-      largeurTexte = 0;
-      for (var j=0; j < queuesMessages[i][2].length; j++){ // chaque Array des pseudos et noms
-        // Concaténation pseudo et nom
-        this.texte1ToDisplay = ' ' + queuesMessages[i][2][j][1];
-        this.texte2ToDisplay = ' (' + queuesMessages[i][2][j][0]+ ')';
+    if(queuesMessages !== undefined){
+      for (var i = 0; i < queuesMessages.length ; i++ ) { // chaque Instrument
+        texte1EnPixel = 0;
+        texte2EnPixel = 0;
+        largeurTexte = 0;
+        if(queuesMessages[i][2] !== undefined){
+          for (var j=0; j < queuesMessages[i][2].length; j++){ // chaque Array des pseudos et noms
+            // Concaténation pseudo et nom
+            this.texte1ToDisplay = ' ' + queuesMessages[i][2][j][1];
+            this.texte2ToDisplay = ' (' + queuesMessages[i][2][j][0]+ ')';
 
-        this.processing.textSize(20);
-        texte1EnPixel = this.processing.textWidth(this.texte1ToDisplay);
-        //this.processing.text(this.textToDisplay, (this.width - this.cellWidth - j * this.cellWidth), (this.yStart + queuesMessages[i][0] * this.cellHeight));
-        this.processing.text(this.texte1ToDisplay, (largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
-        largeurTexte += texte1EnPixel;
+            this.processing.textSize(20);
+            texte1EnPixel = this.processing.textWidth(this.texte1ToDisplay);
+            //this.processing.text(this.textToDisplay, (this.width - this.cellWidth - j * this.cellWidth), (this.yStart + queuesMessages[i][0] * this.cellHeight));
+            this.processing.text(this.texte1ToDisplay, (largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
+            largeurTexte += texte1EnPixel;
 
-        this.processing.textSize(15);
-        texte2EnPixel = this.processing.textWidth(this.texte2ToDisplay) + 10;
-        this.processing.text(this.texte2ToDisplay, (largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
-        largeurTexte += texte2EnPixel;
+            this.processing.textSize(15);
+            texte2EnPixel = this.processing.textWidth(this.texte2ToDisplay) + 10;
+            this.processing.text(this.texte2ToDisplay, (largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
+            largeurTexte += texte2EnPixel;
 
-        //this.processing.text(this.textToDisplay, (this.width - texteEnPixel - largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
+            //this.processing.text(this.textToDisplay, (this.width - texteEnPixel - largeurTexte), (this.yStart + queuesMessages[i][0] * this.cellHeight));
 
-        this.processing.line(0, this.yStart + queuesMessages[i][0] * this.cellHeight + 10, this.width, this.yStart + queuesMessages[i][0] * this.cellHeight + 10);
+            this.processing.line(0, this.yStart + queuesMessages[i][0] * this.cellHeight + 10, this.width, this.yStart + queuesMessages[i][0] * this.cellHeight + 10);
+          }
+        }
       }
     }
   }
@@ -813,7 +823,7 @@ function start() {
     var p = new Processing(canvas, sketchProc);
   }
 }
-exports.start = start;
+window.start = start;
 
 /*********************************************************************************
  Communication listeners
@@ -838,6 +848,7 @@ function isTank(nomDeGroupe){
 
 function isTankFromNumOfGroup(numOfGroup){
   var isTank = false;
+  if( patternGroups === undefined) return false;
   for(var i=0; i < patternGroups.length; i++){
       if( patternGroups[i][1] == numOfGroup) {
    		if ( patternGroups[i][2] == "tank"){
@@ -864,6 +875,7 @@ function  getGroupNumber(nomDeGroupe){
 function  getNumberInGroupsFromNumberInConf(numOfGroup){
 	var groupeDeSons;
 	if (debug) console.log("getNumberInGroupsFromNumberInConf:", numOfGroup);
+  if( groups === undefined) return -1;
 	for(var i=0; i < groups.length; i++){
       if (debug) console.log("getNumberInGroupsFromNumberInConf:groups[i]:", groups[i] );
       if(groups[i].getIndex() == numOfGroup) {
@@ -876,12 +888,13 @@ function  getNumberInGroupsFromNumberInConf(numOfGroup){
 
 function  getTankNumberFromGroupName(nomDeGroupe) {
 	var tankNumber;
-   for(var i=0; i < patternGroups.length; i++){
-    	if( patternGroups[i][0] == nomDeGroupe) {
-	     	tankNumber =  patternGroups[i][5];
-         if (debug) console.log("Tank number pour groupname:", nomDeGroupe, patternGroups[i], tankNumber );
-         break;
-	   }
+  if( patternGroups === undefined) return -1;
+  for(var i=0; i < patternGroups.length; i++){
+    if( patternGroups[i][0] == nomDeGroupe) {
+     	tankNumber =  patternGroups[i][5];
+       if (debug) console.log("Tank number pour groupname:", nomDeGroupe, patternGroups[i], tankNumber );
+       break;
+    }
 	}
 	return tankNumber;
 }
@@ -900,6 +913,7 @@ function  getTankNumberFromNumberInConf(numInConf) {
 
 function getGroupOfSoundsFromTankNumber(tankNumber){
 	var groupeDeSons = -1;
+  if(groups === undefined) return -1;
 	for(var i=0; i < groups.length; i++){
 		if (groups[i].isTank() ){
          if(groups[i].getTankNumber() == tankNumber) {
@@ -912,146 +926,229 @@ function getGroupOfSoundsFromTankNumber(tankNumber){
 	return groupeDeSons;
 }
 
-/* Les listeners ****************************************************************************
+/* Les listeners *****************************************************************************/
 
-/* Info sur les sons qui sont demandés, ce n'est pas très utile pour le suivi de la partition */
-server.addEventListener('demandeDeSonParPseudo', function( event ) {
-  if (debug) console.log("Reçu Texte Broadcast demande de son par pseudo:", event.value );
-}); 
+//************ WEBSOCKET HOP et listener BROADCAST ******************************
+function initWSSocket(host) {
 
-/* Action sur sur les sons qui sont joués */
-server.addEventListener('infoPlayAbleton', function( event ) {
-  var groupeDeSons;
-  if (debug) console.log("Reçu Texte Broadcast infoPlayAbleton:", event.value );
+  //ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
+  ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
-  displayAudience.setText(event.value[5] + " - " + event.value[7]);
-  // Event.value = bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal
-  // Celle-là elle ne s'invente pas, récupération du nom du groupe dans le signal
-  var groupName = Object.keys(event.value[8])[0].slice(0, -2);
-  var tankNumber;
-
-  if ( patternGroups !== undefined) {
-		if (!isTank(groupName)) {
-    	// S'il s'agit d'un "group" recherche du groupe de son pour le signal donné
-      // dans le tableau des groups et tanks consécutifs
-      var groupRunning = groups[getGroupNumber(groupName)];
-      if (groupRunning.isActive()){
-        groupRunning.setMessage(event.value[5], event.value[7]);
-     	  groupRunning.increment();
-      }
-	  } else {
-   	// S'il s'agit d'un "tank"
-   	  var tankNumber = getTankNumberFromGroupName(groupName);
-   	  var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
-   	  if (desSons < 0 ) console.log("ERR: addEventListener: infoPlayAbleton: getGroupOfSoundsFromTankNumber ");
-   	  groups[desSons].setMessage(event.value[5], event.value[7]);
-	    groups[desSons].decrement();
+  if (debug1) console.log("score.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+  ws.onopen = function( event ) {
+    var msg = {
+      type:"startSpectateur",
+      text: "score",
+      id: index
     }
-	}
-});
+    console.log("ID sent to server:", msg.id);
+    ws.send(JSON.stringify(msg));
+  };
 
-server.addEventListener('etatDeLaFileAttente', function( event ) {
-  queuesMessages = [];
-  for (var i = 0; i < event.value.length ; i++ ) {
-    // event.value[i][2] = array d'array [[pseudo, nom du pattern], [...], ...]
-    queuesMessages[i] = event.value[i];
-    console.log("etatDeLaFileAttente:", i, "--", event.value[i][2]);
-  }
-});
+  //Traitement de la Réception sur le client
+  ws.onmessage = function( event ) {
+    //console.log( "Client: received [%s]", event.data );
 
-/* Réception des groupes de patterns */
-server.addEventListener('setPatternGroups', function( event ) {
-  if ( event.value !== undefined ) {
-    patternGroups = event.value ;
-    noScore = false;
-    start();
-    if (refProcessing !== undefined){
-      refProcessing.setup();
+    var msgRecu = JSON.parse(event.data);
+    if(debug) console.log("message reçu: ", msgRecu.type);
+
+    switch(msgRecu.type) {
+
+      case 'addSceneScore':
+        if (debug1) console.log("Reçu addScenceScore:", msgRecu.value );
+        addSceneScore(msgRecu.value);
+        break;
+
+      //  Pour activer un affichage d'info
+      case 'alertInfoScoreON':
+        if (refProcessing !== undefined){
+          alertInfoMessage = new alertInfo(refProcessing, msgRecu.value);
+        }
+        break;
+
+      //  Pour désactiver un affichage d'info
+      case 'alertInfoScoreOFF':
+        alertInfoMessage = undefined;
+        break;
+
+      case 'etatDeLaFileAttente':
+        queuesMessages = [];
+        for (var i = 0; i < msgRecu.value.length ; i++ ) {
+          queuesMessages[i] = msgRecu.value[i];
+          if(debug1) console.log("etatDeLaFileAttente:", i, "--", queuesMessages[i][2]);
+        }
+        break;
+
+      // Action sur sur les sons qui sont joués 
+      case 'infoPlayDAW':
+        var groupeDeSons;
+        if (debug) console.log("Reçu Texte Broadcast infoPlayDAW:", msgRecu.value );
+
+        displayAudience.setText(msgRecu.value[5] + " - " + msgRecu.value[7]);
+        // Event.value = bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal
+        // Celle-là elle ne s'invente pas, récupération du nom du groupe dans le signal
+        var groupName = Object.keys(msgRecu.value[8])[0].slice(0, -2);
+        var tankNumber;
+
+        if ( patternGroups !== undefined) {
+          if (!isTank(groupName)) {
+            // S'il s'agit d'un "group" recherche du groupe de son pour le signal donné
+            // dans le tableau des groups et tanks consécutifs
+            var groupNumber = getGroupNumber(groupName);
+            if(debug) console.log("infoPlayDAW:groupNumber", groupNumber);
+            if(groupNumber === undefined){
+              if(debug) console.log("infoPlayDAW:groupNumber: undefined");
+              break;
+            }
+
+            var groupRunning = groups[groupNumber];
+
+            if (groupRunning.isActive()){
+              groupRunning.setMessage(msgRecu.value[5], msgRecu.value[7]);
+              groupRunning.increment();
+            }
+          } else {
+          // S'il s'agit d'un "tank"
+            var tankNumber = getTankNumberFromGroupName(groupName);
+            if(tankNumber === -1){
+              if(debug1) console.log("infoPlayDAW: getTankNumberFromGroupName retourne ERR");
+              break;
+            }
+            var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
+            if(desSons === -1){
+              if(debug1) console.log("infoPlayDAW: getGroupOfSoundsFromTankNumber retourne ERR");
+              break;
+            }
+
+            if (desSons < 0 ) console.log("ERR: addEventListener: infoPlayAbleton: getGroupOfSoundsFromTankNumber ");
+            groups[desSons].setMessage(msgRecu.value[5], msgRecu.value[7]);
+            groups[desSons].decrement();
+          }
+        }
+        break;
+
+      // Pour désactiver un réservoir quand il est aborté dans la pièce.
+      case 'killTank':
+        var tankNumber = getTankNumberFromGroupName( msgRecu.value );
+        if(tankNumber === -1){
+          if(debug1) console.log("killTank: getTankNumberFromGroupName retourne ERR");
+          break;
+        }
+        var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
+        if(desSons === -1){
+          if(debug1) console.log("killTank: getGroupOfSoundsFromTankNumber retourne ERR");
+          break;
+        }
+        if (debug1) console.log("KILL TANK:", msgRecu.value, tankNumber, desSons );
+        groups[desSons].deactivate();
+        break;
+
+       // Remise à l'état d'origine des éléments
+      case 'refreshSceneScore':
+        if (debug1) console.log("Reçu refreshSceneScore:", msgRecu.value );
+        if ( refProcessing !== undefined && patternGroups !== undefined ){
+          refProcessing.setup();
+        }
+        break;
+
+      // Enlève une scène graphique
+      case 'removeSceneScore':
+        if (debug1) console.log("Reçu removeSceneScore:", msgRecu.value );
+        removeSceneScore(msgRecu.value);
+        break;
+
+      /* Info sur changement de la matrice des possibles */
+      /* Ici on sait seulement si un groupe est activé ou désactivé.
+      Il n'y a pas de notion de réservoir dans le protocole.
+      Un réservoir est un ensemble de groupes ayant chacun un seul son.
+      Il n'y a donc pas de notion d'activation ou désactivation de réservoir. 
+
+      Dans le cas d'un réservoir ce listener donne une information que
+      l'on a déjà reçue dans infoPlayAbleton car pour un réservoir un son joué implique
+      une modification de la matrice des possibles.
+      */
+      case 'setInMatriceDesPossibles':
+        var groupsNumber;
+        if (debug) console.log("Reçu setInMatriceDesPossibles:", msgRecu.value ); 
+        //  [0] = groupe de clients, [1] = index du groupe de son dans le tableau du fichier de conf, [2] = true ot false
+        if ( isTankFromNumOfGroup(msgRecu.value[1])){
+         var tankNumber = getTankNumberFromNumberInConf(msgRecu.value[1]);
+         groupsNumber = getGroupOfSoundsFromTankNumber(tankNumber);
+         if (groupsNumber < 0 ) console.log("ERR: addEventListener: setInMatriceDesPossibles: getGroupOfSoundsFromTankNumber ");
+        }else{
+         groupsNumber =  getNumberInGroupsFromNumberInConf(msgRecu.value[1]);
+         if(groupsNumber === -1) break;
+        }
+        if (msgRecu.value[2]) { // On or Off
+          groups[groupsNumber].activate();
+        }else{
+         if( groups[groupsNumber] !== undefined){
+           if (!groups[groupsNumber].isTank()){
+            groups[groupsNumber].deactivate();
+           }
+         }
+        }
+        break;
+
+      // Réception des groupes de patterns
+      case 'setPatternGroups':
+        if ( msgRecu.value !== undefined ) {
+          patternGroups = msgRecu.value ;
+          noScore = false;
+          start();
+          if (refProcessing !== undefined){
+            refProcessing.setup();
+          }
+        }
+        break;
+
+      //Pour désactiver un réservoir quand il est aborté dans la pièce.
+      case 'startTank':
+        var tankNumber = getTankNumberFromGroupName( msgRecu.value );
+        if(tankNumber === -1){
+          if(debug1) console.log("startTank: getTankNumberFromGroupName retourne ERR");
+          break;
+        }
+        var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
+        if(desSons === -1){
+          if(debug) console.log("startTank: getGroupOfSoundsFromTankNumber retourne ERR");
+          break;
+        }
+        if (debug) console.log("START TANK:", msgRecu.value, tankNumber, desSons );
+        groups[desSons].reactivate();
+        break;
+
+      default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu );
     }
+  };
+
+  ws.onerror = function (event) {
+    if (debug) console.log( "clientcontroleur.js : received error on WS", ws.socket, " ", event );
   }
-});
 
- /* Ajout d'une scène graphique */
-server.addEventListener('addSceneScore', function( event ) {
-  if (debug1) console.log("Reçu addScenceScore:", event.value );
-  addSceneScore(event.value);
-  //if ( refProcessing != undefined){
-  //  refProcessing.setup();
-  //}
-});
+  // Mécanisme de reconnexion automatique si le serveur est tombé.
+  // Le service Ping permet de vérifier le présence du serveur
+  ws.onclose = function( event ) {
+    if (debug1) console.log( "clientcontroleur.js : ON CLOSE");
+    }
+}
+window.initWSSocket = initWSSocket;
 
+},{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
+module.exports={
+	"remoteIPAddressImage": "192.168.82.96",
+	"remoteIPAddressSound": "192.168.1.75",
+	"remoteIPAddressLumiere": "192.168.82.96",
+	"remoteIPAddressGame": "192.168.82.96",
+	"serverIPAddress": "192.168.1.75",
+	"webserveurPort": 8080,
+	"websocketServeurPort": 8383,
+	"InPortOSCMIDIfromDAW": 13000,
+	"OutPortOSCMIDItoDAW": 12000,
+	"distribSequencerPort": 8888,
+	"outportProcessing": 10000,
+	"outportLumiere": 7700,
+	"inportLumiere": 9000
+}
 
- /* Enlève une scène graphique */
-server.addEventListener('removeSceneScore', function( event ) {
-  if (debug1) console.log("Reçu removeSceneScore:", event.value );
-  removeSceneScore(event.value);
-  //if ( refProcessing != undefined){
-  //  refProcessing.setup();
-  //}
-});
-
- /* Remise à l'état d'origine des éléments */
-server.addEventListener('refreshSceneScore', function( event ) {
-  if (debug1) console.log("Reçu refreshSceneScore:", event.value );
-  if ( refProcessing !== undefined && patternGroups !== undefined ){
-    refProcessing.setup();
-  }
-});
-
-//  Pour désactiver un réservoir quand il est aborté dans la pièce.
-server.addEventListener('killTank', function( event ) {
-	var tankNumber = getTankNumberFromGroupName( event.value );
-  var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
-  if (debug1) console.log("KILL TANK:", event.value, tankNumber, desSons );
-  groups[desSons].deactivate();
-});
-
-//  Pour désactiver un réservoir quand il est aborté dans la pièce.
-server.addEventListener('startTank', function( event ) {
-  var tankNumber = getTankNumberFromGroupName( event.value );
-  var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
-  if (debug1) console.log("START TANK:", event.value, tankNumber, desSons );
-  groups[desSons].reactivate();
-});
-
-//  Pour activer un affichage d'info
-server.addEventListener('alertInfoScoreON', function( event ) {
-  alertInfoMessage = new alertInfo(refProcessing, event.value);
-});
-
-//  Pour désactiver un affichage d'info
-server.addEventListener('alertInfoScoreOFF', function( event ) {
-  alertInfoMessage = undefined;
-});
-
-/* Info sur changement de la matrice des possibles */
-/* Ici on sait seulement si un groupe est activé ou désactivé.
-Il n'y a pas de notion de réservoir dans le protocole.
-Un réservoir est un ensemble de groupes ayant chacun un seul son.
-Il n'y a donc pas de notion d'activation ou désactivation de réservoir. 
-
-Dans le cas d'un réservoir ce listener donne une information que
-l'on a déjà reçue dans infoPlayAbleton car pour un réservoir un son joué implique
-une modification de la matrice des possibles.
-*/
-server.addEventListener('setInMatriceDesPossibles', function( event ) {
-	var groupsNumber;
-	 if (debug) console.log("Reçu setInMatriceDesPossibles:", event.value ); 
-	 //  [0] = groupe de clients, [1] = index du groupe de son dans le tableau du fichier de conf, [2] = true ot false
-	 if ( isTankFromNumOfGroup(event.value[1])){
-		 var tankNumber = getTankNumberFromNumberInConf(event.value[1]);
-		 groupsNumber = getGroupOfSoundsFromTankNumber(tankNumber);
-		 if (groupsNumber < 0 ) console.log("ERR: addEventListener: setInMatriceDesPossibles: getGroupOfSoundsFromTankNumber ");
-	 }else{
-	 	 groupsNumber =  getNumberInGroupsFromNumberInConf(event.value[1]);
-	 }
-	 if (event.value[2]) { // On or Off
-	    groups[groupsNumber].activate();
-	 }else{
-     if( groups[groupsNumber] !== undefined){
-  	   if (!groups[groupsNumber].isTank()){
-  	   	groups[groupsNumber].deactivate();
-  	   }
-     }
-	 }
-});
+},{}]},{},[1]);

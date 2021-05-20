@@ -512,7 +512,7 @@ function playAndShiftEventDAW(timerDivision) {
           // Pour avertir le browser du demandeur du son et les musiciens s'il y en a.
           var msg = {
             type: "infoPlayDAW",
-            value : filesDattente
+            value : commandeDAW
           }
           serv.broadcast(JSON.stringify(msg));
           //hop.broadcast('infoPlayDAW', commandeDAW );

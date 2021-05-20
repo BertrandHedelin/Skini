@@ -1660,12 +1660,28 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// Revu HH node
 Blockly.JavaScript['removeSceneScore'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `hop {hop.broadcast('removeSceneScore',` + number + ");}\n";
+  var code = `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'removeSceneScore',
+          value:` + number + `
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+`;
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "addSceneScore",
@@ -1688,10 +1704,25 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['addSceneScore'] = function(block) {
   var number = block.getFieldValue('number');
-  var code = `hop{hop.broadcast('addSceneScore',` + number + ");}\n";
+  var code = `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'addSceneScore',
+          value:` + number + `
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+`;
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "refreshSceneScore",
@@ -1705,11 +1736,24 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['refreshSceneScore'] = function(block) {
-  var code = `hop {hop.broadcast('refreshSceneScore');}
-  `;
+  var code = `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'refreshSceneScore',
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+`;
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "alertInfoScoreON",
@@ -1731,10 +1775,25 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['alertInfoScoreON'] = function(block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = `hop {hop.broadcast('alertInfoScoreON',` + value + ");}\n"
+  var code = `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'alertInfoScoreON',
+          value:` + value + `
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+`;
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "alertInfoScoreOFF",
@@ -1748,8 +1807,20 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['alertInfoScoreOFF'] = function(block) {
-  var code = `hop {hop.broadcast('alertInfoScoreOFF');}
-  `;
+  var code = `
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'alertInfoScoreOFF',
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+`;
   return code;
 };
 

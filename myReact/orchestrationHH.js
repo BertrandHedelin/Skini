@@ -738,6 +738,20 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'addSceneScore',
+            value:1
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+
   hh.ATOM(
     {
       "%location":{},
@@ -747,6 +761,20 @@ var orchestration = hh.MODULE(
       }
     }
   ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreON',
+            value:'Un message'
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
 
       hh.ATOM(
         {
@@ -802,127 +830,14 @@ var orchestration = hh.MODULE(
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop421708"
+      "name":"stop274713"
     }),
 
       hh.TRAP(
         {
-          "trap421708":"trap421708",
+          "trap274713":"trap274713",
           "%location":{},
-          "%tag":"trap421708"
-        },
-        hh.FORK(
-          {
-            "%location":{},
-            "%tag":"fork"
-          },
-          hh.SEQUENCE( // sequence 1
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("tankTest2", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop421708"
-                  }
-                ),
-              ),
-
-          )
-        ),
-        hh.SEQUENCE(
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-          hh.AWAIT(
-              {
-                "%location":{},
-                "%tag":"await",
-                "immediate":false,
-                "apply":function (){return ((() => {
-                  const tick =this["tick"];
-                  return tick.now;})());},
-                "countapply":function (){return 10;}
-            },
-            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          ),
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              //"stopReservoir":"stopReservoir",
-              "stop421708" : "stop421708",
-              "apply":function (){
-                return ((() => {
-                  //const stopReservoir = this["stopReservoir"];
-                  const stop421708 = this["stop421708"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              //"signame":"stopReservoir",
-              "signame":"stop421708",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-
-          hh.PAUSE(
-            {
-              "%location":{},
-              "%tag":"yield"
-            }
-          ),
-
-          hh.EXIT(
-          {
-            "trap421708":"trap421708",
-            "%location":{},
-            "%tag":"break"
-          }), // Exit
-        ) // sequence
-      ), // fork
-    ), // trap
-
-    hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
-      }
-    )
-  ),
-
-  hh.LOCAL(
-    {
-      "%location":{},
-      "%tag":"signal"
-    },
-    hh.SIGNAL({
-      "name":"stop93652"
-    }),
-
-      hh.TRAP(
-        {
-          "trap93652":"trap93652",
-          "%location":{},
-          "%tag":"trap93652"
+          "%tag":"trap274713"
         },
         hh.FORK(
           {
@@ -950,23 +865,7 @@ var orchestration = hh.MODULE(
                     "%tag":"run",
                     "module": hh.getModule("tankTest", {"filename":"","pos":2}),
                     "autocomplete":true,
-                    "stopReservoir":"stop93652"
-                  }
-                ),
-              ),
-
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("tankTest2", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop93652"
+                    "stopReservoir":"stop274713"
                   }
                 ),
               ),
@@ -995,18 +894,18 @@ var orchestration = hh.MODULE(
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop93652" : "stop93652",
+              "stop274713" : "stop274713",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop93652 = this["stop93652"];
+                  const stop274713 = this["stop274713"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop93652",
+              "signame":"stop274713",
               "pre":true,
               "val":true,
               "cnt":false
@@ -1022,7 +921,7 @@ var orchestration = hh.MODULE(
 
           hh.EXIT(
           {
-            "trap93652":"trap93652",
+            "trap274713":"trap274713",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -1037,6 +936,148 @@ var orchestration = hh.MODULE(
       }
     )
   ),
+
+  hh.LOCAL(
+    {
+      "%location":{},
+      "%tag":"signal"
+    },
+    hh.SIGNAL({
+      "name":"stop870550"
+    }),
+
+      hh.TRAP(
+        {
+          "trap870550":"trap870550",
+          "%location":{},
+          "%tag":"trap870550"
+        },
+        hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+          hh.SEQUENCE( // sequence 1
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.RUN(
+                  {
+                    "%location":{"filename":"","pos":1},
+                    "%tag":"run",
+                    "module": hh.getModule("tankTest", {"filename":"","pos":2}),
+                    "autocomplete":true,
+                    "stopReservoir":"stop870550"
+                  }
+                ),
+              ),
+
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.RUN(
+                  {
+                    "%location":{"filename":"","pos":1},
+                    "%tag":"run",
+                    "module": hh.getModule("tankTest2", {"filename":"","pos":2}),
+                    "autocomplete":true,
+                    "stopReservoir":"stop870550"
+                  }
+                ),
+              ),
+
+          )
+        ),
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){return ((() => {
+                  const tick =this["tick"];
+                  return tick.now;})());},
+                "countapply":function (){return 10;}
+            },
+            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+          ),
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              //"stopReservoir":"stopReservoir",
+              "stop870550" : "stop870550",
+              "apply":function (){
+                return ((() => {
+                  //const stopReservoir = this["stopReservoir"];
+                  const stop870550 = this["stop870550"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              //"signame":"stopReservoir",
+              "signame":"stop870550",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          ),
+
+          hh.EXIT(
+          {
+            "trap870550":"trap870550",
+            "%location":{},
+            "%tag":"break"
+          }), // Exit
+        ) // sequence
+      ), // fork
+    ), // trap
+
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    )
+  ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreOFF',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
 
     hh.TRAP(
     {
@@ -1409,6 +1450,19 @@ var orchestration = hh.MODULE(
         "%location":{},
         "%tag":"node",
         "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",false); }
+        }
+    ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'refreshSceneScore',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
         }
     ),
 

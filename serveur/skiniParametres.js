@@ -18,11 +18,8 @@
 
 ===========================================================================*/
 
-//exports.DAWON = true;
-
 exports.canWidth  = 10; // Pas utile si pas de tablette, 500
 exports.canHeight = 10; // Pas utile si pas de tablette, 250
-
 exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
 
 // Pour le client Golem

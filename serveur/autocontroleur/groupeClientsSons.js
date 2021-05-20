@@ -633,11 +633,10 @@ function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
 	}
 	matriceDesPossibles[groupeClient][groupeDeSons] = status;
 
-	// Info pour les scrutateurs
 	var message = [groupeClient, groupeDeSons, status];
 	var msg = {
 		type: "setInMatriceDesPossibles",
-		//message : message
+		value : message
 	}
 	serv.broadcast(JSON.stringify(msg));
 	// !!! hop.broadcast("setInMatriceDesPossibles", message);
@@ -767,8 +766,13 @@ function makeSignalsListeners(machine){
 				console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
 			}
 
-			// Info pour les scrutateurs [groupeClient, groupeDeSons, status];
+			// Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
 			var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
+				var msg = {
+					type: "setInMatriceDesPossibles",
+					value : messageScrut
+				}
+			serv.broadcast(JSON.stringify(msg));
 			//hop.broadcast("setInMatriceDesPossibles", messageScrut);
 
 			messageLog.type = "signal";
