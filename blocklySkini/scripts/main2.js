@@ -37,8 +37,6 @@ var options = {
   }
 };
 
-//var par = require('../../serveur/logosParametres');
-
 function initWSSocket(serverIPAddress) {
   console.log("initWSSocket", serverIPAddress);
 
@@ -148,25 +146,7 @@ function init() {
           {
             "kind": "block",
             "type": "hh_ORCHESTRATION"
-          },
-/*
-          {
-            "kind": "block",
-            "type": "fork_body"
-          },*/
-/*          {
-            "kind": "block",
-            "type": "branch_body"
-          },
-*/
-          {
-            "kind": "block",
-            "type": "par_body"
-          },
-          {
-            "kind": "block",
-            "type": "seq_body"
-          },
+          }
 /*          {
             "kind": "block",
             "type": "random_body"
@@ -442,81 +422,11 @@ function init() {
           }
         ]
       },
-/*      {
-        "kind": "category",
-        "categorystyle" : "list_category",
-        "name": "Signals",
-        "contents": [
-         {
-            "kind": "block",
-            "type": "declare_signal"
-          },
-          {
-            "kind": "block",
-            "type": "emit_value"
-          },          
-          {
-            "kind": "block",
-            "type": "await_do"
-          },
-          {
-            "kind": "block",
-            "type": "wait_for"
-          }
-        ]
-      },*/
-/*      {
-        "kind": "category",
-        "name": "Module",
-        "categorystyle" : "list_category",
-        "contents": [
-          {
-            "kind": "block",
-            "type": "module_myReact"
-          },
-          {
-            "kind": "block",
-            "type": "run_module"
-          },
-          {
-            "kind": "block",
-            "type": "par_body"
-          },
-          {
-            "kind": "block",
-            "type": "seq_body"
-          },
-          {
-            "kind": "block",
-            "type": "loop_body"
-          },
-          {
-            "kind": "block",
-            "type": "every"
-          },
-          {
-            "kind": "block",
-            "type": "abort"
-          },
-          {
-            "kind": "block",
-            "type": "print_serveur"
-          },
-          {
-            "kind": "block",
-            "type": "text"
-          }
-        ]
-      },*/
       {
         "kind": "category",
         "name": "HipHop",
         "categorystyle" : "list_category",
         "contents": [
-/*          {
-            "kind": "block",
-            "type": "hh_orchestration"
-          },*/
           {
             "kind": "block",
             "type": "hh_ORCHESTRATION"

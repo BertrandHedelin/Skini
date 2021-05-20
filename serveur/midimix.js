@@ -185,7 +185,7 @@ exports.midimix =  function(machineServeur, websocketServer) {
 
    sock.on('listening', function () {
       var address = sock.address();
-      if(debug1) console.log('midimix.js: UDP Server listening on ' + address.address + ":" + address.port);
+      if(debug1) console.log('INFO: midimix.js: UDP Server listening on ' + address.address + ":" + address.port);
    });
 
    sock.bind(par.InPortOSCMIDIfromDAW, par.serverIPAddress);

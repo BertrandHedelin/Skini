@@ -11,7 +11,8 @@ var url = require('url');
 var fs = require('fs');
 var express = require('express');
 var path    = require("path");
-var ipConfig = require('./serveur/ipConfig');
+var ipConfig = require("./serveur/ipConfig.json");
+var par = require('./serveur/skiniParametres');
 
 // Charge le fichier des sons initiaux qui sont dans DAW
 var DAW = require('./serveur/controleDAW');
@@ -22,6 +23,53 @@ var ws = require('./serveur/websocketServer');
 
 var oscReceiveDAW = require("./serveur/midimix.js");
 var machineServeur = 0;
+
+
+// AFFICHAGE DU CONTEXTE =================================================
+
+function displayContext(param, ipConfig){
+	console.log("\n=========================================================");
+	if(param.scenesON) console.log("Skini avec les scènes\n");
+	if(param.avecMusicien){
+		console.log("Décalage des FIFOs de ",param.decalageFIFOavecMusicien, " pulsations");
+	}
+	console.log("Config des patterns: ", param.configClips);
+	console.log("Fichiers sons dans : ", param.soundFilesPath1);
+	if(param.avecMusicien) console.log("Fichiers partitions dans : ", param.patternScorePath1);
+	
+	console.log("Synchro. Midi: ", param.synchoOnMidiClock);
+	console.log("Réaction au moment où le pattern est joué (par défaut à la sélection):", param.reactOnPlay);
+	console.log("Les automates sont rechargeables en live:", param.canBeReloaded);
+	console.log("Algorithme sur FIFO: ", param.algoGestionFifo);
+	console.log("Nombe de groupes clients: ", param.nbeDeGroupesClients);
+
+	console.log("----------- SIMULATEUR ----------------------------------");
+	console.log("Simulation dans un groupe dédié: ", param.simulatorInAseperateGroup);
+	console.log("Tempo max simulateur en ms:", param.tempoMax);
+	console.log("Tempo min simulateur en ms:", param.tempoMin);
+	console.log("Limite de durée d'attente en pulsations :", param.limiteDureeAttente);
+
+	console.log("----------- RESEAU --------------------------------------");
+	console.log("Port OUT OSC pour MIDI:", ipConfig.OutPortOSCMIDItoDAW, 	"IP:", ipConfig.remoteIPAddressSound); // DAW ou Processing
+	console.log("Port IN  OSC pour MIDI:", ipConfig.InPortOSCMIDIfromDAW, 	"IP:", ipConfig.remoteIPAddressSound); // DAW ou Processing
+	console.log("Port IN  OSC pour M4L :", ipConfig.portOSCFromAbleton,		"IP:", ipConfig.remoteIPAddressAbleton); // Pour M4L
+	//console.log("Port OUT OSC pour Jeu :", ipConfig.portOSCToGame, "IP:", ipConfig.remoteIPAdressGame);
+	//console.log("Port IN  OSC pour Jeu :", ipConfig.portOSCFromGame, "IP:", ipConfig.remoteIPAdressGame);
+	console.log("Port IN  OSC pour QLC :", ipConfig.inportLumiere, 		"IP:", ipConfig.remoteIPAddressLumiere);
+	console.log("Port OUT OSC pour QLC :", ipConfig.outportLumiere, 	"IP:", ipConfig.remoteIPAddressLumiere);
+	console.log("Port OUT pour Visu    :", ipConfig.outportProcessing, 	"IP:", ipConfig.remoteIPAddressImage);
+	console.log("Port OUT seq. distrib.:", ipConfig.distribSequencerPort, "IP:", ipConfig.remoteIPAddressSound); // Processing
+	console.log( "Serveur HTTP port:", ipConfig.webserveurPort, 		"IP:", ipConfig.serverIPAddress);
+	console.log( "Serveur WS port:", ipConfig.websocketServeurPort, 	"IP:", ipConfig.serverIPAddress);
+	if( ipConfig.serverIPAddressPublic !== undefined){
+		console.log( "Serveur publique HTTP et Websocket IP:", ipConfig.serverIPAddressPublic);
+	}else{
+		console.log( "Serveur pas accessible depuis Internet");
+	}
+	console.log("=========================================================");
+}
+
+
 
 oscReceiveDAW.midimix(machineServeur,ws);
 
@@ -64,8 +112,8 @@ app.get('/skini', function(req, res) {
 var port = ipConfig.webserveurPort;
 var addressServer = ipConfig.serverIPAddress;
 app.listen(port, () => {
-  console.log(`app listening at http://${addressServer}:${port}`);
+  console.log(`INFO: Skini listening at http://${addressServer}:${port}`);
 });
 
-
+displayContext(par,ipConfig);
 

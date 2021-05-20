@@ -53,13 +53,10 @@ AUTOMATE
 // Les fichiers Hiphop que décrivent les trajets
 // Les signaux à utiliser dans ces programmes sont décrirs dans groupeDesSons
 
-exports.automate1 = './autoTrouveLaPercu-1';
-exports.automate2 = '';
-exports.automate3 = '';
+//exports.automate1 = './autoTrouveLaPercu-1';
 
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
 exports.canBeReloaded = true;
-
 exports.reactOnPlay = false;
 
 /************************************
@@ -77,8 +74,6 @@ de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
 exports.soundFilesPath1 = "trouveLaPercu";
-exports.soundFilesPath2 = "";
-exports.soundFilesPath3 = "";
 
 /***************************************
 CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
@@ -86,8 +81,6 @@ CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
 exports.avecMusicien = false; // Pour mettre en place les spécificités au jeu avec des musiciens.
 exports.decalageFIFOavecMusicien = 4; // Décalage de la FIFO vide avant le premier pattern dans une FIFO.
 exports.patternScorePath1 = "trouveLaPercu";
-exports.patternScorePath2 = "";
-exports.patternScorePath3 = "";
 
 /*****************************************************************************
 

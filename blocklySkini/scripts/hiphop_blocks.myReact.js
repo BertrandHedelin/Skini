@@ -34,7 +34,7 @@ function isInList(val, liste){
 
 /******************************************************************************
 
- Créer une liste d'au maximum index éléments à partir d'une liste de départ
+ Créer une liste d'au maximum index éléments àa partir d'une liste de départ
 
 *******************************************************************************/
 function createRandomListe(index, liste){
@@ -69,9 +69,169 @@ function createRandomListe(index, liste){
 
 /**************************
 
- Les blocks
+ Les blocks myReact
 
 ***************************/
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "sustain",
+  "message0": "sustain %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "sustain",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['sustain'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+
+  // Ceci n'est pas beau, mais on utilise des mécanismes pour la génération de code JS 
+  // Nous allons retouver ce travail de filtrage assez souvent.
+  // Dans le cas du développement d'un générteur propore à HH, ce sera au pire inutile
+  // mais ne devrait pas poser de problème.
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+
+  var code = 'sustain '+ value + '();\n';
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "emit_value",
+  "message0": "emit signal %1 with value %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "Signal_Value",
+      "value": 0
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "Emit",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['emit_value'] = function(block) {
+  var number_signal_value = block.getFieldValue('Signal_Value');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+  var code = '\nmr._emit("'+ value + '",' + number_signal_value + '),';
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "await_do",
+  "message0": "await_do %1 count %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "Signal_Value",
+      "value": 0
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await_do",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['await_do'] = function(block) {
+  var number_signal_value = block.getFieldValue('Signal_Value');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+  var code = '\nmr._await_do("'+ value + '",' + number_signal_value + `,() => {console.log("await do ->` + value + `"); return true;}),`;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "await_immediate",
+  "message0": "await immediate %1 ",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 15,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['await_immediate'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'/g, "");
+  var code = 'await immediate (' + value + '.now);\n';
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "wait_for",
+  "message0": "wait for %1 signal %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "await",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['wait_for'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES'); 
+  var code = `mr._await("` + value + `", `+ times + `),\n`;
+  return code;
+};
 
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
@@ -120,7 +280,6 @@ Blockly.JavaScript['wait_for_signal_in_group'] = function(block) {
   return code;
 };
 
-// Pour mémoire à passer en HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "await",
@@ -200,7 +359,38 @@ Blockly.JavaScript['await_pattern'] = function(block) {
   return code;
 };
 
-// Pour mémoire, à passer en HH node
+Blockly.defineBlocksWithJsonArray([
+{
+ "type": "fork_body",
+  "message0": "fork %1 par %2",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "fork"
+    },
+    {
+      "type": "input_statement",
+      "name": "par"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "fork",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['fork_body'] = function(block) {
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'fork');
+  console.log("statements fork :\n", statements_name);
+  var statements_name2 = Blockly.JavaScript.statementToCode(block, 'par');
+  console.log("statements par :\n", statements_name2);
+
+  var code = 'fork{\n' + statements_name + '}par{\n' + statements_name2 + '}\n';
+  return code;
+};
+
 Blockly.defineBlocksWithJsonArray([
 {
  "type": "random_body",
@@ -248,7 +438,6 @@ Blockly.JavaScript['random_body'] = function(block) {
   return code;
 };
 
-// Pour mémoire à passer en HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "random_block",
@@ -287,6 +476,309 @@ Blockly.JavaScript['random_block'] = function(block) {
     ` + statements_name + `
   }
   `
+  return code;
+};
+
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "seq_body",
+  "message0": "seq %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['seq_body'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de seq
+  mr._seq(
+    [`+ statements_body +`]
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "par_body",
+  "message0": "par %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "par",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['par_body'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de par
+  mr._par(
+    [`+ statements_body +`]
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "branch_body",
+  "message0": "body %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['branch_body'] = function(block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de body
+  [`+ statements_body +`
+  ],
+  `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "declare_signal",
+  "message0": "create signal %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "signal",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "signal",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['declare_signal'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+
+  var code = `mr.createSignal("` + value + `");\n`;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "count_signal",
+  "message0": "count %1 %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "count",
+      "value": 1
+    },
+    {
+      "type": "input_value",
+      "name": "signal",
+      "check": "String"
+    }
+  ],
+  "inputsInline": false,
+  //"previousStatement": null,
+  //"nextStatement": null,
+  "output": null,
+  "colour": 15,
+  "tooltip": "signal",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['count_signal'] = function(block) {
+  var number_count = block.getFieldValue('count');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
+  // On récupère un block "text" de Blockly avec des "" à supprimer
+  let value = value_signal.replace(/\(|\)|\'/g, "");
+  var code = ' count ('+ number_count + ',' + value + ')';
+  //return code;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "nowval",
+  "message0": "nowval %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "signal",
+      "check": "String"
+    }
+  ],
+  "inputsInline": false,
+  "output": null,
+  "colour": 15,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['nowval'] = function(block) {
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'signal', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = value_signal.replace(/\'/g, "") + ".nowval";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "orchestration",
+  "message0": "Orch. %1 %2 Sig. %3 Body %4 ",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "trajet",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "SIGNALS"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  //"previousStatement": null,
+  //"nextStatement": null,
+  "colour": 240,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+// NodeSkini
+Blockly.JavaScript['orchestration'] = function(block) {
+  var number_trajet = block.getFieldValue('trajet');
+  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
+
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  var mr = require("./myReact.min.js");
+  ` + statements_signals + `
+  var instructions = [` + statements_body + `];
+
+  var prog = mr.createModule(instructions);
+
+  console.log(" 1 ----------------");
+  mr.runProg(prog);
+
+  console.log(" 2 ----------------");
+  mr.runProg(prog);
+
+  mr.printProgram(prog, false);
+  `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "module_myReact",
+  "message0": "module %1 %2",
+  "args0": [
+     {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['module_myReact'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  let value = value_name.replace(/\'|\(|\)/g, "");
+
+  var code = `
+  // Debut de module
+  ` + value + ` = [
+    `+ statements_body +`
+  ];
+  `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "run_module",
+  "message0": "run %1",
+  "args0": [
+     {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['run_module'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_name.replace(/\'|\(|\)/g, "");
+
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  var code = `
+  // Debut de run module
+    mr._run(`+ value +`),
+  `;
   return code;
 };
 
@@ -1528,6 +2020,51 @@ Blockly.JavaScript['unset_group'] = function(block) {
   return code;
 };
 
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "loop_body",
+  "message0": "loop %1",
+  "args0": [
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 250,
+  "tooltip": "loop",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['loop_body'] = function(block) {
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  console.log("statements loop:\n", statements_name);
+  var code = 'mr._loop( [' + statements_name + ']),\n';
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "yield",
+  "lastDummyAlign0": "CENTRE",
+  "message0": "yield",
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "yield",
+  "helpUrl": "yield"
+}
+]);
+
+Blockly.JavaScript['yield'] = function(block) {
+  var code = 'yield;\n';
+  return code;
+};
+
 // Revu node HH
 Blockly.defineBlocksWithJsonArray([
 {
@@ -1586,6 +2123,51 @@ hh.EVERY(
 `+ statements_body +`
 ),
 `;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "abort",
+  "message0": "abort %1 signal %2 do %3",
+  "args0": [
+     {
+      "type": "field_number",
+      "name": "TIMES",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "SIGNAL",
+      "check": "String"
+    },
+    {
+      "type": "input_statement",
+      "name": "BODY"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180,
+  "tooltip": "seq",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['abort'] = function(block) {
+  let times = block.getFieldValue('TIMES');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+
+  var code = `
+  // Debut de abort
+  mr._abort("` + value + `",` + times + `,
+    [`+ statements_body +`]
+  ),
+  `;
   return code;
 };
 
@@ -1838,6 +2420,32 @@ Blockly.JavaScript['JS_statement'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   //let value = value_signal.replace(/\'/g, "");
   var code = 'hop{\n' + statements_name + '}\n';
+  return code;
+};
+
+//NodeSkini
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "print_serveur",
+  "message0": "print %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "TEXT",
+      "check": "String"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 160,
+  "tooltip": "print_serveur",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['print_serveur'] = function(block) {
+  var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = '\nmr._atom( ()=> {console.log(' + value_text + ');} ),\n';
   return code;
 };
 
@@ -3128,7 +3736,7 @@ var debug = false;
 var debug1 = true;
 
 function setServ(ser, daw, groupeCS){
-  //console.log("hh_ORCHESTRATION: setServ");
+  console.log("setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -3236,6 +3844,17 @@ var orchestration = hh.MODULE(
         {"%location":{},"%tag":"fork"},
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              console.log("Début en attente d\'abort");
+              tickCounter = 0;
+            }
+          }
+        ),
+
         ` + statements_body + `
         ),
         hh.SEQUENCE(

@@ -84,7 +84,7 @@ Pour les broadcasts
 
 ============================================================================*/
 function initBroadCastServer(serveur) {
-  if(debug1) console.log("groupecliensSons: initBroadCastServer ");
+  if(debug) console.log("groupecliensSons: initBroadCastServer ");
   serv = serveur;
 }
 exports.initBroadCastServer = initBroadCastServer;
@@ -239,6 +239,7 @@ function testGCS(text){
 exports.testGCS = testGCS;
 
 function getTimerDivision() {
+	if(debug) console.log("groupecliensSons: getTimerDivision:", timerDivision);
 	return timerDivision;
 }
 exports.getTimerDivision = getTimerDivision;
@@ -387,7 +388,7 @@ function informSelecteurOnMenuChange(groupe, sons, status) {
 		status : status
 	};
 	// Informe les selecteurs et simulateurs
-	if(debug1) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
+	if(debug) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
 
 	if(serv !== undefined){
 		serv.broadcast(JSON.stringify(message));
@@ -429,7 +430,7 @@ for ( var i=0; i < groupesClient.length; i++) {
 }
 
 function putIdInGroupClient(id, groupe) {
-	if(debug1) console.log("groupecliensSons:", id, groupe);
+	if(debug) console.log("groupecliensSons:", id, groupe);
 	groupesClient[groupe].push(id);
 
 // Test de broadcast
@@ -520,7 +521,7 @@ function getGroupeSons(signal) {
 
 	var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
-	if (debug1) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
+	if (debug) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
 	for (var i = 0; i < nbeDeGroupesSons ; i++) {
 		if  ( groupesSon[i][0] === undefined) {
@@ -731,18 +732,18 @@ function makeSignalsListeners(machine){
 	for (var i=0; i < par.groupesDesSons.length; i++) {
 		var signal = par.groupesDesSons[i][0] + "OUT";
 
-		if (debug1) console.log("Addeventlisterner:signal:",signal);
+		if (debug) console.log("Addeventlisterner:signal:",signal);
 
 		machine.addEventListener( signal , function(evt) {
 			// Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-			if (debug1) console.log("groupeClientSons: listerner:signal:",evt.signalName);
+			if (debug) console.log("groupeClientSons: listerner:signal:",evt.signalName);
 
 			var groupeSonLocal = getGroupeSons(evt.signalName);
 			if (groupeSonLocal == -1) {
 				console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:",evt.signalName);
 				return;
 			}
-			if (debug1) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
+			if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
 				"signalName:", evt.signalName,
 				"groupeClientsNo:", evt.signalValue[1],
 				"statut:", evt.signalValue[0],

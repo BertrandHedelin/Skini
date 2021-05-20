@@ -138,7 +138,7 @@ function loadDAWTable(fichier) {
         }
 
         //*****************************
-        if(debug1) console.log("ControleDAW.js: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
+        if(debug1) console.log("INFO: ControleDAW.js: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
         // On convertit l'index issu de la config des pattern en nombre de FIFO
         nombreInstruments++;
         filesDattente = new Array(nombreInstruments);
@@ -152,8 +152,8 @@ function loadDAWTable(fichier) {
           filesDattente[i] = [];
         }
 
-        if(debug1) console.log("controleDAW.js: loadDAWTable: Lecture une ligne de: ", fichier, tableDesCommandes[0] );
-        if(debug1) console.log("ControleDAW.js: loadDAWTable: Nbe de files d'attente: ", nbeDeFileDattentes);
+        if(debug) console.log("controleDAW.js: loadDAWTable: Lecture une ligne de: ", fichier, tableDesCommandes[0] );
+        if(debug) console.log("ControleDAW.js: loadDAWTable: Nbe de files d'attente: ", nbeDeFileDattentes);
         if(debug) console.log("ControleDAW.js: filesDattenteJouables: ", filesDattenteJouables);
 
         //*****************************
@@ -413,10 +413,16 @@ var compteurTest = 0; // Pour controler la transmission depuis les clients, on l
 var laClef;
 var leSignal;
 var emptyQueueSignal;
+var timerDivisionLocal;
 
 function playAndShiftEventDAW(timerDivision) {
   var commandeDAW;
   var messageLog = { date: "" };
+
+  // Contournement d'un pb de timerDivision parfois undefined sans raison apparente
+  if(timerDivision !== undefined){
+    timerDivisionLocal = timerDivision;
+  }
 
   if(debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if ( filesDattente === undefined ) return; // Protection
@@ -471,7 +477,10 @@ function playAndShiftEventDAW(timerDivision) {
             //Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
           }
 
-          if(commandeDAW[6] % timerDivision !== 0) console.log("WARN: controleDAW.js: playAndShiftEventDAW: le pattern", commandeDAW[7], " a une durée qui n'est pas un multiple de timer division");
+          if(commandeDAW[6] % timerDivisionLocal !== 0) {
+            console.log("WARN: controleDAW.js: playAndShiftEventDAW: pattern",
+              commandeDAW[7], " a une durée non multiple de timer division:", timerDivision, ":", commandeDAW[6] );
+          }
           if(debug) console.log("---2 ControleDAW.js:sendNoteOnDAW:", commandeDAW[7]);
 
           // Via OSC on perd les accents, donc on passe pas une WebSocket
@@ -542,11 +551,11 @@ function playAndShiftEventDAW(timerDivision) {
   // Dans la file d'attente la durée du pattern devient le temps d'attente en fonction de la durée du tick.
   // C'est une façon de gérer des patterns plus longs que le tick.
   for (var i=0; i < compteursDattente.length ; i++) {
-    if(avecMusicien && decalageFIFOavecMusicien < timerDivision){
+    if(avecMusicien && decalageFIFOavecMusicien < timerDivisionLocal){
       console.log("ERR: Le décalage pour musicien doit être un multiple de timerDivision !");
     }
-    if( compteursDattente[i] >= timerDivision){
-      compteursDattente[i] -= timerDivision;
+    if( compteursDattente[i] >= timerDivisionLocal){
+      compteursDattente[i] -= timerDivisionLocal;
     }
   }
   if(debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivision);

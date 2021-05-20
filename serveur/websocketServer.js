@@ -16,6 +16,7 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 var compScore = require('./computeScore');
 
 var generatedDir = "./myReact/"
+var defaultOrchestrationName = "orchestrationHH.js"
 
 const tripleCrocheTR = 2;
 const tripleCrocheR = 3;
@@ -201,13 +202,16 @@ function receivedTickFromDaw(){
 	if(par.pulsationON ){
 		reactAutomatePossible( { pulsation:  undefined } );
 	}
-
-
 	// La remise à jour de la durée des patterns est possible depuis les automates.
 	// Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
 	// donnée dans le fichier de config de la pièce. (compatibilté ascendante)
-	if (groupesClientSon.getTimerDivision() !== undefined){
-		timerDivision = groupesClientSon.getTimerDivision();
+	var timerLocal = groupesClientSon.getTimerDivision();
+	if(debug) console.log("websocketserver : receivedTickFromDaw:timerLocal:", timerLocal);
+
+	if (timerLocal !== undefined){
+		timerDivision = timerLocal;
+	}else{
+		//console.log("WARN: websocketServer: receivedTickFromDaw: timerDivision undefined");
 	}
 
     //offsetDivision = timerDivision/2;
@@ -255,7 +259,7 @@ if(par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined)
 
 function initMatriceDesPossibles(DAWState) {
 
-	if (debug1) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState );
+	if (debug) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState );
 
 	if ( DAWState == 0 ) {
 		if (debug) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState à 0" );
@@ -292,6 +296,9 @@ function actionOnTick(timerDivision) {
 		console.log("WARN: websocketserver: actionOnTick: automate not ready");
 		return false;
 	}
+
+	if(timerDivision == undefined) console.log("WARN:websocketServer:actionOnTick:timerDivision undefined")
+
 	DAW.playAndShiftEventDAW(timerDivision);
 	DAW.displayQueues();
 	return true;
@@ -342,7 +349,7 @@ serv.on('connection', function (ws) {
 	var listClips;
 
 	// Pour informer que l'on est bien connecté
-	if (debug1) console.log( "Web Socket Server: connection established:");
+	if (debug1) console.log( "INFO: Web Socket Server: connection established:");
 	var msg = {
 	    type: "message",
 		value: "Bienvenue chez Skini !"
@@ -409,7 +416,7 @@ serv.on('connection', function (ws) {
 		if (par.reactOnPlay === undefined){
 			reactAutomatePossible( signalComplet );
 		} else if (!par.reactOnPlay){
-			if(debug1) console.log("websocketServeur: pushClipDAW: reactAutomatePossible:", signalComplet);
+			if(debug) console.log("websocketServeur: pushClipDAW: reactAutomatePossible:", signalComplet);
 			reactAutomatePossible( signalComplet );
 		}
 		if (debug) console.log("Web Socket Server.js : pushClipDAW :nom ", nom, " pseudo: ", pseudo);
@@ -729,7 +736,7 @@ serv.on('connection', function (ws) {
 				  console.error(err);
 				  return;
 				}
-				console.log(data);
+				if(debug) console.log(data);
 				var msg = {
 			  		type: "blocksLoaded",
 			  		data: data,
@@ -799,11 +806,13 @@ serv.on('connection', function (ws) {
 			break;
 
 		case "saveBlocklyGeneratedFile":
-			if(debug1) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName , "\n--------------------");
-			if(debug1) console.log(msgRecu.text);
-			fs.writeFile(generatedDir + msgRecu.fileName + ".js", msgRecu.text, function (err) {
+			if(debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName , "\n--------------------");
+			if(debug) console.log(msgRecu.text);
+			//fs.writeFile(generatedDir + msgRecu.fileName + ".js", msgRecu.text, function (err) {
+			fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
 			  if (err) return console.log(err);
-			  console.log(msgRecu.fileName + ".js", " written");
+			  //console.log(msgRecu.fileName + ".js", " written");
+			  console.log(defaultOrchestrationName, " written");
 			});
 
 			fs.writeFile(generatedDir + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
@@ -854,7 +863,7 @@ serv.on('connection', function (ws) {
 					}
 					ws.send(JSON.stringify(msg));
 				}
-				if(debug1) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
+				if(debug) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
 				playPattern(msgRecu.pseudo, msgRecu.groupe, pattern, msgRecu.idClient);
 			}
 
@@ -921,7 +930,7 @@ serv.on('connection', function (ws) {
 
 		case "startAutomate": // Lance l'automate orchestrateur de la matrice des possibles
 			if (DAWTableReady) {
-				if (debug1) console.log("webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
+				if (debug) console.log("INFO: webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
 				reactAutomatePossible(  { start:  undefined } );
  				if (!par.synchoOnMidiClock) setMonTimer();
  			}
@@ -952,12 +961,12 @@ serv.on('connection', function (ws) {
 			//timeToPlay = msgRecu.date; // On initialise l'heure venu du client.
 			//testLatence(ws);
 
-			if(debug1) console.log("websocketserbeur: startSpectateur: ", msgRecu.id);
+			if(debug1) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 
 			// On ne permet donc qu'un seul controleur.
 			// Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.
 			if ( msgRecu.text === "controleur") {
-				if (debug1) console.log("webSocketServeur: startSpectateur: un controleur connecté");
+				if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un controleur connecté");
 				socketControleur = ws;
 				groupesClientSon.setSocketControleur(ws);
 				initMatriceDesPossibles(DAWStatus);
