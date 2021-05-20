@@ -1112,6 +1112,7 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// Revu HH Node, 
 Blockly.JavaScript['random_tank'] = function(block) {
   let number_of_tanks = block.getFieldValue('number_of_tanks'); 
   let times = block.getFieldValue('number_of_ticks'); 
@@ -1126,28 +1127,132 @@ Blockly.JavaScript['random_tank'] = function(block) {
   var listTanks = createRandomListe(number_of_tanks,listeStrings);
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
 
-  let code = "signal stop" + varRandom + ";\n";
-  code += "trap" + varRandom + ":{ \n"
-  code += `hop{console.log("--- RESERVOIRS SELECTIONNES AUTOMATIQUEMENT: ` + listTanks + `");}`;
-  code += `
-  fork{
-    `+ "run ${" + listTanks[0] + `}(..., stopReservoir as stop` + varRandom + `);
-  }`;
+// A part l'appel a createRandomList ci-dessus c'est exactement la même chose qu'open_tank
 
-  for(var i=1; i < listTanks.length; i++){
-    code += `
-  par{
-    `+ "run ${" + listTanks[i] + `}(..., stopReservoir as stop` + varRandom + `);
+  var code = `
+hh.LOCAL(
+  {
+    "%location":{},
+    "%tag":"signal"
+  },
+  hh.SIGNAL({
+    "name":"stop` + varRandom + `"
+  }),
+`;
+
+  code += `
+    hh.TRAP(
+      {
+        "trap`+ varRandom + `":"trap`+ varRandom + `",
+        "%location":{},
+        "%tag":"trap`+ varRandom + `"
+      },
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE( // sequence 1
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },`;
+
+  for(var i=0; i < listTanks.length; i++){
+    var theTank = listTanks[i].replace(/ /g, "");
+      code +=
+        ` 
+            hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.RUN(
+                {
+                  "%location":{"filename":"","pos":1},
+                  "%tag":"run",
+                  "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+                  "autocomplete":true,
+                  "stopReservoir":"stop` + varRandom + `"
+                }
+              ),
+            ),
+            `;
   }
-  `
-  }
-  code += "par{\n";
-  code += "    await count (" + times + "," + "tick.now);\n";
-  code += "    emit stop" + varRandom + "();\n";
-  code += "    break trap" + varRandom + ";\n";
-  code += "  }\n";
-  code += "}\n";
-  code += "yield;\n";
+  code +=
+        ` 
+        )
+      ),
+      hh.SEQUENCE(
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+        hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const tick =this["tick"];
+                return tick.now;})());},
+              "countapply":function (){return `+ times +`;}
+          },
+          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+        ),
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            //"stopReservoir":"stopReservoir",
+            "stop` + varRandom + `" : "stop` + varRandom + `",
+            "apply":function (){
+              return ((() => {
+                //const stopReservoir = this["stopReservoir"];
+                const stop` + varRandom + ` = this["stop` + varRandom + `"];
+                return 0;
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            //"signame":"stopReservoir",
+            "signame":"stop` + varRandom + `",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ), // Fin emit
+
+        hh.PAUSE(
+          {
+            "%location":{},
+            "%tag":"yield"
+          }
+        ),
+
+        hh.EXIT(
+        {
+          "trap` + varRandom + `":"trap` + varRandom + `",
+          "%location":{},
+          "%tag":"break"
+        }), // Exit
+      ) // sequence
+    ), // fork
+  ), // trap
+
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  )
+),
+`;
   return code;
 };
 
@@ -1508,6 +1613,7 @@ Blockly.JavaScript['cleanqueues'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "stopTanks",
@@ -1521,7 +1627,21 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['stopTanks'] = function(block) {
-  var code = 'emit stopReservoir();\n';
+  var code = `
+hh.EMIT(
+  {
+    "%location":{},
+    "%tag":"emit",
+    "stopReservoir":"stopReservoir",
+    "apply":function (){
+      return ((() => {
+        const stopReservoir = this["stopReservoir"];
+        return 0;
+      })());
+    }
+  },
+),
+`;
   return code;
 };
 
@@ -2979,35 +3099,52 @@ hh.LOCAL(
 `;
 
   code += `
+    hh.TRAP(
+      {
+        "trap`+ varRandom + `":"trap`+ varRandom + `",
+        "%location":{},
+        "%tag":"trap`+ varRandom + `"
+      },
       hh.FORK(
         {
           "%location":{},
           "%tag":"fork"
         },
-        hh.SEQUENCE(
+        hh.SEQUENCE( // sequence 1
           {
             "%location":{},
             "%tag":"seq"
           },
-`;
+          hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },`;
 
   for(var i=0; i < listTanks.length; i++){
     var theTank = listTanks[i].replace(/ /g, "");
       code +=
         ` 
-        hh.RUN(
-          {
-            "%location":{"filename":"","pos":1},
-            "%tag":"run",
-            "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
-            "autocomplete":true,
-            "stopReservoir":"stop` + varRandom + `"
-          }
-        ),
-        `;
+            hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.RUN(
+                {
+                  "%location":{"filename":"","pos":1},
+                  "%tag":"run",
+                  "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+                  "autocomplete":true,
+                  "stopReservoir":"stop` + varRandom + `"
+                }
+              ),
+            ),
+            `;
   }
   code +=
         ` 
+        )
       ),
       hh.SEQUENCE(
         {
@@ -3043,14 +3180,29 @@ hh.LOCAL(
           hh.SIGACCESS({
             //"signame":"stopReservoir",
             "signame":"stop` + varRandom + `",
-            
             "pre":true,
             "val":true,
             "cnt":false
           })
         ), // Fin emit
-      )
-    ),
+
+        hh.PAUSE(
+          {
+            "%location":{},
+            "%tag":"yield"
+          }
+        ),
+
+        hh.EXIT(
+        {
+          "trap` + varRandom + `":"trap` + varRandom + `",
+          "%location":{},
+          "%tag":"break"
+        }), // Exit
+      ) // sequence
+    ), // fork
+  ), // trap
+
   hh.PAUSE(
     {
       "%location":{},
@@ -3217,6 +3369,7 @@ hh.LOCAL(
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "run_tank_waiting_for_patterns",
@@ -3251,24 +3404,139 @@ Blockly.JavaScript['run_tank_waiting_for_patterns'] = function(block) {
 
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
 
-  //let code = 'hop{console.log: (\" open_tank: tank \",' + tank + ",\" time:\", " + times + ",\" signal\", " + signal + ");}\n" ;
-  let code = "signal stop" + varRandom + ";\n";
-  code += "trap" + varRandom + ":{ \n"
-  code += "  fork{\n";
+ var code = `
+hh.LOCAL(
+  {
+    "%location":{},
+    "%tag":"signal"
+  },
+  hh.SIGNAL({
+    "name":"stop` + varRandom + `"
+  }),
+`;
+
+  code += `
+    hh.TRAP(
+      {
+        "trap`+ varRandom + `":"trap`+ varRandom + `",
+        "%location":{},
+        "%tag":"trap`+ varRandom + `"
+      },
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE( // sequence 1
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },`;
+
   for(var i=0; i < listTanks.length; i++){
-    code += "run ${" + listTanks[i] + "}(..., stopReservoir as stop" + varRandom + ");\n";
+    var theTank = listTanks[i].replace(/ /g, "");
+      code +=
+        ` 
+            hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.RUN(
+                {
+                  "%location":{"filename":"","pos":1},
+                  "%tag":"run",
+                  "module": hh.getModule("`+ listTanks[i] +`", {"filename":"","pos":2}),
+                  "autocomplete":true,
+                  "stopReservoir":"stop` + varRandom + `"
+                }
+              ),
+            ),
+            `;
   }
-  code += "  }par{\n"
-  code += "  await (patternSignal.now && (patternSignal.nowval[1] === " + in_patterns_list[0] + "));\n"
-  for(var i=1; i < in_patterns_list.length; i++){
-    code += "  }par{"
-    code += "await (patternSignal.now && (patternSignal.nowval[1] === " + in_patterns_list[i] + "));\n"
-  }
-  code += "}\n";
-  code += "  emit stop" + varRandom + "();\n"
-  code += "  break trap" + varRandom + ";\n";
-  code += "}\n";
-  code += "yield;\n";
+  code +=
+        ` 
+        )
+      ),
+      hh.SEQUENCE(
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+        hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+`;
+    for(var i=0; i < in_patterns_list.length; i++){
+      code +=`
+              hh.AWAIT(
+                {"%location":{},
+                "%tag":"await","immediate":false,
+                "apply":function (){
+                    return ((() => {
+                      const patternSignal=this["patternSignal"];
+                      return patternSignal.now && (patternSignal.nowval[1] === ` + in_patterns_list[i] + `);
+                    })());
+                  }
+                },
+                hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
+              ),`;
+    }
+    code += 
+        `
+        ), // fin fork
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "stop` + varRandom + `" : "stop` + varRandom + `",
+            "apply":function (){
+              return ((() => {
+                const stop` + varRandom + ` = this["stop` + varRandom + `"];
+                return 0;
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame":"stop` + varRandom + `",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ), // Fin emit
+
+        hh.PAUSE(
+          {
+            "%location":{},
+            "%tag":"yield"
+          }
+        ),
+
+        hh.EXIT(
+        {
+          "trap` + varRandom + `":"trap` + varRandom + `",
+          "%location":{},
+          "%tag":"break"
+        }), // Exit
+      ) // sequence
+    ), // fork
+  ), // trap
+
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  )
+),
+`;
   return code;
 };
 

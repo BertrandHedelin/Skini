@@ -1,4 +1,4 @@
-var halt, tankTest, moduleTest, groupe1, groupe2, groupe3, trap1, tick, stopReservoir, djembe;
+var tankTest, tankTest2, groupe1, groupe2, groupe3, moduleTest, groupe4, groupe5, trap1, tick, stopReservoir, halt, djembe;
 
 
 
@@ -411,6 +411,268 @@ exports.setSignals = setSignals;
     ) // Fin atom,
   ); // Fin module
 
+    // Module tank tankTest2 + groupe4
+    tankTest2 = hh.MODULE({"id":"tankTest2","%location":{},"%tag":"module"},
+    hh.SIGNAL({"%location":{},"direction":"IN", "name":"groupe4IN"}),
+      hh.SIGNAL({"%location":{},"direction":"IN", "name":"groupe5IN"}),
+      hh.SIGNAL({"%location":{},"direction":"OUT", "name":"groupe4OUT"}),
+      hh.SIGNAL({"%location":{},"direction":"OUT", "name":"groupe5OUT"}),
+      hh.SIGNAL({"%location":{},"direction":"IN", "name":"stopReservoir"}),
+    hh.TRAP(
+    {
+      "EXIT":"EXIT",
+      "%location":{},
+      "%tag":"EXIT"
+    },
+      hh.ABORT({
+        "%location":{},
+        "%tag":"abort",
+        "immediate":false,
+        "apply":function (){return ((() => {
+            const stopReservoir = this["stopReservoir"];
+            return stopReservoir.now;
+          })());
+        }
+      },
+        hh.SIGACCESS({
+           "signame":"stopReservoir",
+           "pre":false,
+           "val":false,
+           "cnt":false
+        }),
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+                console.log("-- MAKE RESERVOIR:", "groupe4" );
+                var msg = {
+                  type: 'startTank',
+                  value:  "groupe4"
+                }
+                serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "groupe4OUT":"groupe4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const groupe4 = this["groupe4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"groupe4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit groupe4OUT true
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+                console.log("-- makeReservoir:  atom:", "groupe4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "groupe4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "groupe5OUT":"groupe5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const groupe5 = this["groupe5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"groupe5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit groupe5OUT true
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+                console.log("-- makeReservoir:  atom:", "groupe5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "groupe5OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:groupe4
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+
+        hh.SEQUENCE( // Debut sequence pour groupe4
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const groupe4IN  =this["groupe4IN"];
+                  return groupe4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"groupe4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await groupe4IN
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe4OUT" : "groupe4OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe4OUT = this["groupe4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"groupe4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit groupe4OUT true
+        ) // Fin sequence pour groupe4
+  ,
+        hh.SEQUENCE( // Debut sequence pour groupe5
+        {
+          "%location":{},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const groupe5IN  =this["groupe5IN"];
+                  return groupe5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"groupe5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await groupe5IN
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe5OUT" : "groupe5OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe5OUT = this["groupe5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"groupe5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit groupe5OUT true
+        ) // Fin sequence pour groupe5
+      ), // Fin fork de make await avec en premiere position:groupe4
+      hh.EXIT(
+        {
+            "EXIT":"EXIT",
+            "%location":{},
+            "%tag":"break"
+        })
+      ) // Fin Abort
+    ), // Fin Trap
+
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    ),
+
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe4OUT":"groupe4OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe4 = this["groupe4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"groupe4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit groupe4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe5OUT":"groupe5OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe5 = this["groupe5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"groupe5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit groupe5OUT false
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+            gcs.informSelecteurOnMenuChange(255 , "groupe4", false);
+            console.log("--- FIN RESERVOIR:", "groupe4");
+            var msg = {
+            type: 'killTank',
+            value:  "groupe4"
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ) // Fin atom,
+  ); // Fin module
+
 
 var orchestration = hh.MODULE(
     {"id":"Orchestration","%location":{},"%tag":"module"},
@@ -515,113 +777,82 @@ var orchestration = hh.MODULE(
     }
   ),
 
-    hh.TRAP(
-    {
-      "trap1":"trap1",
-      "%location":{},
-      "%tag":"trap1"
-    },
+        hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
 
-          hh.FORK(
+
+          hh.SEQUENCE(
               {
                 "%location":{},
-                "%tag":"fork"
+                "%tag":"seq"
               },
 
 
-            hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
+      hh.RUN({
+          "%location":{"filename":"","pos":1},
+          "%tag":"run",
+          "module": hh.getModule("tankTest", {"filename":"","pos":2}),
+          "autocomplete":true
+        }),
 
-
-
-        hh.EVERY(
-          {
-              "%location":{},
-              "%tag":"every",
-              "immediate":false,
-              "apply": function (){return ((() => {
-                    const tick = this["tick"];
-                    return tick.now;
-              })());},
-              "countapply":function (){ return 1;}
-          },
-          hh.SIGACCESS({
-              "signame":"tick",
-              "pre":false,
-              "val":false,
-              "cnt":false
-          }),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {console.log('Every tick');}
-            }
-          ),
-
-        ),
-
-        ),
-
-            hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-
-
-        hh.AWAIT(
+      /*  hh.PAUSE(
           {
             "%location":{},
-            "%tag":"await",
-            "immediate":false,
-            "apply":function () {
-              return ((() => {
-                const tick=this["tick"];
-                return tick.now;
-              })());
-            },
-            "countapply":function (){ return 5;}
-          },
-          hh.SIGACCESS({
-            "signame":"tick",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          })
-        ),
+            "%tag":"yield"
+          }
+        ),*/
 
-          hh.EXIT(
-          {
-            "trap1":"trap1",
-            "%location":{},
-            "%tag":"break"
-          }),
-
-        ),
 
       ),
 
-  ),
+          hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
 
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {console.log('Fin trap');}
-    }
-  ),
 
-  hh.PAUSE(
-    {
-      "%location":{},
-      "%tag":"yield"
-    }
-  ),
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 5;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "stopReservoir":"stopReservoir",
+          "apply":function (){
+            return ((() => {
+              const stopReservoir = this["stopReservoir"];
+              return 0;
+            })());
+          }
+        },
+      ),
+
+      ),
+
+    ),
 
         ),
         hh.SEQUENCE(
@@ -659,5 +890,3 @@ var orchestration = hh.MODULE(
   )
 );
 exports.orchestration = orchestration;
-
-halt;
