@@ -840,6 +840,7 @@ Blockly.JavaScript['random_group'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_group_during_ticks",
@@ -873,39 +874,144 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['set_group_during_ticks'] = function(block) {
   let user_group = block.getFieldValue('user_group');
   let times = block.getFieldValue('number_of_ticks'); 
-  //let statements_name = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
-
   let statements_name = Blockly.JavaScript.valueToCode(block, 'GROUPS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
-  let value = statements_name.replace(/;\n/g, ""); //.split('=');
-
+  let value = statements_name.replace(/;\n/g, "");
   // Parsing nécessaire pour pouvoir utiliser des variables dans la liste
   // et pas des chaines de caractères
   let listGroups = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
 
-  let code = "trap" + varRandom + ":{ \n"
-  code += `hop{console.log("--- SET GROUPS : ` + listGroups + `");}`;
-  code += `
-  fork{`;
-  for(var i=0; i < listGroups.length; i++){
-    code += `  
-      emit ` + listGroups[i] + `OUT([true, ` + user_group + `]);
-      hop{ gcs.informSelecteurOnMenuChange(` + user_group + `," ` + listGroups[i] + `", true); };`;
-  }
-  code += "\n}par{\n";
-  code += "    await count (" + times + "," + "tick.now);\n";
-  for(var i=0; i < listGroups.length; i++){
-    code += `emit ` + listGroups[i] + `OUT([false, ` + user_group + `]);
-      hop{ gcs.informSelecteurOnMenuChange(` + user_group + `," ` + listGroups[i] + `", false); };
-      `;
-  }
-  code += "\n break trap" + varRandom + ";\n";
-  code += "  }\n";
-  code += "}\n";
-  code += "yield;\n";
-  return code;
+ 	var code = `
+    hh.TRAP(
+      {
+        "trap`+ varRandom + `":"trap`+ varRandom + `",
+        "%location":{},
+        "%tag":"trap`+ varRandom + `"
+      },
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE( // sequence 1
+          {
+            "%location":{},
+            "%tag":"seq"
+          },`;
+
+	for(var i=0; i < listGroups.length; i++){
+		var theGroup = listGroups[i].replace(/ /g, "");
+		code +=
+        ` 
+	        hh.EMIT(
+	          {
+	            "%location":{},
+	            "%tag":"emit",
+	            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
+	            "apply":function (){
+	              return ((() => {
+	                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
+	                return [true, ` + user_group + `];
+	              })());
+	            }
+	          },
+	          hh.SIGACCESS({
+	            "signame":"`+ theGroup + `OUT",
+	            "pre":true,
+	            "val":true,
+	            "cnt":false
+	          })
+	        ), // Fin emit
+		    hh.ATOM(
+		      {
+		      "%location":{},
+		      "%tag":"node",
+		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true); }
+		      }
+		 	),
+		`;
+	}
+	code += ` 
+      	), // fin sequence 1
+    	hh.SEQUENCE(
+	        {
+	          "%location":{},
+	          "%tag":"seq"
+	        },
+	        hh.AWAIT(
+	            {
+	              "%location":{},
+	              "%tag":"await",
+	              "immediate":false,
+	              "apply":function (){return ((() => {
+	                const tick =this["tick"];
+	                return tick.now;})());},
+	              "countapply":function (){return `+ times +`;}
+	          },
+	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+	        ),
+
+        `
+	for(var i=0; i < listGroups.length; i++){
+		var theGroup = listGroups[i].replace(/ /g, "");
+		code +=
+        ` 
+	        hh.EMIT(
+	          {
+	            "%location":{},
+	            "%tag":"emit",
+	            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
+	            "apply":function (){
+	              return ((() => {
+	                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
+	                return [false, ` + user_group + `];
+	              })());
+	            }
+	          },
+	          hh.SIGACCESS({
+	            "signame":"`+ theGroup + `OUT",
+	            "pre":true,
+	            "val":true,
+	            "cnt":false
+	          })
+	        ), // Fin emit
+		    hh.ATOM(
+		      {
+		      "%location":{},
+		      "%tag":"node",
+		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false); }
+		      }
+		 	),
+		`;
+ 	}
+ 		code += `
+	        hh.PAUSE(
+	          {
+	            "%location":{},
+	            "%tag":"yield"
+	          }
+	        ),
+	        hh.EXIT(
+		        {
+		          "trap` + varRandom + `":"trap` + varRandom + `",
+		          "%location":{},
+		          "%tag":"break"
+		        }
+	        ), // Exit
+	      ) // sequence
+    	), // fork
+  	), // trap
+	hh.PAUSE(
+	    {
+	      "%location":{},
+	      "%tag":"yield"
+	    }
+	),
+`;
+	return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "set_groups_during_patterns",
@@ -957,6 +1063,149 @@ Blockly.JavaScript['set_groups_during_patterns'] = function(block) {
 
   var varRandom = Math.floor((Math.random() * 1000000) + 1 );
 
+ 	var code = `
+    hh.TRAP(
+      {
+        "trap`+ varRandom + `":"trap`+ varRandom + `",
+        "%location":{},
+        "%tag":"trap`+ varRandom + `"
+      },
+      hh.FORK(
+        {
+          "%location":{},
+          "%tag":"fork"
+        },
+        hh.SEQUENCE( // sequence 1
+          {
+            "%location":{},
+            "%tag":"seq"
+          },`;
+
+	for(var i=0; i < listGroups.length; i++){
+		var theGroup = listGroups[i].replace(/ /g, "");
+		code +=
+        ` 
+	        hh.EMIT(
+	          {
+	            "%location":{},
+	            "%tag":"emit",
+	            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
+	            "apply":function (){
+	              return ((() => {
+	                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
+	                return [true, ` + user_group + `];
+	              })());
+	            }
+	          },
+	          hh.SIGACCESS({
+	            "signame":"`+ theGroup + `OUT",
+	            "pre":true,
+	            "val":true,
+	            "cnt":false
+	          })
+	        ), // Fin emit
+		    hh.ATOM(
+		      {
+		      "%location":{},
+		      "%tag":"node",
+		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true); }
+		      }
+		 	),
+		`;
+	}
+	code += ` 
+		), // fin sequence 1
+    	hh.SEQUENCE(
+	        {
+	          "%location":{},
+	          "%tag":"seq"
+	        },
+	        hh.AWAIT(
+	            {
+	              "%location":{},
+	              "%tag":"await",
+	              "immediate":false,
+	              "apply":function (){return ((() => {
+`
+	for(var i=0; i < in_listGroups.length; i++){
+		code += `                   const `+ in_listGroups[i] +`IN =this["`+ in_listGroups[i] +`IN"];
+`
+	};
+
+	code += `                 return ` + in_listGroups[0] +  `IN.now`;
+	for(var i=1; i < in_listGroups.length; i++){
+		code += ` || ` + in_listGroups[i] + `IN.now` ;
+	};
+
+ 	code += `;
+                })());},
+              "countapply":function (){return `+ number_of_patterns +`;}
+          },
+`
+	for(var i=0; i < in_listGroups.length; i++){
+		code += `             hh.SIGACCESS({"signame":"`+ in_listGroups[i] +`IN","pre":false,"val":false,"cnt":false}),
+`
+	};
+	code +=
+        ` 	),`;
+
+	for(var i=0; i < listGroups.length; i++){
+		var theGroup = listGroups[i].replace(/ /g, "");
+		code +=
+        `   hh.EMIT(
+	          {
+	            "%location":{},
+	            "%tag":"emit",
+	            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
+	            "apply":function (){
+	              return ((() => {
+	                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
+	                return [false, ` + user_group + `];
+	              })());
+	            }
+	          },
+	          hh.SIGACCESS({
+	            "signame":"`+ theGroup + `OUT",
+	            "pre":true,
+	            "val":true,
+	            "cnt":false
+	          })
+	        ), // Fin emit
+		    hh.ATOM(
+		      {
+		      "%location":{},
+		      "%tag":"node",
+		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false); }
+		      }
+		 	),
+		`;
+ 	}
+ 		code += `
+	        hh.PAUSE(
+	          {
+	            "%location":{},
+	            "%tag":"yield"
+	          }
+	        ),
+	        hh.EXIT(
+		        {
+		          "trap` + varRandom + `":"trap` + varRandom + `",
+		          "%location":{},
+		          "%tag":"break"
+		        }
+	        ), // Exit
+	      ) // sequence
+    	) // fork
+  	), // trap
+	hh.PAUSE(
+	    {
+	      "%location":{},
+	      "%tag":"yield"
+	    }
+	),
+`;
+
+/*
   let code = "trap" + varRandom + ":{ \n"
   code += `hop{console.log("--- SET GROUPS DURING PATTERNS : ` + listGroups + `");}`;
   code += `
@@ -983,7 +1232,7 @@ Blockly.JavaScript['set_groups_during_patterns'] = function(block) {
   code += "\n break trap" + varRandom + ";\n";
   code += "  }\n";
   code += "}\n";
-  code += "yield;\n";
+  code += "yield;\n";*/
   return code;
 };
 
@@ -1454,7 +1703,7 @@ Blockly.JavaScript['set_group'] = function(block) {
       "%tag":"node",
       "apply":function () { gcs.informSelecteurOnMenuChange(` + groupeClient +` , "` + listGroupes[i] + `OUT",true); }
       }
-  ),
+ 	),
   `
   }
   return code;
@@ -2245,6 +2494,7 @@ Blockly.JavaScript['cleanChoiceList'] = function(block) {
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "bestScore",
@@ -2268,17 +2518,44 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['bestScore'] = function(block) {
   var number_ticks = block.getFieldValue('ticks');
-  if(english){
     var code = `
-      hop {hop.broadcast('alertInfoScoreON', " N°1 " + gcs.getWinnerPseudo(0) + " with " + gcs.getWinnerScore(0) + " ");}
-      `;
-  }else{
-    var code = `
-      hop {hop.broadcast('alertInfoScoreON', " N°1 " + gcs.getWinnerPseudo(0) + " avec " + gcs.getWinnerScore(0) + " ");}
-      `;
-  }
-    code += `await count(` + number_ticks + `, tick.now);
-    hop {hop.broadcast('alertInfoScoreOFF');}
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function (){
+	    var msg = {
+	      type: 'alertInfoScoreON',
+	      value: " N°1 " + gcs.getWinnerPseudo(0) + " : " + gcs.getWinnerScore(0) + " "
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),
+	hh.AWAIT(
+		{
+		  "%location":{},
+		  "%tag":"await",
+		  "immediate":false,
+		  "apply":function (){return ((() => {
+		    const tick =this["tick"];
+		    return tick.now;})());},
+		  "countapply":function (){return `+ number_ticks +`;}
+		},
+		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+	),
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function () {
+	    var msg = {
+	      type: 'alertInfoScoreOFF',
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),
   `;
   return code;
 };
@@ -2304,24 +2581,71 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// Revu HH node
 Blockly.JavaScript['totalGameScore'] = function(block) {
-  var number_ticks = block.getFieldValue('ticks');
+ 	var number_ticks = block.getFieldValue('ticks');
+
     if(english){
-      var code = `
-        hop {hop.broadcast('alertInfoScoreON', " Total score for all " + gcs.getTotalGameScore() + " ");}
-        `;
+     	var code = `
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function (){
+	    var msg = {
+	      type: 'alertInfoScoreON',
+	      value: " Total score for all " + gcs.getTotalGameScore() + " "
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),`
     }else{
       var code = `
-        hop {hop.broadcast('alertInfoScoreON', " Total des points " + gcs.getTotalGameScore() + " ");}
-        `;
-    }
-    code += `
-    await count(` + number_ticks + `, tick.now);
-    hop {hop.broadcast('alertInfoScoreOFF');}
-  `;
-  return code;
+    hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function (){
+	    var msg = {
+	      type: 'alertInfoScoreON',
+	      value: " Total des points " + gcs.getTotalGameScore() + " "
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),`
+	}
+	code += `
+	hh.AWAIT(
+		{
+		  "%location":{},
+		  "%tag":"await",
+		  "immediate":false,
+		  "apply":function (){return ((() => {
+		    const tick =this["tick"];
+		    return tick.now;})());},
+		  "countapply":function (){return `+ number_ticks +`;}
+		},
+		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+	),
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function () {
+	    var msg = {
+	      type: 'alertInfoScoreOFF',
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),
+  	`;
+ 	return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "displayScore",
@@ -2350,37 +2674,90 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['displayScore'] = function(block) {
-  var value_rank = block.getFieldValue('rank');
-  value_rank--;
-  var code = '';
+	var value_rank = block.getFieldValue('rank');
+	var number_ticks = block.getFieldValue('ticks');
 
-  if( value_rank < 0 ){
-    value_rank = 0;
-    code +=  ` hop{ console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0"); }
+	value_rank--;
+	var code = '';
+
+	if( value_rank < 0 ){
+		value_rank = 0;
+		code +=  ` 
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function (){
+	  	console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
+	    }
+	  }
+	),
+	`;
+		}
+	    code +=  ` 
+	hh.ATOM(
+	{
+	"%location":{},
+	"%tag":"node",
+	"apply":function (){
+			var pseudoLoc = gcs.getWinnerPseudo(` + value_rank + `);
+			if ( pseudoLoc !== ''){`;
+		if(english){
+		    code += `
+			    var msg = {
+			    type: 'alertInfoScoreON',
+			    value:  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " with " + gcs.getWinnerScore(`+ value_rank + `) + " "
+			    }
+			    serveur.broadcast(JSON.stringify(msg));
+			`
+		}else{
+			code += `
+			    var msg = {
+			    type: 'alertInfoScoreON',
+			    value:  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " avec " + gcs.getWinnerScore(`+ value_rank + `) + " "
+			    }
+			    serveur.broadcast(JSON.stringify(msg));
+			`
+		}
+			code += `
+			}else{
+				console.log("WARN: hiphop_blocks.js: displayScore : no score for the rank ` + value_rank + `");
+			}
+		}
+	}
+	),
     `;
-  }
+		code += `
+	hh.AWAIT(
+		{
+		  "%location":{},
+		  "%tag":"await",
+		  "immediate":false,
+		  "apply":function (){return ((() => {
+		    const tick =this["tick"];
+		    return tick.now;})());},
+		  "countapply":function (){return `+ number_ticks +`;}
+		},
+		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+	),
+	hh.ATOM(
+	  {
+	  "%location":{},
+	  "%tag":"node",
+	  "apply":function () {
+	    var msg = {
+	      type: 'alertInfoScoreOFF',
+	    }
+	    serveur.broadcast(JSON.stringify(msg));
+	    }
+	  }
+	),
+  	`;
 
-  var number_ticks = block.getFieldValue('ticks');
-  code += `
-    hop {
-      var pseudoLoc = gcs.getWinnerPseudo(` + value_rank + `);
-      if ( pseudoLoc !== ''){`;
-  if(english){
-    code += `hop.broadcast('alertInfoScoreON',  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " with " + gcs.getWinnerScore(`+ value_rank + `) + " ");`;
-  }else{
-    code += `hop.broadcast('alertInfoScoreON',  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " avec " + gcs.getWinnerScore(`+ value_rank + `) + " ");`;
-  }
-  code += `
-      }else{
-        console.log("WARN: hiphop_blocks.js: displayScore : no score for the rank ` + value_rank + `");
-      }
-    }
-    await count(` + number_ticks + `, tick.now);
-    hop {hop.broadcast('alertInfoScoreOFF');}
-  `;
-  return code;
+ 	return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "displayScoreGroup",
@@ -2410,31 +2787,80 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['displayScoreGroup'] = function(block) {
   var value_rank = block.getFieldValue('rank');
+  var number_ticks = block.getFieldValue('ticks');
+
   value_rank--;
   var code = '';
 
-  if( value_rank < 0 ){
-    value_rank = 0;
-    code +=  ` hop{ console.log("WARN: hiphop_blocks.js: displayScoreGroup : rank from 1, not 0"); }
+	if( value_rank < 0 ){
+		value_rank = 0;
+		code +=  ` 
+	hh.ATOM(
+	  	{
+			"%location":{},
+			"%tag":"node",
+			"apply":function (){
+				console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
+	    	}
+		}
+	),
+	`;
+		}
+	    code +=  ` 
+	hh.ATOM(
+		{
+			"%location":{},
+			"%tag":"node",
+			"apply":function (){
+`;
+		if(english){
+		    code += `
+			    var msg = {
+				    type: 'alertInfoScoreON',
+				    value:   " Skini group N° " + ` + (value_rank + 1) + ` + " with " + gcs.getGroupScore(`+ value_rank + `) + " "
+			    }
+			    serveur.broadcast(JSON.stringify(msg));
+			`
+		}else{
+			code += `
+			    var msg = {
+				    type: 'alertInfoScoreON',
+				    value:  " Groupe Skini N° " + ` + (value_rank + 1) + ` + " avec " + gcs.getGroupScore(`+ value_rank + `) + " "
+			    }
+			    serveur.broadcast(JSON.stringify(msg));
+			`
+		}
+		code += `
+			}
+		}
+	),
     `;
-  }
-
-  var number_ticks = block.getFieldValue('ticks');
-  if(english){
-    code += `
-    hop {
-      hop.broadcast('alertInfoScoreON',  " Skini group N° " + ` + (value_rank + 1) + ` + " with " + gcs.getGroupScore(`+ value_rank + `) + " ");
-    }`;
-  }else{
-    code += `
-    hop {
-      hop.broadcast('alertInfoScoreON',  " Groupe Skini N° " + ` + (value_rank + 1) + ` + " avec " + gcs.getGroupScore(`+ value_rank + `) + " ");
-    }`;
-  }
-  code += `
-    await count(` + number_ticks + `, tick.now);
-    hop {hop.broadcast('alertInfoScoreOFF');}
-  `;
+		code += `
+	hh.AWAIT(
+		{
+		  "%location":{},
+		  "%tag":"await",
+		  "immediate":false,
+		  "apply":function (){return ((() => {
+		    const tick =this["tick"];
+		    return tick.now;})());},
+		  "countapply":function (){return `+ number_ticks +`;}
+		},
+		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+	),
+	hh.ATOM(
+		{
+			"%location":{},
+			"%tag":"node",
+			"apply":function () {
+				var msg = {
+				  type: 'alertInfoScoreOFF',
+				}
+				serveur.broadcast(JSON.stringify(msg));
+			}
+	 	}
+	),
+  	`;
   return code;
 };
 
@@ -2781,9 +3207,9 @@ hh.LOCAL(
 `
   };
 
-  code += `                 return ` + in_listGroups[0];
+  code += `                 return ` + in_listGroups[0] +`IN.now`;
   for(var i=1; i < in_listGroups.length; i++){
-    code += ` || ` + in_listGroups[i] ;
+    code += ` || ` + in_listGroups[i]  +`IN.now` ;
   };
 
   code += `;

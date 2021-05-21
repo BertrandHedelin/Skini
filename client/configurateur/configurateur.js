@@ -81,7 +81,7 @@ function initWSSocket(host) {
 	};
 
 	ws.onclose = function( event ) {
-	    console.log( "Client: websocket closed for :", id );
+	    console.log( "Client: websocket closed for :", index );
 	}
 
 	window.onbeforeunload = function () {

@@ -126,7 +126,8 @@ function initWSocket(host) {
 		switch(msgRecu.type) {
 
 			case "alertInfoScoreON":
-				$('#MessageDuServeur').text(msgRecu.text);
+				if (debug1) console.log("alertInfoScoreON:", msgRecu.value ); 
+				$('#MessageDuServeur').text(msgRecu.value);
 				break;
 
 			case "alertInfoScoreOFF":

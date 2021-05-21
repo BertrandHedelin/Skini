@@ -127,7 +127,8 @@ function initWSocket(host) {
 		switch(msgRecu.type) {
 
 			case "alertInfoScoreON":
-				$('#MessageDuServeur').text(msgRecu.text);
+				if (debug1) console.log("alertInfoScoreON:", msgRecu.value ); 
+				$('#MessageDuServeur').text(msgRecu.value);
 				break;
 
 			case "alertInfoScoreOFF":
@@ -1722,6 +1723,7 @@ function setSignal(instr, sig, activated){
 	for(var i=0; i < instr.length; i++){
 		if(instr[i].signal === sig){
 			instr[i].signalActivated = activated;
+			//return;
 		}
 		if(debug) console.log("-- setSignal", instr[i].name,
 			instr[i].signal, instr[i].signalActivated);
@@ -1856,9 +1858,9 @@ function execInstruction(command, branch){
 					command.count++;
 					if(command.count >= command.countMax){
 						command.count = 0;
-						// On brule le signal pour cet await
+						// On désactive le signal pour cet await
 						command.signalActivated = false;
-						// On le brule pour la branch de cet await
+						// On le désactive aussi pour la branch de cet await
 						// pour éviter la prise en compte du signal
 						// absorbé par cette await
 						if(debug) console.log("await dans la branche:", branch);
@@ -1883,9 +1885,9 @@ function execInstruction(command, branch){
 					if(command.count >= command.countMax){
 						command.action();
 						command.count = 0;
-						// On brule le signal pour cet await
+						// On désactive le signal pour cet await
 						command.signalActivated = false;
-						// On le brule pour la branch de cet await
+						// On le désactive aussi pour la branch de cet await
 						// pour éviter la prise en compte du signal
 						// absorbé par cette await
 						setSignal(branch, command.signal, 
@@ -2301,11 +2303,8 @@ module.exports={
 
 ===========================================================================*/
 
-exports.DAWON = true;
-
 exports.canWidth  = 10; // Pas utile si pas de tablette, 500
 exports.canHeight = 10; // Pas utile si pas de tablette, 250
-
 exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
 
 // Pour le client Golem
@@ -2336,13 +2335,10 @@ AUTOMATE
 // Les fichiers Hiphop que décrivent les trajets
 // Les signaux à utiliser dans ces programmes sont décrirs dans groupeDesSons
 
-exports.automate1 = './autoTrouveLaPercu-1';
-exports.automate2 = '';
-exports.automate3 = '';
+//exports.automate1 = './autoTrouveLaPercu-1';
 
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
 exports.canBeReloaded = true;
-
 exports.reactOnPlay = false;
 
 /************************************
@@ -2360,8 +2356,6 @@ de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
 exports.soundFilesPath1 = "trouveLaPercu";
-exports.soundFilesPath2 = "";
-exports.soundFilesPath3 = "";
 
 /***************************************
 CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
@@ -2369,8 +2363,6 @@ CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
 exports.avecMusicien = false; // Pour mettre en place les spécificités au jeu avec des musiciens.
 exports.decalageFIFOavecMusicien = 4; // Décalage de la FIFO vide avant le premier pattern dans une FIFO.
 exports.patternScorePath1 = "trouveLaPercu";
-exports.patternScorePath2 = "";
-exports.patternScorePath3 = "";
 
 /*****************************************************************************
 

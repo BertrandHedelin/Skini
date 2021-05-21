@@ -1,3 +1,4 @@
+"use strict"
 /**************************************************
 
 Editeur Skini sur Node avec Blockly
@@ -9,6 +10,7 @@ Editeur Skini sur Node avec Blockly
 var myBlocks;
 var myServeur;
 var debug = true;
+var debug1 = true;
 var ws;
 var workspace;
 var prog;
