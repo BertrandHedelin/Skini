@@ -1,0 +1,22 @@
+<html>
+  <head  >
+      <meta charset="UTF-8" name="viewport" />
+      <link rel="stylesheet" type="text/css" href="./client/configurateur/configurateur.css" >
+      <script type='text/javascript' src='./client/configurateur/configurateurbundle.js'></script>
+      <script defer></script>
+   </head>
+  <body onload="initWSSocket(window.location.hostname);">
+      <hr>       
+      <div style="color:white">Info: <span style="color:white" id="MessageDuServeur"> Rien </span></div>
+      <hr>
+
+      <input type="text" id="numClip" placeholder="Skini note">
+      <button class="button buttonClip" onclick="saisiClip()" >Envoyer Clip</button>
+      <p style="color:white" id="clip"></p>
+
+      <BR>
+      <input type="text" id="numCC" placeholder="CC command">
+      <input type="text" id="valueCC" placeholder="CC value">
+      <button class="button buttonCC" onclick="saisiCC()" >Envoyer CC</button>
+    </body>
+</html>

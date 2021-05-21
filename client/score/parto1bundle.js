@@ -677,7 +677,7 @@ function sketchProc(processing) {
          }else{
             noScore = false;
             if (patternGroups[i][2] == "group") {
-               if (debug1) console.log("This one is group", patternGroups[i], groupsCounter);
+               if (debug) console.log("This one is group", patternGroups[i], groupsCounter);
                if (patternGroups[i][8] !== undefined ){
                   sceneGroupe = patternGroups[i][8];
                }else{
@@ -975,7 +975,9 @@ function initWSSocket(host) {
         queuesMessages = [];
         for (var i = 0; i < msgRecu.value.length ; i++ ) {
           queuesMessages[i] = msgRecu.value[i];
-          if(debug1) console.log("etatDeLaFileAttente:", i, "--", queuesMessages[i][2]);
+          // voir displayQueue de controleDAW pour la structure de queueMessages
+          // [i, filesDattente[i].length, contenuDeLaFile]
+          if(debug) console.log("etatDeLaFileAttente:", i, "--", queuesMessages[i]);
         }
         break;
 

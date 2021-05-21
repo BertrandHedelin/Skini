@@ -113,6 +113,10 @@ app.get('/score', function(req, res) {
  res.sendFile(path.join(__dirname+'/client/score/score.html'));
 });
 
+app.get('/conf', function(req, res) {
+ res.sendFile(path.join(__dirname+'/client/configurateur/configurateur.html'));
+});
+
 var port = ipConfig.webserveurPort;
 var addressServer = ipConfig.serverIPAddress;
 app.listen(port, () => {

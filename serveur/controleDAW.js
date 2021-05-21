@@ -380,7 +380,7 @@ function displayQueues() {
       logInfoDAW(messageLog);*/
 
       contenuDeLaFile = [];
-      for ( var j=0; j<filesDattente[i].length; j++){
+      for ( var j=0; j < filesDattente[i].length; j++){
         // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
         contenuDeLaFile.push([filesDattente[i][j][5], filesDattente[i][j][7]]);
       }
@@ -391,7 +391,7 @@ function displayQueues() {
 
   var msg = {
     type: "etatDeLaFileAttente",
-    value : filesDattente
+    value : file
   }
   serv.broadcast(JSON.stringify(msg));
   //hop.broadcast('etatDeLaFileAttente', file);

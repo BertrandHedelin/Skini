@@ -553,6 +553,17 @@ serv.on('connection', function (ws) {
 			//machineServeur.inputAndReact( msgRecu.text, msgRecu.extra ); // ENVOI DU SIGNAL VERS HIPHOP
 			break;
 
+		case "configDAWMidiNote":
+			if(debug1) console.log("websocketServer: configDAWMidiNote:", msgRecu);
+			//Rappel des paramètres: par.busMidiDAW, DAWChannel, DAWNote, velocity
+			oscMidiLocal.sendNoteOn( msgRecu.bus, msgRecu.channel, msgRecu.note, 120 );
+			break;
+
+		case "configDAWCC":
+			if(debug1) console.log("websocketServer: configDAWCC:", msgRecu);
+			oscMidiLocal.sendControlChange(msgRecu.bus, msgRecu.channel, msgRecu.CC, msgRecu.CCValue);
+			break;
+
 		case "DAWPseudo":
 			break;
 
@@ -581,6 +592,7 @@ serv.on('connection', function (ws) {
             if (debug) console.log("Web Socket Serveur: DAWStartClip: clipChoisi", msgRecu.clipChoisi, " pour ID: ", msgRecu.id);
 			if (debug) console.log('Websocket serveur : DAWStartClip: demandeDeSonParPseudo : ', msgRecu.pseudo, msgRecu.clipChoisi[4]);
 
+			// !! Attention pas à jour dans les paramètre de pushClipDAW
 			var dureeAttente = pushClipDAW(msgRecu.clipChoisi);
 			if ( dureeAttente === -1) {
 				break; // On est dans un cas de note répétée
@@ -971,6 +983,10 @@ serv.on('connection', function (ws) {
 				groupesClientSon.setSocketControleur(ws);
 				initMatriceDesPossibles(DAWStatus);
 				break;
+			}
+
+			if ( msgRecu.text === "configurateur") {
+				if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
 			}
 			
 			if ( msgRecu.text === "simulateur") {
