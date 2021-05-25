@@ -46,6 +46,7 @@ var groupesDesSons =[];
 var patternsChoisis = []; // Liste des patterns notes Skini de patterns choisis
 var patternsListSent = []; // Liste des patterns qui ont été demandé et dont on attend le jeu
 var actionSurGroupeClientPossible = true;
+var initSortableLaunched = false;
 
 var sequenceLocale = [];
 
@@ -727,7 +728,7 @@ function initialisation() {
     initDisplay();
 	
 	// Le drag and drop
-	initSortable();
+	if(!initSortableLaunched) initSortable();
 
 	// Démarre ou redémarre l'automate de communication
 	mr.activateSignal("initialisation", 1);
@@ -1519,6 +1520,8 @@ function initSortable() {
 	});
 
 	if(cleanChoiceList !== null) cleanChoiceList();
+
+	initSortableLaunched = true;
 }
 },{"../../myReact/myReact":2,"../../serveur/ipConfig":3,"../../serveur/skiniParametres":4,"jquery":5}],2:[function(require,module,exports){
 "use strict"

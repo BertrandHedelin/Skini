@@ -45,6 +45,7 @@ var groupesDesSons =[];
 var patternsChoisis = []; // Liste des patterns notes Skini de patterns choisis
 var patternsListSent = []; // Liste des patterns qui ont été demandé et dont on attend le jeu
 var actionSurGroupeClientPossible = true;
+var initSortableLaunched = false;
 
 var sequenceLocale = [];
 
@@ -725,8 +726,9 @@ function initialisation() {
     // On a passé l'étape du pseudo, on peut afficher la page d'interaction
     initDisplay();
 	
-	// Le drag and drop
-	initSortable();
+	// Le drag and drop, il ne faut pas le lancer 2 fois
+	// ça pertube la gestion des "sort"
+	if(!initSortableLaunched) initSortable();
 
 	// Démarre ou redémarre l'automate de communication
 	mr.activateSignal("initialisation", 1);
@@ -1228,7 +1230,7 @@ function initSortable() {
 		put: false, // Do not allow items to be put into this list, ne fonctionne pas 
 		//group: 'shared',
 	    animation: 150,
-	    sort: false, // To disable sorting: set sort to false, ne fonctionne pas 
+	    sort: false, // To disable sorting: set sort to false 
 		delay : 100, // Pour permettre le click sur un bouton sur Android
 		disabled: false, // nécessaire mais pas dans la doc. Ceci bloque bien la liste, à true.
 
@@ -1518,4 +1520,6 @@ function initSortable() {
 	});
 
 	if(cleanChoiceList !== null) cleanChoiceList();
+
+	initSortableLaunched = true;
 }
