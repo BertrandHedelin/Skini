@@ -18,7 +18,8 @@ var compScore = require('./computeScore');
 var generatedDir = "./myReact/"
 var defaultOrchestrationName = "orchestrationHH.js"
 
-const tripleCrocheTR = 2;
+// INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
+/*const tripleCrocheTR = 2;
 const tripleCrocheR = 3;
 const doubleCrocheTR = 4;
 const doubleCrocheR = 6;
@@ -29,15 +30,14 @@ const noireR = 24;
 const blancheTR = 32;
 const blancheR = 48;
 const rondeTR = 64;
-const rondeR = 96;
+const rondeR = 96;*/
 
-// INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
-var tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
+/*var tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
 var divisionMesure = noireR; 	// Partie basse de la mesure
 var nbeDeMesures = 1;
 var tempo = 60; 				// à la minute
 var canalMidi = 1;
-var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes
+var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes*/
 
 var previousTime =0;
 var currentTime = 0;
@@ -46,7 +46,8 @@ var previousTimeToPlay = 0;
 var defautDeLatence;
 
 var debug = false;
-var debug1 = true;
+var debug1 = false;
+var warnings = false;
 
 // Automate des possibles
 var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
@@ -80,7 +81,7 @@ var currentTimeMidi = 0;
 	WEBSOCKET EN NODE JS
 
 **************************************************/
-var premiereConnexion = true;
+//var premiereConnexion = true;
 
 const WebSocketServer = require('ws');
 const serv = new WebSocketServer.Server({port: ipConfig.websocketServeurPort});
@@ -126,7 +127,7 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   	if (patternName !== undefined){
   		reactAutomatePossible( { patternSignal: [noteSkini, patternName]});
   	}else{
-  		console.log("WARN: webSocketServeur: sendSignalFromDAW:", noteSkini, patternName );
+  		if(warnings) console.log("WARN: webSocketServeur: sendSignalFromDAW:", noteSkini, patternName );
   	}
   }
   exports.sendSignalFromDAW = sendSignalFromDAW;
@@ -142,14 +143,14 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
 
   function sendSignalStopFromMIDI(){
   	if( !reactAutomatePossible( {halt: undefined} )){
-		console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
+		if(warnings) console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
 	}
   }
   exports.sendSignalStopFromMIDI = sendSignalStopFromMIDI;
 
   function sendSignalStartFromMIDI(){
   	if( !reactAutomatePossible( {start: undefined} )){
-		console.log("WARN: webSocketServeur: sendSignalStartFromMIDI");
+		if(warnings) console.log("WARN: webSocketServeur: sendSignalStartFromMIDI");
 	}
   }
   exports.sendSignalStartFromMIDI = sendSignalStartFromMIDI;
@@ -246,7 +247,7 @@ function reactAutomatePossible(signal){
 		//automatePossibleMachine.runProg();
 		return true;
 	}else{
-		console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
+		if(warnings) console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
 		return false;
 	}
 }
@@ -259,16 +260,16 @@ if(par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined)
 
 function initMatriceDesPossibles(DAWState) {
 
-	if (debug) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState );
+	if(warnings) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState );
 
 	if ( DAWState == 0 ) {
-		if (debug) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState à 0" );
+		if(warnings) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState à 0" );
 		return;
 	}
 	nbeDeGroupesSons = DAW.getNbeDeGroupesSons();
 	groupesClientSon.setNbeDeGroupesSons(nbeDeGroupesSons);
 	if ( groupesClientSon.setGroupesSon(DAWState) == -1) {
-		console.log("WARNING: websocketserveur:initMatriceDesPossibles: setGroupesSon: vide");
+		if(warnings) console.log("WARNING: websocketserveur:initMatriceDesPossibles: setGroupesSon: vide");
 	}
 	groupesClientSon.createMatriceDesPossibles();
 
@@ -293,7 +294,7 @@ function actionOnTick(timerDivision) {
 	}
 
 	if(!reactAutomatePossible( { tick:  undefined } )) {
-		console.log("WARN: websocketserver: actionOnTick: automate not ready");
+		if(warnings) console.log("WARN: websocketserver: actionOnTick: automate not ready");
 		return false;
 	}
 
@@ -318,14 +319,15 @@ WEB SOCKET
 **************************************************************************************/
 serv.on('connection', function (ws) {
 
-  	// Pas trés jolie... mais ça lance le mécanisme de lecture du buffer de commande midi.
+/*  	// Pas trés jolie... mais ça lance le mécanisme de lecture du buffer de commande midi.
+
   	if (premiereConnexion) {
 	  	playerBuffer = setInterval( function() { 
 			nextEventInBuffer();
 	  	}, resolutionDuBuffer );
 	  	premiereConnexion = false;
 	}
-
+*/
   	// Variables locales à la session websocket
 	//var ws = event.value;
 	var index = -1;
@@ -367,7 +369,7 @@ serv.on('connection', function (ws) {
     msg.value = par.DAWON; // variable true, false, ou un chiffre
 	ws.send(JSON.stringify(msg));*/
 
-	// DONNEES DE TEMPO pour les séquenceurs.
+/*	// DONNEES DE TEMPO pour les séquenceurs.
 	var msgTempo = {
 		type : "setConfigSequenceur",
 		tempsMesure: tempsMesure,
@@ -377,7 +379,7 @@ serv.on('connection', function (ws) {
 		canalMidi : canalMidi,
 		dureeDuTick : dureeDuTick
 	}
-	ws.send(JSON.stringify(msgTempo));
+	ws.send(JSON.stringify(msgTempo));*/
 
 	ws.on('close', function() {
 		if (debug) console.log( "Web Socket Server: Socket closed by client." );
@@ -567,13 +569,13 @@ serv.on('connection', function (ws) {
 		case "DAWPseudo":
 			break;
 
-		case "DAWReloadConfAgit":
+/*		case "DAWReloadConfAgit":
 			DAW.initDAWTable("controleDAWAgitV2.csv");
 			break;
 
 		case "DAWReloadConfMortDuGolem":
 			DAW.initDAWTable("controleDAWMortDuGolemV2.csv");
-			break;
+			break;*/
 
 	    case "DAWSelectListClips":
             var listClips = new Array(); // Devient alors utilisable pour les controles dans DAW
@@ -586,7 +588,7 @@ serv.on('connection', function (ws) {
             ws.send(JSON.stringify(msg));
 			break;
 
-	    case "DAWStartClip":
+/*	    case "DAWStartClip":
 	    	pseudo = msgRecu.pseudo;
 	    	if (msgRecu.clipChoisi === undefined ) break; // Protection si pas de selection sur le client
             if (debug) console.log("Web Socket Serveur: DAWStartClip: clipChoisi", msgRecu.clipChoisi, " pour ID: ", msgRecu.id);
@@ -621,7 +623,7 @@ serv.on('connection', function (ws) {
 			messageLog.pseudo = msgRecu.pseudo;
 			messageLog.text = msg.text;
 			logInfoSocket(messageLog);
-			break;
+			break;*/
 
 		case "dureeDuTickHorlogeMidi": // Reçu de Processing chaque 24 pulses de l'horloge Midi (une noire)
 			receivedTickFromDaw();
@@ -675,7 +677,7 @@ serv.on('connection', function (ws) {
 			 	}
 				ws.send(JSON.stringify(msg));
 			}else{
-				console.log("WARN: websocketserver: getPatternGroups: DAWStatus not yet defined");
+				if(warnings) console.log("WARN: websocketserver: getPatternGroups: DAWStatus not yet defined");
 			}
 			break;
 
@@ -733,8 +735,8 @@ serv.on('connection', function (ws) {
 					break;
 				}
 			}else{
-				console.log("WARNING: websocketServer: loadDAWTable: table inexistante dans cette configuration.");
-				hop.broadcast('consoleBlocklySkini', "No orchestration at this position"); // Pour Blockly
+				if(warnings) console.log("WARNING: websocketServer: loadDAWTable: table inexistante dans cette configuration.");
+				//hop.broadcast('consoleBlocklySkini', "No orchestration at this position"); // Pour Blockly
 				var mesReponse = {
 					type: "noAutomaton"
 				}
@@ -757,7 +759,7 @@ serv.on('connection', function (ws) {
 			});
 			break;
 
-	  	case "midiNoteOn":
+/*	  	case "midiNoteOn":
 	  		// Pour valider la latence
   			var date = new Date();
 
@@ -784,7 +786,7 @@ serv.on('connection', function (ws) {
 			}
 	  		//oscMidiLocal.sendNoteOn( msgRecu.bus, msgRecu.canal, msgRecu.codeMidi, msgRecu.velocite );
 			putEventInPlayBuffer(listeDesLatences[ws.id], msgRecu);
-	  		break;
+	  		break;*/
 
 		case "putInMatriceDesPossibles":
 			if(debug) console.log("websocketserver:putInMatriceDesPossibles:", msgRecu);
@@ -868,7 +870,7 @@ serv.on('connection', function (ws) {
 			for(var i=0; i < patternSequence.length ; i++){
 				var pattern = DAW.getPatternFromNote(patternSequence[i]);
 				if (pattern === undefined){
-					console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
+					if(warnings) console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
 					var msg = {
 						type: "patternSequenceAck",
 						value: false
@@ -931,7 +933,7 @@ serv.on('connection', function (ws) {
 				// Pour être en phase avec la création du pad controleur
 				groupesClientSon.resetMatriceDesPossibles();
 			} else {
-				console.log("WARNING: Table des commandes DAW pas encore chargée: ", DAWStatus);
+				if(warnings) console.log("WARNING: Table des commandes DAW pas encore chargée: ", DAWStatus);
 				var msg = {
 					type: "DAWTableNotReady",
 					text : "Table des commandes DAW pas encore chargée"
@@ -982,13 +984,32 @@ serv.on('connection', function (ws) {
 				socketControleur = ws;
 				groupesClientSon.setSocketControleur(ws);
 				initMatriceDesPossibles(DAWStatus);
+				var mesReponse = {
+						type: "skiniParametres",
+						value : par
+				}
+				ws.send(JSON.stringify(mesReponse));
 				break;
 			}
 
 			if ( msgRecu.text === "configurateur") {
 				if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
+				var mesReponse = {
+					type: "skiniParametres",
+					value : par
+				}
+				ws.send(JSON.stringify(mesReponse));
 			}
 			
+			if ( msgRecu.text === "clientListe") {
+				if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un clientListe connecté", msgRecu.id);
+				var mesReponse = {
+						type: "skiniParametres",
+						value : par
+				}
+				ws.send(JSON.stringify(mesReponse));
+			}
+
 			if ( msgRecu.text === "simulateur") {
 				if(par.simulatorInAseperateGroup){
 					// Assignation d'un groupe au client
@@ -1001,7 +1022,7 @@ serv.on('connection', function (ws) {
 					groupesClientSon.putIdInGroupClient(ws.id, par.nbeDeGroupesClients-1);
 
 					// Pour dire à l'ouverture au simulateur si on est ou pas dans une scène où DAW est actif.
-				    if (debug1) console.log("Web Socket Server: startSpectateur: simulateur: DAWON:", DAWStatus );
+				    if (debug1) console.log("INFO: Web Socket Server: startSpectateur: simulateur: DAWON:", DAWStatus );
 				    var msg = {
 					    type: "DAWON",
 						value: DAWStatus
@@ -1030,7 +1051,7 @@ serv.on('connection', function (ws) {
 			// Ceci réserve le dernier groupe Client pour le simulateur puisque groupeEnCours n'aura jamais
 			// la valeur maximale nbeDeGroupesClients
 			if( par.nbeDeGroupesClients === 1 && par.simulatorInAseperateGroup){
-				console.log("WARN: ATENTION PAS DE GROUPE ASSIGNE A L'AUDIENCE !");
+				if(warnings) console.log("WARN: ATENTION PAS DE GROUPE ASSIGNE A L'AUDIENCE !");
 			}
 
 			groupeEncours++;
@@ -1081,7 +1102,7 @@ serv.on('connection', function (ws) {
 
 /****** FIN WEBSOCKET ************/
 
-var latenceMax = 200; // en ms
+/*var latenceMax = 200; // en ms
 var indexCourantBuffer = 0;
 var playerBuffer;
 var resolutionDuBuffer = dureeDuTick / 10 ; // A voir : l'impact réel de la résolution / à la durée du tick
@@ -1170,7 +1191,7 @@ function testLatence(ws) {
 	};
 	ws.send(JSON.stringify(msgPing));
 }
-
+*/
 
 function logInfoSocket(message){
 	fs.appendFile('skinilog.json', JSON.stringify(message) + "\n", "UTF-8", function (err) { 

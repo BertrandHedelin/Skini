@@ -23,7 +23,7 @@ exports.canHeight = 10; // Pas utile si pas de tablette, 250
 exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
 
 // Pour le client Golem
-exports.nombreDeNiveaux = 2;
+//exports.nombreDeNiveaux = 2;
 
 // Indexation des bus Midi dans OSCmidiHop de processing
 exports.busMidiDAW = 6;
@@ -79,6 +79,18 @@ exports.avecMusicien = false; // Pour mettre en place les spécificités au jeu 
 exports.decalageFIFOavecMusicien = 4; // Décalage de la FIFO vide avant le premier pattern dans une FIFO.
 exports.patternScorePath1 = "trouveLaPercu";
 
+/****************************************
+ACTIVATION D'ALGORITHME D'ORGANISATION DES FIFOs
+Si 0 ou undefined pas d'algorithme.
+Si 1 algorithme de réorganisation Début, Milieu, Fin, Neutre (DFMN)
+Dans le csv, D -> 1, M -> 2, F->3, N->4 (c'est fixé dans controleAbleton.js)
+Si autre ... à créer...
+ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
+PEUT SUPPRIMER DES PATTERNS DES FIFOs
+*****************************************/
+exports.algoGestionFifo = 0;
+
+exports.shufflePatterns = false;
 /*****************************************************************************
 
 Gestion de la Matrice des possibles
@@ -88,7 +100,7 @@ Automate de gestion de la matrice des possibles
 exports.nbeDeGroupesClients = 3;
 exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
 
-// Ces données sont trés sensibles sur le bon déroulement de l'interaction
+/*// Ces données sont trés sensibles sur le bon déroulement de l'interaction
 // si pas de synchro MIDI
 exports.timer1  = 0; 
 exports.timer2  = 450 * 4; // Techno Pour un tempo de 120 sur une mesure 4/4
@@ -96,7 +108,7 @@ exports.timer3  = 450 * 4;
 
 exports.timerDivision1  = 0; 
 exports.timerDivision2  = 4; 
-exports.timerDivision3  = 4; 
+exports.timerDivision3  = 4; */
 
 // La synchro midi est émise par processing qui la reçoit d'Ableton ou autre source
 exports.synchoOnMidiClock = true;

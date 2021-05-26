@@ -1,5 +1,5 @@
 "use strict"
-var par = require('../../serveur/skiniParametres');
+var par;
 var ipConfig = require("../../serveur/ipConfig.json");
 
 var index = Math.floor((Math.random() * 10000) + 1 ); // Pour identifier le client
@@ -53,8 +53,8 @@ window.saisiCC = saisiCC;
 
 function initWSSocket(host) {
 
-	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
-	console.log( "ws://" + par.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);
+	console.log( "ws://" + host + ":" + ipConfig.websocketServeurPort );
 
 	ws.onopen = function( event ) {
 		var msg = {
@@ -75,6 +75,11 @@ function initWSSocket(host) {
 			console.log(msgRecu);
 			document.getElementById("MessageDuServeur").innerHTML = msgRecu.value;
 			break;
+
+			case "skiniParametres":
+				console.log("skiniParametres:", msgRecu.value);
+				par =  msgRecu.value;
+				break;
 
 	     default: console.log("Client reçoit un message inconnu");
 	    }

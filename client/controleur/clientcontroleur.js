@@ -11,7 +11,7 @@ Version Node.js
 **************************/
 "use strict"
 
-var par = require('../../serveur/skiniParametres');
+var par;
 var ipConfig = require('../../serveur/ipConfig');
 
 var port;
@@ -425,10 +425,9 @@ window.checkSession = checkSession;
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
 function initWSSocket(host) {
 
-	//ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
-	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
+	ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);
 
-	if (debug1) console.log("clientcontroleur.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+	if (debug1) console.log("clientcontroleur.js ws://" + host + ":" + ipConfig.websocketServeurPort );
 	ws.onopen = function( event ) {
 		msg.type = "startSpectateur";
 		msg.text = "controleur";
@@ -517,6 +516,11 @@ function initWSSocket(host) {
 
 			case "setTickAutomate":
 				document.getElementById("MessageDuServeur").innerHTML = "Tick:" + msgRecu.tick;
+				break;
+
+			case "skiniParametres":
+				if(debug1) console.log("skiniParametres:", msgRecu.value);
+				par =  msgRecu.value;
 				break;
 
 			default: if (debug1) console.log("Le Client reçoit un message inconnu", msgRecu );

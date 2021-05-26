@@ -10,7 +10,7 @@ https://github.com/SortableJS/Sortable
 ********************************************/
 'use strict'
 
-var par = require('../../serveur/skiniParametres');
+var par;
 var ipConfig = require('../../serveur/ipConfig');
 var mr = require('../../myReact/myReact');
 
@@ -90,7 +90,7 @@ function initWSocket(host) {
 
 		var msg = {
 			type : "startSpectateur",
-			text: "client",
+			text: "clientListe",
 			id: idClient
 		}
 		ws.send(JSON.stringify(msg));
@@ -362,6 +362,11 @@ function initWSocket(host) {
 
 			case "setPatternGroups":
 				groupesDesSons = msgRecu.value;
+				break;
+
+			case "skiniParametres":
+				if(debug1) console.log("skiniParametres:", msgRecu.value);
+				par =  msgRecu.value;
 				break;
 
 			case "texteServeur":
@@ -963,18 +968,6 @@ function getSoundFile(nomDuFichierSon){
     		var nomComplet = "../../sounds/" + par.soundFilesPath1 + "/" + nomDuFichierSon;
    		} else {
    			var nomComplet = "../../sounds/" + par.soundFilesPath1 + "/" + nomDuFichierSon + ".mp3";
-   		}
-    } else if ( DAWON == 2 && par.soundFilesPath2 != undefined && par.soundFilesPath2 != "" ) {
-    	if (nomDuFichierSon.includes(".wav")){
-    		var nomComplet = "../../sounds/" + par.soundFilesPath2 + "/" + nomDuFichierSon;
-   		} else {
-   			var nomComplet = "../../sounds/" + par.soundFilesPath2 + "/" + nomDuFichierSon + ".mp3";
-   		}
-    } else if ( DAWON == 3 && par.soundFilesPath3 != undefined && par.soundFilesPath3 != "" ) {
-    	if (nomDuFichierSon.includes(".wav")){
-    		var nomComplet = "../../sounds/" + par.soundFilesPath3 + "/" + nomDuFichierSon;
-   		} else {
-   			var nomComplet = "../../sounds/" + par.soundFilesPath3 + "/" + nomDuFichierSon + ".mp3";
    		}
     } else {
     	var nomComplet = "../../sounds/" + nomDuFichierSon + ".mp3";
