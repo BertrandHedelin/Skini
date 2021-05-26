@@ -648,7 +648,7 @@ function sketchProc(processing) {
   if (patternGroups[index][8] !== undefined ){
      scene = patternGroups[index][8];
   }
-  if (debug) console.log("createTank:", patternGroups[index][0]);
+  if (debug1) console.log("createTank:", patternGroups[index][0]);
    groups[indexGroup] = new Tank(
     patternGroups[index][1], // index du tank
     patternGroups[index][5], // numéro du tank
@@ -729,7 +729,7 @@ function sketchProc(processing) {
             }
          }
       }
-      console.log("Groups:", groups);
+      if(debug1) console.log("setup: Groups:", groups);
       processing.size(screenX,screenY);
      	processing.stroke(126);
      	processing.strokeWeight(3); 
@@ -886,12 +886,12 @@ function  getNumberInGroupsFromNumberInConf(numOfGroup){
 }
 
 function  getTankNumberFromGroupName(nomDeGroupe) {
+  if (debug) console.log("getTankNumberFromGroupName: Tank number pour groupname:", nomDeGroupe, patternGroups );
 	var tankNumber;
   if( patternGroups === undefined) return -1;
   for(var i=0; i < patternGroups.length; i++){
     if( patternGroups[i][0] == nomDeGroupe) {
      	tankNumber =  patternGroups[i][5];
-       if (debug) console.log("Tank number pour groupname:", nomDeGroupe, patternGroups[i], tankNumber );
        break;
     }
 	}
@@ -942,7 +942,13 @@ function initWSSocket(host) {
     }
     console.log("ID sent to server:", msg.id);
     ws.send(JSON.stringify(msg));
-  };
+
+    var msg = {
+        type:"getPatternGroups",
+        id: index
+      }
+      ws.send(JSON.stringify(msg));
+    };
 
   //Traitement de la Réception sur le client
   ws.onmessage = function( event ) {
@@ -983,12 +989,14 @@ function initWSSocket(host) {
       // Action sur sur les sons qui sont joués 
       case 'infoPlayDAW':
         var groupeDeSons;
-        if (debug) console.log("Reçu Texte Broadcast infoPlayDAW:", msgRecu.value );
+        if (debug) console.log("Reçu Texte Broadcast infoPlayDAW: msgRecu.value:", msgRecu.value[5], msgRecu.value[7]);
 
         displayAudience.setText(msgRecu.value[5] + " - " + msgRecu.value[7]);
         // Event.value = bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal
         // Celle-là elle ne s'invente pas, récupération du nom du groupe dans le signal
         var groupName = Object.keys(msgRecu.value[8])[0].slice(0, -2);
+        if (debug) console.log("Reçu Texte Broadcast infoPlayDAW: groupName:", groupName);
+
         var tankNumber;
 
         if ( patternGroups !== undefined) {
@@ -1010,14 +1018,15 @@ function initWSSocket(host) {
             }
           } else {
           // S'il s'agit d'un "tank"
+            if (debug) console.log("Reçu Texte Broadcast infoPlayDAW: groupName", groupName );
             var tankNumber = getTankNumberFromGroupName(groupName);
             if(tankNumber === -1){
-              if(debug1) console.log("infoPlayDAW: getTankNumberFromGroupName retourne ERR");
+              if(debug) console.log("infoPlayDAW: getTankNumberFromGroupName retourne ERR: ", groupName);
               break;
             }
             var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
             if(desSons === -1){
-              if(debug1) console.log("infoPlayDAW: getGroupOfSoundsFromTankNumber retourne ERR");
+              if(debug) console.log("infoPlayDAW: getGroupOfSoundsFromTankNumber retourne ERR");
               break;
             }
 
@@ -1032,15 +1041,15 @@ function initWSSocket(host) {
       case 'killTank':
         var tankNumber = getTankNumberFromGroupName( msgRecu.value );
         if(tankNumber === -1){
-          if(debug1) console.log("killTank: getTankNumberFromGroupName retourne ERR");
+          if(debug) console.log("killTank: getTankNumberFromGroupName retourne ERR");
           break;
         }
         var desSons = getGroupOfSoundsFromTankNumber(tankNumber);
         if(desSons === -1){
-          if(debug1) console.log("killTank: getGroupOfSoundsFromTankNumber retourne ERR");
+          if(debug) console.log("killTank: getGroupOfSoundsFromTankNumber retourne ERR");
           break;
         }
-        if (debug1) console.log("KILL TANK:", msgRecu.value, tankNumber, desSons );
+        if (debug) console.log("KILL TANK:", msgRecu.value, tankNumber, desSons );
         groups[desSons].deactivate();
         break;
 
@@ -1103,11 +1112,11 @@ function initWSSocket(host) {
         }
         break;
 
-      //Pour désactiver un réservoir quand il est aborté dans la pièce.
       case 'startTank':
         var tankNumber = getTankNumberFromGroupName( msgRecu.value );
+
         if(tankNumber === -1){
-          if(debug1) console.log("startTank: getTankNumberFromGroupName retourne ERR");
+          if(debug1) console.log("startTank: getTankNumberFromGroupName retourne ERR: ",  msgRecu.value, ": tankNumber :", tankNumber);
           break;
         }
         var desSons = getGroupOfSoundsFromTankNumber(tankNumber);

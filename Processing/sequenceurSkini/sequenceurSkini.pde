@@ -243,7 +243,7 @@ void setup() {
     myBusIn[1] = new MidiBus(this, "nanoKEY2", -1, "nanoKEY2");
     myBusIn[2] = new MidiBus(this, "loopMIDI Port 12", -1, "loopMIDI Port 12" ); //portMidi info Ableton activation de clip
     myBusIn[3] = new MidiBus(this, "loopMIDI Port 13", -1, "loopMIDI Port 13");  // message MIDI pour synchro Video par exemple
-    myBusIn[4] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");
+    //myBusIn[4] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");
 }
 
   //myBusIn[0] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");

@@ -19,7 +19,7 @@ var generatedDir = "./myReact/"
 var defaultOrchestrationName = "orchestrationHH.js"
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
-/*const tripleCrocheTR = 2;
+const tripleCrocheTR = 2;
 const tripleCrocheR = 3;
 const doubleCrocheTR = 4;
 const doubleCrocheR = 6;
@@ -30,14 +30,14 @@ const noireR = 24;
 const blancheTR = 32;
 const blancheR = 48;
 const rondeTR = 64;
-const rondeR = 96;*/
+const rondeR = 96;
 
-/*var tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
+var tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
 var divisionMesure = noireR; 	// Partie basse de la mesure
 var nbeDeMesures = 1;
 var tempo = 60; 				// à la minute
 var canalMidi = 1;
-var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes*/
+var dureeDuTick = ( (60 / tempo ) / divisionMesure ) * 1000 ; // Exprimé ici en millisecondes
 
 var previousTime =0;
 var currentTime = 0;
@@ -369,7 +369,7 @@ serv.on('connection', function (ws) {
     msg.value = par.DAWON; // variable true, false, ou un chiffre
 	ws.send(JSON.stringify(msg));*/
 
-/*	// DONNEES DE TEMPO pour les séquenceurs.
+	// DONNEES DE TEMPO pour les séquenceurs.
 	var msgTempo = {
 		type : "setConfigSequenceur",
 		tempsMesure: tempsMesure,
@@ -379,7 +379,7 @@ serv.on('connection', function (ws) {
 		canalMidi : canalMidi,
 		dureeDuTick : dureeDuTick
 	}
-	ws.send(JSON.stringify(msgTempo));*/
+	ws.send(JSON.stringify(msgTempo));
 
 	ws.on('close', function() {
 		if (debug) console.log( "Web Socket Server: Socket closed by client." );
