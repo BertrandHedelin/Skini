@@ -1,16 +1,25 @@
-var Violons, Piano, ViolonsIntro1, ViolonsIntro2, ViolonsIntro3, ViolonsIntro4, ViolonsIntro5, ViolonsIntro6, ViolonsMilieu1, ViolonsMilieu2, ViolonsMilieu3, ViolonsMilieu4, ViolonsFin1, ViolonsFin2, ViolonsFin3, ViolonsFin4, ViolonsFin5, Trompette, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Milieu7, Cors, Trompette1, Trompette2, Trompette3, Trompette4, Trompette5, Trompette6, Trompette7, Trompette8, Trompette9, Flute, Cors1, Cors2, Cors3, Cors4, Clarinette, FluteDebut1, FluteDebut2, FluteDebut3, FluteDebut4, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteNeutre1, FluteNeutre2, FluteNeutre3, Basson, ClarinetteDebut1, ClarinetteDebut2, ClarinetteDebut3, ClarinetteMilieu1, ClarinetteMilieu2, ClarinetteMilieu3, ClarinetteMilieu4, ClarinetteMilieu5, ClarinetteFin1, ClarinetteFin2, ClarinetteFin3, Percu, NappeCello, BassonDebut1, BassonDebut2, BassonDebut3, BassonDebut4, BassonMilieu1, BassonMilieu2, BassonMilieu3, BassonMilieu4, BassonMilieu5, BassonNeutre1, BassonNeutre2, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, NappeAlto, S2Action, NappeViolons, S1Action;
+var Violons, Piano, ViolonsIntro1, ViolonsIntro2, ViolonsIntro3, ViolonsIntro4, ViolonsIntro5, ViolonsIntro6, ViolonsMilieu1, ViolonsMilieu2, ViolonsMilieu3, ViolonsMilieu4, ViolonsFin1, ViolonsFin2, ViolonsFin3, ViolonsFin4, ViolonsFin5, Trompette, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Milieu7, Cors, Trompette1, Trompette2, Trompette3, Trompette4, Trompette5, Trompette6, Trompette7, Trompette8, Trompette9, Flute, Cors1, Cors2, Cors3, Cors4, Clarinette, tick, FluteDebut1, FluteDebut2, FluteDebut3, FluteDebut4, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteNeutre1, FluteNeutre2, FluteNeutre3, Basson, ClarinetteDebut1, ClarinetteDebut2, ClarinetteDebut3, ClarinetteMilieu1, ClarinetteMilieu2, ClarinetteMilieu3, ClarinetteMilieu4, ClarinetteMilieu5, ClarinetteFin1, ClarinetteFin2, ClarinetteFin3, Percu, BassonDebut1, BassonDebut2, BassonDebut3, BassonDebut4, BassonMilieu1, BassonMilieu2, BassonMilieu3, BassonMilieu4, BassonMilieu5, BassonNeutre1, BassonNeutre2, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, NappeCello, NappeAlto, S2Action, NappeViolons, S1Action;
 
 
 
 "use strict";
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
+var oscMidiLocal = require("../serveur/OSCandMidi.js");
+
 var gcs;
 var DAW;
 var serveur;
 
 var debug = false;
 var debug1 = true;
+
+// Avec des valeurs initiales
+var CCChannel = 1;
+var CCTempo = 100;
+var tempoMax = 160;
+var tempoMin = 40;
+var tempoGlobal = 60;
 
 function setServ(ser, daw, groupeCS){
   //console.log("hh_ORCHESTRATION: setServ");
@@ -20,10 +29,44 @@ function setServ(ser, daw, groupeCS){
 }
 exports.setServ = setServ;
 
+function setTempo(value){
+  tempoGlobal = value;
+  if ( value > tempoMax || value < tempoMin) {
+    console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
+    return;
+  }
+  var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
+  if (debug) console.log("Set tempo:", value);
+  oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
+}
+
+var tempoValue = 0;
+var tempoRythme = 0;
+var tempoLimit = 0;
+var tempoIncrease = true;
+var transposeValue = 0;
+
+function moveTempo(value, limit){
+
+  if(tempoLimit >= limit){
+    tempoLimit = 0;
+    tempoIncrease = !tempoIncrease;
+  }
+
+  if(tempoIncrease){
+    tempoGlobal += value;
+  }else{
+    tempoGlobal -= value;
+  }
+  if(debug) console.log("moveTempo:", tempoGlobal);
+  setTempo(tempoGlobal);
+  tempoLimit++;
+}
+
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var halt, start, emptyQueueSignal, patternSignal, stopReservoir;
+var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
@@ -8976,6 +9019,7 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
+    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
 
   hh.LOOP(
@@ -9026,16 +9070,6 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            gcs.setComputeScorePolicy(1);
-          }
-        }
-      ),
-
   hh.ATOM(
     {
       "%location":{},
@@ -9046,196 +9080,28 @@ var orchestration = hh.MODULE(
     }
   ),
 
-    hh.ATOM(
-        {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'addSceneScore',
-            value:1
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
-          }
-        }
-      ),
-
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          DAW.putPatternInQueue('RiseHit1');
-        }
-      }
-    ),
-
-  hh.LOCAL(
+  hh.ATOM(
     {
       "%location":{},
-      "%tag":"signal"
-    },
-    hh.SIGNAL({
-      "name":"stop260201"
-    }),
-
-      hh.TRAP(
-        {
-          "trap260201":"trap260201",
-          "%location":{},
-          "%tag":"trap260201"
-        },
-        hh.FORK(
-          {
-            "%location":{},
-            "%tag":"fork"
-          },
-          hh.SEQUENCE( // sequence 1
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("Flute", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop260201"
-                  }
-                ),
-              ),
-
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("Clarinette", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop260201"
-                  }
-                ),
-              ),
-
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("Basson", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop260201"
-                  }
-                ),
-              ),
-
-          )
-        ),
-        hh.SEQUENCE(
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-          hh.AWAIT(
-              {
-                "%location":{},
-                "%tag":"await",
-                "immediate":false,
-                "apply":function (){return ((() => {
-                  const tick =this["tick"];
-                  return tick.now;})());},
-                "countapply":function (){return 52;}
-            },
-            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          ),
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              //"stopReservoir":"stopReservoir",
-              "stop260201" : "stop260201",
-              "apply":function (){
-                return ((() => {
-                  //const stopReservoir = this["stopReservoir"];
-                  const stop260201 = this["stop260201"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              //"signame":"stopReservoir",
-              "signame":"stop260201",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-
-          hh.PAUSE(
-            {
-              "%location":{},
-              "%tag":"yield"
-            }
-          ),
-
-          hh.EXIT(
-          {
-            "trap260201":"trap260201",
-            "%location":{},
-            "%tag":"break"
-          }), // Exit
-        ) // sequence
-      ), // fork
-    ), // trap
-
-    hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
+      "%tag":"node",
+      "apply":function () {
+        CCChannel= 1;
+        CCTempo  = 100;
+        tempoMax = 160;
+        tempoMin = 40;
       }
-    )
+    }
   ),
 
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
-          }
-        }
-      ),
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(60);
+      }
+    }
+  ),
 
         hh.FORK(
             {
@@ -9251,252 +9117,51 @@ var orchestration = hh.MODULE(
               },
 
 
-      hh.LOCAL(
+      hh.ABORT(
         {
-          "%location":{},
-          "%tag":"signal"
-        },
-        hh.SIGNAL({
-          "name":"stop91431"
-        }),
-
-          hh.TRAP(
-            {
-              "trap91431":"trap91431",
-              "%location":{},
-              "%tag":"trap91431"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE( // sequence 1
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE(
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                    hh.RUN(
-                      {
-                        "%location":{"filename":"","pos":1},
-                        "%tag":"run",
-                        "module": hh.getModule("Trompette", {"filename":"","pos":2}),
-                        "autocomplete":true,
-                        "stopReservoir":"stop91431"
-                      }
-                    ),
-                  ),
-
-              )
-            ),
-            hh.SEQUENCE(
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-              hh.AWAIT(
-                  {
-                    "%location":{},
-                    "%tag":"await",
-                    "immediate":false,
-                    "apply":function (){return ((() => {
-                      const tick =this["tick"];
-                      return tick.now;})());},
-                    "countapply":function (){return 20;}
-                },
-                hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-              ),
-              hh.EMIT(
-                {
-                  "%location":{},
-                  "%tag":"emit",
-                  //"stopReservoir":"stopReservoir",
-                  "stop91431" : "stop91431",
-                  "apply":function (){
-                    return ((() => {
-                      //const stopReservoir = this["stopReservoir"];
-                      const stop91431 = this["stop91431"];
-                      return 0;
-                    })());
-                  }
-                },
-                hh.SIGACCESS({
-                  //"signame":"stopReservoir",
-                  "signame":"stop91431",
-                  "pre":true,
-                  "val":true,
-                  "cnt":false
-                })
-              ), // Fin emit
-
-              hh.PAUSE(
-                {
-                  "%location":{},
-                  "%tag":"yield"
-                }
-              ),
-
-              hh.EXIT(
-              {
-                "trap91431":"trap91431",
-                "%location":{},
-                "%tag":"break"
-              }), // Exit
-            ) // sequence
-          ), // fork
-        ), // trap
-
-        hh.PAUSE(
-          {
-            "%location":{},
-            "%tag":"yield"
-          }
-        )
-      ),
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
+          "%location":{abort:stopMoveTempo},
+          "%tag":"abort",
           "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 10;}
+          "apply": function (){return ((() => {
+              const stopMoveTempo =this["stopMoveTempo"];
+              return stopMoveTempo.now;
+          })());},
         },
         hh.SIGACCESS({
-          "signame":"tick",
+          "signame":"stopMoveTempo",
           "pre":false,
           "val":false,
           "cnt":false
-        })
-      ),
-
-      hh.LOCAL(
-        {
-          "%location":{},
-          "%tag":"signal"
-        },
-        hh.SIGNAL({
-          "name":"stop141267"
         }),
-
-          hh.TRAP(
-            {
-              "trap141267":"trap141267",
-              "%location":{},
-              "%tag":"trap141267"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE( // sequence 1
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE(
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                    hh.RUN(
-                      {
-                        "%location":{"filename":"","pos":1},
-                        "%tag":"run",
-                        "module": hh.getModule("Trompette", {"filename":"","pos":2}),
-                        "autocomplete":true,
-                        "stopReservoir":"stop141267"
-                      }
-                    ),
-                  ),
-
-              )
-            ),
-            hh.SEQUENCE(
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-              hh.AWAIT(
-                  {
-                    "%location":{},
-                    "%tag":"await",
-                    "immediate":false,
-                    "apply":function (){return ((() => {
-                      const tick =this["tick"];
-                      return tick.now;})());},
-                    "countapply":function (){return 20;}
-                },
-                hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-              ),
-              hh.EMIT(
-                {
-                  "%location":{},
-                  "%tag":"emit",
-                  //"stopReservoir":"stopReservoir",
-                  "stop141267" : "stop141267",
-                  "apply":function (){
-                    return ((() => {
-                      //const stopReservoir = this["stopReservoir"];
-                      const stop141267 = this["stop141267"];
-                      return 0;
-                    })());
-                  }
-                },
-                hh.SIGACCESS({
-                  //"signame":"stopReservoir",
-                  "signame":"stop141267",
-                  "pre":true,
-                  "val":true,
-                  "cnt":false
-                })
-              ), // Fin emit
-
-              hh.PAUSE(
-                {
-                  "%location":{},
-                  "%tag":"yield"
-                }
-              ),
-
-              hh.EXIT(
-              {
-                "trap141267":"trap141267",
-                "%location":{},
-                "%tag":"break"
-              }), // Exit
-            ) // sequence
-          ), // fork
-        ), // trap
-
-        hh.PAUSE(
+        hh.EVERY(
           {
-            "%location":{},
-            "%tag":"yield"
-          }
+            "%location":{every: tick},
+            "%tag":"do/every",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                const tick=this["tick"];
+                return tick.now;
+            })());},
+            "countapply":function (){ return  1;}
+          },
+          hh.SIGACCESS({
+            "signame":"tick",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          }),
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                moveTempo(2, 10);
+              }
+            }
+          )
         )
       ),
+
 
       ),
 
@@ -9507,209 +9172,726 @@ var orchestration = hh.MODULE(
               },
 
 
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 20;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-          hh.TRAP(
+          hh.ATOM(
             {
-              "trap905878":"trap905878",
               "%location":{},
-              "%tag":"trap905878"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE( // sequence 1
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-      	        hh.EMIT(
-      	          {
-      	            "%location":{},
-      	            "%tag":"emit",
-      	            "S2ActionOUT":"S2ActionOUT",
-      	            "apply":function (){
-      	              return ((() => {
-      	                const S2ActionOUT = this["S2ActionOUT"];
-      	                return [true, 255];
-      	              })());
-      	            }
-      	          },
-      	          hh.SIGACCESS({
-      	            "signame":"S2ActionOUT",
-      	            "pre":true,
-      	            "val":true,
-      	            "cnt":false
-      	          })
-      	        ), // Fin emit
-      		    hh.ATOM(
-      		      {
-      		      "%location":{},
-      		      "%tag":"node",
-      		      "apply":function () { gcs.informSelecteurOnMenuChange(255," S2Action", true); }
-      		      }
-      		 	),
+              "%tag":"node",
+              "apply":function () {
+                gcs.setComputeScorePolicy(1);
+              }
+            }
+          ),
 
-            	), // fin sequence 1
-          	hh.SEQUENCE(
-      	        {
-      	          "%location":{},
-      	          "%tag":"seq"
-      	        },
-      	        hh.AWAIT(
-      	            {
-      	              "%location":{},
-      	              "%tag":"await",
-      	              "immediate":false,
-      	              "apply":function (){return ((() => {
-      	                const tick =this["tick"];
-      	                return tick.now;})());},
-      	              "countapply":function (){return 10;}
-      	          },
-      	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-      	        ),
-
-
-      	        hh.EMIT(
-      	          {
-      	            "%location":{},
-      	            "%tag":"emit",
-      	            "S2ActionOUT":"S2ActionOUT",
-      	            "apply":function (){
-      	              return ((() => {
-      	                const S2ActionOUT = this["S2ActionOUT"];
-      	                return [false, 255];
-      	              })());
-      	            }
-      	          },
-      	          hh.SIGACCESS({
-      	            "signame":"S2ActionOUT",
-      	            "pre":true,
-      	            "val":true,
-      	            "cnt":false
-      	          })
-      	        ), // Fin emit
-      		    hh.ATOM(
-      		      {
-      		      "%location":{},
-      		      "%tag":"node",
-      		      "apply":function () { gcs.informSelecteurOnMenuChange(255," S2Action", false); }
-      		      }
-      		 	),
-
-      	        hh.PAUSE(
-      	          {
-      	            "%location":{},
-      	            "%tag":"yield"
-      	          }
-      	        ),
-      	        hh.EXIT(
-      		        {
-      		          "trap905878":"trap905878",
-      		          "%location":{},
-      		          "%tag":"break"
-      		        }
-      	        ), // Exit
-      	      ) // sequence
-          	), // fork
-        	), // trap
-      	hh.PAUSE(
-      	    {
-      	      "%location":{},
-      	      "%tag":"yield"
-      	    }
-      	),
-
-      ),
-
-          hh.SEQUENCE(
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 10;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-      hh.RUN({
-          "%location":{"filename":"","pos":1},
-          "%tag":"run",
-          "module": hh.getModule("Cors", {"filename":"","pos":2}),
-          "autocomplete":true
-        }),
-
-      /*  hh.PAUSE(
-          {
+        hh.ATOM(
+            {
             "%location":{},
-            "%tag":"yield"
-          }
-        ),*/
-
-
-      ),
-
-    ),
-
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          DAW.putPatternInQueue('RiseHit2');
-        }
-      }
-    ),
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'addSceneScore',
+                value:1
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
 
       hh.ATOM(
         {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          oscMidiLocal.controlChange( par.busMidiDAW,
+          1,
+          80,
+          100);
           }
         }
       ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueues();
+                gcs.cleanChoiceList(255);
+              }
+            }
+          ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('RiseHit1');
+            }
+          }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueues();
+                gcs.cleanChoiceList(255);
+              }
+            }
+          ),
+
+            hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+
+
+              hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+
+
+          hh.LOCAL(
+            {
+              "%location":{},
+              "%tag":"signal"
+            },
+            hh.SIGNAL({
+              "name":"stop744464"
+            }),
+
+              hh.TRAP(
+                {
+                  "trap744464":"trap744464",
+                  "%location":{},
+                  "%tag":"trap744464"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE( // sequence 1
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+                    hh.FORK(
+                      {
+                        "%location":{},
+                        "%tag":"fork"
+                      },
+                      hh.SEQUENCE(
+                        {
+                          "%location":{},
+                          "%tag":"seq"
+                        },
+                        hh.RUN(
+                          {
+                            "%location":{"filename":"","pos":1},
+                            "%tag":"run",
+                            "module": hh.getModule("Trompette", {"filename":"","pos":2}),
+                            "autocomplete":true,
+                            "stopReservoir":"stop744464"
+                          }
+                        ),
+                      ),
+
+                  )
+                ),
+                hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.AWAIT(
+                      {
+                        "%location":{},
+                        "%tag":"await",
+                        "immediate":false,
+                        "apply":function (){return ((() => {
+                          const tick =this["tick"];
+                          return tick.now;})());},
+                        "countapply":function (){return 20;}
+                    },
+                    hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                  ),
+                  hh.EMIT(
+                    {
+                      "%location":{},
+                      "%tag":"emit",
+                      //"stopReservoir":"stopReservoir",
+                      "stop744464" : "stop744464",
+                      "apply":function (){
+                        return ((() => {
+                          //const stopReservoir = this["stopReservoir"];
+                          const stop744464 = this["stop744464"];
+                          return 0;
+                        })());
+                      }
+                    },
+                    hh.SIGACCESS({
+                      //"signame":"stopReservoir",
+                      "signame":"stop744464",
+                      "pre":true,
+                      "val":true,
+                      "cnt":false
+                    })
+                  ), // Fin emit
+
+                  hh.PAUSE(
+                    {
+                      "%location":{},
+                      "%tag":"yield"
+                    }
+                  ),
+
+                  hh.EXIT(
+                  {
+                    "trap744464":"trap744464",
+                    "%location":{},
+                    "%tag":"break"
+                  }), // Exit
+                ) // sequence
+              ), // fork
+            ), // trap
+
+            hh.PAUSE(
+              {
+                "%location":{},
+                "%tag":"yield"
+              }
+            )
+          ),
+
+          hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function () {
+                return ((() => {
+                  const tick=this["tick"];
+                  return tick.now;
+                })());
+              },
+              "countapply":function (){ return 10;}
+            },
+            hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            })
+          ),
+
+          hh.LOCAL(
+            {
+              "%location":{},
+              "%tag":"signal"
+            },
+            hh.SIGNAL({
+              "name":"stop17478"
+            }),
+
+              hh.TRAP(
+                {
+                  "trap17478":"trap17478",
+                  "%location":{},
+                  "%tag":"trap17478"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE( // sequence 1
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+                    hh.FORK(
+                      {
+                        "%location":{},
+                        "%tag":"fork"
+                      },
+                      hh.SEQUENCE(
+                        {
+                          "%location":{},
+                          "%tag":"seq"
+                        },
+                        hh.RUN(
+                          {
+                            "%location":{"filename":"","pos":1},
+                            "%tag":"run",
+                            "module": hh.getModule("Trompette", {"filename":"","pos":2}),
+                            "autocomplete":true,
+                            "stopReservoir":"stop17478"
+                          }
+                        ),
+                      ),
+
+                  )
+                ),
+                hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.AWAIT(
+                      {
+                        "%location":{},
+                        "%tag":"await",
+                        "immediate":false,
+                        "apply":function (){return ((() => {
+                          const tick =this["tick"];
+                          return tick.now;})());},
+                        "countapply":function (){return 20;}
+                    },
+                    hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                  ),
+                  hh.EMIT(
+                    {
+                      "%location":{},
+                      "%tag":"emit",
+                      //"stopReservoir":"stopReservoir",
+                      "stop17478" : "stop17478",
+                      "apply":function (){
+                        return ((() => {
+                          //const stopReservoir = this["stopReservoir"];
+                          const stop17478 = this["stop17478"];
+                          return 0;
+                        })());
+                      }
+                    },
+                    hh.SIGACCESS({
+                      //"signame":"stopReservoir",
+                      "signame":"stop17478",
+                      "pre":true,
+                      "val":true,
+                      "cnt":false
+                    })
+                  ), // Fin emit
+
+                  hh.PAUSE(
+                    {
+                      "%location":{},
+                      "%tag":"yield"
+                    }
+                  ),
+
+                  hh.EXIT(
+                  {
+                    "trap17478":"trap17478",
+                    "%location":{},
+                    "%tag":"break"
+                  }), // Exit
+                ) // sequence
+              ), // fork
+            ), // trap
+
+            hh.PAUSE(
+              {
+                "%location":{},
+                "%tag":"yield"
+              }
+            )
+          ),
+
+          ),
+
+              hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+
+
+          hh.LOOP(
+              {
+                "%location":{loop: 1},
+                "%tag":"loop"
+              },
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 0;
+                  oscMidiLocal.controlChange(par.busMidiDAW,1,65,64);
+                }
+              }
+            ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 4;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue += 1;
+                  //console.log("transposeValue:", transposeValue);
+                  oscMidiLocal.controlChange(par.busMidiDAW,1,65, Math.round(1.763 * transposeValue + 63.5));
+                }
+              }
+            ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 4;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue += 1;
+                  //console.log("transposeValue:", transposeValue);
+                  oscMidiLocal.controlChange(par.busMidiDAW,1,65, Math.round(1.763 * transposeValue + 63.5));
+                }
+              }
+            ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 4;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue += -1;
+                  //console.log("transposeValue:", transposeValue);
+                  oscMidiLocal.controlChange(par.busMidiDAW,1,65, Math.round(1.763 * transposeValue + 63.5));
+                }
+              }
+            ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 4;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue += -1;
+                  //console.log("transposeValue:", transposeValue);
+                  oscMidiLocal.controlChange(par.busMidiDAW,1,65, Math.round(1.763 * transposeValue + 63.5));
+                }
+              }
+            ),
+
+            ),
+
+          ),
+
+              hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+
+
+          hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function () {
+                return ((() => {
+                  const tick=this["tick"];
+                  return tick.now;
+                })());
+              },
+              "countapply":function (){ return 5;}
+            },
+            hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            })
+          ),
+
+              hh.TRAP(
+                {
+                  "trap279108":"trap279108",
+                  "%location":{},
+                  "%tag":"trap279108"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE( // sequence 1
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+          	        hh.EMIT(
+          	          {
+          	            "%location":{},
+          	            "%tag":"emit",
+          	            "S2ActionOUT":"S2ActionOUT",
+          	            "apply":function (){
+          	              return ((() => {
+          	                const S2ActionOUT = this["S2ActionOUT"];
+          	                return [true, 255];
+          	              })());
+          	            }
+          	          },
+          	          hh.SIGACCESS({
+          	            "signame":"S2ActionOUT",
+          	            "pre":true,
+          	            "val":true,
+          	            "cnt":false
+          	          })
+          	        ), // Fin emit
+          		    hh.ATOM(
+          		      {
+          		      "%location":{},
+          		      "%tag":"node",
+          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," S2Action", true); }
+          		      }
+          		 	),
+
+                	), // fin sequence 1
+              	hh.SEQUENCE(
+          	        {
+          	          "%location":{},
+          	          "%tag":"seq"
+          	        },
+          	        hh.AWAIT(
+          	            {
+          	              "%location":{},
+          	              "%tag":"await",
+          	              "immediate":false,
+          	              "apply":function (){return ((() => {
+          	                const tick =this["tick"];
+          	                return tick.now;})());},
+          	              "countapply":function (){return 10;}
+          	          },
+          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+          	        ),
+
+
+          	        hh.EMIT(
+          	          {
+          	            "%location":{},
+          	            "%tag":"emit",
+          	            "S2ActionOUT":"S2ActionOUT",
+          	            "apply":function (){
+          	              return ((() => {
+          	                const S2ActionOUT = this["S2ActionOUT"];
+          	                return [false, 255];
+          	              })());
+          	            }
+          	          },
+          	          hh.SIGACCESS({
+          	            "signame":"S2ActionOUT",
+          	            "pre":true,
+          	            "val":true,
+          	            "cnt":false
+          	          })
+          	        ), // Fin emit
+          		    hh.ATOM(
+          		      {
+          		      "%location":{},
+          		      "%tag":"node",
+          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," S2Action", false); }
+          		      }
+          		 	),
+
+          	        hh.PAUSE(
+          	          {
+          	            "%location":{},
+          	            "%tag":"yield"
+          	          }
+          	        ),
+          	        hh.EXIT(
+          		        {
+          		          "trap279108":"trap279108",
+          		          "%location":{},
+          		          "%tag":"break"
+          		        }
+          	        ), // Exit
+          	      ) // sequence
+              	), // fork
+            	), // trap
+          	hh.PAUSE(
+          	    {
+          	      "%location":{},
+          	      "%tag":"yield"
+          	    }
+          	),
+
+          ),
+
+              hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+
+
+          hh.AWAIT(
+            {
+              "%location":{},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function () {
+                return ((() => {
+                  const tick=this["tick"];
+                  return tick.now;
+                })());
+              },
+              "countapply":function (){ return 10;}
+            },
+            hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            })
+          ),
+
+          hh.RUN({
+              "%location":{"filename":"","pos":1},
+              "%tag":"run",
+              "module": hh.getModule("Cors", {"filename":"","pos":2}),
+              "autocomplete":true
+            }),
+
+          /*  hh.PAUSE(
+              {
+                "%location":{},
+                "%tag":"yield"
+              }
+            ),*/
+
+
+          ),
+
+        ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('RiseHit2');
+            }
+          }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueues();
+                gcs.cleanChoiceList(255);
+              }
+            }
+          ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "stopMoveTempo":"stopMoveTempo"
+            },
+            hh.SIGACCESS({
+              "signame":"stopMoveTempo",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+
+      ),
+
+    ),
 
         ),
         hh.SEQUENCE(

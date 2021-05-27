@@ -817,7 +817,7 @@ function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
   for( var i=fifo.length-1; i > 0; i--){
     if(fifo[i][9] === avant){
       if(fifo[i-1][9] !== apres){
-        if(debug1) console.log("---- putPatternFirstWithoutSecond: On met le pattern:", pattern[7], "de type:", pattern[9],
+        if(debug) console.log("---- putPatternFirstWithoutSecond: On met le pattern:", pattern[7], "de type:", pattern[9],
           "en", i," (entre types", apres, " et ", avant, ")");
         fifo.splice(i,0, pattern);
         return true;
@@ -833,13 +833,13 @@ function ordonneFifo(fifo, pattern){
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
 
   if(fifo.length === 0 || pattern[9] === typeNeutre){
-    if(debug) console.log("ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    if(debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
     fifo.push(pattern);
     return;
   }
 
   if(fifo.length === 0 && pattern[9] === typeMilieu){
-    if(debug) console.log("ordonneFifo: M tout seul, on le jette");
+    if(debug1) console.log("---- ordonneFifo: M tout seul, on le jette");
     return;
   }
 
@@ -860,7 +860,7 @@ function ordonneFifo(fifo, pattern){
         if(putPatternBetween(fifo, typeFin, typeMilieu, pattern)){ return; }
       }else{
         if(fifo[0][9] === typeFin){
-          if(debug) console.log("---- ordonneFifo: Permuttons F et D");
+          if(debug1) console.log("---- ordonneFifo: Permuttons F et D");
           fifo.splice(0,0, pattern);
           return;
         }
@@ -874,17 +874,17 @@ function ordonneFifo(fifo, pattern){
         if(putPatternBetween(fifo, typeFin, typeFin, pattern)){ return; }
       }else{ // Il n'y a qu'un élément dans la Fifo.
         if(fifo[0][9] === typeFin){ // Si c'est une fin
-          if(debug) console.log("---- ordonneFifo: Permuttons F et M");
+          if(debug1) console.log("---- ordonneFifo: Permuttons F et M");
           fifo.splice(0,0, pattern);
         }
         else{ // C'est qu'on a un debut avant, mais on pourra avoir un début apres ou un autre milieu
-          if(debug) console.log("---- Un pattern Milieu seul dans la fifo: on le jette");
+          if(debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo: on le jette");
           return; // On perd le pattern sinon, donc pas utilisable en interaction.
         }
       }
       // Attention : Ce return est une façon de ne placer un milieu que si on est certain de l'avoir caser proprement.
       // On perd le pattern sinon, donc pas utilisable en interaction.
-      if(debug) console.log("---- Un pattern Milieu supprimé");
+      if(debug1) console.log("---- ordonneFifo: Un pattern Milieu supprimé");
       return;
 
       break; // On pousse
@@ -893,7 +893,7 @@ function ordonneFifo(fifo, pattern){
       // On ne fait rien dans ce cas.
       break;
 
-    default: if(debug) console.log("Pattern de type inconnu");
+    default: if(debug1) console.log("---- ordonneFifo:Pattern de type inconnu");
   }
   if(debug) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
   fifo.push(pattern);

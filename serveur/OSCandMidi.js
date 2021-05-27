@@ -110,8 +110,8 @@ exports.sendAllNoteOff = sendAllNoteOff;
 function controlChange(bus, channel, controlChange, controlValue) {
     var buf;
 
-    buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
     if (debug) console.log("OSCandMidiLocal: controleChange: sending osc messages bus:", bus, "controlChange :" + controlChange + " Value: " + controlValue);
+    buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
     udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound);
     return;
 };

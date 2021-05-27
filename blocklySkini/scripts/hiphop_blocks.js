@@ -2154,6 +2154,7 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// Revu HH node
 Blockly.JavaScript['JS_statement'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   //let value = value_signal.replace(/\'/g, "");
@@ -2184,7 +2185,17 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['set_tempo'] = function(block) {
   var number_tempo = block.getFieldValue('tempo');
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'hop{ setTempo(' + number_tempo + '); }\n';
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      setTempo(` + number_tempo + `);
+    }
+  }
+),
+`
   return code;
 };
 
@@ -2226,6 +2237,7 @@ hh.ATOM(
    return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "tempo_parameters",
@@ -2269,16 +2281,24 @@ Blockly.JavaScript['tempo_parameters'] = function(block) {
   var number_CC = block.getFieldValue('CCTempo');
   var number_Max = block.getFieldValue('MaxTempo');
   var number_Min = block.getFieldValue('MinTempo');
-  var code = `hop{ 
-    CCChannel= ` + number_channel + `;
-    CCTempo  = ` + number_CC + `;
-    tempoMax = ` + number_Max + `;
-    tempoMin = ` + number_Min + `;
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      CCChannel= ` + number_channel + `;
+      CCTempo  = ` + number_CC + `;
+      tempoMax = ` + number_Max + `;
+      tempoMin = ` + number_Min + `;
+    }
   }
-  `;
+),
+`;
   return code;
 };
 
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "send_midi_cc",
@@ -2322,16 +2342,25 @@ Blockly.JavaScript['send_midi_cc'] = function(block) {
   var number_channel = block.getFieldValue('channelMidi');
   var number_CC = block.getFieldValue('CCMidi');
   var number_value = block.getFieldValue('valueMidi');
-  var code = "hop{\n";
-  code += "  oscMidiLocal.controlChange( par.busMidiAbleton,";
-  code += number_channel + ",";
-  code += number_CC + ",";
-  code += number_value + ");\n"
-  code += "}\n";
+
+  var code = `
+hh.ATOM(
+  {
+  "%location":{},
+  "%tag":"node",
+  "apply":function () {
+    oscMidiLocal.controlChange( par.busMidiDAW,
+    `+ number_channel + `,
+    `+ number_CC + `,
+    `+ number_value + `);
+    }
+  }
+),
+`;
   return code;
 };
 
-// Spécifique à l'outil chromatique d'Ableton
+// Spécifique à l'outil chromatique d'Ableton, revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "transpose",
@@ -2340,7 +2369,7 @@ Blockly.defineBlocksWithJsonArray([
       {
       "type": "field_number",
       "name": "channelMidi",
-      "value": 0,
+      "value": 1,
       "check": "Number"
     },
     {
@@ -2369,11 +2398,20 @@ Blockly.JavaScript['transpose'] = function(block) {
   var number_CC = block.getFieldValue('CCInstr');
   var number_valeur = block.getFieldValue('valeur');
 
-  var code = "hop{\n";
-  code += "  transposeValue +=" + number_valeur + ";\n"
-  code += "  oscMidiLocal.controlChange(par.busMidiAbleton, " + number_channel + "," + number_CC + ", Math.round(1.763 * transposeValue + 63.5));\n";
-  code += "}\n";
-  return code;
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      transposeValue += ` + number_valeur + `;
+      //console.log("transposeValue:", transposeValue);
+      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(1.763 * transposeValue + 63.5));
+    }
+  }
+),
+`;
+ return code;
 };
 
 Blockly.defineBlocksWithJsonArray([
@@ -2406,11 +2444,19 @@ Blockly.JavaScript['reset_transpose'] = function(block) {
   var number_channel = block.getFieldValue('channelMidi');
   var number_CC = block.getFieldValue('CCInstr');
 
-  var code = "hop{\n";
-  code += "  transposeValue = 0;\n"
-  code += "  oscMidiLocal.controlChange(par.busMidiAbleton, " + number_channel + "," + number_CC + ", 64 );\n";
-  code += "}\n";
-  return code;
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      transposeValue = 0;
+      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `,64);
+    }
+  }
+),
+`;
+ return code;
 };
 
 // Revu HH node
@@ -3432,7 +3478,7 @@ hh.LOCAL(
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "move_tempo",
-  "message0": "bounce tempo of %1, every %2 and during %4 : signal %3 ",
+  "message0": "bounce tempo with a step of %1 in ambitus %4 every %2 signal %3 ",
   "args0": [
     {
       "type": "field_number",
@@ -3467,23 +3513,70 @@ Blockly.defineBlocksWithJsonArray([
 }
 ]);
 
+// Revu HH node
 Blockly.JavaScript['move_tempo'] = function(block) {
   let value = block.getFieldValue('VALUE'); 
   let every = block.getFieldValue('EVERY');
-  let signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let signal_value = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let signal = signal_value.replace(/\'/g, "");
   let limit = block.getFieldValue('LIMIT');
 
-  //let code = 'hop{console.log: (\" move_tempo: \",' + value + ",\" every:\", " + every + ",\" signal\", " + signal + ");}\n" ;
-  let code = `hop{  
-    countInverseBougeTempo = ` + limit + `;
-    bougeTempoRythme = ` + every +`;
-    bougeTempoValue = `+ value + `;
-  }
-  `
-  code += "run ${bougeTempo}(..., tick as " + signal + ");\n"
+  //let code = ""; //'hop{console.log: (\" move_tempo: \",' + value + ",\" every:\", " + every + ",\" signal\", " + signal + ");}\n" ;
+  let code = `
+hh.ABORT(
+  {
+    "%location":{abort:stopMoveTempo},
+    "%tag":"abort",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const stopMoveTempo =this["stopMoveTempo"];
+        return stopMoveTempo.now;
+    })());},
+  },
+  hh.SIGACCESS({
+    "signame":"stopMoveTempo",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  hh.EVERY(
+    {
+      "%location":{every: ` + signal + `},
+      "%tag":"do/every",
+      "immediate":false,
+      "apply": function (){return ((() => {
+          const ` + signal + `=this["` + signal + `"];
+          return ` + signal + `.now;
+      })());},
+      "countapply":function (){ return  `+ every + `;}
+    },
+    hh.SIGACCESS({
+      "signame":"` + signal + `",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    }),
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          moveTempo(`+ value + `, `+ limit + `);
+        }
+      }
+    )
+  )
+),
+
+`;
   return code;
 };
 
+/*  countInverseBougeTempo = ` + limit + `;
+    bougeTempoRythme = ` + every +`;
+    bougeTempoValue = `+ value + `;*/
+
+// Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "abort_move_tempo",
@@ -3498,7 +3591,21 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['abort_move_tempo'] = function(block) {
-  var code = 'emit abortBougeTempo();\n';
+  var code = `
+    hh.EMIT(
+      {
+        "%location":{},
+        "%tag":"emit", 
+        "stopMoveTempo":"stopMoveTempo"
+      },
+      hh.SIGACCESS({
+        "signame":"stopMoveTempo",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
+    `;
   return code;
 };
 
@@ -3617,12 +3724,21 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
 "use strict";
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
+var oscMidiLocal = require("../serveur/OSCandMidi.js");
+
 var gcs;
 var DAW;
 var serveur;
 
 var debug = false;
 var debug1 = true;
+
+// Avec des valeurs initiales
+var CCChannel = 1;
+var CCTempo = 100;
+var tempoMax = 160;
+var tempoMin = 40;
+var tempoGlobal = 60;
 
 function setServ(ser, daw, groupeCS){
   //console.log("hh_ORCHESTRATION: setServ");
@@ -3632,10 +3748,44 @@ function setServ(ser, daw, groupeCS){
 }
 exports.setServ = setServ;
 
+function setTempo(value){
+  tempoGlobal = value;
+  if ( value > tempoMax || value < tempoMin) {
+    console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
+    return;
+  }
+  var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
+  if (debug) console.log("Set tempo:", value);
+  oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
+}
+
+var tempoValue = 0;
+var tempoRythme = 0;
+var tempoLimit = 0;
+var tempoIncrease = true;
+var transposeValue = 0;
+
+function moveTempo(value, limit){
+
+  if(tempoLimit >= limit){
+    tempoLimit = 0;
+    tempoIncrease = !tempoIncrease;
+  }
+
+  if(tempoIncrease){
+    tempoGlobal += value;
+  }else{
+    tempoGlobal -= value;
+  }
+  if(debug) console.log("moveTempo:", tempoGlobal);
+  setTempo(tempoGlobal);
+  tempoLimit++;
+}
+
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
 var signals = [];
-var halt, start, emptyQueueSignal, patternSignal, stopReservoir;
+var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
@@ -3684,6 +3834,7 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
+    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
   ` + statements_signals + `
   hh.LOOP(
@@ -4298,7 +4449,6 @@ Blockly.JavaScript['hh_every'] = function(block) {
   let times = block.getFieldValue('TIMES'); 
 
   var code = `
-
 hh.EVERY(
   {
     "%location":{every: ` + value + `},
