@@ -933,7 +933,7 @@ function initWSSocket(host) {
   //ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
-  if (debug1) console.log("score.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+  if (debug1) console.log("score.js ws://" + host + ":" + ipConfig.websocketServeurPort );
   ws.onopen = function( event ) {
     var msg = {
       type:"startSpectateur",

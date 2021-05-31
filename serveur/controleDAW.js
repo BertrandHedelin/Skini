@@ -833,7 +833,7 @@ function ordonneFifo(fifo, pattern){
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
 
   if(fifo.length === 0 || pattern[9] === typeNeutre){
-    if(debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    if(debug) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
     fifo.push(pattern);
     return;
   }

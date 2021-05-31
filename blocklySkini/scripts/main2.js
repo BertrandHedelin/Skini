@@ -84,10 +84,10 @@ function initWSSocket(serverIPAddress) {
 }
 window.initWSSocket = initWSSocket;
 
-function init() {
+function init(host) {
   let currentButton;
   console.log("init");
-  initWSSocket("localhost"); // En dur en attendant de faire un bundle
+  initWSSocket(host);
 
   function saveBlocksAndGenerateHH(){
     // Enregistre le fichier Blockly
@@ -148,12 +148,32 @@ function init() {
           {
             "kind": "block",
             "type": "hh_ORCHESTRATION"
-          }
-/*          {
-            "kind": "block",
-            "type": "random_body"
           },
           {
+            "kind": "block",
+            "type": "hh_module"
+          },
+          {
+            "kind": "block",
+            "type": "hh_run"
+          },
+          {
+            "kind": "block",
+            "type": "hh_declare_signal"
+          },
+          {
+            "kind": "block",
+            "type": "set_timer_division"
+          },
+          {
+            "kind": "block",
+            "type": "reset_orchestration"
+          },
+          {
+            "kind": "block",
+            "type": "random_body"
+          }
+         /* {
             "kind": "block",
             "type": "random_block"
           }*/
@@ -223,21 +243,6 @@ function init() {
           {
             "kind": "block",
             "type": "random_group"
-          }
-        ]
-      },
-      {
-        "kind": "category",
-        "categorystyle" : "loop_category",
-        "name": "Parameters",
-        "contents": [
-          {
-            "kind": "block",
-            "type": "set_timer_division"
-          },
-          {
-            "kind": "block",
-            "type": "reset_orchestration"
           }
         ]
       },
@@ -435,15 +440,15 @@ function init() {
           },
           {
             "kind": "block",
-            "type": "hh_declare_signal"
-          },
-          {
-            "kind": "block",
             "type": "hh_module"
           },
           {
             "kind": "block",
             "type": "hh_run"
+          },
+          {
+            "kind": "block",
+            "type": "hh_declare_signal"
           },
           {
             "kind": "block",
