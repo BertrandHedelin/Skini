@@ -50,7 +50,7 @@ void webSocketEvent(String msg) {
       frameRate(refreshRate);
       
       println("----------------------------------------------");
-      println("CONFIG SEQUENCEUR RECU DU SERVEUR HOP V:19/10/2018");
+      println("CONFIG SEQUENCEUR RECU DU SERVEUR NODE.JS");
       println("divisionMesure:", divisionMesure, "tempsMesure:", tempsMesure , "nbeDeMesures:", nbeDeMesures, "tempo:", tempo, " dureeDuTick:", dureeDuTick);
       println("----------------------------------------------");
       

@@ -454,22 +454,25 @@ serv.on('connection', function (ws) {
 
 		var dureeAttente = pushClipDAW(pattern, signal, legroupe, unPseudo, monId);
 
-/*
+
 		// DureeAttente est la somme des durées de la FIFO de l'instrument.
 		if ( dureeAttente === -1) {
 			return; // On est dans un cas de note sans durée
 		}
 
 		// Conversion in real waiting time
-        dureeAttente = Math.floor(dureeAttente * tempoTime / 1000);
-        if (debug) console.log("Web Socket Serveur: abletonStartClip:dureeAttente",  dureeAttente);
+    dureeAttente = Math.floor(dureeAttente * tempoTime / 1000);
+    if (debug) console.log("Web Socket Serveur: abletonStartClip:dureeAttente",  dureeAttente);
 		// On communique au client le temps d'attente en sec. avant d'entendre.
-		msg.type = "dureeAttente";
-		msg.text = dureeAttente;
-		msg.son = pattern[3];
-	    ws.send(JSON.stringify(msg));
+		var msg = {
+			type: "dureeAttente",
+			text: dureeAttente,
+			son: pattern[3]
+		}
+	  ws.send(JSON.stringify(msg));
 
-	    // Informe tout le monde
+/*
+	  // Informe tout le monde
 		var messageBroadcast = {
 			soundName:  pattern[3],
 			soundFileName: pattern[4],
@@ -478,6 +481,7 @@ serv.on('connection', function (ws) {
 			pseudo: unPseudo,
 			idClient: monId
 		}
+
 		hop.broadcast('demandeDeSonParPseudo', JSON.stringify(messageBroadcast));
 
 		var messageInstrument = {
@@ -967,6 +971,10 @@ serv.on('connection', function (ws) {
 				value: DAWStatus
 			}
 			ws.send(JSON.stringify(msg));
+			break;
+
+		case "startByMidiClock":
+			//compteurDivisionMesure = 0; // Remise à zero de la position dans le motif
 			break;
 
 		case "startSpectateur": // On récupère l'ID du client

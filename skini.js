@@ -12,6 +12,7 @@ var fs = require('fs');
 var express = require('express');
 var path    = require("path");
 var ipConfig = require("./serveur/ipConfig.json");
+var midiConfig = require("./serveur/midiConfig.json");
 
 var myArgs = process.argv.slice(2);
 if( myArgs[0] === undefined){
@@ -73,6 +74,12 @@ function startSkini(){
 		}else{
 			console.log( "Serveur pas accessible depuis Internet");
 		}
+
+		console.log("----------- MIDI --------------------------------------");
+		for(var i=0; i < midiConfig.length; i++){
+			console.log("Midi" + midiConfig[i].type + ", usage:" + midiConfig[i].spec + ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment );
+		}
+
 		console.log("=========================================================");
 	}
 

@@ -1,0 +1,26 @@
+[
+  {
+    "type": "OUT",
+    "spec": "clipToDAW",
+    "name": "loopMIDI Port 6",
+    "comment": "Bus for launching the clips in the DAW"
+  },
+  {
+    "type": "IN",
+    "spec": "syncFromDAW",
+    "name": "loopMIDI Port 9",
+    "comment": "for sync message from DAW"
+  },
+  {
+    "type": "IN",
+    "spec": "clipFromDAW",
+    "name": "loopMIDI Port 12",
+    "comment": "for clip activation message from DAW"
+  },
+  {
+    "type": "IN",
+    "spec": "controler",
+    "name": "nanoKEY2",
+    "comment": "to test a MIDI controler"
+  }
+]

@@ -12,6 +12,8 @@ boolean debug1 = false;
 boolean debug2 = true;
 
 JSONObject configJson;
+JSONArray configMIDI;
+
 String serveurNode;
 String RemoteNetAddress;
 int emitOSCport; // = 13000;
@@ -133,10 +135,11 @@ final byte BANK_SELECT =       (byte) 32;
 final byte MORPH_FM8_X =       (byte) 54;
 final byte MORPH_FM8_Y =       (byte) 55;
 
-final int nbeDeBus = 12;
-final int nbeDeBusIn = 5;
-
-final int  portMidiInput = 1;  
+// Pour les gestion des bus MIDI
+int nbeDeBus = 0;
+int nbeDeBusIn = 0;
+int busClipFromDawIndex = 0;
+int portMidiInput = 1;  
 // final int  portMidiInputMidiMix = 3;
 
 OscP5 oscP5Emit, oscP5Receive;
@@ -155,11 +158,13 @@ void setup() {
   ps = new ParticleSystem(new PVector(width/2, 50));
   println("REFRESH RATE =", refreshRate);
 
-  // Config File ****************************************
+  // Config Files ****************************************
   configJson = loadJSONObject("../../serveur/ipConfig.json");
-  String adresseDAW = configJson.getString("remoteIPAddressDAW");
+  String adresseDAW = configJson.getString("remoteIPAddressSound");
   String adresseServeur = configJson.getString("serverIPAddress");
   RemoteNetAddress = adresseServeur;
+  
+  configMIDI = loadJSONArray("../../serveur/midiConfig.json");
   
   // C'est l'inverse de Node
   emitOSCport = configJson.getInt("InPortOSCMIDIfromDAW"); 
@@ -172,7 +177,7 @@ void setup() {
   
   int distribSequencerPort = configJson.getInt("distribSequencerPort");
   
-  println(configJson);
+  //println(configJson);
   println("---------------------------------------------------------------");
   println("serveur WS Node:" + serveurNode + ": adresse DAW: "+ adresseDAW);
   println("---------------------------------------------------------------");
@@ -191,60 +196,99 @@ void setup() {
     sequenceur[i] = new ListEvent();
   }
 
-  // MIDI OSC *************************************
-  myBus = new MidiBus[nbeDeBus];
-  myBusIn = new MidiBus[nbeDeBusIn];
-
+  // OSC *************************************
   oscP5Receive = new OscP5(this, inOSCport);    /* On écoute sur ce port */
   oscP5Emit =    new OscP5(this, emitOSCport);  /* pour l'émission des OSC */
   myRemoteLocation = new NetAddress(RemoteNetAddress, emitOSCport); /* pour l'émission des OSC */
 
+  // BUS MIDI *****************************************
   // Donne la liste des interfaces midi à mettre dans la création de myBus
-  // Les index des bus sont utilisés depuis hiphop
   MidiBus.list(); 
+ 
+  nbeDeBus = 0;
+  nbeDeBusIn = 0;
+  // Pour dimensionner les tableaux
+  for (int i = 0; i < configMIDI.size(); i++) {
+    JSONObject midiParam = configMIDI.getJSONObject(i);
+    String type = midiParam.getString("type");
+     if (type.equals("OUT")){
+       nbeDeBus++;
+     }else if(type.equals("IN")){
+       nbeDeBusIn++;
+     }
+  }
+  println("MIDI Parameters -------------");
+  println("OUT:" + nbeDeBus + ", IN:" + nbeDeBusIn);
+  
+  myBus = new MidiBus[nbeDeBus];
+  myBusIn = new MidiBus[nbeDeBusIn];
+   
+  // Création des bus OUT et IN en tenant compte des "spec" des bus.
+  int countBusIN = 0;
+  int countBusOUT = 0;
 
-  String os = System.getProperty("os.name");
-  println(os,"Linux");
+  for (int i = 0; i < configMIDI.size(); i++) {
+    JSONObject midiParam = configMIDI.getJSONObject(i);
+    String type = midiParam.getString("type");
+    String name = midiParam.getString("name");
+    String spec = midiParam.getString("spec");
+        
+    if (type.equals("OUT")){
+      myBus[countBusOUT] = new MidiBus(this, portMidiInput, name);
+      println("Bus["+ countBusOUT +"] " + type + " : " + name);
+      countBusOUT++;
+     }else if(type.equals("IN")){
+      myBusIn[countBusIN] = new MidiBus(this, name, -1, name);
+      if(spec.equals("syncFromDAW")){
+        busClipFromDawIndex = countBusIN;
+      }
+      println("Bus["+ countBusIN +"] " + type + " : " + name);
+      countBusIN++;
+     }
+  }
 
-  // Config et Ports Midi sur la machine en cours. --------------------
-  if ( os.equals("Mac OS X") ) {
-    // Config sur MAC CIRM conforme à REAPER
-    myBus[0] = new MidiBus(this, portMidiInput, "Bus IAC 6");  // portMidiFM8
-    myBus[1] = new MidiBus(this, portMidiInput, "Bus IAC 7");  //portMidiAbsynth
-    myBus[2] = new MidiBus(this, portMidiInput, "Bus IAC 8");  //portMidiPrism
-    myBus[3] = new MidiBus(this, portMidiInput, "Bus IAC 9");  //portMidiGuitarRig
-    myBus[4] = new MidiBus(this, portMidiInput, "Bus IAC 11"); //portReaper
-    myBus[5] = new MidiBus(this, portMidiInput, "Bus IAC 10"); //portMidiMassive
-    myBus[6] = new MidiBus(this, portMidiInput, "Bus IAC 12"); //portMidiAbleton 
-    myBus[7] = new MidiBus(this, portMidiInput, "Bus IAC 13"); //portMidi Effet (GuitarRig 1) Voix
-    myBus[8] = new MidiBus(this, portMidiInput, "Bus IAC 14"); //portMidi Effet (GuitarRig 2) Voix 
-    myBus[9] = new MidiBus(this, portMidiInput, "Bus IAC 15"); //portMidi Effet (GuitarRig 3) Voix
-    myBus[10] = new MidiBus(this, portMidiInput, "Bus IAC 16"); //portMidi Effet(GuitarRig 4) Voix
-    myBus[11] = new MidiBus(this, portMidiInput, "Bus IAC 17"); //portMidi Quadri1
-  } else if ( os.equals("Linux") ){
-    myBusIn[0] = new MidiBus(this, "VirMIDI [hw:1,0,0]", 1, "VirMIDI [hw:1,0,0]");
-    myBus[0] = new MidiBus(this, "VirMIDI [hw:1,0,1]", 1, "VirMIDI [hw:1,0,1]");
-  } else {
-    // Config sur les PC Windows
-    myBus[0] = new MidiBus(this, portMidiInput, "loopMIDI Port");   // Golem, portMidiFM8
-    myBus[1] = new MidiBus(this, portMidiInput, "loopMIDI Port 1"); // Golem, portMidiAbsynth
-    myBus[2] = new MidiBus(this, portMidiInput, "loopMIDI Port 2"); // Golem,portMidiPrism
-    myBus[3] = new MidiBus(this, portMidiInput, "loopMIDI Port 3"); // Golem,portMidiGuitarRig
-    myBus[4] = new MidiBus(this, portMidiInput, "loopMIDI Port 4"); // Golem,portReaper
-    myBus[5] = new MidiBus(this, portMidiInput, "loopMIDI Port 5"); // Golem,portMidiMassive
-    myBus[6] = new MidiBus(this, portMidiInput, "loopMIDI Port 6"); //portMidiAbleton, pour les messages de contrôle => lancement des clips
-    myBus[7] = new MidiBus(this, portMidiInput, "loopMIDI Port 7"); // Golem,portMidi Effet (GuitarRig 1) Voix
-    myBus[8] = new MidiBus(this, portMidiInput, "loopMIDI Port 8"); // Golem,portMidi Effet (GuitarRig 2) Voix
-    myBus[9] = new MidiBus(this, portMidiInput, "loopMIDI Port 9"); // Golem,portMidi Effet (GuitarRig 3) Voix
-    myBus[10] = new MidiBus(this, portMidiInput, "loopMIDI Port 10"); // Golem,portMidi Effet (GuitarRig 4) Voix
-    myBus[11] = new MidiBus(this, portMidiInput, "loopMIDI Port 11"); // Golem,portMidi Quadri1
+  //String os = System.getProperty("os.name");
+  //println(os,"Linux");
+
+  //// Config et Ports Midi sur la machine en cours. --------------------
+  //if ( os.equals("Mac OS X") ) {
+  //  // Config sur MAC CIRM conforme à REAPER
+  //  myBus[0] = new MidiBus(this, portMidiInput, "Bus IAC 6");  // portMidiFM8
+  //  myBus[1] = new MidiBus(this, portMidiInput, "Bus IAC 7");  //portMidiAbsynth
+  //  myBus[2] = new MidiBus(this, portMidiInput, "Bus IAC 8");  //portMidiPrism
+  //  myBus[3] = new MidiBus(this, portMidiInput, "Bus IAC 9");  //portMidiGuitarRig
+  //  myBus[4] = new MidiBus(this, portMidiInput, "Bus IAC 11"); //portReaper
+  //  myBus[5] = new MidiBus(this, portMidiInput, "Bus IAC 10"); //portMidiMassive
+  //  myBus[6] = new MidiBus(this, portMidiInput, "Bus IAC 12"); //portMidiAbleton 
+  //  myBus[7] = new MidiBus(this, portMidiInput, "Bus IAC 13"); //portMidi Effet (GuitarRig 1) Voix
+  //  myBus[8] = new MidiBus(this, portMidiInput, "Bus IAC 14"); //portMidi Effet (GuitarRig 2) Voix 
+  //  myBus[9] = new MidiBus(this, portMidiInput, "Bus IAC 15"); //portMidi Effet (GuitarRig 3) Voix
+  //  myBus[10] = new MidiBus(this, portMidiInput, "Bus IAC 16"); //portMidi Effet(GuitarRig 4) Voix
+  //  myBus[11] = new MidiBus(this, portMidiInput, "Bus IAC 17"); //portMidi Quadri1
+  //} else if ( os.equals("Linux") ){
+  //  myBusIn[0] = new MidiBus(this, "VirMIDI [hw:1,0,0]", 1, "VirMIDI [hw:1,0,0]");
+  //  myBus[0] = new MidiBus(this, "VirMIDI [hw:1,0,1]", 1, "VirMIDI [hw:1,0,1]");
+  //} else {
+  //  // Config sur les PC Windows
+  //  myBus[0] = new MidiBus(this, portMidiInput, "loopMIDI Port");   // Golem, portMidiFM8
+  //  myBus[1] = new MidiBus(this, portMidiInput, "loopMIDI Port 1"); // Golem, portMidiAbsynth
+  //  myBus[2] = new MidiBus(this, portMidiInput, "loopMIDI Port 2"); // Golem,portMidiPrism
+  //  myBus[3] = new MidiBus(this, portMidiInput, "loopMIDI Port 3"); // Golem,portMidiGuitarRig
+  //  myBus[4] = new MidiBus(this, portMidiInput, "loopMIDI Port 4"); // Golem,portReaper
+  //  myBus[5] = new MidiBus(this, portMidiInput, "loopMIDI Port 5"); // Golem,portMidiMassive
+  //  myBus[6] = new MidiBus(this, portMidiInput, "loopMIDI Port 6"); //portMidiAbleton, pour les messages de contrôle => lancement des clips
+  //  myBus[7] = new MidiBus(this, portMidiInput, "loopMIDI Port 7"); // Golem,portMidi Effet (GuitarRig 1) Voix
+  //  myBus[8] = new MidiBus(this, portMidiInput, "loopMIDI Port 8"); // Golem,portMidi Effet (GuitarRig 2) Voix
+  //  myBus[9] = new MidiBus(this, portMidiInput, "loopMIDI Port 9"); // Golem,portMidi Effet (GuitarRig 3) Voix
+  //  myBus[10] = new MidiBus(this, portMidiInput, "loopMIDI Port 10"); // Golem,portMidi Effet (GuitarRig 4) Voix
+  //  myBus[11] = new MidiBus(this, portMidiInput, "loopMIDI Port 11"); // Golem,portMidi Quadri1
     
-    myBusIn[0] = new MidiBus(this, "loopMIDI Port 9", -1, "Ableton"); // Pour recevoir le signal de syncho d'Ableton
-    myBusIn[1] = new MidiBus(this, "nanoKEY2", -1, "nanoKEY2");
-    myBusIn[2] = new MidiBus(this, "loopMIDI Port 12", -1, "loopMIDI Port 12" ); //portMidi info Ableton activation de clip
-    myBusIn[3] = new MidiBus(this, "loopMIDI Port 13", -1, "loopMIDI Port 13");  // message MIDI pour synchro Video par exemple
-    //myBusIn[4] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");
-}
+  //  myBusIn[0] = new MidiBus(this, "loopMIDI Port 9", -1, "Ableton"); // Pour recevoir le signal de syncho d'Ableton
+  //  myBusIn[1] = new MidiBus(this, "nanoKEY2", -1, "nanoKEY2");
+  //  myBusIn[2] = new MidiBus(this, "loopMIDI Port 12", -1, "loopMIDI Port 12" ); //portMidi info Ableton activation de clip
+  //  myBusIn[3] = new MidiBus(this, "loopMIDI Port 13", -1, "loopMIDI Port 13");  // message MIDI pour synchro Video par exemple
+  //  //myBusIn[4] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");
+  //}
 
   //myBusIn[0] = new MidiBus(this, "MIDI Mix", -1, "AkaiMidiMix");
   //myBusIn[2] = new MidiBus(this, "Port 1", -1, "Absynth");

@@ -3,9 +3,9 @@
   border: 4px;
   color: white;
   margin: 2px;
-  // text-align: center;
+  /* text-align: center; */
   text-decoration: none;
-  // display: inline-block;
+  /* display: inline-block; */
   font-size: 12px;
   border-radius: 4px;
   width:70px;
@@ -18,9 +18,9 @@
   border: 4px;
   color: white;
   margin: 2px;
-  // text-align: center;
+  /* text-align: center; */
   text-decoration: none;
-  // display: inline-block;
+  /* display: inline-block; */
   font-size: 12px;
   border-radius: 4px;
   width:120px;
@@ -28,10 +28,10 @@
   font-family: "Arial", Georgia, Serif;
 }
 
-
+/*
 .boutonsCommande {
-  //text-align: center;
-}
+   text-align: center;
+} */
 
 .buttonStartAbleton {
   background-color: #4CAF50; /* vert */
@@ -50,13 +50,13 @@
 }
 
 .texteSon {
-  //background-color: #ffffff; /* blanc */
+  /*background-color: #ffffff; */ /* blanc */
   color: white;
   font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
  }
 
 .numColone {
-  //background-color: #ffffff; /* blanc */
+  /* background-color: #ffffff; */ /* blanc */
   color: black;
   width:64px;
   height:40px;
@@ -65,10 +65,10 @@
 
 .listBoutonsPad {
     white-space: nowrap;
-    //text-align: center;
+    /* text-align: center; */
     overflow: auto;
     width:2200px;
-    //height: 500px;
+    /* height: 500px; */
 }
 
 .padBouton {
@@ -85,7 +85,7 @@
 }
 
 .etatScrut {
-  //background-color: #bbb; /* gris léger */
+  /*background-color: #bbb; */ /* gris léger */
   color: black;
   border: 4px;
   margin: 2px;
@@ -124,9 +124,9 @@
 }
 
 .wrapButtons {
-    //text-align: center;
+    /* text-align: center; */
     overflow: auto;
-    //width:1200px;
+    /* width:1200px; */
     height: 400px;
 }
 
@@ -190,9 +190,11 @@
   font-family: "Arial", Georgia, Serif;
 }
 
+/*
 .wrapper {
-  //text-align: center;
+  text-align: center;
 }
+*/
 
 body {
   margin: 0 auto;
@@ -213,7 +215,6 @@ body.black-again {
   transition: 2s all;
 }
 
-
 .text-spectacle {
   font-size: 24px;
   color: white;
@@ -222,7 +223,7 @@ body.black-again {
 
 .info-spectateur {
   font-size: 24px;
-  //text-align: center;
+  /* text-align: center; */
   color: white;
   font-family: "Arial", Georgia, Serif;
 }

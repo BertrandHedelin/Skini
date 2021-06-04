@@ -2,14 +2,26 @@
 /***************** OPUS 5 - 2020 *****************************
 
 © Copyright 2019-2020, B. Petit-Heidelein
+Vesion Node.js
 
-Il s'agit d'une pièce avec trois orchestrations possibles.
 Les patterns sont typés DMFN.
 
 ==============================================================*/
 
-// Indexation des bus Midi dans OSCmidiHop de processing
-exports.busMidiDAW = 6;
+// Indexation du bus Midi pour le lancement des clips
+// Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
+// qui crée le bus midi pour ces commandes.
+var midiConfig = require("./midiConfig.json");
+var countBusOUT = 0;
+for(var i=0; i < midiConfig.length; i++){
+  if(midiConfig[i].type === "OUT"){
+    if(midiConfig[i].spec === "clipToDAW"){
+      exports.busMidiDAW = countBusOUT;
+    }
+    countBusOUT++;
+  }
+}
+//exports.busMidiDAW = 0;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
@@ -22,9 +34,6 @@ exports.synchoOnMidiClock = true;
 // Ceci a un impact important sur la façon de penser l'automate.
 // Les stingers ne sont possibles qu'avec reactOnPlay=true.
 exports.reactOnPlay = false;
-
-// L'automate est conforme à un rechargement selon les déclarations de module HipHop
-exports.canBeReloaded = true;
 
 /************************************
 FICHIERS DES CLIPS CSV
@@ -66,7 +75,7 @@ Si autre ... à créer...
 ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
 PEUT SUPPRIMER DES PATTERNS DES FIFOs
 *****************************************/
-exports.algoGestionFifo = 1;
+exports.algoGestionFifo = 0;
 
 /*****************************************************************************
 Gestion de la Matrice des possibles

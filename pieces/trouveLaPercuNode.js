@@ -25,7 +25,7 @@ exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
 // Pour le client Golem
 //exports.nombreDeNiveaux = 2;
 
-// Indexation des bus Midi dans OSCmidiHop de processing
+// Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
 exports.busMidiDAW = 6;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM

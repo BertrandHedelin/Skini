@@ -462,7 +462,7 @@ function initWSSocket(host) {
 			    }
 	    		for (var i = 0; i < msgRecu.value.length ; i++ ) {
 	    			if(msgRecu.value[i].length !== 0 ){
-		    			texteAffiche += "[" + i + ":" + msgRecu.value[i].length + "] " ; 
+		    			texteAffiche += "[" + i + ":" + msgRecu.value[i][1] + "] " ; 
 		    		}else{
 		    			texteAffiche += " " ;
 		    		}
@@ -595,10 +595,10 @@ function initServerListener() {
 },{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
 module.exports={
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "192.168.1.75",
+	"remoteIPAddressSound": "localhost",
 	"remoteIPAddressLumiere": "192.168.82.96",
 	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "192.168.1.75",
+	"serverIPAddress": "localhost",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,

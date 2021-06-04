@@ -461,7 +461,7 @@ function initWSSocket(host) {
 			    }
 	    		for (var i = 0; i < msgRecu.value.length ; i++ ) {
 	    			if(msgRecu.value[i].length !== 0 ){
-		    			texteAffiche += "[" + i + ":" + msgRecu.value[i].length + "] " ; 
+		    			texteAffiche += "[" + i + ":" + msgRecu.value[i][1] + "] " ; 
 		    		}else{
 		    			texteAffiche += " " ;
 		    		}

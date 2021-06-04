@@ -5,8 +5,7 @@ void oscEvent(OscMessage theOscMessage) {
   // On a toujours besoin de ces messages : bus midi et channel midi
   int indexBus =  (int) theOscMessage.get(0).floatValue();
   byte channel =  (byte) theOscMessage.get(1).floatValue();
-
-
+  
   if (debug) {
     println("OSC -> MIDI command Bus No : ", indexBus, "Channel :", channel);
     print(" received an osc message. with address pattern "+theOscMessage.addrPattern());
@@ -82,9 +81,11 @@ void oscEvent(OscMessage theOscMessage) {
 }
 
 // Reception MIDI et émission OSC ==================================================================
+
 void noteOn(int channel, int pitch, int velocity, long timestamp, String bus_name) {
   String message = "NoteOn";
   String timeStampInt;
+  String busClipFromDaw = configMIDI.getJSONObject(busClipFromDawIndex).getString("name");
 
   if (debug2) {
     println();
@@ -96,30 +97,34 @@ void noteOn(int channel, int pitch, int velocity, long timestamp, String bus_nam
     println("Timestamp:"+timestamp);
     println("Recieved on Bus:"+bus_name);
   }
-  switch ( bus_name ) {
-    case "AkaiMidiMix":   
-      message = "/Akai" + message;
-      break;
-    case  "nanoKEY2":
-      message = "/nanoKEY2" + message;
-      break;
-    case  "MPK25":
-      message = "/MPK25" + message;
-      break;
-    case  "Session1":
-      message = "/Session1" + message;
-      break;
-    case  "loopMIDI Port 12":
-      message = "/StartClip" + message;
-      break;
-    case  "loopMIDI Port 13":
-      message = "/video" + message;
-      break;   
-    default :
-      println("Canal Midi en input inconnu, 1");
-      return;
+  
+  if(bus_name.equals(busClipFromDaw)){
+     message = "/StartClip" + message;
+  }else{ // Codage en dur pour ce switch donc pour test uniquement
+    switch ( bus_name ) {
+      case "AkaiMidiMix":   
+        message = "/Akai" + message;
+        break;
+      case  "nanoKEY2":
+        message = "/nanoKEY2" + message;
+        break;
+      case  "MPK25":
+        message = "/MPK25" + message;
+        break;
+      case  "Session1":
+        message = "/Session1" + message;
+        break;
+      case  "loopMIDI Port 12":
+        message = "/StartClip" + message;
+        break;
+      case  "loopMIDI Port 13":
+        message = "/video" + message;
+        break;   
+      default :
+        println("Canal Midi en input inconnu sur noteOn, canal: " + channel);
+        return;
+    }
   }
-
   if (debug2) println(" Message :", message );
 
   OscMessage myMessage = new OscMessage(message);
@@ -175,7 +180,7 @@ void noteOff(int channel, int pitch, int velocity, long timestamp, String bus_na
     //message = "/StopClip" + message;
     return;
   default :   
-    println("Canal Midi en input inconnu, 2");
+    println("Canal Midi en input inconnu sur noteOff: canal: " + channel);
     return;
   }
 
@@ -212,7 +217,7 @@ void controllerChange(int channel, int number, int value, long timestamp, String
     message = "/Clip" + message;
     break;  
   default :   
-    println("Canal Midi en input inconnu, 3");
+    println("Canal Midi en input inconnu pour CC sur canal: " + channel);
     return;
   }
 
