@@ -15,6 +15,9 @@ var ws;
 var workspace;
 var prog;
 
+var DAWTableEnCours = 0;
+var automateEncours = false;
+
 var options = {
   comments: true,
   collapse: true,
@@ -48,7 +51,7 @@ function initWSSocket(serverIPAddress) {
     var id = Math.floor((Math.random() * 1000000) + 1 ); // Pour identifier le client
     var msg = {
       type: "startSpectateur",
-      text: "blockly",
+      text: "controleur",
       id: id
     }
     ws.send(JSON.stringify(msg));
@@ -135,6 +138,61 @@ function init(host) {
     ws.send(JSON.stringify(msg));
   }
   window.loadBlocks=loadBlocks;
+
+  function cleanQueues() {
+    var msg = {
+      type: "cleanQueues",
+    };
+    ws.send(JSON.stringify(msg));
+  }
+  cleanQueues = cleanQueues;
+
+  function loadDAW(val) {
+    if ( !automateEncours) {
+      console.log("clientControleur:loadDAW:", val);
+      var msg = { 
+        type: "loadDAWTable",
+        value: val -1, // Pour envoyer un index
+      }
+      DAWTableEnCours = val;
+      ws.send(JSON.stringify(msg));
+    } else {
+      alert("WARNING: Orchestration running, stop before selecting another one.")
+    }
+  }
+  window.loadDAW = loadDAW;
+
+  function startAutomate() {
+    if (DAWTableEnCours !== 0 && !automateEncours) {
+      var msg = {
+        type: "setDAWON",
+        value: DAWTableEnCours
+      }
+      ws.send(JSON.stringify(msg));
+
+      document.getElementById( "buttonStartAutomate").style.display = "none";
+      document.getElementById( "buttonStopAutomate").style.display = "inline";
+      
+      msg.type = "startAutomate";
+      ws.send(JSON.stringify(msg));
+      automateEncours = true;
+    }  else  {
+      alert("WARNING: No orchestration selected or one is running ");
+    } 
+  }
+  window.startAutomate = startAutomate;
+
+  function stopAutomate() {
+    document.getElementById( "buttonStartAutomate").style.display = "inline";
+    document.getElementById( "buttonStopAutomate").style.display = "none";
+    var msg = {
+      type: "stopAutomate"
+    }
+    ws.send(JSON.stringify(msg));
+    automateEncours = false;
+    cleanQueues();
+  }
+  window.stopAutomate = stopAutomate;
 
 //*********** Blocks ********************************************
   var toolbox = {

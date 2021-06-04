@@ -454,7 +454,6 @@ serv.on('connection', function (ws) {
 
 		var dureeAttente = pushClipDAW(pattern, signal, legroupe, unPseudo, monId);
 
-
 		// DureeAttente est la somme des durées de la FIFO de l'instrument.
 		if ( dureeAttente === -1) {
 			return; // On est dans un cas de note sans durée
@@ -498,6 +497,76 @@ serv.on('connection', function (ws) {
 
 		delete messageLog.note;
 		delete messageLog.text;
+	}
+
+	function loadDAWTableFunc(status){
+		DAWTableReady = false;
+		if ( par.configClips != "" && par.configClips != undefined ) {
+			try{
+				DAW.loadDAWTable(par.configClips).then(function() {
+					DAWStatus = status + 1; // !! La valeur reçue est un index
+					if(debug) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
+
+					try{
+						automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);
+					}catch(err){
+						//console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
+						console.log("\n-------------------------------------------------------------");
+						console.log("ATTENTION: The last orchestration compiled does not ");
+						console.log("correspond to the Skini piece you give as parameter");
+						console.log("in the command : node skini <skini piece>");
+						console.log("Reload and save the good one with the Blockly interface.");
+						console.log("-------------------------------------------------------------");
+
+						var msg = {
+							type: "consoleBlocklySkini",
+							text: "You try to load a wrong orchestration, see your console"
+						}
+						serv.broadcast(JSON.stringify(msg));
+						//throw err;
+						return;
+					}
+					// Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
+					if(par.gameOSCIn !== undefined){
+						//gameOSC.setOrchestration(automatePossibleMachine);
+						//gameOSC.init();
+					}
+					DAW.setAutomatePossible(automatePossibleMachine);
+					console.log("INFO: websocketServer: loadDAWTable: table loaded\n");
+
+					var msg = {
+						type: "consoleBlocklySkini",
+						text: "Orchestration loaded"
+					}
+					serv.broadcast(JSON.stringify(msg));
+
+					try{
+						//reactAutomatePossible( {DAWON: DAWStatus} ); // !!! en cours
+					}catch(e){
+						console.log("websocketServerSkini:loadDAWTable:catch react:", e);
+				   	}
+				   	DAWTableReady = true;
+				   	
+				}).catch( function(err) {
+					console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());
+
+					var msg = {
+						type: "consoleBlocklySkini",
+						text: err.toString()
+					}
+					serv.broadcast(JSON.stringify(msg));
+			   	throw err;
+				});
+			}catch (err){
+				return;
+			}
+		}else{
+			if(warnings) console.log("WARNING: websocketServer: loadDAWTable: table inexistante dans cette configuration.");
+			var mesReponse = {
+				type: "noAutomaton"
+			}
+			ws.send(JSON.stringify(mesReponse));
+		}
 	}
 
   	ws.on('message', function (message) {
@@ -687,65 +756,7 @@ serv.on('connection', function (ws) {
 
 		case "loadDAWTable" : // Piloté par le controleur, charge une config et les automates
 			// Controle de l'existence de la table (déclaration du fichier csv) avant de la charger
-			DAWTableReady = false;
-			if ( par.configClips != "" && par.configClips != undefined ) {
-				try{
-					DAW.loadDAWTable(par.configClips).then(function() {
-						DAWStatus = msgRecu.value + 1; // !! La valeur reçue est un index et non la valeur d'DAWON
-						if(debug) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
-
-						try{
-							automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);
-						}catch(err){
-							console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
-							throw err;
-							return;
-						}
-						// Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
-						if(par.gameOSCIn !== undefined){
-							//gameOSC.setOrchestration(automatePossibleMachine);
-							//gameOSC.init();
-						}
-						DAW.setAutomatePossible(automatePossibleMachine);
-						console.log("INFO: websocketServer: loadDAWTable: table loaded\n");
-
-						var msg = {
-							type: "consoleBlocklySkini",
-							text: "Orchestration loaded"
-						}
-						serv.broadcast(JSON.stringify(msg));
-						//hop.broadcast('consoleBlocklySkini', "HipHop compiled");
-
-						try{
-							//reactAutomatePossible( {DAWON: DAWStatus} ); // !!! en cours
-						}catch(e){
-							console.log("websocketServerSkini:loadDAWTable:catch react:", e);
-					   	}
-					   	DAWTableReady = true;
-					   	
-					}).catch( function(err) {
-						console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());
-
-						var msg = {
-							type: "consoleBlocklySkini",
-							text: err.toString()
-						}
-						serv.broadcast(JSON.stringify(msg));
-					   	// hop.broadcast('consoleBlocklySkini', err.toString());
-
-					   	throw err;
-					});
-				}catch (err){
-					break;
-				}
-			}else{
-				if(warnings) console.log("WARNING: websocketServer: loadDAWTable: table inexistante dans cette configuration.");
-				//hop.broadcast('consoleBlocklySkini', "No orchestration at this position"); // Pour Blockly
-				var mesReponse = {
-					type: "noAutomaton"
-				}
-				ws.send(JSON.stringify(mesReponse));
-			}
+			loadDAWTableFunc(msgRecu.value);
 			break;
 
 		case "loadBlocks":
@@ -826,16 +837,27 @@ serv.on('connection', function (ws) {
 		case "saveBlocklyGeneratedFile":
 			if(debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName , "\n--------------------");
 			if(debug) console.log(msgRecu.text);
-			//fs.writeFile(generatedDir + msgRecu.fileName + ".js", msgRecu.text, function (err) {
 			fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
-			  if (err) return console.log(err);
-			  //console.log(msgRecu.fileName + ".js", " written");
-			  console.log(defaultOrchestrationName, " written");
+			  if (err) {
+				  var msg = {
+						type: "consoleBlocklySkini",
+						text:  err.toString()
+					}
+					serv.broadcast(JSON.stringify(msg));
+			  	return console.log(err);
+			  }
+
+			  var msg = {
+					type: "consoleBlocklySkini",
+					text:  msgRecu.fileName + ".xml written"
+				}
+				serv.broadcast(JSON.stringify(msg));
+			  if(debug) console.log("INFO: websocketServer:", defaultOrchestrationName, " written");
 			});
 
 			fs.writeFile(generatedDir + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
 			  if (err) return console.log(err);
-			  console.log(msgRecu.fileName + ".xml", " written");
+			  console.log("INFO: websocketServer:", msgRecu.fileName + ".xml", " written");
 			});
 			break;
 
@@ -942,7 +964,7 @@ serv.on('connection', function (ws) {
 					type: "DAWTableNotReady",
 					text : "Table des commandes DAW pas encore chargée"
 				}
-            	ws.send(JSON.stringify(msg));
+        ws.send(JSON.stringify(msg));
 			}
 			break;
 

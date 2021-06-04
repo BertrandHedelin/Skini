@@ -12,17 +12,24 @@
 				<tr>
 					<td>
 					  <header class="mdl-color--cyan-500">
-					    <h1 class="mode-maker">Orchestration Skini on Node.js</h1>
+					    <h1 class="mode-maker">Orchestration Skini Design</h1>
 					    <div id="menubar">
 					    	<!--
 							<button class="small button" id="buttonGenerate" onclick="save();" >Generate HipHop</button>
 							-->
-	   						<label for="loadFile" class="small button">Select Blockly File</label>
+	   						<label for="loadFile" class="small button">Select</label>
     						<input type="file" id="loadFile" onchange="loadBlocks();" />
 
-							<button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();" >Save Blocks</button>
+							<button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();" >Save</button>
 							<input class="inputText" type="text" id="saveFile" />
 							<input class="inputText" type="text" id="consoleArea" />
+
+							<button class="small button" id="buttonLoadDAW1" 
+								onclick="loadDAW(1);" >Load</button>
+							<button  id="buttonStopAutomate" class="small button" style="display:none"  
+								onclick="stopAutomate();" >Stop</button>
+      						<button  id="buttonStartAutomate" class="small button" 
+      							onclick="startAutomate();" >Start</button>
 				        </div>
 					  </header>
 					</td>
