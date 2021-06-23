@@ -710,6 +710,9 @@ serv.on('connection', function (ws) {
 
 			if(msgRecu.clipChoisi === undefined ) {
 				msg.text = -1;
+			  msg.son = "pattern undefined";
+			  ws.send(JSON.stringify(msg));
+				break;
 			}else{
 				var dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
 				if ( dureeAttente === -1) {
@@ -719,7 +722,7 @@ serv.on('connection', function (ws) {
 			}
 			// On communique au client le délai avant d'entendre.
 			msg.son = msgRecu.clipChoisi[3];
-		    ws.send(JSON.stringify(msg));
+		  ws.send(JSON.stringify(msg));
 			break;
 
 		case "getGroupesClientLength":

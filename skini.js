@@ -37,7 +37,7 @@ function startSkini(){
 
 	function displayContext(param, ipConfig){
 		console.log("\n=========================================================");
-		if(param.scenesON) console.log("Skini avec les scènes\n");
+		//if(param.scenesON) console.log("Skini avec les scènes\n");
 		if(param.avecMusicien){
 			console.log("Décalage des FIFOs de ",param.decalageFIFOavecMusicien, " pulsations");
 		}
