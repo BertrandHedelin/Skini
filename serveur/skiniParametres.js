@@ -21,7 +21,8 @@ for(var i=0; i < midiConfig.length; i++){
     countBusOUT++;
   }
 }
-//exports.busMidiDAW = 0;
+
+exports.directMidiON = true;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;

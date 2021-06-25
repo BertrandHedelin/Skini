@@ -47,7 +47,6 @@ function startSkini(){
 		
 		console.log("Synchro. Midi: ", param.synchoOnMidiClock);
 		console.log("Réaction au moment où le pattern est joué (par défaut à la sélection):", param.reactOnPlay);
-		console.log("Les automates sont rechargeables en live:", param.canBeReloaded);
 		console.log("Algorithme sur FIFO: ", param.algoGestionFifo);
 		console.log("Nombe de groupes clients: ", param.nbeDeGroupesClients);
 
@@ -76,6 +75,11 @@ function startSkini(){
 		}
 
 		console.log("----------- MIDI --------------------------------------");
+		if(par.directMidiON) {
+			console.log("Use MIDI direct to control DAW");
+		}else{
+			console.log("Use OSC to control DAW");
+		}
 		for(var i=0; i < midiConfig.length; i++){
 			console.log("Midi" + midiConfig[i].type + ", usage:" + midiConfig[i].spec + ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment );
 		}

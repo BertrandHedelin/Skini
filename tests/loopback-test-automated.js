@@ -6,7 +6,7 @@ var midiConfig = require("../serveur/midiConfig.json");
 var debug1 = true;
 var debug = false;
 
-// MIDI OUT ================================================================
+// MIDI OUT (pour OSCmidi) ================================================================
 var midiOutput = new midi.Output();
 var midiPortClipToDAW;
 
@@ -34,7 +34,7 @@ function initMidiOUT(){
 }
 exports.initMidiOUT = initMidiOUT;
 
-// MIDI IN ==================================================================
+// MIDI IN (pour midimix.js) ==================================================================
 var previousNote = 0;
 var previousNotes = [0, 0, 0];
 var previousChannel = 0;
@@ -44,8 +44,6 @@ var note;
 var canal;
 var timeStamp;
 var noteSkini;
-
-// Les objets Midi nécessaires
 
 var midiInput = new midi.Input();
 var midiSync = new midi.Input();

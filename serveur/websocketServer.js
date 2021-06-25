@@ -46,7 +46,7 @@ var previousTimeToPlay = 0;
 var defautDeLatence;
 
 var debug = false;
-var debug1 = false;
+var debug1 = true;
 var warnings = false;
 
 // Automate des possibles
@@ -122,8 +122,9 @@ Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
 *************************************************************************************/
 
   function sendSignalFromDAW(noteSkini){
-  	if(debug1) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
+  	if(debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
   	var patternName = DAW.getPatternNameFromNote(noteSkini);
+  	if(debug1) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
   	if (patternName !== undefined){
   		reactAutomatePossible( { patternSignal: [noteSkini, patternName]});
   	}else{
@@ -183,7 +184,7 @@ var previousTimeClockMidi =0;
 var currentTimeClockMidi = 0;
 var tempoTime = 0;
 
-// Vient de midiMix.js et diretement de Bitwig ou de processing
+// Vient de midiMix.js et directement de Bitwig ou de processing
 function sendOSCTick(){
 	if(debug) console.log("websocketserver: sendOSCTick");
 	receivedTickFromDaw();
@@ -242,9 +243,6 @@ exports.getAutomatePossible = getAutomatePossible;
 function reactAutomatePossible(signal){
 	if (automatePossibleMachine !== undefined){
 		automatePossibleMachine.react( signal );
-
-		//automatePossibleMachine.activateSignal( signal, val );
-		//automatePossibleMachine.runProg();
 		return true;
 	}else{
 		if(warnings) console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
@@ -418,7 +416,7 @@ serv.on('connection', function (ws) {
 		if (par.reactOnPlay === undefined){
 			reactAutomatePossible( signalComplet );
 		} else if (!par.reactOnPlay){
-			if(debug) console.log("websocketServeur: pushClipDAW: reactAutomatePossible:", signalComplet);
+			if(debug) console.log("websocketServeur: pushClipDAW: reactOnPlay:", par.reactOnPlay, signalComplet);
 			reactAutomatePossible( signalComplet );
 		}
 		if (debug) console.log("Web Socket Server.js : pushClipDAW :nom ", nom, " pseudo: ", pseudo);
@@ -512,15 +510,19 @@ serv.on('connection', function (ws) {
 					}catch(err){
 						//console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
 						console.log("\n-------------------------------------------------------------");
-						console.log("ATTENTION: The last orchestration compiled does not ");
-						console.log("correspond to the Skini piece you give as parameter");
-						console.log("in the command : node skini <skini piece>");
-						console.log("Reload and save the good one with the Blockly interface.");
+						console.log(`ATTENTION: 
+- either there is an hiphop compile Error
+If you still have this message several times
+after correcting the error, stop and restart Skini.
+- or the last orchestration compiled does not
+correspond to the Skini piece you give as parameter
+in the command : node skini <skini piece>
+Reload and save the good one with the Blockly interface.`);
 						console.log("-------------------------------------------------------------");
 
 						var msg = {
 							type: "consoleBlocklySkini",
-							text: "You try to load a wrong orchestration, see your console"
+							text: "See your console, compile error of wrong piece"
 						}
 						serv.broadcast(JSON.stringify(msg));
 						//throw err;

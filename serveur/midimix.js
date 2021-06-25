@@ -1,5 +1,4 @@
-"use hiphop"
-"use hopscript"
+"use strict"
 
 /*************************************************************************** 
   SKINI
@@ -7,7 +6,7 @@
   
   © Copyright 2017-2020, B. Petit-Heidelein
 
-   CONTROLE DEPUIS LES COMMANDES MIDI VIA OSC
+   CONTROLE DEPUIS LES COMMANDES MIDI OU OSC
 
    Ce programme est utilisé:
    1) Dans le cas d'ABleton, pour recevoir et traiter les commandes OSC venant de Processing qui sert de pont MIDI.
@@ -27,9 +26,12 @@
 exports.midimix =  function(machineServeur, websocketServer) {
 
    var par = require('./ipConfig');
+   var param = require('./skiniParametres');
    var osc = require('osc-min');
    var dgram = require("dgram");
    var sock = dgram.createSocket('udp4');
+   var midiConfig = require("./midiConfig.json");
+
    var debug = false;
    var debug1 = true;
 
@@ -42,6 +44,185 @@ exports.midimix =  function(machineServeur, websocketServer) {
 	var canal;
 	var timeStamp;
 	var noteSkini;
+
+	// Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
+	// Par défaut on communique en OSC avec la DAW ou la passerèle
+	var directMidi = false;
+	if(param.directMidiON !== undefined){
+	    if(param.directMidiON) directMidi = true;
+	}
+
+	if(debug) console.log("========= directMidi dans midimix:", directMidi);
+
+	if(directMidi){
+		// Le require est fait ici car on doit pouvoir fonctionner en OSC sans MIDI du tout
+		// midi-node est dépendant de l'OS. Il faut installer le bon npm.
+   	var midi = require('midi');
+
+		var midiInput = new midi.Input();
+		var midiSync = new midi.Input();
+
+		// Les controleurs
+		var controlers = [];
+		var controlerIndex;
+		var midiPortSync;
+		var midiPortClipFromDAW;
+		var tempoTickDuration = 0;
+
+		function getMidiPortControlers(){
+		  for(var i=0; i < midiConfig.length; i++){
+		    if(midiConfig[i].spec  === "controler"){
+		      var input = new midi.Input();
+		      var controler = {
+		        "input": input,
+		        "name" : midiConfig[i].name
+		      }
+		      controlers.push(controler);
+
+		      if(debug) console.log("getMidiPortControlers: Midi" + 
+		            midiConfig[i].type + ", usage:" + midiConfig[i].spec +
+		            ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment, controlers );
+		    }
+		  }
+		}
+
+		function getControlerIndex(portName){
+		  for (var j = 0; j < midiInput.getPortCount(); ++j) {
+		    if( midiInput.getPortName(j) === portName){
+		      if(debug) console.log("getControlerIndex: Midi", j);
+		      return j;
+		    }
+		  }
+		  return -1;
+		}
+
+		function createControlerMessageOn(){
+		  for(var i=0; i < controlers.length; i++){
+		    controlerIndex = getControlerIndex(controlers[i].name);
+		    if(controlerIndex === -1){
+		      console.log("WARN: controler :", controlers[i].name, " does not exist");
+		      continue;
+		    }
+		    controlers[i].input.openPort(controlerIndex);
+		    controlers[i].input.ignoreTypes(false, false, false);
+		    if(debug1) console.log("create Controler listener : ", 
+		      controlers[i].input.getPortName(controlerIndex));
+
+		    controlers[i].input.on('message', function(deltaTime, message) {
+		      if(debug1) console.log('Input recieved : ' + message + ' d:' + deltaTime);
+		    
+		      // Ici les actions sur commande MIDI
+		      // On ne distingue pas les controleurs.
+
+		    });
+		    controlerIndex++;
+		  }
+		}
+
+		function getMidiPortForClipFromDAW(){
+		  for(var i=0; i < midiConfig.length; i++){
+		    if(midiConfig[i].spec  === "clipFromDAW"){
+		      for (var j = 0; j < midiInput.getPortCount(); ++j) {
+		        if( midiInput.getPortName(j) === midiConfig[i].name){
+		          if(debug) console.log("getPortForClipFromDAW: Midi" +
+		           midiConfig[i].type + ", usage:" + midiConfig[i].spec +
+		           ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment );
+		          return j;
+		        }
+		      }
+		    }
+		  }
+		  console.log("ERR: getPortForClipFromDAW: no Midi port for receiving from DAW");
+		  return -1;
+		}
+
+		function getMidiPortForSyncFromDAW(){
+		  for(var i=0; i < midiConfig.length; i++){
+		    if(midiConfig[i].spec  === "syncFromDAW"){1
+		      for (var j = 0; j < midiInput.getPortCount(); ++j) {
+		        if( midiSync.getPortName(j) === midiConfig[i].name){
+		          if(debug) console.log("getMidiPortForSyncFromDAW: Midi" + 
+		            midiConfig[i].type + ", usage:" + midiConfig[i].spec + 
+		            ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment );
+		          return j;
+		        }
+		      }
+		    }
+		  }
+		  console.log("ERR: getMidiPortForSyncFromDAW: no Midi port for receiving sync from DAW");
+		  return -1;
+		}
+
+		function initMidiIN(){
+		  midiPortSync = getMidiPortForSyncFromDAW();
+		  midiPortClipFromDAW = getMidiPortForClipFromDAW();
+
+		  getMidiPortControlers();
+		  createControlerMessageOn();
+
+		  midiInput.openPort(midiPortClipFromDAW);
+		  midiInput.ignoreTypes(false, true, false);
+		  //console.log("ClipToDaw: ", midiPortClipFromDAW, midiInput.getPortName(midiPortClipFromDAW));
+
+		  midiSync.openPort(midiPortSync);
+		  midiSync.ignoreTypes(false, false, false);
+		  //console.log("midiSync: ", midiPortSync, midiSync.getPortName(midiPortSync));
+
+		  // Traitement des commande Midi reçues d'Ableton Live
+		  // pour les patterns lancés.
+		  midiInput.on('message', function(deltaTime, message) {
+		    // On ne traite que les noteON, de 1001 0000 (144) à 1001 1111 (159)
+		    if(message[0] >= 144 && message[0] <= 159){
+		    	if(debug) console.log('midimix.js: initMidiIN: Input recieved :' + message + ' d:' + deltaTime);
+		      note = message[1];
+		      canal = message[0] - 144;
+		      //timeStamp = deltaTime; 
+
+		      // Ableton envoie les commandes MIDI en comptant depuis le canal 1 (et pas 0 comme d'autres contrôleurs)
+		      // Il faut donc faire attention à la gestion des canaux MIDI en fonction du contrôleur.
+		      noteSkini = note + (canal -1) * 127;
+
+		      // Ableton répéte 1 fois le message NoteON une première fois (deux envois) avec un léger décalage temporel.
+		      // Si le pattern tourne, et qu'il est activé, Ableton envoie 4 commandes MIDI noteON avec le même timestamp.
+		      // Le timestamp est proche de la micro-seconde.
+		      if (isInPreviousNotes(noteSkini) && Math.round(deltaTime) === 0){
+		      //if (isInPreviousNotes(noteSkini) && previousTimeStamp === Math.round(timeStamp)){ // à peu près une seconde
+		          if (debug) console.log("midimix.js: REPETITION : ", noteSkini, timeStamp, previousTimeStamp);
+		      }else{
+		        //previousTimeStamp = Math.round(timeStamp); 
+
+		        if(debug) console.log("midimix.js: noteSkini: ", noteSkini, note, canal);
+		        if(debug) console.log("midimix.js: isInPreviousNotes:", isInPreviousNotes(noteSkini));
+		        
+		        // Avec PUSH branché, Ableton Live envoie des notes négatives...
+		        // dont je ne connais pas la signification
+		        if(noteSkini > 0 ) {
+		          insertInPreviousNotes(noteSkini);
+		          if(debug) console.log("midimix.js: Note de pattern reçue d'Ableton:", noteSkini);
+		          websocketServer.sendSignalFromDAW(noteSkini);
+		        }
+		      }
+		    }
+		  });
+
+		  // Traitement des messages de synchro Midi (24 messages pour une noire)
+		  midiSync.on('message', function(deltaTime, message) {
+		    tempoTickDuration++;
+		    if(message[0] === 248){
+		      if(tempoTickDuration > 23){
+		        //console.log('Sync recieved :' + message + ' d:' + deltaTime);
+		        // Signal Tick à emmettre ici
+		        //console.log("Tick", message[0]);
+		        websocketServer.sendOSCTick();
+		        tempoTickDuration = 0;
+		      }
+		    }
+		  });
+		}
+		exports.initMidiIN = initMidiIN;
+
+		initMidiIN();
+	} // Fin fonction si MIDI
 
 	function insertInPreviousNotes(laNote){
 		for (var i=1; i < previousNotes.length ; i++){
@@ -58,6 +239,7 @@ exports.midimix =  function(machineServeur, websocketServer) {
 		return false;
 	};
 
+	// Traitement OSC ================================================================================
    sock = dgram.createSocket("udp4", function(msg, rinfo) {
     var error, message;
     try {

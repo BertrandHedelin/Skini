@@ -285,14 +285,13 @@ function putPatternInQueue(patternName){
     var id = 0;
 
     // Contient le signal et le pattern
-    var signalComplet =  { [signal] : commande[9] };
-
+    var signalComplet =  { [signal] : nom };
 
     if(debug) console.log("controleDAW:putPatternInQueue: signalComplet:", signalComplet);
     //if(debug1) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal);
     //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
-    var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal, typeNeutre);
-
+    var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
+      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
 
   }else{
     console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
@@ -501,10 +500,11 @@ function playAndShiftEventDAW(timerDivision) {
           laClef = Object.keys(commandeDAW[8]);
           leSignal = JSON.parse('{"' + laClef[0] + '":"' + commandeDAW[7] + '"}');
 
-          if(debug) console.log("controleDAW:playAndShiftEventDAW: laclef:", laClef,", leSignal: ", leSignal);
+          if(debug) console.log("controleDAW:playAndShiftEventDAW: laclef:", laClef,", leSignal: ", leSignal, commandeDAW[8]);
 
           if (par.reactOnPlay !== undefined){
             if (par.reactOnPlay){
+              if(debug1) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
               automatePossibleMachine.react(leSignal);
             }
           }

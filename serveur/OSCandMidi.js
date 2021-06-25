@@ -23,9 +23,52 @@ var remoteIPAddressImage = ipConfig.remoteIPAddressImage;
 var outportLumiere       = ipConfig.outportLumiere;
 var remoteIPAddressLumiere = ipConfig.remoteIPAddressLumiere;
 
-
 var debug = false;
 var debug1 = true;
+
+// Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
+
+// Par défaut on communique en OSC avec la DAW ou la passerèle
+var directMidi = false;
+if(par.directMidiON !== undefined){
+    if(par.directMidiON) directMidi = true;
+}
+
+if(directMidi){
+
+    if(debug) console.log("OSCandMidi: commande MIDI depuis Skini");
+    var midi = require('midi');
+    var midiConfig = require("./midiConfig.json");
+
+    var midiOutput = new midi.Output();
+    var midiPortClipToDAW;
+
+    function getMidiPortForClipToDAW(){
+      for(var i=0; i < midiConfig.length; i++){
+        if(midiConfig[i].spec  === "clipToDAW"){
+          for (var j = 0; j < midiOutput.getPortCount(); ++j) {
+            if( midiOutput.getPortName(j) === midiConfig[i].name){
+              if(debug) console.log("getMidiPortForClipToDAW: Midi" + 
+                midiConfig[i].type + ", usage:" + midiConfig[i].spec +
+                ", bus: "+ midiConfig[i].name + ", " + midiConfig[i].comment );
+              return j;
+            }
+          }
+        }
+      }
+      console.log("ERR: getPortForClipToDAW: no Midi port for controlling the DAW");
+      return -1;
+    }
+
+    function initMidiOUT(){
+      midiPortClipToDAW   = getMidiPortForClipToDAW();
+      midiOutput.openPort(midiPortClipToDAW);
+      if(debug) console.log("ClipToDaw: ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
+    }
+    exports.initMidiOUT = initMidiOUT;
+
+    initMidiOUT();
+}
 
 // VERS PROCESSING ==================================================
 
@@ -48,12 +91,16 @@ function sendOSCProcessing(message, val1, val2) {
 exports.sendOSCProcessing = sendOSCProcessing;
 
 function sendNoteOnDAW( bus, channel, note, velocity ) {
-    var buf;
-    if (debug) console.log("OSCandMidi : sending osc messages NoteOn " + note + "  Bus :" + bus + " to channel " + channel);
-    buf = osc.toBuffer({ address: "/noteOn" , args: [ bus, channel, note, velocity ]  });
+    if(directMidi){
+        midiOutput.sendMessage([144 + channel, note, velocity]);
+    }else{
+        var buf;
+        if (debug) console.log("OSCandMidi : sending osc messages NoteOn " + note + "  Bus :" + bus + " to channel " + channel);
+        buf = osc.toBuffer({ address: "/noteOn" , args: [ bus, channel, note, velocity ]  });
 
-    return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
-        function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+        return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
+            function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+    }
 };
 exports.sendNoteOnDAW = sendNoteOnDAW;
 
@@ -87,42 +134,50 @@ function sendBankSelect(bus, channel, bank) {
 exports.sendBankSelect = sendBankSelect;
 
 function sendControlChange(bus, channel, controlChange, controlValue) {
-    var buf;
-
-    buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
-    if (debug) console.log("sending osc messages bus:", bus, "controlChange :" + controlChange + " Value: " + controlValue);
-    return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound, 
-        function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+    if(directMidi){
+        midiOutput.sendMessage([ 176 + channel, controlChange, controlValue]);
+    }else{
+        var buf;
+        buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
+        if (debug) console.log("sending osc messages bus:", bus, "controlChange :" + controlChange + " Value: " + controlValue);
+        return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound, 
+            function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+    }
 };
 exports.sendControlChange = sendControlChange;
 
 function sendAllNoteOff() {
     var buf;
-
     buf = osc.toBuffer({ address: "/allNoteOff" , args: [ 0, 0 ]  });
     if (debug) console.log("sending ALL OFF");
     return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
         function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
-
 };
 exports.sendAllNoteOff = sendAllNoteOff;
 
 function controlChange(bus, channel, controlChange, controlValue) {
-    var buf;
-
-    if (debug) console.log("OSCandMidiLocal: controleChange: sending osc messages bus:", bus, "controlChange :" + controlChange + " Value: " + controlValue);
-    buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
-    udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound);
-    return;
+    if(directMidi){
+        midiOutput.sendMessage([ 176 + channel, controlChange, controlValue]);
+    }else{
+        var buf;
+        if (debug) console.log("OSCandMidiLocal: controleChange: sending osc messages bus:", bus, "controlChange :" + controlChange + " Value: " + controlValue);
+        buf = osc.toBuffer({ address: "/controlChange" , args: [ bus, channel, controlChange, controlValue ]  });
+        udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound);
+        return;
+    }
 };
 exports.controlChange = controlChange;
 
 function sendNoteOn( bus, channel, note, velocity ) {
-    var buf;
     if (debug) console.log("OSCandMidi : sending osc messages NoteOn " + note + "  Bus :" + bus + " to channel " + channel);
-    buf = osc.toBuffer({ address: "/noteOn" , args: [ bus, channel, note, velocity ]  });    
-    return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
-        function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+    if(directMidi){
+        midiOutput.sendMessage([144 + channel, note, velocity]);
+    }else{
+        var buf;
+        buf = osc.toBuffer({ address: "/noteOn" , args: [ bus, channel, note, velocity ]  });    
+        return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
+            function(err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+    }
 };
 exports.sendNoteOn = sendNoteOn;
 

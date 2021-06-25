@@ -93,7 +93,6 @@
     <variable id="|rA!)8/$=[YxSka_wlBR">BassonNeutre1</variable>
     <variable id="=IcEQh;slx0m}o/g,HFT">BassonNeutre2</variable>
     <variable id=")0[[S8793#XYCIwK+ijP">transTrompette</variable>
-    <variable id="Sq35I7Y75to,Z/07mO-.">NappeAlto</variable>
     <variable id="U8Kmd,7Zhm/OReUyS(PS">Percu1</variable>
     <variable id="+zFed-%PBxRXaEXmJP,5">Percu2</variable>
     <variable id="fJ-:3A`_wk,)_wh=xqq[">Percu3</variable>
@@ -104,6 +103,7 @@
     <variable id="z-Qa1KuI7?0B#:xGU*pt">tick</variable>
     <variable id="?HLc?q_LCnpY{8qtMa|7">NappeCello</variable>
     <variable id="vHB5H%_JFC.fs9rfDv,|">NappeCTB</variable>
+    <variable id="Sq35I7Y75to,Z/07mO-.">NappeAlto</variable>
     <variable id="y-H.g/3kR6()SkOa/^bz">NappeViolons</variable>
     <variable id="C-,RWqd,?8ZTw;4W.by(">S1Action</variable>
     <variable id="XH(zUZV~,(^}gsE~pZKg">S2Action</variable>
@@ -825,54 +825,17 @@
                       <block type="set_tempo" id="sJE|zx1Dgw;yv?KQMKA9">
                         <field name="tempo">90</field>
                         <next>
-                          <block type="hh_fork" id="LT.W_!A`eorZk]i8~bhp">
-                            <statement name="BODY">
-                              <block type="hh_sequence" id="TI4047DWqIl7CdUb(,Un">
-                                <statement name="BODY">
-                                  <block type="run_tank_waiting_for_patterns" id="R}fAVce7EKbA{xh,hkT3">
-                                    <value name="TANKS">
-                                      <block type="variables_get" id="Eo#j2}9.za@)h+]C|KFd">
-                                        <field name="VAR" id="VoQXg8nz0~x{3v/WuJE]">Piano</field>
-                                      </block>
-                                    </value>
-                                    <value name="IN_PATTERNS_LIST">
-                                      <block type="text" id=")h,CCjDPAT6Y+YWoz.L@">
-                                        <field name="TEXT">Rubinstein</field>
-                                      </block>
-                                    </value>
-                                  </block>
-                                </statement>
-                                <next>
-                                  <block type="hh_sequence" id="69zoxs_$3?cLvJZ;RP}#">
-                                    <statement name="BODY">
-                                      <block type="set_groups_waiting_for_patterns" id="u#w|EMdsp!|!67$hnfEP">
-                                        <field name="user_group">255</field>
-                                        <value name="GROUPS">
-                                          <block type="variables_get" id="[/-tso67hbiN`G7B|Za8">
-                                            <field name="VAR" id="Sq35I7Y75to,Z/07mO-.">NappeAlto</field>
-                                          </block>
-                                        </value>
-                                        <value name="IN_PATTERNS_LIST">
-                                          <block type="lists_create_with" id="ATDn3bD%K#cn7h%6epts">
-                                            <mutation items="2"></mutation>
-                                            <value name="ADD0">
-                                              <block type="text" id="bhrvvblvnm9V=9WV#LN?">
-                                                <field name="TEXT">Gould</field>
-                                              </block>
-                                            </value>
-                                            <value name="ADD1">
-                                              <block type="text" id="-AYe6.oU3Bt~h^#%dMvK">
-                                                <field name="TEXT">Kempff</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </statement>
-                                  </block>
-                                </next>
+                          <block type="run_tank_waiting_for_patterns" id="R}fAVce7EKbA{xh,hkT3">
+                            <value name="TANKS">
+                              <block type="variables_get" id="Eo#j2}9.za@)h+]C|KFd">
+                                <field name="VAR" id="VoQXg8nz0~x{3v/WuJE]">Piano</field>
                               </block>
-                            </statement>
+                            </value>
+                            <value name="IN_PATTERNS_LIST">
+                              <block type="text" id=")h,CCjDPAT6Y+YWoz.L@">
+                                <field name="TEXT">Rubinstein</field>
+                              </block>
+                            </value>
                             <next>
                               <block type="addSceneScore" id="_ds#iFX^cOc`7Nhd.(wB">
                                 <field name="number">1</field>

@@ -107,7 +107,7 @@ Blockly.JavaScript['wait_for_signal_in_group'] = function(block) {
   var code = `
   hh.AWAIT(
       {
-        "%location":{},
+        "%location":{"filename":"hiphop_blocks.js","pos":110},
         "%tag":"await",
         "immediate":false,
         "apply":function (){return ((() => {
@@ -186,8 +186,8 @@ Blockly.JavaScript['await_pattern'] = function(block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
     hh.AWAIT(
-      {"%location":{},
-      "%tag":"await","immediate":false,
+      {"%location":{"filename":"hiphop_blocks.js","pos":189},
+      "%tag":"await","immediate":true,
       "apply":function (){
           return ((() => {
             const patternSignal=this["patternSignal"];
@@ -236,16 +236,16 @@ Blockly.JavaScript['random_body'] = function(block) {
   var code = `
       hh.IF(
         {
-          "%location":{},
+          "%location":{"filename":"hiphop_blocks.js","pos":239},
           "%tag":"if",
           "apply":function (){
             return(Math.floor(Math.random() * Math.floor(2)) + 1) === 1;
           },
         },
-        hh.SEQUENCE({"%location":{},"%tag":"sequence"},
+        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
           `+ statements_name1 + `
         ),
-        hh.SEQUENCE({"%location":{},"%tag":"sequence"},
+        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":248},"%tag":"sequence"},
           `+ statements_name2 + `
         )
       ),
@@ -301,7 +301,7 @@ function  makeAwait(instrument, groupe) {
   var codeTotal = `
       hh.FORK( // debut du fork de makeAwait avec en premiere position:` +  instrument[0] + `
       {
-        "%location":{},
+        "%location":{"filename":"hiphop_blocks.js","pos":304},
         "%tag":"fork"
       },
           ` +
@@ -309,12 +309,12 @@ function  makeAwait(instrument, groupe) {
         var code = `
       hh.SEQUENCE( // Debut sequence pour ` +  val + `
       {
-        "%location":{},
+        "%location":{"filename":"hiphop_blocks.js","pos":312},
         "%tag":"seq"
       },
         hh.AWAIT(
           {
-            "%location":{},
+            "%location":{"filename":"hiphop_blocks.js","pos":317},
             "%tag":"await",
             "immediate":false,
             "apply":function (){
@@ -330,7 +330,7 @@ function  makeAwait(instrument, groupe) {
         ), // Fin await ` +  val + `IN
         hh.EMIT(
           {
-            "%location":{},
+            "%location":{"filename":"hiphop_blocks.js","pos":333},
             "%tag":"emit",
             "` +  val + `OUT" : "` +  val + `OUT",
             "apply":function (){
@@ -347,6 +347,16 @@ function  makeAwait(instrument, groupe) {
             "cnt":false
           }),
         ), // Fin emit ` +  val + `OUT true
+        hh.ATOM(
+          {
+          "%location":{"filename":"hiphop_blocks.js","pos":352},
+          "%tag":"node",
+          "apply":function () {
+              //console.log("--! makeAwait:  atom:", "` +  val + `OUT");
+              gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + val + `OUT", false);
+            }
+          }
+        )
       ) // Fin sequence pour `+  val + `
 `
     return code;
@@ -361,19 +371,19 @@ function makeReservoir(name, instrument, groupe) {
 
   var codeTotal = ` 
   // Module tank `+ name + ` + `+ instrument[0] +`
-  `+ name + ` = hh.MODULE({"id":"`+ name + `","%location":{},"%tag":"module"},
+  `+ name + ` = hh.MODULE({"id":"`+ name + `","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
   `;
   for(var i=0; i < instrument.length; i++ ) {
-    codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"`+ instrument[i] +`IN"}),
+    codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"`+ instrument[i] +`IN"}),
     `
   }
 
   for(var i=0; i < instrument.length; i++ ) {
-    codeTotal += `hh.SIGNAL({"%location":{},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
+    codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
     `
   }
 
-  codeTotal += `hh.SIGNAL({"%location":{},"direction":"IN", "name":"stopReservoir"}),
+  codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
   hh.TRAP(
   {
     "EXIT":"EXIT",
@@ -381,7 +391,7 @@ function makeReservoir(name, instrument, groupe) {
     "%tag":"EXIT"
   },
     hh.ABORT({
-      "%location":{},
+      "%location":{"filename":"hiphop_blocks.js","pos":394},
       "%tag":"abort",
       "immediate":false,
       "apply":function (){return ((() => {
@@ -398,7 +408,7 @@ function makeReservoir(name, instrument, groupe) {
       }),
       hh.ATOM(
           {
-          "%location":{},
+          "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
           "%tag":"node",
           "apply":function () {
               console.log("-- MAKE RESERVOIR:", "` + instrument[0] + `" );
@@ -414,7 +424,7 @@ function makeReservoir(name, instrument, groupe) {
         var code = `
       hh.EMIT(
             {
-              "%location":{},
+              "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
               "%tag":"emit",
               "` +  val + `OUT":"` +  val + `OUT",
               "apply":function (){
@@ -433,7 +443,7 @@ function makeReservoir(name, instrument, groupe) {
         ), // Fin emit ` +  val + `OUT true
       hh.ATOM(
           {
-          "%location":{},
+          "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
           "%tag":"node",
           "apply":function () {
               //console.log("-- makeReservoir:  atom:", "` +  val + `OUT");
@@ -451,7 +461,7 @@ function makeReservoir(name, instrument, groupe) {
     hh.EXIT(
       {
           "EXIT":"EXIT",
-          "%location":{},
+          "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
           "%tag":"break"
       })
     ) // Fin Abort 
@@ -459,7 +469,7 @@ function makeReservoir(name, instrument, groupe) {
 
   hh.PAUSE(
     {
-      "%location":{},
+      "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
       "%tag":"yield"
     }
   ),
@@ -490,7 +500,7 @@ function makeReservoir(name, instrument, groupe) {
      + `
   hh.ATOM(
       {
-      "%location":{},
+      "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
       "%tag":"node",
       "apply":function () {
           gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + instrument[0] + `", false);
@@ -3479,7 +3489,7 @@ hh.LOCAL(
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "run_tank_waiting_for_patterns",
-  "message0": "run tank(s) %1 waiting for pattern(s) %2",
+  "message0": "run tank(s) %1 waiting pattern(s) played by DAW  %2",
   "args0": [
     {
       "type": "input_value",
@@ -4443,7 +4453,7 @@ Blockly.JavaScript['hh_sequence'] = function(block) {
   var code = `
       hh.SEQUENCE(
           {
-            "%location":{},
+            "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
             "%tag":"seq"
           },
   
