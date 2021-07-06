@@ -3995,7 +3995,9 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  var machine = new hh.ReactiveMachine( orchestration );
+  var machine = new hh.ReactiveMachine( orchestration, {sweep:true});
+  console.log("nets",machine.nets.length);
+  
   return machine;
 }
 exports.setSignals = setSignals;

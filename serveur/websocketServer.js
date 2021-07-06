@@ -94,10 +94,10 @@ serv.broadcast = function broadcast(data) {
     	try{
     		client.send(data);
   		}catch(err){
-			console.log("ERR: websocketserver.js: broadcast", err);
-			throw err;
-			return;
-		}
+				console.log("ERR: websocketserver.js: broadcast", err);
+				throw err;
+				return;
+			}
     }
   });
 }

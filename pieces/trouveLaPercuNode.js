@@ -1,4 +1,4 @@
-"use hopscript"
+"use strict"
 
 /* Configuration de l'architecture IP, OSC, Websocket ====================
 24/1/2017 BH
@@ -18,12 +18,8 @@
 
 ===========================================================================*/
 
-exports.canWidth  = 10; // Pas utile si pas de tablette, 500
-exports.canHeight = 10; // Pas utile si pas de tablette, 250
-exports.tempo_ABL = 20; // CC udefined dans la norme MIDI
-
-// Pour le client Golem
-//exports.nombreDeNiveaux = 2;
+// Piece Bitwig en OSC
+exports.directMidiON = false;
 
 // Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
 exports.busMidiDAW = 6;
@@ -47,13 +43,7 @@ exports.limiteDureeAttente = 33; // En pulsations
 AUTOMATE
 
 *********************************************************/
-// Les fichiers Hiphop que décrivent les trajets
-// Les signaux à utiliser dans ces programmes sont décrirs dans groupeDesSons
-
-//exports.automate1 = './autoTrouveLaPercu-1';
-
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
-exports.canBeReloaded = true;
 exports.reactOnPlay = false;
 
 /************************************
@@ -77,7 +67,7 @@ CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
 ****************************************/
 exports.avecMusicien = false; // Pour mettre en place les spécificités au jeu avec des musiciens.
 exports.decalageFIFOavecMusicien = 4; // Décalage de la FIFO vide avant le premier pattern dans une FIFO.
-exports.patternScorePath1 = "trouveLaPercu";
+exports.patternScorePath1 = "";
 
 /****************************************
 ACTIVATION D'ALGORITHME D'ORGANISATION DES FIFOs

@@ -326,7 +326,7 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
 		// Calculer le score pour cet instrument et l'ajouter au total
 		switch(computeScorePolicy){
 			case 0:
-				console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: No policy for scoring this sequence.");
+				if(debug) console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: No policy for scoring this sequence.");
 				break;
 
 			case 1:

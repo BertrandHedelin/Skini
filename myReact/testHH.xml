@@ -1,0 +1,95 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="d9cfF-hJYA{R@]!TtE/b">toto</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="B)4*(I)%4r#-y2+|{!RM" x="113" y="81">
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="EG.cc{q|8bpok/O;Q8S3">
+        <field name="TYPE">INOUT</field>
+        <value name="signal">
+          <block type="variables_get" id="h}pCfw(+`V,=kGe?LSHs">
+            <field name="VAR" id="d9cfF-hJYA{R@]!TtE/b">toto</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_print_serveur" id="CTGf2Ff@,@0IDIL?L~t[">
+        <value name="TEXT">
+          <block type="text" id="oaQCWrsYIe5Em?ha2j*}">
+            <field name="TEXT">test</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_fork" id="JJ.,;gK.0YY?n-,FLEa[">
+            <statement name="BODY">
+              <block type="hh_sequence" id="~!hzWzei4zMQxo|yTH~I">
+                <statement name="BODY">
+                  <block type="hh_wait_for" id="SjF?GEmDKcsRy!q{!5ZL">
+                    <field name="TIMES">1</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="BX-HVFFbAaAl/s=JwoxZ">
+                        <field name="VAR" id="d9cfF-hJYA{R@]!TtE/b">toto</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_print_serveur" id="sGCH|4IW9(c|`mAdj+Iu">
+                        <value name="TEXT">
+                          <block type="text" id="7EQ4F@)k7t6c@R*mV-S(">
+                            <field name="TEXT">UIUIUIUIUIUIU</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="hh_sequence" id="tn2@3r{$z$@5Ef4C_0o3">
+                    <statement name="BODY">
+                      <block type="hh_emit_value" id="r6T=c,_R$o+v)oP}F0rg">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="CMKIVJq|ABRFb!4#_WJ?">
+                            <field name="VAR" id="d9cfF-hJYA{R@]!TtE/b">toto</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_pause" id="W%;qfXn2=p:eJ.Dg/=w`">
+                            <next>
+                              <block type="hh_emit_value" id="{CN@N$umlRHDzD#PU%.+">
+                                <field name="Signal_Value">0</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="N_?bmJxWiG%k.`Z[d[.Z">
+                                    <field name="VAR" id="d9cfF-hJYA{R@]!TtE/b">toto</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="hh_pause" id="Vokq,-XvcQXSjfaM`gS+">
+                                    <next>
+                                      <block type="hh_emit_value" id="9e)zd`lkpRH@)LcDE2Mg">
+                                        <field name="Signal_Value">0</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="[{J(0p,m@8mNzI2{=`Xx">
+                                            <field name="VAR" id="d9cfF-hJYA{R@]!TtE/b">toto</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

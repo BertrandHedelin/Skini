@@ -56,7 +56,7 @@ class ReactiveMachine {
       this.tick = 0;
 
       // No Sweep by default (until sweep is fixed)
-      this.sweep = false; // opts.sweep === undefined ? config.debug === 0 : !!opts.sweep; // !!!
+      this.sweep = true; // opts.sweep === undefined ? config.debug === 0 : !!opts.sweep; // !!!
       
       // Display the propagation of gates value
       this.tracePropagation = !!opts.tracePropagation;

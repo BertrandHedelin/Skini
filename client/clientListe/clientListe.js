@@ -10,7 +10,6 @@ https://github.com/SortableJS/Sortable
 ********************************************/
 'use strict'
 
-var par;
 var ipConfig = require('../../serveur/ipConfig');
 var mr = require('../../myReact/myReact');
 

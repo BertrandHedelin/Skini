@@ -1,0 +1,67 @@
+11,10,0,Le son du piano,piano1,1,1,1,0,0,4
+12,10,0,Le piano joue,piano2,1,1,1,0,0,4
+13,10,0,Ce n’est pas du Mozart,piano3,1,1,1,0,0,4
+14,10,0,Le piano reste discret,piano4,1,1,1,0,0,4
+15,10,0,J’aurais aimé jouer du piano,piano5,1,1,1,0,0,4
+16,10,0,Mais je préfère le clavecin,piano6,1,1,1,0,0,4
+17,10,0,Le piano vole,piano7,1,1,1,0,0,4
+18,10,0,Piano mais pas forte,piano8,1,1,1,0,0,4
+26,25,0,Pour un voyage en Inde,percu1,2,1,2,0,1,4
+27,25,0,Sonnent les Tablas,percu2,2,1,2,0,1,4
+28,25,0,Visiter New Delhi,percu3,2,1,2,0,1,4
+29,25,0,Et devenir un gourou,percu4,2,1,2,0,1,4
+30,25,0,Pour découvrir Krishna,percu5,2,1,2,0,1,4
+31,25,0,Et les Upanishads,percu6,2,1,2,0,1,4
+36,35,0,Tappe la basse,basse1,3,1,3,0,2,4
+37,35,0,Et pas basse cour,basse2,3,1,3,0,2,4
+38,35,0,Et pas messe basse,basse3,3,1,3,0,2,4
+39,35,0,La basse continue,basse4,3,1,3,0,2,4
+40,35,0,Garder la tension basse,basse5,3,1,3,0,2,4
+41,35,0,Pour une table basse,basse6,3,1,3,0,2,4
+42,35,0,Notes de basse,basse7,3,1,3,0,2,4
+43,35,0,Sur la basse terre,basse8,3,1,3,0,2,4
+51,50,0,Sonne le synthé,lead1,4,2,1,0,3,4
+52,50,0,A la Saint Tétizeur ,lead2,4,2,1,0,3,4
+53,50,0,Suivez le lead,lead3,4,2,1,0,3,4
+54,50,0,Encore le synthé,lead4,4,2,1,0,3,4
+55,50,0,Toujours le synthé,lead5,4,2,1,0,3,4
+56,50,0,Saint Thé Teaser,lead6,4,2,1,0,3,4
+57,50,0,Analogique ou modulaire,lead7,4,2,1,0,3,4
+58,50,0,Par Jupiter,lead8,4,2,1,0,3,4
+59,50,0,Par Farfisa,lead9,4,2,1,0,3,4
+60,50,0,Par Wurli,lead10,4,2,1,0,3,4
+61,50,0,Ce n’est pas le prophet,lead11,4,2,1,0,3,4
+66,65,0,Drum quel drame ?,batterie1,5,2,2,0,4,4
+67,65,0,La blatte rit,batterie2,5,2,2,0,4,4
+68,65,0,Mais la bate rit aussi,batterie3,5,2,2,0,4,4
+69,65,0,Le faire à son rythme,batterie4,5,2,2,0,4,4
+70,65,0,Au rythme de croisière,batterie5,5,2,2,0,4,4
+71,65,0,Mon rythme cardiaque,batterie6,5,2,2,0,4,4
+72,65,0,A chacun son rythme,batterie7,5,2,2,0,4,4
+73,65,0,Au rythme du sommeil,batterie8,5,2,2,0,4,4
+74,65,0,Ryhtme and blouse,batterie9,5,2,2,0,4,4
+75,65,0,Avoir le sens du rythme,batterie10,5,2,2,0,4,4
+76,65,0,Sans changer de rythme,batterie11,5,2,2,0,4,4
+77,65,0,Il va selon son rythme,batterie12,5,2,2,0,4,4
+78,65,0,Drumaturgie,batterie13,5,2,2,0,4,4
+79,65,0,Il frappe en rythme,batterie14,5,2,2,0,4,4
+80,65,0,Battons mais sans violence,batterie15,5,2,2,0,4,4
+81,65,0,Battre mais sans vaincre,batterie16,5,2,2,0,4,4
+82,65,0,On peut aussi bastonner,batterie17,5,2,2,0,4,4
+83,65,0,Battre ou débattre,batterie18,5,2,2,0,4,4
+96,95,0,Saxophone sonne,saxo1,6,3,1,0,5,4
+97,95,0,Saxo sans faune,saxo2,6,3,1,0,5,4
+98,95,0,Sac sceau,saxo3,6,3,1,0,5,4
+99,95,0,Solo en Saxe,saxo4,6,3,1,0,5,4
+100,95,0,N’aime pas le saxo,saxo5,6,3,1,0,5,4
+101,95,0,Préfère la trompette,saxo6,6,3,1,0,5,4
+102,95,0,Ah Charlie,saxo7,6,3,1,0,5,4
+103,95,0,Michael Brecker,saxo8,6,3,1,0,5,4
+104,95,0,Drôle de bois,saxo9,6,3,1,0,5,4
+105,95,0,On dirait un ophicléide,saxo10,6,3,1,0,5,4
+106,95,0,Antoine Joseph n’y songeait pas,saxo11,6,3,1,0,5,4
+107,95,0,Saute saxo,saxo12,6,3,1,0,5,4
+116,115,0,J’aime le funk,guitare1,7,3,3,0,6,4
+117,115,0,C’est beau la guitare,guitare2,7,3,3,0,6,4
+118,115,0,Fender et oui,guitare3,7,3,3,0,6,4
+119,115,0,Startocatser,guitare4,7,3,3,0,6,4
