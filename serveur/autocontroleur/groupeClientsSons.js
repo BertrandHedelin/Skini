@@ -392,7 +392,6 @@ function informSelecteurOnMenuChange(groupe, sons, status) {
 
 	if(serv !== undefined){
 		serv.broadcast(JSON.stringify(message));
-		//hop.broadcast('groupeClientStatus',JSON.stringify(message));
 	}else{
 		console.log("ERR: groupecliensSons: informSelecteurOnMenuChange: serv undefined");
 	}

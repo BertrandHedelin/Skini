@@ -97,7 +97,7 @@ function startSkini(){
 	});
 
 	app.get('/', function(req, res) {
-	 res.sendFile(path.join(__dirname+'/client/golem.html'));
+	 res.sendFile(path.join(__dirname+'/client/clientListe/clientListe.html'));
 	});
 
 	app.get('/block', function(req, res) {

@@ -1026,34 +1026,36 @@ Blockly.JavaScript['set_group_during_ticks'] = function(block) {
 	for(var i=0; i < listGroups.length; i++){
 		var theGroup = listGroups[i].replace(/ /g, "");
 		code +=
-        ` 
-	        hh.EMIT(
-	          {
-	            "%location":{},
-	            "%tag":"emit",
-	            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
-	            "apply":function (){
-	              return ((() => {
-	                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
-	                return [true, ` + user_group + `];
-	              })());
-	            }
-	          },
-	          hh.SIGACCESS({
-	            "signame":"`+ theGroup + `OUT",
-	            "pre":true,
-	            "val":true,
-	            "cnt":false
-	          })
-	        ), // Fin emit
+      ` 
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "`+ theGroup + `OUT":"`+ theGroup + `OUT",
+            "apply":function (){
+              return ((() => {
+                const `+ theGroup + `OUT = this["`+ theGroup + `OUT"];
+                return [true, ` + user_group + `];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame":"`+ theGroup + `OUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ), // Fin emit
 		    hh.ATOM(
 		      {
 		      "%location":{},
 		      "%tag":"node",
-		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true); }
+		      "apply":function () { 
+              gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true);
+            }
 		      }
-		 	),
-		`;
+		 	  ),
+	  `;
 	}
 	code += ` 
       	), // fin sequence 1
@@ -2173,6 +2175,12 @@ Blockly.JavaScript['addSceneScore'] = function(block) {
         serveur.broadcast(JSON.stringify(msg));
         }
       }
+  ),
+  hh.PAUSE(
+    {
+      "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+      "%tag":"yield"
+    }
   ),
 `;
   return code;

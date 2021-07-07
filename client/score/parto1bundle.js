@@ -331,7 +331,7 @@ class Group extends Rectangle {
 	  this.width = width * screenX/Xbase;
 	  this.height = height * screenY/Ybase;
 	  this.colorGroup = couleur;
-      this.graphicScene = graphicScene;
+    this.graphicScene = graphicScene;
 	  this.processing = processing;
 	  this.active = false;
 	  this.couleurInactiveGroup = [Rinactive,Ginactive,Binactive];
@@ -399,6 +399,7 @@ class Group extends Rectangle {
 
   activate() {
     super.setColor(this.colorGroup);
+    if (debug) console.log("class group: activate: ", this.name, this.colorGroup );
     this.active = true;
   }
 
@@ -465,7 +466,7 @@ class infoAudience {
       this.frameCounter = 0;
       // Re-calcul du décalage à faire en nombre de frame.
       this.scrollChar = this.frameSpeed / this.scrollChar;
-      if (debug1) console.log("displayInfoAudience:", this.frameSpeed, this.scrollChar, this.displaySpeed );
+      if (debug) console.log("displayInfoAudience:", this.frameSpeed, this.scrollChar, this.displaySpeed );
     }
     this.processing.fill(255);
     this.processing.rect(this.x, this.y, this.width, this.height);
@@ -934,7 +935,7 @@ function initWSSocket(host) {
   //ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
-  if (debug1) console.log("score.js ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort );
+  if (debug1) console.log("score.js ws://" + host + ":" + ipConfig.websocketServeurPort );
   ws.onopen = function( event ) {
     var msg = {
       type:"startSpectateur",
@@ -949,7 +950,6 @@ function initWSSocket(host) {
         id: index
       }
       ws.send(JSON.stringify(msg));
-
     };
 
   //Traitement de la Réception sur le client
@@ -1081,24 +1081,27 @@ function initWSSocket(host) {
       */
       case 'setInMatriceDesPossibles':
         var groupsNumber;
-        if (debug) console.log("Reçu setInMatriceDesPossibles:", msgRecu.value ); 
+        if (debug1) console.log("Reçu setInMatriceDesPossibles:", msgRecu.value ); 
         //  [0] = groupe de clients, [1] = index du groupe de son dans le tableau du fichier de conf, [2] = true ot false
         if ( isTankFromNumOfGroup(msgRecu.value[1])){
-         var tankNumber = getTankNumberFromNumberInConf(msgRecu.value[1]);
-         groupsNumber = getGroupOfSoundsFromTankNumber(tankNumber);
-         if (groupsNumber < 0 ) console.log("ERR: addEventListener: setInMatriceDesPossibles: getGroupOfSoundsFromTankNumber ");
+           var tankNumber = getTankNumberFromNumberInConf(msgRecu.value[1]);
+           groupsNumber = getGroupOfSoundsFromTankNumber(tankNumber);
+
+
+           if (groupsNumber < 0 ) console.log("ERR: addEventListener: setInMatriceDesPossibles: getGroupOfSoundsFromTankNumber ");
         }else{
-         groupsNumber =  getNumberInGroupsFromNumberInConf(msgRecu.value[1]);
-         if(groupsNumber === -1) break;
+          groupsNumber =  getNumberInGroupsFromNumberInConf(msgRecu.value[1]);
+          if(groupsNumber === -1) break;
         }
+        
         if (msgRecu.value[2]) { // On or Off
           groups[groupsNumber].activate();
         }else{
-         if( groups[groupsNumber] !== undefined){
-           if (!groups[groupsNumber].isTank()){
-            groups[groupsNumber].deactivate();
-           }
-         }
+          if( groups[groupsNumber] !== undefined){
+            if (!groups[groupsNumber].isTank()){
+              groups[groupsNumber].deactivate();
+            }
+          }
         }
         break;
 
@@ -1149,10 +1152,10 @@ window.initWSSocket = initWSSocket;
 },{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
 module.exports={
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "192.168.1.75",
+	"remoteIPAddressSound": "localhost",
 	"remoteIPAddressLumiere": "192.168.82.96",
 	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "192.168.1.75",
+	"serverIPAddress": "localhost",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,
