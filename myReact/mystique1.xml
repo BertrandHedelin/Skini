@@ -5,9 +5,9 @@
     <variable id="0.#;jy#~m4aeM%YTrjE/">MassiveX1</variable>
     <variable id="b{lvQ])kRE(!;cDL-=x~">MassiveX2</variable>
     <variable id="DeC2t4p_Aw]ss@$S(d|r">Prism</variable>
+    <variable id="W*B7?ZKpq5#5_,{|(N[L">tick</variable>
     <variable id="s|B!ha3jlHrz:Whrd;3+">Evolve</variable>
     <variable id=",qq_q2[v59_)4WTE5RY8">Razor</variable>
-    <variable id="W*B7?ZKpq5#5_,{|(N[L">tick</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="SM{3/f^huIWH7SKZsRoN" x="45" y="96">
     <statement name="BODY">
@@ -92,101 +92,153 @@
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="set_tempo" id="~[P~r(-h.!K?icFO`k(=">
-                                    <field name="tempo">120</field>
+                                  <block type="hh_wait_for" id="eha@y$a?Zcbqet%rRwEW">
+                                    <field name="TIMES">2</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="dMIu;s^L%5RkL9Pm^-P+">
+                                        <field name="VAR" id="W*B7?ZKpq5#5_,{|(N[L">tick</field>
+                                      </block>
+                                    </value>
                                     <next>
-                                      <block type="cleanOneQueue" id="c)bbkkTL7+CBo[.KbBO1">
-                                        <field name="number">5</field>
+                                      <block type="set_tempo" id="~[P~r(-h.!K?icFO`k(=">
+                                        <field name="tempo">120</field>
                                         <next>
-                                          <block type="hh_fork" id="VIe_,F3JWjTmR_$Z[K,)">
-                                            <statement name="BODY">
-                                              <block type="set_group_during_ticks" id="4yyo-J,)uFMz:@]ywAf2">
-                                                <field name="user_group">255</field>
-                                                <field name="number_of_ticks">10</field>
-                                                <value name="GROUPS">
-                                                  <block type="lists_create_with" id="@2{5?/rfDQmF}A,9:zB+">
-                                                    <mutation items="2"></mutation>
-                                                    <value name="ADD0">
-                                                      <block type="variables_get" id=".9a{b^iW0RM{5A}Y~FUr">
-                                                        <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">Evolve</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="ADD1">
-                                                      <block type="variables_get" id="8{)qw9Wdj3|P*qVOoLRr">
-                                                        <field name="VAR" id=",qq_q2[v59_)4WTE5RY8">Razor</field>
-                                                      </block>
-                                                    </value>
-                                                  </block>
-                                                </value>
-                                                <next>
-                                                  <block type="hh_sequence" id="F:[2.j7)|CisX)9?k8;o">
-                                                    <statement name="BODY">
-                                                      <block type="hh_wait_for" id="0Nib@IalUv@B8Lu#}LmY">
-                                                        <field name="TIMES">5</field>
-                                                        <value name="SIGNAL">
-                                                          <block type="variables_get" id="=PS~Yc8I*ZsjM$_YtJZz">
-                                                            <field name="VAR" id="W*B7?ZKpq5#5_,{|(N[L">tick</field>
+                                          <block type="cleanOneQueue" id="c)bbkkTL7+CBo[.KbBO1">
+                                            <field name="number">5</field>
+                                            <next>
+                                              <block type="hh_fork" id="VIe_,F3JWjTmR_$Z[K,)">
+                                                <statement name="BODY">
+                                                  <block type="set_group_during_ticks" id="4yyo-J,)uFMz:@]ywAf2">
+                                                    <field name="user_group">255</field>
+                                                    <field name="number_of_ticks">3</field>
+                                                    <value name="GROUPS">
+                                                      <block type="lists_create_with" id="@2{5?/rfDQmF}A,9:zB+">
+                                                        <mutation items="2"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="variables_get" id=".9a{b^iW0RM{5A}Y~FUr">
+                                                            <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">Evolve</field>
                                                           </block>
                                                         </value>
-                                                        <next>
-                                                          <block type="random_group" id="g^TN5%m8`dM|zxEIYwuP">
-                                                            <field name="number_of_groups">1</field>
-                                                            <field name="user_group">255</field>
-                                                            <field name="number_of_ticks">10</field>
-                                                            <value name="GROUPS">
-                                                              <block type="lists_create_with" id="$jiroO(W+!:Byt2fFV}!">
-                                                                <mutation items="2"></mutation>
-                                                                <value name="ADD0">
-                                                                  <block type="variables_get" id="b_q@P~C9bbLhcx~F|H6@">
-                                                                    <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">MassiveX1</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="ADD1">
-                                                                  <block type="variables_get" id="9ke!(5fiL_PX2J@Xw.Me">
-                                                                    <field name="VAR" id="b{lvQ])kRE(!;cDL-=x~">MassiveX2</field>
-                                                                  </block>
-                                                                </value>
+                                                        <value name="ADD1">
+                                                          <block type="variables_get" id="8{)qw9Wdj3|P*qVOoLRr">
+                                                            <field name="VAR" id=",qq_q2[v59_)4WTE5RY8">Razor</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_sequence" id="F:[2.j7)|CisX)9?k8;o">
+                                                        <statement name="BODY">
+                                                          <block type="hh_wait_for" id="0Nib@IalUv@B8Lu#}LmY">
+                                                            <field name="TIMES">5</field>
+                                                            <value name="SIGNAL">
+                                                              <block type="variables_get" id="=PS~Yc8I*ZsjM$_YtJZz">
+                                                                <field name="VAR" id="W*B7?ZKpq5#5_,{|(N[L">tick</field>
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="random_group" id="[MFEsmjt+z,A4Z.h(Yd6">
+                                                              <block type="random_group" id="g^TN5%m8`dM|zxEIYwuP">
                                                                 <field name="number_of_groups">1</field>
                                                                 <field name="user_group">255</field>
-                                                                <field name="number_of_ticks">10</field>
+                                                                <field name="number_of_ticks">3</field>
                                                                 <value name="GROUPS">
-                                                                  <block type="lists_create_with" id="_?taijA*JpJM[/P)M:I3">
+                                                                  <block type="lists_create_with" id="$jiroO(W+!:Byt2fFV}!">
                                                                     <mutation items="2"></mutation>
                                                                     <value name="ADD0">
-                                                                      <block type="variables_get" id="{u?li]ls8:f^?-85zqBn">
+                                                                      <block type="variables_get" id="b_q@P~C9bbLhcx~F|H6@">
                                                                         <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">MassiveX1</field>
                                                                       </block>
                                                                     </value>
                                                                     <value name="ADD1">
-                                                                      <block type="variables_get" id="gu%uWhUKUubp~e1Q%d@?">
+                                                                      <block type="variables_get" id="9ke!(5fiL_PX2J@Xw.Me">
                                                                         <field name="VAR" id="b{lvQ])kRE(!;cDL-=x~">MassiveX2</field>
                                                                       </block>
                                                                     </value>
                                                                   </block>
                                                                 </value>
+                                                                <next>
+                                                                  <block type="random_group" id="[MFEsmjt+z,A4Z.h(Yd6">
+                                                                    <field name="number_of_groups">1</field>
+                                                                    <field name="user_group">255</field>
+                                                                    <field name="number_of_ticks">3</field>
+                                                                    <value name="GROUPS">
+                                                                      <block type="lists_create_with" id="_?taijA*JpJM[/P)M:I3">
+                                                                        <mutation items="2"></mutation>
+                                                                        <value name="ADD0">
+                                                                          <block type="variables_get" id="{u?li]ls8:f^?-85zqBn">
+                                                                            <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">MassiveX1</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="ADD1">
+                                                                          <block type="variables_get" id="gu%uWhUKUubp~e1Q%d@?">
+                                                                            <field name="VAR" id="b{lvQ])kRE(!;cDL-=x~">MassiveX2</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="hh_wait_for" id="1Bd*tIj6_/%UWt]FO%w:">
+                                                    <field name="TIMES">2</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="=@3]uzCJy|,:g.Qt*dg|">
+                                                        <field name="VAR" id="W*B7?ZKpq5#5_,{|(N[L">tick</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="set_tempo" id="HvyHMt7Ay2+qa(aM7i#9">
+                                                        <field name="tempo">90</field>
+                                                        <next>
+                                                          <block type="random_group" id="k)|rFGe:tid]EbU!chO9">
+                                                            <field name="number_of_groups">2</field>
+                                                            <field name="user_group">255</field>
+                                                            <field name="number_of_ticks">3</field>
+                                                            <value name="GROUPS">
+                                                              <block type="lists_create_with" id="f]=~{.ws3oS%e8G(D-jS">
+                                                                <mutation items="3"></mutation>
+                                                                <value name="ADD0">
+                                                                  <block type="variables_get" id="s^x1cM/@!Y7aWlSNWm%=">
+                                                                    <field name="VAR" id="X`nH7u;:)SKqga*i-D|p">Massive</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD1">
+                                                                  <block type="variables_get" id="TK7-BQ@`IMn6*v%P}dfy">
+                                                                    <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">FM8</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD2">
+                                                                  <block type="variables_get" id="Decx_f)1g8J#U~.M;:-}">
+                                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">Prism</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="hh_print_serveur" id="bJ.!wG7B{a@3p]sg;_BR">
+                                                                <value name="TEXT">
+                                                                  <block type="text" id="fRYJZP*q%n}8;%_n~LR6">
+                                                                    <field name="TEXT">Fin Mystique Electro</field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="cleanqueues" id="h;fZQ)a07BR5/Cf)lYn1"></block>
+                                                                </next>
                                                               </block>
                                                             </next>
                                                           </block>
                                                         </next>
                                                       </block>
-                                                    </statement>
+                                                    </next>
                                                   </block>
-                                                </next>
-                                              </block>
-                                            </statement>
-                                            <next>
-                                              <block type="hh_print_serveur" id="bJ.!wG7B{a@3p]sg;_BR">
-                                                <value name="TEXT">
-                                                  <block type="text" id="fRYJZP*q%n}8;%_n~LR6">
-                                                    <field name="TEXT">Fin Mystique Electro</field>
-                                                  </block>
-                                                </value>
-                                                <next>
-                                                  <block type="cleanqueues" id="h;fZQ)a07BR5/Cf)lYn1"></block>
                                                 </next>
                                               </block>
                                             </next>

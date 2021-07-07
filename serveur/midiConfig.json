@@ -22,11 +22,5 @@
     "spec": "controler",
     "name": "nanoKEY2",
     "comment": "to test a MIDI controler"
-  },
-  {
-    "type": "IN",
-    "spec": "controler",
-    "name": "MIDI Mix",
-    "comment": "to test a MIDI controler"
   }
 ]

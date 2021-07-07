@@ -716,7 +716,7 @@ function makeOneAutomatePossibleMachine (numAuto) {
 	}
 
 	// Pour permettre les broadcasts depuis l'orchestration
-	orchestration.setServ(serv, DAW, this);
+	orchestration.setServ(serv, DAW, this, oscMidiLocal);
 
 	var machine = orchestration.setSignals();
 	makeSignalsListeners(machine);

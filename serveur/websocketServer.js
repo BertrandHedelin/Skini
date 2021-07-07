@@ -76,6 +76,22 @@ var groupeEncours = 0;
 var currentTimePrevMidi =0;
 var currentTimeMidi = 0;
 
+
+/*************************************************
+ 
+	INITIALISATION DU PORT MIDI OUT (si paramétré)
+
+**************************************************/
+
+var directMidi = false;
+if(par.directMidiON !== undefined){
+    if(par.directMidiON) directMidi = true;
+}
+
+if(directMidi) {
+	oscMidiLocal.initMidiOUT();
+}
+
 /*************************************************
  
 	WEBSOCKET EN NODE JS

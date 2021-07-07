@@ -3906,7 +3906,7 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
 "use strict";
 var hh = require("../hiphop/hiphop.js");
 var par = require('../serveur/skiniParametres');
-var oscMidiLocal = require("../serveur/OSCandMidi.js");
+var oscMidiLocal;
 
 var gcs;
 var DAW;
@@ -3922,11 +3922,12 @@ var tempoMax = 160;
 var tempoMin = 40;
 var tempoGlobal = 60;
 
-function setServ(ser, daw, groupeCS){
+function setServ(ser, daw, groupeCS, oscMidi){
   //console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
+  oscMidiLocal = oscMidi;
 }
 exports.setServ = setServ;
 
@@ -3937,8 +3938,10 @@ function setTempo(value){
     return;
   }
   var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
-  if (debug) console.log("Set tempo:", value);
-  oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
+  if (debug) {
+    console.log("Set tempo blockly:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW() );
+  }
+  oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
 var tempoValue = 0;

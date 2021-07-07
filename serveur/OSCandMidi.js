@@ -25,6 +25,7 @@ var remoteIPAddressLumiere = ipConfig.remoteIPAddressLumiere;
 
 var debug = false;
 var debug1 = true;
+var midiPortClipToDAW;
 
 // Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
 
@@ -41,7 +42,6 @@ if(directMidi){
     var midiConfig = require("./midiConfig.json");
 
     var midiOutput = new midi.Output();
-    var midiPortClipToDAW;
 
     function getMidiPortForClipToDAW(){
       for(var i=0; i < midiConfig.length; i++){
@@ -61,13 +61,17 @@ if(directMidi){
     }
 
     function initMidiOUT(){
-      midiPortClipToDAW   = getMidiPortForClipToDAW();
-      midiOutput.openPort(midiPortClipToDAW);
-      if(debug) console.log("ClipToDaw: ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
+        midiPortClipToDAW = getMidiPortForClipToDAW();
+        midiOutput.openPort(midiPortClipToDAW);
+        if(debug) console.log("OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
     }
     exports.initMidiOUT = initMidiOUT;
 
-    initMidiOUT();
+    function getMidiPortClipToDAW(){
+        return midiPortClipToDAW;
+    }
+    exports.getMidiPortClipToDAW = getMidiPortClipToDAW;
+    //initMidiOUT();
 }
 
 // VERS PROCESSING ==================================================
@@ -135,6 +139,12 @@ exports.sendBankSelect = sendBankSelect;
 
 function sendControlChange(bus, channel, controlChange, controlValue) {
     if(directMidi){
+        if (debug) {
+            console.log("sending CC Midi: channel:", channel,
+                "controlChange :", controlChange,
+                " Value: ", controlValue, 
+                " : ", midiPortClipToDAW);
+        }
         midiOutput.sendMessage([ 176 + channel, controlChange, controlValue]);
     }else{
         var buf;
