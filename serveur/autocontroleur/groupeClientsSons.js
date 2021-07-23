@@ -779,6 +779,19 @@ function makeSignalsListeners(machine){
 			logInfoAutomate(messageLog);
 		});
 	}
+
+	// Listener des signaux pour les commandes OSC direct
+	// Inutile si les message OSC sont envoyés sans passer par des signaux, ce qui est plus simple.
+/*	if(par.gameOSCOut !== undefined){
+		for (var i=0; i < par.gameOSCOut.length; i++) {
+			var signal = par.gameOSCOut[i];
+			if(debug1) console.log("Signal OSC ajouté:", signal);
+			machine.addEventListener( signal , function(evt) {
+				if(debug1) console.log("groupeClientsSons:Emission d'une commande OSC depuis orchestration:", evt.signalName);
+				oscMidiLocal.sendOSCGame(evt.signalName, evt.signalValue);
+			});
+		}
+	}*/
 }
 
 function makeListener(machine){

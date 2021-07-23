@@ -138,3 +138,15 @@ const groupesDesSons = [
 ];
 exports.groupesDesSons = groupesDesSons;
 
+exports.gameOSCIn = [
+"porte1",
+"porte2",
+"porte3",
+"porte4",
+"porte5",
+"porte6",
+"porte7",
+"porte8",
+"porte9",
+"porte10",
+];

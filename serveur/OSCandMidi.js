@@ -213,3 +213,14 @@ function sendSceneLumiere(message) {
     return udp.send(buf, 0, buf.length, outportLumiere, remoteIPAddressLumiere);
 };
 exports.sendSceneLumiere = sendSceneLumiere;
+
+// VERS PLATEFORME DE JEU OU CONTOLEUR OSC ================================================
+
+function sendOSCGame(message, value) { // Value = table des données 
+    var buf;
+    var commandeOSC = "/" + message;
+    if (debug1) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value);
+    buf = osc.toBuffer({ address: commandeOSC , args: [value] });
+    return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAdressGame);
+};
+exports.sendOSCGame = sendOSCGame;

@@ -2491,6 +2491,70 @@ hh.ATOM(
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
+  "type": "send_osc_midi",
+  "message0": "send osc midi message %1 ch. %2 note %3 val. %4 ",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "message",
+      "check": "String"
+    },
+    {
+      "type": "field_number",
+      "name": "channelMidi",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "NoteMidi",
+      "value": 0,
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "valueMidi",
+      "value": 0,
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['send_osc_midi'] = function(block) {
+  var message = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
+  let message_value = message.replace(/\'/g, "");
+  var number_channel = block.getFieldValue('channelMidi');
+  var number_note = block.getFieldValue('NoteMidi');
+  var number_value = block.getFieldValue('valueMidi');
+
+  var code = `
+hh.ATOM(
+  {
+  "%location":{},
+  "%tag":"node",
+  "apply":function () {
+    oscMidiLocal.sendOSCGame(
+    "`+ message_value + `",
+    {type: 'integer', value: `+ number_channel + `},
+    {type: 'integer', value: `+ number_note + `},
+    {type: 'integer', value: `+ number_value + `});
+    }
+  }
+),
+`;
+  return code;
+};
+
+
+// Revu HH node
+Blockly.defineBlocksWithJsonArray([
+{
   "type": "send_midi_cc",
   "message0": "sendCC ch. %1 CC %2 val. %3 ",
   "args0": [

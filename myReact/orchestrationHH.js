@@ -1,4 +1,4 @@
-var FM8, Massive, MassiveX1, MassiveX2, Prism, Evolve, Razor, tick;
+var INTERFACEZRC, FM8, Massive, MassiveX1, MassiveX2, Prism, Evolve, Razor, tick;
 
 
 
@@ -123,6 +123,12 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
 
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"IN",
+      "name":"INTERFACEZRC"
+    }),
+
   hh.LOOP(
     {
      "%location":{loop: 1},
@@ -222,32 +228,19 @@ var orchestration = hh.MODULE(
       }
     ),
 
-      hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "FM8OUT": "FM8OUT",
-          "apply":function (){
-            return ((() => {
-              const FM8OUT = this["FM8OUT"];
-              return [true,255];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame": "FM8OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-      ),
-      hh.ATOM(
-        {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "FM8OUT",true); }
-        }
-   	),
+  hh.ATOM(
+    {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      oscMidiLocal.sendOSCGame(
+      "OSC/MESSSAGE",
+      {type: 'integer', value: 1},
+      {type: 'integer', value: 64},
+      {type: 'integer', value: 120});
+      }
+    }
+  ),
 
   hh.ATOM(
     {
@@ -259,117 +252,247 @@ var orchestration = hh.MODULE(
     }
   ),
 
-      hh.TRAP(
-        {
-          "trap394549":"trap394549",
-          "%location":{},
-          "%tag":"trap394549"
-        },
         hh.FORK(
-          {
-            "%location":{},
-            "%tag":"fork"
-          },
-          hh.SEQUENCE( // sequence 1
             {
               "%location":{},
-              "%tag":"seq"
+              "%tag":"fork"
             },
-            hh.EMIT(
+
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.TRAP(
+            {
+              "trap795144":"trap795144",
+              "%location":{},
+              "%tag":"trap795144"
+            },
+            hh.FORK(
               {
                 "%location":{},
-                "%tag":"emit",
-                "MassiveOUT":"MassiveOUT",
-                "apply":function (){
-                  return ((() => {
-                    const MassiveOUT = this["MassiveOUT"];
-                    return [true, 255];
-                  })());
-                }
+                "%tag":"fork"
               },
-              hh.SIGACCESS({
-                "signame":"MassiveOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", true); }
-            }
-        ),
-
-          ), // fin sequence 1
-        hh.SEQUENCE(
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.AWAIT(
+              hh.SEQUENCE( // sequence 1
                 {
                   "%location":{},
-                  "%tag":"await",
-                  "immediate":false,
-                  "apply":function (){return ((() => {
-                    const tick =this["tick"];
-                    return tick.now;})());},
-                  "countapply":function (){return 10;}
-              },
-              hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                  "%tag":"seq"
+                },
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveOUT":"MassiveOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveOUT = this["MassiveOUT"];
+                        return [true, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", true); }
+                }
             ),
 
-
-            hh.EMIT(
-              {
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "PrismOUT":"PrismOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const PrismOUT = this["PrismOUT"];
+                        return [true, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"PrismOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
                 "%location":{},
-                "%tag":"emit",
-                "MassiveOUT":"MassiveOUT",
-                "apply":function (){
-                  return ((() => {
-                    const MassiveOUT = this["MassiveOUT"];
-                    return [false, 255];
-                  })());
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", true); }
                 }
-              },
-              hh.SIGACCESS({
-                "signame":"MassiveOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
+            ),
+
+              ), // fin sequence 1
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 10;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+
+
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveOUT":"MassiveOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveOUT = this["MassiveOUT"];
+                        return [false, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", false); }
+                }
+            ),
+
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "PrismOUT":"PrismOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const PrismOUT = this["PrismOUT"];
+                        return [false, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"PrismOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", false); }
+                }
+            ),
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+                hh.EXIT(
+                  {
+                    "trap795144":"trap795144",
+                    "%location":{},
+                    "%tag":"break"
+                  }
+                ), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+        hh.PAUSE(
             {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", false); }
+              "%location":{},
+              "%tag":"yield"
             }
         ),
 
-            hh.PAUSE(
+      ),
+
+          hh.SEQUENCE(
               {
-                "%location":{},
-                "%tag":"yield"
-              }
-            ),
-            hh.EXIT(
-              {
-                "trap394549":"trap394549",
-                "%location":{},
-                "%tag":"break"
-              }
-            ), // Exit
-          ) // sequence
-        ), // fork
-      ), // trap
-    hh.PAUSE(
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+
+      hh.ABORT(
         {
-          "%location":{},
-          "%tag":"yield"
-        }
+          "%location":{abort: INTERFACEZRC},
+          "%tag":"abort",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZRC=this["INTERFACEZRC"];
+              return INTERFACEZRC.now;
+          })());},
+          "countapply":function (){ return 20;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZRC",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.EVERY(
+          {
+            "%location":{every: INTERFACEZRC},
+            "%tag":"do/every",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                const INTERFACEZRC=this["INTERFACEZRC"];
+                return INTERFACEZRC.now;
+            })());},
+            "countapply":function (){ return 1;}
+          },
+          hh.SIGACCESS({
+            "signame":"INTERFACEZRC",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          }),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {console.log('Interface Z');}
+            }
+          ),
+
+        ),
+
+      ),
+
+      ),
+
     ),
 
   hh.ATOM(
@@ -391,9 +514,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap852962":"trap852962",
+            "trap940781":"trap940781",
             "%location":{},
-            "%tag":"trap852962"
+            "%tag":"trap940781"
           },
           hh.FORK(
             {
@@ -545,7 +668,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap852962":"trap852962",
+    		          "trap940781":"trap940781",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -590,9 +713,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap406709":"trap406709",
+              "trap580377":"trap580377",
               "%location":{},
-              "%tag":"trap406709"
+              "%tag":"trap580377"
             },
             hh.FORK(
               {
@@ -608,16 +731,16 @@ var orchestration = hh.MODULE(
                   {
                     "%location":{},
                     "%tag":"emit",
-                    "MassiveX1OUT":"MassiveX1OUT",
+                    "MassiveX2OUT":"MassiveX2OUT",
                     "apply":function (){
                       return ((() => {
-                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        const MassiveX2OUT = this["MassiveX2OUT"];
                         return [true, 255];
                       })());
                     }
                   },
                   hh.SIGACCESS({
-                    "signame":"MassiveX1OUT",
+                    "signame":"MassiveX2OUT",
                     "pre":true,
                     "val":true,
                     "cnt":false
@@ -627,7 +750,7 @@ var orchestration = hh.MODULE(
                 {
                 "%location":{},
                 "%tag":"node",
-                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", true); }
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", true); }
                 }
             ),
 
@@ -655,16 +778,16 @@ var orchestration = hh.MODULE(
                   {
                     "%location":{},
                     "%tag":"emit",
-                    "MassiveX1OUT":"MassiveX1OUT",
+                    "MassiveX2OUT":"MassiveX2OUT",
                     "apply":function (){
                       return ((() => {
-                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        const MassiveX2OUT = this["MassiveX2OUT"];
                         return [false, 255];
                       })());
                     }
                   },
                   hh.SIGACCESS({
-                    "signame":"MassiveX1OUT",
+                    "signame":"MassiveX2OUT",
                     "pre":true,
                     "val":true,
                     "cnt":false
@@ -674,7 +797,7 @@ var orchestration = hh.MODULE(
                 {
                 "%location":{},
                 "%tag":"node",
-                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", false); }
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", false); }
                 }
             ),
 
@@ -686,7 +809,7 @@ var orchestration = hh.MODULE(
                 ),
                 hh.EXIT(
                   {
-                    "trap406709":"trap406709",
+                    "trap580377":"trap580377",
                     "%location":{},
                     "%tag":"break"
                   }
@@ -703,9 +826,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap288639":"trap288639",
+              "trap899715":"trap899715",
               "%location":{},
-              "%tag":"trap288639"
+              "%tag":"trap899715"
             },
             hh.FORK(
               {
@@ -721,16 +844,16 @@ var orchestration = hh.MODULE(
                   {
                     "%location":{},
                     "%tag":"emit",
-                    "MassiveX1OUT":"MassiveX1OUT",
+                    "MassiveX2OUT":"MassiveX2OUT",
                     "apply":function (){
                       return ((() => {
-                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        const MassiveX2OUT = this["MassiveX2OUT"];
                         return [true, 255];
                       })());
                     }
                   },
                   hh.SIGACCESS({
-                    "signame":"MassiveX1OUT",
+                    "signame":"MassiveX2OUT",
                     "pre":true,
                     "val":true,
                     "cnt":false
@@ -740,7 +863,7 @@ var orchestration = hh.MODULE(
                 {
                 "%location":{},
                 "%tag":"node",
-                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", true); }
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", true); }
                 }
             ),
 
@@ -768,16 +891,16 @@ var orchestration = hh.MODULE(
                   {
                     "%location":{},
                     "%tag":"emit",
-                    "MassiveX1OUT":"MassiveX1OUT",
+                    "MassiveX2OUT":"MassiveX2OUT",
                     "apply":function (){
                       return ((() => {
-                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        const MassiveX2OUT = this["MassiveX2OUT"];
                         return [false, 255];
                       })());
                     }
                   },
                   hh.SIGACCESS({
-                    "signame":"MassiveX1OUT",
+                    "signame":"MassiveX2OUT",
                     "pre":true,
                     "val":true,
                     "cnt":false
@@ -787,7 +910,7 @@ var orchestration = hh.MODULE(
                 {
                 "%location":{},
                 "%tag":"node",
-                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", false); }
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", false); }
                 }
             ),
 
@@ -799,7 +922,7 @@ var orchestration = hh.MODULE(
                 ),
                 hh.EXIT(
                   {
-                    "trap288639":"trap288639",
+                    "trap899715":"trap899715",
                     "%location":{},
                     "%tag":"break"
                   }
@@ -830,9 +953,9 @@ var orchestration = hh.MODULE(
 
       hh.TRAP(
         {
-          "trap813075":"trap813075",
+          "trap389715":"trap389715",
           "%location":{},
-          "%tag":"trap813075"
+          "%tag":"trap389715"
         },
         hh.FORK(
           {
@@ -848,16 +971,16 @@ var orchestration = hh.MODULE(
               {
                 "%location":{},
                 "%tag":"emit",
-                "FM8OUT":"FM8OUT",
+                "MassiveOUT":"MassiveOUT",
                 "apply":function (){
                   return ((() => {
-                    const FM8OUT = this["FM8OUT"];
+                    const MassiveOUT = this["MassiveOUT"];
                     return [true, 255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"FM8OUT",
+                "signame":"MassiveOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -867,34 +990,7 @@ var orchestration = hh.MODULE(
             {
             "%location":{},
             "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," FM8", true); }
-            }
-        ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "PrismOUT":"PrismOUT",
-                "apply":function (){
-                  return ((() => {
-                    const PrismOUT = this["PrismOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PrismOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", true); }
+            "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", true); }
             }
         ),
 
@@ -922,16 +1018,16 @@ var orchestration = hh.MODULE(
               {
                 "%location":{},
                 "%tag":"emit",
-                "FM8OUT":"FM8OUT",
+                "MassiveOUT":"MassiveOUT",
                 "apply":function (){
                   return ((() => {
-                    const FM8OUT = this["FM8OUT"];
+                    const MassiveOUT = this["MassiveOUT"];
                     return [false, 255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"FM8OUT",
+                "signame":"MassiveOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -941,34 +1037,7 @@ var orchestration = hh.MODULE(
             {
             "%location":{},
             "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," FM8", false); }
-            }
-        ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "PrismOUT":"PrismOUT",
-                "apply":function (){
-                  return ((() => {
-                    const PrismOUT = this["PrismOUT"];
-                    return [false, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PrismOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", false); }
+            "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", false); }
             }
         ),
 
@@ -980,7 +1049,7 @@ var orchestration = hh.MODULE(
             ),
             hh.EXIT(
               {
-                "trap813075":"trap813075",
+                "trap389715":"trap389715",
                 "%location":{},
                 "%tag":"break"
               }

@@ -14,6 +14,8 @@ var DAW = require('./controleDAW');
 var ipConfig = require('./ipConfig');
 var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 var compScore = require('./computeScore');
+var gameOSC = require('./gameOSC');
+
 
 var generatedDir = "./myReact/"
 var defaultOrchestrationName = "orchestrationHH.js"
@@ -558,12 +560,18 @@ Reload and save the good one with the Blockly interface.`);
 					}
 					serv.broadcast(JSON.stringify(msg));
 
+					// Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
+					if(par.gameOSCIn !== undefined){
+						gameOSC.setOrchestration(automatePossibleMachine);
+						gameOSC.init();
+					}
+
 					try{
 						//reactAutomatePossible( {DAWON: DAWStatus} ); // !!! en cours
 					}catch(e){
 						console.log("websocketServerSkini:loadDAWTable:catch react:", e);
-				   	}
-				   	DAWTableReady = true;
+				  }
+				  DAWTableReady = true;
 				   	
 				}).catch( function(err) {
 					console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());

@@ -25,8 +25,8 @@ prg=__hh_module.MODULE({"id":"prg","%location":{"filename":"every1.hh.js","pos":
 			"%location":{"filename":"every1.hh.js","pos":99},
 			"%tag":"every","immediate":false,
 			"apply":function (){return ((() => {const I=this["I"];return I.now;})());
-		}
-	},
+			}
+		},
 	__hh_module.SIGACCESS({"signame":"I","pre":false,"val":false,"cnt":false}),
 	__hh_module.EMIT({"%location":{"filename":"every1.hh.js","pos":127},"%tag":"emit","O":"O"})
 	)
