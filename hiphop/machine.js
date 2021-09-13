@@ -132,7 +132,7 @@ class ReactiveMachine {
 	 }
       }
       
-      if( false ) { // !!!
+      if( false ) { // !!! (!hop.isServer)
    	 for( let k in this.output_signal_map ) {
    	    this[ k ] = new hop.reactProxy( this[ k ] );
    	 }

@@ -18,7 +18,8 @@
 
 ===========================================================================*/
 
-// Piece Bitwig en OSC
+// Piece Bitwig en OSC si la paramètre est false
+// Sinon Skini parle MIDI
 exports.directMidiON = false;
 
 // Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig

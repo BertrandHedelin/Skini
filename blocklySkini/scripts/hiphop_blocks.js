@@ -2614,6 +2614,52 @@ hh.ATOM(
   return code;
 };
 
+// Spécifique à Ableton, revu HH node
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "transpose_parameters",
+  "message0": "transpose ratio %1 offset %2",
+  "args0": [
+      {
+      "type": "field_number",
+      "name": "ratio",
+      "value": 1.763,
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "offset",
+      "value": 63.5,
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['transpose_parameters'] = function(block) {
+  var number_ratio = block.getFieldValue('ratio');
+  var number_offset = block.getFieldValue('offset');
+  var code = `
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      ratioTranspose = ` + number_ratio + `;
+      offsetTranspose = ` + number_offset + `;
+      console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
+    }
+  }
+),
+`;
+ return code;
+};
+
 // Spécifique à l'outil chromatique d'Ableton, revu HH node
 Blockly.defineBlocksWithJsonArray([
 {
@@ -2659,8 +2705,8 @@ hh.ATOM(
     "%tag":"node",
     "apply":function () {
       transposeValue += ` + number_valeur + `;
-      //console.log("transposeValue:", transposeValue);
-      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(1.763 * transposeValue + 63.5));
+      //console.log("hiphop block transpose: transposeValue:", transposeValue);
+      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
     }
   }
 ),
@@ -4021,6 +4067,8 @@ var tempoRythme = 0;
 var tempoLimit = 0;
 var tempoIncrease = true;
 var transposeValue = 0;
+var ratioTranspose = 1.763;
+var offsetTranspose = 63.5;
 
 function moveTempo(value, limit){
 

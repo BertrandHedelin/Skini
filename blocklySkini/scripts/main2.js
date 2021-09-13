@@ -483,6 +483,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "transpose_parameters"
+          },
+          {
+            "kind": "block",
             "type": "transpose"
           },
           {

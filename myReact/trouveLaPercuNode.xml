@@ -15,7 +15,7 @@
   </variables>
   <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="173" y="110">
     <statement name="MODULES">
-      <block type="hh_module" id="FC`id43ZS`y9:Nmz?Z_z" collapsed="true">
+      <block type="hh_module" id="FC`id43ZS`y9:Nmz?Z_z">
         <value name="NAME">
           <block type="variables_get" id="qW(:C.GVHWLLDPyb?vsQ">
             <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
@@ -132,7 +132,7 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="random_body" id="CsAiJj@PE}G#OUhFw$at">
+      <block type="random_body" id="CsAiJj@PE}G#OUhFw$at" disabled="true">
         <statement name="sequence1">
           <block type="hh_print_serveur" id="Mh%vzKxXZ/v?!6_@6w)_">
             <value name="TEXT">

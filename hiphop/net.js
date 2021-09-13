@@ -18,9 +18,9 @@ const lang = require( "./lang.js" );
 const error = require( "./error.js" );
 const compiler = require( "./compiler.js" );
 const signal = require( "./signal.js" );
-const path = true ? // !!!
+const path = true ? // !!! const path = hop.isServer ?
    require( "path" ) : { relative: function( _, p ) { return p } };
-const cwd = true ? process.cwd() : ""; // !!!
+const cwd = true ? process.cwd() : ""; // !!! const cwd = hop.isServer ? process.cwd() : "";
 
 /*---------------------------------------------------------------------*/
 /*    fanin/fanout connections                                         */
