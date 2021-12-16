@@ -479,6 +479,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "send_midi_command"
+          },
+          {
+            "kind": "block",
             "type": "send_osc_midi"
           },
           {

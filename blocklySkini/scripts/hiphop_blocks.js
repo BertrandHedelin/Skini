@@ -2492,7 +2492,7 @@ hh.ATOM(
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "send_osc_midi",
-  "message0": "send osc midi message %1 ch. %2 note %3 val. %4 ",
+  "message0": "send midi via osc message %1 ch. %2 note %3 val. %4 ",
   "args0": [
     {
       "type": "input_value",
@@ -2606,6 +2606,69 @@ hh.ATOM(
     oscMidiLocal.controlChange( par.busMidiDAW,
     `+ number_channel + `,
     `+ number_CC + `,
+    `+ number_value + `);
+    }
+  }
+),
+`;
+  return code;
+};
+
+
+// Revu HH node
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "send_midi_command",
+  "message0": "sendMidi ch. %1 note %2 vel. %3 ",
+  "args0": [
+/*    {
+      "type": "field_number",
+      "name": "busMidi",
+      "value": 6,
+      "check": "Number"
+    },*/
+    {
+      "type": "field_number",
+      "name": "channelMidi",
+      "value": 1,
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "CommandMidi",
+      "value": 0,
+      "check": "Number"
+    },
+    {
+      "type": "field_number",
+      "name": "valueMidi",
+      "value": 0,
+      "check": "Number"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330,
+  "tooltip": "",
+  "helpUrl": ""
+}
+]);
+
+Blockly.JavaScript['send_midi_command'] = function(block) {
+  //var number_bus = block.getFieldValue('busMidi');
+  var number_channel = block.getFieldValue('channelMidi');
+  var number_Command = block.getFieldValue('CommandMidi');
+  var number_value = block.getFieldValue('valueMidi');
+
+  var code = `
+hh.ATOM(
+  {
+  "%location":{},
+  "%tag":"node",
+  "apply":function () {
+    oscMidiLocal.sendNoteOn( par.busMidiDAW,
+    `+ number_channel + `,
+    `+ number_Command + `,
     `+ number_value + `);
     }
   }

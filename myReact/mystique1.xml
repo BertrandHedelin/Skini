@@ -126,7 +126,7 @@
                                                   <block type="hh_sequence" id="jK4unIqm-JFifE0$/ntc">
                                                     <statement name="BODY">
                                                       <block type="hh_abort" id="N6VRV:=xgiMA[tqD0T@W">
-                                                        <field name="TIMES">20</field>
+                                                        <field name="TIMES">200</field>
                                                         <value name="SIGNAL">
                                                           <block type="variables_get" id="RUu.z.^XGhc032P/fN/o">
                                                             <field name="VAR" id="2=#Wxx*#@C)x!.EsTb+;">INTERFACEZRC</field>
