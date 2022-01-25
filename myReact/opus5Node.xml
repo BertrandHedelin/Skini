@@ -100,6 +100,7 @@
     <variable id="G,0/1lNF8I4xHQQqiyd9">Percu5</variable>
     <variable id="}JiyHwaQTZKWjB.HPGN0">Percu6</variable>
     <variable id="zzvjKlpUOm[n[xeD+v1N">Percu7</variable>
+    <variable id="PdRACBEG;5D)HKbEyy1G">soloTrompette</variable>
     <variable id="=!Ex!^X`D~T``Xw(4@Q+">Piano1Intro1IN</variable>
     <variable id="z-Qa1KuI7?0B#:xGU*pt">tick</variable>
     <variable id="?HLc?q_LCnpY{8qtMa|7">NappeCello</variable>
@@ -778,6 +779,127 @@
                                             </statement>
                                           </block>
                                         </statement>
+                                        <next>
+                                          <block type="hh_module" id="Wj)SoKwB|Lz1`LUQ|kCd" collapsed="true">
+                                            <value name="NAME">
+                                              <block type="variables_get" id="D5QDg)uTFV!jXY)6RT++">
+                                                <field name="VAR" id="PdRACBEG;5D)HKbEyy1G">soloTrompette</field>
+                                              </block>
+                                            </value>
+                                            <statement name="BODY">
+                                              <block type="hh_fork" id="rDOY}io4Kf__Z9GmkR+Y">
+                                                <statement name="BODY">
+                                                  <block type="hh_sequence" id="?,Fd#5w!(wm[t__k-Ii{">
+                                                    <statement name="BODY">
+                                                      <block type="putPatternInQueue" id="tOa+GeGvfXcqlL3C.CRK">
+                                                        <value name="message">
+                                                          <block type="text" id="6j*Rbe:84M[uSrkbrO}h">
+                                                            <field name="TEXT">Altenburg</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="putPatternInQueue" id="iW{28S;(UGxn16[D6?`5">
+                                                            <value name="message">
+                                                              <block type="text" id="y(x_Lc$$8FB?t{4PFHiZ">
+                                                                <field name="TEXT">André</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="putPatternInQueue" id="Gxskz)7MN1`b0~uV#4eC">
+                                                                <value name="message">
+                                                                  <block type="text" id="Tg}d4BxtP}hz[iI9}4hx">
+                                                                    <field name="TEXT">Hardenberger</field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="putPatternInQueue" id="5JaGg?D9MMCRg?0QJ8N%">
+                                                                    <value name="message">
+                                                                      <block type="text" id="[,I}qZuL`k17L6SHM)jD">
+                                                                        <field name="TEXT">Thibaud</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="putPatternInQueue" id="^V|ce~^nU91G7e]HbK4m">
+                                                                        <value name="message">
+                                                                          <block type="text" id="%*87L$Mx3(4=|KQu;e8L">
+                                                                            <field name="TEXT">Gambati</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="putPatternInQueue" id=";scaf2{g}Eq#%RG_xnAe">
+                                                                            <value name="message">
+                                                                              <block type="text" id="VI^f=`B*`_9t%B*Fkljl">
+                                                                                <field name="TEXT">Foveau</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="putPatternInQueue" id="yY_XgXRWl%O8pN%S2|TD">
+                                                                                <value name="message">
+                                                                                  <block type="text" id="Zjr6~Pt`22#D-CNWmRzD">
+                                                                                    <field name="TEXT">Friedrich</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="putPatternInQueue" id="JO5sWi+UpAhmgOx5lpO@">
+                                                                                    <value name="message">
+                                                                                      <block type="text" id=";*5*MVr:||5s?Q+QTIrF">
+                                                                                        <field name="TEXT">Sauter</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="putPatternInQueue" id="K|wuMSx~;YT4c6=IG1sk">
+                                                                                        <value name="message">
+                                                                                          <block type="text" id="C0q@6o#iUpkqtxVvm%EU">
+                                                                                            <field name="TEXT">Arban</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </statement>
+                                                    <next>
+                                                      <block type="hh_sequence" id="~osN,!?q$[:*}]uPg#56">
+                                                        <statement name="BODY">
+                                                          <block type="hh_wait_for" id="/EG@_Y,_?j4gS7NEWi%N">
+                                                            <field name="TIMES">44</field>
+                                                            <value name="SIGNAL">
+                                                              <block type="variables_get" id="%n;lrmW_K,@~aIo_O/g@">
+                                                                <field name="VAR" id="z-Qa1KuI7?0B#:xGU*pt">tick</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="hh_print_serveur" id="jHICxGBJ:vV4BUkNisYs">
+                                                                <value name="TEXT">
+                                                                  <block type="text" id="Z`*;nv_3dVrOZBO6qD1{">
+                                                                    <field name="TEXT">END OF TROMPET SOLO </field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </statement>
+                                          </block>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
