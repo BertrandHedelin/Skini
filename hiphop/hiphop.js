@@ -19,6 +19,7 @@ const lang = require( "./lang.js", "hopscript" );
 const error = require( "./error.js", "hopscript" );
 const ast = require( "./ast.js", "hopscript" );
 
+const hop = require("./hopconfig.js"); // !! Rajouté pour node
 /*---------------------------------------------------------------------*/
 /*    exports                                                          */
 /*---------------------------------------------------------------------*/
@@ -90,11 +91,11 @@ exports.INOUT = lang.INOUT;
 // exports.timelib = dir + "ulib/timelib.js";
 // exports.waitnsignals = dir + "ulib/waitnsignals.js";
 
-// if( hop.engine === "hop" ) { // !!!
-//  exports.parallelmap = require("../ulib/parallelmap.js", "hopscript");
-//} else {
+if( hop.engine === "hop") {
+  exports.parallelmap = require("../ulib/parallelmap.js", "hopscript");
+} else {
    exports.parallelmap = function() { throw "parallel map not supported by engine" };
-//}
+}
 
 exports.isHiphopInstruction = lang.isHiphopInstruction;
 
@@ -102,18 +103,16 @@ exports.isHiphopInstruction = lang.isHiphopInstruction;
 // The batch interpreter require FS libraries, so we can't export
 // it on client.
 //
-/*if( hop.isServer && hop.engine === "hop" ) {
+if( hop.isServer && hop.engine === "hop") {
    exports.batch = require( "./batch.js", "hopscript" ).batch;
-}*/ // !!!
+}
 
 /*---------------------------------------------------------------------*/
 /*    language compiler (pre-processor)                                */
 /*---------------------------------------------------------------------*/
-/*const Parser = hop.isServer && hop.engine === "hop"
+const Parser = hop.isServer && hop.engine === "hop"
    ? require( "../preprocessor/parser", "hopscript" )
-   : { parse: function( _ ) { }, parseString : function( _ ) { }  };*/
-
-const Parser = { parse: function( _ ) { }, parseString : function( _ ) { }  }; // !!!
+   : { parse: function( _ ) { }, parseString : function( _ ) { }  };
 
 function compiler( ifile, ofile=undefined ) {
    return {

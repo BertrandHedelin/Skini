@@ -22,7 +22,11 @@ const net = require( "./net.js" );
 const signal = require( "./signal.js" );
 const lang = require( "./lang.js" );
 const queue = require( "./queue.js" );
-//const config = require( hop.config );
+
+if(hop === undefined) {
+   var hop = require("./hopconfig.js"); // !! Rajouté pour node par Bertrand
+   if (hop.engine === "hop") var config = require( hop.config ); // !! Modifié
+}
 
 let debug = false;
 
@@ -132,7 +136,7 @@ class ReactiveMachine {
 	 }
       }
       
-      if( false ) { // !!! (!hop.isServer)
+    if( !hop.isServer ) { // !!!  false pour node, 
    	 for( let k in this.output_signal_map ) {
    	    this[ k ] = new hop.reactProxy( this[ k ] );
    	 }

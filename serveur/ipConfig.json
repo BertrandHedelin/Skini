@@ -1,9 +1,9 @@
 {
 	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "localhost",
+	"remoteIPAddressSound": "192.168.0.6",
 	"remoteIPAddressLumiere": "192.168.82.96",
-	"remoteIPAddressGame": "192.168.1.70",
-	"serverIPAddress": "192.168.1.75",
+	"remoteIPAddressGame": "192.168.0.6",
+	"serverIPAddress": "192.168.0.6",
 	"webserveurPort": 8080,
 	"websocketServeurPort": 8383,
 	"InPortOSCMIDIfromDAW": 13000,

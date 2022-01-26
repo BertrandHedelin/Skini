@@ -18,6 +18,7 @@ const hh = require( "./hiphop.js" );
 const ast = require( "./ast.js" );
 const error = require( "./error.js" );
 
+const hop = require("./hopconfig.js"); // !! Rajouté pour node
 /*---------------------------------------------------------------------*/
 /*    KEYWORDS ...                                                     */
 /*    -------------------------------------------------------------    */
@@ -1476,7 +1477,7 @@ const INOUT = 3;
 exports.KEYWORDS = KEYWORDS;
 exports.format_loc = attrsLoc;
 exports.isHiphopInstruction = isHiphopInstruction;
-//exports.expandChildren = expandChildren; //!!!
+if(hop.engine === "hop") exports.expandChildren = expandChildren; //!!!
 exports.getAccessorList = getAccessorList;
 exports.getSignalNameList = getSignalNameList;
 
@@ -1501,7 +1502,7 @@ exports.SIGACCESS = SIGACCESS;
 exports.FORK = FORK;
 exports.ABORT = ABORT;
 exports.WEAKABORT = WEAKABORT;
-//exports.SUSPEND = SUSPEND; // !!!
+if(hop.engine === "hop") exports.SUSPEND = SUSPEND; // !!!
 exports.LOOP = LOOP;
 exports.LOOPEACH = LOOPEACH;
 exports.EVERY = EVERY;

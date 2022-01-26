@@ -521,7 +521,7 @@ serv.on('connection', function (ws) {
 			try{
 				DAW.loadDAWTable(par.configClips).then(function() {
 					DAWStatus = status + 1; // !! La valeur reçue est un index
-					if(debug) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
+					if(debug1) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus );
 
 					try{
 						automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);

@@ -9,7 +9,7 @@
 /*    HipHop net construction and propagation                          */
 /*=====================================================================*/
 "use strict"
-//"use hopscript"
+"use hopscript"
 
 /*---------------------------------------------------------------------*/
 /*    import                                                           */
@@ -18,9 +18,15 @@ const lang = require( "./lang.js" );
 const error = require( "./error.js" );
 const compiler = require( "./compiler.js" );
 const signal = require( "./signal.js" );
-const path = true ? // !!! const path = hop.isServer ?
+
+// Rajouté pour node.js !!!
+if(hop === undefined) {
+   var hop = require("./hopconfig.js");
+}
+
+const path = hop.isServer ? // !!! true pour node
    require( "path" ) : { relative: function( _, p ) { return p } };
-const cwd = true ? process.cwd() : ""; // !!! const cwd = hop.isServer ? process.cwd() : "";
+const cwd = true ? process.cwd() : "";
 
 /*---------------------------------------------------------------------*/
 /*    fanin/fanout connections                                         */
