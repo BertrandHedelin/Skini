@@ -13,7 +13,6 @@
             "./pieces/trouveLaPercuNode.js"
           ],
           "program": "${workspaceFolder}/",
-
       }
   ]
 }
