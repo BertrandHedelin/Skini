@@ -2603,7 +2603,7 @@ hh.ATOM(
   "%location":{},
   "%tag":"node",
   "apply":function () {
-    oscMidiLocal.controlChange( par.busMidiDAW,
+    oscMidiLocal.sendControlChange( par.busMidiDAW,
     `+ number_channel + `,
     `+ number_CC + `,
     `+ number_value + `);
@@ -2769,7 +2769,7 @@ hh.ATOM(
     "apply":function () {
       transposeValue += ` + number_valeur + `;
       //console.log("hiphop block transpose: transposeValue:", transposeValue);
-      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+      oscMidiLocal.sendControlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
     }
   }
 ),
@@ -2815,7 +2815,7 @@ hh.ATOM(
     "%tag":"node",
     "apply":function () {
       transposeValue = 0;
-      oscMidiLocal.controlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `,64);
+      oscMidiLocal.sendControlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `,64);
     }
   }
 ),

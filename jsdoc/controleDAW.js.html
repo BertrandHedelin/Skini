@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controleDAW.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controleDAW.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @fileOverview Control of the DAW
  * @author Bertrand Hédelin © Copyright 2018-2021
  * @version node.js 1.1
@@ -75,21 +103,21 @@ function getDateTime() {
   var date = new Date();
 
   var hour = date.getHours();
-  hour = (hour < 10 ? "0" : "") + hour;
+  hour = (hour &lt; 10 ? "0" : "") + hour;
 
   var min = date.getMinutes();
-  min = (min < 10 ? "0" : "") + min;
+  min = (min &lt; 10 ? "0" : "") + min;
 
   var sec = date.getSeconds();
-  sec = (sec < 10 ? "0" : "") + sec;
+  sec = (sec &lt; 10 ? "0" : "") + sec;
 
   var year = date.getFullYear();
 
   var month = date.getMonth() + 1;
-  month = (month < 10 ? "0" : "") + month;
+  month = (month &lt; 10 ? "0" : "") + month;
 
   var day = date.getDate();
-  day = (day < 10 ? "0" : "") + day;
+  day = (day &lt; 10 ? "0" : "") + day;
 
   return day + ":" + month + ":" + year + ":" + hour + ":" + min + ":" + sec;
 }
@@ -108,13 +136,13 @@ function loadDAWTable(fichier) {
     csv.parseCSV(fichier, function (data) {
       try {
         // Pour reformater le tableau socker en CSV
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i &lt; data.length; i++) {
           data[i][0] = parseInt(data[i][0]);
           data[i][1] = parseInt(data[i][1]);
           data[i][2] = parseInt(data[i][2]);
           // On ne refomate pas les 3 et 4 qui restent des chaines de caractères
 
-          for (var j = 5; j < 11; j++) {  // Nbe de colones dans le tableau
+          for (var j = 5; j &lt; 11; j++) {  // Nbe de colones dans le tableau
             data[i][j] = parseInt(data[i][j]);
           }
 
@@ -130,7 +158,7 @@ function loadDAWTable(fichier) {
         nombreInstruments = 0;
         nbeDeGroupesSons = 0;
 
-        for (var index = 0; index < tableLength; index++) {
+        for (var index = 0; index &lt; tableLength; index++) {
           if (tableDesCommandes[index][9] > nbeDeGroupesSons) {
             nbeDeGroupesSons = tableDesCommandes[index][9];
           }
@@ -149,7 +177,7 @@ function loadDAWTable(fichier) {
         filesDattenteJouables = new Array(filesDattente.length);
 
         // Initialisation des tables
-        for (var i = 0; i < filesDattente.length; i++) {
+        for (var i = 0; i &lt; filesDattente.length; i++) {
           filesDattenteJouables[i] = true;
           compteursDattente[i] = 0;
           filesDattente[i] = [];
@@ -213,7 +241,7 @@ exports.getNbeDeGroupesSons = getNbeDeGroupesSons;
  */
 function getPatternNameFromNote(noteSkini) {
   var tableLength = tableDesCommandes.length;
-  for (var index = 0; index < tableLength; index++) {
+  for (var index = 0; index &lt; tableLength; index++) {
     if (tableDesCommandes[index][0] === noteSkini) {
       return tableDesCommandes[index][3];
     }
@@ -229,7 +257,7 @@ exports.getPatternNameFromNote = getPatternNameFromNote;
  */
 function getPatternFromNote(noteSkini) {
   var tableLength = tableDesCommandes.length;
-  for (var index = 0; index < tableLength; index++) {
+  for (var index = 0; index &lt; tableLength; index++) {
     if (tableDesCommandes[index][0] == noteSkini) { // atention pas de ===, on récupère du texte
       return tableDesCommandes[index];
     }
@@ -239,12 +267,12 @@ function getPatternFromNote(noteSkini) {
 exports.getPatternFromNote = getPatternFromNote;
 
 /**
- * <BR> - Pour mettre des patterns en file d'attente sans interaction.
+ * &lt;BR> - Pour mettre des patterns en file d'attente sans interaction.
  * Cette fonction permet d'uitiliser Skini comme un séquenceur sans interaction.
  * Le mécanisme de FIFO est utilisé, ce qui permet une combinaison avec les interactions
  * et permet tous les usages des mécanismes de lecture des FIFO.
  * Assez similaire à pushClipDAW() de websocketServer.
- * <BR> - To queue patterns without interaction. This function allows 
+ * &lt;BR> - To queue patterns without interaction. This function allows 
  * to use Skini as a sequencer without interaction. 
  * The FIFO mechanism is used, which allows a combination with 
  * the interactions and allows all the uses of the FIFO reading mechanisms. 
@@ -257,7 +285,7 @@ function putPatternInQueue(patternName) {
   var commande;
 
   // On identifie le pattern par son nom, cad le texte du champ "nom"
-  for (var index = 0; index < tableLength; index++) {
+  for (var index = 0; index &lt; tableLength; index++) {
     if (tableDesCommandes[index][3] === patternName) {
       commande = tableDesCommandes[index];
     }
@@ -323,7 +351,7 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
   var longeurDeLafile = filesDattente[instrument].length;
 
   // Scénario spécifique pour les interfaces avec les musiciens.
-  if (longeurDeLafile === 0 && avecMusicien) {
+  if (longeurDeLafile === 0 &amp;&amp; avecMusicien) {
     // On met une demande vide dans la file d'attente pour décaler le démarrage du premier élément de la FIFO
     // et laisser au musicien le temps de se préparer au pattern.
     // file d'attente = [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
@@ -351,7 +379,7 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
-  for (var i = 0; i < longeurDeLafile; i++) {
+  for (var i = 0; i &lt; longeurDeLafile; i++) {
     dureeAttente = dureeAttente + filesDattente[instrument][i][6];
   }
 
@@ -371,7 +399,7 @@ function getDelayEventDAW(instrument) {
   if (debug) console.log("ControleDAW.js: getDelayEventDAW ", instrument);
   var longeurDeLafile = filesDattente[instrument].length;
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
-  for (var i = 0; i < longeurDeLafile; i++) {
+  for (var i = 0; i &lt; longeurDeLafile; i++) {
     dureeAttente = dureeAttente + filesDattente[instrument][i][6];
   }
   // On retourne la longueur de la file d'attente pour une estimation de la durée d'attente qui sera transmise au spectateur
@@ -387,7 +415,7 @@ function displayQueues() {
   var contenuDeLaFile = [];
 
   var messageLog = { date: "" };
-  for (var i = 0; i < filesDattente.length; i++) {
+  for (var i = 0; i &lt; filesDattente.length; i++) {
     if (filesDattente[i].length > 0) {
 
       /*    messageLog.source = "controleDAW.js";
@@ -397,7 +425,7 @@ function displayQueues() {
             logInfoDAW(messageLog);*/
 
       contenuDeLaFile = [];
-      for (var j = 0; j < filesDattente[i].length; j++) {
+      for (var j = 0; j &lt; filesDattente[i].length; j++) {
         // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
         contenuDeLaFile.push([filesDattente[i][j][5], filesDattente[i][j][7]]);
       }
@@ -449,7 +477,7 @@ function playAndShiftEventDAW(timerDivision) {
   if (debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if (filesDattente === undefined) return; // Protection
 
-  for (var i = 0; i < filesDattente.length; i++) {  // Pour chaque file d'attente
+  for (var i = 0; i &lt; filesDattente.length; i++) {  // Pour chaque file d'attente
     // Mécanisme de pause d'une file d'attente
     if (filesDattenteJouables[i] !== undefined) {
       if (filesDattenteJouables[i] === false) {
@@ -491,7 +519,7 @@ function playAndShiftEventDAW(timerDivision) {
           compteurTest++;
 
           // Joue le clip, mais pas si la note n'est pas négative et que l'on est avec des musiciens.
-          // si Note < 0 on est dans le cas d'un pattern d'info pour les musiciens.
+          // si Note &lt; 0 on est dans le cas d'un pattern d'info pour les musiciens.
           // On fait rien pour la DAW.
           // !! à vérifier.
           if (commandeDAW[2] >= 0) {
@@ -552,9 +580,9 @@ function playAndShiftEventDAW(timerDivision) {
           compteursDattente[i] = commandeDAW[6]; // On recharge le compteur d'attente pour le pattern en cours, en comptant le tick en cours
 
           //Gestion d'une erreur possible dans la programmation de l'orchestration
-          //si des patterns ont des durées < timeDivision, donc inférieures au tick.
+          //si des patterns ont des durées &lt; timeDivision, donc inférieures au tick.
           // Ce cas n'est plus traité à cause de la ligne 508, mais le pb reste
-          if (compteursDattente[i] < 0) {
+          if (compteursDattente[i] &lt; 0) {
             console.log("WARN: Problème sur Pattern", commandeDAW[7], ", sa durée est inférieure au timerDivision");
             compteursDattente[i] = 0;
           }
@@ -579,8 +607,8 @@ function playAndShiftEventDAW(timerDivision) {
   // On décrémente les compteurs d'attente de la durée du tick
   // Dans la file d'attente la durée du pattern devient le temps d'attente en fonction de la durée du tick.
   // C'est une façon de gérer des patterns plus longs que le tick.
-  for (var i = 0; i < compteursDattente.length; i++) {
-    if (avecMusicien && decalageFIFOavecMusicien < timerDivisionLocal) {
+  for (var i = 0; i &lt; compteursDattente.length; i++) {
+    if (avecMusicien &amp;&amp; decalageFIFOavecMusicien &lt; timerDivisionLocal) {
       console.log("ERR: Le décalage pour musicien doit être un multiple de timerDivision !");
     }
     if (compteursDattente[i] >= timerDivisionLocal) {
@@ -599,7 +627,7 @@ function cleanQueues() {
   var messageLog = { date: "" };
   if (debug) console.log("controleDAW.js : cleanQueues", filesDattenteJouables, compteursDattente, filesDattente);
 
-  for (var i = 0; i < filesDattente.length; i++) {
+  for (var i = 0; i &lt; filesDattente.length; i++) {
     filesDattenteJouables[i] = true;
     compteursDattente[i] = 0;
     filesDattente[i] = [];
@@ -663,7 +691,7 @@ function pauseQueues() {
   var messageLog = { date: "" };
   if (debug) console.log("controleDAW.js : pauseQueues", filesDattenteJouables, compteursDattente, filesDattente);
 
-  for (var i = 0; i < filesDattente.length; i++) {
+  for (var i = 0; i &lt; filesDattente.length; i++) {
     filesDattenteJouables[i] = false;
   }
 
@@ -688,7 +716,7 @@ function resumeQueues() {
   var messageLog = { date: "" };
   if (debug) console.log("controleDAW.js : pauseQueues", filesDattenteJouables, compteursDattente, filesDattente);
 
-  for (var i = 0; i < filesDattente.length; i++) {
+  for (var i = 0; i &lt; filesDattente.length; i++) {
     filesDattenteJouables[i] = true;
   }
   messageLog.source = "controleDAW.js";
@@ -761,7 +789,7 @@ function nbeDeSpectateursConnectes() {
   var tableLength = tableDesCommandes.length;
   var compteur = 0;
 
-  for (var i = 0; i < tableLength; i++) {
+  for (var i = 0; i &lt; tableLength; i++) {
     if (tableDesCommandes[i][2] !== 0) compteur++;
   }
   return compteur;
@@ -788,8 +816,8 @@ function getAllClips(groupeDeClients, matriceDesPossibles) {
   // et je cherche dans la matrice des possibles si ce groupe est actif.
   // Si le groupe est actif, j'ajoute l'élément dans la liste des clipsActifs.
   // C'est assez consommateur comme traitement.
-  for (var i = 0; i < tableLength; i++) {
-    for (var j = 0; j < matriceDesPossibles[groupeDeClients].length; j++) {
+  for (var i = 0; i &lt; tableLength; i++) {
+    for (var j = 0; j &lt; matriceDesPossibles[groupeDeClients].length; j++) {
       if (matriceDesPossibles[groupeDeClients][j] === true) { // "j" me donne un groupe de sons actifs
         // Le groupe est en 9 dans la table des commandes
         if (tableDesCommandes[i][9] !== undefined) {
@@ -818,7 +846,7 @@ function getListClips(niv) {
 
   // Remplir avec le niveau 1
   var tableLength = tableDesCommandes.length;
-  for (var i = 0; i < tableLength; i++) {
+  for (var i = 0; i &lt; tableLength; i++) {
     if (tableDesCommandes[i][6] === niv[0]) { // Niveau1
       clipsNiveau1.push(tableDesCommandes[i]);
     }
@@ -830,7 +858,7 @@ function getListClips(niv) {
 
   // Filtrer le niveau 2
   var tableLength = clipsNiveau1.length;
-  for (var i = 0; i < tableLength; i++) {
+  for (var i = 0; i &lt; tableLength; i++) {
     if (clipsNiveau1[i][7] === niv[1]) { // Niveau2
       clipsNiveau2.push(clipsNiveau1[i]);
     }
@@ -842,7 +870,7 @@ function getListClips(niv) {
 
   // Filtrer le niveau 3
   var tableLength = clipsNiveau2.length;
-  for (var i = 0; i < tableLength; i++) {
+  for (var i = 0; i &lt; tableLength; i++) {
     if (clipsNiveau2[i][8] === niv[2]) { // Niveau3
       clipsNiveau3.push(clipsNiveau2[i]);
     }
@@ -913,7 +941,7 @@ function ordonneFifo(fifo, pattern) {
     return;
   }
 
-  if (fifo.length === 0 && pattern[9] === typeMilieu) {
+  if (fifo.length === 0 &amp;&amp; pattern[9] === typeMilieu) {
     if (debug1) console.log("---- ordonneFifo: M tout seul, on le jette");
     return;
   }
@@ -973,3 +1001,26 @@ function ordonneFifo(fifo, pattern) {
   if (debug) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
   fifo.push(pattern);
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiOUT">initMidiOUT</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCTick">sendOSCTick</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Feb 11 2022 12:39:15 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

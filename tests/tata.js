@@ -7,3 +7,6 @@ console.log(titi.getTruc());
 
 var titi = require("./titi.js");
 console.log(titi.getTruc());
+
+toto.setTruc("truc2");
+console.log(titi.getTruc());

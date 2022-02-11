@@ -1,4 +1,32 @@
-/********************************
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: websocketServer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: websocketServer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/********************************
 
   VERSION NODE JS : Fev 2018
 
@@ -276,7 +304,7 @@ function reactAutomatePossible(signal) {
 
 if (debug) console.log("websocketserver:automatePossibleMachine: passé");
 
-if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {
+if (par.avecMusicien !== undefined &amp;&amp; par.decalageFIFOavecMusicien !== undefined) {
   //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
 }
 
@@ -461,7 +489,7 @@ serv.on('connection', function (ws) {
     // Pour la gestion des messages qui ne sont pas des patterns, on utilise des patterns dont les
     // commandes MIDI sont négatives. Dans ce cas on émet des signaux sans faire appel au player de patterns
     // On appelle jamais pushClipAbleton avec une note négative issue de la config.
-    if (pattern[0] < 0) {
+    if (pattern[0] &lt; 0) {
       // Pour associer le nom du pattern au signal de groupe IN
       // C'est plus pour être cohérent que par besoin
 
@@ -519,7 +547,7 @@ serv.on('connection', function (ws) {
 
   function loadDAWTableFunc(status) {
     DAWTableReady = false;
-    if (par.configClips != "" && par.configClips != undefined) {
+    if (par.configClips != "" &amp;&amp; par.configClips != undefined) {
       try {
         DAW.loadDAWTable(par.configClips).then(function () {
           DAWStatus = status + 1; // !! La valeur reçue est un index
@@ -536,7 +564,7 @@ If you still have this message several times
 after correcting the error, stop and restart Skini.
 - or the last orchestration compiled does not
 correspond to the Skini piece you give as parameter
-in the command : node skini <skini piece>
+in the command : node skini &lt;skini piece>
 Reload and save the good one with the Blockly interface.`);
             console.log("-------------------------------------------------------------");
 
@@ -915,7 +943,7 @@ Reload and save the good one with the Blockly interface.`);
         //Mise à jour du score total en fonction du pseudo
         var scoreTotal = compScore.updateScore(msgRecu.pseudo, monScore, clientsEnCours);
 
-        for (var i = 0; i < patternSequence.length; i++) {
+        for (var i = 0; i &lt; patternSequence.length; i++) {
           var pattern = DAW.getPatternFromNote(patternSequence[i]);
           if (pattern === undefined) {
             if (warnings) console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
@@ -1102,7 +1130,7 @@ Reload and save the good one with the Blockly interface.`);
         // dans le fichier de configuration on met simulatorInAseperateGroup = true;
         // Ceci réserve le dernier groupe Client pour le simulateur puisque groupeEnCours n'aura jamais
         // la valeur maximale nbeDeGroupesClients
-        if (par.nbeDeGroupesClients === 1 && par.simulatorInAseperateGroup) {
+        if (par.nbeDeGroupesClients === 1 &amp;&amp; par.simulatorInAseperateGroup) {
           if (warnings) console.log("WARN: ATENTION PAS DE GROUPE ASSIGNE A L'AUDIENCE !");
         }
 
@@ -1128,7 +1156,7 @@ Reload and save the good one with the Blockly interface.`);
 
       case "stopAutomate":
         if (DAWTableReady) {
-          if (setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
+          if (setTimer !== undefined &amp;&amp; !par.synchoOnMidiClock) clearInterval(setTimer);
           reactAutomatePossible({ halt: undefined });
           DAWStatus = 0;
 
@@ -1174,7 +1202,7 @@ var latencePing;
 // Buffer à deux dimensions des evements Midi [ [bus, canal, codeMidi, velocite ], ...... ]
 var playBuffer = new Array( Math.floor(latenceMax / resolutionDuBuffer) + 1 );
 // On a besoin d'initialiser le buffer à cause des lectures systématiques dès le départ
-for ( var i=0; i < playBuffer.length; i++) playBuffer[i] = new Array(); 
+for ( var i=0; i &lt; playBuffer.length; i++) playBuffer[i] = new Array(); 
 var finplayBuffer = playBuffer.length;
 
 // Associative array
@@ -1216,7 +1244,7 @@ function playEventInPlayBuffer(index) {
     // Ce serait possible en cas de forte instabilité de la latence.
     //console.log("playEventInPlayBuffer", playBuffer[index] );
     // On joue les notes en index
-    for (var i=0; i < playBuffer[index].length ; i++) {
+    for (var i=0; i &lt; playBuffer[index].length ; i++) {
       if ( playBuffer[index] != undefined ) {
         console.log("playEventInPlayBuffer", playBuffer[index][i].bus, playBuffer[index][i].canal, playBuffer[index][i].codeMidi, playBuffer[index][i].velocite );
         oscMidiLocal.sendNoteOn( playBuffer[index][i].bus, playBuffer[index][i].canal, playBuffer[index][i].codeMidi, playBuffer[index][i].velocite );
@@ -1258,21 +1286,44 @@ function getDateTime() {
   var date = new Date();
 
   var hour = date.getHours();
-  hour = (hour < 10 ? "0" : "") + hour;
+  hour = (hour &lt; 10 ? "0" : "") + hour;
 
   var min = date.getMinutes();
-  min = (min < 10 ? "0" : "") + min;
+  min = (min &lt; 10 ? "0" : "") + min;
 
   var sec = date.getSeconds();
-  sec = (sec < 10 ? "0" : "") + sec;
+  sec = (sec &lt; 10 ? "0" : "") + sec;
 
   var year = date.getFullYear();
 
   var month = date.getMonth() + 1;
-  month = (month < 10 ? "0" : "") + month;
+  month = (month &lt; 10 ? "0" : "") + month;
 
   var day = date.getDate();
-  day = (day < 10 ? "0" : "") + day;
+  day = (day &lt; 10 ? "0" : "") + day;
 
   return day + ":" + month + ":" + year + ":" + hour + ":" + min + ":" + sec;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiOUT">initMidiOUT</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCTick">sendOSCTick</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Feb 11 2022 12:39:15 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

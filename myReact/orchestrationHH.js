@@ -374,6 +374,19 @@ var orchestration = hh.MODULE(
 
   hh.ATOM(
     {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      oscMidiLocal.sendControlChange( par.busMidiDAW,
+      1,
+      25,
+      10);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
       "%location":{},
       "%tag":"node",
       "apply":function () {
@@ -406,7 +419,7 @@ var orchestration = hh.MODULE(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('Choose the drums 1');}
+      "apply":function () {console.log('Choose the drums 0');}
     }
   ),
 

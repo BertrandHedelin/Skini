@@ -5,7 +5,7 @@ function setTruc(texte){
 }
 exports.setTruc = setTruc;
 
-function getTruc(texte){
+function getTruc(){
 	return toto.getTruc();
 }
 exports.getTruc = getTruc;

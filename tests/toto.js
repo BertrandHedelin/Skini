@@ -5,7 +5,7 @@ function setTruc(texte){
 }
 exports.setTruc = setTruc;
 
-function getTruc(texte){
+function getTruc(){
 	return monTruc;
 }
 exports.getTruc = getTruc;

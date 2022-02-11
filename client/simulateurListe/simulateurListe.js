@@ -7,7 +7,7 @@ Les clips sont appelés de façon aléatoire selon la liste disponible.
 Ceci correspond à une audience qui fait n'importe quoi sur les clips
 disponibles. 
 
-© Copyright 2017-2021, B. Petit-Heidelein
+© Copyright 2017-2022, B. Petit-Heidelein
 
 ********************************************/
 'use strict'
@@ -56,23 +56,16 @@ console.log("----------------------------------------------\n");
 console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
 var ws;
-
-var arbre;
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
-const fixeLeGroupe = false;
-
 var DAWON = 0;
-var demandeDeSons = ' ';
 var pseudo = "sim" + id;
 var debug = false;
 var debug1 = true;
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
-var indexChoisi = -1;
 var nombreDePatternsPossible = 3;
 
 var numClip;
-var tempoInstant = 0;
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
   text: "ECRAN_NOIR",
@@ -128,7 +121,6 @@ function sendPseudo(texte) {
 function selectRandomInList(memoire, liste) {
   var selection;
   var index;
-  var memoireInter;
 
   if (debug) console.log("*** selectRandomInList:memoire:", memoire, "liste:", liste);
 
@@ -171,7 +163,6 @@ function selectRandomInList(memoire, liste) {
 function selectNextClip() {
   var selectionClip;
   var listeSelectionClip = [];
-  var numInstruments;
   var listeInstruments = [];
   var instrument;
 
@@ -469,7 +460,6 @@ var compteurTest = 0;
 function startClip(indexChoisi) {
 
   if (indexChoisi == -1) return -1; // Protection sur un choix sans selection au départ
-  var index = monGroupe;
   msg.pseudo = pseudo; //noms[index];
 
   msg.type = "DAWStartClip";

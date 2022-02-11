@@ -1,26 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: autocontroleur/groupeClientsSons.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: autocontroleur/groupeClientsSons.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 /**
  * @fileOverview Control of the DAW
- * <BR> Gestion des groupes de clients et de sons
- * <BR>
+ * &lt;BR> Gestion des groupes de clients et de sons
+ * &lt;BR>
  * La matrice des possibles est un tableau à 2 dimensions qui donne pour chaque groupe de clients
  * l'état des  groupes de patterns,  actifs ou pas.
  * Chaque groupe de patterns, groupe d'éléments comporte plusieurs éléments
  * conformément à ce qui est décrit dans le fichier csv de description des patterns.
 
- * <BR> La mise à jour de la matrice des possibles est faite par l'automate hiphop, par le controleur,
+ * &lt;BR> La mise à jour de la matrice des possibles est faite par l'automate hiphop, par le controleur,
  * ou par les scrutateurs. Elle est la concrétisation de l'orchestration.
 
- * <BR> Cette matrice est sollicitée en lecture par les clients quand ils emettent le message "selectAllClips" vers le serveur de webSocket.
+ * &lt;BR> Cette matrice est sollicitée en lecture par les clients quand ils emettent le message "selectAllClips" vers le serveur de webSocket.
  * Le clientSelecteurSimple emet ce message à l'initialisation (quand un message de modification du contexte DAW est reçu, DAWON) et à chaque fois
  * qu'il reçoit par broadcast un message 'groupeClientStatus' qui signifie une modification dans la matrice.
  * C'est donc bien à chaque fois qu'une modification est signalée que le client cherche à se mettre à jour.
 
- * <BR> Le message 'groupeClientStatus' de signalisation d'une modification de la matrice est émis par broadcast:
- * <BR> - soit par le serveur de WebSocket lorsqu'il reçoit une demande de modification de la matrice des possibles de la part du controleur via les messages:
+ * &lt;BR> Le message 'groupeClientStatus' de signalisation d'une modification de la matrice est émis par broadcast:
+ * &lt;BR> - soit par le serveur de WebSocket lorsqu'il reçoit une demande de modification de la matrice des possibles de la part du controleur via les messages:
  * "putInMatriceDesPossibles", "ResetMatriceDesPossibles", "setAllMatriceDesPossibles". Pour plus de détail à ce niveau, voir les commentaires dans clientcontroleur.js.
- * <BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
- * <BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
+ * &lt;BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
+ * &lt;BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
  *de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
  * @author Bertrand Hédelin © Copyright 2018-2022
  * @version node.js 1.1
@@ -144,7 +172,7 @@ function getTotalGameScore(){
 	if(debug) console.log("groupecliensSons: getTotalGameScore :", clientsEnCours);
 	var totalScore = 0;
 
-    for(var i = 0 ; i < clientsEnCours.length; i++){ 
+    for(var i = 0 ; i &lt; clientsEnCours.length; i++){ 
     	totalScore += clientsEnCours[i].score;
     }
 	return totalScore;
@@ -169,11 +197,11 @@ function rankWinners(uneListe){
 
 	var liste = uneListe.slice();
 
-    for(var i = 0 ; i < liste.length; i++){ 
+    for(var i = 0 ; i &lt; liste.length; i++){ 
     // le tableau est trié de 0 à i-1
     // La boucle interne recherche le min
     // de i+1 à la fin du tableau. 
-        for(var j=i+1; j < liste.length; j++){
+        for(var j=i+1; j &lt; liste.length; j++){
             if(evaluation( liste[j], liste[i]) ){
                 var temp = liste[j];
                 liste[j]=liste[i];
@@ -190,14 +218,14 @@ function getGroupScore(rank){
 	var indexMaxDeGroupe = 0;
 
 	// On calcule l'index max pour les groupes
-    for(var i = 0 ; i < clientsEnCours.length; i++){
+    for(var i = 0 ; i &lt; clientsEnCours.length; i++){
     	if (clientsEnCours[i].groupe > indexMaxDeGroupe) {
     		indexMaxDeGroupe = clientsEnCours[i].groupe;
     	}
     }
 
    // On crée le tableau d'objet scores pour pouvoir le trier après.
-    for(var i = 0 ; i < indexMaxDeGroupe + 1; i++){
+    for(var i = 0 ; i &lt; indexMaxDeGroupe + 1; i++){
     	var el = {
     	 	groupe : i,
     		score : 0
@@ -206,7 +234,7 @@ function getGroupScore(rank){
      }
     // On remplit scores avec les totaux de chaque groupe
     // score est encore organisé avec comme index les groupes.
-    for(var i = 0 ; i < clientsEnCours.length; i++){
+    for(var i = 0 ; i &lt; clientsEnCours.length; i++){
     	if(clientsEnCours[i].groupe >= 0){ // On ne prend pas en compte les simulateurs hors audience dont le groupe est -1
     		scores[clientsEnCours[i].groupe].score += clientsEnCours[i].score;
     	}
@@ -290,7 +318,7 @@ function setpatternListLength(param){
 	}
 
 	// Mise à jour du suivi des longueurs de listes
-	for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
+	for (var i=0; i &lt; nombreDePatternsPossibleEnListe.length; i++){
 		if(	nombreDePatternsPossibleEnListe[i][1] === param[1]){
 			nombreDePatternsPossibleEnListe[i][0] = param[0];
 			sendMessage(nombreDePatternsPossibleEnListe);
@@ -321,16 +349,16 @@ function logInfoAutomate(message){
 function getDateTime() {
     var date = new Date();
     var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
+    hour = (hour &lt; 10 ? "0" : "") + hour;
     var min  = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
+    min = (min &lt; 10 ? "0" : "") + min;
     var sec  = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
+    sec = (sec &lt; 10 ? "0" : "") + sec;
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
+    month = (month &lt; 10 ? "0" : "") + month;
     var day  = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
+    day = (day &lt; 10 ? "0" : "") + day;
     return day + ":" + month + ":" + year + ":" + hour + ":" + min + ":" + sec;
 }
 
@@ -422,7 +450,7 @@ exports.getNombreDePatternsPossibleEnListe = getNombreDePatternsPossibleEnListe;
 Gestion des Groupes de clients
 
 *******************/
-for ( var i=0; i < groupesClient.length; i++) {
+for ( var i=0; i &lt; groupesClient.length; i++) {
 	groupesClient[i] = new Array(); 
 }
 
@@ -442,8 +470,8 @@ exports.putIdInGroupClient = putIdInGroupClient;
 function removeIdInGroupClient(id) {
 	var position;
 	
-	for (var i=0; i < groupesClient.length; i++) {
-		for (var j=0; j < groupesClient[i].length; j++) {
+	for (var i=0; i &lt; groupesClient.length; i++) {
+		for (var j=0; j &lt; groupesClient[i].length; j++) {
 			if ( groupesClient[i][j] == id ) {
 				position = groupesClient[i].splice(j, 1);
 				return position; // Pour contrôle
@@ -454,8 +482,8 @@ function removeIdInGroupClient(id) {
 exports.removeIdInGroupClient = removeIdInGroupClient;
 
 function getGroupClient(id) {
-	for (var i=0; i < groupesClient.length; i++) {
-		for (var j=0; j < groupesClient[i].length; j++) {
+	for (var i=0; i &lt; groupesClient.length; i++) {
+		for (var j=0; j &lt; groupesClient[i].length; j++) {
 			if ( groupesClient[i][j] == id ) {
 				return i;
 			}
@@ -476,7 +504,7 @@ exports.getGroupesClient = getGroupesClient;
 
 function getGroupesClientLength(groupe) {
 	var longueurs = new Array(par.nbeDeGroupesClients);
-	for (var i=0; i < groupesClient.length; i++) {
+	for (var i=0; i &lt; groupesClient.length; i++) {
 		longueurs[i] = groupesClient[i].length;
 	}
 	return longueurs;
@@ -497,7 +525,7 @@ function getSignalFromGroup(groupe) {
 	if(debug) console.log("groupecliensSons.js : getSignalFromGroup : ", groupe);
 
 	var ongoingGroupe = getOnGoingGroupeSons();
-	for (var i=0; i < ongoingGroupe.length; i++) {
+	for (var i=0; i &lt; ongoingGroupe.length; i++) {
 		if( ongoingGroupe[i][1] == groupe) {
 			return ongoingGroupe[i][0];
 		}
@@ -520,7 +548,7 @@ function getGroupeSons(signal) {
 
 	if (debug) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
-	for (var i = 0; i < nbeDeGroupesSons ; i++) {
+	for (var i = 0; i &lt; nbeDeGroupesSons ; i++) {
 		if  ( groupesSon[i][0] === undefined) {
 			console.log("ERR: getGroupeSons: groupesSon[", i ,"i][0]: undefined, table groupesSon pas encore à jour");
 			return -1;
@@ -539,7 +567,7 @@ function getGroupeSons(signal) {
 
 	if (debug1) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "groupesDesSons.length:", par.groupesDesSons.length);
 
-	for (var i = 0; i < par.groupesDesSons.length ; i++) {
+	for (var i = 0; i &lt; par.groupesDesSons.length ; i++) {
 		if  ( par.groupesDesSons[i][0] === undefined) {
 			console.log("ERR: getGroupeSons: groupesSon[", i ,"i][0]: undefined, table groupesSon pas encore à jour");
 			return -1;
@@ -553,7 +581,7 @@ function getGroupeSons(signal) {
 }*/
 
 function getNameGroupeSons(index) {
-	for (var i = 0; i < groupesSon.length ; i++) {
+	for (var i = 0; i &lt; groupesSon.length ; i++) {
 		if ( groupesSon[i][1] == index) { // Attention pas de === ici, il y a changementde type
 			return groupesSon[i][0];
 		}
@@ -601,7 +629,7 @@ des liens entre groupes de clients et groupes de sons (patterns)
 
 **************************/
 function createMatriceDesPossibles() {
-	for ( var i=0; i < matriceDesPossibles.length; i++) {
+	for ( var i=0; i &lt; matriceDesPossibles.length; i++) {
 		matriceDesPossibles[i] = new Array(nbeDeGroupesSons); 
 	}
 	// Info pour les scrutateurs
@@ -619,7 +647,7 @@ function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
 	if(debug) console.log("groupeClientSons.js: setInMatriceDesPossibles:", matriceDesPossibles);
 
  	if (groupeClient === 255) { // On traite tous les groupes
-		for (var i=0; i < par.nbeDeGroupesClients; i++) {
+		for (var i=0; i &lt; par.nbeDeGroupesClients; i++) {
 			matriceDesPossibles[i][groupeDeSons] = status;
 		}
 		return 0;
@@ -649,8 +677,8 @@ function getStatusInMatriceDesPossibles(groupeClient, groupeSon) {
 exports.getStatusInMatriceDesPossibles = getStatusInMatriceDesPossibles;
 
 function setMatriceDesPossibles() {
-	for ( var i=0; i < matriceDesPossibles.length; i++) {
-		for (var j=0; j < matriceDesPossibles[i].length; j++) {
+	for ( var i=0; i &lt; matriceDesPossibles.length; i++) {
+		for (var j=0; j &lt; matriceDesPossibles[i].length; j++) {
 			matriceDesPossibles[i][j] = true;
 		}
 	}
@@ -666,8 +694,8 @@ function setMatriceDesPossibles() {
 exports.setMatriceDesPossibles = setMatriceDesPossibles;
 
 function resetMatriceDesPossibles() {
-	for ( var i=0; i < matriceDesPossibles.length; i++) {
-		for (var j=0; j < matriceDesPossibles[i].length; j++) {
+	for ( var i=0; i &lt; matriceDesPossibles.length; i++) {
+		for (var j=0; j &lt; matriceDesPossibles[i].length; j++) {
 			matriceDesPossibles[i][j] = false;
 		}
 	}
@@ -725,7 +753,7 @@ exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 function makeSignalsListeners(machine){
 
 	// Création des listeners des signaux
-	for (var i=0; i < par.groupesDesSons.length; i++) {
+	for (var i=0; i &lt; par.groupesDesSons.length; i++) {
 		var signal = par.groupesDesSons[i][0] + "OUT";
 
 		if (debug) console.log("Addeventlisterner:signal:",signal);
@@ -781,7 +809,7 @@ function makeSignalsListeners(machine){
 	// Listener des signaux pour les commandes OSC direct
 	// Inutile si les message OSC sont envoyés sans passer par des signaux, ce qui est plus simple.
 /*	if(par.gameOSCOut !== undefined){
-		for (var i=0; i < par.gameOSCOut.length; i++) {
+		for (var i=0; i &lt; par.gameOSCOut.length; i++) {
 			var signal = par.gameOSCOut[i];
 			if(debug1) console.log("Signal OSC ajouté:", signal);
 			machine.addEventListener( signal , function(evt) {
@@ -797,7 +825,7 @@ function makeListener(machine){
 	/*
 	// Listener des signaux pour les jeux avec commandes OSC 
 	if(par.gameOSCOut !== undefined){
-		for (var i=0; i < par.gameOSCOut.length; i++) {
+		for (var i=0; i &lt; par.gameOSCOut.length; i++) {
 			var signal = par.gameOSCOut[i];
 			if(debug) console.log("Signal OSC ajouté:", signal);
 			machine.addEventListener( signal , function(evt) {
@@ -815,7 +843,7 @@ function makeListener(machine){
 		}
 
 		// Mise à jour du suivi des longueurs de listes
-		for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
+		for (var i=0; i &lt; nombreDePatternsPossibleEnListe.length; i++){
 			if(	nombreDePatternsPossibleEnListe[i][1] === evt.signalValue[1]){
 				nombreDePatternsPossibleEnListe[i][0] = evt.signalValue[0];
 				sendMessage(nombreDePatternsPossibleEnListe);
@@ -827,4 +855,26 @@ function makeListener(machine){
 	});
 
 	*/
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiOUT">initMidiOUT</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCTick">sendOSCTick</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Feb 11 2022 12:39:15 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

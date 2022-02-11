@@ -39,6 +39,8 @@ exports.tempoMax =  3000; // En ms
 exports.tempoMin = 1000; // En ms
 exports.limiteDureeAttente = 33; // En pulsations
 
+
+
 /********************************************************
 
 AUTOMATE
@@ -90,6 +92,11 @@ Automate de gestion de la matrice des possibles
 ******************************************************************************/
 exports.nbeDeGroupesClients = 3;
 exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
+
+function setnbeDeGroupesClients(num){
+  this.nbeDeGroupesClients = num;
+}
+exports.setnbeDeGroupesClients = setnbeDeGroupesClients;
 
 /*// Ces données sont trés sensibles sur le bon déroulement de l'interaction
 // si pas de synchro MIDI
