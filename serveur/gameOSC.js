@@ -1,13 +1,10 @@
+/**
+ * @fileOverview Controling video game using OSC. Not yet implemented.
+ * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
+ * @version 1.1
+ */
+
 'use strict'
-"use hopscript";
-
-/**************************************
-
-Contrôle de jeu Vidéo via OSC
-
-© Copyright 2019-2021, B. Petit-Heidelein
-
-****************************************/
 
 var dgram = require("dgram");
 var osc = require('osc-min');
@@ -19,12 +16,18 @@ var debug1 = true;
 
 var orchestration;
 var message;
-
+/**
+ * Set the orchestration for the dialog with a game engine.
+ * @param  {machine} orch - the orchestration
+ */
 function setOrchestration(orch) {
   orchestration = orch;
 }
 exports.setOrchestration = setOrchestration;
 
+/**
+ * Launch the communication with the video game
+ */
 function init() {
 
   // Sécurité si reprise de l'orchestration

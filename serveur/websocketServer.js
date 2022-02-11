@@ -1,13 +1,7 @@
-/********************************
-
-  VERSION NODE JS : Fev 2018
-
-  © Copyright 2017-2021, B. Petit-Hédelin
-
-*********************************/
 /**
- * @fileOverview Websocket management
- * @author Bertrand Hédelin
+ * @fileOverview Websocket management. This is the main part of Skini for messages
+ * management and control. Something like a main switch.
+ * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
  * @version 1.1
  */
 'use strict'
@@ -126,6 +120,10 @@ serv.broadcast = function broadcast(data) {
 DAW.initBroadCastServer(serv);
 groupesClientSon.initBroadCastServer(serv);
 
+/**
+ * In order to get the server used for broadcasting
+ * @returns {Server} - return the server for Broadcasting
+ */
 function getBroadCastServer() {
   if (serv === undefined) {
     console.log("ERR: websocketServer: getBroadCastServer: serv undefined");
@@ -140,7 +138,10 @@ exports.getBroadCastServer = getBroadCastServer;
 Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
 
 *************************************************************************************/
-
+/**
+ * Send a signal to the orchestration according to the skini note
+ * @param  {number} noteSkini
+ */
 function sendSignalFromDAW(noteSkini) {
   if (debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
   var patternName = DAW.getPatternNameFromNote(noteSkini);
@@ -152,17 +153,21 @@ function sendSignalFromDAW(noteSkini) {
   }
 }
 exports.sendSignalFromDAW = sendSignalFromDAW;
-
+/**
+ * Send a signal "midiSignal" to the orchestration
+ * tanks to a skini note.
+ * @param  {number} noteSkini
+ */
 function sendSignalFromMIDI(noteSkini) {
   if (debug1) console.log("webSocketServeur: sendSignalFromMIDI:", noteSkini);
-
   if (!reactAutomatePossible({ midiSignal: [noteSkini] })) {
-    ;
     console.log("WARN: webSocketServeur: sendSignalFromMIDI:", noteSkini);
   }
 }
 exports.sendSignalFromMIDI = sendSignalFromMIDI;
-
+/** 
+ * Send a signal "halt" to the orchestration.
+ */
 function sendSignalStopFromMIDI() {
   if (!reactAutomatePossible({ halt: undefined })) {
     if (warnings) console.log("WARN: webSocketServeur: sendSignalStopFromMIDI");
@@ -170,6 +175,9 @@ function sendSignalStopFromMIDI() {
 }
 exports.sendSignalStopFromMIDI = sendSignalStopFromMIDI;
 
+/** 
+ * Send a signal "start" to the orchestration.
+ */
 function sendSignalStartFromMIDI() {
   if (!reactAutomatePossible({ start: undefined })) {
     if (warnings) console.log("WARN: webSocketServeur: sendSignalStartFromMIDI");
@@ -183,18 +191,15 @@ Fonction pour émission de signaux depuis midimix.js vers l'automatePossibleMach
 Utilisable pour synchro vidéo ou jeu via des notes Midi
 
 *************************************************************************************/
-
+/**
+ * Send a signal "controlFromVideo" to the orchestration
+ * tanks to a skini note.
+ * @param  {number} noteSkini
+ */
 function sendSignalFromMidiMix(noteSkini) {
   reactAutomatePossible({ controlFromVideo: [noteSkini] });
 }
 exports.sendSignalFromMidiMix = sendSignalFromMidiMix;
-
-// function sendOSCTick() {
-//   if (debug) console.log("websocketserver: sendOSCTick");
-//   receivedTickFromDaw();
-// }
-// exports.sendOSCTick = sendOSCTick;
-
 
 /*************************************************************************************
 
@@ -255,6 +260,10 @@ function receivedTickFromDaw() {
 MATRICE DES POSSIBLES, AUTOMATE
 
 **************************************************************************************/
+/**
+ * Get the HipHop machine.
+ * @returns {machine} - the HipHop machine
+ */
 function getAutomatePossible() {
   if (automatePossibleMachine !== undefined) {
     return automatePossibleMachine;

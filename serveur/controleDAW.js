@@ -55,7 +55,10 @@ var messageLog = {
   pseudo: "",
   id: ""
 };
-
+/**
+ * Set locally the reference to the HipHop automaton
+ * @param  {automaton} - HipHop machine
+ */
 function setAutomatePossible(automate) {
   automatePossibleMachine = automate;
 }
@@ -859,13 +862,6 @@ exports.getListClips = getListClips;
 // Le mécanisme est décrit dans la doc utilisateur de Skini.
 // 
 
-/**
- * Insert a pattern in a queue.
- * @param  {Array} fifo - the queue to be modified
- * @param  {number} avant
- * @param  {number} apres
- * @param  {pattern} pattern
- */
 function putPatternBetween(fifo, avant, apres, pattern) {
   for (var i = fifo.length - 1; i > 0; i--) {
     if (debug) console.log("-- putPatternBetween:", fifo.length, i);
@@ -881,6 +877,7 @@ function putPatternBetween(fifo, avant, apres, pattern) {
   return false;
 }
 
+// Pas utilisé
 function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
   if (debug) console.log("---- putPatternFirstWithoutSecond");
 
@@ -896,6 +893,7 @@ function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
   }
   return false;
 }
+
 /**
  * Reorder a queue according to the pattern types.
  * 

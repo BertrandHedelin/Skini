@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: serveur/gameOSC.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: serveur/gameOSC.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview Controling video game using OSC. Not yet implemented.
+ * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
+ * @version 1.1
+ */
+
+'use strict'
+
+var dgram = require("dgram");
+var osc = require('osc-min');
+var sock = dgram.createSocket('udp4');
+var ipConfig = require('./ipConfig');
+
+var debug = false;
+var debug1 = true;
+
+var orchestration;
+var message;
+/**
+ * Set the orchestration for the dialog with a game engine.
+ * @param  {machine} orch - the orchestration
+ */
+function setOrchestration(orch) {
+  orchestration = orch;
+}
+exports.setOrchestration = setOrchestration;
+
+/**
+ * Launch the communication with the video game
+ */
+function init() {
+
+  // Sécurité si reprise de l'orchestration
+  sock.close(ipConfig.portOSCFromGame);
+
+  sock = dgram.createSocket("udp4", function (msg, rinfo) {
+    var error, error1;
+    try {
+      message = osc.fromBuffer(msg);
+      // Voir pour plus de paramètres reçus du jeu ou du controleur OSC !!
+
+      var signal = message.address.slice(1); // pour enlever le slash du message
+      signal = signal.replace(/\//g, ""); // On n'aime pas les slashs dans des signaux
+
+      if (debug) console.log("gameOSC.js: init :", signal, ":", message);
+      orchestration.react({ [signal]: message.args[0].value });
+      return;
+    } catch (error1) {
+      error = error1;
+      return console.log("ERR: gameOSC.js:invalid OSC packet", error);
+    }
+  });
+
+  sock.on('listening', function () {
+    var address = sock.address();
+    console.log('GameOSC.js: UDP Server listening on ' + address.address + ":" + address.port);
+  });
+
+  try {
+    var readyState = sock.readyState;
+    if (readyState != 1) {
+      sock.bind(ipConfig.portOSCFromGame, ipConfig.serverIPAddress);
+    }
+  } catch (err) {
+    console.log("ERR: gameOSC: socket ready:", err);
+  }
+}
+exports.init = init;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getAutomatePossible">getAutomatePossible</a></li><li><a href="global.html#getBroadCastServer">getBroadCastServer</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiOUT">initMidiOUT</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#midimix">midimix</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCTick">sendOSCTick</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#sendSignalFromDAW">sendSignalFromDAW</a></li><li><a href="global.html#sendSignalFromMIDI">sendSignalFromMIDI</a></li><li><a href="global.html#sendSignalFromMidiMix">sendSignalFromMidiMix</a></li><li><a href="global.html#sendSignalStartFromMIDI">sendSignalStartFromMIDI</a></li><li><a href="global.html#sendSignalStopFromMIDI">sendSignalStopFromMIDI</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#updateScore">updateScore</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Feb 11 2022 15:08:21 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
