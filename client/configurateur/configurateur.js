@@ -73,7 +73,7 @@ function initWSSocket(host) {
 
 	     case "message":  
 			console.log(msgRecu);
-			document.getElementById("MessageDuServeur").innerHTML = msgRecu.value;
+			//document.getElementById("MessageDuServeur").innerHTML = msgRecu.value;
 			break;
 
 			case "skiniParametres":

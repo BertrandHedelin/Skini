@@ -20,9 +20,6 @@ function startSkini() {
   var destination = "./serveur/skiniParametres.js"
   fs.copyFileSync(myArgs[0], destination);
 
-  // Charge le fichier des sons initiaux qui sont dans DAW
-  var DAW = require('./serveur/controleDAW');
-
   // Websocket dans le Serveur
   var ws = require('./serveur/websocketServer');
   var oscReceiveDAW = require("./serveur/midimix.js");

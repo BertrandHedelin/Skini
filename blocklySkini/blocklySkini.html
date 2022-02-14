@@ -1,52 +1,65 @@
 <html>
-    <head>
-    	<link rel="stylesheet" href="./blocklySkini/styles/index.css">
-        <meta charset="UTF-8" name="viewport" />
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blockly for Skini </title>
-    </head>
-	<body onload="init(window.location.hostname);">
-		<table>
-			<thead>
-				<tr>
-					<td>
-					  <header class="mdl-color--cyan-500">
-					    <h1 class="mode-maker">Orchestration Skini Design</h1>
-					    <div id="menubar">
-					    	<!--
+
+<head>
+  <link rel="stylesheet" href="./blocklySkini/styles/index.css">
+  <meta charset="UTF-8" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blockly for Skini </title>
+</head>
+
+<body onload="init(window.location.hostname);">
+  <table>
+    <thead>
+      <tr>
+        <td>
+          <header class="mdl-color--cyan-500">
+            <h1 class="mode-maker">Orchestration Skini Design</h1>
+            <div id="menubar">
+              <!--
 							<button class="small button" id="buttonGenerate" onclick="save();" >Generate HipHop</button>
 							-->
-	   						<label for="loadFile" class="small button">Select</label>
-    						<input type="file" id="loadFile" onchange="loadBlocks();" />
+              <label for="loadFile" class="small button">Select Orchestration</label>
+              <input type="file" id="loadFile" onchange="loadBlocks();" />
 
-							<button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();" >Save</button>
-							<input class="inputText" type="text" id="saveFile" />
-							<input class="inputText" type="text" id="consoleArea" />
+              <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Save</button>
+              <input class="inputText" type="text" id="saveFile" />
+              <input class="inputText" type="text" id="consoleArea" />
+              <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button>
+              <button id="buttonStopAutomate" class="small button" style="display:none"
+                onclick="stopAutomate();">Stop</button>
+              <button id="buttonStartAutomate" class="small button" onclick="startAutomate();">Start</button>
+              <BR>
+              <label for="loadSession" class="small button">Load descriptors</label>
+              <input type="file" id="loadSession" onchange="loadSession();" />
+              <input class="inputText" type="text" id="loadSessionTxt" />
+              <BR>
 
-							<button class="small button" id="buttonLoadDAW1" 
-								onclick="loadDAW(1);" >Compile</button>
-							<button  id="buttonStopAutomate" class="small button" style="display:none"  
-								onclick="stopAutomate();" >Stop</button>
-      						<button  id="buttonStartAutomate" class="small button" 
-      							onclick="startAutomate();" >Start</button>
-				        </div>
-					  </header>
-					</td>
-				</tr>
-			</thead>
-			<tbody>	
-				<tr>
-					<td id="blocklyArea"></td>
-				</tr>
-			</tbody>
-		</table>
+              <button type="button" class="small button" onclick="window.open('http://localhost:8080/contr','Controleur',
+              'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Controler</button>
 
-		<div id="blocklyDiv" style="position: absolute"></div>
-		<script src="./blocklySkini/blockly/blockly.min.js"></script>
-		<script src="./blocklySkini/blockly/javascript_compressed.js"></script>
-		<script src="./blocklySkini/scripts/hiphop_blocks.js"></script>
-    	<script src="./blocklySkini/scripts/main2.js"></script>
-	</body>
-   	</html>
+              <button type="button" class="small button" onclick="window.open('http://localhost:8080/conf','Configuration',
+              'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Configuration</button>
 
+            </div>
+          </header>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="blocklyArea"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="blocklyDiv" style="position: absolute"></div>
+  <script src="./blocklySkini/blockly/blockly.min.js"></script>
+  <script src="./blocklySkini/blockly/javascript_compressed.js"></script>
+  <script src="./blocklySkini/scripts/hiphop_blocks.js"></script>
+  <script src="./blocklySkini/scripts/main2.js"></script>
+</body>
+
+</html>

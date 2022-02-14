@@ -3,13 +3,13 @@
 
 Editeur Skini sur Node avec Blockly
 
-© Copyright 2017-2021, Bertrand Petit-Hédelin
+© Copyright 2017-2022, Bertrand Petit-Hédelin
 
 ****************************************************/
 
 var myBlocks;
 var myServeur;
-var debug = true;
+var debug = false;
 var debug1 = true;
 var ws;
 var workspace;
@@ -74,7 +74,7 @@ function initWSSocket(serverIPAddress) {
         document.getElementById('consoleArea').value = msgRecu.text;
         break;
 
-      default: console.log("Le Client reçoit un message inconnu", msgRecu );
+      default: if(debug) console.log("Le Client reçoit un message inconnu", msgRecu );
     }
   };
 
@@ -151,7 +151,7 @@ function init(host) {
     if ( !automateEncours) {
       console.log("clientControleur:loadDAW:", val);
       var msg = { 
-        type: "loadDAWTable",
+        type: "compileHH", //"loadDAWTable",
         value: val -1, // Pour envoyer un index
       }
       DAWTableEnCours = val;
@@ -194,7 +194,25 @@ function init(host) {
   }
   window.stopAutomate = stopAutomate;
 
-//*********** Blocks ********************************************
+  function loadSession(){
+    let fichierSelectionne = document.getElementById('loadSession').files[0].name;
+    console.log("loadSession fichier:", fichierSelectionne);
+    document.getElementById("loadSessionTxt").value = fichierSelectionne;
+
+    if(fichierSelectionne === undefined || fichierSelectionne === '') return;
+  
+    var fileName;
+    fileName = fichierSelectionne;
+    if(debug1) console.log("loadSession:", fileName);
+    var msg = {
+      type: "loadSession",
+      fileName:fileName
+    }
+    ws.send(JSON.stringify(msg));
+  }
+  window.loadSession = loadSession;
+  
+ //*********** Blocks ********************************************
   var toolbox = {
     "kind": "categoryToolbox",
     "contents": [

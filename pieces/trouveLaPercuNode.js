@@ -39,8 +39,6 @@ exports.tempoMax =  3000; // En ms
 exports.tempoMin = 1000; // En ms
 exports.limiteDureeAttente = 33; // En pulsations
 
-
-
 /********************************************************
 
 AUTOMATE
@@ -55,7 +53,7 @@ FICHIERS DES CLIPS CSV
 // Fichiers CSV à mettre dans l'ordre selon les choix dans le controleur
 // mise à jour dans websocketServer, sur demande client "loadAbletonTable"
 
-exports.configClips = "pieces/trouveLaPercu.csv";
+//exports.configClips = "pieces/trouveLaPercu.csv";
 
 /*************************************
 CHEMIN DES FICHIERS SONS MP3 pour les clients

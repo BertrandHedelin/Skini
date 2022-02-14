@@ -6,17 +6,19 @@
       <script defer></script>
    </head>
   <body onload="initWSSocket(window.location.hostname);">
-      <hr>       
+      <!-- <hr>       
       <div style="color:white">Info: <span style="color:white" id="MessageDuServeur"> Rien </span></div>
-      <hr>
+      <hr> -->
 
       <input type="text" id="numClip" placeholder="Skini note">
-      <button class="button buttonClip" onclick="saisiClip()" >Envoyer Clip</button>
+      <button class="button buttonClip" onclick="saisiClip()" >Send</button>
       <p style="color:white" id="clip"></p>
 
       <BR>
       <input type="text" id="numCC" placeholder="CC command">
       <input type="text" id="valueCC" placeholder="CC value">
       <button class="button buttonCC" onclick="saisiCC()" >Envoyer CC</button>
+      <BR>
+      <input id="buttonClose" class="button button2" type="button" value="CLOSE" onclick="self.close();">
     </body>
 </html>

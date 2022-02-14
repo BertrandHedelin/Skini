@@ -694,7 +694,7 @@ exports.displayMatriceDesPossibles = displayMatriceDesPossibles;
 AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
 
 **************************************************************/
-function makeOneAutomatePossibleMachine (numAuto) {
+function makeOneAutomatePossibleMachine () {
 
     if(debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
 
