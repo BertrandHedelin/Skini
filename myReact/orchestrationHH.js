@@ -419,7 +419,7 @@ var orchestration = hh.MODULE(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('Choose the drums ********');}
+      "apply":function () {console.log('Choose the drums');}
     }
   ),
 

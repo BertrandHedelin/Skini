@@ -19,10 +19,15 @@
  * @param  {machine} machineServeur - the orchestration
  * @param  {websocketServer} websocketServer - the websocket server program
  */
-function midimix (machineServeur, websocketServer) {
+ var param;
+ function setParameters(parameters) {
+   param = parameters;
+ }
+ exports.setParameters = setParameters;
 
+function midimix (machineServeur, websocketServer) {
   var par = require('./ipConfig');
-  var param = require('./skiniParametres');
+  //var param = require('./skiniParametres');
   var osc = require('osc-min');
   var dgram = require("dgram");
   var sock = dgram.createSocket('udp4');

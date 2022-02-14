@@ -1,7 +1,7 @@
 /**
  * @fileOverview 
  * Entry point to Skini
- * @version 1.1
+ * @version 1.3
  * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
  */
 var fs = require('fs');
@@ -24,6 +24,13 @@ function startSkini() {
   var ws = require('./serveur/websocketServer');
   var oscReceiveDAW = require("./serveur/midimix.js");
   var par = require('./serveur/skiniParametres');
+
+  // To share the parameters file. ws dispaches to oscMidi, DAW and groupesClientsSons
+  ws.setParameters(par);
+  // Share parameters in midimix
+  oscReceiveDAW.setParameters(par);
+  oscReceiveDAW.midimix(machineServeur, ws);
+
   var machineServeur = 0;
 
   // AFFICHAGE DU CONTEXTE =================================================
@@ -76,11 +83,8 @@ function startSkini() {
     for (var i = 0; i < midiConfig.length; i++) {
       console.log("Midi" + midiConfig[i].type + ", usage:" + midiConfig[i].spec + ", bus: " + midiConfig[i].name + ", " + midiConfig[i].comment);
     }
-
     console.log("=========================================================");
   }
-
-  oscReceiveDAW.midimix(machineServeur, ws);
 
   var app = express();
   app.use(express.static('./'));
@@ -98,11 +102,6 @@ function startSkini() {
   });
 
   // Avec /controleur ça plante le client ???
-  /*app.get('/controleur', function(req, res) {
-   res.sendFile(path.join(__dirname+'/client/controleur/controleur.html'));
-  });
-  */
-
   app.get('/contr', function (req, res) {
     res.sendFile(path.join(__dirname + '/client/controleur/controleur.html'));
   });

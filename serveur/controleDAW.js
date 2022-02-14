@@ -7,7 +7,14 @@
 var csv = require('csv-array');
 var oscMidi = require("./OSCandMidi");
 var fs = require("fs");
-var par = require('./skiniParametres');
+
+//var par = require('./skiniParametres');
+var par;
+function setParameters(param) {
+  par = param;
+}
+exports.setParameters = setParameters;
+
 var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 

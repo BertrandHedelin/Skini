@@ -9,7 +9,15 @@
 var osc = require('osc-min');
 var dgram = require("dgram");
 var udp = dgram.createSocket("udp4");
-var par = require('./skiniParametres');
+
+//var par = require('./skiniParametres');
+var par;
+function setParameters(parameters) {
+  par = parameters;
+  startOSCandMIDI();
+}
+exports.setParameters = setParameters;
+
 var ipConfig = require('./ipConfig');
 
 var outportForMIDI = ipConfig.OutPortOSCMIDItoDAW;
@@ -22,39 +30,41 @@ var remoteIPAddressLumiere = ipConfig.remoteIPAddressLumiere;
 var debug = false;
 var debug1 = true;
 var midiPortClipToDAW;
+var directMidi = false;
 
 // Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
+function startOSCandMIDI() {
+  // Par défaut on communique en OSC avec la DAW ou la passerelle
+  if (par.directMidiON !== undefined) {
+    if (par.directMidiON) directMidi = true;
+  }
 
-// Par défaut on communique en OSC avec la DAW ou la passerelle
-var directMidi = false;
-if (par.directMidiON !== undefined) {
-  if (par.directMidiON) directMidi = true;
-}
+  if (directMidi) {
 
-if (directMidi) {
+    if (debug) console.log("OSCandMidi: commande MIDI depuis Skini");
+    var midi = require('midi');
+    var midiConfig = require("./midiConfig.json");
 
-  if (debug) console.log("OSCandMidi: commande MIDI depuis Skini");
-  var midi = require('midi');
-  var midiConfig = require("./midiConfig.json");
+    var midiOutput = new midi.Output();
 
-  var midiOutput = new midi.Output();
-
-  function getMidiPortForClipToDAW() {
-    for (var i = 0; i < midiConfig.length; i++) {
-      if (midiConfig[i].spec === "clipToDAW") {
-        for (var j = 0; j < midiOutput.getPortCount(); ++j) {
-          if (midiOutput.getPortName(j) === midiConfig[i].name) {
-            if (debug) console.log("getMidiPortForClipToDAW: Midi" +
-              midiConfig[i].type + ", usage:" + midiConfig[i].spec +
-              ", bus: " + midiConfig[i].name + ", " + midiConfig[i].comment);
-            return j;
+    function getMidiPortForClipToDAW() {
+      for (var i = 0; i < midiConfig.length; i++) {
+        if (midiConfig[i].spec === "clipToDAW") {
+          for (var j = 0; j < midiOutput.getPortCount(); ++j) {
+            if (midiOutput.getPortName(j) === midiConfig[i].name) {
+              if (debug) console.log("getMidiPortForClipToDAW: Midi" +
+                midiConfig[i].type + ", usage:" + midiConfig[i].spec +
+                ", bus: " + midiConfig[i].name + ", " + midiConfig[i].comment);
+              return j;
+            }
           }
         }
       }
+      console.log("ERR: getPortForClipToDAW: no Midi port for controlling the DAW");
+      return -1;
     }
-    console.log("ERR: getPortForClipToDAW: no Midi port for controlling the DAW");
-    return -1;
   }
+
   /**
    * Initialise the Midi port according the configuration file
    */
@@ -194,6 +204,7 @@ function sendControlChange(bus, channel, controlChange, controlValue) {
   }
 };
 exports.sendControlChange = sendControlChange;
+
 /**
  * Send all note off through OSC
  * @param  {number} bus
