@@ -10,7 +10,7 @@
           ],
           "runtimeArgs": [
             "skini.js",
-            "./pieces/trouveLaPercuNode.js"
+            //"./pieces/trouveLaPercuNode.js"
           ],
           "program": "${workspaceFolder}/",
       }

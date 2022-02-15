@@ -129,7 +129,7 @@ const groupesDesSons = [
   ["groupe3",   2, "group", 170, 580, 20, vert, [], 1 ],  //2
   ["groupe4",   3, "group", 350, 100,  20, gris, [], 1 ],   //3
   ["groupe5",   4, "group", 20, 380, 20, violet, [], 1 ], //4
-  ["groupe6",   5, "group", 350,580, 20, terre, [], 1 ],  //5
+  ["groupe6",   5, "group", 350,580, 20, bleu, [], 1 ],  //5
   ["groupe7",   6, "group", 540,100, 20, rose, [], 1 ],   //6
   ["derwish",   7, "group", 740,480, 20, rose, [], 1 ],
   ["gaszi",     8, "group", 540,580, 20, rose, [], 1 ],

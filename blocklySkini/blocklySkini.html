@@ -20,7 +20,7 @@
 							<button class="small button" id="buttonGenerate" onclick="save();" >Generate HipHop</button>
 							-->
               <label for="loadFile" class="small button">Select Orchestration</label>
-              <input type="file" id="loadFile" onchange="loadBlocks();" />
+              <input type="file" id="loadFile" oninput="loadBlocks();" />
 
               <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Save</button>
               <input class="inputText" type="text" id="saveFile" />
@@ -42,6 +42,10 @@
               <button type="button" class="small button" onclick="window.open('http://localhost:8080/conf','Configuration',
               'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
               return false;">Configuration</button>
+
+              <button type="button" class="small button" onclick="window.open('http://localhost:8080/score','Score',
+              'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Score</button>
 
             </div>
           </header>

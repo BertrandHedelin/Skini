@@ -11,7 +11,7 @@ Les patterns sont typés DMFN.
 // Indexation du bus Midi pour le lancement des clips
 // Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
 // qui crée le bus midi pour ces commandes.
-var midiConfig = require("./midiConfig.json");
+var midiConfig = require("../serveur/midiConfig.json");
 var countBusOUT = 0;
 for(var i=0; i < midiConfig.length; i++){
   if(midiConfig[i].type === "OUT"){

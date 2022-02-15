@@ -47,8 +47,8 @@ function initWSSocket(serverIPAddress) {
 
   ws = new WebSocket("ws://" + serverIPAddress + ":8383"); // NODE JS
 
-  ws.onopen = function( event ) {
-    var id = Math.floor((Math.random() * 1000000) + 1 ); // Pour identifier le client
+  ws.onopen = function (event) {
+    var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
     var msg = {
       type: "startSpectateur",
       text: "controleur",
@@ -58,15 +58,15 @@ function initWSSocket(serverIPAddress) {
   };
 
   //Traitement de la Réception sur le client
-  ws.onmessage = function( event ) {
+  ws.onmessage = function (event) {
     var msgRecu = JSON.parse(event.data);
     //console.log( "Client: received [%s]", event.data );
-    switch(msgRecu.type) {
-      case "message":  
-            break;
+    switch (msgRecu.type) {
+      case "message":
+        break;
 
       case "blocksLoaded":
-        if(debug1) console.log("blocksLoaded:\n", msgRecu.data);
+        if (debug1) console.log("blocksLoaded:\n", msgRecu.data);
         Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(msgRecu.data), workspace);
         break;
 
@@ -74,16 +74,16 @@ function initWSSocket(serverIPAddress) {
         document.getElementById('consoleArea').value = msgRecu.text;
         break;
 
-      default: if(debug) console.log("Le Client reçoit un message inconnu", msgRecu );
+      default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu);
     }
   };
 
   ws.onerror = function (event) {
-    console.log( "main2.js : received error on WS", ws.socket, " ", event );
+    console.log("main2.js : received error on WS", ws.socket, " ", event);
   }
 
-  ws.onclose = function( event ) {
-   }
+  ws.onclose = function (event) {
+  }
 }
 window.initWSSocket = initWSSocket;
 
@@ -92,7 +92,7 @@ function init(host) {
   console.log("init");
   initWSSocket(host);
 
-  function saveBlocksAndGenerateHH(){
+  function saveBlocksAndGenerateHH() {
     // Enregistre le fichier Blockly
     let fichierSelectionne = document.getElementById('saveFile').value;
     console.log("saveBlocks:", fichierSelectionne);
@@ -113,22 +113,22 @@ function init(host) {
     }
     ws.send(JSON.stringify(msg));
   }
-  window.saveBlocksAndGenerateHH=saveBlocksAndGenerateHH;
+  window.saveBlocksAndGenerateHH = saveBlocksAndGenerateHH;
 
-/*  function saveBlocks(){
-    let fichierSelectionne = document.getElementById('saveFile').value;
-    console.log("saveBlocks:", fichierSelectionne);
-    let xmlDom = Blockly.Xml.workspaceToDom(workspace);
-    let pretty = Blockly.Xml.domToPrettyText(xmlDom);
-    console.log("saveBlocks XML :", pretty.length);
-    //saveBlocksServer(fichierSelectionne, pretty).post();
-  }
-  window.saveBlocks=saveBlocks;*/
+  /*  function saveBlocks(){
+      let fichierSelectionne = document.getElementById('saveFile').value;
+      console.log("saveBlocks:", fichierSelectionne);
+      let xmlDom = Blockly.Xml.workspaceToDom(workspace);
+      let pretty = Blockly.Xml.domToPrettyText(xmlDom);
+      console.log("saveBlocks XML :", pretty.length);
+      //saveBlocksServer(fichierSelectionne, pretty).post();
+    }
+    window.saveBlocks=saveBlocks;*/
 
-  function loadBlocks(){
+  function loadBlocks() {
     let fichierSelectionne = document.getElementById('loadFile').files[0].name;
     console.log("loadBlocks fichier:", fichierSelectionne);
-    document.getElementById("saveFile").value = fichierSelectionne.slice(0,-4);
+    document.getElementById("saveFile").value = fichierSelectionne.slice(0, -4);
     // domToPrettyText(dom) 
     // textToDom(text) 
     var msg = {
@@ -136,8 +136,12 @@ function init(host) {
       fileName: fichierSelectionne
     }
     ws.send(JSON.stringify(msg));
+    console.log("loadBlocks", fichierSelectionne);
+
+    // To allow a reload of the same file
+    document.getElementById('loadFile').value = "";
   }
-  window.loadBlocks=loadBlocks;
+  window.loadBlocks = loadBlocks;
 
   function cleanQueues() {
     var msg = {
@@ -148,11 +152,11 @@ function init(host) {
   cleanQueues = cleanQueues;
 
   function loadDAW(val) {
-    if ( !automateEncours) {
+    if (!automateEncours) {
       console.log("clientControleur:loadDAW:", val);
-      var msg = { 
+      var msg = {
         type: "compileHH", //"loadDAWTable",
-        value: val -1, // Pour envoyer un index
+        value: val - 1, // Pour envoyer un index
       }
       DAWTableEnCours = val;
       ws.send(JSON.stringify(msg));
@@ -170,21 +174,21 @@ function init(host) {
       }
       ws.send(JSON.stringify(msg));
 
-      document.getElementById( "buttonStartAutomate").style.display = "none";
-      document.getElementById( "buttonStopAutomate").style.display = "inline";
-      
+      document.getElementById("buttonStartAutomate").style.display = "none";
+      document.getElementById("buttonStopAutomate").style.display = "inline";
+
       msg.type = "startAutomate";
       ws.send(JSON.stringify(msg));
       automateEncours = true;
-    }  else  {
+    } else {
       alert("WARNING: No orchestration selected or one is running ");
-    } 
+    }
   }
   window.startAutomate = startAutomate;
 
   function stopAutomate() {
-    document.getElementById( "buttonStartAutomate").style.display = "inline";
-    document.getElementById( "buttonStopAutomate").style.display = "none";
+    document.getElementById("buttonStartAutomate").style.display = "inline";
+    document.getElementById("buttonStopAutomate").style.display = "none";
     var msg = {
       type: "stopAutomate"
     }
@@ -194,31 +198,34 @@ function init(host) {
   }
   window.stopAutomate = stopAutomate;
 
-  function loadSession(){
+  function loadSession() {
     let fichierSelectionne = document.getElementById('loadSession').files[0].name;
     console.log("loadSession fichier:", fichierSelectionne);
     document.getElementById("loadSessionTxt").value = fichierSelectionne;
 
-    if(fichierSelectionne === undefined || fichierSelectionne === '') return;
-  
+    if (fichierSelectionne === undefined || fichierSelectionne === '') return;
+
     var fileName;
     fileName = fichierSelectionne;
-    if(debug1) console.log("loadSession:", fileName);
+    if (debug1) console.log("loadSession:", fileName);
     var msg = {
       type: "loadSession",
-      fileName:fileName
+      fileName: fileName
     }
     ws.send(JSON.stringify(msg));
+
+    // To allow a reload of the same file
+    document.getElementById('loadSession').value = "";
   }
   window.loadSession = loadSession;
-  
- //*********** Blocks ********************************************
+
+  //*********** Blocks ********************************************
   var toolbox = {
     "kind": "categoryToolbox",
     "contents": [
       {
         "kind": "category",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "name": "Orchestration",
         "contents": [
           {
@@ -249,15 +256,15 @@ function init(host) {
             "kind": "block",
             "type": "random_body"
           }
-         /* {
-            "kind": "block",
-            "type": "random_block"
-          }*/
+          /* {
+             "kind": "block",
+             "type": "random_block"
+           }*/
         ]
       },
       {
         "kind": "category",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "name": "Tanks and Groups",
         "contents": [
           {
@@ -325,7 +332,7 @@ function init(host) {
       {
         "kind": "category",
         "name": "Instruments",
-        "categorystyle" : "list_category",
+        "categorystyle": "list_category",
         "contents": [
           {
             "kind": "block",
@@ -364,7 +371,7 @@ function init(host) {
       {
         "kind": "category",
         "name": "Variables",
-        "categorystyle" : "list_category",
+        "categorystyle": "list_category",
         "custom": "VARIABLE",
         "contents": [
           {
@@ -387,7 +394,7 @@ function init(host) {
       },
       {
         "kind": "category",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "name": "Patterns",
         "contents": [
           {
@@ -406,7 +413,7 @@ function init(host) {
       },
       {
         "kind": "category",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "name": "Score",
         "contents": [
           {
@@ -433,7 +440,7 @@ function init(host) {
       },
       {
         "kind": "category",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "name": "Game",
         "contents": [
           {
@@ -473,7 +480,7 @@ function init(host) {
       {
         "kind": "category",
         "name": "DAW",
-        "categorystyle" : "loop_category",
+        "categorystyle": "loop_category",
         "contents": [
           {
             "kind": "block",
@@ -520,7 +527,7 @@ function init(host) {
       {
         "kind": "category",
         "name": "HipHop",
-        "categorystyle" : "list_category",
+        "categorystyle": "list_category",
         "contents": [
           {
             "kind": "block",
@@ -595,7 +602,7 @@ function init(host) {
   var blocklyDiv = document.getElementById('blocklyDiv');
   options.toolbox = toolbox;
   workspace = Blockly.inject('blocklyDiv', options);
-  var onresize = function(e) {
+  var onresize = function (e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
     var element = blocklyArea;
     var x = 0;

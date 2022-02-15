@@ -33,6 +33,8 @@ var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
 var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
+const decache = require('decache');
+const { stringify } = require('querystring');
 
 var generatedDir = "./myReact/";
 var defaultOrchestrationName = "orchestrationHH.js";
@@ -863,13 +865,30 @@ correspond to the pattern descriptor.`);
               console.error(err);
               return;
             }
-            if (debug) console.log(data);
+            if (debug1) console.log("loadBlocks:", msgRecu.fileName);
             var msg = {
               type: "blocksLoaded",
               data: data,
             }
             ws.send(JSON.stringify(msg));
           });
+
+          // Essai de chargement des paramètres
+          // à partir du fichier de config de la pièce
+          // qui a le même nom que le fichier d'orchestration avec un extension js 
+          // au lieu de xml
+          let parametersFile = sessionPath + msgRecu.fileName;
+          parametersFile = "../" + parametersFile.slice(0, -4) + ".js";
+          decache(parametersFile);
+          par = require(parametersFile);
+
+          // Test Pour l'orchestration !!
+          let destination = "./serveur/skiniParametres.js"
+          try {
+            fs.copyFileSync(sessionPath + msgRecu.fileName.slice(0, -4) + ".js", destination);
+          } catch (err) {
+            console.log("Pb ecriture", destination, err);
+          }
           break;
 
         case "loadSession":
