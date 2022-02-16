@@ -13,7 +13,7 @@
     <variable id="D`B#;Ny4Du[we`s,aRpW">groupe6</variable>
     <variable id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="173" y="110">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="95" y="53">
     <statement name="MODULES">
       <block type="hh_module" id="FC`id43ZS`y9:Nmz?Z_z">
         <value name="NAME">
@@ -191,7 +191,7 @@
                           <block type="hh_print_serveur" id=",`tYxwrh$A)8Ffp/Z72:">
                             <value name="TEXT">
                               <block type="text" id="o*575S,s4PLrZpBn+$E2">
-                                <field name="TEXT">Choose the drums ******</field>
+                                <field name="TEXT">Choose the drums</field>
                               </block>
                             </value>
                             <next>

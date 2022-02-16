@@ -17,6 +17,19 @@
      OSC OUT: 13000                   OSC IN: 10000
 
 ===========================================================================*/
+// Indexation du bus Midi pour le lancement des clips
+// Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
+// qui crée le bus midi pour ces commandes.
+var midiConfig = require("../serveur/midiConfig.json");
+var countBusOUT = 0;
+for(var i=0; i < midiConfig.length; i++){
+  if(midiConfig[i].type === "OUT"){
+    if(midiConfig[i].spec === "clipToDAW"){
+      exports.busMidiDAW = countBusOUT;
+    }
+    countBusOUT++;
+  }
+}
 
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI

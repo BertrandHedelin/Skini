@@ -10,20 +10,41 @@ var par;
 var oscMidiLocal;
 var DAW;
 var groupesClientSon;
+var midimix;
 
 /**
  * To share the parameters among the different modules.
  * @param {Object} param 
  */
-function setParameters(param) {
+function setParameters(param, midimixage) {
   par = param;
+  midimix = midimixage;
+  midimix.setParameters(param);
+
   oscMidiLocal = require('./OSCandMidi');
   oscMidiLocal.setParameters(param);
+
   DAW = require('./controleDAW');
   DAW.setParameters(param);
+
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
   groupesClientSon.setParameters(param);
+  initMidiPort();
   startWebSocketServer();
+}
+exports.setParameters = setParameters;
+
+/**
+ * In order to reload new parametrers in the different modules during a Skini session.
+ * @param {object} param 
+ */
+function reloadParameters(param) {
+  oscMidiLocal.setParameters(param);
+
+  DAW.setParameters(param);
+  groupesClientSon.setParameters(param);
+  midimix.setParameters(param);
+  initMidiPort();
 }
 exports.setParameters = setParameters;
 
@@ -36,8 +57,12 @@ var gameOSC = require('./gameOSC');
 const decache = require('decache');
 const { stringify } = require('querystring');
 
+// Où se trouvent les fichiers XML d'orchestration et le defaultOrchestrationName
+// On ne peut pas donner de chemin absolu dans un browser.
 var generatedDir = "./myReact/";
 var defaultOrchestrationName = "orchestrationHH.js";
+
+// Où se trouvent les fihciers csv descriptors des patterns
 var sessionPath = "./pieces/";
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
@@ -95,33 +120,31 @@ var groupeEncours = 0;
 var currentTimePrevMidi = 0;
 var currentTimeMidi = 0;
 
-function startWebSocketServer() {
-  /*************************************************
-   
-    INITIALISATION DU PORT MIDI OUT (si paramétré)
-  
-  **************************************************/
-
+/*************************************************
+ 
+  INITIALISATION DU PORT MIDI OUT (si paramétré)
+ 
+**************************************************/
+function initMidiPort() {
   var directMidi = false;
   if (par.directMidiON !== undefined) {
-    if (par.directMidiON) directMidi = true;
+    directMidi = par.directMidiON;
   }
-
   if (directMidi) {
     oscMidiLocal.initMidiOUT();
   }
+}
 
-  /*************************************************
-   
-    WEBSOCKET EN NODE JS
-  
-  **************************************************/
-  //var premiereConnexion = true;
-
+/*************************************************
+ 
+  WEBSOCKET
+ 
+**************************************************/
+function startWebSocketServer() {
   const WebSocketServer = require('ws');
   const serv = new WebSocketServer.Server({ port: ipConfig.websocketServeurPort });
 
-  // Broadcast to all.
+  // Define the function in order to Broadcast to all clients.
   serv.broadcast = function broadcast(data) {
     //if(debug) console.log("Web Socket Server: broadcast: ", data);
     serv.clients.forEach(function each(client) {
@@ -233,7 +256,7 @@ function startWebSocketServer() {
 
   // Vient de midiMix.js et directement de Bitwig ou de processing
   /**
-   * Called by midiMic.js
+   * Called by midimix.js
    */
   function sendOSCTick() {
     if (debug) console.log("websocketserver: sendOSCTick");
@@ -366,7 +389,7 @@ function startWebSocketServer() {
 
   /*************************************************************************************
   
-  WEB SOCKET
+  WEB SOCKET MANAGEMENT
   
   **************************************************************************************/
   serv.on('connection', function (ws) {
@@ -451,7 +474,6 @@ function startWebSocketServer() {
       var typePattern = clip[7];
       var dureeClip = clip[10];
 
-      // Avec Hop/HH
       var signalComplet = { [signal]: clip[3] }; // avec le nom du pattern
       //var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, ws.id, pseudo, dureeClip, nom);
 
@@ -633,14 +655,14 @@ function startWebSocketServer() {
         //console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
         console.log("\n-------------------------------------------------------------");
         console.log(`ATTENTION: 
-- either there is an hiphop compile Error
-- or the last orchestration compiled does not
-correspond to the pattern descriptor.`);
+Problem when compiling the Orchestration
+maybe an hiphop compile Error.
+.`);
         console.log("-------------------------------------------------------------");
 
         var msg = {
           type: "consoleBlocklySkini",
-          text: "See your console, compile error of wrong piece"
+          text: "See your console, pb on compilation"
         }
         serv.broadcast(JSON.stringify(msg));
         //throw err;
@@ -882,6 +904,8 @@ correspond to the pattern descriptor.`);
           decache(parametersFile);
           par = require(parametersFile);
 
+          reloadParameters(par);
+
           // Test Pour l'orchestration !!
           let destination = "./serveur/skiniParametres.js"
           try {
@@ -978,8 +1002,9 @@ correspond to the pattern descriptor.`);
 
           // Ecrit le fichier XML Blockly
           fs.writeFile(generatedDir + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
-            if (err) return console.log(err);
-
+            if (err) {
+              return console.log(err);
+            }
             console.log("INFO: websocketServer:", msgRecu.fileName + ".xml", " written");
             var msg = {
               type: "consoleBlocklySkini",
@@ -987,6 +1012,9 @@ correspond to the pattern descriptor.`);
             }
             serv.broadcast(JSON.stringify(msg));
             if (debug) console.log("INFO: websocketServer:", defaultOrchestrationName, " written");
+
+            // Compile the orchestration
+            compileHH();
           });
           break;
 
@@ -1261,6 +1289,7 @@ correspond to the pattern descriptor.`);
 
   /****** FIN WEBSOCKET ************/
 }
+
 /*var latenceMax = 200; // en ms
 var indexCourantBuffer = 0;
 var playerBuffer;

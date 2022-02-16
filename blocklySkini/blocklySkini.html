@@ -22,10 +22,12 @@
               <label for="loadFile" class="small button">Select Orchestration</label>
               <input type="file" id="loadFile" oninput="loadBlocks();" />
 
-              <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Save</button>
+              <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Load and Save</button>
               <input class="inputText" type="text" id="saveFile" />
               <input class="inputText" type="text" id="consoleArea" />
-              <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button>
+
+              <!-- <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button> -->
+
               <button id="buttonStopAutomate" class="small button" style="display:none"
                 onclick="stopAutomate();">Stop</button>
               <button id="buttonStartAutomate" class="small button" onclick="startAutomate();">Start</button>

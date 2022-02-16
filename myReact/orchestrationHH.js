@@ -21,8 +21,9 @@ var tempoMax = 160;
 var tempoMin = 40;
 var tempoGlobal = 60;
 
-function setServ(ser, daw, groupeCS, oscMidi){
+function setServ(ser, daw, groupeCS, oscMidi, param){
   //console.log("hh_ORCHESTRATION: setServ");
+  par = param;
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -406,7 +407,7 @@ var orchestration = hh.MODULE(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('Choose the drums ******');}
+      "apply":function () {console.log('Choose the drums');}
     }
   ),
 

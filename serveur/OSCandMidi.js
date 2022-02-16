@@ -10,7 +10,8 @@ var osc = require('osc-min');
 var dgram = require("dgram");
 var udp = dgram.createSocket("udp4");
 
-//var par = require('./skiniParametres');
+// Appelé à la fois par setParameters et reloadParameters dans websocketServer.js
+// donc attention à startOSCandMIDI() et les variables globales.
 var par;
 function setParameters(parameters) {
   par = parameters;
@@ -31,21 +32,24 @@ var debug = false;
 var debug1 = true;
 var midiPortClipToDAW;
 var directMidi = false;
+var midiOutput;
 
-// Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
+// Pour commande direct de Skini en MIDI sans passer par une passerelle ====================
 function startOSCandMIDI() {
   // Par défaut on communique en OSC avec la DAW ou la passerelle
   if (par.directMidiON !== undefined) {
-    if (par.directMidiON) directMidi = true;
+    directMidi = par.directMidiON;
   }
-
   if (directMidi) {
-
     if (debug) console.log("OSCandMidi: commande MIDI depuis Skini");
     var midi = require('midi');
     var midiConfig = require("./midiConfig.json");
 
-    var midiOutput = new midi.Output();
+    // Il ne faut pas recréer midiOutput, mais ceci sera à revoir
+    // si on veut changer de configuration Midi en cours de session
+    if (midiOutput === undefined) {
+      midiOutput = new midi.Output();
+    }
 
     function getMidiPortForClipToDAW() {
       for (var i = 0; i < midiConfig.length; i++) {
@@ -71,7 +75,7 @@ function startOSCandMIDI() {
   function initMidiOUT() {
     midiPortClipToDAW = getMidiPortForClipToDAW();
     midiOutput.openPort(midiPortClipToDAW);
-    if (debug) console.log("OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
+    if (debug1) console.log("OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
   }
   exports.initMidiOUT = initMidiOUT;
 
@@ -79,7 +83,6 @@ function startOSCandMIDI() {
     return midiPortClipToDAW;
   }
   exports.getMidiPortClipToDAW = getMidiPortClipToDAW;
-  //initMidiOUT();
 }
 
 // VERS PROCESSING ==================================================
@@ -180,7 +183,7 @@ function sendBankSelect(bus, channel, bank) {
 exports.sendBankSelect = sendBankSelect;
 
 /**
- * Send a CC through OSC
+ * Send a CC through OSC or Midi
  * @param  {number} bus
  * @param  {number} channel
  * @param  {number} controlChange

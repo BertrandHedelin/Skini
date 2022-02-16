@@ -30,6 +30,7 @@
 var debug = false;
 var debug1 = true;
 const decache = require('decache');
+
 //var par = require('../skiniParametres');
 var par;
 function setParameters(param) {
@@ -710,6 +711,8 @@ function makeOneAutomatePossibleMachine() {
 
   //delete require.cache[require.resolve(myReactOrchestration)];
 
+  if(debug1) console.log("makeOneAutomatePossibleMachine: groupesDesSons:", par.groupesDesSons[0][0]);
+
   try {
     orchestration = require(myReactOrchestration);
     if (debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
@@ -718,9 +721,10 @@ function makeOneAutomatePossibleMachine() {
     throw err;
   }
 
-  // Pour permettre les broadcasts depuis l'orchestration
-  orchestration.setServ(serv, DAW, this, oscMidiLocal);
+  // Pour permettre les broadcasts et autres depuis l'orchestration
+  orchestration.setServ(serv, DAW, this, oscMidiLocal, par);
 
+  // Compilation HH
   var machine = orchestration.setSignals();
   makeSignalsListeners(machine);
 

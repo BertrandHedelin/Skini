@@ -17,6 +17,7 @@ var prog;
 
 var DAWTableEnCours = 0;
 var automateEncours = false;
+var descriptorLoaded = false;
 
 var options = {
   comments: true,
@@ -111,6 +112,8 @@ function init(host) {
       xmlBlockly: pretty,
       text: code
     }
+
+    DAWTableEnCours = 1;
     ws.send(JSON.stringify(msg));
   }
   window.saveBlocksAndGenerateHH = saveBlocksAndGenerateHH;
@@ -167,7 +170,7 @@ function init(host) {
   window.loadDAW = loadDAW;
 
   function startAutomate() {
-    if (DAWTableEnCours !== 0 && !automateEncours) {
+    if (DAWTableEnCours !== 0 && !automateEncours && descriptorLoaded) {
       var msg = {
         type: "setDAWON",
         value: DAWTableEnCours
@@ -181,7 +184,7 @@ function init(host) {
       ws.send(JSON.stringify(msg));
       automateEncours = true;
     } else {
-      alert("WARNING: No orchestration selected or one is running ");
+      alert("WARNING: No orchestration selected or one is running, or no descriptor ");
     }
   }
   window.startAutomate = startAutomate;
@@ -213,6 +216,7 @@ function init(host) {
       fileName: fileName
     }
     ws.send(JSON.stringify(msg));
+    descriptorLoaded = true;
 
     // To allow a reload of the same file
     document.getElementById('loadSession').value = "";
