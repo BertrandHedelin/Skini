@@ -10,7 +10,9 @@ Les patterns sont typés DMFN.
 
 // Indexation du bus Midi pour le lancement des clips
 // Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
-// qui crée le bus midi pour ces commandes.
+// qui crée le bus midi pour les commandes midi vers la DAW.
+// Ce que l'on appelle un busMidiDAW est un index dans la passerelle Processing.
+// Paramètre non utilisé sans passerelle Processing.
 var midiConfig = require("../serveur/midiConfig.json");
 var countBusOUT = 0;
 for(var i=0; i < midiConfig.length; i++){

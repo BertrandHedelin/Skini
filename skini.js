@@ -25,7 +25,8 @@ function startSkini() {
   var oscReceiveDAW = require("./serveur/midimix.js");
   var par = require('./serveur/skiniParametres');
 
-  // To share the parameters file. ws dispaches to oscMidi, DAW and groupesClientsSons
+  // To share the parameters file at launch. ws dispaches to oscMidi,
+  // DAW and groupesClientsSons
   ws.setParameters(par, oscReceiveDAW);
 
   // Share parameters in midimix

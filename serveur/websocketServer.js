@@ -13,7 +13,7 @@ var groupesClientSon;
 var midimix;
 
 /**
- * To share the parameters among the different modules.
+ * To load some modules and share the parameters among these modules.
  * @param {Object} param 
  */
 function setParameters(param, midimixage) {
@@ -40,7 +40,6 @@ exports.setParameters = setParameters;
  */
 function reloadParameters(param) {
   oscMidiLocal.setParameters(param);
-
   DAW.setParameters(param);
   groupesClientSon.setParameters(param);
   midimix.setParameters(param);
@@ -48,7 +47,6 @@ function reloadParameters(param) {
 }
 exports.setParameters = setParameters;
 
-//var par = require('./skiniParametres');
 var fs = require("fs");
 var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
@@ -902,8 +900,10 @@ maybe an hiphop compile Error.
           let parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = "../" + parametersFile.slice(0, -4) + ".js";
           decache(parametersFile);
-          par = require(parametersFile);
 
+          // La fait de faire un require ici, annule la référence de par dans 
+          // les autres modules. Il faut faire un reload dans tous les modules.
+          par = require(parametersFile);
           reloadParameters(par);
 
           // Test Pour l'orchestration !!

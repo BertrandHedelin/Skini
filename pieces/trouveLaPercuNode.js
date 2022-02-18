@@ -5,6 +5,7 @@
 
 © Copyright 2019-2021, B. Petit-Heidelein
 
+exemple:
                 websocket en 8080
    SERVEUR <----------------------> CLIENT  OSC OUT: 10000 (vers Processing Visu)
       ^ OSC IN:13000                  ^  ^  OSC OUT: 12000 (vers Processing Midi)
@@ -17,7 +18,8 @@
      OSC OUT: 13000                   OSC IN: 10000
 
 ===========================================================================*/
-// Indexation du bus Midi pour le lancement des clips
+
+// Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
 // Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
 // qui crée le bus midi pour ces commandes.
 var midiConfig = require("../serveur/midiConfig.json");
@@ -34,9 +36,6 @@ for(var i=0; i < midiConfig.length; i++){
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI
 exports.directMidiON = false;
-
-// Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
-exports.busMidiDAW = 6;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
