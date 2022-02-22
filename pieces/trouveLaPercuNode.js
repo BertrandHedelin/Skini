@@ -33,7 +33,7 @@ for(var i=0; i < midiConfig.length; i++){
   }
 }
 
-// Piece Bitwig en OSC si la paramètre est false
+// Piece Bitwig en OSC si le paramètre est false
 // Sinon Skini parle MIDI
 exports.directMidiON = false;
 
