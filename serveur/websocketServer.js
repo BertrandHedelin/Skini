@@ -880,7 +880,41 @@ maybe an hiphop compile Error.
           break;
 
         case "loadBlocks":
-          fs.readFile(generatedDir + msgRecu.fileName, 'utf8', (err, data) => {
+
+          let orchestrationFile = generatedDir + msgRecu.fileName;
+
+          try {
+            if (fs.existsSync(orchestrationFile)) {
+              let extension = orchestrationFile.slice(-4);
+              if (extension !== ".xml") {
+                console.log("ERR: Not an xml file:", orchestrationFile);
+                let msg = {
+                  type: "consoleBlocklySkini",
+                  text: "Not an XML file " + orchestrationFile
+                }
+                serv.broadcast(JSON.stringify(msg));
+                break;
+              }
+            } else {
+              console.log("ERR: No orchestration file:", orchestrationFile);
+              let msg = {
+                type: "consoleBlocklySkini",
+                text: "No orchestration file " + orchestrationFile
+              }
+              serv.broadcast(JSON.stringify(msg));
+              break;
+            }
+          } catch (err) {
+            console.log("ERR: No orchestration file:", orchestrationFile, err);
+            let msg = {
+              type: "consoleBlocklySkini",
+              text: "Error reading orchestration file " + orchestrationFile
+            }
+            serv.broadcast(JSON.stringify(msg));
+            break;
+          }
+
+          fs.readFile(orchestrationFile, 'utf8', (err, data) => {
             if (err) {
               console.error(err);
               return;
@@ -898,12 +932,46 @@ maybe an hiphop compile Error.
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de xml
           let parametersFile = sessionPath + msgRecu.fileName;
-          parametersFile = "../" + parametersFile.slice(0, -4) + ".js";
-          decache(parametersFile);
+          parametersFile = parametersFile.slice(0, -4) + ".js";
+          // Attention decache n'utilise pas le même path que parametersFile
+          let decacheParameters = "../" + parametersFile;
+
+          try {
+            if (fs.existsSync(parametersFile)) {
+              let extension = parametersFile.slice(-3);
+              if (extension !== ".js") {
+                console.log("ERR: Not an js file:", parametersFile);
+                let msg = {
+                  type: "consoleBlocklySkini",
+                  text: "Not an JavaScript file " + parametersFile
+                }
+                serv.broadcast(JSON.stringify(msg));
+                break;
+              }
+            } else {
+              console.log("ERR: No parameter file:", parametersFile);
+              let msg = {
+                type: "consoleBlocklySkini",
+                text: "No parameter file " + parametersFile
+              }
+              serv.broadcast(JSON.stringify(msg));
+              break;
+            }
+          } catch (err) {
+            console.log("ERR: Pb Reading parameter file:", parametersFile, err);
+            let msg = {
+              type: "consoleBlocklySkini",
+              text: "Pb Reading parameter file " + parametersFile
+            }
+            serv.broadcast(JSON.stringify(msg));
+            break;
+          }
+
+          decache(decacheParameters);
 
           // La fait de faire un require ici, annule la référence de par dans 
           // les autres modules. Il faut faire un reload dans tous les modules.
-          par = require(parametersFile);
+          par = require(decacheParameters);
           reloadParameters(par);
 
           // Test Pour l'orchestration !!
@@ -913,17 +981,58 @@ maybe an hiphop compile Error.
           } catch (err) {
             console.log("Pb ecriture", destination, err);
           }
+
+          msg = {
+            type: "consoleBlocklySkini",
+            text: "Orchestration loaded"
+          }
+          serv.broadcast(JSON.stringify(msg));
           break;
 
         case "loadSession":
           if (debug1) console.log("loadSession:", sessionPath + msgRecu.fileName);
+          let sessionFile = sessionPath + msgRecu.fileName;
+
+          try {
+            if (fs.existsSync(sessionFile)) {
+              let extension = sessionFile.slice(-4);
+              if (extension !== ".csv") {
+                console.log("ERR: Not an csv file:", sessionFile);
+                let msg = {
+                  type: "consoleBlocklySkini",
+                  text: "Not an csv file " + sessionFile
+                }
+                serv.broadcast(JSON.stringify(msg));
+                break;
+              }
+            } else {
+              console.log("ERR: No session file:", sessionFile);
+              let msg = {
+                type: "consoleBlocklySkini",
+                text: "No session file " + sessionFile
+              }
+              serv.broadcast(JSON.stringify(msg));
+              break;
+            }
+          } catch (err) {
+            console.log("ERR: Pb Reading session file:", sessionFile, err);
+            let msg = {
+              type: "consoleBlocklySkini",
+              text: "Pb Reading session file " + sessionPath
+            }
+            serv.broadcast(JSON.stringify(msg));
+            break;
+          }
+
           DAW.loadDAWTable(sessionPath + msgRecu.fileName);
+
           var mesReponse = {
-            type: "sessionLoaded",
-            sessionName: msgRecu.fileName,
+            type: "consoleBlocklySkini",
+            text: "session loaded: " + msgRecu.fileName
           }
           ws.send(JSON.stringify(mesReponse));
           break;
+
         /*	  	case "midiNoteOn":
                 // Pour valider la latence
                 var date = new Date();
