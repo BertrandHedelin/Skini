@@ -1,7 +1,7 @@
 /**
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
  * @version 1.2
  */
 'use strict'
@@ -567,82 +567,6 @@ function startWebSocketServer() {
       delete messageLog.text;
     }
 
-    //   function loadDAWTableFunc(status) {
-    //     DAWTableReady = false;
-    //     if (par.configClips != "" && par.configClips != undefined) {
-    //       try {
-    //         DAW.loadDAWTable(par.configClips).then(function () {
-    //           DAWStatus = status + 1; // !! La valeur reçue est un index
-    //           if (debug1) console.log("INFO: websocketServer: loadDAWTable OK: DAWStatus:", DAWStatus);
-
-    //           try {
-    //             automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine(DAWStatus);
-    //           } catch (err) {
-    //             //console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
-    //             console.log("\n-------------------------------------------------------------");
-    //             console.log(`ATTENTION: 
-    // - either there is an hiphop compile Error
-    // If you still have this message several times
-    // after correcting the error, stop and restart Skini.
-    // - or the last orchestration compiled does not
-    // correspond to the Skini piece you give as parameter
-    // in the command : node skini <skini piece>
-    // Reload and save the good one with the Blockly interface.`);
-    //             console.log("-------------------------------------------------------------");
-
-    //             var msg = {
-    //               type: "consoleBlocklySkini",
-    //               text: "See your console, compile error of wrong piece"
-    //             }
-    //             serv.broadcast(JSON.stringify(msg));
-    //             //throw err;
-    //             return;
-    //           }
-
-    //           DAW.setAutomatePossible(automatePossibleMachine);
-    //           console.log("INFO: websocketServer: loadDAWTable: table loaded\n");
-
-    //           var msg = {
-    //             type: "consoleBlocklySkini",
-    //             text: "Orchestration loaded"
-    //           }
-    //           serv.broadcast(JSON.stringify(msg));
-
-    //           // Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
-    //           if (par.gameOSCIn !== undefined) {
-    //             gameOSC.setOrchestration(automatePossibleMachine);
-    //             gameOSC.init();
-    //           }
-
-    //           try {
-    //             //reactAutomatePossible( {DAWON: DAWStatus} ); // !!! en cours
-    //           } catch (e) {
-    //             console.log("websocketServerSkini:loadDAWTable:catch react:", e);
-    //           }
-    //           DAWTableReady = true;
-
-    //         }).catch(function (err) {
-    //           console.log("ERR: websocketServer: loadDAWTable :", par.configClips, err.toString());
-
-    //           var msg = {
-    //             type: "consoleBlocklySkini",
-    //             text: err.toString()
-    //           }
-    //           serv.broadcast(JSON.stringify(msg));
-    //           throw err;
-    //         });
-    //       } catch (err) {
-    //         return;
-    //       }
-    //     } else {
-    //       if (warnings) console.log("WARNING: websocketServer: loadDAWTable: table inexistante dans cette configuration.");
-    //       var mesReponse = {
-    //         type: "noAutomaton"
-    //       }
-    //       ws.send(JSON.stringify(mesReponse));
-    //     }
-    //   }
-
     function compileHH() {
       DAWTableReady = false;
       if (debug1) console.log("INFO: websocketServer: loadDAWTable OK:");
@@ -880,6 +804,10 @@ maybe an hiphop compile Error.
           break;
 
         case "loadBlocks":
+          if(msgRecu.fileName === ''){
+            console.log("WARN: No orchestration");
+            break;
+          }
 
           let orchestrationFile = generatedDir + msgRecu.fileName;
 
@@ -990,6 +918,11 @@ maybe an hiphop compile Error.
           break;
 
         case "loadSession":
+          if(msgRecu.fileName === ''){
+            console.log("WARN: No descriptor selected");
+            break;
+          }
+
           if (debug1) console.log("loadSession:", sessionPath + msgRecu.fileName);
           let sessionFile = sessionPath + msgRecu.fileName;
 
@@ -1033,35 +966,6 @@ maybe an hiphop compile Error.
           ws.send(JSON.stringify(mesReponse));
           break;
 
-        /*	  	case "midiNoteOn":
-                // Pour valider la latence
-                var date = new Date();
-        
-                if ( msgRecu.velocite != 0 ) { //Pour se limiter au NoteON
-                  // Pour prendre en compte le moment où le client a lancé sa commande Midi
-                  previousTimeToPlay = timeToPlay; // sec
-                  timeToPlay = msgRecu.date; // sec
-        
-                  previousTime = currentTime; // ms
-                  currentTime = date.getTime(); // ms
-        
-                  // On en peut pas comparer les dates sur le client et le serveur, mais on peut voir les différence de délai entre notes.
-                  defautDeLatence = (timeToPlay - previousTimeToPlay)*1000 - (currentTime - previousTime); // (Delta entre 2 notes sur le client) - (même delta sur le serveur)
-                  // Si defautDeLatence > O, l'écart sur le client est > à celui sur le serveur
-                  // on avait du retard sur l'evenement d'avant, si defautDeLatence > 0 on a du retard sur l'evenement actuel
-                  // si defautDeLatence == 0 on est en phase.
-                  // Mais est-ce bien pertinent de comparer l'horloge webaudio du client avec l'horloge JS du serveur ?
-                  // Ceci peut aussi demeontrer l'irregularité de JS
-        
-                //console.log( "DEFAUT DE LATENCE:", defautDeLatence );
-        
-                // Profitons de l'occasion pour vérifier la latence avec un ping/pong
-                  testLatence(ws);
-              }
-                //oscMidiLocal.sendNoteOn( msgRecu.bus, msgRecu.canal, msgRecu.codeMidi, msgRecu.velocite );
-              putEventInPlayBuffer(listeDesLatences[ws.id], msgRecu);
-                break;*/
-
         case "putInMatriceDesPossibles":
           if (debug) console.log("websocketserver:putInMatriceDesPossibles:", msgRecu);
           groupesClientSon.setInMatriceDesPossibles(msgRecu.clients, msgRecu.sons, msgRecu.status);   // groupe de clients, n° du groupe de sons, booleen
@@ -1094,6 +998,11 @@ maybe an hiphop compile Error.
           break;
 
         case "saveBlocklyGeneratedFile":
+          if(msgRecu.fileName === ''){
+            console.log("WARN: No Orchestration");
+            break;
+          }
+
           if (debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName, "\n--------------------");
           if (debug) console.log(msgRecu.text);
 
@@ -1267,10 +1176,6 @@ maybe an hiphop compile Error.
 
         case "startSpectateur": // On récupère l'ID du client
           ws.id = msgRecu.id;
-
-          //timeToPlay = msgRecu.date; // On initialise l'heure venu du client.
-          //testLatence(ws);
-
           if (debug1) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 
           // On ne permet donc qu'un seul controleur.
@@ -1357,10 +1262,6 @@ maybe an hiphop compile Error.
           else {
             groupeEncours %= par.nbeDeGroupesClients;
           }
-          // Essai sur les latences
-          //timeToPlay = msgRecu.date; // On initialise l'heure venue du client.
-          //testLatence(ws);
-
           // Pour dire à l'ouverture au client si on est ou pas dans une scène où DAW est actif.
           if (debug) console.log("Web Socket Server: startSpectateur: emission DAWStatus:", DAWStatus);
           var msg = {
@@ -1398,97 +1299,6 @@ maybe an hiphop compile Error.
 
   /****** FIN WEBSOCKET ************/
 }
-
-/*var latenceMax = 200; // en ms
-var indexCourantBuffer = 0;
-var playerBuffer;
-var resolutionDuBuffer = dureeDuTick / 10 ; // A voir : l'impact réel de la résolution / à la durée du tick
-
-// Pour mémoire de la structure
-var midiEvent = {
-  bus: 0,
-  canal: 1,
-  codeMidi: 64,
-  velocite: 125,
-}
-
-var datePing;
-var datePong;
-var latencePing;
-
-// Buffer à deux dimensions des evements Midi [ [bus, canal, codeMidi, velocite ], ...... ]
-var playBuffer = new Array( Math.floor(latenceMax / resolutionDuBuffer) + 1 );
-// On a besoin d'initialiser le buffer à cause des lectures systématiques dès le départ
-for ( var i=0; i < playBuffer.length; i++) playBuffer[i] = new Array(); 
-var finplayBuffer = playBuffer.length;
-
-// Associative array
-var listeDesLatences = {};
-
-function setClientLatency(id, latence) {
-  listeDesLatences[id] = latence;
-}
-
-function removeClientLatency(id) {
-  delete listeDesLatences[id];
-}
-
-function putEventInPlayBuffer(latence, midiEvent) {
-  // C'est là que se joue la précision du séquenceur
-  // Le ratio latence / resolutionDuBuffer est important
-  // S'il n'y a pas de latence on pose l'evt en queue du buffer
-
-  if ( latence > latenceMax )  latence = latenceMax; // Limitation de la latence, sécurité au départ
- 
-    // C'est là que l'on tient compte de la latence pour positionner le midiEvent dans le buffer.
-    // Si la latence est faible, l'evement sera en queue du buffer pour être jouer plus tard
-    // Si la latence est longue il sera en tête pour être joué plus rapidement.
-  // Ceci est censé améliorer les décalages dus à la latence, mais c'est plutôt JS qui crée des décalages.
-
-  index = (playBuffer.length - Math.floor(latence / resolutionDuBuffer)) - 1;
-  //console.log("putEventInPlayBuffer, index : ", index ," buffer length: " , playBuffer.length," latence : ", latence, " playBuffer[index] : ", playBuffer[index]);
-
-  playBuffer[index].push(midiEvent);
-}
-
-// Cettes fonction est appelée par un setInterval qui démarre au moment de la connexion.
-// La fréquence est définie par resolutionDuBuffer.
-
-function playEventInPlayBuffer(index) {
-
-  if ( playBuffer[index] != undefined ) {
-    // Il faudra peut-etre tenir compte d'un séquencement quelconque, si un noteoff arrive avant in noteon.
-    // Ce serait possible en cas de forte instabilité de la latence.
-    //console.log("playEventInPlayBuffer", playBuffer[index] );
-    // On joue les notes en index
-    for (var i=0; i < playBuffer[index].length ; i++) {
-      if ( playBuffer[index] != undefined ) {
-        console.log("playEventInPlayBuffer", playBuffer[index][i].bus, playBuffer[index][i].canal, playBuffer[index][i].codeMidi, playBuffer[index][i].velocite );
-        oscMidiLocal.sendNoteOn( playBuffer[index][i].bus, playBuffer[index][i].canal, playBuffer[index][i].codeMidi, playBuffer[index][i].velocite );
-
-        // On vide l'index
-        playBuffer[index].splice(i,1);
-      }
-    }
-  }
-}
-
-function nextEventInBuffer() {
-    playEventInPlayBuffer(indexCourantBuffer);
-    indexCourantBuffer++;
-    indexCourantBuffer %= finplayBuffer;
-}
-
-function testLatence(ws) {
-  var date = new Date();
-  datePing = date.getTime(); // ms
-  var msgPing = {
-    type: "ping",
-    value : "azertytrytrytrytrytrytrytrytrytrytrytr"
-  };
-  ws.send(JSON.stringify(msgPing));
-}
-*/
 
 function logInfoSocket(message) {
   fs.appendFile('skinilog.json', JSON.stringify(message) + "\n", "UTF-8", function (err) {

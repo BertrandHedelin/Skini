@@ -19,23 +19,21 @@
               <!--
 							<button class="small button" id="buttonGenerate" onclick="save();" >Generate HipHop</button>
 							-->
-              <label for="loadFile" class="small button">Select Orchestration</label>
+              <label for="loadFile" class="small button">Load Orch. and config.</label>
               <input type="file" id="loadFile" oninput="loadBlocks();" />
 
-              <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Save and Load</button>
+              <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Save and compile
+                Orch.</button>
               <input class="inputText" type="text" id="saveFile" />
-              <input class="inputText" type="text" id="consoleArea" />
 
               <!-- <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button> -->
-
-              <button id="buttonStopAutomate" class="small button" style="display:none"
-                onclick="stopAutomate();">Stop</button>
-              <button id="buttonStartAutomate" class="small button" onclick="startAutomate();">Start</button>
-              <BR>
-              <label for="loadSession" class="small button">Load descriptors</label>
+              <label for="loadSession" class="small button">Load Descriptors</label>
               <input type="file" id="loadSession" onchange="loadSession();" />
               <input class="inputText" type="text" id="loadSessionTxt" />
-              <BR>
+
+              <button id="buttonStopAutomate" class="small button red" style="display:none"
+                onclick="stopAutomate();">Stop</button>
+              <button id="buttonStartAutomate" class="small button blue" onclick="startAutomate();">Start</button>
 
               <button type="button" class="small button" onclick="window.open('http://localhost:8080/contr','Controleur',
               'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
@@ -49,6 +47,7 @@
               'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
               return false;">Score</button>
 
+              <input class="inputText" type="text" id="consoleArea" />
             </div>
           </header>
         </td>

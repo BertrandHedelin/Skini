@@ -184,7 +184,7 @@ function init(host) {
       ws.send(JSON.stringify(msg));
       automateEncours = true;
     } else {
-      alert("WARNING: No orchestration selected or one is running, or no descriptor ");
+      alert("WARNING: Orchestration not compiled or no descriptor ");
     }
   }
   window.startAutomate = startAutomate;

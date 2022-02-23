@@ -16,8 +16,6 @@ table {
   width: 100%;
 }
 
-
-
 #blocklyArea {
   height: 99%;
 }
@@ -64,8 +62,8 @@ h1 {
     color: #555;
     font-size: 0.9em;
     line-height: 1.3em;
-    width:1200px;
-}
+    width: 345;
+  }
 
 input[type="file"] {
     display: none;
