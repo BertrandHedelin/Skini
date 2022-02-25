@@ -191,7 +191,7 @@ exports.sendBankSelect = sendBankSelect;
  */
 function sendControlChange(bus, channel, controlChange, controlValue) {
   if (directMidi) {
-    if (debug1) {
+    if (debug) {
       console.log("sending CC Midi: channel:", channel,
         "controlChange :", controlChange,
         " Value: ", controlValue,
