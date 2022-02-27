@@ -63,7 +63,7 @@ var pseudo = "sim" + id;
 var debug = false;
 var debug1 = true;
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
-var nombreDePatternsPossible = 3;
+var nombreDePatternsPossible = 1;
 
 var numClip;
 var msg = { // On met des valeurs pas defaut
