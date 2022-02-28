@@ -194,6 +194,26 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -219,7 +239,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -232,6 +252,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -262,7 +302,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -275,6 +315,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -305,7 +365,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -318,6 +378,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -348,7 +428,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -361,6 +441,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -391,7 +491,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -404,6 +504,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -434,7 +554,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -447,6 +567,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -477,7 +617,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -490,6 +630,26 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -520,7 +680,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 8;}
+          "countapply":function (){ return 4;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -605,7 +765,7 @@ var orchestration = hh.MODULE(
       "%location":{},
       "%tag":"node",
       "apply":function () {
-        gcs.setTimerDivision(1);
+        gcs.setTimerDivision(2);
       }
     }
   ),
@@ -687,9 +847,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap302442":"trap302442",
+            "trap560072":"trap560072",
             "%location":{},
-            "%tag":"trap302442"
+            "%tag":"trap560072"
           },
           hh.FORK(
             {
@@ -897,7 +1057,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap302442":"trap302442",
+    		          "trap560072":"trap560072",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -1035,9 +1195,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap361297":"trap361297",
+                "trap617631":"trap617631",
                 "%location":{},
-                "%tag":"trap361297"
+                "%tag":"trap617631"
               },
               hh.FORK(
                 {
@@ -1189,7 +1349,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap361297":"trap361297",
+        		          "trap617631":"trap617631",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1316,9 +1476,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap379909":"trap379909",
+                "trap815875":"trap815875",
                 "%location":{},
-                "%tag":"trap379909"
+                "%tag":"trap815875"
               },
               hh.FORK(
                 {
@@ -1470,7 +1630,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap379909":"trap379909",
+        		          "trap815875":"trap815875",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1548,9 +1708,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap102416":"trap102416",
+              "trap58470":"trap58470",
               "%location":{},
-              "%tag":"trap102416"
+              "%tag":"trap58470"
             },
             hh.FORK(
               {
@@ -1663,7 +1823,7 @@ var orchestration = hh.MODULE(
       	              "apply":function (){return ((() => {
       	                const tick =this["tick"];
       	                return tick.now;})());},
-      	              "countapply":function (){return 48;}
+      	              "countapply":function (){return 32;}
       	          },
       	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
       	        ),
@@ -1758,7 +1918,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap102416":"trap102416",
+      		          "trap58470":"trap58470",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -1783,7 +1943,7 @@ var orchestration = hh.MODULE(
               const tick=this["tick"];
               return tick.now;
           })());},
-          "countapply":function (){ return 47;}
+          "countapply":function (){ return 32;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -1815,6 +1975,16 @@ var orchestration = hh.MODULE(
           }
         ),
 
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          setTempo(40);
+        }
+      }
+    ),
+
       hh.ATOM(
         {
           "%location":{},
@@ -1830,7 +2000,7 @@ var orchestration = hh.MODULE(
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            DAW.putPatternInQueue('Alto8');
+            DAW.putPatternInQueue('Alto10');
           }
         }
       ),

@@ -58,7 +58,7 @@
           </block>
         </statement>
         <next>
-          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b" collapsed="true">
+          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b">
             <value name="NAME">
               <block type="variables_get" id="X!z@fX)h!sku}r([7R9u">
                 <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
@@ -90,10 +90,30 @@
                     
                     
                     
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     </comment>
                     <next>
                       <block type="hh_wait_for" id="ZI(PXqyt/NjAPP!oek]p">
-                        <field name="TIMES">8</field>
+                        <field name="TIMES">4</field>
                         <value name="SIGNAL">
                           <block type="variables_get" id="x:5G7g]tv7;E=@[}vcR~">
                             <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -113,10 +133,30 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
-                                <field name="TIMES">8</field>
+                                <field name="TIMES">4</field>
                                 <value name="SIGNAL">
                                   <block type="variables_get" id="GB]7)zG|l1atmnxkl?!m">
                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -136,10 +176,30 @@
                                     
                                     
                                     
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     </comment>
                                     <next>
                                       <block type="hh_wait_for" id="d8h}H9vIPN^O`-`2%FC~">
-                                        <field name="TIMES">8</field>
+                                        <field name="TIMES">4</field>
                                         <value name="SIGNAL">
                                           <block type="variables_get" id="[xbG8@Qh!B@CxI^tu04r">
                                             <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -159,10 +219,30 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
-                                                <field name="TIMES">8</field>
+                                                <field name="TIMES">4</field>
                                                 <value name="SIGNAL">
                                                   <block type="variables_get" id="$WNO+$P]$o:Zb{kxdSDu">
                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -182,10 +262,30 @@
                                                     
                                                     
                                                     
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     </comment>
                                                     <next>
                                                       <block type="hh_wait_for" id="DO[?:xL%kI]l6]=Y$me!">
-                                                        <field name="TIMES">8</field>
+                                                        <field name="TIMES">4</field>
                                                         <value name="SIGNAL">
                                                           <block type="variables_get" id="i_J(#}|-CT6,R9?D-hVq">
                                                             <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -205,10 +305,30 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
-                                                                <field name="TIMES">8</field>
+                                                                <field name="TIMES">4</field>
                                                                 <value name="SIGNAL">
                                                                   <block type="variables_get" id="mf5QgK1=ddU]09aAYtD]">
                                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -228,10 +348,30 @@
                                                                     
                                                                     
                                                                     
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     </comment>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="e1AJu2%k*:H2$kc^$ZMT">
-                                                                        <field name="TIMES">8</field>
+                                                                        <field name="TIMES">4</field>
                                                                         <value name="SIGNAL">
                                                                           <block type="variables_get" id="jW:g]W-fb]gX*BBZ6PJx">
                                                                             <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -251,10 +391,30 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
-                                                                                <field name="TIMES">8</field>
+                                                                                <field name="TIMES">4</field>
                                                                                 <value name="SIGNAL">
                                                                                   <block type="variables_get" id="Z[J(@N*1!;]n]wL2~za%">
                                                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -300,7 +460,7 @@
     </statement>
     <statement name="BODY">
       <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
-        <field name="timer">1</field>
+        <field name="timer">2</field>
         <next>
           <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^">
             <field name="channelTempo">1</field>
@@ -542,7 +702,7 @@
                                                                     <statement name="BODY">
                                                                       <block type="set_group_during_ticks" id="V9g_CiL1DnevGv|?z%vm">
                                                                         <field name="user_group">255</field>
-                                                                        <field name="number_of_ticks">48</field>
+                                                                        <field name="number_of_ticks">32</field>
                                                                         <value name="GROUPS">
                                                                           <block type="lists_create_with" id="7SdjE@{%nOeJNBtaw`;y">
                                                                             <mutation items="3"></mutation>
@@ -565,7 +725,7 @@
                                                                         </value>
                                                                         <next>
                                                                           <block type="hh_abort" id="b0=;`ZT#u67~]~Db6];L">
-                                                                            <field name="TIMES">47</field>
+                                                                            <field name="TIMES">32</field>
                                                                             <value name="SIGNAL">
                                                                               <block type="variables_get" id="Jen4;pWTK?j|6DT|g^v1">
                                                                                 <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -592,40 +752,45 @@
                                                                     <next>
                                                                       <block type="cleanqueues" id="E~o48w}ok_0KDNWKGbNK">
                                                                         <next>
-                                                                          <block type="putPatternInQueue" id="[MBg?]mS,hrwq8UVmI@$">
-                                                                            <value name="message">
-                                                                              <block type="text" id="ZwtP@I*J|Z(SH``zK;SH">
-                                                                                <field name="TEXT">Violon8</field>
-                                                                              </block>
-                                                                            </value>
+                                                                          <block type="set_tempo" id="Iz],;~sOne[ZL%3u?xRD">
+                                                                            <field name="tempo">40</field>
                                                                             <next>
-                                                                              <block type="putPatternInQueue" id="R7,]GN#EsjWnxEXSKT|^">
+                                                                              <block type="putPatternInQueue" id="[MBg?]mS,hrwq8UVmI@$">
                                                                                 <value name="message">
-                                                                                  <block type="text" id="iE:KVdD~rvXD,0Np~s!!">
-                                                                                    <field name="TEXT">Alto8</field>
+                                                                                  <block type="text" id="ZwtP@I*J|Z(SH``zK;SH">
+                                                                                    <field name="TEXT">Violon8</field>
                                                                                   </block>
                                                                                 </value>
                                                                                 <next>
-                                                                                  <block type="putPatternInQueue" id="J@m|cLB!RSXzc}x_C@IQ">
+                                                                                  <block type="putPatternInQueue" id="R7,]GN#EsjWnxEXSKT|^">
                                                                                     <value name="message">
-                                                                                      <block type="text" id="{/MCDSkiGr_B8UgEE}Zp">
-                                                                                        <field name="TEXT">Cello8</field>
+                                                                                      <block type="text" id="iE:KVdD~rvXD,0Np~s!!">
+                                                                                        <field name="TEXT">Alto10</field>
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!">
+                                                                                      <block type="putPatternInQueue" id="J@m|cLB!RSXzc}x_C@IQ">
                                                                                         <value name="message">
-                                                                                          <block type="text" id="y`J*2?gwH?4RGXc?)TL~">
-                                                                                            <field name="TEXT">Fin Mars 2022</field>
+                                                                                          <block type="text" id="{/MCDSkiGr_B8UgEE}Zp">
+                                                                                            <field name="TEXT">Cello8</field>
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="hh_print_serveur" id="4w@Y7Qd)PNoI)1SVbNMc">
-                                                                                            <value name="TEXT">
-                                                                                              <block type="text" id="3)Wc6AajgRl#CIHVR7Nl">
+                                                                                          <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!">
+                                                                                            <value name="message">
+                                                                                              <block type="text" id="y`J*2?gwH?4RGXc?)TL~">
                                                                                                 <field name="TEXT">Fin Mars 2022</field>
                                                                                               </block>
                                                                                             </value>
+                                                                                            <next>
+                                                                                              <block type="hh_print_serveur" id="4w@Y7Qd)PNoI)1SVbNMc">
+                                                                                                <value name="TEXT">
+                                                                                                  <block type="text" id="3)Wc6AajgRl#CIHVR7Nl">
+                                                                                                    <field name="TEXT">Fin Mars 2022</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </next>
                                                                                           </block>
                                                                                         </next>
                                                                                       </block>

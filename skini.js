@@ -10,15 +10,15 @@ var path = require("path");
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
 
-// var myArgs = process.argv.slice(2);
-// if (myArgs[0] === undefined) {
-//   console.log("Give a configuration file: node skini <configutation file>");
-//   process.exit();
-// }
-
 function startSkini() {
-  // var destination = "./serveur/skiniParametres.js"
-  // fs.copyFileSync(myArgs[0], destination);
+
+  // Nettoyage du log précédents
+  try {
+    fs.unlinkSync("./skinilog.json")
+    //file removed
+  } catch (err) {
+    console.error("WARN: Pas de log précédents:", err)
+  }
 
   // Websocket dans le Serveur
   var ws = require('./serveur/websocketServer');
@@ -128,13 +128,5 @@ function startSkini() {
 
   displayContext(par, ipConfig);
 }
-
-// fs.exists(myArgs[0], (e) => {
-//   if (e) {
-//     startSkini();
-//   } else {
-//     console.log("The config file", myArgs[0], "does not exist")
-//   }
-// });
 
 startSkini();

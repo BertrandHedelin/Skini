@@ -32,7 +32,7 @@ var filesDattente = [[], [], [], [], [], [], [], [], [], [],
 var filesDattenteJouables = new Array(filesDattente.length);
 
 // Il en faut autant que de files d'attente
-var compteursDattente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var compteursDattente = []; //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
@@ -456,6 +456,7 @@ function playAndShiftEventDAW(timerDivision) {
     timerDivisionLocal = timerDivision;
   }
 
+  if (debug) console.log(" controleDAW : playAndShiftEventDAW: timerDivisionLocal: ", timerDivisionLocal);
   if (debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if (filesDattente === undefined) return; // Protection
 
@@ -517,9 +518,9 @@ function playAndShiftEventDAW(timerDivision) {
 
           if (commandeDAW[6] % timerDivisionLocal !== 0) {
             console.log("WARN: controleDAW.js: playAndShiftEventDAW: pattern",
-              commandeDAW[7], " a une durée non multiple de timer division:", timerDivision, ":", commandeDAW[6]);
+              commandeDAW[7], " a une durée: ", commandeDAW[6], "non multiple de timer division:", timerDivisionLocal);
           }
-          if (debug) console.log("---2 ControleDAW.js:sendNoteOn:", commandeDAW[7]);
+          if (debug) console.log("---2 ControleDAW.js:sendNoteOn:", commandeDAW[7], " de durée: ", commandeDAW[6], "avec timerDivisionLocal:", timerDivisionLocal);
 
           // Via OSC on perd les accents, donc on passe pas une WebSocket
           if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[7], ":", commandeDAW[5]);
@@ -597,7 +598,7 @@ function playAndShiftEventDAW(timerDivision) {
       compteursDattente[i] -= timerDivisionLocal;
     }
   }
-  if (debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivision);
+  if (debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivisionLocal);
   return;
 }
 exports.playAndShiftEventDAW = playAndShiftEventDAW;

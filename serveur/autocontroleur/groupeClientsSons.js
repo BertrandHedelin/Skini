@@ -325,6 +325,7 @@ function logInfoAutomate(message) {
     }
   });
 }
+
 function getDateTime() {
   var date = new Date();
   var hour = date.getHours();
@@ -341,11 +342,7 @@ function getDateTime() {
   return day + ":" + month + ":" + year + ":" + hour + ":" + min + ":" + sec;
 }
 
-var messageLog = {
-  date: "",
-  source: "groupeClientSons.js",
-  type: "log"
-}
+
 
 /******************
 
@@ -732,8 +729,13 @@ function makeOneAutomatePossibleMachine() {
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;
 
-function makeSignalsListeners(machine) {
+let messageLog = {
+  date: "",
+  source: "groupeClientSons.js",
+  type: "log"
+}
 
+function makeSignalsListeners(machine) {
   // Création des listeners des signaux
   for (var i = 0; i < par.groupesDesSons.length; i++) {
     var signal = par.groupesDesSons[i][0] + "OUT";
@@ -783,7 +785,7 @@ function makeSignalsListeners(machine) {
       //hop.broadcast("setInMatriceDesPossibles", messageScrut);
 
       messageLog.type = "signal";
-      messageLog.value = signal;
+      messageLog.value =  evt.type;
       logInfoAutomate(messageLog);
     });
   }

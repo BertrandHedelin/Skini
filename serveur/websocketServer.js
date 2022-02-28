@@ -279,13 +279,15 @@ function startWebSocketServer() {
     // Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
     // donnée dans le fichier de config de la pièce. (compatibilté ascendante)
     var timerLocal = groupesClientSon.getTimerDivision();
-    if (debug) console.log("websocketserver : receivedTickFromDaw:timerLocal:", timerLocal);
+    if (debug) console.log("websocketserver: receivedTickFromDaw: timerLocal:", timerLocal);
 
     if (timerLocal !== undefined) {
       timerDivision = timerLocal;
     } else {
       //console.log("WARN: websocketServer: receivedTickFromDaw: timerDivision undefined");
     }
+
+    if (debug) console.log("websocketserver: receivedTickFromDaw: timerDivision:", timerDivision);
 
     //offsetDivision = timerDivision/2;
     if (par.synchoOnMidiClock) {

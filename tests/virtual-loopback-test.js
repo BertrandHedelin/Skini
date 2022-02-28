@@ -12,7 +12,7 @@ input.on('message', function(deltaTime, message) {
     message[2]
   ]);
 });
-input.openVirtualPort("node-midi Virtual Input");
+input.openVirtualPort("node-midi Virtual Input");node 
 setTimeout(function() {
   input.closePort();
   output.closePort();
