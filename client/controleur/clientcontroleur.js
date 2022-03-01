@@ -1,4 +1,3 @@
-
 /************************
 
 Controle de la matrice des possibles
@@ -422,42 +421,42 @@ function checkSession() {
 }
 window.checkSession = checkSession;
 
-function loadSession(){
-	var reponse = window.prompt("Descriptor file");
-	if(reponse === undefined || reponse === '') return;
+function loadSession() {
+  var reponse = window.prompt("Descriptor file");
+  if (reponse === undefined || reponse === '') return;
 
-	var fileName;
-	fileName = par.sequencerFilePath + reponse + '.csv';
-	if(debug1) console.log("loadSession:", fileName);
-	msg.type = "loadSession";
-	msg.fileName = fileName;
-	ws.send(JSON.stringify(msg));
+  var fileName;
+  fileName = par.sequencerFilePath + reponse + '.csv';
+  if (debug1) console.log("loadSession:", fileName);
+  msg.type = "loadSession";
+  msg.fileName = fileName;
+  ws.send(JSON.stringify(msg));
 }
 window.loadSession = loadSession;
 
-function loadSession(){
-	var reponse = window.prompt("Descriptor file");
-	if(reponse === undefined || reponse === '') return;
+function loadSession() {
+  var reponse = window.prompt("Descriptor file");
+  if (reponse === undefined || reponse === '') return;
 
-	var fileName;
-	fileName = par.sequencerFilePath + reponse + '.csv';
-	if(debug1) console.log("loadSession:", fileName);
-	msg.type = "loadSession";
-	msg.fileName = fileName;
-	ws.send(JSON.stringify(msg));
+  var fileName;
+  fileName = par.sequencerFilePath + reponse + '.csv';
+  if (debug1) console.log("loadSession:", fileName);
+  msg.type = "loadSession";
+  msg.fileName = fileName;
+  ws.send(JSON.stringify(msg));
 }
 window.loadSession = loadSession;
 
-function saveSession(){
-	var reponse = window.prompt("Descriptor file");
-	if(reponse === undefined || reponse === '') return;
+function saveSession() {
+  var reponse = window.prompt("Descriptor file");
+  if (reponse === undefined || reponse === '') return;
 
-	var fileName;
-	fileName = par.sequencerFilePath + reponse + '.csv';
-	if(debug1) console.log("saveSession:", fileName);
-	msg.type = "saveSession";
-	msg.fileName = fileName;
-	ws.send(JSON.stringify(msg));
+  var fileName;
+  fileName = par.sequencerFilePath + reponse + '.csv';
+  if (debug1) console.log("saveSession:", fileName);
+  msg.type = "saveSession";
+  msg.fileName = fileName;
+  ws.send(JSON.stringify(msg));
 }
 window.saveSession = saveSession;
 

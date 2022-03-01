@@ -194,6 +194,10 @@ function displaySession() {
 }
 exports.displaySession = displaySession;
 
+function getSession(){
+  return tableDesCommandes;
+}
+exports.getSession = getSession;
 // ======================= Initialisation pour Broadcast =============================
 /**
  * Set the server to manage the Broadcast on the clients

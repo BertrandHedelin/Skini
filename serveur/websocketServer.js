@@ -12,6 +12,13 @@ var DAW;
 var groupesClientSon;
 var midimix;
 
+// Répertoires par défaut
+// Où se trouvent les fichiers XML d'orchestration et le defaultOrchestrationName
+// On ne peut pas donner de chemin absolu dans un browser.
+var generatedDir = "./myReact/";
+// Où se trouvent les fihciers csv descriptors des patterns
+var sessionPath = "./pieces/";
+
 /**
  * To load some modules and share the parameters among these modules.
  * @param {Object} param 
@@ -29,6 +36,14 @@ function setParameters(param, midimixage) {
 
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
   groupesClientSon.setParameters(param);
+
+  if(par.sessionPath !== undefined){
+    sessionPath = par.sessionPath;
+  }
+  if(par.piecePath !== undefined){
+    generatedDir = par.piecePath;
+  }
+
   initMidiPort();
   startWebSocketServer();
 }
@@ -55,13 +70,7 @@ var gameOSC = require('./gameOSC');
 const decache = require('decache');
 const { stringify } = require('querystring');
 
-// Où se trouvent les fichiers XML d'orchestration et le defaultOrchestrationName
-// On ne peut pas donner de chemin absolu dans un browser.
-var generatedDir = "./myReact/";
 var defaultOrchestrationName = "orchestrationHH.js";
-
-// Où se trouvent les fihciers csv descriptors des patterns
-var sessionPath = "./pieces/";
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
 const tripleCrocheTR = 2;
@@ -1199,6 +1208,7 @@ maybe an hiphop compile Error.
             if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
             var mesReponse = {
               type: "skiniParametres",
+              descriptors: DAW.getSession(),
               value: par
             }
             ws.send(JSON.stringify(mesReponse));
@@ -1292,6 +1302,10 @@ maybe an hiphop compile Error.
           if (debug) console.log("Web Socket Server: received message : [%s]",
             msgRecu.text, " from Client ID:", ws.id);
           machineServeur.inputAndReact(msgRecu.text, ws.id); // ENVOI DU SIGNAL VERS HIPHOP
+          break;
+
+        case "updateSession":
+          if(debug1) console.log("updateSession:", msgRecu.data);
           break;
 
         default: console.log("Web Socket Serveur: Type de message inconnu : ", msgRecu);

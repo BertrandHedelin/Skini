@@ -104,7 +104,7 @@ module.exports={
   "remoteIPAddressSound": "localhost",
   "remoteIPAddressLumiere": "localhost",
   "remoteIPAddressGame": "localhost",
-  "serverIPAddress": "localhost",
+  "serverIPAddress": "192.168.1.75",
   "webserveurPort": 8080,
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,

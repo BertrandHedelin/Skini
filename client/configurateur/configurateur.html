@@ -1,10 +1,14 @@
 <html>
-
+  <script src="./client/configurateur/lib/jexcel.js"></script>
+  <link rel="stylesheet" href="./client/configurateur/lib/jexcel.css" type="text/css" />
+  <script src="./client/configurateur/lib/jsuites.js"></script>
+  <link rel="stylesheet" href="./client/configurateur/lib/jsuites.css" type="text/css" />
 <head>
   <meta charset="UTF-8" name="viewport" />
   <link rel="stylesheet" type="text/css" href="./client/configurateur/configurateur.css">
-  <script type='text/javascript' src='./client/configurateur/configurateurbundle.js'></script>
+  <!-- <script type='text/javascript' src='./client/configurateur/configurateurbundle.js'></script> -->
   <script defer></script>
+  
 </head>
 
 <body onload="initWSSocket(window.location.hostname);">
@@ -23,17 +27,18 @@
   <BR>
   <input id="buttonClose" class="button button2" type="button" value="CLOSE" onclick="self.close();">
   <div id="like_button_container"></div>
+  <div id="spreadsheet"></div>
 
   <!-- Load React. 
   <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
   -->
-  <!-- Load React locally  -->
-  <script src="./client/configurateur/react.production.min.js" crossorigin></script>
-  <script src="./client/configurateur/react-dom.production.min.js" crossorigin></script>
-
+  <!-- Load React localy  -->
+  <script src="./client/configurateur/lib/react.production.min.js" crossorigin></script>
+  <script src="./client/configurateur/lib/react-dom.production.min.js" crossorigin></script>
   <!-- Charge notre composant React -->
-  <script src="./client/configurateur/like_button.js"></script>
+  <script src="./client/configurateur/configReactbundle.js" ></script>
+
 </body>
 
 </html>

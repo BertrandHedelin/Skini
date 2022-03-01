@@ -38,25 +38,25 @@ function startSkini() {
   // AFFICHAGE DU CONTEXTE =================================================
 
   function displayContext(param, ipConfig) {
-    console.log("\n=========================================================");
-    //if(param.scenesON) console.log("Skini avec les scènes\n");
-    if (param.avecMusicien) {
-      console.log("Décalage des FIFOs de ", param.decalageFIFOavecMusicien, " pulsations");
-    }
-    console.log("Config des patterns: ", param.configClips);
-    console.log("Fichiers sons dans : ", param.soundFilesPath1);
-    if (param.avecMusicien) console.log("Fichiers partitions dans : ", param.patternScorePath1);
+    // console.log("\n=========================================================");
+    // //if(param.scenesON) console.log("Skini avec les scènes\n");
+    // if (param.avecMusicien) {
+    //   console.log("Décalage des FIFOs de ", param.decalageFIFOavecMusicien, " pulsations");
+    // }
+    // console.log("Config des patterns: ", param.configClips);
+    // console.log("Fichiers sons dans : ", param.soundFilesPath1);
+    // if (param.avecMusicien) console.log("Fichiers partitions dans : ", param.patternScorePath1);
 
-    console.log("Synchro. Midi: ", param.synchoOnMidiClock);
-    console.log("Réaction au moment où le pattern est joué (par défaut à la sélection):", param.reactOnPlay);
-    console.log("Algorithme sur FIFO: ", param.algoGestionFifo);
-    console.log("Nombe de groupes clients: ", param.nbeDeGroupesClients);
+    // console.log("Synchro. Midi: ", param.synchoOnMidiClock);
+    // console.log("Réaction au moment où le pattern est joué (par défaut à la sélection):", param.reactOnPlay);
+    // console.log("Algorithme sur FIFO: ", param.algoGestionFifo);
+    // console.log("Nombe de groupes clients: ", param.nbeDeGroupesClients);
 
-    console.log("----------- SIMULATEUR ----------------------------------");
-    console.log("Simulation dans un groupe dédié: ", param.simulatorInAseperateGroup);
-    console.log("Tempo max simulateur en ms:", param.tempoMax);
-    console.log("Tempo min simulateur en ms:", param.tempoMin);
-    console.log("Limite de durée d'attente en pulsations :", param.limiteDureeAttente);
+    // console.log("----------- SIMULATEUR ----------------------------------");
+    // console.log("Simulation dans un groupe dédié: ", param.simulatorInAseperateGroup);
+    // console.log("Tempo max simulateur en ms:", param.tempoMax);
+    // console.log("Tempo min simulateur en ms:", param.tempoMin);
+    // console.log("Limite de durée d'attente en pulsations :", param.limiteDureeAttente);
 
     console.log("----------- RESEAU --------------------------------------");
     console.log("Port OUT OSC pour MIDI:", ipConfig.OutPortOSCMIDItoDAW, "IP:", ipConfig.remoteIPAddressSound); // DAW ou Processing
