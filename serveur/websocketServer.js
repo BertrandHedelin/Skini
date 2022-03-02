@@ -13,14 +13,17 @@ var groupesClientSon;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
 
-// Répertoires par défaut, ils sont à fixer dans le fichier de configuration de la piece.
-// Où se trouvent les fichiers XML d'orchestration et le defaultOrchestrationName
-// On ne peut pas donner de chemin absolu dans un browser.
+// Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
+// pour orchestrationHH.js
 var generatedDir = "./myReact/";
 
-// Où se trouvent les fichiers csv "descripteurs" des patterns
+// Répertoires par défaut, ils sont à fixer dans le fichier de configuration de la piece.
+// Où se trouvent les fichiers XML d'orchestration
+// On ne peut pas donner de chemin absolu dans un browser.
+// Ce sont les fichiers csv "descripteurs" des patterns
 // et les fichiers de configuration ".js"
 var sessionPath = "./pieces/";
+var piecePath = "./pieces/";
 
 /**
  * To load some modules and share the parameters among these modules.
@@ -44,7 +47,7 @@ function setParameters(param, midimixage) {
     sessionPath = par.sessionPath;
   }
   if (par.piecePath !== undefined) {
-    generatedDir = par.piecePath;
+    piecePath = par.piecePath;
   }
 
   initMidiPort();
@@ -834,7 +837,7 @@ maybe an hiphop compile Error.
             break;
           }
 
-          let orchestrationFile = generatedDir + msgRecu.fileName;
+          let orchestrationFile = piecePath + msgRecu.fileName;
 
           try {
             if (fs.existsSync(orchestrationFile)) {
@@ -872,7 +875,7 @@ maybe an hiphop compile Error.
               console.error(err);
               return;
             }
-            if (debug1) console.log("loadBlocks:", msgRecu.fileName);
+            if (debug1) console.log("loadBlocks:", orchestrationFile);
             var msg = {
               type: "blocksLoaded",
               data: data,
@@ -1031,7 +1034,7 @@ maybe an hiphop compile Error.
           if (debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName, "\n--------------------");
           if (debug) console.log(msgRecu.text);
 
-          // Ecrit le programme HH
+          // Ecrit le programme HH pour compilation
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
             if (err) {
               var msg = {
@@ -1044,7 +1047,7 @@ maybe an hiphop compile Error.
           });
 
           // Ecrit le fichier XML Blockly
-          fs.writeFile(generatedDir + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
+          fs.writeFile(piecePath + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
             if (err) {
               return console.log(err);
             }
@@ -1054,7 +1057,7 @@ maybe an hiphop compile Error.
               text: msgRecu.fileName + ".xml written"
             }
             serv.broadcast(JSON.stringify(msg));
-            if (debug) console.log("INFO: websocketServer:", defaultOrchestrationName, " written");
+            if (debug1) console.log("INFO: websocketServer:", piecePath + defaultOrchestrationName, " written");
 
             // Compile the orchestration
             compileHH();

@@ -10,7 +10,7 @@
     <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="134" y="-764">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-79" y="-335">
     <statement name="MODULES">
       <block type="hh_module" id="$.S|.O{|AJ1*,JvfE8HE">
         <value name="NAME">
@@ -58,7 +58,7 @@
           </block>
         </statement>
         <next>
-          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b">
+          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b" collapsed="true">
             <value name="NAME">
               <block type="variables_get" id="X!z@fX)h!sku}r([7R9u">
                 <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
@@ -85,6 +85,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -175,6 +180,11 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -193,6 +203,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -283,6 +298,11 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -301,6 +321,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -391,6 +416,11 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -409,6 +439,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     
                                                                     
                                                                     
@@ -499,6 +534,11 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
@@ -547,203 +587,212 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
-        <field name="timer">2</field>
+      <block type="hh_print_serveur" id="^qobTNF+:9c(gC_i|]BM">
+        <value name="TEXT">
+          <block type="text" id="0iqC2{b5bgUA~}.@3)`E">
+            <field name="TEXT">Début Mars 2022</field>
+          </block>
+        </value>
         <next>
-          <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^">
-            <field name="channelTempo">1</field>
-            <field name="CCTempo">100</field>
-            <field name="MaxTempo">160</field>
-            <field name="MinTempo">40</field>
+          <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+            <field name="timer">2</field>
             <next>
-              <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
-                <field name="tempo">60</field>
+              <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^">
+                <field name="channelTempo">1</field>
+                <field name="CCTempo">100</field>
+                <field name="MaxTempo">160</field>
+                <field name="MinTempo">40</field>
                 <next>
-                  <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
-                    <field name="number">1</field>
+                  <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+                    <field name="tempo">60</field>
                     <next>
-                      <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
-                        <value name="message">
-                          <block type="text" id="x|C[Rub)rFkS_2(^nec1">
-                            <field name="TEXT">Mars 2022</field>
-                          </block>
-                        </value>
+                      <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                        <field name="number">1</field>
                         <next>
-                          <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]">
-                            <field name="valeur">1</field>
-                            <field name="groupe">255</field>
-                            <comment pinned="false" h="80" w="160">Pour limiter le travail du simulateur à une liste de 1 pattern</comment>
+                          <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
+                            <value name="message">
+                              <block type="text" id="x|C[Rub)rFkS_2(^nec1">
+                                <field name="TEXT">Mars 2022</field>
+                              </block>
+                            </value>
                             <next>
-                              <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
-                                <statement name="BODY">
-                                  <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
-                                    <field name="user_group">255</field>
-                                    <field name="number_of_ticks">40</field>
-                                    <value name="GROUPS">
-                                      <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
-                                        <mutation items="3"></mutation>
-                                        <value name="ADD0">
-                                          <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
-                                            <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD1">
-                                          <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
-                                            <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD2">
-                                          <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
-                                            <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </value>
-                                    <next>
-                                      <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
-                                        <field name="TIMES">40</field>
-                                        <value name="SIGNAL">
-                                          <block type="variables_get" id="mQ-OewDt6sm)2k/_Q;6J">
-                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                          </block>
-                                        </value>
-                                        <statement name="BODY">
-                                          <block type="hh_run" id="R%hTA/3`%kz3-L$C@}c[">
-                                            <value name="MODULE">
-                                              <block type="variables_get" id="T$WkeX3[nvTg6Ooqgd*b">
-                                                <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                              <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]">
+                                <field name="valeur">1</field>
+                                <field name="groupe">255</field>
+                                <comment pinned="false" h="80" w="160">Pour limiter le travail du simulateur à une liste de 1 pattern</comment>
+                                <next>
+                                  <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
+                                    <statement name="BODY">
+                                      <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
+                                        <field name="user_group">255</field>
+                                        <field name="number_of_ticks">40</field>
+                                        <value name="GROUPS">
+                                          <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
+                                            <mutation items="3"></mutation>
+                                            <value name="ADD0">
+                                              <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
+                                                <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
                                               </block>
                                             </value>
-                                            <value name="SIGNALS">
-                                              <block type="variables_get" id="jEb/`op@;Yi#W+~O#!=j">
+                                            <value name="ADD1">
+                                              <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
+                                                <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD2">
+                                              <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
+                                                <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
+                                            <field name="TIMES">40</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="mQ-OewDt6sm)2k/_Q;6J">
                                                 <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                               </block>
                                             </value>
-                                          </block>
-                                        </statement>
-                                      </block>
-                                    </next>
-                                  </block>
-                                </statement>
-                                <next>
-                                  <block type="cleanqueues" id="L%b^*0eQ1+|PECfesG#8">
-                                    <next>
-                                      <block type="hh_abort" id="}-8R@g*mB[pEzybjZSS|">
-                                        <field name="TIMES">24</field>
-                                        <value name="SIGNAL">
-                                          <block type="variables_get" id="..d)q#|0|1i,O/:J9z[$">
-                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                          </block>
-                                        </value>
-                                        <statement name="BODY">
-                                          <block type="hh_fork" id="-i)2,[^8ne^}f9Pe%~pA">
                                             <statement name="BODY">
-                                              <block type="move_tempo" id="e5%4Bn2M{H12AQ;^]Q`k">
-                                                <field name="VALUE">3</field>
-                                                <field name="LIMIT">5</field>
-                                                <field name="EVERY">4</field>
-                                                <value name="SIGNAL">
-                                                  <block type="variables_get" id=";Kqfc44#`X!LEwZCixDy">
+                                              <block type="hh_run" id="R%hTA/3`%kz3-L$C@}c[">
+                                                <value name="MODULE">
+                                                  <block type="variables_get" id="T$WkeX3[nvTg6Ooqgd*b">
+                                                    <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                  </block>
+                                                </value>
+                                                <value name="SIGNALS">
+                                                  <block type="variables_get" id="jEb/`op@;Yi#W+~O#!=j">
                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                   </block>
                                                 </value>
-                                                <next>
-                                                  <block type="hh_sequence" id="Fa`KdTCfxeHSlM@^k86A">
-                                                    <statement name="BODY">
-                                                      <block type="set_group_during_ticks" id="FX,W)H#*dyA`^yn)rGT:">
-                                                        <field name="user_group">255</field>
-                                                        <field name="number_of_ticks">23</field>
-                                                        <value name="GROUPS">
-                                                          <block type="lists_create_with" id="G6vsAUf[RqzpO}sMmmUf">
-                                                            <mutation items="2"></mutation>
-                                                            <value name="ADD0">
-                                                              <block type="variables_get" id="meMmv4R:SXJLMX-_5~95">
-                                                                <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="ADD1">
-                                                              <block type="variables_get" id="C~@KRS2a@#SaR%sb^;9O">
-                                                                <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </statement>
-                                                    <next>
-                                                      <block type="hh_run" id="^CT@jX,.h6}%D$(%NMc^">
-                                                        <value name="MODULE">
-                                                          <block type="variables_get" id="Gr`-a;aAin}*i+!X(w(F">
-                                                            <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="SIGNALS">
-                                                          <block type="variables_get" id="chG)0ESuWl,W]|lKn#HP">
-                                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </next>
-                                                  </block>
-                                                </next>
                                               </block>
                                             </statement>
                                           </block>
-                                        </statement>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="cleanqueues" id="L%b^*0eQ1+|PECfesG#8">
                                         <next>
-                                          <block type="alertInfoScoreOFF" id="[]gp,KEz%,_UrpcnZD+u">
-                                            <next>
-                                              <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB">
-                                                <next>
-                                                  <block type="hh_sequence" id="fo[^|HZ0~?yPO=wH-Ci^">
-                                                    <statement name="BODY">
-                                                      <block type="hh_fork" id="}l*}~!3F26.0yDo.4_ph">
+                                          <block type="hh_abort" id="}-8R@g*mB[pEzybjZSS|">
+                                            <field name="TIMES">24</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="..d)q#|0|1i,O/:J9z[$">
+                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                              </block>
+                                            </value>
+                                            <statement name="BODY">
+                                              <block type="hh_fork" id="-i)2,[^8ne^}f9Pe%~pA">
+                                                <statement name="BODY">
+                                                  <block type="move_tempo" id="e5%4Bn2M{H12AQ;^]Q`k">
+                                                    <field name="VALUE">3</field>
+                                                    <field name="LIMIT">5</field>
+                                                    <field name="EVERY">4</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id=";Kqfc44#`X!LEwZCixDy">
+                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_sequence" id="Fa`KdTCfxeHSlM@^k86A">
                                                         <statement name="BODY">
-                                                          <block type="hh_sequence" id="Qc`kf2v4{w]3gIn%gD5C">
+                                                          <block type="set_group_during_ticks" id="FX,W)H#*dyA`^yn)rGT:">
+                                                            <field name="user_group">255</field>
+                                                            <field name="number_of_ticks">23</field>
+                                                            <value name="GROUPS">
+                                                              <block type="lists_create_with" id="G6vsAUf[RqzpO}sMmmUf">
+                                                                <mutation items="2"></mutation>
+                                                                <value name="ADD0">
+                                                                  <block type="variables_get" id="meMmv4R:SXJLMX-_5~95">
+                                                                    <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD1">
+                                                                  <block type="variables_get" id="C~@KRS2a@#SaR%sb^;9O">
+                                                                    <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </statement>
+                                                        <next>
+                                                          <block type="hh_run" id="^CT@jX,.h6}%D$(%NMc^">
+                                                            <value name="MODULE">
+                                                              <block type="variables_get" id="Gr`-a;aAin}*i+!X(w(F">
+                                                                <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="SIGNALS">
+                                                              <block type="variables_get" id="chG)0ESuWl,W]|lKn#HP">
+                                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </statement>
+                                            <next>
+                                              <block type="alertInfoScoreOFF" id="[]gp,KEz%,_UrpcnZD+u">
+                                                <next>
+                                                  <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB">
+                                                    <next>
+                                                      <block type="hh_sequence" id="fo[^|HZ0~?yPO=wH-Ci^">
+                                                        <statement name="BODY">
+                                                          <block type="hh_fork" id="}l*}~!3F26.0yDo.4_ph">
                                                             <statement name="BODY">
-                                                              <block type="set_tempo" id="?vHFxxnk9N0gQTaz4ypG">
-                                                                <field name="tempo">100</field>
-                                                                <next>
-                                                                  <block type="putPatternInQueue" id="^;+!%~#3y[p4:TGUD1Ob">
-                                                                    <value name="message">
-                                                                      <block type="text" id="RKh8W/:ty)yMcf$LC~lY">
-                                                                        <field name="TEXT">Cello1</field>
-                                                                      </block>
-                                                                    </value>
+                                                              <block type="hh_sequence" id="Qc`kf2v4{w]3gIn%gD5C">
+                                                                <statement name="BODY">
+                                                                  <block type="set_tempo" id="?vHFxxnk9N0gQTaz4ypG">
+                                                                    <field name="tempo">100</field>
                                                                     <next>
-                                                                      <block type="putPatternInQueue" id="5,=cV?r}vst:W7v-SLJE">
+                                                                      <block type="putPatternInQueue" id="^;+!%~#3y[p4:TGUD1Ob">
                                                                         <value name="message">
-                                                                          <block type="text" id=",D:sN^||co,;4nE_iB6.">
+                                                                          <block type="text" id="RKh8W/:ty)yMcf$LC~lY">
                                                                             <field name="TEXT">Cello1</field>
                                                                           </block>
                                                                         </value>
                                                                         <next>
-                                                                          <block type="hh_wait_for" id="t/96^Y~yI!.f+TJlnz)i">
-                                                                            <field name="TIMES">7</field>
-                                                                            <value name="SIGNAL">
-                                                                              <block type="variables_get" id="_VfRsE`SpVcLQ(l;My8O">
-                                                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                          <block type="putPatternInQueue" id="5,=cV?r}vst:W7v-SLJE">
+                                                                            <value name="message">
+                                                                              <block type="text" id=",D:sN^||co,;4nE_iB6.">
+                                                                                <field name="TEXT">Cello1</field>
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="set_group_during_ticks" id="n+#n+]f.D;QX*fNH2,}A">
-                                                                                <field name="user_group">255</field>
-                                                                                <field name="number_of_ticks">24</field>
-                                                                                <value name="GROUPS">
-                                                                                  <block type="lists_create_with" id="Rw5_HOx0JP!}$R/mADM}">
-                                                                                    <mutation items="2"></mutation>
-                                                                                    <value name="ADD0">
-                                                                                      <block type="variables_get" id="UhPPyG6zN^bvc-KTQ8KD">
-                                                                                        <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
-                                                                                      </block>
-                                                                                    </value>
-                                                                                    <value name="ADD1">
-                                                                                      <block type="variables_get" id="9n8tG./t{G|sy#PzxGd@">
-                                                                                        <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                                                              <block type="hh_wait_for" id="t/96^Y~yI!.f+TJlnz)i">
+                                                                                <field name="TIMES">7</field>
+                                                                                <value name="SIGNAL">
+                                                                                  <block type="variables_get" id="_VfRsE`SpVcLQ(l;My8O">
+                                                                                    <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="set_group_during_ticks" id="n+#n+]f.D;QX*fNH2,}A">
+                                                                                    <field name="user_group">255</field>
+                                                                                    <field name="number_of_ticks">24</field>
+                                                                                    <value name="GROUPS">
+                                                                                      <block type="lists_create_with" id="Rw5_HOx0JP!}$R/mADM}">
+                                                                                        <mutation items="2"></mutation>
+                                                                                        <value name="ADD0">
+                                                                                          <block type="variables_get" id="UhPPyG6zN^bvc-KTQ8KD">
+                                                                                            <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <value name="ADD1">
+                                                                                          <block type="variables_get" id="9n8tG./t{G|sy#PzxGd@">
+                                                                                            <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                                                                          </block>
+                                                                                        </value>
                                                                                       </block>
                                                                                     </value>
                                                                                   </block>
-                                                                                </value>
+                                                                                </next>
                                                                               </block>
                                                                             </next>
                                                                           </block>
@@ -751,132 +800,132 @@
                                                                       </block>
                                                                     </next>
                                                                   </block>
+                                                                </statement>
+                                                                <next>
+                                                                  <block type="hh_abort" id="^_BQ5r7528,A13_pisRO">
+                                                                    <field name="TIMES">47</field>
+                                                                    <value name="SIGNAL">
+                                                                      <block type="variables_get" id="NX_XXEHGFo^e=s;J#sGX">
+                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <statement name="BODY">
+                                                                      <block type="hh_run" id="v^tyV^Flnr5Hnh*[f@!!">
+                                                                        <value name="MODULE">
+                                                                          <block type="variables_get" id="h_l*i[y)[q]0zKjq1?Z=">
+                                                                            <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="SIGNALS">
+                                                                          <block type="variables_get" id="PORtjI,Z*D{P%oeyCmGb">
+                                                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
+                                                                  </block>
                                                                 </next>
                                                               </block>
                                                             </statement>
                                                             <next>
-                                                              <block type="hh_abort" id="^_BQ5r7528,A13_pisRO">
-                                                                <field name="TIMES">47</field>
-                                                                <value name="SIGNAL">
-                                                                  <block type="variables_get" id="NX_XXEHGFo^e=s;J#sGX">
-                                                                    <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                  </block>
-                                                                </value>
-                                                                <statement name="BODY">
-                                                                  <block type="hh_run" id="v^tyV^Flnr5Hnh*[f@!!">
-                                                                    <value name="MODULE">
-                                                                      <block type="variables_get" id="h_l*i[y)[q]0zKjq1?Z=">
-                                                                        <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
-                                                                      </block>
-                                                                    </value>
-                                                                    <value name="SIGNALS">
-                                                                      <block type="variables_get" id="PORtjI,Z*D{P%oeyCmGb">
-                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                      </block>
-                                                                    </value>
-                                                                  </block>
-                                                                </statement>
-                                                              </block>
-                                                            </next>
-                                                          </block>
-                                                        </statement>
-                                                        <next>
-                                                          <block type="cleanqueues" id="Z~4PHMInZwy^Cp-Uj^O/">
-                                                            <next>
-                                                              <block type="set_tempo" id="hS.Vt=.1Jn89,Af}56iE">
-                                                                <field name="tempo">50</field>
+                                                              <block type="cleanqueues" id="Z~4PHMInZwy^Cp-Uj^O/">
                                                                 <next>
-                                                                  <block type="hh_fork" id="5=n9TO]8.QRhp[m$NlkC">
-                                                                    <statement name="BODY">
-                                                                      <block type="set_group_during_ticks" id="V9g_CiL1DnevGv|?z%vm">
-                                                                        <field name="user_group">255</field>
-                                                                        <field name="number_of_ticks">32</field>
-                                                                        <value name="GROUPS">
-                                                                          <block type="lists_create_with" id="7SdjE@{%nOeJNBtaw`;y">
-                                                                            <mutation items="3"></mutation>
-                                                                            <value name="ADD0">
-                                                                              <block type="variables_get" id="b0ORmv{1{?~zdwglFr!P">
-                                                                                <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <value name="ADD1">
-                                                                              <block type="variables_get" id="OKa=+Bs4/o|l0R~VB2ai">
-                                                                                <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <value name="ADD2">
-                                                                              <block type="variables_get" id="Jih-h-,/,p~xN--V#%/h">
-                                                                                <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
-                                                                              </block>
-                                                                            </value>
-                                                                          </block>
-                                                                        </value>
-                                                                        <next>
-                                                                          <block type="hh_abort" id="b0=;`ZT#u67~]~Db6];L">
-                                                                            <field name="TIMES">32</field>
-                                                                            <value name="SIGNAL">
-                                                                              <block type="variables_get" id="Jen4;pWTK?j|6DT|g^v1">
-                                                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <statement name="BODY">
-                                                                              <block type="hh_run" id="uxtDLf(-A)i|!i0k=,lU">
-                                                                                <value name="MODULE">
-                                                                                  <block type="variables_get" id=",{w@wmJjj+3UB(Tjlv,^">
-                                                                                    <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                                  <block type="set_tempo" id="hS.Vt=.1Jn89,Af}56iE">
+                                                                    <field name="tempo">50</field>
+                                                                    <next>
+                                                                      <block type="hh_fork" id="5=n9TO]8.QRhp[m$NlkC">
+                                                                        <statement name="BODY">
+                                                                          <block type="set_group_during_ticks" id="V9g_CiL1DnevGv|?z%vm">
+                                                                            <field name="user_group">255</field>
+                                                                            <field name="number_of_ticks">32</field>
+                                                                            <value name="GROUPS">
+                                                                              <block type="lists_create_with" id="7SdjE@{%nOeJNBtaw`;y">
+                                                                                <mutation items="3"></mutation>
+                                                                                <value name="ADD0">
+                                                                                  <block type="variables_get" id="b0ORmv{1{?~zdwglFr!P">
+                                                                                    <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
                                                                                   </block>
                                                                                 </value>
-                                                                                <value name="SIGNALS">
-                                                                                  <block type="variables_get" id="5Bb(MruG0R`KV:xn7[zg">
+                                                                                <value name="ADD1">
+                                                                                  <block type="variables_get" id="OKa=+Bs4/o|l0R~VB2ai">
+                                                                                    <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="ADD2">
+                                                                                  <block type="variables_get" id="Jih-h-,/,p~xN--V#%/h">
+                                                                                    <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="hh_abort" id="b0=;`ZT#u67~]~Db6];L">
+                                                                                <field name="TIMES">32</field>
+                                                                                <value name="SIGNAL">
+                                                                                  <block type="variables_get" id="Jen4;pWTK?j|6DT|g^v1">
                                                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                                   </block>
                                                                                 </value>
-                                                                              </block>
-                                                                            </statement>
-                                                                          </block>
-                                                                        </next>
-                                                                      </block>
-                                                                    </statement>
-                                                                    <next>
-                                                                      <block type="cleanqueues" id="E~o48w}ok_0KDNWKGbNK">
-                                                                        <next>
-                                                                          <block type="set_tempo" id="Iz],;~sOne[ZL%3u?xRD">
-                                                                            <field name="tempo">40</field>
-                                                                            <next>
-                                                                              <block type="putPatternInQueue" id="[MBg?]mS,hrwq8UVmI@$">
-                                                                                <value name="message">
-                                                                                  <block type="text" id="ZwtP@I*J|Z(SH``zK;SH">
-                                                                                    <field name="TEXT">Violon8</field>
+                                                                                <statement name="BODY">
+                                                                                  <block type="hh_run" id="uxtDLf(-A)i|!i0k=,lU">
+                                                                                    <value name="MODULE">
+                                                                                      <block type="variables_get" id=",{w@wmJjj+3UB(Tjlv,^">
+                                                                                        <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <value name="SIGNALS">
+                                                                                      <block type="variables_get" id="5Bb(MruG0R`KV:xn7[zg">
+                                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                      </block>
+                                                                                    </value>
                                                                                   </block>
-                                                                                </value>
+                                                                                </statement>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="cleanqueues" id="E~o48w}ok_0KDNWKGbNK">
+                                                                            <next>
+                                                                              <block type="set_tempo" id="Iz],;~sOne[ZL%3u?xRD">
+                                                                                <field name="tempo">40</field>
                                                                                 <next>
-                                                                                  <block type="putPatternInQueue" id="R7,]GN#EsjWnxEXSKT|^">
+                                                                                  <block type="putPatternInQueue" id="[MBg?]mS,hrwq8UVmI@$">
                                                                                     <value name="message">
-                                                                                      <block type="text" id="iE:KVdD~rvXD,0Np~s!!">
-                                                                                        <field name="TEXT">Alto10</field>
+                                                                                      <block type="text" id="ZwtP@I*J|Z(SH``zK;SH">
+                                                                                        <field name="TEXT">Violon8</field>
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="putPatternInQueue" id="J@m|cLB!RSXzc}x_C@IQ">
+                                                                                      <block type="putPatternInQueue" id="R7,]GN#EsjWnxEXSKT|^">
                                                                                         <value name="message">
-                                                                                          <block type="text" id="{/MCDSkiGr_B8UgEE}Zp">
-                                                                                            <field name="TEXT">Cello8</field>
+                                                                                          <block type="text" id="iE:KVdD~rvXD,0Np~s!!">
+                                                                                            <field name="TEXT">Alto10</field>
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!">
+                                                                                          <block type="putPatternInQueue" id="J@m|cLB!RSXzc}x_C@IQ">
                                                                                             <value name="message">
-                                                                                              <block type="text" id="y`J*2?gwH?4RGXc?)TL~">
-                                                                                                <field name="TEXT">Fin Mars 2022</field>
+                                                                                              <block type="text" id="{/MCDSkiGr_B8UgEE}Zp">
+                                                                                                <field name="TEXT">Cello8</field>
                                                                                               </block>
                                                                                             </value>
                                                                                             <next>
-                                                                                              <block type="hh_print_serveur" id="4w@Y7Qd)PNoI)1SVbNMc">
-                                                                                                <value name="TEXT">
-                                                                                                  <block type="text" id="3)Wc6AajgRl#CIHVR7Nl">
+                                                                                              <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!">
+                                                                                                <value name="message">
+                                                                                                  <block type="text" id="y`J*2?gwH?4RGXc?)TL~">
                                                                                                     <field name="TEXT">Fin Mars 2022</field>
                                                                                                   </block>
                                                                                                 </value>
+                                                                                                <next>
+                                                                                                  <block type="hh_print_serveur" id="4w@Y7Qd)PNoI)1SVbNMc">
+                                                                                                    <value name="TEXT">
+                                                                                                      <block type="text" id="3)Wc6AajgRl#CIHVR7Nl">
+                                                                                                        <field name="TEXT">Fin Mars 2022</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </next>
                                                                                               </block>
                                                                                             </next>
                                                                                           </block>
@@ -896,9 +945,9 @@
                                                               </block>
                                                             </next>
                                                           </block>
-                                                        </next>
+                                                        </statement>
                                                       </block>
-                                                    </statement>
+                                                    </next>
                                                   </block>
                                                 </next>
                                               </block>

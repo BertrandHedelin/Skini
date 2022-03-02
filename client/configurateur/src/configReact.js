@@ -147,7 +147,7 @@ class Jspreadsheet extends React.Component {
     this.wrapper = React.createRef();
   }
 
-  hideSomeColumns =  function (obj) {
+  hideSomeColumns = function (obj) {
     //obj.hideColumn(2);
     //obj.hideColumn(6);
     //obj.hideColumn(8);
@@ -181,11 +181,13 @@ class Jspreadsheet extends React.Component {
         <div ref={this.wrapper} />
         <br />
         <input
+          className="button"
           type="button"
           value="Add new row"
           onClick={() => this.addRow()}
         />
         <input
+          className="button"
           type="button"
           value="Update descriptors"
           onClick={() => this.updateDescriptors()}

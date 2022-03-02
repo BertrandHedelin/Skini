@@ -206,6 +206,7 @@ var Jspreadsheet = function (_React$Component2) {
         React.createElement("div", { ref: this.wrapper }),
         React.createElement("br", null),
         React.createElement("input", {
+          className: "button",
           type: "button",
           value: "Add new row",
           onClick: function onClick() {
@@ -213,6 +214,7 @@ var Jspreadsheet = function (_React$Component2) {
           }
         }),
         React.createElement("input", {
+          className: "button",
           type: "button",
           value: "Update descriptors",
           onClick: function onClick() {
