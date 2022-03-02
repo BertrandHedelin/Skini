@@ -24,15 +24,6 @@ var msg = { // On met des valeurs pas defaut
   value: 0
 };
 
-var arrayToCSV = function arrayToCSV(arr) {
-  var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ',';
-  return arr.map(function (v) {
-    return v.map(function (x) {
-      return isNaN(x) ? "\"" + x.replace(/"/g, '') + "\"" : x;
-    }).join(delimiter);
-  }).join('\n');
-};
-
 function saisiClip() {
   var DAWNote = document.getElementById("numClip").value;
   var DAWChannel = Math.floor(DAWNote / 127) + 1;
@@ -126,6 +117,8 @@ function initWSSocket(host) {
 }
 window.initWSSocket = initWSSocket;
 
+// Pour test, inutile sinon
+
 var LikeButton = function (_React$Component) {
   _inherits(LikeButton, _React$Component);
 
@@ -185,7 +178,7 @@ var Jspreadsheet = function (_React$Component2) {
       this.el.insertRow();
     };
 
-    _this3.getDescriptors = function () {
+    _this3.updateDescriptors = function () {
       var descr = void 0;
       descr = this.el.getData();
       console.log(descr);
@@ -220,9 +213,9 @@ var Jspreadsheet = function (_React$Component2) {
         }),
         React.createElement("input", {
           type: "button",
-          value: "Update",
+          value: "Update descriptors",
           onClick: function onClick() {
-            return _this4.getDescriptors();
+            return _this4.updateDescriptors();
           }
         })
       );
@@ -232,5 +225,5 @@ var Jspreadsheet = function (_React$Component2) {
   return Jspreadsheet;
 }(React.Component);
 
-var domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(React.createElement(LikeButton, null), domContainer);
+//let domContainer = document.querySelector('#like_button_container');
+//ReactDOM.render(<LikeButton />, domContainer);

@@ -11,12 +11,15 @@ var oscMidiLocal;
 var DAW;
 var groupesClientSon;
 var midimix;
+var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
 
-// Répertoires par défaut
+// Répertoires par défaut, ils sont à fixer dans le fichier de configuration de la piece.
 // Où se trouvent les fichiers XML d'orchestration et le defaultOrchestrationName
 // On ne peut pas donner de chemin absolu dans un browser.
 var generatedDir = "./myReact/";
-// Où se trouvent les fihciers csv descriptors des patterns
+
+// Où se trouvent les fichiers csv "descripteurs" des patterns
+// et les fichiers de configuration ".js"
 var sessionPath = "./pieces/";
 
 /**
@@ -37,10 +40,10 @@ function setParameters(param, midimixage) {
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
   groupesClientSon.setParameters(param);
 
-  if(par.sessionPath !== undefined){
+  if (par.sessionPath !== undefined) {
     sessionPath = par.sessionPath;
   }
-  if(par.piecePath !== undefined){
+  if (par.piecePath !== undefined) {
     generatedDir = par.piecePath;
   }
 
@@ -61,6 +64,17 @@ function reloadParameters(param) {
   initMidiPort();
 }
 exports.setParameters = setParameters;
+
+// const arrayToCSV = (arr, delimiter = ',') =>
+//   arr
+//     .map(v =>
+//       v.map(x => (isNaN(x) ? `"${x.replace(/"/g, '')}"` : x)).join(delimiter)
+//     )
+//     .join('\n');
+
+const arrayToCSV = (arr, delimiter = ',') =>
+  arr.map(v => v.join(delimiter)
+  ).join('\n');
 
 var fs = require("fs");
 var oscMidiLocal = require('./OSCandMidi');
@@ -815,7 +829,7 @@ maybe an hiphop compile Error.
           break;
 
         case "loadBlocks":
-          if(msgRecu.fileName === ''){
+          if (msgRecu.fileName === '') {
             console.log("WARN: No orchestration");
             break;
           }
@@ -913,7 +927,7 @@ maybe an hiphop compile Error.
           par = require(decacheParameters);
           reloadParameters(par);
 
-          // Test Pour l'orchestration !!
+          // On crée le fichier pour son utilisation par l'orchestration.
           let destination = "./serveur/skiniParametres.js"
           try {
             fs.copyFileSync(sessionPath + msgRecu.fileName.slice(0, -4) + ".js", destination);
@@ -929,13 +943,13 @@ maybe an hiphop compile Error.
           break;
 
         case "loadSession":
-          if(msgRecu.fileName === ''){
+          if (msgRecu.fileName === '') {
             console.log("WARN: No descriptor selected");
             break;
           }
 
           if (debug1) console.log("loadSession:", sessionPath + msgRecu.fileName);
-          let sessionFile = sessionPath + msgRecu.fileName;
+          sessionFile = sessionPath + msgRecu.fileName;
 
           try {
             if (fs.existsSync(sessionFile)) {
@@ -1009,7 +1023,7 @@ maybe an hiphop compile Error.
           break;
 
         case "saveBlocklyGeneratedFile":
-          if(msgRecu.fileName === ''){
+          if (msgRecu.fileName === '') {
             console.log("WARN: No Orchestration");
             break;
           }
@@ -1305,7 +1319,31 @@ maybe an hiphop compile Error.
           break;
 
         case "updateSession":
-          if(debug1) console.log("updateSession:", msgRecu.data);
+          if (sessionFile !== undefined) {
+            if (debug) console.log("updateSession pour:", sessionFile, ": ", arrayToCSV(msgRecu.data));
+            // Ecrire le fichier
+            fs.writeFile(sessionFile, arrayToCSV(msgRecu.data), function (err) {
+              if (err) {
+                var msg = {
+                  type: "consoleBlocklySkini",
+                  text: err.toString()
+                }
+                serv.broadcast(JSON.stringify(msg));
+                return console.log("ERR: websocketserver.js: updateSession: ", err);
+              } else {
+                // Le recharger dans DAW
+                DAW.loadDAWTable(sessionFile);
+                var mesReponse = {
+                  type: "consoleBlocklySkini",
+                  text: "session loaded: " + sessionFile
+                }
+                ws.send(JSON.stringify(mesReponse));
+              }
+            });
+          } else {
+            console.log("WARN: No descriptor file specified");
+            break;
+          }
           break;
 
         default: console.log("Web Socket Serveur: Type de message inconnu : ", msgRecu);

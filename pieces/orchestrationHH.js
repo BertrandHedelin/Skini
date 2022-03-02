@@ -218,6 +218,13 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -285,6 +292,13 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -323,6 +337,13 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -419,6 +440,13 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -457,6 +485,13 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -553,6 +588,13 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -620,6 +662,13 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -658,6 +707,13 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -879,9 +935,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap954922":"trap954922",
+            "trap478455":"trap478455",
             "%location":{},
-            "%tag":"trap954922"
+            "%tag":"trap478455"
           },
           hh.FORK(
             {
@@ -1089,7 +1145,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap954922":"trap954922",
+    		          "trap478455":"trap478455",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -1227,9 +1283,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap114521":"trap114521",
+                "trap966698":"trap966698",
                 "%location":{},
-                "%tag":"trap114521"
+                "%tag":"trap966698"
               },
               hh.FORK(
                 {
@@ -1381,7 +1437,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap114521":"trap114521",
+        		          "trap966698":"trap966698",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1508,9 +1564,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap725094":"trap725094",
+                "trap193574":"trap193574",
                 "%location":{},
-                "%tag":"trap725094"
+                "%tag":"trap193574"
               },
               hh.FORK(
                 {
@@ -1662,7 +1718,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap725094":"trap725094",
+        		          "trap193574":"trap193574",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1740,9 +1796,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap54792":"trap54792",
+              "trap946265":"trap946265",
               "%location":{},
-              "%tag":"trap54792"
+              "%tag":"trap946265"
             },
             hh.FORK(
               {
@@ -1950,7 +2006,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap54792":"trap54792",
+      		          "trap946265":"trap946265",
       		          "%location":{},
       		          "%tag":"break"
       		        }

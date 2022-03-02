@@ -8,7 +8,6 @@ var csv = require('csv-array');
 var oscMidi = require("./OSCandMidi");
 var fs = require("fs");
 
-//var par = require('./skiniParametres');
 var par;
 function setParameters(param) {
   par = param;
@@ -62,6 +61,7 @@ var messageLog = {
   pseudo: "",
   id: ""
 };
+
 /**
  * Set locally the reference to the HipHop automaton
  * @param  {automaton} - HipHop machine

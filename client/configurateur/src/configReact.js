@@ -16,13 +16,6 @@ var msg = { // On met des valeurs pas defaut
   value: 0
 }
 
-const arrayToCSV = (arr, delimiter = ',') =>
-  arr
-    .map(v =>
-      v.map(x => (isNaN(x) ? `"${x.replace(/"/g, '')}"` : x)).join(delimiter)
-    )
-    .join('\n');
-
 function saisiClip() {
   var DAWNote = document.getElementById("numClip").value;
   var DAWChannel = Math.floor(DAWNote / 127) + 1;
@@ -127,6 +120,7 @@ function initWSSocket(host) {
 }
 window.initWSSocket = initWSSocket;
 
+// Pour test, inutile sinon
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -170,7 +164,7 @@ class Jspreadsheet extends React.Component {
     this.el.insertRow();
   }
 
-  getDescriptors = function () {
+  updateDescriptors = function () {
     let descr;
     descr = this.el.getData();
     console.log(descr);
@@ -193,13 +187,13 @@ class Jspreadsheet extends React.Component {
         />
         <input
           type="button"
-          value="Update"
-          onClick={() => this.getDescriptors()}
+          value="Update descriptors"
+          onClick={() => this.updateDescriptors()}
         />
       </div>
     );
   }
 }
 
-let domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(<LikeButton />, domContainer);
+//let domContainer = document.querySelector('#like_button_container');
+//ReactDOM.render(<LikeButton />, domContainer);
