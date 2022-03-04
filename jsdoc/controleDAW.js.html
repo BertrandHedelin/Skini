@@ -35,7 +35,13 @@
 var csv = require('csv-array');
 var oscMidi = require("./OSCandMidi");
 var fs = require("fs");
-var par = require('./skiniParametres');
+
+var par;
+function setParameters(param) {
+  par = param;
+}
+exports.setParameters = setParameters;
+
 var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 
@@ -53,7 +59,7 @@ var filesDattente = [[], [], [], [], [], [], [], [], [], [],
 var filesDattenteJouables = new Array(filesDattente.length);
 
 // Il en faut autant que de files d'attente
-var compteursDattente = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var compteursDattente = []; //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
@@ -83,6 +89,7 @@ var messageLog = {
   pseudo: "",
   id: ""
 };
+
 /**
  * Set locally the reference to the HipHop automaton
  * @param  {automaton} - HipHop machine
@@ -215,6 +222,14 @@ function displaySession() {
 }
 exports.displaySession = displaySession;
 
+/**
+ * Get the ongoing pattern description (of the csv file loaded). 
+ * @returns {array} patterns descriptors
+ */
+function getSession(){
+  return tableDesCommandes;
+}
+exports.getSession = getSession;
 // ======================= Initialisation pour Broadcast =============================
 /**
  * Set the server to manage the Broadcast on the clients
@@ -331,20 +346,19 @@ exports.putPatternInQueue = putPatternInQueue;
 // ================= Gestion des files d'attente ===========================
 /**
  * Push the patterns parameters in the queue of the instrument.
- * The queue is not exactly as the pattern description. There more parameters such as
+ * The queue is not as the pattern description. There are more parameters such as
  * pseudo, signal, websocket id.
  * 
- * @param  {number} bus
- * @param  {number} channel
- * @param  {number} instrument
- * @param  {number} note
- * @param  {number} velocity
- * @param  {number} wsid
- * @param  {string} pseudo
- * @param  {number} dureeClip
- * @param  {string} nom
- * @param  {string} signal
- * @param  {number} typePattern
+ * @param  {number} bus (0)
+ * @param  {number} channel (1)
+ * @param  {number} note (2)
+ * @param  {number} velocity (3)
+ * @param  {number} wsid (4)
+ * @param  {string} pseudo (5)
+ * @param  {number} dureeClip (6)
+ * @param  {string} nom (7)
+ * @param  {string} signal (8)
+ * @param  {number} typePattern (9)
  */
 function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern) {
   var dureeAttente = 0;
@@ -380,7 +394,7 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
     filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
   }
 
-  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5
+  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
   for (var i = 0; i &lt; longeurDeLafile; i++) {
     dureeAttente = dureeAttente + filesDattente[instrument][i][6];
@@ -477,6 +491,7 @@ function playAndShiftEventDAW(timerDivision) {
     timerDivisionLocal = timerDivision;
   }
 
+  if (debug) console.log(" controleDAW : playAndShiftEventDAW: timerDivisionLocal: ", timerDivisionLocal);
   if (debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if (filesDattente === undefined) return; // Protection
 
@@ -538,9 +553,9 @@ function playAndShiftEventDAW(timerDivision) {
 
           if (commandeDAW[6] % timerDivisionLocal !== 0) {
             console.log("WARN: controleDAW.js: playAndShiftEventDAW: pattern",
-              commandeDAW[7], " a une durée non multiple de timer division:", timerDivision, ":", commandeDAW[6]);
+              commandeDAW[7], " a une durée: ", commandeDAW[6], "non multiple de timer division:", timerDivisionLocal);
           }
-          if (debug) console.log("---2 ControleDAW.js:sendNoteOn:", commandeDAW[7]);
+          if (debug) console.log("---2 ControleDAW.js:sendNoteOn:", commandeDAW[7], " de durée: ", commandeDAW[6], "avec timerDivisionLocal:", timerDivisionLocal);
 
           // Via OSC on perd les accents, donc on passe pas une WebSocket
           if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[7], ":", commandeDAW[5]);
@@ -618,7 +633,7 @@ function playAndShiftEventDAW(timerDivision) {
       compteursDattente[i] -= timerDivisionLocal;
     }
   }
-  if (debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivision);
+  if (debug) console.log("--- ControleDAW.js:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivisionLocal);
   return;
 }
 exports.playAndShiftEventDAW = playAndShiftEventDAW;
@@ -1009,13 +1024,13 @@ function ordonneFifo(fifo, pattern) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getAutomatePossible">getAutomatePossible</a></li><li><a href="global.html#getBroadCastServer">getBroadCastServer</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiOUT">initMidiOUT</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#midimix">midimix</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCTick">sendOSCTick</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#sendSignalFromDAW">sendSignalFromDAW</a></li><li><a href="global.html#sendSignalFromMIDI">sendSignalFromMIDI</a></li><li><a href="global.html#sendSignalFromMidiMix">sendSignalFromMidiMix</a></li><li><a href="global.html#sendSignalStartFromMIDI">sendSignalStartFromMIDI</a></li><li><a href="global.html#sendSignalStopFromMIDI">sendSignalStopFromMIDI</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#param">param</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Feb 11 2022 14:39:31 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Mar 04 2022 18:27:37 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

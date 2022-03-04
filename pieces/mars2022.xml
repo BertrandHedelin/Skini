@@ -10,7 +10,7 @@
     <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-79" y="-335">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-108" y="-407">
     <statement name="MODULES">
       <block type="hh_module" id="$.S|.O{|AJ1*,JvfE8HE">
         <value name="NAME">
@@ -126,6 +126,8 @@
                     
                     
                     
+                    
+                    
                     </comment>
                     <next>
                       <block type="hh_wait_for" id="ZI(PXqyt/NjAPP!oek]p">
@@ -144,6 +146,8 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                            
+                            
                             
                             
                             
@@ -244,6 +248,8 @@
                                     
                                     
                                     
+                                    
+                                    
                                     </comment>
                                     <next>
                                       <block type="hh_wait_for" id="d8h}H9vIPN^O`-`2%FC~">
@@ -262,6 +268,8 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                            
+                                            
                                             
                                             
                                             
@@ -362,6 +370,8 @@
                                                     
                                                     
                                                     
+                                                    
+                                                    
                                                     </comment>
                                                     <next>
                                                       <block type="hh_wait_for" id="DO[?:xL%kI]l6]=Y$me!">
@@ -380,6 +390,8 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                            
+                                                            
                                                             
                                                             
                                                             
@@ -480,6 +492,8 @@
                                                                     
                                                                     
                                                                     
+                                                                    
+                                                                    
                                                                     </comment>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="e1AJu2%k*:H2$kc^$ZMT">
@@ -498,6 +512,8 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             

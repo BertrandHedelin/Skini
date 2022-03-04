@@ -194,6 +194,10 @@ function displaySession() {
 }
 exports.displaySession = displaySession;
 
+/**
+ * Get the ongoing pattern description (of the csv file loaded). 
+ * @returns {array} patterns descriptors
+ */
 function getSession(){
   return tableDesCommandes;
 }
@@ -314,20 +318,19 @@ exports.putPatternInQueue = putPatternInQueue;
 // ================= Gestion des files d'attente ===========================
 /**
  * Push the patterns parameters in the queue of the instrument.
- * The queue is not exactly as the pattern description. There more parameters such as
+ * The queue is not as the pattern description. There are more parameters such as
  * pseudo, signal, websocket id.
  * 
- * @param  {number} bus
- * @param  {number} channel
- * @param  {number} instrument
- * @param  {number} note
- * @param  {number} velocity
- * @param  {number} wsid
- * @param  {string} pseudo
- * @param  {number} dureeClip
- * @param  {string} nom
- * @param  {string} signal
- * @param  {number} typePattern
+ * @param  {number} bus (0)
+ * @param  {number} channel (1)
+ * @param  {number} note (2)
+ * @param  {number} velocity (3)
+ * @param  {number} wsid (4)
+ * @param  {string} pseudo (5)
+ * @param  {number} dureeClip (6)
+ * @param  {string} nom (7)
+ * @param  {string} signal (8)
+ * @param  {number} typePattern (9)
  */
 function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern) {
   var dureeAttente = 0;
@@ -363,7 +366,7 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
     filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
   }
 
-  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5
+  //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
   for (var i = 0; i < longeurDeLafile; i++) {
     dureeAttente = dureeAttente + filesDattente[instrument][i][6];

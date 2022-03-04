@@ -1,7 +1,12 @@
 'use strict';
-// To compile JSX to js, launch this in the terminal, in ./client/configurateur
-// npx babel --watch src --out-dir . --presets react-app/prod
-// Il faut aussi: browserify configReact.js -o configReactbundle.js
+/**
+ * @fileOverview Configurateur in React.js
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.2
+ * To compile JSX to js, launch this in the terminal, in ./client/configurateur
+ * npx babel --watch src --out-dir . --presets react-app/prod
+ * Il faut aussi: browserify configReact.js -o configReactbundle.js
+ */
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 

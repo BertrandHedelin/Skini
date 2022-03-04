@@ -1,7 +1,12 @@
 'use strict';
-// To compile JSX to js, launch this in the terminal, in ./client/configurateur
-// npx babel --watch src --out-dir . --presets react-app/prod
-// Il faut aussi: browserify configReact.js -o configReactbundle.js
+/**
+ * @fileOverview Configurateur in React.js
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.2
+ * To compile JSX to js, launch this in the terminal, in ./client/configurateur
+ * npx babel --watch src --out-dir . --presets react-app/prod
+ * Il faut aussi: browserify configReact.js -o configReactbundle.js
+ */
 
 var par;
 var ipConfig = require("../../serveur/ipConfig.json");

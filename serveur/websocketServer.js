@@ -1,6 +1,7 @@
 /**
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
+ * Most of the API and functions here are local and not described in jsdoc.
  * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
  * @version 1.2
  */
@@ -149,6 +150,9 @@ var currentTimeMidi = 0;
   INITIALISATION DU PORT MIDI OUT (si paramétré)
  
 **************************************************/
+/**
+ * Init MIDI OUT port if defined in the parameters
+ */
 function initMidiPort() {
   var directMidi = false;
   if (par.directMidiON !== undefined) {
@@ -164,6 +168,11 @@ function initMidiPort() {
   WEBSOCKET
  
 **************************************************/
+/** @namespace Websocketserver */
+
+/**
+ * Main function to manage the websocket
+ */
 function startWebSocketServer() {
   const WebSocketServer = require('ws');
   const serv = new WebSocketServer.Server({ port: ipConfig.websocketServeurPort });
@@ -191,6 +200,9 @@ function startWebSocketServer() {
   /**
    * In order to get the server used for broadcasting
    * @returns {Server} - return the server for Broadcasting
+   * @function getBroadCastServer
+   * @memberof Websocketserver
+   * @inner
    */
   function getBroadCastServer() {
     if (serv === undefined) {
@@ -209,6 +221,9 @@ function startWebSocketServer() {
   /**
    * Send a signal to the orchestration according to the skini note
    * @param  {number} noteSkini
+   * @function sendSignalFromDAW
+   * @memberof Websocketserver
+   * @inner
    */
   function sendSignalFromDAW(noteSkini) {
     if (debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
@@ -221,9 +236,13 @@ function startWebSocketServer() {
     }
   }
   exports.sendSignalFromDAW = sendSignalFromDAW;
+
   /**
    * Send a signal "midiSignal" to the orchestration
    * tanks to a skini note.
+   * @function sendSignalFromMIDI
+   * @memberof Websocketserver
+   * @inner
    * @param  {number} noteSkini
    */
   function sendSignalFromMIDI(noteSkini) {
@@ -233,8 +252,13 @@ function startWebSocketServer() {
     }
   }
   exports.sendSignalFromMIDI = sendSignalFromMIDI;
+
   /** 
    * Send a signal "halt" to the orchestration.
+   * @memberof Websocketserver
+   * @function sendSignalStopFromMIDI
+   * @inner
+   * @param  {number} noteSkini
    */
   function sendSignalStopFromMIDI() {
     if (!reactAutomatePossible({ halt: undefined })) {
@@ -245,6 +269,9 @@ function startWebSocketServer() {
 
   /** 
    * Send a signal "start" to the orchestration.
+   * @memberof Websocketserver
+   * @function sendSignalStartFromMIDI
+   * @inner
    */
   function sendSignalStartFromMIDI() {
     if (!reactAutomatePossible({ start: undefined })) {
@@ -262,6 +289,9 @@ function startWebSocketServer() {
   /**
    * Send a signal "controlFromVideo" to the orchestration
    * tanks to a skini note.
+   * @memberof Websocketserver
+   * @function sendSignalFromMidiMix
+   * @inner
    * @param  {number} noteSkini
    */
   function sendSignalFromMidiMix(noteSkini) {
@@ -281,6 +311,9 @@ function startWebSocketServer() {
   // Vient de midiMix.js et directement de Bitwig ou de processing
   /**
    * Called by midimix.js
+   * @memberof Websocketserver
+   * @function sendOSCTick
+   * @inner
    */
   function sendOSCTick() {
     if (debug) console.log("websocketserver: sendOSCTick");
@@ -332,6 +365,9 @@ function startWebSocketServer() {
   **************************************************************************************/
   /**
    * Get the HipHop machine.
+   * @memberof Websocketserver
+   * @function getAutomatePossible
+   * @inner
    * @returns {machine} - the HipHop machine
    */
   function getAutomatePossible() {
@@ -486,7 +522,18 @@ function startWebSocketServer() {
       console.log("Web Socket Server: Erreur sur socket:", ws.socket, " ", event);
     });
 
-
+    /**
+     * This is where the pattern (clip) descriptor becomes an element in a FIFO.
+     * @memberof Websocketserver
+     * @function pushClipDAW
+     * @inner
+     * @param {array} pattern description according to the csv file.
+     * @param {string} Hiphop signal
+     * @param {number} user group (web client group)
+     * @param {string} pseudo 
+     * @param {number} monId
+     * @returns {number} waiting time
+     */
     function pushClipDAW(clip, signal, leGroupe, pseudo, monId) {
       var DAWNote = clip[0];
       var DAWChannel = Math.floor(DAWNote / 127) + 1;
@@ -500,9 +547,7 @@ function startWebSocketServer() {
       var typePattern = clip[7];
       var dureeClip = clip[10];
 
-      var signalComplet = { [signal]: clip[3] }; // avec le nom du pattern
-      //var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, ws.id, pseudo, dureeClip, nom);
-
+      var signalComplet = { [signal]: clip[3] }; // on ajouté le nom du pattern au signal
       var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
         DAWNote, 125, monId, pseudo, dureeClip, nom, signalComplet, typePattern);
 
@@ -524,6 +569,16 @@ function startWebSocketServer() {
       return dureeAttente;
     }
 
+    /**
+     * HipHop reaction on the orchestration and compute delay.
+     * @memberof Websocketserver
+     * @function playPattern
+     * @inner
+     * @param {string} unPseudo 
+     * @param {number} groupe 
+     * @param {array} pattern 
+     * @param {number} monId 
+     */
     function playPattern(unPseudo, groupe, pattern, monId) {
 
       if (pattern === undefined) return; // Protection si pas de selection sur le client
@@ -541,9 +596,7 @@ function startWebSocketServer() {
       // On appelle jamais pushClipAbleton avec une note négative issue de la config.
       if (pattern[0] < 0) {
         // Pour associer le nom du pattern au signal de groupe IN
-        // C'est plus pour être cohérent que par besoin
-
-        //reactAutomatePossible(signal);
+        // C'est plus pour être cohérent que par besoin.
         reactAutomatePossible({ [signal]: pattern[3] });
         return;
       }
@@ -595,6 +648,12 @@ function startWebSocketServer() {
       delete messageLog.text;
     }
 
+    /**
+     * Compile the HipHop Programm.
+     * @memberof Websocketserver
+     * @function compileHH
+     * @inner
+     */
     function compileHH() {
       DAWTableReady = false;
       if (debug1) console.log("INFO: websocketServer: loadDAWTable OK:");
@@ -642,6 +701,12 @@ maybe an hiphop compile Error.
       DAWTableReady = true;
     }
 
+    /**
+     * Process the websocket messages. The protocols are here.
+     * @memberof Websocketserver
+     * @function ws.on
+     * @inner
+     */
     ws.on('message', function (message) {
       if (debug) console.log('received: %s', message);
 
