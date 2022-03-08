@@ -103,7 +103,8 @@ function setnbeDeGroupesClients(num) {
 }
 exports.setnbeDeGroupesClients = setnbeDeGroupesClients;
 
-// La synchro midi est émise par processing qui la reçoit d'Ableton ou autre source
+// La synchro midi est émise par la DAW ou pas
+exports.timer = 1000;
 exports.synchoOnMidiClock = true;
 
 const bleu = "#008CBA";

@@ -232,6 +232,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -313,6 +321,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -351,6 +367,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -475,6 +499,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -513,6 +545,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -637,6 +677,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -718,6 +766,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -756,6 +812,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -999,9 +1063,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap587178":"trap587178",
+            "trap261366":"trap261366",
             "%location":{},
-            "%tag":"trap587178"
+            "%tag":"trap261366"
           },
           hh.FORK(
             {
@@ -1209,7 +1273,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap587178":"trap587178",
+    		          "trap261366":"trap261366",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -1347,9 +1411,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap781922":"trap781922",
+                "trap548863":"trap548863",
                 "%location":{},
-                "%tag":"trap781922"
+                "%tag":"trap548863"
               },
               hh.FORK(
                 {
@@ -1501,7 +1565,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap781922":"trap781922",
+        		          "trap548863":"trap548863",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1628,9 +1692,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap895155":"trap895155",
+                "trap228247":"trap228247",
                 "%location":{},
-                "%tag":"trap895155"
+                "%tag":"trap228247"
               },
               hh.FORK(
                 {
@@ -1782,7 +1846,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap895155":"trap895155",
+        		          "trap228247":"trap228247",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -1860,9 +1924,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap747184":"trap747184",
+              "trap69445":"trap69445",
               "%location":{},
-              "%tag":"trap747184"
+              "%tag":"trap69445"
             },
             hh.FORK(
               {
@@ -2070,7 +2134,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap747184":"trap747184",
+      		          "trap69445":"trap69445",
       		          "%location":{},
       		          "%tag":"break"
       		        }

@@ -76,6 +76,12 @@ exports.setParameters = setParameters;
 //     )
 //     .join('\n');
 
+/**
+ * Simple conversion from Array to csv
+ * @param {Array} arr 
+ * @param {String} delimiter 
+ * @returns {String} csv
+ */
 const arrayToCSV = (arr, delimiter = ',') =>
   arr.map(v => v.join(delimiter)
   ).join('\n');
@@ -120,11 +126,12 @@ var defautDeLatence;
 var debug = false;
 var debug1 = true;
 var warnings = false;
+var timerSynchro;
 
 // Automate des possibles
 var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
 var setTimer;
-var timerDivision = 4;
+var timerDivision = 4; // Default value for the number of pulses for a tick, can evolve during an orchestration
 var offsetDivision = 0;
 var compteurDivisionMesure = 0;
 var nbeDeGroupesSons = 0;
@@ -163,17 +170,18 @@ function initMidiPort() {
   }
 }
 
+
 /*************************************************
  
   WEBSOCKET
  
 **************************************************/
-/** @namespace Websocketserver */
 
 /**
  * Main function to manage the websocket
  */
 function startWebSocketServer() {
+  /** @namespace Websocketserver */
   const WebSocketServer = require('ws');
   const serv = new WebSocketServer.Server({ port: ipConfig.websocketServeurPort });
 
@@ -200,7 +208,7 @@ function startWebSocketServer() {
   /**
    * In order to get the server used for broadcasting
    * @returns {Server} - return the server for Broadcasting
-   * @function getBroadCastServer
+   * @function
    * @memberof Websocketserver
    * @inner
    */
@@ -221,7 +229,7 @@ function startWebSocketServer() {
   /**
    * Send a signal to the orchestration according to the skini note
    * @param  {number} noteSkini
-   * @function sendSignalFromDAW
+   * @function
    * @memberof Websocketserver
    * @inner
    */
@@ -240,7 +248,7 @@ function startWebSocketServer() {
   /**
    * Send a signal "midiSignal" to the orchestration
    * tanks to a skini note.
-   * @function sendSignalFromMIDI
+   * @function
    * @memberof Websocketserver
    * @inner
    * @param  {number} noteSkini
@@ -256,7 +264,7 @@ function startWebSocketServer() {
   /** 
    * Send a signal "halt" to the orchestration.
    * @memberof Websocketserver
-   * @function sendSignalStopFromMIDI
+   * @function
    * @inner
    * @param  {number} noteSkini
    */
@@ -270,7 +278,7 @@ function startWebSocketServer() {
   /** 
    * Send a signal "start" to the orchestration.
    * @memberof Websocketserver
-   * @function sendSignalStartFromMIDI
+   * @function
    * @inner
    */
   function sendSignalStartFromMIDI() {
@@ -290,7 +298,7 @@ function startWebSocketServer() {
    * Send a signal "controlFromVideo" to the orchestration
    * tanks to a skini note.
    * @memberof Websocketserver
-   * @function sendSignalFromMidiMix
+   * @function
    * @inner
    * @param  {number} noteSkini
    */
@@ -312,7 +320,7 @@ function startWebSocketServer() {
   /**
    * Called by midimix.js
    * @memberof Websocketserver
-   * @function sendOSCTick
+   * @function
    * @inner
    */
   function sendOSCTick() {
@@ -335,7 +343,7 @@ function startWebSocketServer() {
       reactAutomatePossible({ pulsation: undefined });
     }
     // La remise à jour de la durée des patterns est possible depuis les automates.
-    // Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
+    // Si les automates ne mettent pas timerDivision à jour, on garde la valeur par défaut
     // donnée dans le fichier de config de la pièce. (compatibilté ascendante)
     var timerLocal = groupesClientSon.getTimerDivision();
     if (debug) console.log("websocketserver: receivedTickFromDaw: timerLocal:", timerLocal);
@@ -366,7 +374,7 @@ function startWebSocketServer() {
   /**
    * Get the HipHop machine.
    * @memberof Websocketserver
-   * @function getAutomatePossible
+   * @function
    * @inner
    * @returns {machine} - the HipHop machine
    */
@@ -442,7 +450,27 @@ function startWebSocketServer() {
     return true;
   }
 
-  // Pour mettre à jour la vriable sur les longeurs de liste de memorySortable
+  /**
+   * Fix the timer when using the synchro from Node.js
+   * to implement with a worker.
+   * @memberof Websocketserver
+   * @function
+   * @inner
+   * @param {number} syncho in ms
+   */
+  function setMonTimer(timer) {
+    if (!par.synchoOnMidiClock) {
+      setTimer = setInterval(function () {
+        if (debug1) { var v0 = Date.now(); }
+        actionOnTick(timerDivision);
+        if (debug1) {
+          console.log("websocketserver: setMonTimer timer:", timer, "ms,Temps de réaction de l'automate:", Date.now() - v0, "ms");
+        }
+      }, timer);
+    }
+  }
+
+  // Pour mettre à jour la variable sur les longeurs de liste de memorySortable
   // Les clients ont besoin de cette variable lors de la connexion. ELle peut évoluer au cours d'une pièce.
   function setPatternListLength(value) {
     if (debug1) console.log("websocketserver.js : setPatternListLength : value :", value);
@@ -525,7 +553,7 @@ function startWebSocketServer() {
     /**
      * This is where the pattern (clip) descriptor becomes an element in a FIFO.
      * @memberof Websocketserver
-     * @function pushClipDAW
+     * @function
      * @inner
      * @param {array} pattern description according to the csv file.
      * @param {string} Hiphop signal
@@ -572,7 +600,7 @@ function startWebSocketServer() {
     /**
      * HipHop reaction on the orchestration and compute delay.
      * @memberof Websocketserver
-     * @function playPattern
+     * @function
      * @inner
      * @param {string} unPseudo 
      * @param {number} groupe 
@@ -651,7 +679,7 @@ function startWebSocketServer() {
     /**
      * Compile the HipHop Programm.
      * @memberof Websocketserver
-     * @function compileHH
+     * @function
      * @inner
      */
     function compileHH() {
@@ -704,7 +732,7 @@ maybe an hiphop compile Error.
     /**
      * Process the websocket messages. The protocols are here.
      * @memberof Websocketserver
-     * @function ws.on
+     * @function
      * @inner
      */
     ws.on('message', function (message) {
@@ -1237,10 +1265,14 @@ maybe an hiphop compile Error.
           break;
 
         case "startAutomate": // Lance l'automate orchestrateur de la matrice des possibles
+          if (par.timer !== undefined) {
+            timerSynchro = par.timer;
+          }
+
           if (DAWTableReady) {
             if (debug) console.log("INFO: webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
             reactAutomatePossible({ start: undefined });
-            if (!par.synchoOnMidiClock) setMonTimer();
+            if (!par.synchoOnMidiClock) setMonTimer(timerSynchro);
           }
 
           compScore.resetClientEnCours(clientsEnCours);
