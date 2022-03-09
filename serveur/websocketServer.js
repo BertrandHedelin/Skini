@@ -93,6 +93,7 @@ var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
 const decache = require('decache');
 const { stringify } = require('querystring');
+const { Worker } = require('worker_threads');
 
 var defaultOrchestrationName = "orchestrationHH.js";
 
@@ -153,10 +154,8 @@ var currentTimePrevMidi = 0;
 var currentTimeMidi = 0;
 
 /*************************************************
- 
-  INITIALISATION DU PORT MIDI OUT (si paramétré)
- 
-**************************************************/
+   INITIALISATION DU PORT MIDI OUT (si paramétré)
+ **************************************************/
 /**
  * Init MIDI OUT port if defined in the parameters
  */
@@ -170,13 +169,9 @@ function initMidiPort() {
   }
 }
 
-
-/*************************************************
- 
-  WEBSOCKET
- 
-**************************************************/
-
+/************************************************
+   WEBSOCKET
+ **************************************************/
 /**
  * Main function to manage the websocket
  */
@@ -185,7 +180,61 @@ function startWebSocketServer() {
   const WebSocketServer = require('ws');
   const serv = new WebSocketServer.Server({ port: ipConfig.websocketServeurPort });
 
-  // Define the function in order to Broadcast to all clients.
+  /*************************************************************************************
+    Worker for synchro if no DAW (ne fonctionne pas dans VSC mais dans le terminal)
+  **************************************************************************************/
+  var workerSync;
+
+  /**
+  * Function to start a worker for the synchro when not using a midi sync coming from a DAW
+  * @function
+  * @memberof Websocketserver
+  * @param {string} worker path
+  * @param {number} timer
+  * @inner
+  */
+  function workerSynchroInit(filepath, timer) {
+    if (workerSync !== undefined) {
+      workerSync.postMessage(['startSynchro', timer]);
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      workerSync = new Worker(filepath);
+      if (debug) console.log('Launching worker Synchro', filepath);
+
+      workerSync.on('online', () => {
+        workerSync.postMessage(['startSynchro', timer]);
+        if (debug) console.log('Launching worker Synchro');
+      })
+      workerSync.on('message', messageFromWorker => {
+        switch (messageFromWorker) {
+          case "synchroWorker":
+            if (debug) console.log(messageFromWorker);
+            actionOnTick(timerDivision);
+            break;
+
+          default:
+            break;
+        }
+        return resolve;
+      });
+      workerSync.on('error', reject);
+      workerSync.on('exit', code => {
+        if (code !== 0) {
+          reject(new Error(`Worker stopped with exit code:`, code));
+        }
+      });
+    });
+  }
+
+  /**
+  * Define the function in order to Broadcast to all clients.
+  * @function
+  * @memberof Websocketserver
+  * @param {string} message
+  * @inner
+  */
   serv.broadcast = function broadcast(data) {
     //if(debug) console.log("Web Socket Server: broadcast: ", data);
     serv.clients.forEach(function each(client) {
@@ -222,9 +271,7 @@ function startWebSocketServer() {
   exports.getBroadCastServer = getBroadCastServer;
 
   /************************************************************************************
-  
-  Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
-  
+    Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   *************************************************************************************/
   /**
    * Send a signal to the orchestration according to the skini note
@@ -289,10 +336,8 @@ function startWebSocketServer() {
   exports.sendSignalStartFromMIDI = sendSignalStartFromMIDI;
 
   /************************************************************************************
-  
   Fonction pour émission de signaux depuis midimix.js vers l'automatePossibleMachine.
   Utilisable pour synchro vidéo ou jeu via des notes Midi
-  
   *************************************************************************************/
   /**
    * Send a signal "controlFromVideo" to the orchestration
@@ -308,9 +353,7 @@ function startWebSocketServer() {
   exports.sendSignalFromMidiMix = sendSignalFromMidiMix;
 
   /*************************************************************************************
-  
-  RECEPTION DES TICK MIDI OU BITWIG
-  
+    RECEPTION DES TICK MIDI OU BITWIG
   **************************************************************************************/
   var previousTimeClockMidi = 0;
   var currentTimeClockMidi = 0;
@@ -367,9 +410,7 @@ function startWebSocketServer() {
   }
 
   /*************************************************************************************
-  
-  MATRICE DES POSSIBLES, AUTOMATE
-  
+    MATRICE DES POSSIBLES, AUTOMATE
   **************************************************************************************/
   /**
    * Get the HipHop machine.
@@ -452,7 +493,7 @@ function startWebSocketServer() {
 
   /**
    * Fix the timer when using the synchro from Node.js
-   * to implement with a worker.
+   * not used when the worker runs.
    * @memberof Websocketserver
    * @function
    * @inner
@@ -478,9 +519,7 @@ function startWebSocketServer() {
   exports.setPatternListLength = setPatternListLength;
 
   /*************************************************************************************
-  
-  WEB SOCKET MANAGEMENT
-  
+    WEB SOCKET MANAGEMENT
   **************************************************************************************/
   serv.on('connection', function (ws) {
 
@@ -1229,7 +1268,6 @@ maybe an hiphop compile Error.
             status: true
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
           break;
 
         // DAWON est le signal d'activation ou désactivation de l'orchestration
@@ -1249,8 +1287,6 @@ maybe an hiphop compile Error.
               value: msgRecu.value
             }
             serv.broadcast(JSON.stringify(msg));
-            //hop.broadcast('DAWStatus', msgRecu.value );
-
             initMatriceDesPossibles(DAWStatus);
             // Pour être en phase avec la création du pad controleur
             groupesClientSon.resetMatriceDesPossibles();
@@ -1272,7 +1308,10 @@ maybe an hiphop compile Error.
           if (DAWTableReady) {
             if (debug) console.log("INFO: webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
             reactAutomatePossible({ start: undefined });
-            if (!par.synchoOnMidiClock) setMonTimer(timerSynchro);
+            if (!par.synchoOnMidiClock) {
+              //setMonTimer(timerSynchro); // En local pas utile avec les workers
+              workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
+            }
           }
 
           compScore.resetClientEnCours(clientsEnCours);
@@ -1399,7 +1438,7 @@ maybe an hiphop compile Error.
 
         case "stopAutomate":
           if (DAWTableReady) {
-            if (setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
+            //if (setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
             reactAutomatePossible({ halt: undefined });
             DAWStatus = 0;
 
@@ -1408,7 +1447,6 @@ maybe an hiphop compile Error.
               value: false
             }
             serv.broadcast(JSON.stringify(msg));
-            //hop.broadcast('abletonStatus', abletonStatus );
           }
           break;
 
