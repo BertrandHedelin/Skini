@@ -551,7 +551,7 @@ function playAndShiftEventDAW(timerDivision) {
 
           if (par.reactOnPlay !== undefined) {
             if (par.reactOnPlay) {
-              if (debug1) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
+              if (debug) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
               automatePossibleMachine.react(leSignal);
             }
           }
@@ -790,8 +790,8 @@ exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
 /**
  * To get the complete list of all active patterns (or clips)
  * @param {number} groupeDeClients 
- * @param {*} matriceDesPossibles 
- * @returns {Array} array of clips as in tableDesCommandes
+ * @param {array} matriceDesPossibles
+ * @returns {array} array of clips as in tableDesCommandes
  */
 function getAllClips(groupeDeClients, matriceDesPossibles) {
   if (matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {

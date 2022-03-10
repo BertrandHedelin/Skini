@@ -40,6 +40,10 @@ exports.piecePath = "./pieces/";
 // Sinon Skini parle MIDI
 exports.directMidiON = true;
 
+// La synchro midi est émise par la DAW ou pas
+exports.timer = 2000;
+exports.synchoOnMidiClock = true;
+
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
@@ -102,10 +106,6 @@ function setnbeDeGroupesClients(num) {
   this.nbeDeGroupesClients = num;
 }
 exports.setnbeDeGroupesClients = setnbeDeGroupesClients;
-
-// La synchro midi est émise par la DAW ou pas
-exports.timer = 1000;
-exports.synchoOnMidiClock = true;
 
 const bleu = "#008CBA";
 const rouge = '#CF1919';

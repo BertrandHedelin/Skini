@@ -10,7 +10,7 @@
     <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-108" y="-407">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="78" y="-217">
     <statement name="MODULES">
       <block type="hh_module" id="$.S|.O{|AJ1*,JvfE8HE">
         <value name="NAME">
@@ -85,6 +85,31 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -259,6 +284,31 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -277,6 +327,31 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -451,6 +526,31 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -469,6 +569,31 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -643,6 +768,31 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -661,6 +811,31 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     
                                                                     
                                                                     
@@ -835,6 +1010,31 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
@@ -921,7 +1121,7 @@
                                     <statement name="BODY">
                                       <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
                                         <field name="user_group">255</field>
-                                        <field name="number_of_ticks">40</field>
+                                        <field name="number_of_ticks">10</field>
                                         <value name="GROUPS">
                                           <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
                                             <mutation items="3"></mutation>
@@ -944,7 +1144,7 @@
                                         </value>
                                         <next>
                                           <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
-                                            <field name="TIMES">40</field>
+                                            <field name="TIMES">10</field>
                                             <value name="SIGNAL">
                                               <block type="variables_get" id="mQ-OewDt6sm)2k/_Q;6J">
                                                 <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>

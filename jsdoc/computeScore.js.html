@@ -27,10 +27,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileOverview For evaluating and giving "game scores"
- * &lt;BR>Memo of Pattern : Note,	Note stop, Flag usage,	Texte, Fichier son,
- * Instrument [5],	Slot, Type [7], not used, Groupe,	Durée
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
+ * @fileOverview
+ * For evaluating and giving "game scores" when using Skini for interactive Game
+ * using the selection of sequences of patterns on the client (audience) side.
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
  * @version 1.1
  */
 'use strict'
@@ -47,6 +47,9 @@ const typeNeutre = 4;
 const typeMauvais = 5;
 
 /*===================================================================================
+
+Memo of Pattern : Note,	Note stop, Flag usage,	Texte, Fichier son,
+Instrument [5],	Slot, Type [7], not used, Groupe,	Durée
 
 Gestion des clients memorySortable
 
@@ -65,7 +68,7 @@ Gestion des clients memorySortable
  * @param  {string} pseudo
  * @param  {number} id
  * @param  {number} groupe
- * @param  {Array} clientsEnCours
+ * @param  {array} clientsEnCours
  */
 function putInClientsEnCours(pseudo, id, groupe, clientsEnCours) {
   // On se base sur le pseudo
@@ -87,11 +90,12 @@ function putInClientsEnCours(pseudo, id, groupe, clientsEnCours) {
   return true;
 }
 exports.putInClientsEnCours = putInClientsEnCours;
+
 /**
- * 
- * @param  {string} pseudo
- * @param  {number} score
- * @param  {Array} clientsEnCours
+ * Compute a new score for a player using the pseudo.
+ * @param  {string} pseudo the player
+ * @param  {number} score value of the new score
+ * @param  {array} clientsEnCours list of players
  */
 function updateScore(pseudo, score, clientsEnCours) {
   var scoreTotal = 0;
@@ -110,7 +114,7 @@ exports.updateScore = updateScore;
 /**
  * In order to check if a client is asking for the same sequence several times.
  * @param  {string} pseudo
- * @param  {Array} clientsEnCours
+ * @param  {array} clientsEnCours
  */
 function getPreSequence(pseudo, clientsEnCours) {
   for (var i = 0; i &lt; clientsEnCours.length; i++) {
@@ -126,8 +130,8 @@ exports.getPreSequence = getPreSequence;
 /**
  * Insert a sequence of patterns in a list for a specific client.
  * @param  {string} pseudo
- * @param  {Array} sequence
- * @param  {Array} clientsEnCours
+ * @param  {array} sequence
+ * @param  {array} clientsEnCours
  */
 function setPreSequence(pseudo, sequence, clientsEnCours) {
   for (var i = 0; i &lt; clientsEnCours.length; i++) {
@@ -143,7 +147,7 @@ function setPreSequence(pseudo, sequence, clientsEnCours) {
 }
 exports.setPreSequence = setPreSequence;
 /**
- * Clean the list of scores
+ * Clean the list of scores.
  * @param  {} clientsEnCours
  */
 function resetClientEnCours(clientsEnCours) {
@@ -171,7 +175,12 @@ wasPatternAlreadySelected
 sequence est un tableau de notes skini
 
 ===================================================================*/
-
+/**
+ * To check if a pattern was already in the sequence.
+ * @param {number} index pattern number
+ * @param {array} sequence 
+ * @returns {boolean}
+ */
 function wasPatternAlreadySelected(index, sequence) {
   if (sequence === -1) {
     return false;
@@ -202,7 +211,13 @@ envoyé au serveur.
 La répétition d'un pattern est pénalisée
 
 ===================================================================*/
-
+/**
+ * Compute a score using a list of Skini Notes (pattern numbers ) according 
+ * to a previous sequence (list of patterns).
+ * @param {array} listeTypes 
+ * @param {array} preSequence
+ * @returns {number} score
+ */
 function computeScoreDMFN(listeTypes, preSequence) {
   if (debug) console.log("computeScore.js:computeScore: preSequence:", preSequence);
 
@@ -277,6 +292,16 @@ envoyé au serveur.
 
 ===================================================================*/
 
+/**
+ * Compute a score according the classes of the patterns.
+ * If you ask for a pattern in the same class without repeating you get points.
+ * If you ask again for the same patterns as the previous time you lose points.
+ * If you repeat the same pattern in the sequence you lose points.
+ * @param {array} listeTypes list of previous selected classes of patterns
+ * @param {number} patternClass 
+ * @param {array} preSequence previous sequence 
+ * @returns {number} score the computed score
+ */
 function computeScoreInclass(listeTypes, patternClass, preSequence) {
   var score = 0;
 
@@ -331,9 +356,9 @@ function computeScoreInclass(listeTypes, patternClass, preSequence) {
 ===================================================================*/
 /**
  * Compute the score when submitting a sequence of patten.
- * @param  {Array} patternSequence
- * @param  {Array} preSequence
- * @param  {number} computeScorePolicy
+ * @param  {array} patternSequence
+ * @param  {array} preSequence
+ * @param  {number} computeScorePolicy define the algorithm used to compute the score
  * @param  {number} computeScoreClass
  */
 function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePolicy, computeScoreClass) {
@@ -411,13 +436,13 @@ exports.evaluateSequenceOfPatterns = evaluateSequenceOfPatterns;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#param">param</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Mar 05 2022 10:11:15 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 10 2022 10:53:55 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

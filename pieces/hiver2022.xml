@@ -14,7 +14,7 @@
     <variable id="0,g|^WUacUsNr5D:R9DN">groupe10</variable>
     <variable id="i{e?qmT;x#)~nD.R%|KL">groupe11</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="199" y="61">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="112" y="-218">
     <statement name="MODULES">
       <block type="hh_module" id="$.S|.O{|AJ1*,JvfE8HE" collapsed="true">
         <value name="NAME">
@@ -325,7 +325,7 @@
     </statement>
     <statement name="BODY">
       <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
-        <field name="timer">4</field>
+        <field name="timer">2</field>
         <next>
           <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
             <field name="number">1</field>
@@ -340,17 +340,17 @@
                   <block type="hh_sequence" id="vKQU!7p+NEMqy`tjS:T9">
                     <comment pinned="false" h="80" w="160">Sequence percu et Drone</comment>
                     <statement name="BODY">
-                      <block type="hh_print_serveur" id="1zy`raEQL1U9Mu?Uq7A?">
-                        <value name="TEXT">
-                          <block type="text" id="jIGwNsfQ*rGvR3RI`[KJ">
-                            <field name="TEXT">Percu et Drone</field>
+                      <block type="putPatternInQueue" id="6[;dN14n_)qdldpOkb4g">
+                        <value name="message">
+                          <block type="text" id="xOl}.i}/4Q|rQx}X@|W`">
+                            <field name="TEXT">LookAtMe</field>
                           </block>
                         </value>
                         <next>
-                          <block type="putPatternInQueue" id="6[;dN14n_)qdldpOkb4g">
-                            <value name="message">
-                              <block type="text" id="xOl}.i}/4Q|rQx}X@|W`">
-                                <field name="TEXT">LookAtMe</field>
+                          <block type="hh_print_serveur" id="1zy`raEQL1U9Mu?Uq7A?">
+                            <value name="TEXT">
+                              <block type="text" id="jIGwNsfQ*rGvR3RI`[KJ">
+                                <field name="TEXT">Percu et Drone</field>
                               </block>
                             </value>
                             <next>
@@ -559,7 +559,7 @@
                           </block>
                         </statement>
                         <next>
-                          <block type="hh_sequence" id=";QQriU1{z/B)twR6:r38" collapsed="true">
+                          <block type="hh_sequence" id=";QQriU1{z/B)twR6:r38">
                             <comment pinned="false" h="80" w="160">Séquence techno</comment>
                             <statement name="BODY">
                               <block type="hh_print_serveur" id="Zwl;4@:iC]GccL3wR+}}">

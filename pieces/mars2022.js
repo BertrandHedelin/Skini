@@ -40,6 +40,10 @@ exports.piecePath = "./pieces/";
 // Sinon Skini parle MIDI
 exports.directMidiON = true;
 
+// La synchro midi est émise par la DAW ou pas
+exports.timer = 2000;
+exports.synchoOnMidiClock = true;
+
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
@@ -55,9 +59,7 @@ exports.tempoMin = 500; // En ms
 exports.limiteDureeAttente = 12; // En pulsations
 
 /********************************************************
-
 AUTOMATE
-
 *********************************************************/
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
 exports.reactOnPlay = false;
@@ -81,19 +83,17 @@ exports.patternScorePath1 = "";
 ACTIVATION D'ALGORITHME D'ORGANISATION DES FIFOs
 Si 0 ou undefined pas d'algorithme.
 Si 1 algorithme de réorganisation Début, Milieu, Fin, Neutre (DFMN)
-Dans le csv, D -> 1, M -> 2, F->3, N->4 (c'est fixé dans controleAbleton.js)
+Dans le csv, D -> 1, M -> 2, F->3, N->4
 Si autre ... à créer...
 ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
 PEUT SUPPRIMER DES PATTERNS DES FIFOs
 *****************************************/
 exports.algoGestionFifo = 0;
-
 exports.shufflePatterns = false;
-/*****************************************************************************
 
+/*****************************************************************************
 Gestion de la Matrice des possibles
 Automate de gestion de la matrice des possibles
-
 ******************************************************************************/
 exports.nbeDeGroupesClients = 3;
 exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
@@ -102,10 +102,6 @@ function setnbeDeGroupesClients(num) {
   this.nbeDeGroupesClients = num;
 }
 exports.setnbeDeGroupesClients = setnbeDeGroupesClients;
-
-// La synchro midi est émise par la DAW ou pas
-exports.timer = 1000;
-exports.synchoOnMidiClock = true;
 
 const bleu = "#008CBA";
 const rouge = '#CF1919';
@@ -138,4 +134,3 @@ const groupesDesSons = [
   ["groupe13", 13, "group", 820, 340, 20, rose, [], 1]
 ];
 exports.groupesDesSons = groupesDesSons;
-

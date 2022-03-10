@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: gameOSC.js</title>
+    <title>JSDoc: Source: workerSynchro.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: gameOSC.js</h1>
+    <h1 class="page-title">Source: workerSynchro.js</h1>
 
     
 
@@ -27,73 +27,41 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileOverview Controling video game using OSC. Not yet implemented.
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
- * @version 1.1
+ * @fileOverview 
+ * Worker to send a (good) synchro when not using a midi sync coming from a DAW.
+ * @author Bertrand Hédelin  © Copyright 2022, B. Petit-Hédelin
+ * @version 1.0
  */
-
 'use strict'
 
-var dgram = require("dgram");
-var osc = require('osc-min');
-var sock = dgram.createSocket('udp4');
-var ipConfig = require('./ipConfig');
+const { parentPort } = require('worker_threads');
 
 var debug = false;
 var debug1 = true;
+var synchroTimer;
 
-var orchestration;
-var message;
-/**
- * Set the orchestration for the dialog with a game engine.
- * @param  {machine} orch - the orchestration
- */
-function setOrchestration(orch) {
-  orchestration = orch;
-}
-exports.setOrchestration = setOrchestration;
+console.log("INFO: Start Synchro worker");
 
-/**
- * Launch the communication with the video game
- */
-function init() {
-
-  // Sécurité si reprise de l'orchestration
-  sock.close(ipConfig.portOSCFromGame);
-
-  sock = dgram.createSocket("udp4", function (msg, rinfo) {
-    var error, error1;
-    try {
-      message = osc.fromBuffer(msg);
-      // Voir pour plus de paramètres reçus du jeu ou du controleur OSC !!
-
-      var signal = message.address.slice(1); // pour enlever le slash du message
-      signal = signal.replace(/\//g, ""); // On n'aime pas les slashs dans des signaux
-
-      if (debug) console.log("gameOSC.js: init :", signal, ":", message);
-      orchestration.react({ [signal]: message.args[0].value });
-      return;
-    } catch (error1) {
-      error = error1;
-      return console.log("ERR: gameOSC.js:invalid OSC packet", error);
-    }
-  });
-
-  sock.on('listening', function () {
-    var address = sock.address();
-    console.log('GameOSC.js: UDP Server listening on ' + address.address + ":" + address.port);
-  });
-
-  try {
-    var readyState = sock.readyState;
-    if (readyState != 1) {
-      sock.bind(ipConfig.portOSCFromGame, ipConfig.serverIPAddress);
-    }
-  } catch (err) {
-    console.log("ERR: gameOSC: socket ready:", err);
+parentPort.onmessage = function (mess) {
+  var result = mess.data[0];
+  var timer = mess.data[1];
+  switch (result) {
+    case "startSynchro":
+      if (debug1) console.log('INFO: Start Worker synchro with timer: ', timer);
+      if (synchroTimer !== null) {
+        clearInterval(synchroTimer);
+        synchroTimer = null;
+      }
+      synchroTimer = setInterval(function () {
+        const message = 'synchroWorker';
+        parentPort.postMessage(message);
+        if (debug) console.log("workerSynchro:", timer);
+      }, timer);
+      break;
+    default:
+      break;
   }
-}
-exports.init = init;</code></pre>
+}</code></pre>
         </article>
     </section>
 

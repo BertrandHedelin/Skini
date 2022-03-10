@@ -1,33 +1,41 @@
 /**
  * @fileOverview 
- *  CONTROLE DEPUIS LES COMMANDES MIDI OU OSC
+ * <H3> CONTROLE DEPUIS LES COMMANDES MIDI OU OSC </H3>
  * <BR>Ce programme est utilisé:
- * <BR>1) Dans le cas d'ABleton, pour recevoir et traiter les commandes OSC venant de Processing qui sert de pont MIDI.
+ * <BR>1) Dans le cas d'Ableton, pour recevoir et traiter les commandes OSC venant de Processing qui sert de pont MIDI.
  * Processing reçoit le MIDI qui envoie ces données MIDI de façon assez brute: NoteOn, NoteOff et ControlChange.
- * <BR>2) Dans le cas de Bitwig, pour traité les message OSC envoyé directement pas Bitwig.
- * <BR>On peut émettre des signaux HipHop d'ici.
+ * <BR>2) Dans le cas de Bitwig, pour traité les message OSC envoyé directement par le controleur Bitwig.
+ * <BR>3) Dans le cas de Bitwig ou ABleton, pour traiter les messages MIDI envoyés directement pas la DAW.
+ * <BR><BR>On peut émettre des signaux HipHop d'ici.
  * <BR>Le port de réception des commandes OSC est portWebSocket de la config IP
  * <BR>Remarque: la chaine peut être complexe pour MIDIMIX:
  * <BR>MIDIMIX =(midi)=> Processing =(OSC)=> Serveur =(OSC)=> Processing (VISU)
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
- * @version 1.1
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.3
  */
 "use strict"
 
+var param;
 /**
  * Set the bridge between the orchestration and MIDI devices
  * @param  {machine} machineServeur - the orchestration
  * @param  {websocketServer} websocketServer - the websocket server program
  */
- var param;
- function setParameters(parameters) {
-   param = parameters;
- }
- exports.setParameters = setParameters;
+function setParameters(parameters) {
+  param = parameters;
+}
+exports.setParameters = setParameters;
 
-function midimix (machineServeur, websocketServer) {
+/** @namespace midimix */
+/**
+ * Process the MIDI and OSC messages received from the DAW to send it to the orchestration.
+ * @memberof midimix
+ * @param {object} machineServeur
+ * @param {websocket} websocketServer 
+ */
+function midimix(machineServeur, websocketServer) {
+
   var par = require('./ipConfig');
-  //var param = require('./skiniParametres');
   var osc = require('osc-min');
   var dgram = require("dgram");
   var sock = dgram.createSocket('udp4');
@@ -70,6 +78,12 @@ function midimix (machineServeur, websocketServer) {
     var midiPortClipFromDAW;
     var tempoTickDuration = 0;
 
+    /**
+    * Update the list of MIDI controlers according the MIDI configuration file.
+    * @function
+    * @memberof midimix
+    * @inner
+    */
     function getMidiPortControlers() {
       for (var i = 0; i < midiConfig.length; i++) {
         if (midiConfig[i].spec === "controler") {
@@ -87,6 +101,15 @@ function midimix (machineServeur, websocketServer) {
       }
     }
 
+    /**
+    * Get the index of a MIDI controler in te list of MIDI controlers
+    * of the MIDI configuration file.
+    * @function
+    * @memberof midimix
+    * @param {string} Midi port name
+    * @return {number} index
+    * @inner
+    */
     function getControlerIndex(portName) {
       for (var j = 0; j < midiInput.getPortCount(); ++j) {
         if (midiInput.getPortName(j) === portName) {
@@ -97,6 +120,12 @@ function midimix (machineServeur, websocketServer) {
       return -1;
     }
 
+    /**
+    * To process MIDI message comming from the MIDI controlers.
+    * @function
+    * @memberof midimix
+    * @inner
+    */
     function createControlerMessageOn() {
       for (var i = 0; i < controlers.length; i++) {
         controlerIndex = getControlerIndex(controlers[i].name);
@@ -120,6 +149,14 @@ function midimix (machineServeur, websocketServer) {
       }
     }
 
+    /**
+    * Get the MIDI port used by the DAW for receiving the clips (patterns)
+    * command from Skini.
+    * @function
+    * @memberof midimix
+    * @return {number} index of the MIDI port
+    * @inner
+    */
     function getMidiPortForClipFromDAW() {
       for (var i = 0; i < midiConfig.length; i++) {
         if (midiConfig[i].spec === "clipFromDAW") {
@@ -137,6 +174,13 @@ function midimix (machineServeur, websocketServer) {
       return -1;
     }
 
+    /**
+    * Get the MIDI port used by the DAW for sending the MIDI synchro.
+    * @function
+    * @memberof midimix
+    * @return {number} index of the MIDI port
+    * @inner
+    */
     function getMidiPortForSyncFromDAW() {
       for (var i = 0; i < midiConfig.length; i++) {
         if (midiConfig[i].spec === "syncFromDAW") {
@@ -155,6 +199,13 @@ function midimix (machineServeur, websocketServer) {
       return -1;
     }
 
+    /**
+    * Initialize the MIDI ports for processing the MIDI messages/commands.
+    * Put two MIDI listeners one on NoteOn and one on Synchro.
+    * @function
+    * @memberof midimix
+    * @inner
+    */
     function initMidiIN() {
       midiPortSync = getMidiPortForSyncFromDAW();
       midiPortClipFromDAW = getMidiPortForClipFromDAW();
@@ -213,9 +264,11 @@ function midimix (machineServeur, websocketServer) {
         if (message[0] === 248) {
           if (tempoTickDuration > 23) {
             //console.log('Sync recieved :' + message + ' d:' + deltaTime);
-            // Signal Tick à emmettre ici
-            //console.log("Tick", message[0]);
-            websocketServer.sendOSCTick();
+            if (debug) console.log("midimix 1 : Tick", message[0]);
+            // Test pour éviter une "double synchro en OSC est en MIDI"
+            if (param.synchoOnMidiClock) {
+              websocketServer.sendOSCTick();
+            }
             tempoTickDuration = 0;
           }
         }
@@ -226,6 +279,17 @@ function midimix (machineServeur, websocketServer) {
     initMidiIN();
   } // Fin fonction si MIDI
 
+  /**
+  * Insert a node in the table previousNotes[] which is used
+  * to process the MIDI message send by Ableton Live. 
+  * Ableton repeats the NoteON message once (two times) with a slight time delay.
+  * If the pattern is running, and it is activated, Ableton sends 4 MIDI noteON commands with the same timestamp.
+  * The timestamp is close to the micro-second.
+  * @function
+  * @memberof midimix
+  * @param {number} Skini Note
+  * @inner
+  */
   function insertInPreviousNotes(laNote) {
     for (var i = 1; i < previousNotes.length; i++) {
       previousNotes[i - 1] = previousNotes[i];
@@ -234,6 +298,14 @@ function midimix (machineServeur, websocketServer) {
     if (debug) console.log("midimix: insInPreviousNote: ", previousNotes);
   };
 
+  /**
+  * Check if the Skini Note is in the previousNotes table.
+  * to process the MIDI message send by Ableton Live. 
+  * @function
+  * @memberof midimix
+  * @param {number} Skini Note
+  * @inner
+  */
   function isInPreviousNotes(laNote) {
     for (var i = 0; i < previousNotes.length; i++) {
       if (previousNotes[i] === laNote) return true;
@@ -241,7 +313,13 @@ function midimix (machineServeur, websocketServer) {
     return false;
   };
 
-  // Traitement OSC ================================================================================
+  /**
+  * Management of the UDP socket for OSC and OSC messages.
+  * @function
+  * @memberof midimix
+  * @param {number} Skini Note
+  * @inner
+  */
   sock = dgram.createSocket("udp4", function (msg, rinfo) {
     var error, message;
     try {
@@ -353,8 +431,12 @@ function midimix (machineServeur, websocketServer) {
 
         case "/AbletonTick":
         case "/BitwigTick":
-          //console.log("midimix.js: tick: ", message.args[0].value);
-          websocketServer.sendOSCTick();
+          if (debug1) console.log("midimix 2: bitwig tick: ", message.args[0].value);
+          // Test pour éviter une "double synchro en OSC est en MIDI", si on oublie
+          // de déscativer l'une ou l'autre dans la DAW.
+          if (!param.synchoOnMidiClock) {
+            websocketServer.sendOSCTick();
+          }
           break;
 
         default:
@@ -375,4 +457,4 @@ function midimix (machineServeur, websocketServer) {
 
   sock.bind(par.InPortOSCMIDIfromDAW, par.serverIPAddress);
 }
-exports.midimix=midimix;
+exports.midimix = midimix;

@@ -1,5 +1,6 @@
 /**
- * Worker to send a synchro when not using a midi sync coming from a DAW
+ * @fileOverview 
+ * Worker to send a (good) synchro when not using a midi sync coming from a DAW.
  * @author Bertrand Hédelin  © Copyright 2022, B. Petit-Hédelin
  * @version 1.0
  */

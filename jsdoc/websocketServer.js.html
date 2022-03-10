@@ -121,6 +121,7 @@ var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
 const decache = require('decache');
 const { stringify } = require('querystring');
+const { Worker } = require('worker_threads');
 
 var defaultOrchestrationName = "orchestrationHH.js";
 
@@ -154,11 +155,12 @@ var defautDeLatence;
 var debug = false;
 var debug1 = true;
 var warnings = false;
+var timerSynchro;
 
 // Automate des possibles
 var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
 var setTimer;
-var timerDivision = 4;
+var timerDivision = 4; // Default value for the number of pulses for a tick, can evolve during an orchestration
 var offsetDivision = 0;
 var compteurDivisionMesure = 0;
 var nbeDeGroupesSons = 0;
@@ -180,10 +182,8 @@ var currentTimePrevMidi = 0;
 var currentTimeMidi = 0;
 
 /*************************************************
- 
-  INITIALISATION DU PORT MIDI OUT (si paramétré)
- 
-**************************************************/
+   INITIALISATION DU PORT MIDI OUT (si paramétré)
+ **************************************************/
 /**
  * Init MIDI OUT port if defined in the parameters
  */
@@ -197,12 +197,9 @@ function initMidiPort() {
   }
 }
 
-/*************************************************
- 
-  WEBSOCKET
- 
-**************************************************/
-
+/************************************************
+   WEBSOCKET
+ **************************************************/
 /**
  * Main function to manage the websocket
  */
@@ -211,7 +208,61 @@ function startWebSocketServer() {
   const WebSocketServer = require('ws');
   const serv = new WebSocketServer.Server({ port: ipConfig.websocketServeurPort });
 
-  // Define the function in order to Broadcast to all clients.
+  /*************************************************************************************
+    Worker for synchro if no DAW (ne fonctionne pas dans VSC mais dans le terminal)
+  **************************************************************************************/
+  var workerSync;
+
+  /**
+  * Function to start a worker for the synchro when not using a midi sync coming from a DAW
+  * @function
+  * @memberof Websocketserver
+  * @param {string} worker path
+  * @param {number} timer
+  * @inner
+  */
+  function workerSynchroInit(filepath, timer) {
+    if (workerSync !== undefined) {
+      workerSync.postMessage(['startSynchro', timer]);
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      workerSync = new Worker(filepath);
+      if (debug) console.log('Launching worker Synchro', filepath);
+
+      workerSync.on('online', () => {
+        workerSync.postMessage(['startSynchro', timer]);
+        if (debug) console.log('Launching worker Synchro');
+      })
+      workerSync.on('message', messageFromWorker => {
+        switch (messageFromWorker) {
+          case "synchroWorker":
+            if (debug) console.log(messageFromWorker);
+            actionOnTick(timerDivision);
+            break;
+
+          default:
+            break;
+        }
+        return resolve;
+      });
+      workerSync.on('error', reject);
+      workerSync.on('exit', code => {
+        if (code !== 0) {
+          reject(new Error(`Worker stopped with exit code:`, code));
+        }
+      });
+    });
+  }
+
+  /**
+  * Define the function in order to Broadcast to all clients.
+  * @function
+  * @memberof Websocketserver
+  * @param {string} message
+  * @inner
+  */
   serv.broadcast = function broadcast(data) {
     //if(debug) console.log("Web Socket Server: broadcast: ", data);
     serv.clients.forEach(function each(client) {
@@ -236,7 +287,7 @@ function startWebSocketServer() {
    * @returns {Server} - return the server for Broadcasting
    * @function
    * @memberof Websocketserver
-   * @local
+   * @inner
    */
   function getBroadCastServer() {
     if (serv === undefined) {
@@ -248,9 +299,7 @@ function startWebSocketServer() {
   exports.getBroadCastServer = getBroadCastServer;
 
   /************************************************************************************
-  
-  Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
-  
+    Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   *************************************************************************************/
   /**
    * Send a signal to the orchestration according to the skini note
@@ -315,10 +364,8 @@ function startWebSocketServer() {
   exports.sendSignalStartFromMIDI = sendSignalStartFromMIDI;
 
   /************************************************************************************
-  
   Fonction pour émission de signaux depuis midimix.js vers l'automatePossibleMachine.
   Utilisable pour synchro vidéo ou jeu via des notes Midi
-  
   *************************************************************************************/
   /**
    * Send a signal "controlFromVideo" to the orchestration
@@ -334,9 +381,7 @@ function startWebSocketServer() {
   exports.sendSignalFromMidiMix = sendSignalFromMidiMix;
 
   /*************************************************************************************
-  
-  RECEPTION DES TICK MIDI OU BITWIG
-  
+    RECEPTION DES TICK MIDI OU BITWIG
   **************************************************************************************/
   var previousTimeClockMidi = 0;
   var currentTimeClockMidi = 0;
@@ -369,7 +414,7 @@ function startWebSocketServer() {
       reactAutomatePossible({ pulsation: undefined });
     }
     // La remise à jour de la durée des patterns est possible depuis les automates.
-    // Si les automates ne mettent pas timetDivision à jour, on garde la valuer par défaut
+    // Si les automates ne mettent pas timerDivision à jour, on garde la valeur par défaut
     // donnée dans le fichier de config de la pièce. (compatibilté ascendante)
     var timerLocal = groupesClientSon.getTimerDivision();
     if (debug) console.log("websocketserver: receivedTickFromDaw: timerLocal:", timerLocal);
@@ -393,9 +438,7 @@ function startWebSocketServer() {
   }
 
   /*************************************************************************************
-  
-  MATRICE DES POSSIBLES, AUTOMATE
-  
+    MATRICE DES POSSIBLES, AUTOMATE
   **************************************************************************************/
   /**
    * Get the HipHop machine.
@@ -476,7 +519,27 @@ function startWebSocketServer() {
     return true;
   }
 
-  // Pour mettre à jour la vriable sur les longeurs de liste de memorySortable
+  /**
+   * Fix the timer when using the synchro from Node.js
+   * not used when the worker runs.
+   * @memberof Websocketserver
+   * @function
+   * @inner
+   * @param {number} syncho in ms
+   */
+  function setMonTimer(timer) {
+    if (!par.synchoOnMidiClock) {
+      setTimer = setInterval(function () {
+        if (debug1) { var v0 = Date.now(); }
+        actionOnTick(timerDivision);
+        if (debug1) {
+          console.log("websocketserver: setMonTimer timer:", timer, "ms,Temps de réaction de l'automate:", Date.now() - v0, "ms");
+        }
+      }, timer);
+    }
+  }
+
+  // Pour mettre à jour la variable sur les longeurs de liste de memorySortable
   // Les clients ont besoin de cette variable lors de la connexion. ELle peut évoluer au cours d'une pièce.
   function setPatternListLength(value) {
     if (debug1) console.log("websocketserver.js : setPatternListLength : value :", value);
@@ -484,9 +547,7 @@ function startWebSocketServer() {
   exports.setPatternListLength = setPatternListLength;
 
   /*************************************************************************************
-  
-  WEB SOCKET MANAGEMENT
-  
+    WEB SOCKET MANAGEMENT
   **************************************************************************************/
   serv.on('connection', function (ws) {
 
@@ -1235,7 +1296,6 @@ maybe an hiphop compile Error.
             status: true
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
           break;
 
         // DAWON est le signal d'activation ou désactivation de l'orchestration
@@ -1255,8 +1315,6 @@ maybe an hiphop compile Error.
               value: msgRecu.value
             }
             serv.broadcast(JSON.stringify(msg));
-            //hop.broadcast('DAWStatus', msgRecu.value );
-
             initMatriceDesPossibles(DAWStatus);
             // Pour être en phase avec la création du pad controleur
             groupesClientSon.resetMatriceDesPossibles();
@@ -1271,10 +1329,17 @@ maybe an hiphop compile Error.
           break;
 
         case "startAutomate": // Lance l'automate orchestrateur de la matrice des possibles
+          if (par.timer !== undefined) {
+            timerSynchro = par.timer;
+          }
+
           if (DAWTableReady) {
             if (debug) console.log("INFO: webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
             reactAutomatePossible({ start: undefined });
-            if (!par.synchoOnMidiClock) setMonTimer();
+            if (!par.synchoOnMidiClock) {
+              //setMonTimer(timerSynchro); // En local pas utile avec les workers
+              workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
+            }
           }
 
           compScore.resetClientEnCours(clientsEnCours);
@@ -1401,7 +1466,7 @@ maybe an hiphop compile Error.
 
         case "stopAutomate":
           if (DAWTableReady) {
-            if (setTimer !== undefined &amp;&amp; !par.synchoOnMidiClock) clearInterval(setTimer);
+            //if (setTimer !== undefined &amp;&amp; !par.synchoOnMidiClock) clearInterval(setTimer);
             reactAutomatePossible({ halt: undefined });
             DAWStatus = 0;
 
@@ -1410,7 +1475,6 @@ maybe an hiphop compile Error.
               value: false
             }
             serv.broadcast(JSON.stringify(msg));
-            //hop.broadcast('abletonStatus', abletonStatus );
           }
           break;
 
@@ -1497,13 +1561,13 @@ function getDateTime() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#param">param</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Mar 05 2022 10:11:15 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 10 2022 10:53:55 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,8 +1,8 @@
 /**
- * @fileOverview For evaluating and giving "game scores"
- * <BR>Memo of Pattern : Note,	Note stop, Flag usage,	Texte, Fichier son,
- * Instrument [5],	Slot, Type [7], not used, Groupe,	Durée
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
+ * @fileOverview
+ * For evaluating and giving "game scores" when using Skini for interactive Game
+ * using the selection of sequences of patterns on the client (audience) side.
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
  * @version 1.1
  */
 'use strict'
@@ -19,6 +19,9 @@ const typeNeutre = 4;
 const typeMauvais = 5;
 
 /*===================================================================================
+
+Memo of Pattern : Note,	Note stop, Flag usage,	Texte, Fichier son,
+Instrument [5],	Slot, Type [7], not used, Groupe,	Durée
 
 Gestion des clients memorySortable
 
@@ -37,7 +40,7 @@ Gestion des clients memorySortable
  * @param  {string} pseudo
  * @param  {number} id
  * @param  {number} groupe
- * @param  {Array} clientsEnCours
+ * @param  {array} clientsEnCours
  */
 function putInClientsEnCours(pseudo, id, groupe, clientsEnCours) {
   // On se base sur le pseudo
@@ -59,11 +62,12 @@ function putInClientsEnCours(pseudo, id, groupe, clientsEnCours) {
   return true;
 }
 exports.putInClientsEnCours = putInClientsEnCours;
+
 /**
- * 
- * @param  {string} pseudo
- * @param  {number} score
- * @param  {Array} clientsEnCours
+ * Compute a new score for a player using the pseudo.
+ * @param  {string} pseudo the player
+ * @param  {number} score value of the new score
+ * @param  {array} clientsEnCours list of players
  */
 function updateScore(pseudo, score, clientsEnCours) {
   var scoreTotal = 0;
@@ -82,7 +86,7 @@ exports.updateScore = updateScore;
 /**
  * In order to check if a client is asking for the same sequence several times.
  * @param  {string} pseudo
- * @param  {Array} clientsEnCours
+ * @param  {array} clientsEnCours
  */
 function getPreSequence(pseudo, clientsEnCours) {
   for (var i = 0; i < clientsEnCours.length; i++) {
@@ -98,8 +102,8 @@ exports.getPreSequence = getPreSequence;
 /**
  * Insert a sequence of patterns in a list for a specific client.
  * @param  {string} pseudo
- * @param  {Array} sequence
- * @param  {Array} clientsEnCours
+ * @param  {array} sequence
+ * @param  {array} clientsEnCours
  */
 function setPreSequence(pseudo, sequence, clientsEnCours) {
   for (var i = 0; i < clientsEnCours.length; i++) {
@@ -115,7 +119,7 @@ function setPreSequence(pseudo, sequence, clientsEnCours) {
 }
 exports.setPreSequence = setPreSequence;
 /**
- * Clean the list of scores
+ * Clean the list of scores.
  * @param  {} clientsEnCours
  */
 function resetClientEnCours(clientsEnCours) {
@@ -143,7 +147,12 @@ wasPatternAlreadySelected
 sequence est un tableau de notes skini
 
 ===================================================================*/
-
+/**
+ * To check if a pattern was already in the sequence.
+ * @param {number} index pattern number
+ * @param {array} sequence 
+ * @returns {boolean}
+ */
 function wasPatternAlreadySelected(index, sequence) {
   if (sequence === -1) {
     return false;
@@ -174,7 +183,13 @@ envoyé au serveur.
 La répétition d'un pattern est pénalisée
 
 ===================================================================*/
-
+/**
+ * Compute a score using a list of Skini Notes (pattern numbers ) according 
+ * to a previous sequence (list of patterns).
+ * @param {array} listeTypes 
+ * @param {array} preSequence
+ * @returns {number} score
+ */
 function computeScoreDMFN(listeTypes, preSequence) {
   if (debug) console.log("computeScore.js:computeScore: preSequence:", preSequence);
 
@@ -249,6 +264,16 @@ envoyé au serveur.
 
 ===================================================================*/
 
+/**
+ * Compute a score according the classes of the patterns.
+ * If you ask for a pattern in the same class without repeating you get points.
+ * If you ask again for the same patterns as the previous time you lose points.
+ * If you repeat the same pattern in the sequence you lose points.
+ * @param {array} listeTypes list of previous selected classes of patterns
+ * @param {number} patternClass 
+ * @param {array} preSequence previous sequence 
+ * @returns {number} score the computed score
+ */
 function computeScoreInclass(listeTypes, patternClass, preSequence) {
   var score = 0;
 
@@ -303,9 +328,9 @@ function computeScoreInclass(listeTypes, patternClass, preSequence) {
 ===================================================================*/
 /**
  * Compute the score when submitting a sequence of patten.
- * @param  {Array} patternSequence
- * @param  {Array} preSequence
- * @param  {number} computeScorePolicy
+ * @param  {array} patternSequence
+ * @param  {array} preSequence
+ * @param  {number} computeScorePolicy define the algorithm used to compute the score
  * @param  {number} computeScoreClass
  */
 function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePolicy, computeScoreClass) {

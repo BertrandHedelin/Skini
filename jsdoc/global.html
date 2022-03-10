@@ -94,72 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="param"><span class="type-signature"></span>param<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Set the bridge between the orchestration and MIDI devices
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="midimix.js.html">midimix.js</a>, <a href="midimix.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -607,6 +541,393 @@
     
 
     
+    <h4 class="name" id="computeScoreDMFN"><span class="type-signature"></span>computeScoreDMFN<span class="signature">(listeTypes, preSequence)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Compute a score using a list of Skini Notes (pattern numbers ) according to a previous sequence (list of patterns).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listeTypes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preSequence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line193">line 193</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    score
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="computeScoreInclass"><span class="type-signature"></span>computeScoreInclass<span class="signature">(listeTypes, patternClass, preSequence)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Compute a score according the classes of the patterns.If you ask for a pattern in the same class without repeating you get points.If you ask again for the same patterns as the previous time you lose points.If you repeat the same pattern in the sequence you lose points.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listeTypes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of previous selected classes of patterns</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>patternClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preSequence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">previous sequence</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line277">line 277</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    score the computed score
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="displayQueues"><span class="type-signature"></span>displayQueues<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -833,7 +1154,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -856,7 +1177,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -889,7 +1210,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">define the algorithm used to compute the score</td>
         </tr>
 
     
@@ -953,7 +1274,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line311">line 311</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line336">line 336</a>
     </li></ul></dd>
     
 
@@ -989,7 +1310,7 @@
     
 
     
-    <h4 class="name" id="getAllClips"><span class="type-signature"></span>getAllClips<span class="signature">(groupeDeClients, matriceDesPossibles)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="getAllClips"><span class="type-signature"></span>getAllClips<span class="signature">(groupeDeClients, matriceDesPossibles)</span><span class="type-signature"> &rarr; {array}</span></h4>
     
 
     
@@ -1062,7 +1383,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">array</span>
 
 
             
@@ -1153,7 +1474,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
     </dd>
@@ -1833,7 +2154,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -1884,7 +2205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line87">line 87</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -3580,7 +3901,7 @@ pseudo, signal, websocket id.
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -3631,7 +3952,7 @@ pseudo, signal, websocket id.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line42">line 42</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -3980,7 +4301,7 @@ Quite similar to pushClipDAW() of websocketServer.
 
 
 <div class="description">
-    Clean the list of scores
+    Clean the list of scores.
 </div>
 
 
@@ -4068,7 +4389,7 @@ Quite similar to pushClipDAW() of websocketServer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line121">line 121</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -6388,6 +6709,166 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
     
 
     
+    <h4 class="name" id="setParameters"><span class="type-signature"></span>setParameters<span class="signature">(machineServeur, websocketServer)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the bridge between the orchestration and MIDI devices
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>machineServeur</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">machine</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the orchestration</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>websocketServer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">websocketServer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the websocket server program</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="midimix.js.html">midimix.js</a>, <a href="midimix.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="setParameters"><span class="type-signature"></span>setParameters<span class="signature">(param)</span><span class="type-signature"></span></h4>
     
 
@@ -6598,7 +7079,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -6621,7 +7102,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
 
 
             
@@ -6672,7 +7153,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line104">line 104</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -6760,7 +7241,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="websocketServer.js.html">websocketServer.js</a>, <a href="websocketServer.js.html#line181">line 181</a>
+        <a href="websocketServer.js.html">websocketServer.js</a>, <a href="websocketServer.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -6802,6 +7283,10 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
     
 
 
+
+<div class="description">
+    Compute a new score for a player using the pseudo.
+</div>
 
 
 
@@ -6852,7 +7337,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
 
             
 
-            <td class="description last"></td>
+            <td class="description last">the player</td>
         </tr>
 
     
@@ -6875,7 +7360,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
 
             
 
-            <td class="description last"></td>
+            <td class="description last">value of the new score</td>
         </tr>
 
     
@@ -6888,7 +7373,167 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of players</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="wasPatternAlreadySelected"><span class="type-signature"></span>wasPatternAlreadySelected<span class="signature">(index, sequence)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    To check if a pattern was already in the sequence.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">pattern number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sequence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
 
 
             
@@ -6939,7 +7584,7 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line68">line 68</a>
+        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -6964,6 +7609,24 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -6985,13 +7648,13 @@ the OSC port is defined in the ipConfiguration by portOSCToGame
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#param">param</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Mar 05 2022 10:11:15 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 10 2022 10:53:55 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
