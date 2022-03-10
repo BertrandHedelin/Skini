@@ -210,8 +210,7 @@ function startWebSocketServer() {
       workerSync.on('message', messageFromWorker => {
         switch (messageFromWorker) {
           case "synchroWorker":
-            if (debug) console.log(messageFromWorker);
-            actionOnTick(timerDivision);
+            receivedTickFromSynchro();
             break;
 
           default:
@@ -361,51 +360,58 @@ function startWebSocketServer() {
 
   // Vient de midiMix.js et directement de Bitwig ou de processing
   /**
-   * Called by midimix.js
+   * Called by midimix.js, for OSC and MIDI messages.
    * @memberof Websocketserver
    * @function
    * @inner
    */
   function sendOSCTick() {
     if (debug) console.log("websocketserver: sendOSCTick");
-    receivedTickFromDaw();
+    receivedTickFromSynchro();
   }
   exports.sendOSCTick = sendOSCTick;
 
-  function receivedTickFromDaw() {
-    if (debug) console.log("websocketserver : receivedTickFromDaw: tick received");
+  /**
+   * Called on synchro messages received each quarter note
+   * emitted by the DAW using MIDI or OSC, or the synchro worker.
+   * No parameters the variables are global to the whole module.
+   * @memberof Websocketserver
+   * @function
+   * @inner
+   */
+  function receivedTickFromSynchro() {
+    if (debug) console.log("websocketserver : receivedTickFromSynchro: tick received");
     currentTimeClockMidi = Date.now();
     tempoTime = currentTimeClockMidi - previousTimeClockMidi; // Real duration of a quarter note
     if (debug) console.log("websocketserver:dureeDuTickHorlogeMidi:tempoTime=", tempoTime,
       compteurDivisionMesure,
       groupesClientSon.getTimerDivision());
-
     previousTimeClockMidi = currentTimeClockMidi;
 
     if (par.pulsationON) {
       reactAutomatePossible({ pulsation: undefined });
     }
-    // La remise à jour de la durée des patterns est possible depuis les automates.
+    // La remise à jour de la durée des ticks est possible depuis les automates.
     // Si les automates ne mettent pas timerDivision à jour, on garde la valeur par défaut
     // donnée dans le fichier de config de la pièce. (compatibilté ascendante)
     var timerLocal = groupesClientSon.getTimerDivision();
-    if (debug) console.log("websocketserver: receivedTickFromDaw: timerLocal:", timerLocal);
+    if (debug) console.log("websocketserver: receivedTickFromSynchro: timerLocal:", timerLocal);
 
     if (timerLocal !== undefined) {
       timerDivision = timerLocal;
     } else {
-      //console.log("WARN: websocketServer: receivedTickFromDaw: timerDivision undefined");
+      //console.log("WARN: websocketServer: receivedTickFromSynchro: timerDivision undefined");
     }
 
-    if (debug) console.log("websocketserver: receivedTickFromDaw: timerDivision:", timerDivision);
+    if (debug) console.log("websocketserver: receivedTickFromSynchro: timerDivision:", timerDivision);
 
     //offsetDivision = timerDivision/2;
-    if (par.synchoOnMidiClock) {
+    // actionOnTick() is called based on the tick not the pulse issued from the synchro.
       if (compteurDivisionMesure === 0) {  // offsetDivision
         actionOnTick(timerDivision);
       }
-    }
-    // Ceci est la définition du tick. 
+    // Ceci est la définition du tick de l'orchestration
+    // Il s'agit d'une conversion de la pulsation MIDI ou worker en "tick".
     compteurDivisionMesure = (compteurDivisionMesure + 1) % timerDivision;
   }
 
@@ -428,6 +434,12 @@ function startWebSocketServer() {
   }
   exports.getAutomatePossible = getAutomatePossible;
 
+  /**
+   * React on the orchestration
+   * @memberof Websocketserver
+   * @param {*} signal 
+   * @returns {boolean} true if no problem
+   */
   function reactAutomatePossible(signal) {
     if (automatePossibleMachine !== undefined) {
       automatePossibleMachine.react(signal);
@@ -444,6 +456,13 @@ function startWebSocketServer() {
     //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
   }
 
+  /**
+   * Initialisation if the "matrice des possibles" which is a two dimensional array for
+   * the groups of pattern according to the groups of users. It represents the status
+   * of the orchestration.
+   * @memberof Websocketserver
+   * @param {number} DAWState Informs if an orchestration has been selected or not
+   */
   function initMatriceDesPossibles(DAWState) {
 
     if (warnings) console.log("WARNING: websocketserver:initMatriceDesPossibles:DAWState:", DAWState);
@@ -472,6 +491,12 @@ function startWebSocketServer() {
     }
   }
 
+  /**
+   * Action called every quarter note of the MIDI synchro or worker synchro if no MIDI sync.
+   * @memberof Websocketserver
+   * @param {number} timerDivision 
+   * @returns {boolean} true if the reaction of the orchestration is ok
+   */
   function actionOnTick(timerDivision) {
     if (debug) {
       currentTimePrevMidi = currentTimeMidi;
@@ -511,8 +536,14 @@ function startWebSocketServer() {
     }
   }
 
-  // Pour mettre à jour la variable sur les longeurs de liste de memorySortable
-  // Les clients ont besoin de cette variable lors de la connexion. ELle peut évoluer au cours d'une pièce.
+  /**
+   * To update the variable on the list lengths of memorySortable
+   * Clients need this variable when connecting. It can change during an orchestration.
+   * @memberof Websocketserver
+   * @function
+   * @inner
+   * @param {number} length of the list of the client
+   */
   function setPatternListLength(value) {
     if (debug1) console.log("websocketserver.js : setPatternListLength : value :", value);
   }
@@ -900,7 +931,7 @@ maybe an hiphop compile Error.
               break;*/
 
         case "dureeDuTickHorlogeMidi": // Reçu de Processing chaque 24 pulses de l'horloge Midi (une noire)
-          receivedTickFromDaw();
+          receivedTickFromSynchro();
           break;
 
         case "getDelayInstrument":

@@ -41,7 +41,7 @@ exports.piecePath = "./pieces/";
 exports.directMidiON = true;
 
 // La synchro midi est émise par la DAW ou pas
-exports.timer = 2000;
+exports.timer = 1000;
 exports.synchoOnMidiClock = true;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM
@@ -128,9 +128,9 @@ const groupesDesSons = [
   ["groupe7", 7, "group", 740, 480, 20, terre, [], 1],
   ["groupe8", 8, "group", 540, 580, 20, orange, [], 1],
   ["groupe9", 9, "group", 740, 200, 20, marron, [], 1],
-  ["groupe10", 10, "group", 760, 340, 20, grisvert, [], 1],
-  ["groupe11", 11, "group", 780, 340, 20, grisbleu, [], 1],
-  ["groupe12", 12, "group", 800, 340, 20, ocre, [], 1],
+  ["groupe10", 10, "group", 350, 340, 20, grisvert, [], 1],
+  ["groupe11", 11, "group", 540, 340, 20, grisbleu, [], 1],
+  ["groupe12", 12, "group", 670, 340, 20, ocre, [], 1],
   ["groupe13", 13, "group", 820, 340, 20, rose, [], 1]
 ];
 exports.groupesDesSons = groupesDesSons;

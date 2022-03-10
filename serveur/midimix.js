@@ -259,10 +259,12 @@ function midimix(machineServeur, websocketServer) {
       });
 
       // Traitement des messages de synchro Midi (24 messages pour une noire)
+      let v0 = 0;
       midiSync.on('message', function (deltaTime, message) {
         tempoTickDuration++;
         if (message[0] === 248) {
           if (tempoTickDuration > 23) {
+            if (debug) console.log("midimix.js: midiSync.on:", Date.now() - v0, "ms");
             //console.log('Sync recieved :' + message + ' d:' + deltaTime);
             if (debug) console.log("midimix 1 : Tick", message[0]);
             // Test pour éviter une "double synchro en OSC est en MIDI"
@@ -270,6 +272,7 @@ function midimix(machineServeur, websocketServer) {
               websocketServer.sendOSCTick();
             }
             tempoTickDuration = 0;
+            if (debug) { v0 = Date.now(); }
           }
         }
       });
@@ -431,7 +434,7 @@ function midimix(machineServeur, websocketServer) {
 
         case "/AbletonTick":
         case "/BitwigTick":
-          if (debug1) console.log("midimix 2: bitwig tick: ", message.args[0].value);
+          if (debug) console.log("midimix 2: bitwig tick: ", message.args[0].value);
           // Test pour éviter une "double synchro en OSC est en MIDI", si on oublie
           // de déscativer l'une ou l'autre dans la DAW.
           if (!param.synchoOnMidiClock) {

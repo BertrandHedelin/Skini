@@ -49,24 +49,20 @@ exports.serv = serv;
 var orchestration;
 var groupesClient;
 var matriceDesPossibles;
-var timerDivision; // doit rester undefined si pas mis à jour par les automates
+var timerDivision; // Nombre de pulses par tick, doit rester undefined si pas mis à jour par les automates
 var nbeDeGroupesSons = 0;
 var nombreDePatternsPossibleEnListe = [[3, 255]]; // init pour client memorySortable
 
 // Pour les listes de clients memorySortable connectés et les infos sur les types de
 // patterns ainsi que les précédentes listes envoyées. Mis à jour dans websocketServeur.
 var clientsEnCours = [];
-
 // Devient le tableau des groupes de patterns
 var groupesSon;
-
 var groupeName = "";
 
 // On créé ce fichier à partir du xml de Blockly
 var myReactOrchestration = "../../myReact/orchestrationHH.js";
-
 var socketControleur;
-
 var computeScorePolicy = 0;
 var computeScoreClass = 0;
 

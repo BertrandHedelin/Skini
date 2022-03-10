@@ -188,6 +188,18 @@
                     
                     
                     
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     </comment>
                     <next>
                       <block type="hh_wait_for" id="ZI(PXqyt/NjAPP!oek]p">
@@ -206,6 +218,18 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             
                             
                             
@@ -430,6 +454,18 @@
                                     
                                     
                                     
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     </comment>
                                     <next>
                                       <block type="hh_wait_for" id="d8h}H9vIPN^O`-`2%FC~">
@@ -448,6 +484,18 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             
                                             
                                             
@@ -672,6 +720,18 @@
                                                     
                                                     
                                                     
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     </comment>
                                                     <next>
                                                       <block type="hh_wait_for" id="DO[?:xL%kI]l6]=Y$me!">
@@ -690,6 +750,18 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             
                                                             
                                                             
@@ -914,6 +986,18 @@
                                                                     
                                                                     
                                                                     
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     </comment>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="e1AJu2%k*:H2$kc^$ZMT">
@@ -932,6 +1016,18 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1299,7 +1395,7 @@
                                                                 </statement>
                                                                 <next>
                                                                   <block type="hh_abort" id="^_BQ5r7528,A13_pisRO">
-                                                                    <field name="TIMES">47</field>
+                                                                    <field name="TIMES">23</field>
                                                                     <value name="SIGNAL">
                                                                       <block type="variables_get" id="NX_XXEHGFo^e=s;J#sGX">
                                                                         <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
@@ -1333,7 +1429,7 @@
                                                                         <statement name="BODY">
                                                                           <block type="set_group_during_ticks" id="V9g_CiL1DnevGv|?z%vm">
                                                                             <field name="user_group">255</field>
-                                                                            <field name="number_of_ticks">32</field>
+                                                                            <field name="number_of_ticks">20</field>
                                                                             <value name="GROUPS">
                                                                               <block type="lists_create_with" id="7SdjE@{%nOeJNBtaw`;y">
                                                                                 <mutation items="3"></mutation>
@@ -1356,7 +1452,7 @@
                                                                             </value>
                                                                             <next>
                                                                               <block type="hh_abort" id="b0=;`ZT#u67~]~Db6];L">
-                                                                                <field name="TIMES">32</field>
+                                                                                <field name="TIMES">20</field>
                                                                                 <value name="SIGNAL">
                                                                                   <block type="variables_get" id="Jen4;pWTK?j|6DT|g^v1">
                                                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
