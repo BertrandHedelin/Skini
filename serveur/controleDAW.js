@@ -1,6 +1,6 @@
 /**
  * @fileOverview Control of the DAW
- * @author Bertrand Hédelin © Copyright 2018-2021
+ * @author Bertrand Hédelin © Copyright 2018-2022
  * @version node.js 1.1
  */
 
@@ -30,8 +30,8 @@ var filesDattente = [[], [], [], [], [], [], [], [], [], [],
 
 var filesDattenteJouables = new Array(filesDattente.length);
 
-// Il en faut autant que de files d'attente
-var compteursDattente = []; //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// Il y en aura autant que de files d'attente
+var compteursDattente = [];
 
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
@@ -117,7 +117,7 @@ function loadDAWTable(fichier) {
     tableDesCommandes = new Array();
     csv.parseCSV(fichier, function (data) {
       try {
-        // Pour reformater le tableau socker en CSV
+        // Pour reformater le tableau stocké en CSV
         for (var i = 0; i < data.length; i++) {
           data[i][0] = parseInt(data[i][0]);
           data[i][1] = parseInt(data[i][1]);
@@ -127,6 +127,9 @@ function loadDAWTable(fichier) {
           for (var j = 5; j < 11; j++) {  // Nbe de colones dans le tableau
             data[i][j] = parseInt(data[i][j]);
           }
+
+          // On ne reformate pas l'adresse IP en 11, mais le numéro de buffer en 12.
+          if (data[i][12] !== undefined) data[i][12] = parseInt(data[i][12]);
 
           tableDesCommandes.push(data[i]); // ajoute la ligne au tableau
           // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
@@ -198,7 +201,7 @@ exports.displaySession = displaySession;
  * Get the ongoing pattern description (of the csv file loaded). 
  * @returns {array} patterns descriptors
  */
-function getSession(){
+function getSession() {
   return tableDesCommandes;
 }
 exports.getSession = getSession;
@@ -296,6 +299,8 @@ function putPatternInQueue(patternName) {
     var dureeClip = commande[10];
     var signal = groupesClientSon.getSignalFromGroup(commande[9]) + "IN";
     var id = 0;
+    var adresseIP = commande[11];
+    var numeroBuffer = commande[12];
 
     // Contient le signal et le pattern
     var signalComplet = { [signal]: nom };
@@ -304,8 +309,8 @@ function putPatternInQueue(patternName) {
     //if(debug1) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal);
     //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
     var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
-      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
-
+      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre,
+      adresseIP, numeroBuffer);
   } else {
     console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
     return undefined;
@@ -331,12 +336,20 @@ exports.putPatternInQueue = putPatternInQueue;
  * @param  {string} nom (7)
  * @param  {string} signal (8)
  * @param  {number} typePattern (9)
+ * @param  {string} IPadress (10)
+ * @param  {number} bufferNumber (11)
  */
-function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern) {
+function pushEventDAW(bus, channel, instrument, note, velocity,
+  wsid, pseudo, dureeClip, nom, signal, typePattern,
+  adresseIP, numeroBuffer) {
+
   var dureeAttente = 0;
   var messageLog = { date: "" };
 
-  if (debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel, instrument, note, velocity, wsid, pseudo, nom, signal, typePattern);
+  if (debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel,
+    instrument, note, velocity, wsid, pseudo, nom, signal, typePattern,
+    adresseIP, numeroBuffer);
+
   var longeurDeLafile = filesDattente[instrument].length;
 
   // Scénario spécifique pour les interfaces avec les musiciens.
@@ -350,20 +363,25 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
     // Le serveur nomme le pattern "void" quand il s'agit d'un pattern qu'on ne doit pas jouer.
     // et qui sert à permettre au musicien de se préparer.
     // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
-    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void"]);
+    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void"]);
   }
 
   if (par.algoGestionFifo !== undefined) {
     if (par.algoGestionFifo === 1) {
       // Ici on prend en compte le type de pattern pour le placer dans la Fifo
-      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]);
+      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid,
+        pseudo, dureeClip, nom, signal, typePattern, adresseIP, numeroBuffer]);
     } else {
       // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
-      filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+      filesDattente[instrument].push([bus, channel, note, velocity,
+        wsid, pseudo, dureeClip, nom, signal, '',
+        adresseIP, numeroBuffer]); // Push à la fin du tableau
     }
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
-    filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+    filesDattente[instrument].push([bus, channel, note, velocity,
+      wsid, pseudo, dureeClip, nom, signal, '',
+      adresseIP, numeroBuffer]); // Push à la fin du tableau
   }
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6

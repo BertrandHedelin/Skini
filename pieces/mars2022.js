@@ -96,7 +96,7 @@ Gestion de la Matrice des possibles
 Automate de gestion de la matrice des possibles
 ******************************************************************************/
 exports.nbeDeGroupesClients = 3;
-exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
+exports.simulatorInAseperateGroup = false; // Si true, le dernier groupe client est réservé au simulateur.
 
 function setnbeDeGroupesClients(num) {
   this.nbeDeGroupesClients = num;
