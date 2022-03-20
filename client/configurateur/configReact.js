@@ -99,7 +99,7 @@ function initWSSocket(host) {
         var options = {
           data: msgRecu.descriptors,
           minDimensions: [10, 10],
-          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }]
+          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
         break;
@@ -170,8 +170,8 @@ var Jspreadsheet = function (_React$Component2) {
       //obj.hideColumn(2);
       //obj.hideColumn(6);
       //obj.hideColumn(8);
-      obj.hideColumn(11);
-      obj.hideColumn(12);
+      //obj.hideColumn(11);
+      //obj.hideColumn(12);
     };
 
     _this3.componentDidMount = function () {

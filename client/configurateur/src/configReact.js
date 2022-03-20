@@ -102,7 +102,9 @@ function initWSSocket(host) {
             { type: 'text', width: 80, title: 'Type' },
             { type: 'text', width: 80, title: 'Free' },
             { type: 'text', width: 80, title: 'Group' },
-            { type: 'text', width: 80, title: 'Duration' }
+            { type: 'text', width: 80, title: 'Duration' },
+            { type: 'text', width: 100, title: 'IP address' },
+            { type: 'text', width: 80, title: 'Buffer num' }
           ]
         };
         ReactDOM.render(<Jspreadsheet options={options} />, document.getElementById('spreadsheet'));
@@ -156,8 +158,8 @@ class Jspreadsheet extends React.Component {
     //obj.hideColumn(2);
     //obj.hideColumn(6);
     //obj.hideColumn(8);
-    obj.hideColumn(11);
-    obj.hideColumn(12);
+    //obj.hideColumn(11);
+    //obj.hideColumn(12);
   }
 
   componentDidMount = function () {

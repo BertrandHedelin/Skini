@@ -254,3 +254,19 @@ function sendOSCGame(message, value) { // Value = table des données
   return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAdressGame);
 };
 exports.sendOSCGame = sendOSCGame;
+
+/**
+ * To send OSC message to a Raspberry
+ * @param {string} message
+ * @param {number} value
+ * @param {number} Udp port
+ * @param {string} IP address of the Raspberry
+ */
+function sendOSCRasp(message, value, port, IPaddress) { // Value = table des données 
+  var buf;
+  var commandeOSC = "/" + message;
+  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :" + IPaddress + " : " + commandeOSC + " : " + value);
+  //buf = osc.toBuffer({ address: commandeOSC, args: [value] });
+  //return udp.send(buf, 0, buf.length, port, IPaddress);
+};
+exports.sendOSCRasp = sendOSCRasp;

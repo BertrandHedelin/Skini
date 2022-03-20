@@ -336,7 +336,7 @@ exports.putPatternInQueue = putPatternInQueue;
  * @param  {string} nom (7)
  * @param  {string} signal (8)
  * @param  {number} typePattern (9)
- * @param  {string} IPadress (10)
+ * @param  {string} IPaddress (10)
  * @param  {number} bufferNumber (11)
  */
 function pushEventDAW(bus, channel, instrument, note, velocity,
@@ -508,6 +508,7 @@ function playAndShiftEventDAW(timerDivision) {
 
         // Si l'attente est à 0 on joue le clip suivant
         if (compteursDattente[i] === 0) {
+
           //Passe au clip suivant
           commandeDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
 
@@ -516,7 +517,8 @@ function playAndShiftEventDAW(timerDivision) {
           if (debug) console.log("---1 ControleDAW.js:commande:", commandeDAW[7], "compteursDattente[i]:", compteursDattente[i]);
 
           // On peut envoyer l'évènement à DAW
-          if (debug) console.log("--- ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER"); //, commandeDAW);
+          if (debug) console.log("--- ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW);
+
           // Log pour analyse a posteriori
           messageLog.source = "controleDAW.js";
           messageLog.type = "COMMANDE DAW ENVOYEE";
@@ -534,14 +536,21 @@ function playAndShiftEventDAW(timerDivision) {
           // On fait rien pour la DAW.
           // !! à vérifier.
           if (commandeDAW[2] >= 0) {
-            oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
-            // Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
 
-            // Pour des Raspberries c'est ici qu'il faudra appeler une fonction spécifique avec l'instrument, ici
-            // l'index i, et DAWNote pour le son piloté par la commande OSC. On n'utilisera pas le bus midi, ni le canal midi
-            // dans ce cas.
-            // ex: oscMIDI.playPatternOnRaspberry(i, DAWNote); // Joue DAWNote sur le Raspberry i
-            // Il faut ajouter un paramètre dans le descripteur pour faire la différence entre DAW et Raspberry
+            // Pour jouer les buffers sur Raspberries
+            if (par.useRaspberries !== undefined) {
+              // On teste chaque pattern, sendOSCRasp(message, value, port, IPaddress)
+              if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage, commandeDAW[11], par.raspOSCPort, commandeDAW[10]);
+              if (par.useRaspberries && !isNaN(commandeDAW[11])) {
+                oscMidi.sendOSCRasp(par.playBufferMessage, commandeDAW[11], par.raspOSCPort, commandeDAW[10]);
+              } else {
+                oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
+              }
+            } else {
+              // On est dans le cas sans Raspberry
+              oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
+              // Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
+            }
           }
 
           if (commandeDAW[6] % timerDivisionLocal !== 0) {

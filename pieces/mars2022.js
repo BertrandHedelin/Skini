@@ -98,6 +98,11 @@ Automate de gestion de la matrice des possibles
 exports.nbeDeGroupesClients = 3;
 exports.simulatorInAseperateGroup = false; // Si true, le dernier groupe client est réservé au simulateur.
 
+// Pour un contrôle des Raspberries
+exports.useRaspberries = true;
+exports.playBufferMessage = 'test';
+exports.raspOSCPort = 4000;
+
 function setnbeDeGroupesClients(num) {
   this.nbeDeGroupesClients = num;
 }

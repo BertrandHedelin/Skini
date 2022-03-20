@@ -67,7 +67,7 @@
           </block>
         </statement>
         <next>
-          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b">
+          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b" collapsed="true">
             <value name="NAME">
               <block type="variables_get" id="X!z@fX)h!sku}r([7R9u">
                 <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
@@ -94,6 +94,19 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -348,6 +361,19 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -366,6 +392,19 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -620,6 +659,19 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -638,6 +690,19 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -892,6 +957,19 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -910,6 +988,19 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     
                                                                     
                                                                     
@@ -1164,6 +1255,19 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
@@ -1248,51 +1352,62 @@
                                 <next>
                                   <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
                                     <statement name="BODY">
-                                      <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
+                                      <block type="set_group_during_ticks" id="W@+9?!k(ds}uCQK*}y]O" disabled="true">
                                         <field name="user_group">255</field>
                                         <field name="number_of_ticks">10</field>
                                         <value name="GROUPS">
-                                          <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
-                                            <mutation items="3"></mutation>
-                                            <value name="ADD0">
-                                              <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
-                                                <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
-                                              </block>
-                                            </value>
-                                            <value name="ADD1">
-                                              <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
-                                                <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
-                                              </block>
-                                            </value>
-                                            <value name="ADD2">
-                                              <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
-                                                <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
-                                              </block>
-                                            </value>
+                                          <block type="variables_get" id="1SXQ@{ZMhje_T;4ATHtn">
+                                            <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
-                                            <field name="TIMES">10</field>
-                                            <value name="SIGNAL">
-                                              <block type="variables_get" id="mQ-OewDt6sm)2k/_Q;6J">
-                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                              </block>
-                                            </value>
-                                            <statement name="BODY">
-                                              <block type="hh_run" id="R%hTA/3`%kz3-L$C@}c[">
-                                                <value name="MODULE">
-                                                  <block type="variables_get" id="T$WkeX3[nvTg6Ooqgd*b">
-                                                    <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                          <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
+                                            <field name="user_group">255</field>
+                                            <field name="number_of_ticks">10</field>
+                                            <value name="GROUPS">
+                                              <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
+                                                <mutation items="3"></mutation>
+                                                <value name="ADD0">
+                                                  <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
+                                                    <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
                                                   </block>
                                                 </value>
-                                                <value name="SIGNALS">
-                                                  <block type="variables_get" id="jEb/`op@;Yi#W+~O#!=j">
+                                                <value name="ADD1">
+                                                  <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
+                                                    <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD2">
+                                                  <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
+                                                    <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
+                                                <field name="TIMES">10</field>
+                                                <value name="SIGNAL">
+                                                  <block type="variables_get" id="mQ-OewDt6sm)2k/_Q;6J">
                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                   </block>
                                                 </value>
+                                                <statement name="BODY">
+                                                  <block type="hh_run" id="R%hTA/3`%kz3-L$C@}c[">
+                                                    <value name="MODULE">
+                                                      <block type="variables_get" id="T$WkeX3[nvTg6Ooqgd*b">
+                                                        <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="SIGNALS">
+                                                      <block type="variables_get" id="jEb/`op@;Yi#W+~O#!=j">
+                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
                                               </block>
-                                            </statement>
+                                            </next>
                                           </block>
                                         </next>
                                       </block>

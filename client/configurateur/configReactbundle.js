@@ -1,8 +1,13 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
-// To compile JSX to js, launch this in the terminal, in ./client/configurateur
-// npx babel --watch src --out-dir . --presets react-app/prod
-// Il faut aussi: browserify configReact.js -o configReactbundle.js
+/**
+ * @fileOverview Configurateur in React.js
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.2
+ * To compile JSX to js, launch this in the terminal, in ./client/configurateur
+ * npx babel --watch src --out-dir . --presets react-app/prod
+ * Il faut aussi: browserify configReact.js -o configReactbundle.js
+ */
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -95,7 +100,7 @@ function initWSSocket(host) {
         var options = {
           data: msgRecu.descriptors,
           minDimensions: [10, 10],
-          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }]
+          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
         break;
@@ -166,8 +171,8 @@ var Jspreadsheet = function (_React$Component2) {
       //obj.hideColumn(2);
       //obj.hideColumn(6);
       //obj.hideColumn(8);
-      obj.hideColumn(11);
-      obj.hideColumn(12);
+      //obj.hideColumn(11);
+      //obj.hideColumn(12);
     };
 
     _this3.componentDidMount = function () {
