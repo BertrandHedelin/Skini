@@ -33,6 +33,9 @@ for(var i=0; i < midiConfig.length; i++){
   }
 }
 
+exports.sessionPath = "./pieces/";
+exports.piecePath = "./pieces/";
+
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI
 exports.directMidiON = true;
@@ -84,7 +87,6 @@ ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
 PEUT SUPPRIMER DES PATTERNS DES FIFOs
 *****************************************/
 exports.algoGestionFifo = 0;
-
 exports.shufflePatterns = false;
 /*****************************************************************************
 
@@ -94,6 +96,11 @@ Automate de gestion de la matrice des possibles
 ******************************************************************************/
 exports.nbeDeGroupesClients = 3;
 exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
+
+// Pour un contrôle des Raspberries
+exports.useRaspberries = true;
+exports.playBufferMessage = 'test';
+exports.raspOSCPort = 4000;
 
 function setnbeDeGroupesClients(num){
   this.nbeDeGroupesClients = num;
@@ -139,9 +146,9 @@ const groupesDesSons = [
   ["groupe9",   8, "group", 540,580, 20, orange, [], 1 ],
   ["groupe10",  9, "group", 740,200, 20, marron, [], 1 ],
   ["groupe11",  10,"group", 760,340, 20, grisvert, [], 1 ],
-  ["groupe12",  11,"group", 780,340, 20, grisbleu, [], 1 ],
-  ["groupe13",  12,"group", 800,340, 20, ocre, [], 1 ],
-  ["groupe14",  13,"group", 820,340, 20, rose, [], 1 ]
+  ["groupe12",  11,"group", 170,340, 20, grisbleu, [], 1 ],
+  ["groupe13",  12,"group", 350,340, 20, ocre, [], 1 ],
+  ["groupe14",  13,"group", 540,340, 20, rose, [], 1 ]
 ];
 exports.groupesDesSons = groupesDesSons;
 

@@ -262,11 +262,39 @@ exports.sendOSCGame = sendOSCGame;
  * @param {number} Udp port
  * @param {string} IP address of the Raspberry
  */
-function sendOSCRasp(message, value, port, IPaddress) { // Value = table des données 
+function sendOSCRasp(message, bufferNum, port, IPaddress, level) {
   var buf;
   var commandeOSC = "/" + message;
-  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :" + IPaddress + " : " + commandeOSC + " : " + value);
-  //buf = osc.toBuffer({ address: commandeOSC, args: [value] });
-  //return udp.send(buf, 0, buf.length, port, IPaddress);
+  var commandeLevel = "/level"; // Temporairement en dur en attendant d'avoir le bon patch PureData
+  var defaultLevel = 70;
+
+  if(!isNaN(level)){
+    defaultLevel = level;
+  }
+
+  // Pour le moment en deux commandes une de niveau et une de jouer le buffer
+  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+    + IPaddress + " : " + commandeLevel + " : " + level + " : " + level);
+  buf = osc.toBuffer({
+    address: commandeLevel,
+    args: [
+      { type: 'integer', value: parseInt(level) },
+      { type: 'integer', value: 70 },
+      { type: 'integer', value: 120 },
+    ]
+  });
+  udp.send(buf, 0, buf.length, port, IPaddress);
+
+  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+    + IPaddress + " : " + commandeOSC + " : " + bufferNum + " : " + level);
+  buf = osc.toBuffer({
+    address: commandeOSC,
+    args: [
+      { type: 'integer', value: parseInt(bufferNum) },
+      { type: 'integer', value: 70 },
+      { type: 'integer', value: 120 },
+    ]
+  });
+  return udp.send(buf, 0, buf.length, port, IPaddress);
 };
 exports.sendOSCRasp = sendOSCRasp;

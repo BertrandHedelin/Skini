@@ -90,7 +90,7 @@ function initWSSocket(host) {
         par = msgRecu.value;
         var options = {
           data: msgRecu.descriptors,
-          minDimensions: [10, 10],
+          minDimensions: [14, 14],
           columns: [
             { type: 'text', width: 80, title: 'Note' },
             { type: 'text', width: 80, title: 'Note stop' },
@@ -104,7 +104,8 @@ function initWSSocket(host) {
             { type: 'text', width: 80, title: 'Group' },
             { type: 'text', width: 80, title: 'Duration' },
             { type: 'text', width: 100, title: 'IP address' },
-            { type: 'text', width: 80, title: 'Buffer num' }
+            { type: 'text', width: 80, title: 'Buffer num' },
+            { type: 'text', width: 80, title: 'Level' }
           ]
         };
         ReactDOM.render(<Jspreadsheet options={options} />, document.getElementById('spreadsheet'));

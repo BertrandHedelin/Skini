@@ -124,12 +124,14 @@ function loadDAWTable(fichier) {
           data[i][2] = parseInt(data[i][2]);
           // On ne refomate pas les 3 et 4 qui restent des chaines de caractères
 
-          for (var j = 5; j < 11; j++) {  // Nbe de colones dans le tableau
+          for (var j = 5; j < 11; j++) {
             data[i][j] = parseInt(data[i][j]);
           }
 
-          // On ne reformate pas l'adresse IP en 11, mais le numéro de buffer en 12.
+          // On ne reformate pas l'adresse IP en 11, mais le numéro de buffer en 12
+          // et le niveau en 13
           if (data[i][12] !== undefined) data[i][12] = parseInt(data[i][12]);
+          if (data[i][13] !== undefined) data[i][13] = parseInt(data[i][13]);
 
           tableDesCommandes.push(data[i]); // ajoute la ligne au tableau
           // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
@@ -301,6 +303,7 @@ function putPatternInQueue(patternName) {
     var id = 0;
     var adresseIP = commande[11];
     var numeroBuffer = commande[12];
+    var patternLevel = commande[13];
 
     // Contient le signal et le pattern
     var signalComplet = { [signal]: nom };
@@ -310,7 +313,7 @@ function putPatternInQueue(patternName) {
     //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
     var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
       DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre,
-      adresseIP, numeroBuffer);
+      adresseIP, numeroBuffer, patternLevel);
   } else {
     console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
     return undefined;
@@ -338,17 +341,18 @@ exports.putPatternInQueue = putPatternInQueue;
  * @param  {number} typePattern (9)
  * @param  {string} IPaddress (10)
  * @param  {number} bufferNumber (11)
+ * @param  {number} pattern level (12)
  */
 function pushEventDAW(bus, channel, instrument, note, velocity,
   wsid, pseudo, dureeClip, nom, signal, typePattern,
-  adresseIP, numeroBuffer) {
+  adresseIP, numeroBuffer, patternLevel) {
 
   var dureeAttente = 0;
   var messageLog = { date: "" };
 
   if (debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel,
     instrument, note, velocity, wsid, pseudo, nom, signal, typePattern,
-    adresseIP, numeroBuffer);
+    adresseIP, numeroBuffer, patternLevel);
 
   var longeurDeLafile = filesDattente[instrument].length;
 
@@ -363,25 +367,25 @@ function pushEventDAW(bus, channel, instrument, note, velocity,
     // Le serveur nomme le pattern "void" quand il s'agit d'un pattern qu'on ne doit pas jouer.
     // et qui sert à permettre au musicien de se préparer.
     // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
-    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void"]);
+    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void", "void"]);
   }
 
   if (par.algoGestionFifo !== undefined) {
     if (par.algoGestionFifo === 1) {
       // Ici on prend en compte le type de pattern pour le placer dans la Fifo
       ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid,
-        pseudo, dureeClip, nom, signal, typePattern, adresseIP, numeroBuffer]);
+        pseudo, dureeClip, nom, signal, typePattern, adresseIP, numeroBuffer, patternLevel]);
     } else {
       // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
       filesDattente[instrument].push([bus, channel, note, velocity,
         wsid, pseudo, dureeClip, nom, signal, '',
-        adresseIP, numeroBuffer]); // Push à la fin du tableau
+        adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
     }
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
     filesDattente[instrument].push([bus, channel, note, velocity,
       wsid, pseudo, dureeClip, nom, signal, '',
-      adresseIP, numeroBuffer]); // Push à la fin du tableau
+      adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
   }
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
@@ -539,10 +543,13 @@ function playAndShiftEventDAW(timerDivision) {
 
             // Pour jouer les buffers sur Raspberries
             if (par.useRaspberries !== undefined) {
-              // On teste chaque pattern, sendOSCRasp(message, value, port, IPaddress)
-              if(debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage, commandeDAW[11], par.raspOSCPort, commandeDAW[10]);
+              // On teste chaque pattern avant sendOSCRasp(message, value, port, IPaddress, level)
+              if (debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage,
+               commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               if (par.useRaspberries && !isNaN(commandeDAW[11])) {
-                oscMidi.sendOSCRasp(par.playBufferMessage, commandeDAW[11], par.raspOSCPort, commandeDAW[10]);
+                 oscMidi.sendOSCRasp(par.playBufferMessage, 
+                  commandeDAW[11],
+                  par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               } else {
                 oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
               }
