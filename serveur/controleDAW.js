@@ -543,11 +543,11 @@ function playAndShiftEventDAW(timerDivision) {
 
             // Pour jouer les buffers sur Raspberries
             if (par.useRaspberries !== undefined) {
-              // On teste chaque pattern avant sendOSCRasp(message, value, port, IPaddress, level)
+              // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level)
               if (debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage,
                commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               if (par.useRaspberries && !isNaN(commandeDAW[11])) {
-                 oscMidi.sendOSCRasp(par.playBufferMessage, 
+                 oscMidi.playOSCRasp(par.playBufferMessage, 
                   commandeDAW[11],
                   par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               } else {

@@ -516,6 +516,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "send_OSC_command"
+          },
+          {
+            "kind": "block",
             "type": "transpose_parameters"
           },
           {

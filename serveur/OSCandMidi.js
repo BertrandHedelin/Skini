@@ -256,13 +256,14 @@ function sendOSCGame(message, value) { // Value = table des données
 exports.sendOSCGame = sendOSCGame;
 
 /**
- * To send OSC message to a Raspberry
+ * To play a buffer via OSC message in a Raspberry
  * @param {string} message
- * @param {number} value
+ * @param {number} buffer num
  * @param {number} Udp port
  * @param {string} IP address of the Raspberry
+ * @param {number} level of the pattern
  */
-function sendOSCRasp(message, bufferNum, port, IPaddress, level) {
+function playOSCRasp(message, bufferNum, port, IPaddress, level) {
   var buf;
   var commandeOSC = "/" + message;
   var commandeLevel = "/level"; // Temporairement en dur en attendant d'avoir le bon patch PureData
@@ -273,7 +274,7 @@ function sendOSCRasp(message, bufferNum, port, IPaddress, level) {
   }
 
   // Pour le moment en deux commandes une de niveau et une de jouer le buffer
-  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+  if (debug1) console.log("LogosOSCandMidi: play osc to Rapsberry :"
     + IPaddress + " : " + commandeLevel + " : " + level + " : " + level);
   buf = osc.toBuffer({
     address: commandeLevel,
@@ -285,12 +286,37 @@ function sendOSCRasp(message, bufferNum, port, IPaddress, level) {
   });
   udp.send(buf, 0, buf.length, port, IPaddress);
 
-  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+  if (debug1) console.log("LogosOSCandMidi: play osc to Rapsberry :"
     + IPaddress + " : " + commandeOSC + " : " + bufferNum + " : " + level);
   buf = osc.toBuffer({
     address: commandeOSC,
     args: [
       { type: 'integer', value: parseInt(bufferNum) },
+      { type: 'integer', value: 70 },
+      { type: 'integer', value: 120 },
+    ]
+  });
+  return udp.send(buf, 0, buf.length, port, IPaddress);
+};
+exports.playOSCRasp = playOSCRasp;
+
+/**
+ * To send OSC message to a Raspberry
+ * @param {string} message
+ * @param {number} value
+ * @param {number} Udp port
+ * @param {string} IP address of the Raspberry
+ */
+ function sendOSCRasp(message, value1, port, IPaddress) {
+  var buf;
+  var commandeOSC = message;
+
+  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+    + IPaddress + " : " + port + " : " + commandeOSC + " : " + value1);
+  buf = osc.toBuffer({
+    address: commandeOSC,
+    args: [
+      { type: 'integer', value: parseInt(value1) },
       { type: 'integer', value: 70 },
       { type: 'integer', value: 120 },
     ]

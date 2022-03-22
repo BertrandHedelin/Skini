@@ -59,6 +59,25 @@ function saisiCC() {
 }
 window.saisiCC = saisiCC;
 
+function saisiOSC(){
+  let IpOSC = document.getElementById("IpOSC").value;
+  let messageOSC = document.getElementById("messageOSC").value;
+  let value1OSC = document.getElementById("val1OSC").value;
+
+  if (IpOSC != '' && messageOSC != '' && value1OSC != '') {
+    var msg = {
+      type: "sendOSC",
+      IpAddress: IpOSC,
+      message: "/" + messageOSC,
+      value1: value1OSC
+    }
+    ws.send(JSON.stringify(msg));
+  } else {
+    alert("OSC command incomplete");
+  }
+}
+window.saisiOSC = saisiOSC;
+
 function initWSSocket(host) {
 
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);

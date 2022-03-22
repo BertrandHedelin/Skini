@@ -407,9 +407,9 @@ function startWebSocketServer() {
 
     //offsetDivision = timerDivision/2;
     // actionOnTick() is called based on the tick not the pulse issued from the synchro.
-      if (compteurDivisionMesure === 0) {  // offsetDivision
-        actionOnTick(timerDivision);
-      }
+    if (compteurDivisionMesure === 0) {  // offsetDivision
+      actionOnTick(timerDivision);
+    }
     // Ceci est la définition du tick de l'orchestration
     // Il s'agit d'une conversion de la pulsation MIDI ou worker en "tick".
     compteurDivisionMesure = (compteurDivisionMesure + 1) % timerDivision;
@@ -1243,6 +1243,11 @@ maybe an hiphop compile Error.
           }
           break;
 
+        case "sendOSC":
+          oscMidiLocal.sendOSCRasp(msgRecu.message, msgRecu.value1,
+            par.raspOSCPort, msgRecu.IpAddress);
+          break;
+          
         case "sendPatternSequence":
           var patternSequence = msgRecu.patternSequence;
 

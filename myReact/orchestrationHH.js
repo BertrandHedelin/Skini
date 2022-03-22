@@ -1,4 +1,4 @@
-var loopFM8, tick, loopBiopoly, loopCapa, loopMassiveX, groupe12, groupe7, groupe7IN, groupe8, groupe6, groupe9, groupe10, groupe11;
+var loopFM8, tick, loopBiopoly, loopCapa, loopMassiveX, groupe7, groupe7IN, groupe12, groupe8, groupe6, groupe9, groupe10, groupe11;
 
 
 
@@ -673,7 +673,21 @@ var orchestration = hh.MODULE(
           }
         }
       ),
-  // Séquence techno
+
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        oscMidiLocal.sendOSCRasp(
+        'level',
+        71,
+        par.raspOSCPort,
+        '192.168.1.28');
+        }
+      }
+    ),
+    // Séquence techno
 
         hh.SEQUENCE(
             {
@@ -899,9 +913,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap387305":"trap387305",
+            "trap124695":"trap124695",
             "%location":{},
-            "%tag":"trap387305"
+            "%tag":"trap124695"
           },
           hh.FORK(
             {
@@ -997,7 +1011,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap387305":"trap387305",
+    		          "trap124695":"trap124695",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -1014,9 +1028,9 @@ var orchestration = hh.MODULE(
 
         hh.TRAP(
           {
-            "trap206985":"trap206985",
+            "trap969181":"trap969181",
             "%location":{},
-            "%tag":"trap206985"
+            "%tag":"trap969181"
           },
           hh.FORK(
             {
@@ -1112,7 +1126,7 @@ var orchestration = hh.MODULE(
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap206985":"trap206985",
+    		          "trap969181":"trap969181",
     		          "%location":{},
     		          "%tag":"break"
     		        }
