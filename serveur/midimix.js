@@ -14,17 +14,31 @@
  * @version 1.3
  */
 "use strict"
+var debug = false;
+var debug1 = true;
 
 var param;
+var synchroLink = false;
+var websocketServer;
+var socketOpen = false;
+
 /**
- * Set the bridge between the orchestration and MIDI devices
- * @param  {machine} machineServeur - the orchestration
- * @param  {websocketServer} websocketServer - the websocket server program
- */
+* Set the parameters
+* @param  {array} list of parameters
+*/
 function setParameters(parameters) {
   param = parameters;
 }
 exports.setParameters = setParameters;
+
+/**
+* Set the websocket server module
+* @param  {object} module
+*/
+function setWebSocketServer(socketServer) {
+  websocketServer = socketServer;
+}
+exports.setWebSocketServer = setWebSocketServer;
 
 /** @namespace midimix */
 /**
@@ -33,16 +47,13 @@ exports.setParameters = setParameters;
  * @param {object} machineServeur
  * @param {websocket} websocketServer 
  */
-function midimix(machineServeur, websocketServer) {
-
+//function midimix(machineServeur, websocketServer) {
+function midimix(machineServeur) {
   var par = require('./ipConfig');
   var osc = require('osc-min');
   var dgram = require("dgram");
   var sock = dgram.createSocket('udp4');
   var midiConfig = require("./midiConfig.json");
-
-  var debug = false;
-  var debug1 = true;
 
   var previousNote = 0;
   var previousNotes = [0, 0, 0];
@@ -54,12 +65,42 @@ function midimix(machineServeur, websocketServer) {
   var timeStamp;
   var noteSkini;
 
+  // Pour la synchro via Ableton Link.
+  if (param.synchroLink !== undefined) {
+    if (param.synchroLink) synchroLink = true;
+  }
+
+  if (synchroLink && !socketOpen) {
+    console.log("INFO: Synchro Ableton Link");
+    const abletonlink = require('abletonlink');
+    const link = new abletonlink();
+    let localBeat = 0;
+    let instantBeat = 0;
+
+    link.startUpdate(100, (beat, phase, bpm) => {
+      instantBeat = Math.round(beat);
+      if (localBeat !== instantBeat) {
+        if (debug1) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
+        localBeat = instantBeat;
+        websocketServer.sendOSCTick();
+      }
+    });
+  }
+
+  // Pour la synchro MIDI
+  var synchroMidi = false;
+  if (param.synchoOnMidiClock !== undefined) {
+    if (param.synchoOnMidiClock) synchroMidi = true;
+  }
+
   // Pour commande direct de Skini en MIDI sans passer par une passerèle ====================
   // Par défaut on communique en OSC avec la DAW ou la passerèle
   var directMidi = false;
   if (param.directMidiON !== undefined) {
     if (param.directMidiON) directMidi = true;
   }
+
+  if (synchroMidi && synchroLink) console.log("WARN: Two synchronisations activated MIDI and Link");
 
   if (debug) console.log("========= directMidi dans midimix:", directMidi);
 
@@ -268,7 +309,7 @@ function midimix(machineServeur, websocketServer) {
             //console.log('Sync recieved :' + message + ' d:' + deltaTime);
             if (debug) console.log("midimix 1 : Tick", message[0]);
             // Test pour éviter une "double synchro en OSC est en MIDI"
-            if (param.synchoOnMidiClock) {
+            if (synchroMidi) {
               websocketServer.sendOSCTick();
             }
             tempoTickDuration = 0;
@@ -323,6 +364,8 @@ function midimix(machineServeur, websocketServer) {
   * @param {number} Skini Note
   * @inner
   */
+  sock.close();
+
   sock = dgram.createSocket("udp4", function (msg, rinfo) {
     var error, message;
     try {
@@ -435,9 +478,9 @@ function midimix(machineServeur, websocketServer) {
         case "/AbletonTick":
         case "/BitwigTick":
           if (debug) console.log("midimix 2: bitwig tick: ", message.args[0].value);
-          // Test pour éviter une "double synchro en OSC est en MIDI", si on oublie
-          // de déscativer l'une ou l'autre dans la DAW.
-          if (!param.synchoOnMidiClock) {
+          // Test pour éviter une "double synchro en OSC et en MIDI ou Link, si on oublie
+          // de désactiver l'une ou l'autre dans la DAW.
+          if (!synchroMidi && !synchroLink) {
             websocketServer.sendOSCTick();
           }
           break;
@@ -458,6 +501,9 @@ function midimix(machineServeur, websocketServer) {
     if (debug1) console.log('INFO: midimix.js: UDP Server listening on ' + address.address + ":" + address.port);
   });
 
-  sock.bind(par.InPortOSCMIDIfromDAW, par.serverIPAddress);
+  if (!socketOpen) {
+    sock.bind(par.InPortOSCMIDIfromDAW, par.serverIPAddress);
+    socketOpen = true;
+  }
 }
 exports.midimix = midimix;

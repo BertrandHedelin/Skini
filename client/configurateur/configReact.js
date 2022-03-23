@@ -88,6 +88,8 @@ window.saisiOSC = saisiOSC;
 
 function initWSSocket(host) {
 
+  window.resizeTo(900, 600);
+
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);
   console.log("configurateur ws://" + host + ":" + ipConfig.websocketServeurPort);
 

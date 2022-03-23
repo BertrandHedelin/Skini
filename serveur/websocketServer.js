@@ -67,7 +67,6 @@ function reloadParameters(param) {
   midimix.setParameters(param);
   initMidiPort();
 }
-exports.setParameters = setParameters;
 
 // const arrayToCSV = (arr, delimiter = ',') =>
 //   arr
@@ -1105,6 +1104,9 @@ maybe an hiphop compile Error.
             console.log("Pb ecriture", destination, err);
           }
 
+          // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
+          midimix.midimix(automatePossibleMachine);
+
           msg = {
             type: "consoleBlocklySkini",
             text: "Orchestration loaded"
@@ -1247,7 +1249,7 @@ maybe an hiphop compile Error.
           oscMidiLocal.sendOSCRasp(msgRecu.message, msgRecu.value1,
             par.raspOSCPort, msgRecu.IpAddress);
           break;
-          
+
         case "sendPatternSequence":
           var patternSequence = msgRecu.patternSequence;
 
@@ -1348,8 +1350,11 @@ maybe an hiphop compile Error.
           if (DAWTableReady) {
             if (debug) console.log("INFO: webSocketServeur:startAutomate: DAWstatus:", DAWStatus);
             reactAutomatePossible({ start: undefined });
-            if (!par.synchoOnMidiClock) {
+
+            // S'il n'y a pas de synchro Midi ni Link on lance un worker
+            if (!par.synchoOnMidiClock && !par.synchroLink && par.synchroSkini) {
               //setMonTimer(timerSynchro); // En local pas utile avec les workers
+              if (debug1) console.log("websocketserver: startAutomate:worker synchro");
               workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
             }
           }

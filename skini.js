@@ -29,11 +29,8 @@ function startSkini() {
   // DAW and groupesClientsSons
   ws.setParameters(par, oscReceiveDAW);
 
-  // Share parameters in midimix
-  oscReceiveDAW.setParameters(par);
-  oscReceiveDAW.midimix(machineServeur, ws);
-
-  var machineServeur = 0;
+  // Share ws server in midimix
+  oscReceiveDAW.setWebSocketServer(ws);
 
   // AFFICHAGE DU CONTEXTE =================================================
 
