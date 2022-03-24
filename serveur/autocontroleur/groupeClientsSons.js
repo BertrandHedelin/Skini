@@ -49,10 +49,11 @@ var fs = require("fs");
 var serv;
 exports.serv = serv;
 
+var midimix;
 var orchestration;
 var groupesClient;
 var matriceDesPossibles;
-var timerDivision; // Nombre de pulses par tick, doit rester undefined si pas mis à jour par les automates
+var timerDivision; // Nombre de pulses par tick, doit rester undefined si pas à jour par les automates
 var nbeDeGroupesSons = 0;
 var nombreDePatternsPossibleEnListe = [[3, 255]]; // init pour client memorySortable
 
@@ -99,6 +100,16 @@ function initBroadCastServer(serveur) {
   serv = serveur;
 }
 exports.initBroadCastServer = initBroadCastServer;
+
+/**
+ * Set midimix to allow access to Ableton Link
+ * from the orchestration.
+ * @param {object} midimix reference
+ */
+function setMidimix(mix){
+  midimix = mix;
+}
+exports.setMidimix = setMidimix;
 
 /*===========================================================================
 setClientsEncours et getClientsEncours
@@ -380,7 +391,6 @@ function setpatternListLength(param) {
   sendMessage(nombreDePatternsPossibleEnListe);
 }
 exports.setpatternListLength = setpatternListLength;
-
 
 /*********************************************************
 
@@ -892,7 +902,7 @@ function makeOneAutomatePossibleMachine() {
   }
 
   // Pour permettre les broadcasts et autres depuis l'orchestration
-  orchestration.setServ(serv, DAW, this, oscMidiLocal, par);
+  orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
 
   // Compilation HH
   var machine = orchestration.setSignals();

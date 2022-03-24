@@ -43,6 +43,7 @@ function setParameters(midimixage) {
   //DAW.setParameters(param); //!!!!
 
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
+  groupesClientSon.setMidimix(midimix);
   //groupesClientSon.setParameters(param); //!!!!
 
   // if (par.sessionPath !== undefined) {
@@ -1117,7 +1118,7 @@ maybe an hiphop compile Error.
           reloadParameters(par);
 
           // On crée le fichier pour son utilisation par l'orchestration.
-          let destination = "./serveur/skiniParametres.js"
+          let destination = "./serveur/skiniParametres.js";
           try {
             fs.copyFileSync(sessionPath + msgRecu.fileName.slice(0, -4) + ".js", destination);
           } catch (err) {

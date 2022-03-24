@@ -24,3 +24,6 @@ link.on('numPeers', (numPeers) => console.log("numPeers", numPeers));
 //     const phase = link.phase;
 //     const bpm = link.bpm;
 // }
+setInterval(() => {
+  link.bpm = link.bpm + 1;
+}, 3000);

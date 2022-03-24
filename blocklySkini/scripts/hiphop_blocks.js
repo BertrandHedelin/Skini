@@ -4139,7 +4139,12 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
   var code = `
 "use strict";
 var hh = require("../hiphop/hiphop.js");
+
+// C'est la seule façon d'échanger les paramètres nécessaires à la compilation
+// lors de la création des signaux.
 var par = require('../serveur/skiniParametres');
+
+var midimix;
 var oscMidiLocal;
 
 var gcs;
@@ -4156,17 +4161,23 @@ var tempoMax = 160;
 var tempoMin = 40;
 var tempoGlobal = 60;
 
-function setServ(ser, daw, groupeCS, oscMidi, param){
+function setServ(ser, daw, groupeCS, oscMidi, mix){
   //console.log("hh_ORCHESTRATION: setServ");
-  par = param;
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
   oscMidiLocal = oscMidi;
+  midimix = mix;
 }
 exports.setServ = setServ;
 
 function setTempo(value){
+  if(midimix.getAbletonLinkStatus()) {
+    if(debug) console.log("ORCHESTRATION: tempo Link:", value);
+    midimix.setTempoLink(value);
+    return;
+  }
+
   tempoGlobal = value;
   if ( value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);

@@ -40,6 +40,16 @@ function setWebSocketServer(socketServer) {
 }
 exports.setWebSocketServer = setWebSocketServer;
 
+/**
+ * Give the status of Ableton link
+ * true if activated
+ * @returns {boolean} status
+ */
+function getAbletonLinkStatus() {
+  return synchroLink;
+}
+exports.getAbletonLinkStatus = getAbletonLinkStatus;
+
 /** @namespace midimix */
 /**
  * Process the MIDI and OSC messages received from the DAW to send it to the orchestration.
@@ -64,6 +74,7 @@ function midimix(machineServeur) {
   var canal;
   var timeStamp;
   var noteSkini;
+  let link;
 
   // Pour la synchro via Ableton Link.
   if (param.synchroLink !== undefined) {
@@ -73,7 +84,7 @@ function midimix(machineServeur) {
   if (synchroLink && !socketOpen) {
     console.log("INFO: Synchro Ableton Link");
     const abletonlink = require('abletonlink');
-    const link = new abletonlink();
+    link = new abletonlink();
     let localBeat = 0;
     let instantBeat = 0;
 
@@ -86,6 +97,21 @@ function midimix(machineServeur) {
       }
     });
   }
+
+  /**
+  * To set the tempo when synchro using Ableton Link
+  * @function
+  * @param {number} tempo
+  * @memberof midimix
+  * @inner
+  */
+  function setTempoLink(tempo) {
+    if (link !== undefined) {
+      link.bpm = tempo;
+      if(debug) console.log("midimix.js: setTempolink:", tempo);
+    }
+  }
+  exports.setTempoLink = setTempoLink;
 
   // Pour la synchro MIDI
   var synchroMidi = false;
