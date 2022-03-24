@@ -28,7 +28,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * @fileOverview Control of the DAW
- * @author Bertrand Hédelin © Copyright 2018-2021
+ * @author Bertrand Hédelin © Copyright 2018-2022
  * @version node.js 1.1
  */
 
@@ -58,8 +58,8 @@ var filesDattente = [[], [], [], [], [], [], [], [], [], [],
 
 var filesDattenteJouables = new Array(filesDattente.length);
 
-// Il en faut autant que de files d'attente
-var compteursDattente = []; //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// Il y en aura autant que de files d'attente
+var compteursDattente = [];
 
 var nbeDeFileDattentes = 0;
 var nbeDeSonsCorrespondantAuxCritres = 0;
@@ -145,16 +145,21 @@ function loadDAWTable(fichier) {
     tableDesCommandes = new Array();
     csv.parseCSV(fichier, function (data) {
       try {
-        // Pour reformater le tableau socker en CSV
+        // Pour reformater le tableau stocké en CSV
         for (var i = 0; i &lt; data.length; i++) {
           data[i][0] = parseInt(data[i][0]);
           data[i][1] = parseInt(data[i][1]);
           data[i][2] = parseInt(data[i][2]);
           // On ne refomate pas les 3 et 4 qui restent des chaines de caractères
 
-          for (var j = 5; j &lt; 11; j++) {  // Nbe de colones dans le tableau
+          for (var j = 5; j &lt; 11; j++) {
             data[i][j] = parseInt(data[i][j]);
           }
+
+          // On ne reformate pas l'adresse IP en 11, mais le numéro de buffer en 12
+          // et le niveau en 13
+          if (data[i][12] !== undefined) data[i][12] = parseInt(data[i][12]);
+          if (data[i][13] !== undefined) data[i][13] = parseInt(data[i][13]);
 
           tableDesCommandes.push(data[i]); // ajoute la ligne au tableau
           // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
@@ -226,7 +231,7 @@ exports.displaySession = displaySession;
  * Get the ongoing pattern description (of the csv file loaded). 
  * @returns {array} patterns descriptors
  */
-function getSession(){
+function getSession() {
   return tableDesCommandes;
 }
 exports.getSession = getSession;
@@ -324,6 +329,9 @@ function putPatternInQueue(patternName) {
     var dureeClip = commande[10];
     var signal = groupesClientSon.getSignalFromGroup(commande[9]) + "IN";
     var id = 0;
+    var adresseIP = commande[11];
+    var numeroBuffer = commande[12];
+    var patternLevel = commande[13];
 
     // Contient le signal et le pattern
     var signalComplet = { [signal]: nom };
@@ -332,8 +340,8 @@ function putPatternInQueue(patternName) {
     //if(debug1) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal);
     //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
     var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
-      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
-
+      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre,
+      adresseIP, numeroBuffer, patternLevel);
   } else {
     console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
     return undefined;
@@ -359,12 +367,21 @@ exports.putPatternInQueue = putPatternInQueue;
  * @param  {string} nom (7)
  * @param  {string} signal (8)
  * @param  {number} typePattern (9)
+ * @param  {string} IPaddress (10)
+ * @param  {number} bufferNumber (11)
+ * @param  {number} pattern level (12)
  */
-function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern) {
+function pushEventDAW(bus, channel, instrument, note, velocity,
+  wsid, pseudo, dureeClip, nom, signal, typePattern,
+  adresseIP, numeroBuffer, patternLevel) {
+
   var dureeAttente = 0;
   var messageLog = { date: "" };
 
-  if (debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel, instrument, note, velocity, wsid, pseudo, nom, signal, typePattern);
+  if (debug) console.log("ControleDAW.js: pushEventDAW ", bus, channel,
+    instrument, note, velocity, wsid, pseudo, nom, signal, typePattern,
+    adresseIP, numeroBuffer, patternLevel);
+
   var longeurDeLafile = filesDattente[instrument].length;
 
   // Scénario spécifique pour les interfaces avec les musiciens.
@@ -378,20 +395,25 @@ function pushEventDAW(bus, channel, instrument, note, velocity, wsid, pseudo, du
     // Le serveur nomme le pattern "void" quand il s'agit d'un pattern qu'on ne doit pas jouer.
     // et qui sert à permettre au musicien de se préparer.
     // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
-    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void"]);
+    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void", "void"]);
   }
 
   if (par.algoGestionFifo !== undefined) {
     if (par.algoGestionFifo === 1) {
       // Ici on prend en compte le type de pattern pour le placer dans la Fifo
-      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]);
+      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid,
+        pseudo, dureeClip, nom, signal, typePattern, adresseIP, numeroBuffer, patternLevel]);
     } else {
       // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
-      filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+      filesDattente[instrument].push([bus, channel, note, velocity,
+        wsid, pseudo, dureeClip, nom, signal, '',
+        adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
     }
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
-    filesDattente[instrument].push([bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]); // Push à la fin du tableau
+    filesDattente[instrument].push([bus, channel, note, velocity,
+      wsid, pseudo, dureeClip, nom, signal, '',
+      adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
   }
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
@@ -518,6 +540,7 @@ function playAndShiftEventDAW(timerDivision) {
 
         // Si l'attente est à 0 on joue le clip suivant
         if (compteursDattente[i] === 0) {
+
           //Passe au clip suivant
           commandeDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
 
@@ -526,7 +549,8 @@ function playAndShiftEventDAW(timerDivision) {
           if (debug) console.log("---1 ControleDAW.js:commande:", commandeDAW[7], "compteursDattente[i]:", compteursDattente[i]);
 
           // On peut envoyer l'évènement à DAW
-          if (debug) console.log("--- ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER"); //, commandeDAW);
+          if (debug) console.log("--- ControleDAW.js : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW);
+
           // Log pour analyse a posteriori
           messageLog.source = "controleDAW.js";
           messageLog.type = "COMMANDE DAW ENVOYEE";
@@ -544,14 +568,24 @@ function playAndShiftEventDAW(timerDivision) {
           // On fait rien pour la DAW.
           // !! à vérifier.
           if (commandeDAW[2] >= 0) {
-            oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
-            // Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
 
-            // Pour des Raspberries c'est ici qu'il faudra appeler une fonction spécifique avec l'instrument, ici
-            // l'index i, et DAWNote pour le son piloté par la commande OSC. On n'utilisera pas le bus midi, ni le canal midi
-            // dans ce cas.
-            // ex: oscMIDI.playPatternOnRaspberry(i, DAWNote); // Joue DAWNote sur le Raspberry i
-            // Il faut ajouter un paramètre dans le descripteur pour faire la différence entre DAW et Raspberry
+            // Pour jouer les buffers sur Raspberries
+            if (par.useRaspberries !== undefined) {
+              // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level)
+              if (debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage,
+               commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
+              if (par.useRaspberries &amp;&amp; !isNaN(commandeDAW[11])) {
+                 oscMidi.playOSCRasp(par.playBufferMessage, 
+                  commandeDAW[11],
+                  par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
+              } else {
+                oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
+              }
+            } else {
+              // On est dans le cas sans Raspberry
+              oscMidi.sendNoteOn(commandeDAW[0], commandeDAW[1], commandeDAW[2], commandeDAW[3]);
+              // Rappel des paramètres oscMidi: par.busMidiDAW, DAWChannel, DAWNote, velocity
+            }
           }
 
           if (commandeDAW[6] % timerDivisionLocal !== 0) {
@@ -1027,13 +1061,13 @@ function ordonneFifo(fifo, pattern) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 10 2022 15:45:44 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 24 2022 11:52:09 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,9 +1,9 @@
 /**
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
- * Most of the API and functions here are local and not described in jsdoc.
+ * Most of the API and functions here are local.
  * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
- * @version 1.2
+ * @version 1.3
  */
 'use strict'
 
@@ -27,29 +27,30 @@ var sessionPath = "./pieces/";
 var piecePath = "./pieces/";
 
 /**
- * To load some modules and share the parameters among these modules.
- * @param {Object} param 
+ * To load some modules.
+ * Used only at Skini launch.
+ * @param {Object} midimix reference
  */
-function setParameters(param, midimixage) {
-  par = param;
+function setParameters(midimixage) {
+  //par = param;
   midimix = midimixage;
-  midimix.setParameters(param);
+  //midimix.setParameters(param); // !!!!
 
   oscMidiLocal = require('./OSCandMidi');
-  oscMidiLocal.setParameters(param);
+  //oscMidiLocal.setParameters(param); //!!!!
 
   DAW = require('./controleDAW');
-  DAW.setParameters(param);
+  //DAW.setParameters(param); //!!!!
 
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
-  groupesClientSon.setParameters(param);
+  //groupesClientSon.setParameters(param); //!!!!
 
-  if (par.sessionPath !== undefined) {
-    sessionPath = par.sessionPath;
-  }
-  if (par.piecePath !== undefined) {
-    piecePath = par.piecePath;
-  }
+  // if (par.sessionPath !== undefined) {
+  //   sessionPath = par.sessionPath;
+  // }
+  // if (par.piecePath !== undefined) {
+  //   piecePath = par.piecePath;
+  // } //!!!!
 
   initMidiPort();
   startWebSocketServer();
@@ -61,10 +62,25 @@ exports.setParameters = setParameters;
  * @param {object} param 
  */
 function reloadParameters(param) {
+  //!!!!
+  if (par.sessionPath !== undefined) {
+    sessionPath = par.sessionPath;
+  }
+  if (par.piecePath !== undefined) {
+    piecePath = par.piecePath;
+  }
+
   oscMidiLocal.setParameters(param);
   DAW.setParameters(param);
   groupesClientSon.setParameters(param);
   midimix.setParameters(param);
+
+  if (param.sessionPath !== undefined) {
+    sessionPath = param.sessionPath;
+  }
+  if (param.piecePath !== undefined) {
+    piecePath = param.piecePath;
+  }
   initMidiPort();
 }
 
@@ -159,12 +175,14 @@ var currentTimeMidi = 0;
  * Init MIDI OUT port if defined in the parameters
  */
 function initMidiPort() {
-  var directMidi = false;
-  if (par.directMidiON !== undefined) {
-    directMidi = par.directMidiON;
-  }
-  if (directMidi) {
-    oscMidiLocal.initMidiOUT();
+  if (par !== undefined) {
+    var directMidi = false;
+    if (par.directMidiON !== undefined) {
+      directMidi = par.directMidiON;
+    }
+    if (directMidi) {
+      oscMidiLocal.initMidiOUT();
+    }
   }
 }
 
@@ -451,9 +469,10 @@ function startWebSocketServer() {
 
   if (debug) console.log("websocketserver:automatePossibleMachine: passé");
 
-  if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {
-    //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
-  }
+  // Pas au bon endroit, musicien pas en place dans cette version
+  //if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {
+  //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
+  //}
 
   /**
    * Initialisation if the "matrice des possibles" which is a two dimensional array for
@@ -483,13 +502,14 @@ function startWebSocketServer() {
       nbeDeGroupesSons: nbeDeGroupesSons
     }
 
-    if (socketControleur.readyState == 1) {
-      socketControleur.send(JSON.stringify(mesReponse));
-    } else {
-      console.log("ERR: websocketserveur:initMatriceDesPossibles:", socketControleur.readyState);
+    if (socketControleur !== undefined) {
+      if (socketControleur.readyState == 1) {
+        socketControleur.send(JSON.stringify(mesReponse));
+      } else {
+        console.log("ERR: websocketserveur:initMatriceDesPossibles:", socketControleur.readyState);
+      }
     }
   }
-
   /**
    * Action called every quarter note of the MIDI synchro or worker synchro if no MIDI sync.
    * @memberof Websocketserver
@@ -1384,6 +1404,11 @@ maybe an hiphop compile Error.
           break;
 
         case "startSpectateur": // On récupère l'ID du client
+          if (par === undefined) {
+            console.log("WARN: A client try to connect but no piece launched");
+            break;
+          }
+
           ws.id = msgRecu.id;
           if (debug1) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 

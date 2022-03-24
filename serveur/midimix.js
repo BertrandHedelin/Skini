@@ -80,7 +80,7 @@ function midimix(machineServeur) {
     link.startUpdate(100, (beat, phase, bpm) => {
       instantBeat = Math.round(beat);
       if (localBeat !== instantBeat) {
-        if (debug1) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
+        if (debug) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
         localBeat = instantBeat;
         websocketServer.sendOSCTick();
       }
