@@ -263,7 +263,7 @@ exports.sendOSCGame = sendOSCGame;
  * @param {string} IP address of the Raspberry
  * @param {number} level of the pattern
  */
-function playOSCRasp(message, bufferNum, port, IPaddress, level) {
+function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
   var buf;
   var commandeOSC = "/" + message;
   var commandeLevel = "/level"; // Temporairement en dur en attendant d'avoir le bon patch PureData
@@ -274,25 +274,25 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level) {
   }
 
   // Pour le moment en deux commandes une de niveau et une de jouer le buffer
-  if (debug1) console.log("LogosOSCandMidi: play osc to Rapsberry :"
-    + IPaddress + " : " + commandeLevel + " : " + level + " : " + level);
+  if (debug1) console.log("OSCandMidi: play osc to Rapsberry :"
+    + IPaddress + " : " + commandeLevel + " : " + level + " : " + level + ":" + duration);
   buf = osc.toBuffer({
     address: commandeLevel,
     args: [
       { type: 'integer', value: parseInt(level) },
-      { type: 'integer', value: 70 },
+      { type: 'integer', value: duration},
       { type: 'integer', value: 120 },
     ]
   });
   udp.send(buf, 0, buf.length, port, IPaddress);
 
-  if (debug1) console.log("LogosOSCandMidi: play osc to Rapsberry :"
+  if (debug1) console.log("OSCandMidi: play osc to Rapsberry :"
     + IPaddress + " : " + commandeOSC + " : " + bufferNum + " : " + level);
   buf = osc.toBuffer({
     address: commandeOSC,
     args: [
       { type: 'integer', value: parseInt(bufferNum) },
-      { type: 'integer', value: 70 },
+      { type: 'integer', value: duration },
       { type: 'integer', value: 120 },
     ]
   });
@@ -309,15 +309,15 @@ exports.playOSCRasp = playOSCRasp;
  */
  function sendOSCRasp(message, value1, port, IPaddress) {
   var buf;
-  var commandeOSC = message;
+  var commandeOSC = "/" + message;
 
-  if (debug1) console.log("LogosOSCandMidi: sends osc to Rapsberry :"
+  if (debug1) console.log("OSCandMidi: sends osc to Rapsberry :"
     + IPaddress + " : " + port + " : " + commandeOSC + " : " + value1);
   buf = osc.toBuffer({
     address: commandeOSC,
     args: [
       { type: 'integer', value: parseInt(value1) },
-      { type: 'integer', value: 70 },
+      { type: 'integer', value: 4 },
       { type: 'integer', value: 120 },
     ]
   });

@@ -50,8 +50,8 @@ exports.english = true;
   Si ces valeurs ne sont pas données c'est celle qui
   sont dans le simulateur qui sont utilisées
 ************************************/
-exports.tempoMax = 3000; // En ms
-exports.tempoMin = 1000; // En ms
+exports.tempoMax = 500; // En ms
+exports.tempoMin = 500; // En ms
 exports.limiteDureeAttente = 33; // En pulsations
 
 /********************************************************
