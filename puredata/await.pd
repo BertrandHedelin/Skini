@@ -1,0 +1,35 @@
+#N canvas 125 573 450 300 12;
+#X obj 57 199 spigot;
+#X obj 59 7 inlet;
+#X obj 57 250 outlet;
+#X obj 217 7 inlet;
+#X obj 169 43 ==;
+#X obj 82 97 loadbang;
+#X obj 170 176 delay 100;
+#X floatatom 11 48 5 0 0 0 - - -;
+#X floatatom 235 43 5 0 0 0 - - -;
+#X obj 90 140 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 74 167 0;
+#X msg 170 112 1;
+#X obj 170 216 s stopAwait;
+#X obj 72 61 r stopAwait;
+#X obj 225 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 247 89 5 0 0 0 - - -;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 1 0 7 0;
+#X connect 1 0 4 0;
+#X connect 3 0 8 0;
+#X connect 3 0 4 1;
+#X connect 4 0 11 0;
+#X connect 4 0 15 0;
+#X connect 5 0 10 0;
+#X connect 6 0 12 0;
+#X connect 9 0 10 0;
+#X connect 10 0 0 1;
+#X connect 11 0 0 1;
+#X connect 11 0 6 0;
+#X connect 11 0 14 0;
+#X connect 13 0 10 0;

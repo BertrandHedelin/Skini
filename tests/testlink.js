@@ -16,6 +16,8 @@ link.on('tempo', (tempo) => console.log("tempo", tempo));
 link.on('numPeers', (numPeers) => console.log("numPeers", numPeers));
 //link.on('playState', (playState) => console.log("playState", playState));
 
+console.log("LINK PHASE A ZERO");
+link.phase = 0;
 // callback is option.
 //link.startUpdate(60); // correct!
 
@@ -24,6 +26,6 @@ link.on('numPeers', (numPeers) => console.log("numPeers", numPeers));
 //     const phase = link.phase;
 //     const bpm = link.bpm;
 // }
-setInterval(() => {
-  link.bpm = link.bpm + 1;
-}, 3000);
+// setInterval(() => {
+//   link.bpm = link.bpm + 1;
+// }, 3000);

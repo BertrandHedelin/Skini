@@ -378,7 +378,7 @@ function startWebSocketServer() {
 
   // Vient de midiMix.js et directement de Bitwig ou de processing
   /**
-   * Called by midimix.js, for OSC and MIDI messages.
+   * Called by midimix.js, for OSC, MIDI, and Link messages.
    * @memberof Websocketserver
    * @function
    * @inner

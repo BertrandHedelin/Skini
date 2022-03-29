@@ -19,6 +19,7 @@ var debug1 = true;
 
 var param;
 var synchroLink = false;
+var linkReadyTostart = false;
 var websocketServer;
 var socketOpen = false;
 
@@ -87,11 +88,26 @@ function midimix(machineServeur) {
     link = new abletonlink();
     let localBeat = 0;
     let instantBeat = 0;
+    let instantPhase = 0;
 
     link.startUpdate(100, (beat, phase, bpm) => {
       instantBeat = Math.round(beat);
+      instantPhase = Math.round(phase);
+
       if (localBeat !== instantBeat) {
         if (debug) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
+
+        // On a besoin de la phase pour synchroniser les départs.
+        // On commence à envoyer des Tick après avoir reçu la phase 1.
+        // La numérotation de la phase commence à 1 dans node et non à 0 comme sur PureData.
+        if(!linkReadyTostart){
+          if(instantPhase === 1){
+            linkReadyTostart = true;
+            if(debug) console.log("midimix:link startup:now ready");
+          }
+          return;
+        }
+
         localBeat = instantBeat;
         websocketServer.sendOSCTick();
       }
