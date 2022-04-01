@@ -1,0 +1,516 @@
+#N canvas 895 138 1140 733 10;
+#X obj 913 74 soundfiler;
+#X obj 418 529 tabplay~;
+#X obj 624 25 loadbang;
+#X obj 391 618 dac~;
+#X obj 914 121 soundfiler;
+#X obj 994 120 table buffer_son2;
+#X obj 914 165 soundfiler;
+#X obj 914 211 soundfiler;
+#X obj 992 165 table buffer_son3;
+#X obj 994 211 table buffer_son4;
+#X obj 516 166 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 372 165 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 520 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 371 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 5 540 Test en cliquant sur les messages "set";
+#X msg 349 46 \; pd dsp 1;
+#X text 535 2 allumage de l'audio à l'ouverture;
+#X text 692 30 chargement des sons;
+#X floatatom 5 63 5 0 0 0 - - -;
+#X floatatom 57 180 5 0 0 0 - - -;
+#X msg 535 166 set buffer_son4;
+#X msg 390 145 set buffer_son1;
+#X msg 537 143 set buffer_son2;
+#X msg 389 165 set buffer_son3;
+#X msg 389 188 set buffer_son5;
+#X msg 535 190 set buffer_son6;
+#X msg 388 209 set buffer_son7;
+#X msg 536 213 set buffer_son8;
+#X obj 370 208 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 518 214 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 372 189 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 517 190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 363 252 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 517 259 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 371 233 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 515 236 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 366 295 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 366 276 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 520 279 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 389 232 set buffer_son9;
+#X msg 534 236 set buffer_son10;
+#X msg 382 253 set buffer_son11;
+#X msg 539 256 set buffer_son12;
+#X msg 387 274 set buffer_son13;
+#X msg 539 278 set buffer_son14;
+#X msg 392 295 set buffer_son15;
+#X obj 913 255 soundfiler;
+#X obj 914 302 soundfiler;
+#X obj 914 346 soundfiler;
+#X obj 914 392 soundfiler;
+#X obj 913 439 soundfiler;
+#X obj 899 486 soundfiler;
+#X obj 1276 71 soundfiler;
+#X obj 1275 117 soundfiler;
+#X obj 1275 165 soundfiler;
+#X obj 1276 212 soundfiler;
+#X obj 1276 256 soundfiler;
+#X obj 994 254 table buffer_son5;
+#X obj 994 301 table buffer_son6;
+#X obj 992 346 table buffer_son7;
+#X obj 994 392 table buffer_son8;
+#X obj 994 438 table buffer_son9;
+#X obj 979 485 table buffer_son10;
+#X obj 1354 71 table buffer_son11;
+#X obj 1355 117 table buffer_son12;
+#X obj 1356 164 table buffer_son13;
+#X obj 1356 211 table buffer_son14;
+#X obj 1354 256 table buffer_son15;
+#X obj 314 471 vu 15 120 empty empty -1 -8 0 10 -66577 -1 1 0;
+#X obj 55 211 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8500 1;
+#X obj 591 528 tabplay~;
+#X obj 591 553 *~ 1;
+#X obj 54 368 dbtorms;
+#X floatatom 54 348 5 0 0 0 - - -;
+#X floatatom 53 390 5 0 0 0 - - -;
+#X obj 144 209 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8500 1;
+#X obj 139 368 dbtorms;
+#X floatatom 139 348 5 0 0 0 - - -;
+#X floatatom 138 390 5 0 0 0 - - -;
+#X obj 212 213 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8500 1;
+#X obj 211 366 dbtorms;
+#X floatatom 211 346 5 0 0 0 - - -;
+#X floatatom 210 388 5 0 0 0 - - -;
+#X floatatom 213 187 5 0 0 0 - - -;
+#X floatatom 137 185 5 0 0 0 - - -;
+#X obj 418 553 *~ 1;
+#X obj 397 583 *~;
+#X obj 49 437 trigger float bang;
+#X floatatom 89 515 5 0 0 0 - - -;
+#X msg 172 461 50;
+#X obj 88 490 line~ 0 10;
+#X obj 794 516 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 830 530 delay 4000;
+#X msg 829 554 0 500;
+#X obj 733 561 line~ 0 10;
+#X obj 694 576 *~;
+#X obj 694 512 osc~ 18000;
+#X msg 730 536 0.3 500;
+#X msg 776 446 stop;
+#X msg 23 179 100;
+#X obj 994 73 table buffer_son1;
+#X obj 1277 346 soundfiler;
+#X obj 1274 393 soundfiler;
+#X obj 1276 441 soundfiler;
+#X obj 1273 488 soundfiler;
+#X obj 1654 72 soundfiler;
+#X obj 1655 116 soundfiler;
+#X obj 1278 299 soundfiler;
+#X obj 1356 299 table buffer_son16;
+#X obj 1358 345 table buffer_son17;
+#X obj 1354 392 table buffer_son18;
+#X obj 1354 441 table buffer_son19;
+#X obj 1354 487 table buffer_son20;
+#X msg 1654 49 read -resize son21.wav buffer_son21;
+#X obj 1731 72 table buffer_son21;
+#X obj 1732 116 table buffer_son22;
+#X msg 1655 94 read -resize son22.wav buffer_son22;
+#X obj 1654 166 soundfiler;
+#X obj 1731 166 table buffer_son23;
+#X msg 1656 142 read -resize son23.wav buffer_son23;
+#X obj 1654 208 soundfiler;
+#X obj 1731 208 table buffer_son24;
+#X msg 1654 188 read -resize son24.wav buffer_son24;
+#X obj 1652 257 soundfiler;
+#X obj 1653 301 soundfiler;
+#X obj 1652 351 soundfiler;
+#X obj 1652 393 soundfiler;
+#X msg 1652 234 read -resize son25.wav buffer_son25;
+#X obj 1730 256 table buffer_son25;
+#X msg 1653 279 read -resize son26.wav buffer_son26;
+#X obj 1731 301 table buffer_son26;
+#X msg 1654 327 read -resize son27.wav buffer_son27;
+#X obj 1731 351 table buffer_son27;
+#X msg 1652 373 read -resize son28.wav buffer_son28;
+#X obj 1731 393 table buffer_son28;
+#X obj 1650 442 soundfiler;
+#X obj 1650 484 soundfiler;
+#X msg 1652 418 read -resize son29.wav buffer_son29;
+#X obj 1727 442 table buffer_son29;
+#X obj 1727 484 table buffer_son30;
+#X msg 1650 464 read -resize son30.wav buffer_son30;
+#X obj 520 299 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 538 300 set buffer_son16;
+#X obj 366 316 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 385 317 set buffer_son17;
+#X obj 366 340 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 386 341 set buffer_son19;
+#X obj 4 107 sel 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43
+44 45 46 47 48 49 50 51 52, f 128;
+#X obj 520 323 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 537 321 set buffer_son18;
+#X obj 518 343 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 535 342 set buffer_son20;
+#X obj 367 360 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 519 363 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 386 361 set buffer_son21;
+#X msg 536 362 set buffer_son22;
+#X obj 366 381 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 518 384 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 535 383 set buffer_son24;
+#X msg 385 382 set buffer_son23;
+#X obj 365 402 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 517 405 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 536 405 set buffer_son26;
+#X obj 365 424 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 517 426 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 538 425 set buffer_son28;
+#X msg 386 403 set buffer_son25;
+#X msg 383 424 set buffer_son27;
+#X obj 366 445 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 519 447 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 540 447 set buffer_son30;
+#X msg 392 445 set buffer_son29;
+#X text 4 561 Sons visibles en cliquant sur les "tables";
+#X text 669 605 52 STOP \; 51 réveil oscillateur;
+#X obj 1297 552 soundfiler;
+#X obj 1117 551 table buffer_son31;
+#X obj 1494 550 table buffer_son32;
+#X obj 366 466 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 519 468 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 392 466 set buffer_son31;
+#X msg 540 468 set buffer_son32;
+#X obj 919 556 soundfiler;
+#X obj 979 630 readsf~;
+#X msg 1038 595 open son32.wav;
+#X msg 981 592 1;
+#X msg 935 594 0;
+#X msg 920 532 read -resize -maxsize 1.6e+08 son31.wav buffer_son31
+;
+#X msg 1297 531 read -resize -maxsize 1.6e+07 son32.wav buffer_son32
+;
+#X msg 914 52 read -resize -maxsize 1.6e+07 son1.wav buffer_son1;
+#X msg 914 99 read -resize -maxsize 1.6e+07 son2.wav buffer_son2;
+#X msg 914 145 read -resize -maxsize 1.6e+07 son3.wav buffer_son3;
+#X msg 914 191 read -resize -maxsize 1.6e+07 son4.wav buffer_son4;
+#X msg 913 234 read -resize -maxsize 1.6e+07 son5.wav buffer_son5;
+#X msg 915 279 read -resize -maxsize 1.6e+07 son6.wav buffer_son6;
+#X msg 913 326 read -resize -maxsize 1.6e+07 son7.wav buffer_son7;
+#X msg 914 372 read -resize -maxsize 1.6e+07 son8.wav buffer_son8;
+#X msg 914 416 read -resize -maxsize 1.6e+07 son9.wav buffer_son9;
+#X msg 899 464 read -resize -maxsize 1.6e+07 son10.wav buffer_son10
+;
+#X msg 1276 51 read -resize -maxsize 1.6e+07 son11.wav buffer_son11
+;
+#X msg 1275 97 read -resize -maxsize 1.6e+07 son12.wav buffer_son12
+;
+#X msg 1275 144 read -resize -maxsize 1.6e+07 son13.wav buffer_son13
+;
+#X msg 1276 190 read -resize -maxsize 1.6e+07 son14.wav buffer_son14
+;
+#X msg 1276 236 read -resize -maxsize 1.6e+07 son15.wav buffer_son15
+;
+#X msg 1278 279 read -resize -maxsize 1.6e+07 son16.wav buffer_son16
+;
+#X msg 1277 325 read -resize -maxsize 1.6e+07 son17.wav buffer_son17
+;
+#X msg 1276 370 read -resize -maxsize 1.6e+07 son18.wav buffer_son18
+;
+#X msg 1276 418 read -resize -maxsize 1.6e+07 son19.wav buffer_son19
+;
+#X msg 1273 465 read -resize -maxsize 1.6e+07 son20.wav buffer_son20
+;
+#X obj 5 19 synchroSkini;
+#X obj 206 17 select 0 1;
+#X msg 347 4 \; pd dsp 0;
+#X obj 262 67 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 297 65 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X connect 1 0 85 0;
+#X connect 2 0 188 0;
+#X connect 2 0 189 0;
+#X connect 2 0 190 0;
+#X connect 2 0 191 0;
+#X connect 2 0 196 0;
+#X connect 2 0 199 0;
+#X connect 2 0 200 0;
+#X connect 2 0 201 0;
+#X connect 2 0 202 0;
+#X connect 2 0 192 0;
+#X connect 2 0 193 0;
+#X connect 2 0 194 0;
+#X connect 2 0 195 0;
+#X connect 2 0 93 0;
+#X connect 2 0 99 0;
+#X connect 2 0 203 0;
+#X connect 2 0 204 0;
+#X connect 2 0 205 0;
+#X connect 2 0 206 0;
+#X connect 2 0 207 0;
+#X connect 2 0 113 0;
+#X connect 2 0 116 0;
+#X connect 2 0 119 0;
+#X connect 2 0 122 0;
+#X connect 2 0 127 0;
+#X connect 2 0 129 0;
+#X connect 2 0 131 0;
+#X connect 2 0 133 0;
+#X connect 2 0 137 0;
+#X connect 2 0 140 0;
+#X connect 2 0 186 0;
+#X connect 2 0 187 0;
+#X connect 2 0 197 0;
+#X connect 2 0 198 0;
+#X connect 2 0 15 0;
+#X connect 10 0 70 0;
+#X connect 11 0 1 0;
+#X connect 12 0 70 0;
+#X connect 13 0 1 0;
+#X connect 18 0 147 0;
+#X connect 19 0 69 0;
+#X connect 20 0 10 0;
+#X connect 20 0 70 0;
+#X connect 21 0 13 0;
+#X connect 21 0 1 0;
+#X connect 22 0 12 0;
+#X connect 22 0 70 0;
+#X connect 23 0 11 0;
+#X connect 23 0 1 0;
+#X connect 24 0 30 0;
+#X connect 24 0 1 0;
+#X connect 25 0 31 0;
+#X connect 25 0 70 0;
+#X connect 26 0 28 0;
+#X connect 26 0 1 0;
+#X connect 27 0 29 0;
+#X connect 27 0 70 0;
+#X connect 28 0 1 0;
+#X connect 29 0 70 0;
+#X connect 30 0 1 0;
+#X connect 31 0 70 0;
+#X connect 32 0 1 0;
+#X connect 33 0 70 0;
+#X connect 34 0 1 0;
+#X connect 35 0 70 0;
+#X connect 36 0 1 0;
+#X connect 37 0 1 0;
+#X connect 38 0 70 0;
+#X connect 39 0 34 0;
+#X connect 39 0 1 0;
+#X connect 40 0 35 0;
+#X connect 40 0 70 0;
+#X connect 41 0 32 0;
+#X connect 41 0 1 0;
+#X connect 42 0 33 0;
+#X connect 42 0 70 0;
+#X connect 43 0 37 0;
+#X connect 43 0 1 0;
+#X connect 44 0 38 0;
+#X connect 44 0 70 0;
+#X connect 45 0 36 0;
+#X connect 45 0 1 0;
+#X connect 69 0 73 0;
+#X connect 70 0 71 0;
+#X connect 71 0 86 0;
+#X connect 72 0 74 0;
+#X connect 73 0 72 0;
+#X connect 74 0 87 0;
+#X connect 75 0 77 0;
+#X connect 76 0 78 0;
+#X connect 77 0 76 0;
+#X connect 78 0 85 1;
+#X connect 79 0 81 0;
+#X connect 80 0 82 0;
+#X connect 81 0 80 0;
+#X connect 82 0 71 1;
+#X connect 83 0 79 0;
+#X connect 84 0 75 0;
+#X connect 85 0 86 0;
+#X connect 86 0 3 0;
+#X connect 86 0 3 1;
+#X connect 87 0 90 0;
+#X connect 87 1 89 0;
+#X connect 89 0 90 1;
+#X connect 90 0 88 0;
+#X connect 90 0 86 1;
+#X connect 91 0 97 0;
+#X connect 91 0 92 0;
+#X connect 92 0 93 0;
+#X connect 93 0 94 0;
+#X connect 94 0 95 1;
+#X connect 95 0 3 0;
+#X connect 95 0 3 1;
+#X connect 96 0 95 0;
+#X connect 97 0 94 0;
+#X connect 98 0 1 0;
+#X connect 98 0 70 0;
+#X connect 99 0 69 0;
+#X connect 113 0 105 0;
+#X connect 116 0 106 0;
+#X connect 119 0 117 0;
+#X connect 122 0 120 0;
+#X connect 127 0 123 0;
+#X connect 129 0 124 0;
+#X connect 131 0 125 0;
+#X connect 133 0 126 0;
+#X connect 137 0 135 0;
+#X connect 140 0 136 0;
+#X connect 141 0 70 0;
+#X connect 142 0 141 0;
+#X connect 142 0 70 0;
+#X connect 143 0 1 0;
+#X connect 144 0 143 0;
+#X connect 144 0 1 0;
+#X connect 145 0 1 0;
+#X connect 146 0 145 0;
+#X connect 146 0 1 0;
+#X connect 147 0 21 0;
+#X connect 147 1 22 0;
+#X connect 147 2 23 0;
+#X connect 147 3 20 0;
+#X connect 147 4 24 0;
+#X connect 147 5 25 0;
+#X connect 147 6 26 0;
+#X connect 147 7 27 0;
+#X connect 147 8 39 0;
+#X connect 147 9 40 0;
+#X connect 147 10 41 0;
+#X connect 147 11 42 0;
+#X connect 147 12 43 0;
+#X connect 147 13 44 0;
+#X connect 147 14 45 0;
+#X connect 147 15 142 0;
+#X connect 147 16 144 0;
+#X connect 147 17 149 0;
+#X connect 147 18 146 0;
+#X connect 147 19 151 0;
+#X connect 147 20 154 0;
+#X connect 147 21 155 0;
+#X connect 147 22 159 0;
+#X connect 147 23 158 0;
+#X connect 147 24 166 0;
+#X connect 147 25 162 0;
+#X connect 147 26 167 0;
+#X connect 147 27 165 0;
+#X connect 147 28 171 0;
+#X connect 147 29 170 0;
+#X connect 147 30 179 0;
+#X connect 147 31 180 0;
+#X connect 147 50 91 0;
+#X connect 147 51 98 0;
+#X connect 148 0 70 0;
+#X connect 149 0 148 0;
+#X connect 149 0 70 0;
+#X connect 150 0 70 0;
+#X connect 151 0 150 0;
+#X connect 151 0 70 0;
+#X connect 152 0 1 0;
+#X connect 153 0 70 0;
+#X connect 154 0 152 0;
+#X connect 154 0 1 0;
+#X connect 155 0 153 0;
+#X connect 155 0 70 0;
+#X connect 156 0 1 0;
+#X connect 157 0 70 0;
+#X connect 158 0 157 0;
+#X connect 158 0 70 0;
+#X connect 159 0 156 0;
+#X connect 159 0 1 0;
+#X connect 160 0 1 0;
+#X connect 161 0 70 0;
+#X connect 162 0 161 0;
+#X connect 162 0 70 0;
+#X connect 163 0 1 0;
+#X connect 164 0 70 0;
+#X connect 165 0 164 0;
+#X connect 165 0 70 0;
+#X connect 166 0 160 0;
+#X connect 166 0 1 0;
+#X connect 167 0 163 0;
+#X connect 167 0 1 0;
+#X connect 168 0 1 0;
+#X connect 169 0 70 0;
+#X connect 170 0 169 0;
+#X connect 170 0 70 0;
+#X connect 171 0 168 0;
+#X connect 171 0 1 0;
+#X connect 177 0 1 0;
+#X connect 178 0 70 0;
+#X connect 179 0 177 0;
+#X connect 179 0 1 0;
+#X connect 180 0 178 0;
+#X connect 180 0 70 0;
+#X connect 182 0 86 0;
+#X connect 183 0 182 0;
+#X connect 184 0 182 0;
+#X connect 185 0 182 0;
+#X connect 186 0 181 0;
+#X connect 187 0 174 0;
+#X connect 188 0 0 0;
+#X connect 189 0 4 0;
+#X connect 190 0 6 0;
+#X connect 191 0 7 0;
+#X connect 192 0 46 0;
+#X connect 193 0 47 0;
+#X connect 194 0 48 0;
+#X connect 195 0 49 0;
+#X connect 196 0 50 0;
+#X connect 197 0 51 0;
+#X connect 198 0 52 0;
+#X connect 199 0 53 0;
+#X connect 200 0 54 0;
+#X connect 201 0 55 0;
+#X connect 202 0 56 0;
+#X connect 203 0 107 0;
+#X connect 204 0 101 0;
+#X connect 205 0 102 0;
+#X connect 206 0 103 0;
+#X connect 207 0 104 0;
+#X connect 208 0 18 0;
+#X connect 208 1 19 0;
+#X connect 208 1 84 0;
+#X connect 208 1 83 0;
+#X connect 208 2 209 0;
+#X connect 209 0 211 0;
+#X connect 209 1 212 0;
+#X connect 211 0 210 0;
+#X connect 212 0 15 0;

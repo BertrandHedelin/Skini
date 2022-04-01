@@ -2020,6 +2020,7 @@ Blockly.JavaScript['every'] = function(block) {
   let times = block.getFieldValue('TIMES');
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   let value = value_signal.replace(/\'|\(|\)/g, "");
 
   var code = `
@@ -4075,7 +4076,8 @@ Blockly.JavaScript['hh_orchestration'] = function(block) {
   var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
 
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  
+  if (statements_body === '') return '';
+
   var code = `
 hh = require("../hiphop/hiphop.js");
 
@@ -4135,7 +4137,8 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function(block) {
   var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
 
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  
+  if (statements_body === '') return '';
+
   var code = `
 "use strict";
 var hh = require("../hiphop/hiphop.js");
@@ -4395,6 +4398,7 @@ Blockly.JavaScript['hh_module'] = function(block) {
 
   var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   
   var code = `
 ` + name + ` = hh.MODULE({"id":"` + name + `","%location":{},"%tag":"module"},
@@ -4703,6 +4707,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_sequence'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var code = `
       hh.SEQUENCE(
           {
@@ -4740,6 +4745,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_fork'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var code = `
       hh.FORK(
           {
@@ -4774,6 +4780,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_loop'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var code = `
 hh.LOOP(
     {
@@ -4818,6 +4825,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_loopeach'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
   let times = block.getFieldValue('TIMES'); 
@@ -4879,6 +4887,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_every'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
   let times = block.getFieldValue('TIMES'); 
@@ -4939,6 +4948,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_abort'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_signal.replace(/\'/g, "");
 
@@ -4996,6 +5006,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_trap'] = function(block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
   var value_trap = Blockly.JavaScript.valueToCode(block, 'TRAP', Blockly.JavaScript.ORDER_ATOMIC);
   let value = value_trap.replace(/\'/g, "");
 
