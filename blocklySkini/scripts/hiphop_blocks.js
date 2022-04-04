@@ -2375,7 +2375,6 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['set_tempo'] = function(block) {
   var number_tempo = block.getFieldValue('tempo');
-  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
 hh.ATOM(
   {

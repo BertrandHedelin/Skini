@@ -124,7 +124,7 @@ function midimix(machineServeur) {
   function setTempoLink(tempo) {
     if (link !== undefined) {
       link.bpm = tempo;
-      if(debug) console.log("midimix.js: setTempolink:", tempo);
+      if(debug1) console.log("INFO: midimix.js: setTempolink:", tempo);
     }
   }
   exports.setTempoLink = setTempoLink;
@@ -218,7 +218,7 @@ function midimix(machineServeur) {
         }
         controlers[i].input.openPort(controlerIndex);
         controlers[i].input.ignoreTypes(false, false, false);
-        if (debug1) console.log("create Controler listener : ",
+        if (debug) console.log("create Controler listener : ",
           controlers[i].input.getPortName(controlerIndex));
 
         controlers[i].input.on('message', function (deltaTime, message) {
