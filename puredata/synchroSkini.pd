@@ -1,4 +1,4 @@
-#N canvas 74 32 1151 925 12;
+#N canvas 313 155 754 925 12;
 #X obj 38 100 abl_link~;
 #X msg 38 69 connect \$1;
 #X floatatom 38 142 5 0 0 0 - - -;
@@ -23,8 +23,6 @@
 #X obj 129 646 outlet;
 #X obj 286 391 outlet;
 #X obj 38 180 send pulse;
-#X obj 257 538 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
 #X obj 186 465 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 130 534 spigot;
@@ -40,29 +38,16 @@
 ;
 #X obj 10 9 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 665 51 receive pulse;
-#X obj 764 80 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X floatatom 708 87 5 0 0 0 - - -;
-#X obj 671 124 ==;
-#X msg 638 85 0;
-#X floatatom 672 152 5 0 0 0 - - -;
-#X obj 672 184 spigot 0;
-#X obj 672 217 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X msg 672 243 0;
-#X obj 628 272 s countTheZeros;
-#X text 610 31 Detecte le passage à Zéro de la phase;
+#X text 388 4 Detecte le passage à Zéro de la phase;
 #X obj 404 316 s clearCounters;
-#X obj 128 274 route test level offset clearCounters, f 38;
 #X obj 186 426 receive countTheZeros;
-#N canvas 1254 125 832 638 countEvent 1;
+#N canvas 1022 142 832 638 filterEvent 0;
 #X obj 75 23 inlet;
 #X obj 203 25 inlet;
 #X obj 114 268 outlet;
 #X obj 152 100 ==;
 #X obj 112 162 spigot;
-#X msg 83 98 1;
+#X msg 79 97 1;
 #X msg 114 212 1;
 #X floatatom 202 63 5 0 0 0 - - -;
 #X connect 0 0 3 0;
@@ -73,40 +58,23 @@
 #X connect 5 0 4 0;
 #X connect 6 0 2 0;
 #X connect 7 0 3 1;
-#X restore 940 373 pd countEvent;
-#X floatatom 937 429 5 0 0 0 - - -;
-#X msg 876 335 1;
-#X msg 919 334 2;
-#X msg 1037 332 2;
-#X obj 879 288 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 391 98 pd filterEvent;
+#X msg 486 64 0;
+#X obj 390 27 receive pulse;
+#X obj 391 128 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 922 290 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 1039 297 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 638 633 outlet;
-#X obj 676 465 ==;
-#X obj 636 527 spigot;
-#X msg 602 481 1;
-#X msg 638 577 1;
-#X msg 577 404 1;
-#X msg 620 403 2;
-#X floatatom 728 429 5 0 0 0 - - -;
-#X floatatom 725 505 5 0 0 0 - - -;
-#X obj 726 396 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 590 607 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 874 436 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 391 155 s countTheZeros;
+#X obj 575 370 outlet;
+#X obj 128 274 route test level offset clearCounters startDSP;
+#X obj 575 321 unpack 0 0 0;
 #X connect 0 0 2 0;
 #X connect 0 1 3 0;
 #X connect 0 3 4 0;
 #X connect 1 0 0 0;
 #X connect 2 0 23 0;
-#X connect 5 0 26 0;
+#X connect 5 0 25 0;
 #X connect 6 0 21 0;
-#X connect 6 0 31 0;
+#X connect 6 0 30 0;
 #X connect 9 0 22 0;
 #X connect 10 0 5 0;
 #X connect 10 1 7 0;
@@ -116,54 +84,27 @@
 #X connect 13 0 12 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;
-#X connect 16 0 18 0;
-#X connect 16 0 48 0;
+#X connect 16 0 44 0;
 #X connect 19 0 12 0;
-#X connect 25 0 28 0;
-#X connect 26 0 6 0;
-#X connect 28 0 26 1;
-#X connect 29 0 26 1;
-#X connect 30 0 29 0;
-#X connect 30 0 32 0;
-#X connect 31 0 27 0;
-#X connect 33 0 34 0;
-#X connect 34 0 1 0;
-#X connect 35 0 34 0;
-#X connect 36 0 37 0;
-#X connect 36 0 38 0;
-#X connect 36 0 40 0;
-#X connect 38 0 39 1;
-#X connect 39 0 41 0;
+#X connect 24 0 27 0;
+#X connect 25 0 6 0;
+#X connect 27 0 25 1;
+#X connect 28 0 25 1;
+#X connect 29 0 28 0;
+#X connect 29 0 31 0;
+#X connect 30 0 26 0;
+#X connect 32 0 33 0;
+#X connect 33 0 1 0;
+#X connect 34 0 33 0;
+#X connect 37 0 24 0;
+#X connect 38 0 41 0;
+#X connect 39 0 38 1;
+#X connect 40 0 38 0;
 #X connect 40 0 39 0;
 #X connect 41 0 42 0;
-#X connect 41 0 42 1;
-#X connect 42 0 43 0;
-#X connect 43 0 44 0;
-#X connect 44 0 45 0;
-#X connect 48 0 10 0;
-#X connect 48 0 17 0;
-#X connect 48 1 9 0;
-#X connect 48 2 11 0;
-#X connect 48 3 47 0;
-#X connect 49 0 25 0;
-#X connect 50 0 51 0;
-#X connect 50 0 69 0;
-#X connect 52 0 50 0;
-#X connect 53 0 50 0;
-#X connect 54 0 50 1;
-#X connect 55 0 52 0;
-#X connect 56 0 53 0;
-#X connect 56 0 54 0;
-#X connect 57 0 54 0;
-#X connect 59 0 60 1;
-#X connect 59 0 66 0;
-#X connect 60 0 62 0;
-#X connect 61 0 60 0;
-#X connect 62 0 58 0;
-#X connect 62 0 68 0;
-#X connect 63 0 59 0;
-#X connect 63 0 61 0;
-#X connect 64 0 59 0;
-#X connect 64 0 61 0;
-#X connect 65 0 59 1;
-#X connect 67 0 65 0;
+#X connect 44 0 10 0;
+#X connect 44 1 9 0;
+#X connect 44 2 11 0;
+#X connect 44 3 36 0;
+#X connect 44 4 45 0;
+#X connect 45 0 43 0;

@@ -9,6 +9,7 @@ var express = require('express');
 var path = require("path");
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
+const { fork } = require('child_process');
 
 function startSkini() {
 
@@ -28,7 +29,6 @@ function startSkini() {
   // Websocket dans le Serveur
   var ws = require('./serveur/websocketServer');
   var oscReceiveDAW = require("./serveur/midimix.js");
-  //var par = require('./serveur/skiniParametres'); //!!!!
 
   // Load the necessary modules in the websocket server at launch
   ws.setParameters(oscReceiveDAW);
@@ -95,6 +95,14 @@ function startSkini() {
 
   app.get('/conf', function (req, res) {
     res.sendFile(path.join(__dirname + '/client/configurateur/configurateur.html'));
+  });
+
+  app.get('/simul', function (req, res) {
+    const child = fork(__dirname + '/client/simulateurListe/simulateurFork');
+    child.on('message', (message) => {
+      console.log('Returning /total results:', message);
+    });
+    child.send('START');
   });
 
   var port = ipConfig.webserveurPort;

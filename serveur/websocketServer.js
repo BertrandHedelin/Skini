@@ -32,27 +32,11 @@ var piecePath = "./pieces/";
  * @param {Object} midimix reference
  */
 function setParameters(midimixage) {
-  //par = param;
   midimix = midimixage;
-  //midimix.setParameters(param); // !!!!
-
   oscMidiLocal = require('./OSCandMidi');
-  //oscMidiLocal.setParameters(param); //!!!!
-
   DAW = require('./controleDAW');
-  //DAW.setParameters(param); //!!!!
-
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
   groupesClientSon.setMidimix(midimix);
-  //groupesClientSon.setParameters(param); //!!!!
-
-  // if (par.sessionPath !== undefined) {
-  //   sessionPath = par.sessionPath;
-  // }
-  // if (par.piecePath !== undefined) {
-  //   piecePath = par.piecePath;
-  // } //!!!!
-
   initMidiPort();
   startWebSocketServer();
 }
@@ -63,7 +47,6 @@ exports.setParameters = setParameters;
  * @param {object} param 
  */
 function reloadParameters(param) {
-  //!!!!
   if (par.sessionPath !== undefined) {
     sessionPath = par.sessionPath;
   }
@@ -1374,7 +1357,7 @@ maybe an hiphop compile Error.
 
             // S'il n'y a pas de synchro Midi ni Link on lance un worker
             if (!par.synchoOnMidiClock && !par.synchroLink && par.synchroSkini) {
-              //setMonTimer(timerSynchro); // En local pas utile avec les workers
+              //setMonTimer(timerSynchro); // Pour un timer dans le thread principal, pas utile avec les workers
               if (debug1) console.log("websocketserver: startAutomate:worker synchro");
               workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
             }

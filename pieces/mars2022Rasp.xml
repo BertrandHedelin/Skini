@@ -3,14 +3,14 @@
     <variable id="iV3yT-Lmc`KU=p+sLopI">loopCello1</variable>
     <variable id="hchBnoEv(z!xIgDRVuzY">tick</variable>
     <variable id="*n4}8%e:kZQ;_Ey?xWJw">transposition</variable>
+    <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
+    <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
+    <variable id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</variable>
+    <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
     <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
     <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
-    <variable id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</variable>
-    <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
-    <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
-    <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-74" y="-331">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="45" y="-706">
     <statement name="MODULES">
       <block type="hh_module" id="$.S|.O{|AJ1*,JvfE8HE">
         <value name="NAME">
@@ -94,6 +94,10 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -404,6 +408,10 @@
                             
                             
                             
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -422,6 +430,10 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -732,6 +744,10 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -750,6 +766,10 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -1060,6 +1080,10 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -1224,6 +1248,10 @@
                                                                     
                                                                     
                                                                     
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     </comment>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="e1AJu2%k*:H2$kc^$ZMT">
@@ -1242,6 +1270,10 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1557,6 +1589,10 @@
                     
 
                 
+                
+                
+                
+                
                 </comment>
                 <next>
                   <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^" disabled="true">
@@ -1590,7 +1626,7 @@
                                             <field name="number_of_ticks">10</field>
                                             <value name="GROUPS">
                                               <block type="variables_get" id="1SXQ@{ZMhje_T;4ATHtn">
-                                                <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                                <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
                                               </block>
                                             </value>
                                             <next>
@@ -1602,12 +1638,12 @@
                                                     <mutation items="3"></mutation>
                                                     <value name="ADD0">
                                                       <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
-                                                        <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                                        <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD1">
                                                       <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
-                                                        <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                                        <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD2">
