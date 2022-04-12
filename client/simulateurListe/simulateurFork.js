@@ -41,7 +41,7 @@ function initTempi() {
     console.log("tempoMin par défaut")
   }
 
-  console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
+  console.log("INFO simulateur : Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
 
 initTempi();
@@ -477,11 +477,10 @@ exports.startClip = startClip;
 // ========================= Lancement du simulateur =================
 process.on('message', (message) => {
   if (message == 'START') {
-    console.log('Simulator received START message');
-
+    //console.log('Simulator received START message');
     init(port);
     setTimeout(() => selectListClips(), 1000);
-    let message = `{"status": "SimulLaunched-${pseudo}"`;
+    let message = `Simulation Launched by ${pseudo}`;
     process.send(message);
   }
 });

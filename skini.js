@@ -100,7 +100,7 @@ function startSkini() {
   app.get('/simul', function (req, res) {
     const child = fork(__dirname + '/client/simulateurListe/simulateurFork');
     child.on('message', (message) => {
-      console.log('Returning /total results:', message);
+      console.log('Simulator info :', message);
     });
     child.send('START');
   });

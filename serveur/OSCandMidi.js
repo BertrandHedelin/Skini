@@ -269,7 +269,7 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
   var commandeLevel = "/level"; // Temporairement en dur en attendant d'avoir le bon patch PureData
   var defaultLevel = 70;
 
-  if(!isNaN(level)){
+  if (!isNaN(level)) {
     defaultLevel = level;
   }
 
@@ -280,7 +280,7 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
     address: commandeLevel,
     args: [
       { type: 'integer', value: parseInt(level) },
-      { type: 'integer', value: duration},
+      { type: 'integer', value: duration },
       { type: 'integer', value: 120 },
     ]
   });
@@ -307,7 +307,7 @@ exports.playOSCRasp = playOSCRasp;
  * @param {number} Udp port
  * @param {string} IP address of the Raspberry
  */
- function sendOSCRasp(message, value1, port, IPaddress) {
+function sendOSCRasp(message, value1, port, IPaddress) {
   var buf;
   var commandeOSC = "/" + message;
 

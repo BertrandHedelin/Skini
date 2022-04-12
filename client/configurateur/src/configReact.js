@@ -68,7 +68,7 @@ function saisiOSC(){
     var msg = {
       type: "sendOSC",
       IpAddress: IpOSC,
-      message: "/" + messageOSC,
+      message: messageOSC,
       value1: value1OSC
     }
     ws.send(JSON.stringify(msg));

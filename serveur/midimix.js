@@ -90,10 +90,12 @@ function midimix(machineServeur) {
     let instantBeat = 0;
     let instantPhase = 0;
 
-    link.startUpdate(100, (beat, phase, bpm) => {
+    link.startUpdate(10, (beat, phase, bpm) => {
       instantBeat = Math.round(beat);
-      instantPhase = Math.round(phase);
+      instantPhase = Math.round(phase*100);
 
+      // On envoie un tick à chaque changement de beat.
+      // Ce serait peut-être mieux d'utiliser la phase ?
       if (localBeat !== instantBeat) {
         if (debug) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
 
@@ -101,13 +103,12 @@ function midimix(machineServeur) {
         // On commence à envoyer des Tick après avoir reçu la phase 1.
         // La numérotation de la phase commence à 1 dans node et non à 0 comme sur PureData.
         if(!linkReadyTostart){
-          if(instantPhase === 1){
+          if(instantPhase === 100){
             linkReadyTostart = true;
-            if(debug) console.log("midimix:link startup:now ready");
+            if(debug1) console.log("midimix:link startup:now ready");
           }
           return;
         }
-
         localBeat = instantBeat;
         websocketServer.sendOSCTick();
       }
