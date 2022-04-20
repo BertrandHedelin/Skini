@@ -779,8 +779,8 @@ maybe an hiphop compile Error.
           text: "See your console, pb on compilation"
         }
         serv.broadcast(JSON.stringify(msg));
-        //throw err;
-        return;
+        throw err;
+        //return;
       }
 
       DAW.setAutomatePossible(automatePossibleMachine);
@@ -883,9 +883,13 @@ maybe an hiphop compile Error.
           break;
 
         case "compileHH":
-          compileHH();
+          try{
+            compileHH();
+          } catch(err){
+            console.error(err);
+          }
           break;
-
+          
         case "DAWPseudo":
           break;
 

@@ -328,7 +328,7 @@ function initWSSocket(port) {
           if (debug) console.log("--- WS Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
         }
 
-        if (debug1) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
+        if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
         msg.type = "sendPatternSequence";
         msg.patternSequence = sequenceLocale;
         msg.pseudo = pseudo;

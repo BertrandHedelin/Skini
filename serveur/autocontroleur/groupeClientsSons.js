@@ -901,10 +901,15 @@ function makeOneAutomatePossibleMachine() {
     throw err;
   }
 
+  if(orchestration.setServ === undefined){
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration );
+    throw "Pb on acces to:" + myReactOrchestration;
+  }
+
   // Pour permettre les broadcasts et autres depuis l'orchestration
   orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
 
-  // Compilation HH
+  // C'est là que se fait la compilation HipHop.js
   var machine = orchestration.setSignals();
   makeSignalsListeners(machine);
 
