@@ -770,8 +770,7 @@ function startWebSocketServer() {
         console.log("\n-------------------------------------------------------------");
         console.log(`ATTENTION: 
 Problem when compiling the Orchestration
-maybe an hiphop compile Error.
-.`);
+maybe an hiphop compile Error`);
         console.log("-------------------------------------------------------------");
 
         var msg = {
@@ -883,13 +882,13 @@ maybe an hiphop compile Error.
           break;
 
         case "compileHH":
-          try{
+          try {
             compileHH();
-          } catch(err){
+          } catch (err) {
             console.error(err);
           }
           break;
-          
+
         case "DAWPseudo":
           break;
 
@@ -1221,6 +1220,7 @@ maybe an hiphop compile Error.
               serv.broadcast(JSON.stringify(msg));
               return console.log(err);
             }
+            if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationName, " written");
           });
 
           // Ecrit le fichier XML Blockly
@@ -1234,10 +1234,13 @@ maybe an hiphop compile Error.
               text: msgRecu.fileName + ".xml written"
             }
             serv.broadcast(JSON.stringify(msg));
-            if (debug1) console.log("INFO: websocketServer:", piecePath + defaultOrchestrationName, " written");
 
             // Compile the orchestration
-            compileHH();
+            try {
+              compileHH();
+            } catch (err) {
+              console.log("websocketServerSkini:saveBlocklyGeneratedFile:catch:", err);
+            }
           });
           break;
 

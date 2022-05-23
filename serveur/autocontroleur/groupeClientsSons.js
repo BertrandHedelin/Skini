@@ -912,7 +912,6 @@ function makeOneAutomatePossibleMachine() {
   // C'est là que se fait la compilation HipHop.js
   var machine = orchestration.setSignals();
   makeSignalsListeners(machine);
-
   return machine;
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;

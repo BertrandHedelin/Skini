@@ -42,8 +42,8 @@ exports.directMidiON = true;
 
 // La synchro midi est émise par la DAW ou pas
 exports.timer = 1000;
-exports.synchoOnMidiClock = false;
-exports.synchroLink = true;
+exports.synchoOnMidiClock = true;
+exports.synchroLink = false;
 exports.synchroSkini = false;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM

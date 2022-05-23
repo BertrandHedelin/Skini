@@ -68,7 +68,7 @@
           </block>
         </statement>
         <next>
-          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b">
+          <block type="hh_module" id="Y9}?w616LTz{t{SQd%6b" collapsed="true">
             <value name="NAME">
               <block type="variables_get" id="X!z@fX)h!sku}r([7R9u">
                 <field name="VAR" id="*n4}8%e:kZQ;_Ey?xWJw">transposition</field>
@@ -95,6 +95,13 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -413,6 +420,13 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -431,6 +445,13 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -749,6 +770,13 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -767,6 +795,13 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -1085,6 +1120,13 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -1103,6 +1145,13 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     
                                                                     
                                                                     
@@ -1421,6 +1470,13 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
@@ -1465,7 +1521,7 @@
               </block>
             </statement>
             <next>
-              <block type="hh_module" id="zeGS4YW?nGStz|nIk]ax">
+              <block type="hh_module" id="zeGS4YW?nGStz|nIk]ax" collapsed="true">
                 <value name="NAME">
                   <block type="variables_get" id="Cyu*B,.R!rIjGq|un/CR">
                     <field name="VAR" id="M@BXS,XVpJV%o5%sQjx]">changeMode</field>
@@ -1642,6 +1698,13 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </comment>
                         <next>
                           <block type="hh_wait_for" id=",V96z_zubpar/qC[57f.">
@@ -1805,6 +1868,13 @@
                             
                             
                             
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                                 
                                 
                                 
@@ -1978,6 +2048,13 @@
                                         
                                         
                                         
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         </comment>
                                         <next>
                                           <block type="hh_wait_for" id="0hRJ,O5i}tMX7Z_G)h-(">
@@ -2141,6 +2218,13 @@
                                             
                                             
                                             
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                                                 
                                                 
                                                 
@@ -2314,6 +2398,13 @@
                                                         
                                                         
                                                         
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
                                                         </comment>
                                                         <next>
                                                           <block type="hh_wait_for" id="4E5()-Bv)kUr!%iVxqvg">
@@ -2477,6 +2568,13 @@
                                             
                                             
                                             
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
                                                                 
                                                                 
                                                                 
@@ -2689,6 +2787,13 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
                 </comment>
                 <next>
                   <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^" disabled="true">
@@ -2698,7 +2803,7 @@
                     <field name="MinTempo">40</field>
                     <next>
                       <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
-                        <field name="tempo">100</field>
+                        <field name="tempo">90</field>
                         <next>
                           <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
                             <field name="number">1</field>
@@ -3137,6 +3242,13 @@
                                                                             
                                                                             
                              MMinor
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
                                                                                 
                                                                                 
                                                                                 

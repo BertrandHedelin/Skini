@@ -13,10 +13,10 @@
     <variable id="gwwX#~P9HnX%m*ENxV9)">groupe16</variable>
     <variable id="Q)vU{~5rhyrHz1DkDm%0">groupe17</variable>
     <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe12</variable>
-    <variable id="NRd.r{X8K{5ou;XOjCHf">groupe6</variable>
     <variable id="}:b{(_TlGZhoN@ObkVuo">groupe6IN</variable>
     <variable id="4=PY@HDZvO_cPW?8]nP-">groupe7</variable>
     <variable id="i{e?qmT;x#)~nD.R%|KL">groupe11</variable>
+    <variable id="NRd.r{X8K{5ou;XOjCHf">groupe6</variable>
     <variable id="+);tVe}OJRGG{ln-MBSw">groupe5</variable>
     <variable id="I)pw,[.(?rZoGv*zMx{P">groupe8</variable>
     <variable id="L87)LH+J$aHodI?a^sCx">groupe9</variable>
@@ -408,7 +408,7 @@
                           <block type="set_tempo" id="d7zQ,zeSx~wN97[zg[VM">
                             <field name="tempo">110</field>
                             <next>
-                              <block type="hh_sequence" id="?$u|Sx{RJ$tZIf`(`Fjg">
+                              <block type="hh_sequence" id="?$u|Sx{RJ$tZIf`(`Fjg" disabled="true">
                                 <statement name="BODY">
                                   <block type="set_group_during_ticks" id="[a?^KFW+h)BS??!8942n">
                                     <field name="user_group">255</field>
@@ -468,7 +468,7 @@
                                   </block>
                                 </statement>
                                 <next>
-                                  <block type="hh_fork" id="|XHN?#(LXgLYt?hHw%Z!">
+                                  <block type="hh_fork" id="|XHN?#(LXgLYt?hHw%Z!" disabled="true">
                                     <statement name="BODY">
                                       <block type="set_group_during_ticks" id="oD:kJo=p=Wt*HpL(jV`6" disabled="true">
                                         <field name="user_group">255</field>
@@ -568,7 +568,7 @@
                                                             <field name="OSCValue1">100</field>
                                                             <value name="IpAddress">
                                                               <block type="text" id=":%q:`k/{nc?DJy?e2P1d">
-                                                                <field name="TEXT">192.168.1.28</field>
+                                                                <field name="TEXT">192.168.1.34</field>
                                                               </block>
                                                             </value>
                                                             <value name="OSCmessage">
@@ -672,14 +672,43 @@
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="set_group_during_ticks" id="Sz!-%oGuJWBi{6m74{T?">
-                                                                                        <field name="user_group">255</field>
-                                                                                        <field name="number_of_ticks">40</field>
-                                                                                        <value name="GROUPS">
-                                                                                          <block type="variables_get" id="|dgNy3Vj7kz1G,G^Z$b.">
-                                                                                            <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe6</field>
+                                                                                      <block type="hh_fork" id="]`d?%pYRFPs)J6Ak+_v4">
+                                                                                        <statement name="BODY">
+                                                                                          <block type="set_group_during_ticks" id="Sz!-%oGuJWBi{6m74{T?">
+                                                                                            <field name="user_group">255</field>
+                                                                                            <field name="number_of_ticks">60</field>
+                                                                                            <value name="GROUPS">
+                                                                                              <block type="variables_get" id="|dgNy3Vj7kz1G,G^Z$b.">
+                                                                                                <field name="VAR" id="4=PY@HDZvO_cPW?8]nP-">groupe7</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="set_group_during_ticks" id="hHRIgW!6PY/(0(s]+x_2">
+                                                                                                <field name="user_group">255</field>
+                                                                                                <field name="number_of_ticks">60</field>
+                                                                                                <value name="GROUPS">
+                                                                                                  <block type="variables_get" id="Q`q9D43Z~(H@cpoOUG;/">
+                                                                                                    <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe6</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="hh_run" id="[S[:8UNo7k%/]pr;sa;f" disabled="true">
+                                                                                                    <value name="MODULE">
+                                                                                                      <block type="variables_get" id="Lw;7SAn^|zA9!Zd+l_d_">
+                                                                                                        <field name="VAR" id="zeIv(URA3BIL4haPU4G8">loopBiopoly</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="SIGNALS">
+                                                                                                      <block type="variables_get" id="S-nd~XDj8$_Y4~}KW+V#">
+                                                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
                                                                                           </block>
-                                                                                        </value>
+                                                                                        </statement>
                                                                                         <next>
                                                                                           <block type="cleanOneQueue" id="1c9L8@b/GQU~ctgp^kv9">
                                                                                             <field name="number">6</field>
