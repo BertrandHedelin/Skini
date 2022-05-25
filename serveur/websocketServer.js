@@ -443,7 +443,19 @@ function startWebSocketServer() {
    */
   function reactAutomatePossible(signal) {
     if (automatePossibleMachine !== undefined) {
-      automatePossibleMachine.react(signal);
+      try {
+        automatePossibleMachine.react(signal);
+      } catch (err) {
+        console.log("webSocketServer.js: reactAutomatePossible: Error on react:", err);
+
+        var msg = {
+          type: "consoleBlocklySkini",
+          text: err.toString()
+        }
+        serv.broadcast(JSON.stringify(msg));
+
+        return false;
+      }
       return true;
     } else {
       if (warnings) console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
