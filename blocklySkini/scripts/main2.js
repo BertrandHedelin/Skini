@@ -75,6 +75,11 @@ function initWSSocket(serverIPAddress) {
         document.getElementById('consoleArea').value = msgRecu.text;
         break;
 
+      case "alertBlocklySkini":
+        alert(msgRecu.text)
+        document.getElementById('consoleArea').value = msgRecu.text;
+        break;
+
       default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu);
     }
   };

@@ -35,20 +35,21 @@
                 onclick="stopAutomate();">Stop</button>
               <button id="buttonStartAutomate" class="small button blue" onclick="startAutomate();">Start</button>
 
-              <button type="button" class="small button" onclick="window.open('http://localhost:8080/contr','Controleur',
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/contr','Controleur',
               'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
               return false;">Controler</button>
 
-              <button type="button" class="small button" onclick="window.open('http://localhost:8080/conf','Patterns',
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/conf','Patterns',
               'height=400, width=800,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
               return false;">Patterns</button>
 
-              <button type="button" class="small button" onclick="window.open('http://localhost:8080/score','Score',
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/score','Score',
               'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
               return false;">Score</button>
               <input class="inputText" type="text" id="consoleArea" />
 
-              <button type="button" class="small button" onclick="fetch('http://localhost:8080/simul');">Launch a Simulation</button>
+              <button type="button" class="small button" onclick="fetch('http://' + window.location.hostname + ':' + window.location.port + '/simul');">Launch a
+                Simulation</button>
 
             </div>
           </header>

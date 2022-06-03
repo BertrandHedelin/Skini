@@ -608,6 +608,9 @@ exports.getGroupesClient = getGroupesClient;
  * @returns {array} lengths
  */
 function getGroupesClientLength() {
+  // It happends when calling this function before loading a piece
+  if(par === undefined) return 0;
+
   var longueurs = new Array(par.nbeDeGroupesClients);
   for (var i = 0; i < groupesClient.length; i++) {
     longueurs[i] = groupesClient[i].length;

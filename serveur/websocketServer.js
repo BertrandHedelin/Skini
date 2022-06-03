@@ -446,10 +446,10 @@ function startWebSocketServer() {
       try {
         automatePossibleMachine.react(signal);
       } catch (err) {
-        console.log("webSocketServer.js: reactAutomatePossible: Error on react:", err);
+        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", err.toString());
 
         var msg = {
-          type: "consoleBlocklySkini",
+          type: "alertBlocklySkini",
           text: err.toString()
         }
         serv.broadcast(JSON.stringify(msg));
@@ -1000,6 +1000,9 @@ maybe an hiphop compile Error`);
           break;
 
         case "getPatternGroups":
+          // It happends when calling this function before loading a piece
+          if (par === undefined) break;
+
           if (DAWStatus !== undefined) {
             var msg = {
               type: "setPatternGroups",
@@ -1083,8 +1086,8 @@ maybe an hiphop compile Error`);
               if (extension !== ".js") {
                 console.log("ERR: Not an js file:", parametersFile);
                 let msg = {
-                  type: "consoleBlocklySkini",
-                  text: "Not an JavaScript file " + parametersFile
+                  type: "alertBlocklySkini",
+                  text: "Parameter not an JavaScript file " + parametersFile
                 }
                 serv.broadcast(JSON.stringify(msg));
                 break;
@@ -1092,7 +1095,7 @@ maybe an hiphop compile Error`);
             } else {
               console.log("ERR: No parameter file:", parametersFile);
               let msg = {
-                type: "consoleBlocklySkini",
+                type: "alertBlocklySkini",
                 text: "No parameter file " + parametersFile
               }
               serv.broadcast(JSON.stringify(msg));
@@ -1101,7 +1104,7 @@ maybe an hiphop compile Error`);
           } catch (err) {
             console.log("ERR: Pb Reading parameter file:", parametersFile, err);
             let msg = {
-              type: "consoleBlocklySkini",
+              type: "alertBlocklySkini",
               text: "Pb Reading parameter file " + parametersFile
             }
             serv.broadcast(JSON.stringify(msg));
@@ -1148,8 +1151,8 @@ maybe an hiphop compile Error`);
               if (extension !== ".csv") {
                 console.log("ERR: Not an csv file:", sessionFile);
                 let msg = {
-                  type: "consoleBlocklySkini",
-                  text: "Not an csv file " + sessionFile
+                  type: "alertBlocklySkini",
+                  text: "Descriptor not an csv file " + sessionFile
                 }
                 serv.broadcast(JSON.stringify(msg));
                 break;
@@ -1157,7 +1160,7 @@ maybe an hiphop compile Error`);
             } else {
               console.log("ERR: No session file:", sessionFile);
               let msg = {
-                type: "consoleBlocklySkini",
+                type: "alertBlocklySkini",
                 text: "No session file " + sessionFile
               }
               serv.broadcast(JSON.stringify(msg));
@@ -1166,7 +1169,7 @@ maybe an hiphop compile Error`);
           } catch (err) {
             console.log("ERR: Pb Reading session file:", sessionFile, err);
             let msg = {
-              type: "consoleBlocklySkini",
+              type: "alertBlocklySkini",
               text: "Pb Reading session file " + sessionPath
             }
             serv.broadcast(JSON.stringify(msg));
@@ -1226,7 +1229,7 @@ maybe an hiphop compile Error`);
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
             if (err) {
               var msg = {
-                type: "consoleBlocklySkini",
+                type: "alertBlocklySkini",
                 text: err.toString()
               }
               serv.broadcast(JSON.stringify(msg));
@@ -1536,7 +1539,7 @@ maybe an hiphop compile Error`);
             fs.writeFile(sessionFile, arrayToCSV(msgRecu.data), function (err) {
               if (err) {
                 var msg = {
-                  type: "consoleBlocklySkini",
+                  type: "alertBlocklySkini",
                   text: err.toString()
                 }
                 serv.broadcast(JSON.stringify(msg));
