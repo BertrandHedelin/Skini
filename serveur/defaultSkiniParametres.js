@@ -1,23 +1,6 @@
 "use strict"
 
-/* Configuration de l'architecture IP, OSC, Websocket ====================
-24/1/2017 BH
-
-© Copyright 2019-2021, B. Petit-Heidelein
-
-exemple:
-                websocket en 8080
-   SERVEUR <----------------------> CLIENT  OSC OUT: 10000 (vers Processing Visu)
-      ^ OSC IN:13000                  ^  ^  OSC OUT: 12000 (vers Processing Midi)
-      |                               |  |
-      |         |---------------------|  |                   
-      |         |         OSC            | OSC
-      v         V                        |
-    Processing MIDI                      v
-     OSC IN:  12000                  Processing Visu (Uniquement en réception)
-     OSC OUT: 13000                   OSC IN: 10000
-
-===========================================================================*/
+// Default parameter file
 
 // Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
 // Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
@@ -68,7 +51,7 @@ Le choix se fait sur le client en fonction d'abletonON donc
 de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
-exports.soundFilesPath1 = "hiver2022";
+exports.soundFilesPath1 = "";
 
 /***************************************
 CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS

@@ -47,11 +47,11 @@ exports.setParameters = setParameters;
  * @param {object} param 
  */
 function reloadParameters(param) {
-  if (par.sessionPath !== undefined) {
-    sessionPath = par.sessionPath;
+  if (param.sessionPath !== undefined) {
+    sessionPath = param.sessionPath;
   }
-  if (par.piecePath !== undefined) {
-    piecePath = par.piecePath;
+  if (param.piecePath !== undefined) {
+    piecePath = param.piecePath;
   }
 
   oscMidiLocal.setParameters(param);
@@ -1096,9 +1096,20 @@ maybe an hiphop compile Error`);
               console.log("ERR: No parameter file:", parametersFile);
               let msg = {
                 type: "alertBlocklySkini",
-                text: "No parameter file " + parametersFile
+                text: "The parameter file " + parametersFile + " is not updated, don't run the program before modifying it."
               }
               serv.broadcast(JSON.stringify(msg));
+              // Initialiser un fichier de parametres par défaut !!!
+              // C'est à dire en copier un dans un parametersFile temporaire
+              // et signaler que le programme ne pourra pas tourner
+              // si ce fichier ne correspond pas à l'orchestration.
+              let origine = "./serveur/defaultSkiniParametres.js";
+              try {
+                fs.copyFileSync(origine, parametersFile);
+              } catch (err) {
+                console.log("websocketServer: Pb ecriture: ", parametersFile, err);
+              }
+              
               break;
             }
           } catch (err) {
