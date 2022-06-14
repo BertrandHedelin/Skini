@@ -24,6 +24,7 @@ var generatedDir = "./myReact/";
 // Ce sont les fichiers csv "descripteurs" des patterns
 // et les fichiers de configuration ".js"
 var sessionPath = "./pieces/";
+
 var piecePath = "./pieces/";
 
 /**
@@ -59,12 +60,6 @@ function reloadParameters(param) {
   groupesClientSon.setParameters(param);
   midimix.setParameters(param);
 
-  if (param.sessionPath !== undefined) {
-    sessionPath = param.sessionPath;
-  }
-  if (param.piecePath !== undefined) {
-    piecePath = param.piecePath;
-  }
   initMidiPort();
 }
 
@@ -1099,17 +1094,14 @@ maybe an hiphop compile Error`);
                 text: "The parameter file " + parametersFile + " is not updated, don't run the program before modifying it."
               }
               serv.broadcast(JSON.stringify(msg));
-              // Initialiser un fichier de parametres par défaut !!!
-              // C'est à dire en copier un dans un parametersFile temporaire
-              // et signaler que le programme ne pourra pas tourner
-              // si ce fichier ne correspond pas à l'orchestration.
+              // Initialise un fichier de parametres par défaut
+              // C'est à dire en copie un dans un parametersFile temporaire
               let origine = "./serveur/defaultSkiniParametres.js";
               try {
                 fs.copyFileSync(origine, parametersFile);
               } catch (err) {
                 console.log("websocketServer: Pb ecriture: ", parametersFile, err);
               }
-              
               break;
             }
           } catch (err) {
@@ -1454,6 +1446,15 @@ maybe an hiphop compile Error`);
             ws.send(JSON.stringify(mesReponse));
           }
 
+          if (msgRecu.text === "pieceParameters") {
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", msgRecu.id);
+            var mesReponse = {
+              type: "skiniParametres",
+              value: par
+            }
+            ws.send(JSON.stringify(mesReponse));
+          }
+
           if (msgRecu.text === "clientListe") {
             if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un clientListe connecté", msgRecu.id);
             var mesReponse = {
@@ -1571,7 +1572,11 @@ maybe an hiphop compile Error`);
           }
           break;
 
-        default: console.log("Web Socket Serveur: Type de message inconnu : ", msgRecu);
+          case "updateParameters":
+            if(debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", msgRecu.parametersDir);
+            break;
+
+        default: console.log("INFO: Web Socket Serveur: Type de message inconnu : ", msgRecu);
       }
     });
   });

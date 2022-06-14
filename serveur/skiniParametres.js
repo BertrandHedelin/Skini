@@ -128,7 +128,7 @@ const grisbleu = '#315A93';
 
 var groupesDesSons = [
   // Pour group: nom du groupe (0), index du groupe (1), type (2), x(3), y(4), nbe d'éléments(5), color(6), prédécesseurs(7), n° de scène graphique
-  ["groupe0", 0, "group", 170, 100, 20, rouge, [], 1],  //0 index d'objet graphique
+  ["groupe0", 0, "group", 170, 100, 20, rouge, [3,4,5], 1],  //0 index d'objet graphique
   ["groupe1", 1, "group", 20, 240, 20, bleu, [], 1],     //1
   ["groupe2", 2, "group", 170, 580, 20, vert, [], 1],  //2
   ["groupe3", 3, "group", 350, 100, 20, gris, [], 1],   //3

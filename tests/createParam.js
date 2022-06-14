@@ -184,7 +184,7 @@ exports.groupesDesSons = groupesDesSons;
 `
   fs.writeFile(paramFile, paramText, function (err) {
     if (err) {
-      return console.log(err);
+      return console.log("ERR: createParam.js: Problem in saving parameters", err);
     }
   });
 }

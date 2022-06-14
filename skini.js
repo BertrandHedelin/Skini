@@ -97,6 +97,10 @@ function startSkini() {
     res.sendFile(path.join(__dirname + '/client/configurateur/configurateur.html'));
   });
 
+  app.get('/param', function (req, res) {
+    res.sendFile(path.join(__dirname + '/client/parametrage/parametrage.html'));
+  });
+
   app.get('/simul', function (req, res) {
     const child = fork(__dirname + '/client/simulateurListe/simulateurFork');
     child.on('message', (message) => {

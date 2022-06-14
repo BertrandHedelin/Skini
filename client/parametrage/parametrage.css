@@ -1,0 +1,95 @@
+input.vertical {
+	webkit-appearance: slider-vertical;
+	writing-mode: bt-lr;
+	width: 50px;
+	height:100px;
+  border-radius: 10%;
+  background: #ddd;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 4px;
+  width:150px;
+  height:30px;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.button1 {
+  background-color: #CF1919; /* red */
+}
+
+.button2 {
+  background-color: #008CBA; /* Blue */
+}
+
+.buttonClip {
+	background-color: #4CAF50; /* Green */
+}
+
+
+body {
+  margin: 0 auto;
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  font-size: 30px;
+}
+
+#numClip {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+	height:30px;
+  font-size: 12px;
+}
+
+#numCC {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+  height:30px;
+  font-size: 12px;
+}
+
+#valueCC {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+  height:30px;
+  font-size: 12px;
+}
+
+#IpOSC {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+  height:30px;
+  font-size: 12px;
+}
+
+#messageOSC {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+  height:30px;
+  font-size: 12px;
+}
+
+#val1OSC {
+  border-radius: 4px;
+  text-align: center;
+  width:150px;
+  height:30px;
+  font-size: 12px;
+}

@@ -1,0 +1,33 @@
+<html>
+<!-- Keep the lib from the configurateur to avoid copies -->
+<script src="./client/configurateur/lib/jexcel.js"></script>
+<link rel="stylesheet" href="./client/configurateur/lib/jexcel.css" type="text/css" />
+<script src="./client/configurateur/lib/jsuites.js"></script>
+<link rel="stylesheet" href="./client/configurateur/lib/jsuites.css" type="text/css" />
+
+<head>
+  <meta charset="UTF-8" name="viewport" />
+  <link rel="stylesheet" type="text/css" href="./client/parametrage/parametrage.css">
+  <script defer></script>
+
+</head>
+
+<body onload="initWSSocket(window.location.hostname);">
+  <!-- <hr>       
+      <div style="color:white">Info: <span style="color:white" id="MessageDuServeur"> Rien </span></div>
+      <hr> -->
+
+  <BR>
+  <div id="spreadsheet"></div>
+  <input id="buttonClose" class="button button2" type="button" value="CLOSE" onclick="self.close();">
+  <!-- <div id="like_button_container"></div> -->
+
+  <!-- Load React localy from the configurateur -->
+  <script src="./client/configurateur/lib/react.production.min.js" crossorigin></script>
+  <script src="./client/configurateur/lib/react-dom.production.min.js" crossorigin></script>
+  <!-- Charge notre composant React -->
+  <script src="./client/parametrage/paramReactbundle.js"></script>
+
+</body>
+
+</html>
