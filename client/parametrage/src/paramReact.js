@@ -95,7 +95,7 @@ class LikeButton extends React.Component {
 
   render() {
     if (this.state.liked) {
-      return ipConfig.websocketServeurPort;
+      return par.sessionPath;
     }
 
     return (
@@ -167,5 +167,5 @@ class Jspreadsheet extends React.Component {
   }
 }
 
-//let domContainer = document.querySelector('#like_button_container');
-//ReactDOM.render(<LikeButton />, domContainer);
+let domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(<LikeButton />, domContainer);

@@ -105,7 +105,7 @@ var LikeButton = function (_React$Component) {
       var _this2 = this;
 
       if (this.state.liked) {
-        return ipConfig.websocketServeurPort;
+        return par.sessionPath;
       }
 
       return React.createElement(
@@ -199,5 +199,5 @@ var Jspreadsheet = function (_React$Component2) {
   return Jspreadsheet;
 }(React.Component);
 
-//let domContainer = document.querySelector('#like_button_container');
-//ReactDOM.render(<LikeButton />, domContainer);
+var domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(React.createElement(LikeButton, null), domContainer);

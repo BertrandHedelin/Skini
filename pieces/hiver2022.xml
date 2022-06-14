@@ -12,6 +12,7 @@
     <variable id="Q)vU{~5rhyrHz1DkDm%0">groupe17</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe6</variable>
     <variable id="i{e?qmT;x#)~nD.R%|KL">groupe11</variable>
+    <variable id="F%L|t8+EOpD^h4lxT}yX">groupe18</variable>
     <variable id="}:b{(_TlGZhoN@ObkVuo">groupe6IN</variable>
     <variable id="+);tVe}OJRGG{ln-MBSw">groupe5</variable>
     <variable id="4=PY@HDZvO_cPW?8]nP-">groupe7</variable>
@@ -469,12 +470,12 @@
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="set_group_during_ticks" id="lh!~j!6pH.Q^B_e}LLp6" disabled="true">
+                                                              <block type="set_group_during_ticks" id="lh!~j!6pH.Q^B_e}LLp6">
                                                                 <field name="user_group">255</field>
                                                                 <field name="number_of_ticks">20</field>
                                                                 <value name="GROUPS">
                                                                   <block type="variables_get" id="!JoiVP$g{D78Eu*FJ=a$">
-                                                                    <field name="VAR" id="Q)vU{~5rhyrHz1DkDm%0">groupe17</field>
+                                                                    <field name="VAR" id="F%L|t8+EOpD^h4lxT}yX">groupe18</field>
                                                                   </block>
                                                                 </value>
                                                               </block>

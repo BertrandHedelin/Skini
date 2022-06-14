@@ -13,6 +13,7 @@ var DAW;
 var groupesClientSon;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
+var parametersFileGlobal;
 
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
 // pour orchestrationHH.js
@@ -48,6 +49,8 @@ exports.setParameters = setParameters;
  * @param {object} param 
  */
 function reloadParameters(param) {
+  par = param;
+
   if (param.sessionPath !== undefined) {
     sessionPath = param.sessionPath;
   }
@@ -88,6 +91,7 @@ var gameOSC = require('./gameOSC');
 const decache = require('decache');
 const { stringify } = require('querystring');
 const { Worker } = require('worker_threads');
+const saveParam = require('./saveParam.js');
 
 var defaultOrchestrationName = "orchestrationHH.js";
 
@@ -832,6 +836,8 @@ maybe an hiphop compile Error`);
 
         case "checkSession":
           DAW.displaySession();
+          console.log("------------------------------------");
+          console.log(par);
           break;
 
         case "cleanQueues":
@@ -1070,6 +1076,10 @@ maybe an hiphop compile Error`);
           // à partir du fichier de config de la pièce
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de xml
+
+          // Pour ma mise à jour des parametres dans le browser
+          parametersFileGlobal = msgRecu.fileName.slice(0, -4) + ".js";
+
           let parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = parametersFile.slice(0, -4) + ".js";
           // Attention decache n'utilise pas le même path que parametersFile
@@ -1116,7 +1126,7 @@ maybe an hiphop compile Error`);
 
           decache(decacheParameters);
 
-          // La fait de faire un require ici, annule la référence de par dans 
+          // Le fait de faire un require ici, annule la référence de par dans 
           // les autres modules. Il faut faire un reload dans tous les modules.
           par = require(decacheParameters);
           reloadParameters(par);
@@ -1572,9 +1582,38 @@ maybe an hiphop compile Error`);
           }
           break;
 
-          case "updateParameters":
-            if(debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", msgRecu.parametersDir);
-            break;
+        case "updateParameters":
+          // Save the previous parameters
+          fs.copyFile(sessionPath + parametersFileGlobal, "./backup/" + parametersFileGlobal + ".back", function (err) {
+            if (err) {
+              return console.log(err);
+            }
+            if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
+          });
+
+          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", msgRecu.parametersDir + parametersFileGlobal);
+          if (parametersFileGlobal !== undefined) {
+            saveParam.saveParameters(msgRecu.parametersDir + parametersFileGlobal, msgRecu.data);
+            reloadParameters(msgRecu.data);
+          }
+
+          // On recrée le fichier pour son utilisation par l'orchestration
+          // avant recompilation.
+          let destinationUpdate = "./serveur/skiniParametres.js";
+          try {
+            fs.copyFileSync(msgRecu.parametersDir + parametersFileGlobal, destinationUpdate);
+          } catch (err) {
+            console.log("Pb ecriture", destinationUpdate, err);
+          }
+
+          // Recompile the orchestration pour intégrer les modifications
+          // des paramétres de groupes et tanks.
+          try {
+            compileHH();
+          } catch (err) {
+            console.log("websocketServerSkini:updateParameters:catch:", err);
+          }
+          break;
 
         default: console.log("INFO: Web Socket Serveur: Type de message inconnu : ", msgRecu);
       }
