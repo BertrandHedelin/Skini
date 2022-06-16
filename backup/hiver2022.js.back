@@ -20,12 +20,12 @@ exports.piecePath = "./pieces/";
 
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI
-exports.directMidiON = false;
+exports.directMidiON = true;
 
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
-exports.english = true;
+exports.english = false;
 
 /***********************************
   Paramètres du simulateur
@@ -67,7 +67,7 @@ ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
 PEUT SUPPRIMER DES PATTERNS DES FIFOs
 *****************************************/
 exports.algoGestionFifo = 0;
-exports.shufflePatterns = false;
+exports.shufflePatterns = true;
 /*****************************************************************************
 
 Gestion de la Matrice des possibles

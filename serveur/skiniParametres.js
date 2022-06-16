@@ -25,7 +25,7 @@ exports.directMidiON = true;
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
-exports.english = true;
+exports.english = false;
 
 /***********************************
   Paramètres du simulateur
