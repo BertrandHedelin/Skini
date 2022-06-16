@@ -13,12 +13,30 @@ var ipConfig = require("../../serveur/ipConfig.json");
 
 var index = Math.floor((Math.random() * 10000) + 1); // Pour identifier le client
 var ws;
+var directMidiON = false;
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
   text: "ECRAN_NOIR",
   pseudo: "Anonyme",
   value: 0
+}
+
+function updateParameters() {
+  // On ne récuppère que les "true" avec le querySelectorAll
+  // Donc on met les status locaux à "false" avant mise à jour.
+  directMidiON = false;
+
+  var parameters = document.querySelectorAll('input[name="parameter"]:checked');
+  parameters.forEach((checkbox) => {
+    switch (checkbox.value) {
+      case "directMidi":
+        directMidiON = true;
+        break;
+
+      default:
+    }
+  })
 }
 
 function initWSSocket(host) {
@@ -67,6 +85,12 @@ function initWSSocket(host) {
           ]
         };
         ReactDOM.render(<Jspreadsheet options={options} />, document.getElementById('spreadsheet'));
+
+        // Initialiser l'affichage en fonction des parametres chargés
+        console.log("par.directMidiON:", par.directMidiON);
+        directMidiON = par.directMidiON;
+        document.getElementById("directMidi").checked = directMidiON;
+
         break;
 
       default: console.log("Client reçoit un message inconnu", msgRecu.type);
@@ -87,7 +111,7 @@ function initWSSocket(host) {
 window.initWSSocket = initWSSocket;
 
 // Pour test, inutile sinon
-class LikeButton extends React.Component {
+/* class LikeButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = { liked: false };
@@ -105,7 +129,7 @@ class LikeButton extends React.Component {
     );
   }
 }
-
+ */
 class Jspreadsheet extends React.Component {
   constructor(props) {
     super(props);
@@ -130,16 +154,17 @@ class Jspreadsheet extends React.Component {
     this.el.insertRow();
   }
 
-  updateParameters = function () {
+  updateGroupsAndTanks = function () {
     let param;
     param = this.el.getData();
     console.log(param);
 
     par.groupesDesSons = param;
+    par.directMidiON = directMidiON;
 
     var msg = {
       type: "updateParameters",
-      parametersDir : par.sessionPath,
+      parametersDir: par.sessionPath,
       data: par
     }
     ws.send(JSON.stringify(msg));
@@ -160,12 +185,19 @@ class Jspreadsheet extends React.Component {
           className="button"
           type="button"
           value="Update parameters"
-          onClick={() => this.updateParameters()}
+          onClick={
+            () => {
+              updateParameters();
+              this.updateGroupsAndTanks();
+            }
+          }
         />
       </div>
     );
   }
 }
 
+/* 
 let domContainer = document.querySelector('#like_button_container');
 ReactDOM.render(<LikeButton />, domContainer);
+ */

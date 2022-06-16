@@ -21,6 +21,7 @@ var ipConfig = require("../../serveur/ipConfig.json");
 
 var index = Math.floor(Math.random() * 10000 + 1); // Pour identifier le client
 var ws;
+var directMidiON = false;
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
@@ -28,6 +29,23 @@ var msg = { // On met des valeurs pas defaut
   pseudo: "Anonyme",
   value: 0
 };
+
+function updateParameters() {
+  // On ne récuppère que les "true" avec le querySelectorAll
+  // Donc on met les status locaux à "false" avant mise à jour.
+  directMidiON = false;
+
+  var parameters = document.querySelectorAll('input[name="parameter"]:checked');
+  parameters.forEach(function (checkbox) {
+    switch (checkbox.value) {
+      case "directMidi":
+        directMidiON = true;
+        break;
+
+      default:
+    }
+  });
+}
 
 function initWSSocket(host) {
 
@@ -65,6 +83,12 @@ function initWSSocket(host) {
           columns: [{ type: 'text', width: 80, title: 'Groupe' }, { type: 'text', width: 80, title: 'Index' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'X' }, { type: 'text', width: 80, title: 'Y' }, { type: 'text', width: 140, title: 'Nb of El. or Tank nb' }, { type: 'text', width: 80, title: 'Color' }, { type: 'text', width: 80, title: 'Previous' }, { type: 'text', width: 80, title: 'Scene' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
+
+        // Initialiser l'affichage en fonction des parametres chargés
+        console.log("par.directMidiON:", par.directMidiON);
+        directMidiON = par.directMidiON;
+        document.getElementById("directMidi").checked = directMidiON;
+
         break;
 
       default:
@@ -86,50 +110,35 @@ function initWSSocket(host) {
 window.initWSSocket = initWSSocket;
 
 // Pour test, inutile sinon
-
-var LikeButton = function (_React$Component) {
-  _inherits(LikeButton, _React$Component);
-
-  function LikeButton(props) {
-    _classCallCheck(this, LikeButton);
-
-    var _this = _possibleConstructorReturn(this, (LikeButton.__proto__ || Object.getPrototypeOf(LikeButton)).call(this, props));
-
-    _this.state = { liked: false };
-    return _this;
+/* class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
   }
 
-  _createClass(LikeButton, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      if (this.state.liked) {
-        return par.sessionPath;
-      }
-
-      return React.createElement(
-        "button",
-        { onClick: function onClick() {
-            return _this2.setState({ liked: true });
-          } },
-        "Like"
-      );
+  render() {
+    if (this.state.liked) {
+      return par.sessionPath;
     }
-  }]);
 
-  return LikeButton;
-}(React.Component);
+    return (
+      <button onClick={() => this.setState({ liked: true })}>
+        Like
+      </button>
+    );
+  }
+}
+ */
 
-var Jspreadsheet = function (_React$Component2) {
-  _inherits(Jspreadsheet, _React$Component2);
+var Jspreadsheet = function (_React$Component) {
+  _inherits(Jspreadsheet, _React$Component);
 
   function Jspreadsheet(props) {
     _classCallCheck(this, Jspreadsheet);
 
-    var _this3 = _possibleConstructorReturn(this, (Jspreadsheet.__proto__ || Object.getPrototypeOf(Jspreadsheet)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Jspreadsheet.__proto__ || Object.getPrototypeOf(Jspreadsheet)).call(this, props));
 
-    _this3.hideSomeColumns = function (obj) {
+    _this.hideSomeColumns = function (obj) {
       //obj.hideColumn(2);
       //obj.hideColumn(6);
       //obj.hideColumn(8);
@@ -137,21 +146,22 @@ var Jspreadsheet = function (_React$Component2) {
       //obj.hideColumn(12);
     };
 
-    _this3.componentDidMount = function () {
+    _this.componentDidMount = function () {
       this.el = jspreadsheet(this.wrapper.current, this.options);
       this.hideSomeColumns(this.el);
     };
 
-    _this3.addRow = function () {
+    _this.addRow = function () {
       this.el.insertRow();
     };
 
-    _this3.updateParameters = function () {
+    _this.updateGroupsAndTanks = function () {
       var param = void 0;
       param = this.el.getData();
       console.log(param);
 
       par.groupesDesSons = param;
+      par.directMidiON = directMidiON;
 
       var msg = {
         type: "updateParameters",
@@ -161,15 +171,15 @@ var Jspreadsheet = function (_React$Component2) {
       ws.send(JSON.stringify(msg));
     };
 
-    _this3.options = props.options;
-    _this3.wrapper = React.createRef();
-    return _this3;
+    _this.options = props.options;
+    _this.wrapper = React.createRef();
+    return _this;
   }
 
   _createClass(Jspreadsheet, [{
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this2 = this;
 
       return React.createElement(
         "div",
@@ -181,7 +191,7 @@ var Jspreadsheet = function (_React$Component2) {
           type: "button",
           value: "Add new row",
           onClick: function onClick() {
-            return _this4.addRow();
+            return _this2.addRow();
           }
         }),
         React.createElement("input", {
@@ -189,7 +199,8 @@ var Jspreadsheet = function (_React$Component2) {
           type: "button",
           value: "Update parameters",
           onClick: function onClick() {
-            return _this4.updateParameters();
+            updateParameters();
+            _this2.updateGroupsAndTanks();
           }
         })
       );
@@ -199,5 +210,7 @@ var Jspreadsheet = function (_React$Component2) {
   return Jspreadsheet;
 }(React.Component);
 
-var domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(React.createElement(LikeButton, null), domContainer);
+/* 
+let domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(<LikeButton />, domContainer);
+ */
