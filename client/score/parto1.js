@@ -3,6 +3,8 @@
 
   © Copyright 2019, B. Petit-Heidelein
 
+  browserify parto1.js -o parto1bundle.js
+
 ***************************************/
 "use strict"
 
@@ -40,7 +42,7 @@ var screenY = 1200;
 
 var increaseTank = 13;
 
-var patternGroups; // Groupes des patterns reçu du serveur hop
+var patternGroups; // Groupes des patterns reçu du serveur
 
 // On conçoit la partition dans un carré Xbase, Ybase
 // Bases de calcul des largeur et hauteur, li'dée et de permettre un modification de la taille de

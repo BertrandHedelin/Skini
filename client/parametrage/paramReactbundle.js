@@ -33,11 +33,26 @@ var directMidiON = false;
 var english = false;
 var reactOnPlay = false;
 var shufflePatterns = false;
-var simulatorInAseperateGroup = false;
-var useRaspberries = false;
+var nbeDeGroupesClients;
+
 var synchoOnMidiClock = false;
 var synchroLink = false;
 var synchroSkini = false;
+var timer;
+
+var sessionPath;
+var piecePath;
+var soundFilesPath1;
+
+var simulatorInAseperateGroup = false;
+var tempoMax;
+var tempoMin;
+var limiteDureeAttente;
+
+var useRaspberries = false;
+var playBufferMessage;
+var raspOSCPort;
+var algoGestionFifo;
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
@@ -170,6 +185,39 @@ function initWSSocket(host) {
         synchroSkini = par.synchroSkini;
         document.getElementById("synchroSkini").checked = synchroSkini;
 
+        sessionPath = par.sessionPath;
+        document.getElementById("sessionPath").value = sessionPath;
+
+        piecePath = par.piecePath;
+        document.getElementById("piecePath").value = piecePath;
+
+        soundFilesPath1 = par.soundFilesPath1;
+        document.getElementById("soundFilesPath1").value = soundFilesPath1;
+
+        tempoMax = par.tempoMax;
+        document.getElementById("tempoMax").value = tempoMax;
+
+        tempoMin = par.tempoMin;
+        document.getElementById("tempoMin").value = tempoMin;
+
+        limiteDureeAttente = par.limiteDureeAttente;
+        document.getElementById("limiteDureeAttente").value = limiteDureeAttente;
+
+        playBufferMessage = par.playBufferMessage;
+        document.getElementById("playBufferMessage").value = playBufferMessage;
+
+        raspOSCPort = par.raspOSCPort;
+        document.getElementById("raspOSCPort").value = raspOSCPort;
+
+        nbeDeGroupesClients = par.nbeDeGroupesClients;
+        document.getElementById("nbeDeGroupesClients").value = nbeDeGroupesClients;
+
+        timer = par.timer;
+        document.getElementById("timer").value = timer;
+
+        algoGestionFifo = par.algoGestionFifo;
+        document.getElementById("algoGestionFifo").value = algoGestionFifo;
+
         break;
 
       default:
@@ -251,6 +299,18 @@ var Jspreadsheet = function (_React$Component) {
       par.synchoOnMidiClock = synchoOnMidiClock;
       par.synchroLink = synchroLink;
       par.synchroSkini = synchroSkini;
+
+      par.sessionPath = document.getElementById("sessionPath").value;
+      par.piecePath = document.getElementById("piecePath").value;
+      par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
+      par.tempoMax = document.getElementById("tempoMax").value;
+      par.tempoMin = document.getElementById("tempoMin").value;
+      par.limiteDureeAttente = document.getElementById("limiteDureeAttente").value;
+      par.playBufferMessage = document.getElementById("playBufferMessage").value;
+      par.raspOSCPort = document.getElementById("raspOSCPort").value;
+      par.nbeDeGroupesClients = document.getElementById("nbeDeGroupesClients").value;
+      par.timer = document.getElementById("timer").value;
+      par.algoGestionFifo = document.getElementById("algoGestionFifo").value;
 
       var msg = {
         type: "updateParameters",

@@ -32,17 +32,33 @@
     <label for="reactOnPlay">React on Play</label>
   </div>
   <div>
-    <input type="checkbox" id="shufflePatterns" name="parameter" value="shufflePatterns" checked>
-    <label for="shufflePatterns">shuffle Patterns</label>
+    <label for="nbeDeGroupesClients">Number of client groups</label>
+    <input class="inputText" type="number" id="nbeDeGroupesClients" />
   </div>
   <div>
-    <input type="checkbox" id="simulatorInAseperateGroup" name="parameter" value="simulatorInAseperateGroup" checked>
-    <label for="simulatorInAseperateGroup">simulator In A seperate Group</label>
+    <input type="checkbox" id="shufflePatterns" name="parameter" value="shufflePatterns" checked>
+    <label for="shufflePatterns">Shuffle Patterns</label>
   </div>
+  <div>
+    <label for="algoGestionFifo">Algo Fifo management</label>
+    <input class="inputText" type="number" id="algoGestionFifo" />
+  </div>
+  
+  <HR>
   <div>
     <input type="checkbox" id="useRaspberries" name="parameter" value="useRaspberries" checked>
     <label for="useRaspberries">Use Raspberries</label>
   </div>
+  <div>
+    <label for="playBufferMessage">Play Buffer Message</label>
+    <input class="inputText" type="text" id="playBufferMessage" />
+  </div>
+  <div>
+    <label for="raspOSCPort">Raspberry OSC Port</label>
+    <input class="inputText" type="number" id="raspOSCPort" />
+  </div>
+
+  <HR>
   <div>
     <input type="checkbox" id="synchoOnMidiClock" name="parameter" value="synchoOnMidiClock" checked>
     <label for="synchoOnMidiClock">Syncho On Midi Clock</label>
@@ -55,8 +71,43 @@
     <input type="checkbox" id="synchroSkini" name="parameter" value="synchroSkini" checked>
     <label for="synchroSkini">Synchro Skini</label>
   </div>
+  <div>
+    <label for="timer">Timer</label>
+    <input class="inputText" type="number" id="timer" />
+  </div>
 
-  <div id="session_path"></div>
+  <HR>
+  <div>
+    <label for="piecePath">Piece Path</label>
+    <input class="inputText" type="text" id="piecePath" />
+  </div>
+  <div>
+    <label for="sessionPath">Session Path</label>
+    <input class="inputText" type="text" id="sessionPath" />
+  </div>
+  <div>
+    <label for="soundFilesPath1">Sound Files Path</label>
+    <input class="inputText" type="text" id="soundFilesPath1" />
+  </div>
+  <HR>
+  <div>
+    <input type="checkbox" id="simulatorInAseperateGroup" name="parameter" value="simulatorInAseperateGroup" checked>
+    <label for="simulatorInAseperateGroup">Simulator in a seperate Group</label>
+  </div>
+  <div>
+    <label for="tempoMax">Tempo Max</label>
+    <input class="inputText" type="number" id="tempoMax" />
+  </div>
+  <div>
+    <label for="tempoMin">Tempo Min</label>
+    <input class="inputText" type="number" id="tempoMin" />
+  </div>
+  <div>
+    <label for="limiteDureeAttente">Limit Waiting Time (in pulse)</label>
+    <input class="inputText" type="number" id="limiteDureeAttente" />
+  </div>
+
+  <BR>
   <div id="spreadsheet"></div>
 
   <input id="buttonClose" class="button button2" type="button" value="CLOSE" onclick="self.close();">

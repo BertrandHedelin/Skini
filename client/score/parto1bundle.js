@@ -1151,19 +1151,20 @@ window.initWSSocket = initWSSocket;
 
 },{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
 module.exports={
-	"remoteIPAddressImage": "192.168.82.96",
-	"remoteIPAddressSound": "localhost",
-	"remoteIPAddressLumiere": "192.168.82.96",
-	"remoteIPAddressGame": "192.168.82.96",
-	"serverIPAddress": "localhost",
-	"webserveurPort": 8080,
-	"websocketServeurPort": 8383,
-	"InPortOSCMIDIfromDAW": 13000,
-	"OutPortOSCMIDItoDAW": 12000,
-	"distribSequencerPort": 8888,
-	"outportProcessing": 10000,
-	"outportLumiere": 7700,
-	"inportLumiere": 9000
+  "remoteIPAddressImage": "localhost",
+  "remoteIPAddressSound": "localhost",
+  "remoteIPAddressLumiere": "localhost",
+  "remoteIPAddressGame": "localhost",
+  "serverIPAddress": "localhost",
+  "webserveurPort": 8080,
+  "websocketServeurPort": 8383,
+  "InPortOSCMIDIfromDAW": 13000,
+  "OutPortOSCMIDItoDAW": 12000,
+  "portOSCToGame": 1000,
+  "portOSCFromGame": 3005,
+  "distribSequencerPort": 8888,
+  "outportProcessing": 10000,
+  "outportLumiere": 7700,
+  "inportLumiere": 9000
 }
-
 },{}]},{},[1]);

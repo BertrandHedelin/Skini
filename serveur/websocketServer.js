@@ -7,6 +7,17 @@
  */
 'use strict'
 
+var fs = require("fs");
+var oscMidiLocal = require('./OSCandMidi');
+var ipConfig = require('./ipConfig');
+var compScore = require('./computeScore');
+var gameOSC = require('./gameOSC');
+const decache = require('decache');
+const { stringify } = require('querystring');
+const { Worker } = require('worker_threads');
+const saveParam = require('./saveParam.js');
+
+var defaultOrchestrationName = "orchestrationHH.js";
 var par;
 var oscMidiLocal;
 var DAW;
@@ -24,8 +35,10 @@ var generatedDir = "./myReact/";
 // On ne peut pas donner de chemin absolu dans un browser.
 // Ce sont les fichiers csv "descripteurs" des patterns
 // et les fichiers de configuration ".js"
+// Bug de principe (21/06/2022): On ne peut pas changer ces paramètres dans le fichier .js
+// puisque ces paramètres sont fixés avant tous choix de pièces ....
+// Il devrait s'agir de paramètres globaux et non liés aux fichiers de config de chaque pièce.
 var sessionPath = "./pieces/";
-
 var piecePath = "./pieces/";
 
 /**
@@ -50,6 +63,18 @@ exports.setParameters = setParameters;
  */
 function reloadParameters(param) {
   par = param;
+
+  // Le transfert des parametre passe tout en chaine de caractère qui ne
+  // sont pas traduite en int.
+  par.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients);
+
+  // Typage pour les antécédents dans Score. En rechargeant depuis le client
+  // de parametrage on a une chaine de caractères et pas un tableau.
+  for (var i = 0; i < param.groupesDesSons.length; i++) {
+    if (typeof param.groupesDesSons[i][7] === 'string' || param.groupesDesSons[i][7] instanceof String) {
+      par.groupesDesSons[i][7] = param.groupesDesSons[i][7].split(',');
+    }
+  }
 
   if (param.sessionPath !== undefined) {
     sessionPath = param.sessionPath;
@@ -83,17 +108,7 @@ const arrayToCSV = (arr, delimiter = ',') =>
   arr.map(v => v.join(delimiter)
   ).join('\n');
 
-var fs = require("fs");
-var oscMidiLocal = require('./OSCandMidi');
-var ipConfig = require('./ipConfig');
-var compScore = require('./computeScore');
-var gameOSC = require('./gameOSC');
-const decache = require('decache');
-const { stringify } = require('querystring');
-const { Worker } = require('worker_threads');
-const saveParam = require('./saveParam.js');
 
-var defaultOrchestrationName = "orchestrationHH.js";
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
 const tripleCrocheTR = 2;
@@ -1064,7 +1079,7 @@ maybe an hiphop compile Error`);
               console.error(err);
               return;
             }
-            if (debug1) console.log("loadBlocks:", orchestrationFile);
+            if (debug1) console.log("INFO: loadBlocks: orchestrationFile:", orchestrationFile);
             var msg = {
               type: "blocksLoaded",
               data: data,
@@ -1082,6 +1097,8 @@ maybe an hiphop compile Error`);
 
           let parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = parametersFile.slice(0, -4) + ".js";
+
+          if (debug1) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
           // Attention decache n'utilise pas le même path que parametersFile
           let decacheParameters = "../" + parametersFile;
 

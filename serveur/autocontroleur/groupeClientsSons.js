@@ -77,6 +77,7 @@ function initGroupeClientsSons() {
   // Tableau des clients actifs par groupe,
   // Devient un tableau de tableau. Le premier tableau a des index correspondant au groupe.
   // Les tableaux en deuxième position contiennent les id des clients générés à la connexion.
+  if(debug1) console.log("groupeClientsSins.js: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
   groupesClient = new Array(par.nbeDeGroupesClients);
   for (var i = 0; i < groupesClient.length; i++) {
     groupesClient[i] = new Array();
