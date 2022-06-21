@@ -31,8 +31,6 @@ var synchroLink = false;
 var synchroSkini = false;
 var timer;
 
-var sessionPath;
-var piecePath;
 var soundFilesPath1;
 
 var simulatorInAseperateGroup = false;
@@ -186,12 +184,6 @@ function initWSSocket(host) {
         synchroSkini = par.synchroSkini;
         document.getElementById("synchroSkini").checked = synchroSkini;
 
-        sessionPath = par.sessionPath;
-        document.getElementById("sessionPath").value = sessionPath;
-
-        piecePath = par.piecePath;
-        document.getElementById("piecePath").value = piecePath;
-
         soundFilesPath1 = par.soundFilesPath1;
         document.getElementById("soundFilesPath1").value = soundFilesPath1;
 
@@ -298,8 +290,6 @@ class Jspreadsheet extends React.Component {
     par.synchroLink = synchroLink;
     par.synchroSkini = synchroSkini;
   
-    par.sessionPath = document.getElementById("sessionPath").value;
-    par.piecePath = document.getElementById("piecePath").value;
     par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
     par.tempoMax = document.getElementById("tempoMax").value;
     par.tempoMin = document.getElementById("tempoMin").value;
@@ -312,7 +302,6 @@ class Jspreadsheet extends React.Component {
 
     var msg = {
       type: "updateParameters",
-      parametersDir: par.sessionPath,
       data: par
     }
     ws.send(JSON.stringify(msg));

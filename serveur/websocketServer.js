@@ -38,8 +38,8 @@ var generatedDir = "./myReact/";
 // Bug de principe (21/06/2022): On ne peut pas changer ces paramètres dans le fichier .js
 // puisque ces paramètres sont fixés avant tous choix de pièces ....
 // Il devrait s'agir de paramètres globaux et non liés aux fichiers de config de chaque pièce.
-var sessionPath = "./pieces/";
-var piecePath = "./pieces/";
+var sessionPath = ipConfig.sessionPath; //"./pieces/";
+var piecePath = ipConfig.piecePath; //"./pieces/";
 
 /**
  * To load some modules.
@@ -1608,9 +1608,9 @@ maybe an hiphop compile Error`);
             if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
           });
 
-          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", msgRecu.parametersDir + parametersFileGlobal);
+          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
-            saveParam.saveParameters(msgRecu.parametersDir + parametersFileGlobal, msgRecu.data);
+            saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
             reloadParameters(msgRecu.data);
           }
 
@@ -1618,7 +1618,7 @@ maybe an hiphop compile Error`);
           // avant recompilation.
           let destinationUpdate = "./serveur/skiniParametres.js";
           try {
-            fs.copyFileSync(msgRecu.parametersDir + parametersFileGlobal, destinationUpdate);
+            fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
           } catch (err) {
             console.log("Pb ecriture", destinationUpdate, err);
           }

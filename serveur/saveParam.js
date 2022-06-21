@@ -25,10 +25,6 @@ for (var i = 0; i < midiConfig.length; i++) {
     countBusOUT++;
   }
 }
-// Parameters and descriptors path
-exports.sessionPath = "`+ params.sessionPath + `";
-// Skini pieces path
-exports.piecePath = "`+ params.piecePath + `";
 
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI

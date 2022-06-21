@@ -39,7 +39,7 @@ function startSkini() {
   // AFFICHAGE DU CONTEXTE =================================================
 
   function displayContext(ipConfig) {
-    console.log("----------- RESEAU --------------------------------------");
+    console.log("----------- NETWORK --------------------------------------");
     console.log("Port OUT OSC pour MIDI:", ipConfig.OutPortOSCMIDItoDAW, "IP:", ipConfig.remoteIPAddressSound); // DAW ou Processing
     console.log("Port IN  OSC pour MIDI:", ipConfig.InPortOSCMIDIfromDAW, "IP:", ipConfig.remoteIPAddressSound); // DAW ou Processing
     console.log("Port IN  OSC pour M4L :", ipConfig.portOSCFromAbleton, "IP:", ipConfig.remoteIPAddressAbleton); // Pour M4L
@@ -56,6 +56,9 @@ function startSkini() {
     } else {
       console.log("Serveur pas accessible depuis Internet");
     }
+    console.log("----------- DIRECTORIES --------------------------------------");
+    console.log("Session Path:", ipConfig.sessionPath);
+    console.log("Piece Path:", ipConfig.piecePath);
 
     console.log("----------- MIDI --------------------------------------");
     for (var i = 0; i < midiConfig.length; i++) {

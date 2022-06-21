@@ -16,8 +16,8 @@ for (var i = 0; i < midiConfig.length; i++) {
   }
 }
 
-exports.sessionPath = "./pieces/";
-exports.piecePath = "./pieces/";
+//exports.sessionPath = "./pieces/";
+//exports.piecePath = "./pieces/";
 
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI
