@@ -77,6 +77,9 @@ function reloadParameters(param) {
     if (typeof param.groupesDesSons[i][7] === 'string' || param.groupesDesSons[i][7] instanceof String) {
       par.groupesDesSons[i][7] = param.groupesDesSons[i][7].split(',');
     }
+    for(var j = 0; j < par.groupesDesSons[i][7].length; j++){
+      par.groupesDesSons[i][7][j] = parseInt(par.groupesDesSons[i][7][j]);
+    }
   }
 
   if (param.sessionPath !== undefined) {

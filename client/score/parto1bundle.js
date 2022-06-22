@@ -4,6 +4,8 @@
 
   © Copyright 2019, B. Petit-Heidelein
 
+  browserify parto1.js -o parto1bundle.js
+
 ***************************************/
 "use strict"
 
@@ -41,7 +43,7 @@ var screenY = 1200;
 
 var increaseTank = 13;
 
-var patternGroups; // Groupes des patterns reçu du serveur hop
+var patternGroups; // Groupes des patterns reçu du serveur
 
 // On conçoit la partition dans un carré Xbase, Ybase
 // Bases de calcul des largeur et hauteur, li'dée et de permettre un modification de la taille de
@@ -776,7 +778,10 @@ function sketchProc(processing) {
    	  // Affichage des liens
       // Repérage des antécédents (prev)
    		var IndexPrev = groups[i].getPrevious();
- 	    if (IndexPrev.length > 0 ){
+
+      console.log("IndexPrev:", IndexPrev);
+
+ 	    if (IndexPrev.length > 1 ){
  	      for (var j=0; j < IndexPrev.length; j++ ) {
  	    	// On ne relie que des groupes actifs
     	    if(groups[ IndexPrev[j] ].isActive() && groups[i].isActive() || displayNonActiveGroups){
@@ -927,12 +932,19 @@ function getGroupOfSoundsFromTankNumber(tankNumber){
 	return groupeDeSons;
 }
 
+function getPatternGroups(){
+  var msg = {
+    type:"getPatternGroups",
+    id: index
+  }
+  ws.send(JSON.stringify(msg));
+}
+window.getPatternGroups = getPatternGroups;
+
 /* Les listeners *****************************************************************************/
 
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
 function initWSSocket(host) {
-
-  //ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort); // NODE JS
 
   if (debug1) console.log("score.js ws://" + host + ":" + ipConfig.websocketServeurPort );
@@ -1086,8 +1098,6 @@ function initWSSocket(host) {
         if ( isTankFromNumOfGroup(msgRecu.value[1])){
            var tankNumber = getTankNumberFromNumberInConf(msgRecu.value[1]);
            groupsNumber = getGroupOfSoundsFromTankNumber(tankNumber);
-
-
            if (groupsNumber < 0 ) console.log("ERR: addEventListener: setInMatriceDesPossibles: getGroupOfSoundsFromTankNumber ");
         }else{
           groupsNumber =  getNumberInGroupsFromNumberInConf(msgRecu.value[1]);
@@ -1165,6 +1175,8 @@ module.exports={
   "distribSequencerPort": 8888,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
-  "inportLumiere": 9000
+  "inportLumiere": 9000,
+  "sessionPath": "./pieces/",
+  "piecePath" : "./pieces/"
 }
 },{}]},{},[1]);
