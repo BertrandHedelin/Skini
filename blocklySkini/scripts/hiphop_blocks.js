@@ -232,6 +232,8 @@ Blockly.JavaScript['random_body'] = function(block) {
   var statements_name1 = Blockly.JavaScript.statementToCode(block, 'sequence1');
   var statements_name2 = Blockly.JavaScript.statementToCode(block, 'sequence2');
 
+  if(statements_name1 ===  '' || statements_name2 === '') return '';
+
   var aleaRandomBlock281289 =  Math.floor(Math.random() * Math.floor(2)) + 1;
   var code = `
       hh.IF(

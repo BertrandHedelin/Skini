@@ -895,7 +895,7 @@ function makeOneAutomatePossibleMachine() {
 
   //delete require.cache[require.resolve(myReactOrchestration)];
 
-  if (debug1) console.log("INFO: makeOneAutomatePossibleMachine: groupesDesSons:", par.groupesDesSons[0][0]);
+  //if (debug1) console.log("INFO: makeOneAutomatePossibleMachine: groupesDesSons:", par.groupesDesSons[0][0]);
 
   try {
     orchestration = require(myReactOrchestration);

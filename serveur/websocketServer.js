@@ -24,7 +24,10 @@ var DAW;
 var groupesClientSon;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
+var parametersFile;
 var parametersFileGlobal;
+let origine = "./serveur/defaultSkiniParametres.js";
+let decacheParameters;
 
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
 // pour orchestrationHH.js
@@ -1095,12 +1098,12 @@ maybe an hiphop compile Error`);
           // Pour ma mise à jour des parametres dans le browser
           parametersFileGlobal = msgRecu.fileName.slice(0, -4) + ".js";
 
-          let parametersFile = sessionPath + msgRecu.fileName;
+          parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = parametersFile.slice(0, -4) + ".js";
 
           if (debug1) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
           // Attention decache n'utilise pas le même path que parametersFile
-          let decacheParameters = "../" + parametersFile;
+          decacheParameters = "../" + parametersFile;
 
           try {
             if (fs.existsSync(parametersFile)) {
@@ -1123,7 +1126,6 @@ maybe an hiphop compile Error`);
               serv.broadcast(JSON.stringify(msg));
               // Initialise un fichier de parametres par défaut
               // C'est à dire en copie un dans un parametersFile temporaire
-              let origine = "./serveur/defaultSkiniParametres.js";
               try {
                 fs.copyFileSync(origine, parametersFile);
               } catch (err) {
@@ -1252,8 +1254,40 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          if (debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName, "\n--------------------");
-          if (debug) console.log(msgRecu.text);
+          // Si on crée une orchestration à partir de rien le fichier de paramètre n'existe pas
+          // On en crée un par défaut.
+          parametersFileGlobal = msgRecu.fileName + ".js";
+          try {
+            if (!fs.existsSync(sessionPath + parametersFileGlobal)) {
+              console.log("ERR: No parameter file:", parametersFileGlobal);
+              let msg = {
+                type: "alertBlocklySkini",
+                text: "The parameter file " + parametersFileGlobal + " is created, don't run the program before modifying it."
+              }
+              serv.broadcast(JSON.stringify(msg));
+              // Initialise un fichier de parametres par défaut
+              try {
+                fs.copyFileSync(origine, sessionPath + parametersFileGlobal);
+                // On recharge les nouveaux paramètres avant la compilation.
+                // Attention decache n'utilise pas le même path que parametersFile
+                decacheParameters = "../" + sessionPath + parametersFileGlobal;
+                decache(decacheParameters);
+                par = require(decacheParameters);
+                reloadParameters(par);
+              } catch (err) {
+                console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err);
+                break;
+              }
+            }
+          } catch (err) {
+            console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err);
+            let msg = {
+              type: "alertBlocklySkini",
+              text: "Pb creating parameter file " + parametersFileGlobal
+            }
+            serv.broadcast(JSON.stringify(msg));
+            break;
+          }
 
           // Ecrit le programme HH pour compilation
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
@@ -1280,7 +1314,7 @@ maybe an hiphop compile Error`);
             }
             serv.broadcast(JSON.stringify(msg));
 
-            // Compile the orchestration
+            // Compile l'orchestration
             try {
               compileHH();
             } catch (err) {
