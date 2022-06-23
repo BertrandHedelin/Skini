@@ -1,0 +1,181 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="97-g?Z=+Z+R/LM$vyB+~">Piano</variable>
+    <variable id="!eUF|y!6J2bY`lUk5f6)">Piano1Intro1</variable>
+    <variable id="_/aL`l=tnf%im!6H.PV*">Piano1Intro2</variable>
+    <variable id="]o#U|8}=IZ7ZLRq|}ufv">Piano1Intro3</variable>
+    <variable id="k|-B#k{x|*TQdxaS@Hxm">Piano1Intro4</variable>
+    <variable id="f1Fow$](Zs2|D/llZM:B">Piano1Intro5</variable>
+    <variable id="+E8V{ka3O#zp!bbD.2C?">Piano1Milieu1</variable>
+    <variable id="4W#qk/!ALA$g6^N,c}jK">Piano1Milieu2</variable>
+    <variable id="S8viIK|Ej5eYA),39w|9">Piano1Milieu3</variable>
+    <variable id="=Y*dX7Rhe%]ij1ecdZD4">Piano1Milieu4</variable>
+    <variable id="cYUw/;(y?l.NtNl!JA0!">Piano1Milieu5</variable>
+    <variable id="-z?ZXi]`ZS6^FNiYu/II">Piano1Milieu6</variable>
+    <variable id="$e?y;cQK+nsbBATrWS%Y">Piano1Milieu7</variable>
+    <variable id="H,yvJI2DJdG/LBFIp]4f">Piano1Fin1</variable>
+    <variable id="hv~?r.ABD(=cAojN?Hp;">Piano1Fin2</variable>
+    <variable id=":+l^K=w0y*S^-l^b,lbY">Piano1Fin3</variable>
+    <variable id="obp)!HY!z=qZGy1MU3t(">Piano1Fin4</variable>
+    <variable id="As~CH2Y_3VJCI@4Xj{M5">Piano1Fin5</variable>
+    <variable id="_L_AcjUXLP-e3=vSB(90">RiseHit</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="jUb7P;](+;..mGa9mt]S" x="58" y="-495">
+    <statement name="MODULES">
+      <block type="tank" id="P9eel:QhyYlYWIK)TucI" collapsed="true">
+        <field name="groupeClient">255</field>
+        <statement name="SIGNAL">
+          <block type="variables_set" id="RSHql/Q5wHw6_p%E*Pai">
+            <field name="VAR" id="97-g?Z=+Z+R/LM$vyB+~">Piano</field>
+            <value name="VALUE">
+              <block type="lists_create_with" id="oL*XrE04$TC[rZWt|0|j">
+                <mutation items="17"></mutation>
+                <value name="ADD0">
+                  <block type="variables_get" id="@Z%M3X~j6%n$sl#:W;d9">
+                    <field name="VAR" id="!eUF|y!6J2bY`lUk5f6)">Piano1Intro1</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="variables_get" id="kJ2oUf)G23Xy=CQ#IBoX">
+                    <field name="VAR" id="_/aL`l=tnf%im!6H.PV*">Piano1Intro2</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="variables_get" id="[YMJg0A%_;m`Ldh!YcEi">
+                    <field name="VAR" id="]o#U|8}=IZ7ZLRq|}ufv">Piano1Intro3</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="variables_get" id="vnM6[JN9r,7P(zmvN^uz">
+                    <field name="VAR" id="k|-B#k{x|*TQdxaS@Hxm">Piano1Intro4</field>
+                  </block>
+                </value>
+                <value name="ADD4">
+                  <block type="variables_get" id="*Ssm^Td3gEb~$*!0%C^?">
+                    <field name="VAR" id="f1Fow$](Zs2|D/llZM:B">Piano1Intro5</field>
+                  </block>
+                </value>
+                <value name="ADD5">
+                  <block type="variables_get" id="onzWT5qo+pFDZTG6QqhO">
+                    <field name="VAR" id="+E8V{ka3O#zp!bbD.2C?">Piano1Milieu1</field>
+                  </block>
+                </value>
+                <value name="ADD6">
+                  <block type="variables_get" id="8k;/8i]ElU]rmXRUx-Q.">
+                    <field name="VAR" id="4W#qk/!ALA$g6^N,c}jK">Piano1Milieu2</field>
+                  </block>
+                </value>
+                <value name="ADD7">
+                  <block type="variables_get" id="e7KVpEnd6l}J9*+cWviZ">
+                    <field name="VAR" id="S8viIK|Ej5eYA),39w|9">Piano1Milieu3</field>
+                  </block>
+                </value>
+                <value name="ADD8">
+                  <block type="variables_get" id="Z8bqz)NLq#g$%1P3}WzC">
+                    <field name="VAR" id="=Y*dX7Rhe%]ij1ecdZD4">Piano1Milieu4</field>
+                  </block>
+                </value>
+                <value name="ADD9">
+                  <block type="variables_get" id="mvFFpwVOOka..X2WucL7">
+                    <field name="VAR" id="cYUw/;(y?l.NtNl!JA0!">Piano1Milieu5</field>
+                  </block>
+                </value>
+                <value name="ADD10">
+                  <block type="variables_get" id="R4yzl+0LpWSZ)BSIJjOG">
+                    <field name="VAR" id="-z?ZXi]`ZS6^FNiYu/II">Piano1Milieu6</field>
+                  </block>
+                </value>
+                <value name="ADD11">
+                  <block type="variables_get" id=";vRD0KoJwP](!O5JEilH">
+                    <field name="VAR" id="$e?y;cQK+nsbBATrWS%Y">Piano1Milieu7</field>
+                  </block>
+                </value>
+                <value name="ADD12">
+                  <block type="variables_get" id="d06kvaAqVqND(D1d:fQ;">
+                    <field name="VAR" id="H,yvJI2DJdG/LBFIp]4f">Piano1Fin1</field>
+                  </block>
+                </value>
+                <value name="ADD13">
+                  <block type="variables_get" id="%m1%wArzCy,AnSUAI@gE">
+                    <field name="VAR" id="hv~?r.ABD(=cAojN?Hp;">Piano1Fin2</field>
+                  </block>
+                </value>
+                <value name="ADD14">
+                  <block type="variables_get" id="qC_q8HgbYek^qozJP}5q">
+                    <field name="VAR" id=":+l^K=w0y*S^-l^b,lbY">Piano1Fin3</field>
+                  </block>
+                </value>
+                <value name="ADD15">
+                  <block type="variables_get" id="4Nd|*n/P~dDGP$NbmF?A">
+                    <field name="VAR" id="obp)!HY!z=qZGy1MU3t(">Piano1Fin4</field>
+                  </block>
+                </value>
+                <value name="ADD16">
+                  <block type="variables_get" id="T+^(ArjhLdqND%Z|R@8f">
+                    <field name="VAR" id="As~CH2Y_3VJCI@4Xj{M5">Piano1Fin5</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="set_timer_division" id=".!vUOLB(jnPw?)Zn+Msv">
+        <field name="timer">1</field>
+        <next>
+          <block type="addSceneScore" id="3^OKDd%]#*be}*Uq:i)z">
+            <field name="number">1</field>
+            <next>
+              <block type="set_group" id="}k4P-i)3}njeA2oBB`un">
+                <field name="groupe">255</field>
+                <value name="GROUPS">
+                  <block type="variables_get" id="M3O{/`5!KM06!}x@k2T}">
+                    <field name="VAR" id="_L_AcjUXLP-e3=vSB(90">RiseHit</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="alertInfoScoreON" id="]-P}bE)IkUE-%H^,aN5G">
+                    <value name="message">
+                      <block type="text" id="^mL3I^6KJ;:X$e`rWlBx">
+                        <field name="TEXT">Opus5</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_print_serveur" id="[.E3Q$jNkR$5MC*{t$sm">
+                        <value name="TEXT">
+                          <block type="text" id="r+1fJOj~r-/yVCA$@m[h">
+                            <field name="TEXT">Opus5</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="run_tank" id="o!3TEZE-c/w6J1:%^N|Q">
+                            <value name="TANKS">
+                              <block type="variables_get" id="N64M7^ils4QEIut_d/^*">
+                                <field name="VAR" id="97-g?Z=+Z+R/LM$vyB+~">Piano</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="alertInfoScoreON" id="gzVmc;LTL=;8eHT/idT;">
+                                <value name="message">
+                                  <block type="text" id="-w1^G`y|~-WbFGEF)t)@">
+                                    <field name="TEXT">Fin Opus5</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

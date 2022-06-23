@@ -778,9 +778,6 @@ function sketchProc(processing) {
    	  // Affichage des liens
       // Repérage des antécédents (prev)
    		var IndexPrev = groups[i].getPrevious();
-
-      console.log("IndexPrev:", IndexPrev);
-
  	    if (IndexPrev.length > 1 ){
  	      for (var j=0; j < IndexPrev.length; j++ ) {
  	    	// On ne relie que des groupes actifs

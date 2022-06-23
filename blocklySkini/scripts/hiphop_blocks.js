@@ -384,7 +384,7 @@ function makeReservoir(name, instrument, groupe) {
     codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"`+ instrument[i] +`OUT"}),
     `
   }
-
+  
   codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
   hh.TRAP(
   {
@@ -458,7 +458,6 @@ function makeReservoir(name, instrument, groupe) {
     + `,`
     +
     makeAwait(instrument, groupe)
-
     + `
     hh.EXIT(
       {
@@ -517,7 +516,7 @@ function makeReservoir(name, instrument, groupe) {
   ) // Fin atom,
 ); // Fin module
 `;
-   return codeTotal;
+  return codeTotal;
 }
 
 Blockly.defineBlocksWithJsonArray([
@@ -4228,6 +4227,8 @@ var tickCounter = 0;
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "OUT";
   
+  if(debug) console.log("Signal Orchestration:", signalName);
+
   var signal = hh.SIGNAL({
     "%location":{},
     "direction":"OUT",
@@ -4241,6 +4242,8 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 for (var i=0; i < par.groupesDesSons.length; i++) {
   var signalName = par.groupesDesSons[i][0] + "IN";
   
+  if(debug) console.log("Signal Orchestration:", signalName);
+  
   var signal = hh.SIGNAL({
     "%location":{},
     "direction":"IN",
@@ -4251,8 +4254,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 
 function setSignals(){
   var machine = new hh.ReactiveMachine( orchestration, {sweep:true});
-  console.log("nets",machine.nets.length);
-  
+  console.log("Number of nets in Orchestration:",machine.nets.length);
   return machine;
 }
 exports.setSignals = setSignals;
