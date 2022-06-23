@@ -110,6 +110,7 @@
     <variable id="8pE8BK/Ke(lDfn5R:_RK">S2Action</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="jUb7P;](+;..mGa9mt]S" x="169" y="-360">
+    <comment pinned="false" h="80" w="160">Sur la base d'Opus5 avec Hop/HipHop. On utilise la session Ableton Live Opus5</comment>
     <statement name="MODULES">
       <block type="tank" id="P9eel:QhyYlYWIK)TucI" collapsed="true">
         <field name="groupeClient">255</field>
@@ -708,7 +709,7 @@
                           <block type="hh_print_serveur" id="[.E3Q$jNkR$5MC*{t$sm">
                             <value name="TEXT">
                               <block type="text" id="r+1fJOj~r-/yVCA$@m[h">
-                                <field name="TEXT">Opus5</field>
+                                <field name="TEXT">Opus5 avec session Ableton Live</field>
                               </block>
                             </value>
                             <next>
