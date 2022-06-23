@@ -2769,7 +2769,7 @@ hh.ATOM(
     "apply":function () {
       ratioTranspose = ` + number_ratio + `;
       offsetTranspose = ` + number_offset + `;
-      console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
+      if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
     }
   }
 ),
@@ -2821,8 +2821,8 @@ hh.ATOM(
     "%location":{},
     "%tag":"node",
     "apply":function () {
-      transposeValue += ` + number_valeur + `;
-      //console.log("hiphop block transpose: transposeValue:", transposeValue);
+      transposeValue = ` + number_valeur + `; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+      console.log("hiphop block transpose: transposeValue:", transposeValue ,` + number_channel + `,` + number_CC + `);
       oscMidiLocal.sendControlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
     }
   }
@@ -4175,13 +4175,13 @@ function setServ(ser, daw, groupeCS, oscMidi, mix){
 exports.setServ = setServ;
 
 function setTempo(value){
+  tempoGlobal = value;
+
   if(midimix.getAbletonLinkStatus()) {
-    if(debug) console.log("ORCHESTRATION: tempo Link:", value);
+    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
     midimix.setTempoLink(value);
     return;
   }
-
-  tempoGlobal = value;
   if ( value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
     return;

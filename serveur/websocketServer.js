@@ -467,13 +467,11 @@ function startWebSocketServer() {
         automatePossibleMachine.react(signal);
       } catch (err) {
         console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", err.toString());
-
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
         }
         serv.broadcast(JSON.stringify(msg));
-
         return false;
       }
       return true;
@@ -482,8 +480,6 @@ function startWebSocketServer() {
       return false;
     }
   }
-
-  if (debug) console.log("websocketserver:automatePossibleMachine: passé");
 
   // Pas au bon endroit, musicien pas en place dans cette version
   //if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {
