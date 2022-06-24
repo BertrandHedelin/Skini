@@ -77,7 +77,7 @@ function initGroupeClientsSons() {
   // Tableau des clients actifs par groupe,
   // Devient un tableau de tableau. Le premier tableau a des index correspondant au groupe.
   // Les tableaux en deuxième position contiennent les id des clients générés à la connexion.
-  if(debug1) console.log("groupeClientsSins.js: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
+  if (debug1) console.log("groupeClientsSins.js: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
   groupesClient = new Array(par.nbeDeGroupesClients);
   for (var i = 0; i < groupesClient.length; i++) {
     groupesClient[i] = new Array();
@@ -107,7 +107,7 @@ exports.initBroadCastServer = initBroadCastServer;
  * from the orchestration.
  * @param {object} midimix reference
  */
-function setMidimix(mix){
+function setMidimix(mix) {
   midimix = mix;
 }
 exports.setMidimix = setMidimix;
@@ -610,7 +610,7 @@ exports.getGroupesClient = getGroupesClient;
  */
 function getGroupesClientLength() {
   // It happends when calling this function before loading a piece
-  if(par === undefined) return 0;
+  if (par === undefined) return 0;
 
   var longueurs = new Array(par.nbeDeGroupesClients);
   for (var i = 0; i < groupesClient.length; i++) {
@@ -901,12 +901,12 @@ function makeOneAutomatePossibleMachine() {
     orchestration = require(myReactOrchestration);
     if (debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
   } catch (err) {
-    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err);
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err.toString());
     throw err;
   }
 
-  if(orchestration.setServ === undefined){
-    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration );
+  if (orchestration.setServ === undefined) {
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
     throw "Pb on acces to:" + myReactOrchestration;
   }
 
@@ -914,8 +914,13 @@ function makeOneAutomatePossibleMachine() {
   orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
 
   // C'est là que se fait la compilation HipHop.js
-  var machine = orchestration.setSignals();
-  makeSignalsListeners(machine);
+  try {
+    var machine = orchestration.setSignals();
+    makeSignalsListeners(machine);
+  } catch (err) {
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
+    throw err;
+  }
   return machine;
 }
 exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine;

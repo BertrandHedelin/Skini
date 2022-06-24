@@ -1274,12 +1274,12 @@ maybe an hiphop compile Error`);
                 par = require(decacheParameters);
                 reloadParameters(par);
               } catch (err) {
-                console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err);
+                console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
                 break;
               }
             }
           } catch (err) {
-            console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err);
+            console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());
             let msg = {
               type: "alertBlocklySkini",
               text: "Pb creating parameter file " + parametersFileGlobal
@@ -1304,7 +1304,7 @@ maybe an hiphop compile Error`);
           // Ecrit le fichier XML Blockly
           fs.writeFile(piecePath + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
             if (err) {
-              return console.log(err);
+              return console.log(err.toString());
             }
             console.log("INFO: websocketServer:", msgRecu.fileName + ".xml", " written");
             var msg = {
@@ -1317,7 +1317,7 @@ maybe an hiphop compile Error`);
             try {
               compileHH();
             } catch (err) {
-              console.log("websocketServerSkini:saveBlocklyGeneratedFile:catch:", err);
+              console.log("websocketServerSkini:saveBlocklyGeneratedFile:catch:", err.toString());
             }
           });
           break;
