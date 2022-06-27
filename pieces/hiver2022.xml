@@ -13,7 +13,6 @@
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe6</variable>
     <variable id="i{e?qmT;x#)~nD.R%|KL">groupe11</variable>
     <variable id="F%L|t8+EOpD^h4lxT}yX">groupe18</variable>
-    <variable id="}:b{(_TlGZhoN@ObkVuo">groupe6IN</variable>
     <variable id="+);tVe}OJRGG{ln-MBSw">groupe5</variable>
     <variable id="4=PY@HDZvO_cPW?8]nP-">groupe7</variable>
     <variable id="I)pw,[.(?rZoGv*zMx{P">groupe8</variable>
@@ -604,11 +603,11 @@
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="hh_wait_for" id="Q53)ib1^$MjF6N5^CCYT">
-                                                                <field name="TIMES">1</field>
+                                                              <block type="wait_for_signal_in_group" id=";.fw6-}`_bt_|*hAUm8*">
+                                                                <field name="TIMES">3</field>
                                                                 <value name="SIGNAL">
-                                                                  <block type="variables_get" id="BKQNoW@0lAE:6H{ml`.~">
-                                                                    <field name="VAR" id="}:b{(_TlGZhoN@ObkVuo">groupe6IN</field>
+                                                                  <block type="variables_get" id="05nlY6,mlud}C!ojWuxN">
+                                                                    <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe6</field>
                                                                   </block>
                                                                 </value>
                                                                 <next>
@@ -628,11 +627,11 @@
                                                                           </block>
                                                                         </value>
                                                                         <next>
-                                                                          <block type="hh_wait_for" id="T6_xv,g9Z7=[T({_(G-[">
+                                                                          <block type="wait_for_signal_in_group" id="JegTkPJ@$dFu3ij?{*Fy">
                                                                             <field name="TIMES">1</field>
                                                                             <value name="SIGNAL">
-                                                                              <block type="variables_get" id="B#+*g.163zyb`ozBWg3Z">
-                                                                                <field name="VAR" id="}:b{(_TlGZhoN@ObkVuo">groupe6IN</field>
+                                                                              <block type="variables_get" id="MTQJy2Ty08-.5E|wCn[9">
+                                                                                <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe6</field>
                                                                               </block>
                                                                             </value>
                                                                             <next>

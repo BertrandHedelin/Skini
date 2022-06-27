@@ -112,7 +112,7 @@
   <block type="hh_ORCHESTRATION" id="jUb7P;](+;..mGa9mt]S" x="169" y="-360">
     <comment pinned="false" h="80" w="160">Sur la base d'Opus5 avec Hop/HipHop. On utilise la session Ableton Live Opus5</comment>
     <statement name="MODULES">
-      <block type="tank" id="P9eel:QhyYlYWIK)TucI">
+      <block type="tank" id="P9eel:QhyYlYWIK)TucI" collapsed="true">
         <field name="groupeClient">255</field>
         <statement name="SIGNAL">
           <block type="variables_set" id="RSHql/Q5wHw6_p%E*Pai">

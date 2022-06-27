@@ -9,13 +9,13 @@
     "type": "IN",
     "spec": "syncFromDAW",
     "name": "loopMIDI Port 9",
-    "comment": "for sync message from DAW"
+    "comment": "for sync message received from DAW"
   },
   {
     "type": "IN",
     "spec": "clipFromDAW",
     "name": "loopMIDI Port 12",
-    "comment": "for clip activation message from DAW"
+    "comment": "for clip activation message received from DAW"
   },
   {
     "type": "IN",
