@@ -26,10 +26,13 @@
                 Orch.</button>
               <input class="inputText" type="text" id="saveFile" />
 
+              <button class="small button" id="buttonCreateSession" onclick="createSession()">Create descriptors</button>
+
               <!-- <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button> -->
               <label for="loadSession" class="small button">Load Descriptors</label>
               <input type="file" id="loadSession" onchange="loadSession();" />
               <input class="inputText" type="text" id="loadSessionTxt" />
+
 
               <button id="buttonStopAutomate" class="small button red" style="display:none"
                 onclick="stopAutomate();">Stop</button>

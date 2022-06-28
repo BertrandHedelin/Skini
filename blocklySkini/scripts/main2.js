@@ -228,6 +228,26 @@ function init(host) {
   }
   window.loadSession = loadSession;
 
+function createSession(){
+  console.log("createSession");
+  var fileName = window.prompt('Give a descriptor name');
+  if (fileName === undefined || fileName === '') return;
+  document.getElementById("loadSessionTxt").value = fileName + ".csv";
+
+  if (debug1) console.log("createDescriptors:", fileName);
+  var msg = {
+    type: "createSession",
+    fileName: fileName
+  }
+  ws.send(JSON.stringify(msg));
+  descriptorLoaded = true;
+
+  // To allow a reload of the same file
+  document.getElementById('loadSession').value = ""; 
+}
+window.createSession = createSession;
+
+
   //*********** Blocks ********************************************
   var toolbox = {
     "kind": "categoryToolbox",

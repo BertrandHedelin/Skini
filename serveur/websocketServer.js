@@ -27,6 +27,7 @@ var sessionFile; // Pour le chemin complet de la session en cours (descripteur e
 var parametersFile;
 var parametersFileGlobal;
 let origine = "./serveur/defaultSkiniParametres.js";
+let defaultSession = "./serveur/defaultSession.csv";
 let decacheParameters;
 
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
@@ -77,7 +78,7 @@ function reloadParameters(param) {
     if (typeof param.groupesDesSons[i][7] === 'string' || param.groupesDesSons[i][7] instanceof String) {
       par.groupesDesSons[i][7] = param.groupesDesSons[i][7].split(',');
     }
-    for(var j = 0; j < par.groupesDesSons[i][7].length; j++){
+    for (var j = 0; j < par.groupesDesSons[i][7].length; j++) {
       par.groupesDesSons[i][7][j] = parseInt(par.groupesDesSons[i][7][j]);
     }
   }
@@ -919,6 +920,29 @@ maybe an hiphop compile Error`);
           }
           break;
 
+        case "createSession":
+          if (msgRecu.fileName === '') {
+            console.log("WARN: No descriptor file name");
+            break;
+          }
+          if (debug1) console.log("createSession:", sessionPath + msgRecu.fileName + ".csv");
+          sessionFile = sessionPath + msgRecu.fileName + ".csv";
+          // Initialise un fichier de parametres par défaut
+          // C'est à dire en copie un dans un parametersFile temporaire
+          try {
+            fs.copyFileSync(defaultSession, sessionFile);
+          } catch (err) {
+            console.log("websocketServer: Pb ecriture: ", sessionFile, err);
+          }
+          DAW.loadDAWTable(sessionFile);
+
+          var mesReponse = {
+            type: "consoleBlocklySkini",
+            text: "session loaded: " + sessionFile
+          }
+          ws.send(JSON.stringify(mesReponse));
+          break;
+
         case "DAWPseudo":
           break;
 
@@ -1473,6 +1497,17 @@ maybe an hiphop compile Error`);
           break;
 
         case "startSpectateur": // On récupère l'ID du client
+          // On autorise la configuration des patterns même sans piece chargée
+          if (msgRecu.text === "configurateur") {
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
+            var mesReponse = {
+              type: "skiniParametres",
+              descriptors: DAW.getSession(),
+              value: par
+            }
+            ws.send(JSON.stringify(mesReponse));
+          }
+
           if (par === undefined) {
             console.log("WARN: A client try to connect but no piece launched");
             break;
@@ -1494,16 +1529,6 @@ maybe an hiphop compile Error`);
             }
             ws.send(JSON.stringify(mesReponse));
             break;
-          }
-
-          if (msgRecu.text === "configurateur") {
-            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
-            var mesReponse = {
-              type: "skiniParametres",
-              descriptors: DAW.getSession(),
-              value: par
-            }
-            ws.send(JSON.stringify(mesReponse));
           }
 
           if (msgRecu.text === "pieceParameters") {
