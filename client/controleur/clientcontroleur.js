@@ -7,6 +7,8 @@ Version Node.js
 
 © Copyright 2017-2022, B. Petit-Heidelein
 
+browserify .\clientcontroleur.js -o .\controleurbundle.js
+
 **************************/
 "use strict"
 
@@ -34,7 +36,7 @@ var debug = false;
 var debug1 = true;
 
 var DAWTableEnCours = 0;
-var automateEncours = false;
+var automateEncours = true;
 var serverHostname;
 // Autres déclarations
 
@@ -343,21 +345,21 @@ window.onbeforeunload = function () {
   ws.close();
 }
 
-function loadDAW(val) {
+/* function loadDAW(val) {
   if (!automateEncours) {
-    console.log("clientControleur:loadDAW:", val);
+    console.log("clientControleur:lstopDAWoadDAW:", val);
 
-    /*		var bout; 
-        msg.type = "loadDAWTable";
-        msg.value = val -1; // Pour envoyer un index
-        DAWTableEnCours = val;
-        ws.send(JSON.stringify(msg));
+    		// var bout; 
+        // msg.type = "loadDAWTable";
+        // msg.value = val -1; // Pour envoyer un index
+        // DAWTableEnCours = val;
+        // ws.send(JSON.stringify(msg));
     
-        for (var i=1; i < 4; i++ ) {
-          bout = "buttonLoadDAW" + i;
-          document.getElementById( bout ).style.backgroundColor = "#4CAF50"; // Green
-        }
-        bout = "buttonLoadDAW" + val;*/
+        // for (var i=1; i < 4; i++ ) {
+        //   bout = "buttonLoadDAW" + i;
+        //   document.getElementById( bout ).style.backgroundColor = "#4CAF50"; // Green
+        // }
+        // bout = "buttonLoadDAW" + val;
 
     msg.type = "loadDAWTable";
     msg.value = 0; // Pour envoyer un index
@@ -370,9 +372,9 @@ function loadDAW(val) {
     alert("WARNING: Automaton running, stop before selecting another one.")
   }
 }
-window.loadDAW = loadDAW;
+window.loadDAW = loadDAW; */
 
-function stopDAW() {
+/* function stopDAW() {
   msg.type = "setDAWON";
   msg.value = 0;
   ws.send(JSON.stringify(msg));
@@ -382,9 +384,9 @@ function stopDAW() {
   cleanQueues();
   resetAllPad();
 }
-window.stopDAW = stopDAW;
+window.stopDAW = stopDAW; */
 
-function startAutomate() {
+/* function startAutomate() {
   msg.type = "setDAWON";
   if (DAWTableEnCours !== 0) {
     msg.value = DAWTableEnCours;
@@ -398,9 +400,9 @@ function startAutomate() {
     alert("WARNING: No automaton selected")
   }
 }
-window.startAutomate = startAutomate;
+window.startAutomate = startAutomate; */
 
-function stopAutomate() {
+/* function stopAutomate() {
   document.getElementById("buttonStartAutomate").style.display = "inline";
   document.getElementById("buttonStopAutomate").style.display = "none";
 
@@ -413,7 +415,7 @@ function stopAutomate() {
   automateEncours = false;
   cleanQueues();
 }
-window.stopAutomate = stopAutomate;
+window.stopAutomate = stopAutomate; */
 
 function checkSession() {
   msg.type = "checkSession";
@@ -421,7 +423,7 @@ function checkSession() {
 }
 window.checkSession = checkSession;
 
-function loadSession() {
+/* function loadSession() {
   var reponse = window.prompt("Descriptor file");
   if (reponse === undefined || reponse === '') return;
 
@@ -432,22 +434,9 @@ function loadSession() {
   msg.fileName = fileName;
   ws.send(JSON.stringify(msg));
 }
-window.loadSession = loadSession;
+window.loadSession = loadSession; */
 
-function loadSession() {
-  var reponse = window.prompt("Descriptor file");
-  if (reponse === undefined || reponse === '') return;
-
-  var fileName;
-  fileName = par.sequencerFilePath + reponse + '.csv';
-  if (debug1) console.log("loadSession:", fileName);
-  msg.type = "loadSession";
-  msg.fileName = fileName;
-  ws.send(JSON.stringify(msg));
-}
-window.loadSession = loadSession;
-
-function saveSession() {
+/* function saveSession() {
   var reponse = window.prompt("Descriptor file");
   if (reponse === undefined || reponse === '') return;
 
@@ -458,7 +447,7 @@ function saveSession() {
   msg.fileName = fileName;
   ws.send(JSON.stringify(msg));
 }
-window.saveSession = saveSession;
+window.saveSession = saveSession; */
 
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
 function initWSSocket(host) {
@@ -522,10 +511,10 @@ function initWSSocket(host) {
       case "lesFilesDattente":
         break;
 
-      case "noAutomaton":
+/*       case "noAutomaton":
         document.getElementById("MessageDuServeur").innerHTML = "No automaton at this position";
         automateEncours = false;
-        break;
+        break; */
 
       case "sessionLoaded":
         document.getElementById("MessageDuServeur").innerHTML = "Session loaded :" + msgRecu.fileName;

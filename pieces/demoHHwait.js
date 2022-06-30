@@ -21,7 +21,7 @@ exports.directMidiON = true;
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
-exports.english = true;
+exports.english = false;
 
 /***********************************
   Paramètres du simulateur
@@ -30,7 +30,7 @@ exports.english = true;
 ************************************/
 exports.tempoMax = 500; // En ms
 exports.tempoMin = 500; // En ms
-exports.limiteDureeAttente = 12; // En pulsations
+exports.limiteDureeAttente = 33; // En pulsations
 
 /********************************************************
 AUTOMATE
@@ -44,7 +44,7 @@ Le choix se fait sur le client en fonction d'abletonON donc
 de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
-exports.soundFilesPath1 = "mars2022";
+exports.soundFilesPath1 = "";
 
 /***************************************
 CHEMIN DES PARTITIONS DES PATTERNS ET CONFIG AVEC MUSICIENS
@@ -77,7 +77,7 @@ function setnbeDeGroupesClients(num) {
 }
 exports.setnbeDeGroupesClients = setnbeDeGroupesClients;
 
-exports.simulatorInAseperateGroup = false; // Si true, le dernier groupe client est réservé au simulateur.
+exports.simulatorInAseperateGroup = true; // Si true, le dernier groupe client est réservé au simulateur.
 
 // Pour un contrôle des Raspberries
 exports.useRaspberries = false;
@@ -85,16 +85,16 @@ exports.playBufferMessage = "test";
 exports.raspOSCPort = 4000;
 
 // La synchro Midi, Link. Synchro Bitwig OSC par défaut si Midi et Link false.
-exports.synchoOnMidiClock = false;
-exports.synchroLink = true;
+exports.synchoOnMidiClock = true;
+exports.synchroLink = false;
 exports.synchroSkini = false;
-exports.timer = 1000;
+exports.timer = 500;
 
 const groupesDesSons = [
   [ "groupe0",0, "group",170,100,20,"#CF1919",[],1 ],
   [ "groupe1",1, "group",20,240,20,"#008CBA",[],1 ],
   [ "groupe2",2, "group",170,580,20,"#4CAF50",[],1 ],
   [ "groupe3",3, "group",350,100,20,"#5F6262",[],1 ],
-  [ "groupe4",4, "group",20,380,20,"#797bbf",[],1 ],
+  [ "",, "",,,,"",[], ],
   ];
 exports.groupesDesSons = groupesDesSons;

@@ -304,7 +304,7 @@ function startWebSocketServer() {
   function sendSignalFromDAW(noteSkini) {
     if (debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
     var patternName = DAW.getPatternNameFromNote(noteSkini);
-    if (debug1) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
+    if (debug1) console.log("INFO: websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
     if (patternName !== undefined) {
       reactAutomatePossible({ patternSignal: [noteSkini, patternName] });
     } else {
@@ -818,7 +818,7 @@ maybe an hiphop compile Error`);
         type: "consoleBlocklySkini",
         text: "Orchestration loaded"
       }
-      serv.broadcast(JSON.stringify(msg));
+      ws.send(JSON.stringify(msg));
 
       // Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
       if (par.gameOSCIn !== undefined) {
@@ -1078,7 +1078,7 @@ maybe an hiphop compile Error`);
                   type: "consoleBlocklySkini",
                   text: "Not an XML file " + orchestrationFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
@@ -1087,7 +1087,7 @@ maybe an hiphop compile Error`);
                 type: "consoleBlocklySkini",
                 text: "No orchestration file " + orchestrationFile
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               break;
             }
           } catch (err) {
@@ -1096,7 +1096,7 @@ maybe an hiphop compile Error`);
               type: "consoleBlocklySkini",
               text: "Error reading orchestration file " + orchestrationFile
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1137,7 +1137,7 @@ maybe an hiphop compile Error`);
                   type: "alertBlocklySkini",
                   text: "Parameter not an JavaScript file " + parametersFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
@@ -1146,7 +1146,7 @@ maybe an hiphop compile Error`);
                 type: "alertBlocklySkini",
                 text: "The parameter file " + parametersFile + " is not updated, don't run the program before modifying it."
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               // Initialise un fichier de parametres par défaut
               // C'est à dire en copie un dans un parametersFile temporaire
               try {
@@ -1162,7 +1162,7 @@ maybe an hiphop compile Error`);
               type: "alertBlocklySkini",
               text: "Pb Reading parameter file " + parametersFile
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1188,7 +1188,7 @@ maybe an hiphop compile Error`);
             type: "consoleBlocklySkini",
             text: "Orchestration loaded"
           }
-          serv.broadcast(JSON.stringify(msg));
+          ws.send(JSON.stringify(msg));
           break;
 
         case "loadSession":
@@ -1209,7 +1209,7 @@ maybe an hiphop compile Error`);
                   type: "alertBlocklySkini",
                   text: "Descriptor not an csv file " + sessionFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
@@ -1218,7 +1218,7 @@ maybe an hiphop compile Error`);
                 type: "alertBlocklySkini",
                 text: "No session file " + sessionFile
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               break;
             }
           } catch (err) {
@@ -1227,7 +1227,7 @@ maybe an hiphop compile Error`);
               type: "alertBlocklySkini",
               text: "Pb Reading session file " + sessionPath
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1287,7 +1287,7 @@ maybe an hiphop compile Error`);
                 type: "alertBlocklySkini",
                 text: "The parameter file " + parametersFileGlobal + " is created, don't run the program before modifying it."
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               // Initialise un fichier de parametres par défaut
               try {
                 fs.copyFileSync(origine, sessionPath + parametersFileGlobal);
@@ -1308,7 +1308,7 @@ maybe an hiphop compile Error`);
               type: "alertBlocklySkini",
               text: "Pb creating parameter file " + parametersFileGlobal
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1319,7 +1319,7 @@ maybe an hiphop compile Error`);
                 type: "alertBlocklySkini",
                 text: err.toString()
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               return console.log(err);
             }
             if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationName, " written");
@@ -1335,7 +1335,7 @@ maybe an hiphop compile Error`);
               type: "consoleBlocklySkini",
               text: msgRecu.fileName + ".xml written"
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
 
             // Compile l'orchestration
             try {
@@ -1639,7 +1639,7 @@ maybe an hiphop compile Error`);
                   type: "alertBlocklySkini",
                   text: err.toString()
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 return console.log("ERR: websocketserver.js: updateSession: ", err);
               } else {
                 // Le recharger dans DAW

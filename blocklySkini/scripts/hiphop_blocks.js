@@ -201,6 +201,68 @@ Blockly.JavaScript['await_pattern'] = function(block) {
   return code;
 };
 
+// Revu HH Node
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_await_signal_value",
+    "message0": "wait for %1 signal %2 with value %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "TIMES",
+        "value": 1,
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "field_number",
+        "name": "Signal_Value",
+        "value": 0
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "await_pattern",
+    "helpUrl": ""
+  }
+  ]);
+  
+  Blockly.JavaScript['hh_await_signal_value'] = function(block) {
+    let times = block.getFieldValue('TIMES'); 
+    var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+    let value = value_signal.replace(/\'/g, "");
+    let valueOfTheSignal = block.getFieldValue('Signal_Value'); 
+
+    var code = `
+      hh.AWAIT(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function (){
+            return ((() => {
+              const ` + value + `=this["` + value + `"];
+              return (` + value + `.now  && ` + value + `.nowval === ` + valueOfTheSignal + `);
+            })());
+          },
+          "countapply":function (){ return ` + times + `;}
+        },
+        hh.SIGACCESS(
+          {"signame":"` + value + `",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+    `
+    return code;
+  };
+
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
 {

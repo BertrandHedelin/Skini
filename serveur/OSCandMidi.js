@@ -10,6 +10,9 @@ var osc = require('osc-min');
 var dgram = require("dgram");
 var udp = dgram.createSocket("udp4");
 
+// Pour permettre le broadcast depuis node.js
+udp.bind(function() { udp.setBroadcast(true); });
+
 // Appelé à la fois par setParameters et reloadParameters dans websocketServer.js
 // donc attention à startOSCandMIDI() et les variables globales.
 var par;

@@ -4,7 +4,7 @@
     <variable id="e~?Hofi|/CqL68B=.2=m">tick</variable>
     <variable id="L/uUotHI-n=5.RDdUqh:">trap1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="+TVwrSF`WXyYjVSGfJ$c" x="124" y="-466">
+  <block type="hh_ORCHESTRATION" id="+TVwrSF`WXyYjVSGfJ$c" x="95" y="-107">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="1L#G~YyJ^|f:f33_Dd0D">
         <field name="TYPE">INOUT</field>
@@ -124,36 +124,40 @@
                             <next>
                               <block type="hh_sequence" id="WS@X:RMuJu^]kt^%5`=p">
                                 <statement name="BODY">
-                                  <block type="hh_wait_for" id="H%)J_,!?B[i^O=9fmf7,">
-                                    <field name="TIMES">15</field>
-                                    <value name="SIGNAL">
-                                      <block type="variables_get" id=";iZ68Q1sB7kCG32y,v.K">
-                                        <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
-                                      </block>
-                                    </value>
+                                  <block type="hh_pause" id="R8QxByDBWw[+v0P$?fWT">
                                     <next>
-                                      <block type="hh_emit_value" id="n}n!ohVj*}*9mJeE8qGc">
-                                        <field name="Signal_Value">0</field>
+                                      <block type="hh_wait_for" id="H%)J_,!?B[i^O=9fmf7,">
+                                        <field name="TIMES">15</field>
                                         <value name="SIGNAL">
-                                          <block type="variables_get" id="BQR9#xK]:dt(8NXz]591">
-                                            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                          <block type="variables_get" id=";iZ68Q1sB7kCG32y,v.K">
+                                            <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="hh_wait_for" id="}Daqn9z#HEz/`efH4I%G">
-                                            <field name="TIMES">2</field>
+                                          <block type="hh_emit_value" id="n}n!ohVj*}*9mJeE8qGc">
+                                            <field name="Signal_Value">0</field>
                                             <value name="SIGNAL">
-                                              <block type="variables_get" id="uHRKPC`fQV`+U!FvkPiT">
-                                                <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
+                                              <block type="variables_get" id="BQR9#xK]:dt(8NXz]591">
+                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
                                               </block>
                                             </value>
                                             <next>
-                                              <block type="alertInfoScoreON" id="ILB4D(bA|Tr+(S|E4!-9">
-                                                <value name="message">
-                                                  <block type="text" id="9!A8=^+:8V8:aEv6hy%$">
-                                                    <field name="TEXT">End demo HH</field>
+                                              <block type="hh_wait_for" id="}Daqn9z#HEz/`efH4I%G">
+                                                <field name="TIMES">2</field>
+                                                <value name="SIGNAL">
+                                                  <block type="variables_get" id="uHRKPC`fQV`+U!FvkPiT">
+                                                    <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
                                                   </block>
                                                 </value>
+                                                <next>
+                                                  <block type="alertInfoScoreON" id="ILB4D(bA|Tr+(S|E4!-9">
+                                                    <value name="message">
+                                                      <block type="text" id="9!A8=^+:8V8:aEv6hy%$">
+                                                        <field name="TEXT">End demo HH</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
                                               </block>
                                             </next>
                                           </block>

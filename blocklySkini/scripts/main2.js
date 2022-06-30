@@ -584,6 +584,10 @@ window.createSession = createSession;
           },
           {
             "kind": "block",
+            "type": "hh_await_signal_value"
+          },
+          {
+            "kind": "block",
             "type": "hh_wait_for"
           },
           {

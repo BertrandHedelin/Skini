@@ -40,43 +40,39 @@
                               </block>
                             </value>
                             <next>
-                              <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
-                                <statement name="BODY">
-                                  <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
-                                    <field name="user_group">255</field>
-                                    <field name="number_of_ticks">40</field>
-                                    <value name="GROUPS">
-                                      <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
-                                        <mutation items="5"></mutation>
-                                        <value name="ADD0">
-                                          <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
-                                            <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD1">
-                                          <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
-                                            <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD2">
-                                          <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
-                                            <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD3">
-                                          <block type="variables_get" id="ieRILuot6B]`klbfb;!L">
-                                            <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
-                                          </block>
-                                        </value>
-                                        <value name="ADD4">
-                                          <block type="variables_get" id="HU:q+Dc;4-q/uVX`?Jl!">
-                                            <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
-                                          </block>
-                                        </value>
+                              <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
+                                <field name="user_group">255</field>
+                                <field name="number_of_ticks">40</field>
+                                <value name="GROUPS">
+                                  <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
+                                    <mutation items="5"></mutation>
+                                    <value name="ADD0">
+                                      <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
+                                        <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD1">
+                                      <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
+                                        <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD2">
+                                      <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
+                                        <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD3">
+                                      <block type="variables_get" id="ieRILuot6B]`klbfb;!L">
+                                        <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD4">
+                                      <block type="variables_get" id="HU:q+Dc;4-q/uVX`?Jl!">
+                                        <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
                                       </block>
                                     </value>
                                   </block>
-                                </statement>
+                                </value>
                                 <next>
                                   <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
                                     <value name="message">
