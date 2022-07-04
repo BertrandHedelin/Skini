@@ -588,6 +588,9 @@ window.createSession = createSession;
           },
           {
             "kind": "block",
+            "type": "hh_wait_for_immediate"
+          },          {
+            "kind": "block",
             "type": "hh_wait_for"
           },
           {

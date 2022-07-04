@@ -21,7 +21,7 @@ exports.directMidiON = true;
 // Pour charger les fonctions et modules de scenes de type GOLEM
 exports.scenesON = false;
 
-exports.english = false;
+exports.english = true;
 
 /***********************************
   Paramètres du simulateur
@@ -91,10 +91,6 @@ exports.synchroSkini = false;
 exports.timer = 500;
 
 const groupesDesSons = [
-  [ "groupe0",0, "group",170,100,20,"#CF1919",[],1 ],
-  [ "groupe1",1, "group",20,240,20,"#008CBA",[],1 ],
-  [ "groupe2",2, "group",170,580,20,"#4CAF50",[],1 ],
-  [ "groupe3",3, "group",350,100,20,"#5F6262",[],1 ],
   [ "",, "",,,,"",[], ],
   ];
 exports.groupesDesSons = groupesDesSons;

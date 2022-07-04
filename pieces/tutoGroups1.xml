@@ -1,0 +1,137 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
+    <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
+    <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
+    <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
+    <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
+    <variable id="$se#}vs#(H9(^h2Ldf]%">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="63" y="-584">
+    <statement name="BODY">
+      <block type="hh_print_serveur" id="^qobTNF+:9c(gC_i|]BM">
+        <value name="TEXT">
+          <block type="text" id="0iqC2{b5bgUA~}.@3)`E">
+            <field name="TEXT">Demo Ableton</field>
+          </block>
+        </value>
+        <next>
+          <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+            <field name="timer">1</field>
+            <next>
+              <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+                <field name="tempo">110</field>
+                <next>
+                  <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                    <field name="number">1</field>
+                    <next>
+                      <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
+                        <value name="message">
+                          <block type="text" id="x|C[Rub)rFkS_2(^nec1">
+                            <field name="TEXT">Demo Ableton</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="set_group" id="E(Jj$Isij{;bEh=/*MYF">
+                            <field name="groupe">255</field>
+                            <value name="GROUPS">
+                              <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
+                                <mutation items="5"></mutation>
+                                <value name="ADD0">
+                                  <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
+                                    <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                  </block>
+                                </value>
+                                <value name="ADD1">
+                                  <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
+                                    <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
+                                  </block>
+                                </value>
+                                <value name="ADD2">
+                                  <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
+                                    <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                  </block>
+                                </value>
+                                <value name="ADD3">
+                                  <block type="variables_get" id="ieRILuot6B]`klbfb;!L">
+                                    <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                  </block>
+                                </value>
+                                <value name="ADD4">
+                                  <block type="variables_get" id="HU:q+Dc;4-q/uVX`?Jl!">
+                                    <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_wait_for" id="@Ib%V{Ju4Zf#/vjva{wl">
+                                <field name="TIMES">10</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="+Be:.qQrw^K]rO6f#Z`P">
+                                    <field name="VAR" id="$se#}vs#(H9(^h2Ldf]%">tick</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="unset_group" id="pdTB|mwB*0`!p(be@x#(">
+                                    <field name="groupe">255</field>
+                                    <value name="GROUPS">
+                                      <block type="lists_create_with" id=",f[Kx}lfqX@cg+jf.e,P">
+                                        <mutation items="5"></mutation>
+                                        <value name="ADD0">
+                                          <block type="variables_get" id="Q68R6:98[;Mgp/TKWwU@">
+                                            <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD1">
+                                          <block type="variables_get" id="UinA:CP;65p(jK*-O_N6">
+                                            <field name="VAR" id="NRd.r{X8K{5ou;XOjCHf">groupe1</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD2">
+                                          <block type="variables_get" id="V[.8%I_I-|.^)^:B(0i%">
+                                            <field name="VAR" id="-V0!mkHZVfLb:/i64^:.">groupe2</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD3">
+                                          <block type="variables_get" id="FK;77RG|dh`9Hi6t~gwd">
+                                            <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD4">
+                                          <block type="variables_get" id="I[0y,MSR+gxi]ZC:yV7}">
+                                            <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
+                                        <value name="message">
+                                          <block type="text" id="8@914pyNxRN!N)P;:Hxf">
+                                            <field name="TEXT">Fin demo Ableton</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB"></block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

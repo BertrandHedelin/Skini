@@ -4635,6 +4635,54 @@ Blockly.JavaScript['hh_emit_value'] = function(block) {
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_wait_for_immediate",
+    "message0": "wait for %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "await",
+    "helpUrl": ""
+  }
+  ]);
+  
+  Blockly.JavaScript['hh_wait_for_immediate'] = function(block) {
+    var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+    let value = value_signal.replace(/\'/g, "");
+  
+    var code = `
+  hh.AWAIT(
+    {
+      "%location":{},
+      "%tag":"await",
+      "immediate":true,
+      "apply":function () {
+        return ((() => {
+          const ` + value + `=this["` + value + `"];
+          return ` + value + `.now;
+        })());
+      }
+    },
+    hh.SIGACCESS({
+      "signame":"` + value + `",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    })
+  ),
+  `;
+    return code;
+  };
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "hh_wait_for",
   "message0": "wait for %1 signal %2",

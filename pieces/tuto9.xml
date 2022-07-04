@@ -1,0 +1,90 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="NZckNgPsUGPF`[)1?]MJ">myModule</variable>
+    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
+    <variable id="#}3K=pkBW|;;f(^-*]WW">foo</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="204" y="75">
+    <statement name="MODULES">
+      <block type="hh_module" id="JU?FUJVF|`*Uy~s:f_ZY">
+        <value name="NAME">
+          <block type="variables_get" id="d^wx+y4BY#6$}we2K3F+">
+            <field name="VAR" id="NZckNgPsUGPF`[)1?]MJ">myModule</field>
+          </block>
+        </value>
+        <statement name="SIGNALS">
+          <block type="hh_declare_signal" id=")K/(h*S}$t#=$;=?k)%;">
+            <field name="TYPE">INOUT</field>
+            <value name="signal">
+              <block type="variables_get" id="3}I`Z,1Odn7qoiN7+t%3">
+                <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="BODY">
+          <block type="hh_wait_for_immediate" id="EnQ:3s{#z#}z|e=gUeTR">
+            <value name="SIGNAL">
+              <block type="variables_get" id="INkP0!4gN8KG5[z5{v]/">
+                <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_print_serveur" id="ym{L*WsZFzihSJr!$AWJ">
+                <value name="TEXT">
+                  <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
+                    <field name="TEXT">foo</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id=")ZJ/R2WEsW4@$b0dTo{b">
+        <field name="TYPE">INOUT</field>
+        <value name="signal">
+          <block type="variables_get" id=";E[L7^*7o5ff;$t8ykmM">
+            <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_loopeach" id="%J`/$#=im`+_J|,,7NzX">
+        <field name="TIMES">4</field>
+        <value name="SIGNAL">
+          <block type="variables_get" id="sE_7x7)oOz+sL$hk%/Gl">
+            <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+          </block>
+        </value>
+        <statement name="BODY">
+          <block type="hh_emit_value" id="c.@WrIOZ|fA=4L8~NqY+">
+            <field name="Signal_Value">0</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="uXM[aL7um2nCPNZZ(-XJ">
+                <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_run" id="j/9gzi6yztJ,Z=QAC^pG">
+                <value name="MODULE">
+                  <block type="variables_get" id="27)OA_B=2%SSBEWrOT_?">
+                    <field name="VAR" id="NZckNgPsUGPF`[)1?]MJ">myModule</field>
+                  </block>
+                </value>
+                <value name="SIGNALS">
+                  <block type="variables_get" id="Ovd@d^p0pg0PS.KvUMN[">
+                    <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

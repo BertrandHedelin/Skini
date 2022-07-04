@@ -1,0 +1,42 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="-I/an%{vf2DAArgL6bge">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <statement name="BODY">
+      <block type="hh_abort" id="{kd}uH1;Nczh(B8eM7tJ">
+        <field name="TIMES">4</field>
+        <value name="SIGNAL">
+          <block type="variables_get" id="|yR6-^wFC6O,FV5kM}QW">
+            <field name="VAR" id="-I/an%{vf2DAArgL6bge">tick</field>
+          </block>
+        </value>
+        <statement name="BODY">
+          <block type="hh_loop" id="@]:IR+rje:Zd3`J(LnS#">
+            <statement name="BODY">
+              <block type="hh_wait_for_immediate" id="~)TS;MNy#$:uZ,79M:Mw">
+                <value name="SIGNAL">
+                  <block type="variables_get" id="UsVx[??)JiCi.TM!Hz.q">
+                    <field name="VAR" id="-I/an%{vf2DAArgL6bge">tick</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_print_serveur" id="JTODDS1wfa9:v^5`UnIw">
+                    <value name="TEXT">
+                      <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
+                        <field name="TEXT">foo</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_pause" id="/`LIF_/sf;.yzv-hwdqM"></block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,26 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <statement name="BODY">
+      <block type="hh_loopeach" id="iH/dMPUh.hyATHF$a)[F">
+        <field name="TIMES">1</field>
+        <value name="SIGNAL">
+          <block type="variables_get" id="9(aL57xd}3nLP8s;Fq#o">
+            <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+          </block>
+        </value>
+        <statement name="BODY">
+          <block type="hh_print_serveur" id="JTODDS1wfa9:v^5`UnIw">
+            <value name="TEXT">
+              <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
+                <field name="TEXT">foo</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

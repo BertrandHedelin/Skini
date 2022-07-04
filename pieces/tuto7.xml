@@ -1,0 +1,65 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <statement name="BODY">
+      <block type="hh_abort" id="!;+Tx)[Cs?CEvWrU}N+6">
+        <field name="TIMES">4</field>
+        <value name="SIGNAL">
+          <block type="variables_get" id="ZD8$nT-lnSMeXk.fxvU4">
+            <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+          </block>
+        </value>
+        <statement name="BODY">
+          <block type="hh_loopeach" id="0]?[:OH,Q2o_CluH(..6">
+            <field name="TIMES">1</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="{G@~!Osn=zzR4j#Y?ysv">
+                <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+              </block>
+            </value>
+            <statement name="BODY">
+              <block type="hh_print_serveur" id="c4wEAM%q$rtcOQ,fCbUx">
+                <value name="TEXT">
+                  <block type="text" id="/0m!E4HJM+2,Yg9}I?hx">
+                    <field name="TEXT">bar</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="hh_abort" id="hl7%MEUKc+1UNnJ^8yY[">
+            <field name="TIMES">4</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="ln}E-Z??FC1P+Zm?J|(Z">
+                <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+              </block>
+            </value>
+            <statement name="BODY">
+              <block type="hh_every" id="YGBU^1;RapL3Px?5YF|n">
+                <field name="TIMES">1</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id="9(aL57xd}3nLP8s;Fq#o">
+                    <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+                  </block>
+                </value>
+                <statement name="BODY">
+                  <block type="hh_print_serveur" id="JTODDS1wfa9:v^5`UnIw">
+                    <value name="TEXT">
+                      <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
+                        <field name="TEXT">foo</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

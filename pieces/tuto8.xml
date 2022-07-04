@@ -1,0 +1,72 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="bas0g%N;lHt[G$*{$R9A">myTrap</variable>
+    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="204" y="75">
+    <statement name="BODY">
+      <block type="hh_trap" id="KLrXdAAx_fonfz(S=vt#">
+        <value name="TRAP">
+          <block type="variables_get" id="8Eg_kX7Bz^Dc.;^,adMx">
+            <field name="VAR" id="bas0g%N;lHt[G$*{$R9A">myTrap</field>
+          </block>
+        </value>
+        <statement name="BODY">
+          <block type="hh_fork" id="u+p.Mbz$%hRW]%BLB#Dd">
+            <statement name="BODY">
+              <block type="hh_every" id="YGBU^1;RapL3Px?5YF|n">
+                <field name="TIMES">1</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id="9(aL57xd}3nLP8s;Fq#o">
+                    <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+                  </block>
+                </value>
+                <statement name="BODY">
+                  <block type="hh_print_serveur" id="JTODDS1wfa9:v^5`UnIw">
+                    <value name="TEXT">
+                      <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
+                        <field name="TEXT">foo</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="hh_sequence" id="`S=?;U!1T[#FEn,9a7vX">
+                    <statement name="BODY">
+                      <block type="hh_wait_for" id="JUd%en=HZ5duFj`Vnu!(">
+                        <field name="TIMES">4</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="}5.Z/6qA:]W;7+r{QRXn">
+                            <field name="VAR" id="v/G885K)-!Ncv)7oc7@Z">tick</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_print_serveur" id="9IqWpFZ^Rx#b(Hz#f@jl">
+                            <value name="TEXT">
+                              <block type="text" id="uVb(s|RtbQYy,nK7`f-]">
+                                <field name="TEXT">Break the trap</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_break" id="Zp%8.kbKwU1dJG]uhr;/">
+                                <value name="TRAP">
+                                  <block type="variables_get" id="Dq+L{bQMXRndpuUO)$j[">
+                                    <field name="VAR" id="bas0g%N;lHt[G$*{$R9A">myTrap</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
