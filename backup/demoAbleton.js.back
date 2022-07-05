@@ -96,14 +96,5 @@ const groupesDesSons = [
   [ "groupe2",2, "group",170,580,20,"#4CAF50",[],1 ],
   [ "groupe3",3, "group",350,100,20,"#5F6262",[],1 ],
   [ "groupe4",4, "group",20,380,20,"#797bbf",[],1 ],
-  [ "groupe5",5, "group",350,580,20,"#008CBA",[],1 ],
-  [ "groupe6",6, "group",540,100,20,"#E0095F",[],1 ],
-  [ "groupe7",7, "group",740,480,20,"#A76611",[],1 ],
-  [ "groupe8",8, "group",540,580,20,"#b3712d",[],1 ],
-  [ "groupe9",9, "group",740,200,20,"#666633",[],1 ],
-  [ "groupe10",10, "group",350,340,20,"#039879",[],1 ],
-  [ "groupe11",11, "group",540,340,20,"#315A93",[],1 ],
-  [ "groupe12",12, "group",670,340,20,"#BCA104",[],1 ],
-  [ "groupe13",13, "group",820,340,20,"#E0095F",[],1 ],
   ];
 exports.groupesDesSons = groupesDesSons;
