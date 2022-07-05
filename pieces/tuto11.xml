@@ -1,0 +1,116 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="#}3K=pkBW|;;f(^-*]WW">foo</variable>
+    <variable id="?!ju!`Bu;OM5eg+9Y%f]">bar</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="140" y="-16">
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="CjErFt(^VI@K2HDe!=Is">
+        <field name="TYPE">INOUT</field>
+        <value name="signal">
+          <block type="variables_get" id="VwL}`8W([o+E`^9iZ9C1">
+            <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_declare_signal" id=")ZJ/R2WEsW4@$b0dTo{b">
+            <field name="TYPE">INOUT</field>
+            <value name="signal">
+              <block type="variables_get" id=";E[L7^*7o5ff;$t8ykmM">
+                <field name="VAR" id="?!ju!`Bu;OM5eg+9Y%f]">bar</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_emit_value" id="abE`!:+e(TYX}C.C`pq*">
+        <field name="Signal_Value">0</field>
+        <value name="SIGNAL">
+          <block type="variables_get" id="M5^pIja#Coj+`i.YWV2J">
+            <field name="VAR" id="?!ju!`Bu;OM5eg+9Y%f]">bar</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_fork" id=")n;X`;U7(^C(tOgI.M,o">
+            <statement name="BODY">
+              <block type="hh_sequence" id="87ml#e(}m~!p4N9oSJ**">
+                <statement name="BODY">
+                  <block type="hh_emit_value" id="}E^40KUs]y:uL%Q8Endx">
+                    <field name="Signal_Value">0</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="|VZS0C+ldgNUfFt1e)!~">
+                        <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_pause" id="1e)[67/_s,v$Z:Vy$JaB">
+                        <next>
+                          <block type="hh_emit_value" id="erv}fYgCM??))|UiEZF,">
+                            <field name="Signal_Value">0</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="lZy7rKh5xsQyMU_1q%^W">
+                                <field name="VAR" id="?!ju!`Bu;OM5eg+9Y%f]">bar</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="hh_sequence" id="O8VYiPN06ZB/Eb8G6W!r">
+                    <statement name="BODY">
+                      <block type="hh_loopeach" id="sJz-w;6llkRAb,Q7^c4n">
+                        <field name="TIMES">1</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="+:VJ-?rb40t_)h3_EH9H">
+                            <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
+                          </block>
+                        </value>
+                        <statement name="BODY">
+                          <block type="hh_print_serveur" id="6V#lG]DYOjm1fgJ3js~/">
+                            <value name="TEXT">
+                              <block type="text" id=",yvADJ9j~uV3Y5|,w,S:">
+                                <field name="TEXT">Foo</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="hh_sequence" id=";VKypg59kZJ8ijFcl`w+">
+                        <statement name="BODY">
+                          <block type="hh_loopeach" id="TGHV:[pQGCjKLx.d[7Y_">
+                            <field name="TIMES">1</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="REer@MmEVXwMt1U-I*lj">
+                                <field name="VAR" id="?!ju!`Bu;OM5eg+9Y%f]">bar</field>
+                              </block>
+                            </value>
+                            <statement name="BODY">
+                              <block type="hh_print_serveur" id="KQT..$3hX27_iwF]eIv+">
+                                <value name="TEXT">
+                                  <block type="text" id="|s-nzmZsaK*Cc,[aUz`,">
+                                    <field name="TEXT">Bar</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

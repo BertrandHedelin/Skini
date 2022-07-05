@@ -1,4 +1,4 @@
-var groupe0, groupe1, groupe2, groupe3, groupe4;
+var foo, tick;
 
 
 
@@ -140,6 +140,12 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
 
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"foo"
+    }),
+
   hh.LOOP(
     {
      "%location":{loop: 1},
@@ -188,245 +194,90 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {console.log('Demo Ableton');}
-    }
-  ),
-
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        gcs.setTimerDivision(1);
-      }
-    }
-  ),
-
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        setTempo(110);
-      }
-    }
-  ),
-
-    hh.ATOM(
+      hh.EMIT(
         {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'addSceneScore',
-            value:1
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ),
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
-        "%tag":"yield"
-      }
-    ),
-
-      hh.TRAP(
-        {
-          "trap838036":"trap838036",
           "%location":{},
-          "%tag":"trap838036"
+          "%tag":"emit",
+          "foo":"foo",
+          "apply":function (){
+            return ((() => {
+              //const foo=this["foo"];
+              return 0;
+            })());
+          }
         },
-        hh.FORK(
-          {
-            "%location":{},
-            "%tag":"fork"
-          },
-          hh.SEQUENCE( // sequence 1
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "groupe2OUT":"groupe2OUT",
-                "apply":function (){
-                  return ((() => {
-                    const groupe2OUT = this["groupe2OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"groupe2OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," groupe2", true); }
-            }
-        ),
+        hh.SIGACCESS({
+          "signame":"foo",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
 
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "groupe0OUT":"groupe0OUT",
-                "apply":function (){
-                  return ((() => {
-                    const groupe0OUT = this["groupe0OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"groupe0OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," groupe0", true); }
-            }
-        ),
+  hh.PAUSE(
+    {
+      "%location":{},
+      "%tag":"yield"
+    }
+  ),
 
-          ), // fin sequence 1
         hh.SEQUENCE(
             {
-              "%location":{},
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
               "%tag":"seq"
             },
-            hh.AWAIT(
-                {
-                  "%location":{},
-                  "%tag":"await",
-                  "immediate":false,
-                  "apply":function (){return ((() => {
-                    const tick =this["tick"];
-                    return tick.now;})());},
-                  "countapply":function (){return 10;}
-              },
-              hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-            ),
 
 
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "groupe2OUT":"groupe2OUT",
-                "apply":function (){
-                  return ((() => {
-                    const groupe2OUT = this["groupe2OUT"];
-                    return [false, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"groupe2OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
+        hh.EMIT(
+          {
             "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," groupe2", false); }
+            "%tag":"emit",
+            "foo":"foo",
+            "apply":function (){
+              return ((() => {
+                //const foo=this["foo"];
+                return 0;
+              })());
             }
+          },
+          hh.SIGACCESS({
+            "signame":"foo",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
         ),
 
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "groupe0OUT":"groupe0OUT",
-                "apply":function (){
-                  return ((() => {
-                    const groupe0OUT = this["groupe0OUT"];
-                    return [false, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"groupe0OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(255," groupe0", false); }
-            }
-        ),
 
-            hh.PAUSE(
-              {
-                "%location":{},
-                "%tag":"yield"
-              }
-            ),
-            hh.EXIT(
-              {
-                "trap838036":"trap838036",
-                "%location":{},
-                "%tag":"break"
-              }
-            ), // Exit
-          ) // sequence
-        ), // fork
-      ), // trap
-    hh.PAUSE(
-        {
-          "%location":{},
-          "%tag":"yield"
-        }
-    ),
-
-    hh.ATOM(
-        {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'alertInfoScoreON',
-            value:'Fin demo Ableton'
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ),
+    hh.LOOPEACH(
+      {
+        "%location":{loopeach: tick},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
 
       hh.ATOM(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
-          }
+          "apply":function () {console.log('TOC');}
         }
       ),
+
+    ),
+
+    ),
 
         ),
         hh.SEQUENCE(

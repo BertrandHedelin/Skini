@@ -1,12 +1,12 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
-    <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
+    <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
     <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
     <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
-    <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
+    <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="723" y="-507">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="172" y="-277">
     <statement name="BODY">
       <block type="hh_print_serveur" id="^qobTNF+:9c(gC_i|]BM">
         <value name="TEXT">
@@ -59,7 +59,7 @@
                         </value>
                         <value name="IN_GROUPS">
                           <block type="variables_get" id="mwz#@,o9?MhZhyk;n$GH">
-                            <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                            <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
                           </block>
                         </value>
                         <next>
