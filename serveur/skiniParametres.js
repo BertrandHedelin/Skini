@@ -109,8 +109,11 @@ const terre = '#A76611';
 const grisvert = '#039879';
 const grisbleu = '#315A93';
 
-var groupesDesSons = [
-  // Pour group: nom du groupe (0), index du groupe (1), type (2), x(3), y(4), nbe d'éléments(5), color(6), prédécesseurs(7), n° de scène graphique
-];
+const groupesDesSons = [
+  [ "groupe0",0, "group",170,100,20,"#CF1919",[],1 ],
+  [ "groupe1",1, "group",20,240,20,"#008CBA",[],1 ],
+  [ "groupe2",2, "group",170,580,20,"#4CAF50",[],1 ],
+  [ "groupe3",3, "group",350,100,20,"#5F6262",[],1 ],
+  [ "groupe4",4, "group",20,380,20,"#797bbf",[],1 ],
+  ];
 exports.groupesDesSons = groupesDesSons;
-

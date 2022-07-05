@@ -1,3 +1,5 @@
+// 8585
+
 function merge(target, ...sources) {
   for(let source of sources) {
   for(let key of Object.keys(source)) {

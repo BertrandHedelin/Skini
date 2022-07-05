@@ -14,6 +14,7 @@ var debug1 = true;
 var ws;
 var workspace;
 var prog;
+var websocketServeurPort = 8383;
 
 var DAWTableEnCours = 0;
 var automateEncours = false;
@@ -46,7 +47,7 @@ var options = {
 function initWSSocket(serverIPAddress) {
   console.log("initWSSocket", serverIPAddress);
 
-  ws = new WebSocket("ws://" + serverIPAddress + ":8383"); // NODE JS
+  ws = new WebSocket("ws://" + serverIPAddress + ":" + websocketServeurPort ); // NODE JS
 
   ws.onopen = function (event) {
     var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client

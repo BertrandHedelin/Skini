@@ -1,4 +1,4 @@
-var foo, tick;
+var groupe0, groupe1, groupe2, groupe3, groupe4, tick;
 
 
 
@@ -140,12 +140,6 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
 
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"foo"
-    }),
-
   hh.LOOP(
     {
      "%location":{loop: 1},
@@ -194,90 +188,383 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {console.log('Demo Ableton');}
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.setTimerDivision(1);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(110);
+      }
+    }
+  ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'addSceneScore',
+            value:1
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+    hh.PAUSE(
+      {
+        "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+        "%tag":"yield"
+      }
+    ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreON',
+            value:'Demo Ableton'
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+
       hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "foo":"foo",
+          "groupe0OUT": "groupe0OUT",
           "apply":function (){
             return ((() => {
-              //const foo=this["foo"];
-              return 0;
+              const groupe0OUT = this["groupe0OUT"];
+              return [true,255];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"foo",
+          "signame": "groupe0OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
       ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe0OUT",true); }
+        }
+   	),
 
-  hh.PAUSE(
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe1OUT": "groupe1OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe1OUT = this["groupe1OUT"];
+              return [true,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",true); }
+        }
+   	),
+
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe2OUT": "groupe2OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe2OUT = this["groupe2OUT"];
+              return [true,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe2OUT",true); }
+        }
+   	),
+
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe3OUT": "groupe3OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe3OUT = this["groupe3OUT"];
+              return [true,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe3OUT",true); }
+        }
+   	),
+
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe4OUT": "groupe4OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe4OUT = this["groupe4OUT"];
+              return [true,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe4OUT",true); }
+        }
+   	),
+
+  hh.AWAIT(
     {
       "%location":{},
-      "%tag":"yield"
-    }
+      "%tag":"await",
+      "immediate":false,
+      "apply":function () {
+        return ((() => {
+          const tick=this["tick"];
+          return tick.now;
+        })());
+      },
+      "countapply":function (){ return 10;}
+    },
+    hh.SIGACCESS({
+      "signame":"tick",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    })
   ),
 
-        hh.SEQUENCE(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
-            },
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe0OUT": "groupe0OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe0OUT = this["groupe0OUT"];
+              return [false,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe0OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe0OUT",false); }
+        }
+    ),
 
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe1OUT": "groupe1OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe1OUT = this["groupe1OUT"];
+              return [false,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe1OUT",false); }
+        }
+    ),
 
-        hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            "foo":"foo",
-            "apply":function (){
-              return ((() => {
-                //const foo=this["foo"];
-                return 0;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"foo",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          })
-        ),
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe2OUT": "groupe2OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe2OUT = this["groupe2OUT"];
+              return [false,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe2OUT",false); }
+        }
+    ),
 
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe3OUT": "groupe3OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe3OUT = this["groupe3OUT"];
+              return [false,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe3OUT",false); }
+        }
+    ),
 
-    hh.LOOPEACH(
-      {
-        "%location":{loopeach: tick},
-        "%tag":"do/every",
-        "immediate":false,
-        "apply": function (){return ((() => {
-            const tick=this["tick"];
-            return tick.now;
-        })());},
-        "countapply":function (){ return 1;}
-      },
-      hh.SIGACCESS({
-        "signame":"tick",
-        "pre":false,
-        "val":false,
-        "cnt":false
-      }),
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "groupe4OUT": "groupe4OUT",
+          "apply":function (){
+            return ((() => {
+              const groupe4OUT = this["groupe4OUT"];
+              return [false,255];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame": "groupe4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "groupe4OUT",false); }
+        }
+    ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreON',
+            value:'Fin demo Ableton'
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
 
       hh.ATOM(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {console.log('TOC');}
+          "apply":function () {
+            DAW.cleanQueues();
+            gcs.cleanChoiceList(255);
+          }
         }
       ),
-
-    ),
-
-    ),
 
         ),
         hh.SEQUENCE(

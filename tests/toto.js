@@ -1,3 +1,4 @@
+// 8585
 var monTruc;
 
 function setTruc(texte){
