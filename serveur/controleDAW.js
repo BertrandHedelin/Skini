@@ -286,14 +286,14 @@ function putPatternInQueue(patternName) {
     }
   }
 
-  if (debug) console.log("controleBAleton: putPatternInQueue: commande :", commande);
+  if (debug1) console.log("INFO: controleBAleton: putPatternInQueue: commande :", commande[3]);
 
   if (commande !== undefined) {
     var DAWNote = commande[0];
     var DAWChannel = Math.floor(DAWNote / 127) + 1;
     DAWNote = DAWNote % 127;
     if (DAWChannel > 15) {
-      if (debug) console.log("Web Socket Server.js : pushClipDAW: Nombre de canaux midi dépassé.");
+      if (debug1) console.log("Web Socket Server.js : pushClipDAW: Nombre de canaux midi dépassé.");
       return;
     }
     var nom = commande[3];

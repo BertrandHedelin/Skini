@@ -733,7 +733,7 @@ function sketchProc(processing) {
             }
          }
       }
-      if(debug1) console.log("setup: Groups:", groups);
+      if(debug) console.log("setup: Groups:", groups);
       processing.size(screenX,screenY);
      	processing.stroke(126);
      	processing.strokeWeight(3); 
@@ -877,7 +877,7 @@ function  getGroupNumber(nomDeGroupe){
 
 function  getNumberInGroupsFromNumberInConf(numOfGroup){
 	var groupeDeSons;
-	if (debug) console.log("getNumberInGroupsFromNumberInConf:", numOfGroup);
+	if (debug) console.log("getNumberInGroupsFromNumberInConf:", numOfGroup, groups);
   if( groups === undefined) return -1;
 	for(var i=0; i < groups.length; i++){
       if (debug) console.log("getNumberInGroupsFromNumberInConf:groups[i]:", groups[i] );
@@ -1114,6 +1114,7 @@ function initWSSocket(host) {
 
       // Réception des groupes de patterns
       case 'setPatternGroups':
+        if(debug) console.log("setPatternGroups: ", msgRecu.value);
         if ( msgRecu.value !== undefined ) {
           patternGroups = msgRecu.value ;
           noScore = false;
@@ -1176,4 +1177,5 @@ module.exports={
   "sessionPath": "./pieces/",
   "piecePath" : "./pieces/"
 }
+
 },{}]},{},[1]);

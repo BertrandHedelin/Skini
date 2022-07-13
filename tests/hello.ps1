@@ -4,19 +4,9 @@
 # Votre dossier contenant les fichiers
 $folder = "C:\Users\berpetit.AD\Documents\nodeskini\tests"
 
-#$listfiles = ".\toto.js",
-#".\titi.js",
-#".\tutu.js"
-
-$listfiles = "C:.\blocklySkini\scripts\main2.js"
-"C:.\client\archive\bundle.js",
-"C:.\client\archive\golem.html",
-"C:.\client\archive\sequenceurClient.js",
-"C:.\client\clientListe\clientListebundle.js",
-"C:.\client\configurateur\configReactbundle.js",
-"C:.\client\controleur\controleurbundle.js",
-"C:.\client\parametrage\paramReactbundle.js",
-"C:.\client\score\parto1bundle.js"
+$listfiles = ".\toto.js",
+".\titi.js",
+".\tutu.js"
 
 # La chaine de caracteres a trouver dans les fichiers et celle de remplacement
 $stringToReplace = Read-Host "Port to replace"

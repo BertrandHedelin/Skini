@@ -1,4 +1,4 @@
-// 8585
+// 8787
 
 function merge(target, ...sources) {
   for(let source of sources) {
