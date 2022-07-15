@@ -1,0 +1,258 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
+    <variable id="2swrkF@siliBkn3d!3ky">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="129" y="85">
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
+        <field name="TYPE">INOUT</field>
+        <value name="signal">
+          <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
+            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="set_timer_division" id="D[WK^1`LZ|Ynf875E4b;">
+        <field name="timer">1</field>
+        <next>
+          <block type="exe_javascript" id="fI{d$[Ej(WUK(^UkHxqn">
+            <field name="JScode">bar = 2;</field>
+            <next>
+              <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
+                <statement name="BODY">
+                  <block type="hh_sequence" id="#g6c?HPz4}VtQT}6q@!W">
+                    <statement name="BODY">
+                      <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
+                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_print_serveur" id="[B03ynY0d2131_f6MsXY">
+                            <value name="TEXT">
+                              <block type="text" id="|](D!LR@3)`fhom8qgt+">
+                                <field name="TEXT">Foo 1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_wait_for" id=".mub7+QE4]oaczLicttX">
+                                <field name="TIMES">2</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="CzMyAQv;w0Ltr0:H*RXt">
+                                    <field name="VAR" id="2swrkF@siliBkn3d!3ky">tick</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="hh_emit_value" id="pui?j/+*!VdbXgd|p(Y_">
+                                    <field name="Signal_Value">0</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="a#l[SOb?l$XRk|N}M!4H">
+                                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_print_serveur" id="OyF8FhjQ@abVBrIV;651">
+                                        <value name="TEXT">
+                                          <block type="text" id="Je8X7rXWaRWz(-yj|`K|">
+                                            <field name="TEXT">Foo 2</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
+                                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13">
+                                                <field name="JScode">for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
+                                                <next>
+                                                  <block type="hh_wait_for" id="^{G5tt8unO({Vs|y1*T1">
+                                                    <field name="TIMES">2</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="_?G|PE+zm(2Mth3wTcR9">
+                                                        <field name="VAR" id="2swrkF@siliBkn3d!3ky">tick</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L">
+                                                        <value name="SIGNAL">
+                                                          <block type="variables_get" id="hmN3s#D9_q(rK;*SREkb">
+                                                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="VARIABLE">
+                                                          <block type="text" id="/Q:2cN(c@uLH1cAom)!W">
+                                                            <field name="TEXT">bar</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="hh_print_serveur" id="gVs5WTBNE)KoryxXK6o}">
+                                                            <value name="TEXT">
+                                                              <block type="text" id="7$2?TGy@cZc)QC|]v|Q^">
+                                                                <field name="TEXT">Foo 3</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="hh_wait_for" id="e45W=4+6ICP$N!x/WiN`">
+                                                                <field name="TIMES">2</field>
+                                                                <value name="SIGNAL">
+                                                                  <block type="variables_get" id="Z#,HRuxY^!UjkQHlWp=C">
+                                                                    <field name="VAR" id="2swrkF@siliBkn3d!3ky">tick</field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI">
+                                                                    <field name="JScode">console.log("BAR 1:", bar);&amp;#10;bar = 3;</field>
+                                                                    <next>
+                                                                      <block type="hh_emit_value_var" id="d@p*)7NP(#i_|=$[P}nu">
+                                                                        <value name="SIGNAL">
+                                                                          <block type="variables_get" id="[FTWCoO;Jvi@[dyXQ6#b">
+                                                                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="VARIABLE">
+                                                                          <block type="text" id="g$w6a^t+S:}kJFzhRBXx">
+                                                                            <field name="TEXT">bar</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="hh_print_serveur" id="S6/6{9VRMjnyMV$bxZ,_">
+                                                                            <value name="TEXT">
+                                                                              <block type="text" id="J.28nXD^7s[)tIioPMpv">
+                                                                                <field name="TEXT">Foo 4</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX">
+                        <statement name="BODY">
+                          <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
+                            <field name="TIMES">1</field>
+                            <field name="Signal_Value">11</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
+                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
+                                <value name="TEXT">
+                                  <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                                    <field name="TEXT">foo 11</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="hh_sequence" id="X3CB-(]M|0@y-4Of|kwd">
+                            <statement name="BODY">
+                              <block type="hh_wait_for" id="39l,f_M_lT(L`LS%jnig">
+                                <field name="TIMES">2</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="z0PDFL?|}Qab4N8~lV)/">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="exe_javascript" id="DoYErE_qm0]qHc^+$gq-">
+                                    <field name="JScode">console.log("BAR 2: ", bar);</field>
+                                    <next>
+                                      <block type="hh_print_serveur" id="Q.EUWfo%*(0o4l*~;kO_">
+                                        <value name="TEXT">
+                                          <block type="text" id="vUuM0c@K1j3+Bg!]]$FI">
+                                            <field name="TEXT">2 x foo</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="hh_sequence" id="Vf5S^C9/@2bI#VEV66vU">
+                                <statement name="BODY">
+                                  <block type="exe_javascript" id="a,6NPBJvCw75F4(o|RV;">
+                                    <field name="JScode">console.log("BAR 3-1: ", bar);</field>
+                                    <next>
+                                      <block type="hh_wait_for_var" id="i2jj@0d:R6(kHXOGs62w">
+                                        <value name="VARIABLE">
+                                          <block type="text" id="]n[~q{`=1B39J4#J)AF*">
+                                            <field name="TEXT">bar</field>
+                                          </block>
+                                        </value>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="^([RLl#s11njr?f^5m3v">
+                                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="exe_javascript" id="[}4yeQN6y35^xouQuIw@">
+                                            <field name="JScode">console.log("BAR 3-2: ", bar);</field>
+                                            <next>
+                                              <block type="hh_print_serveur" id="|CEPBr*QaPrP)Qls)7xR">
+                                                <value name="TEXT">
+                                                  <block type="text" id="LnAh(Z7m)?@fjz*z1[wc">
+                                                    <field name="TEXT">foo x bar</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

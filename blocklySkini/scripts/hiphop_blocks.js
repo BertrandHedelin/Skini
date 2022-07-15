@@ -4636,6 +4636,62 @@ Blockly.JavaScript['hh_emit_value'] = function(block) {
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
   {
+    "type": "hh_emit_value_var",
+    "message0": "emit signal %1 with var %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "VARIABLE",
+        "check": "String"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "Emit",
+    "helpUrl": ""
+  }
+  ]);
+  
+  Blockly.JavaScript['hh_emit_value_var'] = function(block) {
+    var signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+    let value = signal.replace(/\'|\(|\)/g, "");
+    var signal_value = Blockly.JavaScript.valueToCode(block, 'VARIABLE', Blockly.JavaScript.ORDER_NONE);
+    signal_value = signal_value.replace(/'/g, "");
+
+    var code = `
+      hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit", 
+          "`+ value + `":"`+ value + `",
+          "apply":function (){
+            return ((() => {
+              //const `+ value + `=this["`+ value + `"];
+              return `+ signal_value + `;
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"`+ value + `",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+      ),
+      `;
+    return code;
+  };
+  
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+  {
     "type": "hh_wait_for_immediate",
     "message0": "wait for %1",
     "args0": [
@@ -4736,6 +4792,64 @@ hh.AWAIT(
 `;
   return code;
 };
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_wait_for_var",
+    "message0": "wait for var %1 signal %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "VARIABLE",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "await",
+    "helpUrl": ""
+  }
+  ]);
+  
+  Blockly.JavaScript['hh_wait_for_var'] = function(block) {
+    var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+    let value = value_signal.replace(/\'/g, "");
+  
+    var signal_value = Blockly.JavaScript.valueToCode(block, 'VARIABLE', Blockly.JavaScript.ORDER_NONE);
+    times = signal_value.replace(/'/g, "");
+
+    var code = `
+  hh.AWAIT(
+    {
+      "%location":{},
+      "%tag":"await",
+      "immediate":false,
+      "apply":function () {
+        return ((() => {
+          const ` + value + `=this["` + value + `"];
+          return ` + value + `.now;
+        })());
+      },
+      "countapply":function (){ return ` + times + `;}
+    },
+    hh.SIGACCESS({
+      "signame":"` + value + `",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    })
+  ),
+  `;
+    return code;
+  };
+  
 
 //NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -5170,3 +5284,42 @@ Blockly.JavaScript['hh_break'] = function(block) {
 `;
   return code;
 };
+
+// Javascript dans Skini
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "exe_javascript",
+    "message0": "JS Code %1",
+    "args0": [
+      {
+        "type": "field_multilinetext",
+        "name": "JScode",
+        "spellcheck": false
+       }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 330,
+    "tooltip": "",
+    "helpUrl": ""
+  }
+  ]);
+  
+  Blockly.JavaScript['exe_javascript'] = function(block) {
+    var JScode = block.getFieldValue('JScode');
+    JScode = JScode.replace(/'/g, "");
+
+    var code = `
+  hh.ATOM(
+    {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      // exe_javascript 
+      `+ JScode + `;
+      }
+    }
+  ),
+  `;
+    return code;
+  };

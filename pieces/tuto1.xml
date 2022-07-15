@@ -14,31 +14,105 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
-        <field name="Signal_Value">0</field>
-        <value name="SIGNAL">
-          <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
-            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-          </block>
-        </value>
-        <next>
-          <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
-            <value name="SIGNAL">
-              <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
-                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-              </block>
-            </value>
-            <next>
-              <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
-                <value name="TEXT">
-                  <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                    <field name="TEXT">foo</field>
+      <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
+        <statement name="BODY">
+          <block type="hh_sequence" id="#g6c?HPz4}VtQT}6q@!W">
+            <statement name="BODY">
+              <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
+                <field name="Signal_Value">0</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
+                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                   </block>
                 </value>
+                <next>
+                  <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
+                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13">
+                        <field name="JScode">bar = 1;&amp;#10;for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
+                        <next>
+                          <block type="hh_pause" id="Y[xi`UZQ)r,[_y}k3fPu">
+                            <next>
+                              <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L">
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="hmN3s#D9_q(rK;*SREkb">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
+                                <value name="VARIABLE">
+                                  <block type="text" id="/Q:2cN(c@uLH1cAom)!W">
+                                    <field name="TEXT">bar</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w" disabled="true">
+                                    <field name="Signal_Value">11</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
+                                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
+                                        <next>
+                                          <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI">
+                                            <field name="JScode">console.log("BAR", bar)</field>
+                                            <next>
+                                              <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
+                                                <value name="TEXT">
+                                                  <block type="text" id="|(t~Z}|D8y8),mF(um?p">
+                                                    <field name="TEXT">foo</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX">
+                <statement name="BODY">
+                  <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
+                    <field name="TIMES">1</field>
+                    <field name="Signal_Value">11</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
+                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
+                        <value name="TEXT">
+                          <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                            <field name="TEXT">foo 11</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
               </block>
             </next>
           </block>
-        </next>
+        </statement>
       </block>
     </statement>
   </block>

@@ -585,14 +585,23 @@ window.createSession = createSession;
           },
           {
             "kind": "block",
+            "type": "hh_emit_value_var"
+          },
+          {
+            "kind": "block",
             "type": "hh_await_signal_value"
           },
           {
             "kind": "block",
             "type": "hh_wait_for_immediate"
-          },          {
+          }, 
+          {
             "kind": "block",
             "type": "hh_wait_for"
+          },
+          {
+            "kind": "block",
+            "type": "hh_wait_for_var"
           },
           {
             "kind": "block",
@@ -633,6 +642,10 @@ window.createSession = createSession;
           {
             "kind": "block",
             "type": "hh_break"
+          },
+          {
+            "kind": "block",
+            "type": "exe_javascript"
           }
         ]
       }
