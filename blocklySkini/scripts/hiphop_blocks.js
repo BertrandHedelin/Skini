@@ -4654,7 +4654,8 @@ Blockly.defineBlocksWithJsonArray([
     "nextStatement": null,
     "colour": 20,
     "tooltip": "Emit",
-    "helpUrl": ""
+    "helpUrl": "",
+    "inputsInline": true
   }
   ]);
   
@@ -4710,9 +4711,9 @@ Blockly.defineBlocksWithJsonArray([
   ]);
   
   Blockly.JavaScript['hh_wait_for_immediate'] = function(block) {
-    var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_NONE);
     let value = value_signal.replace(/\'/g, "");
-  
+
     var code = `
   hh.AWAIT(
     {
@@ -4814,7 +4815,8 @@ Blockly.defineBlocksWithJsonArray([
     "nextStatement": null,
     "colour": 20,
     "tooltip": "await",
-    "helpUrl": ""
+    "helpUrl": "",
+    "inputsInline": true
   }
   ]);
   
