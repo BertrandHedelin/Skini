@@ -152,9 +152,9 @@ exports.setSignals = setSignals;
 
           hh.TRAP(
             {
-              "trap814547":"trap814547",
+              "trap577912":"trap577912",
               "%location":{},
-              "%tag":"trap814547"
+              "%tag":"trap577912"
             },
             hh.FORK(
               {
@@ -250,7 +250,7 @@ exports.setSignals = setSignals;
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap814547":"trap814547",
+      		          "trap577912":"trap577912",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -1398,9 +1398,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap303860":"trap303860",
+              "trap516471":"trap516471",
               "%location":{},
-              "%tag":"trap303860"
+              "%tag":"trap516471"
             },
             hh.FORK(
               {
@@ -1496,7 +1496,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap303860":"trap303860",
+      		          "trap516471":"trap516471",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -1553,9 +1553,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap571324":"trap571324",
+              "trap63059":"trap63059",
               "%location":{},
-              "%tag":"trap571324"
+              "%tag":"trap63059"
             },
             hh.FORK(
               {
@@ -1651,7 +1651,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap571324":"trap571324",
+      		          "trap63059":"trap63059",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -1718,9 +1718,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap57592":"trap57592",
+              "trap819091":"trap819091",
               "%location":{},
-              "%tag":"trap57592"
+              "%tag":"trap819091"
             },
             hh.FORK(
               {
@@ -1816,7 +1816,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap57592":"trap57592",
+      		          "trap819091":"trap819091",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -1873,9 +1873,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap989503":"trap989503",
+              "trap259818":"trap259818",
               "%location":{},
-              "%tag":"trap989503"
+              "%tag":"trap259818"
             },
             hh.FORK(
               {
@@ -1971,7 +1971,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap989503":"trap989503",
+      		          "trap259818":"trap259818",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -2028,9 +2028,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap270882":"trap270882",
+              "trap436407":"trap436407",
               "%location":{},
-              "%tag":"trap270882"
+              "%tag":"trap436407"
             },
             hh.FORK(
               {
@@ -2126,7 +2126,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap270882":"trap270882",
+      		          "trap436407":"trap436407",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -2183,9 +2183,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap192408":"trap192408",
+              "trap26152":"trap26152",
               "%location":{},
-              "%tag":"trap192408"
+              "%tag":"trap26152"
             },
             hh.FORK(
               {
@@ -2281,7 +2281,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap192408":"trap192408",
+      		          "trap26152":"trap26152",
       		          "%location":{},
       		          "%tag":"break"
       		        }

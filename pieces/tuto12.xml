@@ -3,7 +3,7 @@
     <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
     <variable id="2swrkF@siliBkn3d!3ky">tick</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="129" y="85">
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="214" y="-271">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
         <field name="TYPE">INOUT</field>

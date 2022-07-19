@@ -1346,6 +1346,15 @@ maybe an hiphop compile Error`);
           });
           break;
 
+        case "saveSessionAs":
+          if(debug1) console.log("save descriptors as: ", msgRecu.fileName);
+          try {
+            fs.copyFileSync(sessionFile, sessionPath + msgRecu.fileName);
+          } catch (err) {
+            console.log("websocketServer: Pb ecriture save descriptors as: ", msgRecu.fileName, err);
+          }
+          break;
+
         case "selectAllClips":
           var listClips = DAW.getAllClips(msgRecu.groupe, groupesClientSon.matriceDesPossibles);
           if (listClips !== -1) {

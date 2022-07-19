@@ -248,6 +248,20 @@ function createSession(){
 }
 window.createSession = createSession;
 
+function saveSessionAs(){
+  var fileName = document.getElementById("loadSessionTxt").value;
+  console.log("Save As:", fileName);
+  if(fileName === undefined || fileName === ''){
+    alert("The descriptor must be a csv file with a name");
+    return;
+  }
+  var msg = {
+    type: "saveSessionAs",
+    fileName: fileName
+  }
+  ws.send(JSON.stringify(msg));
+}
+window.saveSessionAs = saveSessionAs;
 
   //*********** Blocks ********************************************
   var toolbox = {

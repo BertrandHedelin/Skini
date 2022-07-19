@@ -372,4 +372,5 @@ module.exports={
   "sessionPath": "./pieces/",
   "piecePath" : "./pieces/"
 }
+
 },{}]},{},[1]);

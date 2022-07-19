@@ -289,7 +289,7 @@ class Jspreadsheet extends React.Component {
     par.synchoOnMidiClock = synchoOnMidiClock;
     par.synchroLink = synchroLink;
     par.synchroSkini = synchroSkini;
-  
+
     par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
     par.tempoMax = document.getElementById("tempoMax").value;
     par.tempoMin = document.getElementById("tempoMin").value;

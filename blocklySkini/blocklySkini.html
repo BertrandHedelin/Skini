@@ -16,9 +16,6 @@
           <header class="mdl-color--cyan-500">
             <h2 class="mode-maker">Skini Orchestration</h2>
             <div id="menubar">
-              <!--
-							<button class="small button" id="buttonGenerate" onclick="save();" >Generate HipHop</button>
-							-->
               <label for="loadFile" class="small button">Load Orch. and config.</label>
               <input type="file" id="loadFile" oninput="loadBlocks();" />
 
@@ -26,13 +23,14 @@
                 Orch.</button>
               <input class="inputText" type="text" id="saveFile" />
 
-              <button class="small button" id="buttonCreateSession" onclick="createSession()">Create descriptors</button>
+              <button class="small button" id="buttonCreateSession" onclick="createSession()">Create descr.</button>
 
-              <!-- <button class="small button" id="buttonLoadDAW1" onclick="loadDAW(1);">Compile</button> -->
-              <label for="loadSession" class="small button">Load Descriptors</label>
+              <label for="loadSession" class="small button">Load descr.</label>
               <input type="file" id="loadSession" onchange="loadSession();" />
-              <input class="inputText" type="text" id="loadSessionTxt" />
 
+              <button class="small button" id="buttonSaveSessionAs" onclick="saveSessionAs()">Save descr. as </button>
+
+              <input class="inputText" type="text" id="loadSessionTxt" />
 
               <button id="buttonStopAutomate" class="small button red" style="display:none"
                 onclick="stopAutomate();">Stop</button>
