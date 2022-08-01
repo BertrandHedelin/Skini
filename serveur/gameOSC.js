@@ -40,9 +40,9 @@ function init() {
       // Voir pour plus de paramètres reçus du jeu ou du controleur OSC !!
 
       var signal = message.address.slice(1); // pour enlever le slash du message
-      signal = signal.replace(/\//g, ""); // On n'aime pas les slashs dans des signaux
+      signal = signal.replace(/\//g, "_"); // On n'aime pas les slashs dans des signaux
 
-      if (debug) console.log("gameOSC.js: init :", signal, ":", message);
+      if (debug1) console.log("gameOSC.js: init :", signal, ":", message);
       orchestration.react({ [signal]: message.args[0].value });
       return;
     } catch (error1) {
@@ -53,13 +53,14 @@ function init() {
 
   sock.on('listening', function () {
     var address = sock.address();
-    console.log('GameOSC.js: UDP Server listening on ' + address.address + ":" + address.port);
+    console.log('GameOSC.js: 1 : UDP Server listening on ' + address.address + ":" + address.port);
   });
 
   try {
     var readyState = sock.readyState;
     if (readyState != 1) {
       sock.bind(ipConfig.portOSCFromGame, ipConfig.serverIPAddress);
+      console.log('GameOSC.js: 2 : UDP Server listening on ' + ipConfig.portOSCFromGame + ":" + ipConfig.serverIPAddress);
     }
   } catch (err) {
     console.log("ERR: gameOSC: socket ready:", err);

@@ -95,6 +95,7 @@ exports.synchoOnMidiClock = false;
 exports.synchroLink = true;
 exports.synchroSkini = false;
 exports.timer = 500; // Pour une tempo de 110
+exports.gamesOSCSignals = false;
 
 const bleu = "#008CBA";
 const rouge = '#CF1919';

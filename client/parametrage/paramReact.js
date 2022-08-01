@@ -50,6 +50,7 @@ var useRaspberries = false;
 var playBufferMessage;
 var raspOSCPort;
 var algoGestionFifo;
+var gameOSCSignals = false;
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
@@ -70,6 +71,7 @@ function updateParameters() {
   synchoOnMidiClock = false;
   synchroLink = false;
   synchroSkini = false;
+  gameOSCSignals = false;
 
   var parameters = document.querySelectorAll('input[name="parameter"]:checked');
   parameters.forEach(function (checkbox) {
@@ -96,6 +98,10 @@ function updateParameters() {
 
       case "simulatorInAseperateGroup":
         simulatorInAseperateGroup = true;
+        break;
+
+      case "gameOSC":
+        gameOSCSignals = true;
         break;
 
       case "synchoOnMidiClock":
@@ -173,6 +179,9 @@ function initWSSocket(host) {
         useRaspberries = par.useRaspberries;
         document.getElementById("useRaspberries").checked = useRaspberries;
 
+        gameOSCSignals = par.gameOSCSignals;
+        document.getElementById("gameOSC").checked = gameOSCSignals;
+
         synchoOnMidiClock = par.synchoOnMidiClock;
         document.getElementById("synchoOnMidiClock").checked = synchoOnMidiClock;
 
@@ -211,8 +220,7 @@ function initWSSocket(host) {
 
         break;
 
-      default:
-        console.log("Client reçoit un message inconnu", msgRecu.type);
+      default: //console.log("Client reçoit un message inconnu", msgRecu.type);
     }
   };
 
@@ -290,6 +298,7 @@ var Jspreadsheet = function (_React$Component) {
       par.synchoOnMidiClock = synchoOnMidiClock;
       par.synchroLink = synchroLink;
       par.synchroSkini = synchroSkini;
+      par.gameOSCSignals = gameOSCSignals;
 
       par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
       par.tempoMax = document.getElementById("tempoMax").value;

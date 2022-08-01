@@ -212,14 +212,14 @@
                                     <field name="JScode">console.log("BAR 3-1: ", bar);</field>
                                     <next>
                                       <block type="hh_wait_for_var" id="i2jj@0d:R6(kHXOGs62w">
-                                        <value name="VARIABLE">
-                                          <block type="text" id="]n[~q{`=1B39J4#J)AF*">
-                                            <field name="TEXT">bar</field>
-                                          </block>
-                                        </value>
                                         <value name="SIGNAL">
                                           <block type="variables_get" id="^([RLl#s11njr?f^5m3v">
                                             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                          </block>
+                                        </value>
+                                        <value name="VARIABLE">
+                                          <block type="text" id="]n[~q{`=1B39J4#J)AF*">
+                                            <field name="TEXT">bar</field>
                                           </block>
                                         </value>
                                         <next>

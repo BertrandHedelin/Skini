@@ -7,7 +7,7 @@
     <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
     <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="94" y="-279">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="55" y="-196">
     <statement name="BODY">
       <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
         <field name="tempo">110</field>

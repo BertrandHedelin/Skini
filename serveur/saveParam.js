@@ -101,6 +101,7 @@ exports.synchoOnMidiClock = `+ params.synchoOnMidiClock + `;
 exports.synchroLink = `+ params.synchroLink + `;
 exports.synchroSkini = `+ params.synchroSkini + `;
 exports.timer = `+ params.timer + `;
+exports.gameOSCSignals = `+ params.gameOSCSignals + `;
 
 const groupesDesSons = [
   `;

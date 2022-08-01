@@ -4637,7 +4637,7 @@ Blockly.JavaScript['hh_emit_value'] = function(block) {
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_emit_value_var",
-    "message0": "emit signal %1 with var %2",
+    "message0": "emit signal %1 with value in var %2",
     "args0": [
       {
         "type": "input_value",
@@ -4798,7 +4798,7 @@ hh.AWAIT(
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_wait_for_var",
-    "message0": "wait for var %1 signal %2",
+    "message0": "wait for (var) %1 signal %2",
     "args0": [
       {
         "type": "input_value",

@@ -12,6 +12,7 @@ var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
 var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
+
 const decache = require('decache');
 const { stringify } = require('querystring');
 const { Worker } = require('worker_threads');
@@ -820,8 +821,8 @@ maybe an hiphop compile Error`);
       }
       ws.send(JSON.stringify(msg));
 
-      // Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
-      if (par.gameOSCIn !== undefined) {
+      // Pour l'emission des commandes OSC entre l'orchestration et un jeu ou des capteurs
+      if (par.gameOSCSignals) {
         gameOSC.setOrchestration(automatePossibleMachine);
         gameOSC.init();
       }
