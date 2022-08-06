@@ -1,7 +1,7 @@
 /**
- * @fileOverview Controling video game using OSC. Not yet implemented.
- * @author Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin
- * @version 1.1
+ * @fileOverview Control by video game or sensors using OSC.
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.2
  */
 
 'use strict'
@@ -34,7 +34,6 @@ function init() {
   sock.close(ipConfig.portOSCFromGame);
 
   sock = dgram.createSocket("udp4", function (msg, rinfo) {
-    var error, error1;
     try {
       message = osc.fromBuffer(msg);
       // Voir pour plus de paramètres reçus du jeu ou du controleur OSC !!
@@ -45,8 +44,7 @@ function init() {
       if (debug1) console.log("gameOSC.js: init :", signal, ":", message);
       orchestration.react({ [signal]: message.args[0].value });
       return;
-    } catch (error1) {
-      error = error1;
+    } catch (error) {
       return console.log("ERR: gameOSC.js:invalid OSC packet", error);
     }
   });
@@ -58,7 +56,7 @@ function init() {
 
   try {
     var readyState = sock.readyState;
-    if (readyState != 1) {
+    if (readyState !== 1) {
       sock.bind(ipConfig.portOSCFromGame, ipConfig.serverIPAddress);
       console.log('GameOSC.js: 2 : UDP Server listening on ' + ipConfig.portOSCFromGame + ":" + ipConfig.serverIPAddress);
     }
@@ -67,3 +65,19 @@ function init() {
   }
 }
 exports.init = init;
+
+/**
+ * Close the socket. Use when we move from a piece with gameOSC
+ * to one without gameOSC. It is not necessary to receive the 
+ * InterfaceZ messages. Hence, websocketServer can close the socket.
+ */
+function closeSocket() {
+  try {
+    if (sock.readyState === 1) {
+      sock.close(ipConfig.portOSCFromGame);
+    }
+  } catch (err) {
+    console.log("No socket to close for OSCgame:", err);
+  }
+}
+exports.closeSocket = closeSocket;

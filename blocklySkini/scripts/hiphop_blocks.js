@@ -4315,7 +4315,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 }
 
 function setSignals(){
-  var machine = new hh.ReactiveMachine( orchestration, {sweep:true});
+  var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
   console.log("Number of nets in Orchestration:",machine.nets.length);
   return machine;
 }

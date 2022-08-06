@@ -825,6 +825,9 @@ maybe an hiphop compile Error`);
       if (par.gameOSCSignals) {
         gameOSC.setOrchestration(automatePossibleMachine);
         gameOSC.init();
+      } else {
+        // Pour fermer la socket si on change pour une pièce sans gameOSC
+        gameOSC.closeSocket();
       }
 
       try {
@@ -1348,7 +1351,7 @@ maybe an hiphop compile Error`);
           break;
 
         case "saveSessionAs":
-          if(debug1) console.log("save descriptors as: ", msgRecu.fileName);
+          if (debug1) console.log("save descriptors as: ", msgRecu.fileName);
           try {
             fs.copyFileSync(sessionFile, sessionPath + msgRecu.fileName);
           } catch (err) {
