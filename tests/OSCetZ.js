@@ -1,98 +1,159 @@
 "use strict"
-/*========================================================
+/**
+ * @fileOverview Utilisation de Node.Js avec la carte 16 entrées réseau OSC d'interface Z.
+ * La config doit se faire via une adresse IP fixe en 10.0.0.X
+ * en mettant les interrupteurs de config IP sur off et en se
+ * connectant directement sur la carte.
+ * 
+ * La carte ne connait que des paramètrages en IP fixes.
+ * C'est simple mais contraignant.
+ * 
+ * On se connecte sur la carte en 10.0.0.30/OSC1, 2 ou 3 en fonction de la config
+ * que l'on veut changer sur la carte.
+ * On éteint la carte et met les interrupteurs sur la config que l'on veut
+ * voir p.3 de la doc 8-Ana_OSC.pdf
+ * 
+ * Attention le port 1000 est dédié à la réception MIDI par la carte.
+ * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @version 1.3
+ */
 
-Utilisation de Node.Js avec la carte 16 entrées réseau OSC 
-d'interface Z.
-
-La config doit se faire via une adresse IP fixe en 10.0.0.X
-en mettant les interrupteurs de config IP sur off et en se
-connectant directement sur la carte.
-
-La carte ne connait que des paramètrages en IP fixes.
-C'est simple mais contraignant.
-
-On se connecte sur la carte en 10.0.0.30/OSC1, 2 ou 3 en fonction de la config
-que l'on veut changer sur la carte.
-On éteint la carte et met les interrupteurs sur la config que l'on veut
-voir p.3 de la doc 8-Ana_OSC.pdf
-
-Attention le port 1000 est dédié à la réception MIDI par la carte.
-
-=========================================================*/
 var osc = require('osc-min');
 var dgram = require("dgram");
-var sock = dgram.createSocket('udp4');
-
+var sockData = dgram.createSocket('udp4');
+var sockMidi = dgram.createSocket('udp4');
+var dataPort = 3005;
+var midiPort = 3006;
+var serverAddress = "192.168.1.251";
+var interfaceZAddress = "192.168.1.250";
+var interfaceZMidiPort = 1000;
 var debug = false;
 var debug1 = true;
+var tempoSensorsInit = [5, 0, 10, 0, 0, 0, 0, 0];
+var tempoSensors = tempoSensorsInit.slice();
+var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [100, 5, 100, 5, 5, 5, 5, 5];
 
-// Traitement OSC =========================================
+function displaySignal(sensor, value) {
+  process.stdout.write(sensor.toString() + ': ');
+  for (var i = 0; i < value; i++) {
+    process.stdout.write("*");
+  }
+  console.log(value);
+}
 
-sock = dgram.createSocket("udp4", function(msg, rinfo) {
-  var error, message;
+/**
+ * Process the OSC messages of the Data port from the Interface Z cards.
+ */
+sockData = dgram.createSocket("udp4", function (msg, rinfo) {
+  var message;
+
+  try {
+    message = osc.fromBuffer(msg); // Message OSC recu
+    // console.log(osc.fromBuffer(msg));
+    if (debug) {
+      //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
+      console.log("Z socket reçoit OSC: [", message.address + " : " +
+        message.args[0].value + " : " +
+        message.args[1].value + " : " +
+        message.args[2].value + "]");
+    }
+    switch (message.address) {
+      case "/INTERFACEZ/RC":
+        for (var i = 0; i < 8; i++) {
+          if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
+          }
+          else if (tempoSensors[i] === 1) {
+            if (
+              message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
+              message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
+              displaySignal(i, Math.round(message.args[i].value / 100));
+            }
+            previousSensorsValues[i] = message.args[i].value;
+            tempoSensors[i] = tempoSensorsInit[i];
+          } else {
+            tempoSensors[i]--;
+          }
+        }
+        break;
+
+      default:
+        console.log("OSCetZ.js: socket DATA reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+        break;
+    }
+    return;
+  } catch (error) {
+    console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
+    return;
+  }
+});
+
+/**
+* Process the OSC messages of the Midi port from the Interface Z cards.
+*/
+sockMidi = dgram.createSocket("udp4", function (msg, rinfo) {
+  var message;
   var buf;
 
   try {
     message = osc.fromBuffer(msg); // Message OSC recu
     // console.log(osc.fromBuffer(msg));
-   if (debug) {
-      //console.log("midimix.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
-      console.log("Z socket reçoit OSC: [", message.address + " : " + 
-      message.args[0].value + " : " +
-      message.args[1].value + " : " +
-      message.args[2].value + "]");
-    }
-    switch(message.address) {
-      case "/INTERFACEZ/RC":
-        console.log("Z socket reçoit OSC: [", message.address + " : " + 
+    if (debug) {
+      //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
+      console.log("Z socket reçoit OSC: [", message.address + " : " +
         message.args[0].value + " : " +
         message.args[1].value + " : " +
         message.args[2].value + "]");
-        break;
-
+    }
+    switch (message.address) {
       case "/OSCSYSEXC":
         break;
 
       case "/OSCNOTEON":
-        console.log("Z socket reçoit OSC: [", message.address + " : " + 
-        message.args[0].value + " : " +
-        message.args[1].value + " : " +
-        message.args[2].value + "]");
+        console.log("Z socket reçoit OSC: [", message.address + " : " +
+          message.args[0].value + " : " +
+          message.args[1].value + " : " +
+          message.args[2].value + "]");
 
-        // Un reroutage du MIDI IN converti en OSC vers MIDI OUT
-        buf = osc.toBuffer(
-          {
-            address: "/OSCNOTEON", 
-            args: [
-              {type: 'integer', value: message.args[0].value},
-              {type: 'integer', value: message.args[1].value},
-              {type: 'integer', value: message.args[2].value}]
-          }
-        );
+        // Exemple de reroutage du MIDI IN converti en OSC vers MIDI OUT
+        // buf = osc.toBuffer(
+        //   {
+        //     address: "/OSCNOTEON",
+        //     args: [
+        //       { type: 'integer', value: message.args[0].value },
+        //       { type: 'integer', value: message.args[1].value },
+        //       { type: 'integer', value: message.args[2].value }]
+        //   }
+        // );
         // Le port 1000 est fixe.
-        sock.send(buf, 0, buf.length, 1000, "192.168.1.250");
+        //sockMidi.send(buf, 0, buf.length, 1000, "192.168.1.250");
         break;
 
       default:
-        console.log("midimix.js: socket reçoit OSC: [", message.address + " : " + (message.args[0].value) , "]");
+        console.log("OSCetZ.js: socket MIDI reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
         break;
     }
-    return; 
-  }catch(error){
-    console.log("midimix.js: ERR dans réception OSC :", message.args, error);
-  return;
+    return;
+  } catch (error) {
+    console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
+    return;
   }
- });
+});
 
- sock.on('listening', function () {
-    var address = sock.address();
-    if(debug1) console.log('INFO: midimix.js: UDP Server listening on ' + address.address + ":" + address.port);
- });
+sockData.on('listening', function () {
+  var addressData = sockData.address();
+  if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressData.address + ":" + addressData.port);
+});
 
- // 3005 pour data et 3006 pour MIDI en OSC2
- sock.bind(3005, "192.168.1.251");
+sockMidi.on('listening', function () {
+  var addressMidi = sockData.address();
+  if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
+});
 
- // Exemple d'émission vers MIDI =====================================
+sockData.bind(dataPort, serverAddress);
+sockMidi.bind(midiPort, serverAddress);
+
+// Exemple d'émission vers MIDI =====================================
 
 var count = 1.0;
 var flag = false;
@@ -101,24 +162,30 @@ function sendHeartbeat() {
   count++;
   console.log("OSCetZjs:", count);
 
-  if(flag){
+  if (flag) {
     buf = osc.toBuffer(
       {
-        address: "/OSCNOTEON", 
-        args: [{type: 'integer', value: 0}, {type: 'integer', value: 70},{type: 'integer', value: 120}]
+        address: "/OSCNOTEON",
+        args: [
+          { type: 'integer', value: 0 },
+          { type: 'integer', value: 70 },
+          { type: 'integer', value: 120 }]
       }
     );
-  }else{
+  } else {
     buf = osc.toBuffer(
       {
-        address: "/OSCNOTEOF", 
-        args: [{type: 'integer', value: 0}, {type: 'integer', value: 70},{type: 'integer', value: 120}]
+        address: "/OSCNOTEOF",
+        args: [
+          { type: 'integer', value: 0 },
+          { type: 'integer', value: 70 },
+          { type: 'integer', value: 120 }]
       }
     );
   }
 
   flag = !flag;
-  return sock.send(buf, 0, buf.length, 1000, "192.168.1.250");
+  return sockData.send(buf, 0, buf.length, interfaceZMidiPort, interfaceZAddress);
 }
 
-setInterval(sendHeartbeat, 3000);
+//setInterval(sendHeartbeat, 500);
