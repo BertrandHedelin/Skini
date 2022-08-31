@@ -662,6 +662,29 @@ window.saveSessionAs = saveSessionAs;
             "type": "exe_javascript"
           }
         ]
+      },
+      {
+        "kind": "category",
+        "name": "Interface Z",
+        "categorystyle": "list_category",
+        "contents": [
+          {
+            "kind": "block",
+            "type": "hh_await_interfaceZ_sensor"
+          },
+          {
+            "kind": "block",
+            "type": "hh_loopeach_interfaceZ_sensor"
+          },
+          {
+            "kind": "block",
+            "type": "hh_every_interfaceZ_sensor"
+          },
+          {
+            "kind": "block",
+            "type": "hh_abort_interfaceZ_sensor"
+          }
+        ]
       }
     ]
   }

@@ -103,6 +103,11 @@ exports.synchroSkini = `+ params.synchroSkini + `;
 exports.timer = `+ params.timer + `;
 exports.gameOSCSignals = `+ params.gameOSCSignals + `;
 
+// En dur à modifier
+exports.interfaceZ = true;
+exports.tempoSensorsInit = [5, 0, 10, 0, 0, 0, 0, 0];
+exports.sensorsSensibilities = [5, 5, 100, 5, 5, 5, 5, 5];
+
 const groupesDesSons = [
   `;
 

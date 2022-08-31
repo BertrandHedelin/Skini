@@ -250,6 +250,75 @@ function startWebSocketServer() {
     });
   }
 
+  /*************************************************************************************
+    Worker for the Interface Z management
+  **************************************************************************************/
+  var workerInterfaceZ;
+
+  /**
+  * Function to start a worker for the Interface Z management
+  * @function
+  * @memberof Websocketserver
+  * @param {string} worker path
+  * @inner
+  */
+  function workerInterfaceZInit(filepath,
+    serverAddress,
+    interfaceZIPaddress,
+    portOSCToInterfaceZData,
+    portOSCToInterfaceZMidi,
+    portOSCFromInterfaceZ,
+    tempoSensorsInit,
+    sensorsSensibilities) {
+
+    if (workerInterfaceZ !== undefined) {
+      workerInterfaceZ.postMessage(['startInterfaceZ',
+        serverAddress,
+        interfaceZIPaddress,
+        portOSCToInterfaceZData,
+        portOSCToInterfaceZMidi,
+        portOSCFromInterfaceZ,
+        tempoSensorsInit,
+        sensorsSensibilities]);
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      workerInterfaceZ = new Worker(filepath);
+      if (debug) console.log('Launching worker InterfaceZ', filepath);
+
+      workerInterfaceZ.on('online', () => {
+        workerInterfaceZ.postMessage(['startInterfaceZ',
+          serverAddress,
+          interfaceZIPaddress,
+          portOSCToInterfaceZData,
+          portOSCToInterfaceZMidi,
+          portOSCFromInterfaceZ,
+          tempoSensorsInit,
+          sensorsSensibilities]);
+        if (debug) console.log('Launching worker InterfaceZ');
+      })
+      workerInterfaceZ.on('message', messageFromWorker => {
+        switch (messageFromWorker.type) {
+          case "INTERFACEZ_RC":
+            if (debug1) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value]});
+            break;
+
+          default:
+            break;
+        }
+        return resolve;
+      });
+      workerInterfaceZ.on('error', reject);
+      workerInterfaceZ.on('exit', code => {
+        if (code !== 0) {
+          reject(new Error(`Worker InterfaceZ stopped with exit code:`, code));
+        }
+      });
+    });
+  }
+
   /**
   * Define the function in order to Broadcast to all clients.
   * @function
@@ -1482,6 +1551,18 @@ maybe an hiphop compile Error`);
               //setMonTimer(timerSynchro); // Pour un timer dans le thread principal, pas utile avec les workers
               if (debug1) console.log("websocketserver: startAutomate:worker synchro");
               workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
+            }
+
+            if (par.interfaceZ) {
+              if (debug1) console.log("INFO: webSocketServeur: With Interface Z sensors");
+              workerInterfaceZInit('./serveur/workerInterfaceZ.js',
+                ipConfig.serverIPAddress,
+                ipConfig.interfaceZIPaddress,
+                ipConfig.portOSCToInterfaceZData,
+                ipConfig.portOSCToInterfaceZMidi,
+                ipConfig.portOSCFromInterfaceZ,
+                par.tempoSensorsInit,
+                par.sensorsSensibilities);
             }
           }
 

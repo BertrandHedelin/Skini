@@ -1,6 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
-    <variable id="2=#Wxx*#@C)x!.EsTb+;">INTERFACEZ_RC</variable>
     <variable id="Z7Z28k|lvvvb?ZYD(u)7">FM8</variable>
     <variable id="X`nH7u;:)SKqga*i-D|p">Massive</variable>
     <variable id="0.#;jy#~m4aeM%YTrjE/">MassiveX1</variable>
@@ -11,16 +10,6 @@
     <variable id="W*B7?ZKpq5#5_,{|(N[L">tick</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="SM{3/f^huIWH7SKZsRoN" x="45" y="96">
-    <statement name="SIGNALS">
-      <block type="hh_declare_signal" id=".u#UM?846QF$L`LDtMAv">
-        <field name="TYPE">IN</field>
-        <value name="signal">
-          <block type="variables_get" id="g5zXaYn8.(}hPoXqEFF.">
-            <field name="VAR" id="2=#Wxx*#@C)x!.EsTb+;">INTERFACEZ_RC</field>
-          </block>
-        </value>
-      </block>
-    </statement>
     <statement name="BODY">
       <block type="hh_print_serveur" id="#`dkG$TZPYMa^9B.Zsc/">
         <value name="TEXT">
@@ -41,7 +30,7 @@
                   <block type="addSceneScore" id="3[|8Y{wq:;|yPJc_*|uX">
                     <field name="number">1</field>
                     <next>
-                      <block type="send_osc_midi" id="-?%_pZX4$~=(}9X*,{cl">
+                      <block type="send_osc_midi" id="-?%_pZX4$~=(}9X*,{cl" disabled="true">
                         <field name="channelMidi">1</field>
                         <field name="NoteMidi">64</field>
                         <field name="valueMidi">120</field>
@@ -96,59 +85,68 @@
                                             <statement name="BODY">
                                               <block type="hh_sequence" id="+$OW@!VJIvm*dsTax@zy">
                                                 <statement name="BODY">
-                                                  <block type="random_group" id="C)FpVr-L6lCCv;A-3^lz">
-                                                    <field name="number_of_groups">2</field>
-                                                    <field name="user_group">255</field>
-                                                    <field name="number_of_ticks">10</field>
-                                                    <value name="GROUPS">
-                                                      <block type="lists_create_with" id="J^khQ)nN0)prG3M+L0ox">
-                                                        <mutation items="3"></mutation>
-                                                        <value name="ADD0">
-                                                          <block type="variables_get" id=")DpLOGL#$-aS+Swq*yD3">
-                                                            <field name="VAR" id="X`nH7u;:)SKqga*i-D|p">Massive</field>
+                                                  <block type="hh_await_interfaceZ_sensor" id="hHuOdQ|XF`yo4Bx[$9.4">
+                                                    <field name="TIMES">1</field>
+                                                    <field name="sensor">0</field>
+                                                    <field name="lowValue">20</field>
+                                                    <field name="highValue">50</field>
+                                                    <next>
+                                                      <block type="hh_print_serveur" id="V-5zhh)DP};3xPEvf7.s">
+                                                        <value name="TEXT">
+                                                          <block type="text" id="Uq6=4;0V?%Ur(Ga0?H_$">
+                                                            <field name="TEXT">Interface Z ***** dans HH</field>
                                                           </block>
                                                         </value>
-                                                        <value name="ADD1">
-                                                          <block type="variables_get" id="#Guj,SHnw^SNQ`bbK1VD">
-                                                            <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">FM8</field>
-                                                          </block>
-                                                        </value>
-                                                        <value name="ADD2">
-                                                          <block type="variables_get" id="X*Ak}7a:i)1%mUH/TRb#">
-                                                            <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">Prism</field>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </value>
-                                                  </block>
-                                                </statement>
-                                                <next>
-                                                  <block type="hh_sequence" id="jK4unIqm-JFifE0$/ntc">
-                                                    <statement name="BODY">
-                                                      <block type="hh_abort" id="N6VRV:=xgiMA[tqD0T@W">
-                                                        <field name="TIMES">200</field>
-                                                        <value name="SIGNAL">
-                                                          <block type="variables_get" id="RUu.z.^XGhc032P/fN/o">
-                                                            <field name="VAR" id="2=#Wxx*#@C)x!.EsTb+;">INTERFACEZ_RC</field>
-                                                          </block>
-                                                        </value>
-                                                        <statement name="BODY">
-                                                          <block type="hh_every" id="[55oX6Q0mWzCgP-9C-3+">
-                                                            <field name="TIMES">1</field>
-                                                            <value name="SIGNAL">
-                                                              <block type="variables_get" id="P:dyC!$g,:807kAn3JbA">
-                                                                <field name="VAR" id="2=#Wxx*#@C)x!.EsTb+;">INTERFACEZ_RC</field>
-                                                              </block>
-                                                            </value>
-                                                            <statement name="BODY">
-                                                              <block type="hh_print_serveur" id="s*3pKv~E3;!F6TSP_VSb">
-                                                                <value name="TEXT">
-                                                                  <block type="text" id="n(ha)ZryYF;g+QNWE7F~">
-                                                                    <field name="TEXT">Interface Z</field>
+                                                        <next>
+                                                          <block type="random_group" id="C)FpVr-L6lCCv;A-3^lz">
+                                                            <field name="number_of_groups">2</field>
+                                                            <field name="user_group">255</field>
+                                                            <field name="number_of_ticks">10</field>
+                                                            <value name="GROUPS">
+                                                              <block type="lists_create_with" id="J^khQ)nN0)prG3M+L0ox">
+                                                                <mutation items="3"></mutation>
+                                                                <value name="ADD0">
+                                                                  <block type="variables_get" id=")DpLOGL#$-aS+Swq*yD3">
+                                                                    <field name="VAR" id="X`nH7u;:)SKqga*i-D|p">Massive</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD1">
+                                                                  <block type="variables_get" id="#Guj,SHnw^SNQ`bbK1VD">
+                                                                    <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">FM8</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD2">
+                                                                  <block type="variables_get" id="X*Ak}7a:i)1%mUH/TRb#">
+                                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">Prism</field>
                                                                   </block>
                                                                 </value>
                                                               </block>
-                                                            </statement>
+                                                            </value>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="hh_abort_interfaceZ_sensor" id="*R4uB==FdBzk,IR(AE7[">
+                                                    <field name="TIMES">5</field>
+                                                    <field name="sensor">0</field>
+                                                    <field name="lowValue">20</field>
+                                                    <field name="highValue">50</field>
+                                                    <statement name="BODY">
+                                                      <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
+                                                        <field name="TIMES">1</field>
+                                                        <field name="sensor">2</field>
+                                                        <field name="lowValue">0</field>
+                                                        <field name="highValue">40</field>
+                                                        <statement name="BODY">
+                                                          <block type="hh_print_serveur" id="14.cDu}fa#V6TX7|:SG6">
+                                                            <value name="TEXT">
+                                                              <block type="text" id="hQv$GU];i.z/zuaGTT8s">
+                                                                <field name="TEXT">Interface Z dans HH</field>
+                                                              </block>
+                                                            </value>
                                                           </block>
                                                         </statement>
                                                       </block>

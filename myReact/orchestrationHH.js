@@ -1,4 +1,4 @@
-var foo;
+var FM8, Massive, MassiveX1, MassiveX2, Prism, Evolve, Razor, tick;
 
 
 
@@ -136,15 +136,10 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
-
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"foo"
-    }),
 
   hh.LOOP(
     {
@@ -194,62 +189,877 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
-        hh.SEQUENCE(
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {console.log('Mystique Electro');}
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.setTimerDivision(4);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        CCChannel= 1;
+        CCTempo  = 100;
+        tempoMax = 160;
+        tempoMin = 40;
+      }
+    }
+  ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'addSceneScore',
+            value:1
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+    hh.PAUSE(
+      {
+        "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+        "%tag":"yield"
+      }
+    ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(110);
+      }
+    }
+  ),
+
+        hh.FORK(
             {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
+              "%location":{},
+              "%tag":"fork"
             },
 
 
-        hh.EMIT(
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+            hh.AWAIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":189},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){
+                  return ((() => {
+                    const INTERFACEZ_RC = this["INTERFACEZ_RC"];
+                    //console.log("*****", 0, 20,50, INTERFACEZ_RC.nowval );
+                    if( INTERFACEZ_RC.nowval !== undefined ) {
+                      return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 0
+                        && INTERFACEZ_RC.nowval[1] >20
+                        && INTERFACEZ_RC.nowval[1] <50);
+                    }
+                  })());
+                },
+                "countapply":function (){ return 1;}
+              },
+              hh.SIGACCESS(
+                {"signame":"INTERFACEZ_RC",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('Interface Z ***** dans HH');}
+        }
+      ),
+
+          hh.TRAP(
+            {
+              "trap594748":"trap594748",
+              "%location":{},
+              "%tag":"trap594748"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE( // sequence 1
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveOUT":"MassiveOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveOUT = this["MassiveOUT"];
+                        return [true, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", true); }
+                }
+            ),
+
+              ), // fin sequence 1
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 10;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+
+
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveOUT":"MassiveOUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveOUT = this["MassiveOUT"];
+                        return [false, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveOUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," Massive", false); }
+                }
+            ),
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+                hh.EXIT(
+                  {
+                    "trap594748":"trap594748",
+                    "%location":{},
+                    "%tag":"break"
+                  }
+                ), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+        hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+        ),
+
+      ),
+
+
+    hh.ABORT(
+      {
+        "%location":{"filename":"hiphop_blocks.js","pos":189},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const INTERFACEZ_RC = this["INTERFACEZ_RC"];
+            if( INTERFACEZ_RC.nowval !== undefined ) {
+              return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 0
+                && INTERFACEZ_RC.nowval[1] >20
+                && INTERFACEZ_RC.nowval[1] <50);
+            }
+        })());},
+        "countapply":function (){ return 5;}
+      },
+      hh.SIGACCESS({
+        "signame":"INTERFACEZ_RC",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
+              if( INTERFACEZ_RC.nowval !== undefined ) {
+                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 2
+                  && INTERFACEZ_RC.nowval[1] >0
+                  && INTERFACEZ_RC.nowval[1] <40);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
           {
             "%location":{},
-            "%tag":"emit",
-            "foo":"foo",
-            "apply":function (){
-              return ((() => {
-                //const foo=this["foo"];
-                return 0;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"foo",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          })
+            "%tag":"node",
+            "apply":function () {console.log('Interface Z dans HH');}
+          }
         ),
+
+      ),
+
+    ),
+
+    ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(120);
+      }
+    }
+  ),
+
+        hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+
+
+        hh.TRAP(
+          {
+            "trap428564":"trap428564",
+            "%location":{},
+            "%tag":"trap428564"
+          },
+          hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+            hh.SEQUENCE( // sequence 1
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "EvolveOUT":"EvolveOUT",
+                "apply":function (){
+                  return ((() => {
+                    const EvolveOUT = this["EvolveOUT"];
+                    return [true, 255];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"EvolveOUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ), // Fin emit
+    		    hh.ATOM(
+    		      {
+    		      "%location":{},
+    		      "%tag":"node",
+    		      "apply":function () {
+                  gcs.informSelecteurOnMenuChange(255," Evolve", true);
+                }
+    		      }
+    		 	  ),
+
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "RazorOUT":"RazorOUT",
+                "apply":function (){
+                  return ((() => {
+                    const RazorOUT = this["RazorOUT"];
+                    return [true, 255];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"RazorOUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ), // Fin emit
+    		    hh.ATOM(
+    		      {
+    		      "%location":{},
+    		      "%tag":"node",
+    		      "apply":function () {
+                  gcs.informSelecteurOnMenuChange(255," Razor", true);
+                }
+    		      }
+    		 	  ),
+
+          	), // fin sequence 1
+        	hh.SEQUENCE(
+    	        {
+    	          "%location":{},
+    	          "%tag":"seq"
+    	        },
+    	        hh.AWAIT(
+    	            {
+    	              "%location":{},
+    	              "%tag":"await",
+    	              "immediate":false,
+    	              "apply":function (){return ((() => {
+    	                const tick =this["tick"];
+    	                return tick.now;})());},
+    	              "countapply":function (){return 10;}
+    	          },
+    	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+    	        ),
+
+
+    	        hh.EMIT(
+    	          {
+    	            "%location":{},
+    	            "%tag":"emit",
+    	            "EvolveOUT":"EvolveOUT",
+    	            "apply":function (){
+    	              return ((() => {
+    	                const EvolveOUT = this["EvolveOUT"];
+    	                return [false, 255];
+    	              })());
+    	            }
+    	          },
+    	          hh.SIGACCESS({
+    	            "signame":"EvolveOUT",
+    	            "pre":true,
+    	            "val":true,
+    	            "cnt":false
+    	          })
+    	        ), // Fin emit
+    		    hh.ATOM(
+    		      {
+    		      "%location":{},
+    		      "%tag":"node",
+    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Evolve", false); }
+    		      }
+    		 	),
+
+    	        hh.EMIT(
+    	          {
+    	            "%location":{},
+    	            "%tag":"emit",
+    	            "RazorOUT":"RazorOUT",
+    	            "apply":function (){
+    	              return ((() => {
+    	                const RazorOUT = this["RazorOUT"];
+    	                return [false, 255];
+    	              })());
+    	            }
+    	          },
+    	          hh.SIGACCESS({
+    	            "signame":"RazorOUT",
+    	            "pre":true,
+    	            "val":true,
+    	            "cnt":false
+    	          })
+    	        ), // Fin emit
+    		    hh.ATOM(
+    		      {
+    		      "%location":{},
+    		      "%tag":"node",
+    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Razor", false); }
+    		      }
+    		 	),
+
+    	        hh.PAUSE(
+    	          {
+    	            "%location":{},
+    	            "%tag":"yield"
+    	          }
+    	        ),
+    	        hh.EXIT(
+    		        {
+    		          "trap428564":"trap428564",
+    		          "%location":{},
+    		          "%tag":"break"
+    		        }
+    	        ), // Exit
+    	      ) // sequence
+        	), // fork
+      	), // trap
+    	hh.PAUSE(
+    	    {
+    	      "%location":{},
+    	      "%tag":"yield"
+    	    }
+    	),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
 
       hh.AWAIT(
         {
           "%location":{},
           "%tag":"await",
-          "immediate":true,
+          "immediate":false,
           "apply":function () {
             return ((() => {
-              const foo=this["foo"];
-              return foo.now;
+              const tick=this["tick"];
+              return tick.now;
             })());
-          }
+          },
+          "countapply":function (){ return 5;}
         },
         hh.SIGACCESS({
-          "signame":"foo",
+          "signame":"tick",
           "pre":false,
           "val":false,
           "cnt":false
         })
       ),
 
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {console.log('foo');}
-      }
-    ),
+          hh.TRAP(
+            {
+              "trap949763":"trap949763",
+              "%location":{},
+              "%tag":"trap949763"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE( // sequence 1
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveX2OUT":"MassiveX2OUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveX2OUT = this["MassiveX2OUT"];
+                        return [true, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveX2OUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", true); }
+                }
+            ),
+
+              ), // fin sequence 1
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 10;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+
+
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveX2OUT":"MassiveX2OUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveX2OUT = this["MassiveX2OUT"];
+                        return [false, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveX2OUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX2", false); }
+                }
+            ),
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+                hh.EXIT(
+                  {
+                    "trap949763":"trap949763",
+                    "%location":{},
+                    "%tag":"break"
+                  }
+                ), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+        hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+        ),
+
+          hh.TRAP(
+            {
+              "trap701143":"trap701143",
+              "%location":{},
+              "%tag":"trap701143"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE( // sequence 1
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveX1OUT":"MassiveX1OUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        return [true, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveX1OUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", true); }
+                }
+            ),
+
+              ), // fin sequence 1
+            hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 10;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+
+
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    "MassiveX1OUT":"MassiveX1OUT",
+                    "apply":function (){
+                      return ((() => {
+                        const MassiveX1OUT = this["MassiveX1OUT"];
+                        return [false, 255];
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    "signame":"MassiveX1OUT",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+              hh.ATOM(
+                {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () { gcs.informSelecteurOnMenuChange(255," MassiveX1", false); }
+                }
+            ),
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+                hh.EXIT(
+                  {
+                    "trap701143":"trap701143",
+                    "%location":{},
+                    "%tag":"break"
+                  }
+                ), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+        hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+        ),
+
+      ),
 
     ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(90);
+      }
+    }
+  ),
+
+      hh.TRAP(
+        {
+          "trap290559":"trap290559",
+          "%location":{},
+          "%tag":"trap290559"
+        },
+        hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+          hh.SEQUENCE( // sequence 1
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "PrismOUT":"PrismOUT",
+                "apply":function (){
+                  return ((() => {
+                    const PrismOUT = this["PrismOUT"];
+                    return [true, 255];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"PrismOUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ), // Fin emit
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", true); }
+            }
+        ),
+
+          ), // fin sequence 1
+        hh.SEQUENCE(
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.AWAIT(
+                {
+                  "%location":{},
+                  "%tag":"await",
+                  "immediate":false,
+                  "apply":function (){return ((() => {
+                    const tick =this["tick"];
+                    return tick.now;})());},
+                  "countapply":function (){return 10;}
+              },
+              hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+            ),
+
+
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "PrismOUT":"PrismOUT",
+                "apply":function (){
+                  return ((() => {
+                    const PrismOUT = this["PrismOUT"];
+                    return [false, 255];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"PrismOUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ), // Fin emit
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255," Prism", false); }
+            }
+        ),
+
+            hh.PAUSE(
+              {
+                "%location":{},
+                "%tag":"yield"
+              }
+            ),
+            hh.EXIT(
+              {
+                "trap290559":"trap290559",
+                "%location":{},
+                "%tag":"break"
+              }
+            ), // Exit
+          ) // sequence
+        ), // fork
+      ), // trap
+    hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+    ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {console.log('Fin Mystique Electro');}
+    }
+  ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.cleanQueues();
+            gcs.cleanChoiceList(255);
+          }
+        }
+      ),
 
         ),
         hh.SEQUENCE(
