@@ -271,18 +271,27 @@ function startWebSocketServer() {
     tempoSensorsInit,
     sensorsSensibilities) {
 
-    if (workerInterfaceZ !== undefined) {
-      workerInterfaceZ.postMessage(['startInterfaceZ',
-        serverAddress,
-        interfaceZIPaddress,
-        portOSCToInterfaceZData,
-        portOSCToInterfaceZMidi,
-        portOSCFromInterfaceZ,
-        tempoSensorsInit,
-        sensorsSensibilities]);
-      return;
+    if (
+      interfaceZIPaddress === undefined ||
+      portOSCToInterfaceZData === undefined ||
+      tempoSensorsInit === undefined ||
+      sensorsSensibilities === undefined) {
+        console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
+        return;
     }
 
+    /*     if (workerInterfaceZ !== undefined) {
+          workerInterfaceZ.postMessage(['startInterfaceZ',
+            serverAddress,
+            interfaceZIPaddress,
+            portOSCToInterfaceZData,
+            portOSCToInterfaceZMidi,
+            portOSCFromInterfaceZ,
+            tempoSensorsInit,
+            sensorsSensibilities]);
+          return;
+        }
+     */
     return new Promise((resolve, reject) => {
       workerInterfaceZ = new Worker(filepath);
       if (debug) console.log('Launching worker InterfaceZ', filepath);
@@ -302,7 +311,7 @@ function startWebSocketServer() {
         switch (messageFromWorker.type) {
           case "INTERFACEZ_RC":
             if (debug1) console.log("websocketServer:message from worker:", messageFromWorker);
-            reactAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value]});
+            reactAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value] });
             break;
 
           default:
@@ -366,9 +375,9 @@ function startWebSocketServer() {
   *************************************************************************************/
   /**
    * Send a signal to the orchestration according to the skini note
-   * @param  {number} noteSkini
    * @function
    * @memberof Websocketserver
+   * @param  {number} noteSkini
    * @inner
    */
   function sendSignalFromDAW(noteSkini) {
@@ -1553,7 +1562,7 @@ maybe an hiphop compile Error`);
               workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
             }
 
-            if (par.interfaceZ) {
+            if (par.sensorOSC) {
               if (debug1) console.log("INFO: webSocketServeur: With Interface Z sensors");
               workerInterfaceZInit('./serveur/workerInterfaceZ.js',
                 ipConfig.serverIPAddress,
@@ -1563,6 +1572,10 @@ maybe an hiphop compile Error`);
                 ipConfig.portOSCFromInterfaceZ,
                 par.tempoSensorsInit,
                 par.sensorsSensibilities);
+            } else {
+              if (workerInterfaceZ !== undefined) {
+                workerInterfaceZ.postMessage("stopInterfaceZ");
+              }
             }
           }
 

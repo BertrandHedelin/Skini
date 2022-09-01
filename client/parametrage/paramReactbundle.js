@@ -53,6 +53,10 @@ var raspOSCPort;
 var algoGestionFifo;
 var gameOSCSignals = false;
 
+var sensorOSC = false;
+var tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
   text: "ECRAN_NOIR",
@@ -73,6 +77,7 @@ function updateParameters() {
   synchroLink = false;
   synchroSkini = false;
   gameOSCSignals = false;
+  sensorOSC = false;
 
   var parameters = document.querySelectorAll('input[name="parameter"]:checked');
   parameters.forEach(function (checkbox) {
@@ -103,6 +108,10 @@ function updateParameters() {
 
       case "gameOSC":
         gameOSCSignals = true;
+        break;
+
+      case "sensorOSC":
+        sensorOSC = true;
         break;
 
       case "synchoOnMidiClock":
@@ -183,6 +192,9 @@ function initWSSocket(host) {
         gameOSCSignals = par.gameOSCSignals;
         document.getElementById("gameOSC").checked = gameOSCSignals;
 
+        sensorOSC = par.sensorOSC;
+        document.getElementById("sensorOSC").checked = sensorOSC;
+
         synchoOnMidiClock = par.synchoOnMidiClock;
         document.getElementById("synchoOnMidiClock").checked = synchoOnMidiClock;
 
@@ -218,6 +230,26 @@ function initWSSocket(host) {
 
         algoGestionFifo = par.algoGestionFifo;
         document.getElementById("algoGestionFifo").value = algoGestionFifo;
+
+        tempoSensorsInit = par.tempoSensorsInit;
+        document.getElementById("sensorInit1").value = tempoSensorsInit[0];
+        document.getElementById("sensorInit2").value = tempoSensorsInit[1];
+        document.getElementById("sensorInit3").value = tempoSensorsInit[2];
+        document.getElementById("sensorInit4").value = tempoSensorsInit[3];
+        document.getElementById("sensorInit5").value = tempoSensorsInit[4];
+        document.getElementById("sensorInit6").value = tempoSensorsInit[5];
+        document.getElementById("sensorInit7").value = tempoSensorsInit[6];
+        document.getElementById("sensorInit8").value = tempoSensorsInit[7];
+
+        sensorsSensibilities = par.sensorsSensibilities;
+        document.getElementById("sensorSensibily1").value = sensorsSensibilities[0];
+        document.getElementById("sensorSensibily2").value = sensorsSensibilities[1];
+        document.getElementById("sensorSensibily3").value = sensorsSensibilities[2];
+        document.getElementById("sensorSensibily4").value = sensorsSensibilities[3];
+        document.getElementById("sensorSensibily5").value = sensorsSensibilities[4];
+        document.getElementById("sensorSensibily6").value = sensorsSensibilities[5];
+        document.getElementById("sensorSensibily7").value = sensorsSensibilities[6];
+        document.getElementById("sensorSensibily8").value = sensorsSensibilities[7];
 
         break;
 
@@ -300,6 +332,7 @@ var Jspreadsheet = function (_React$Component) {
       par.synchroLink = synchroLink;
       par.synchroSkini = synchroSkini;
       par.gameOSCSignals = gameOSCSignals;
+      par.sensorOSC = sensorOSC;
 
       par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
       par.tempoMax = document.getElementById("tempoMax").value;
@@ -310,6 +343,24 @@ var Jspreadsheet = function (_React$Component) {
       par.nbeDeGroupesClients = document.getElementById("nbeDeGroupesClients").value;
       par.timer = document.getElementById("timer").value;
       par.algoGestionFifo = document.getElementById("algoGestionFifo").value;
+
+      par.tempoSensorsInit[0] = document.getElementById("sensorInit1").value;
+      par.tempoSensorsInit[1] = document.getElementById("sensorInit2").value;
+      par.tempoSensorsInit[2] = document.getElementById("sensorInit3").value;
+      par.tempoSensorsInit[3] = document.getElementById("sensorInit4").value;
+      par.tempoSensorsInit[4] = document.getElementById("sensorInit5").value;
+      par.tempoSensorsInit[5] = document.getElementById("sensorInit6").value;
+      par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
+      par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
+
+      par.sensorsSensibilities[0] = document.getElementById("sensorSensibily1").value;
+      par.sensorsSensibilities[1] = document.getElementById("sensorSensibily2").value;
+      par.sensorsSensibilities[2] = document.getElementById("sensorSensibily3").value;
+      par.sensorsSensibilities[3] = document.getElementById("sensorSensibily4").value;
+      par.sensorsSensibilities[4] = document.getElementById("sensorSensibily5").value;
+      par.sensorsSensibilities[5] = document.getElementById("sensorSensibily6").value;
+      par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
+      par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
 
       var msg = {
         type: "updateParameters",
@@ -366,14 +417,18 @@ module.exports={
   "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "192.168.1.250",
+  "remoteIPAddressGame": "192.168.1.260",
+  "interfaceZIPaddress": "192.168.1.250",
   "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,
   "OutPortOSCMIDItoDAW": 12000,
-  "portOSCToGame": 1000,
-  "portOSCFromGame": 3005,
+  "portOSCToGame": 1010,
+  "portOSCFromGame": 3010,
+  "portOSCToInterfaceZData": 3005,
+  "portOSCToInterfaceZMidi": 3006,
+  "portOSCFromInterfaceZ": 1000,
   "distribSequencerPort": 8888,
   "outportProcessing": 10000,
   "outportLumiere": 7700,

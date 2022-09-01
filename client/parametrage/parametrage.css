@@ -104,3 +104,8 @@ body {
 .info{
   font-size: 20px;
 }
+
+.sensorParam{
+  font-size: 20px;
+  width:70px;
+}

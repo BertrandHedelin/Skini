@@ -83,74 +83,74 @@
                                         <next>
                                           <block type="hh_fork" id="$PyuyJ:xGH23^?yg|nUx">
                                             <statement name="BODY">
-                                              <block type="hh_sequence" id="+$OW@!VJIvm*dsTax@zy">
-                                                <statement name="BODY">
-                                                  <block type="hh_await_interfaceZ_sensor" id="hHuOdQ|XF`yo4Bx[$9.4">
-                                                    <field name="TIMES">1</field>
-                                                    <field name="sensor">0</field>
-                                                    <field name="lowValue">20</field>
-                                                    <field name="highValue">50</field>
-                                                    <next>
-                                                      <block type="hh_print_serveur" id="V-5zhh)DP};3xPEvf7.s">
-                                                        <value name="TEXT">
-                                                          <block type="text" id="Uq6=4;0V?%Ur(Ga0?H_$">
-                                                            <field name="TEXT">Interface Z ***** dans HH</field>
-                                                          </block>
-                                                        </value>
+                                              <block type="random_group" id="C)FpVr-L6lCCv;A-3^lz">
+                                                <field name="number_of_groups">2</field>
+                                                <field name="user_group">255</field>
+                                                <field name="number_of_ticks">10</field>
+                                                <value name="GROUPS">
+                                                  <block type="lists_create_with" id="J^khQ)nN0)prG3M+L0ox">
+                                                    <mutation items="3"></mutation>
+                                                    <value name="ADD0">
+                                                      <block type="variables_get" id=")DpLOGL#$-aS+Swq*yD3">
+                                                        <field name="VAR" id="X`nH7u;:)SKqga*i-D|p">Massive</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD1">
+                                                      <block type="variables_get" id="#Guj,SHnw^SNQ`bbK1VD">
+                                                        <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">FM8</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="variables_get" id="X*Ak}7a:i)1%mUH/TRb#">
+                                                        <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">Prism</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="hh_sequence" id="+$OW@!VJIvm*dsTax@zy">
+                                                    <statement name="BODY">
+                                                      <block type="hh_await_interfaceZ_sensor" id="hHuOdQ|XF`yo4Bx[$9.4">
+                                                        <field name="TIMES">2</field>
+                                                        <field name="sensor">0</field>
+                                                        <field name="lowValue">20</field>
+                                                        <field name="highValue">50</field>
                                                         <next>
-                                                          <block type="random_group" id="C)FpVr-L6lCCv;A-3^lz">
-                                                            <field name="number_of_groups">2</field>
-                                                            <field name="user_group">255</field>
-                                                            <field name="number_of_ticks">10</field>
-                                                            <value name="GROUPS">
-                                                              <block type="lists_create_with" id="J^khQ)nN0)prG3M+L0ox">
-                                                                <mutation items="3"></mutation>
-                                                                <value name="ADD0">
-                                                                  <block type="variables_get" id=")DpLOGL#$-aS+Swq*yD3">
-                                                                    <field name="VAR" id="X`nH7u;:)SKqga*i-D|p">Massive</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="ADD1">
-                                                                  <block type="variables_get" id="#Guj,SHnw^SNQ`bbK1VD">
-                                                                    <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">FM8</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="ADD2">
-                                                                  <block type="variables_get" id="X*Ak}7a:i)1%mUH/TRb#">
-                                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">Prism</field>
-                                                                  </block>
-                                                                </value>
+                                                          <block type="hh_print_serveur" id="V-5zhh)DP};3xPEvf7.s">
+                                                            <value name="TEXT">
+                                                              <block type="text" id="Uq6=4;0V?%Ur(Ga0?H_$">
+                                                                <field name="TEXT">Interface Z ***** dans HH</field>
                                                               </block>
                                                             </value>
                                                           </block>
                                                         </next>
                                                       </block>
-                                                    </next>
-                                                  </block>
-                                                </statement>
-                                                <next>
-                                                  <block type="hh_abort_interfaceZ_sensor" id="*R4uB==FdBzk,IR(AE7[">
-                                                    <field name="TIMES">5</field>
-                                                    <field name="sensor">0</field>
-                                                    <field name="lowValue">20</field>
-                                                    <field name="highValue">50</field>
-                                                    <statement name="BODY">
-                                                      <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
-                                                        <field name="TIMES">1</field>
-                                                        <field name="sensor">2</field>
-                                                        <field name="lowValue">0</field>
-                                                        <field name="highValue">40</field>
+                                                    </statement>
+                                                    <next>
+                                                      <block type="hh_abort_interfaceZ_sensor" id="*R4uB==FdBzk,IR(AE7[">
+                                                        <field name="TIMES">5</field>
+                                                        <field name="sensor">0</field>
+                                                        <field name="lowValue">20</field>
+                                                        <field name="highValue">50</field>
                                                         <statement name="BODY">
-                                                          <block type="hh_print_serveur" id="14.cDu}fa#V6TX7|:SG6">
-                                                            <value name="TEXT">
-                                                              <block type="text" id="hQv$GU];i.z/zuaGTT8s">
-                                                                <field name="TEXT">Interface Z dans HH</field>
+                                                          <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
+                                                            <field name="TIMES">1</field>
+                                                            <field name="sensor">2</field>
+                                                            <field name="lowValue">0</field>
+                                                            <field name="highValue">40</field>
+                                                            <statement name="BODY">
+                                                              <block type="hh_print_serveur" id="14.cDu}fa#V6TX7|:SG6">
+                                                                <value name="TEXT">
+                                                                  <block type="text" id="hQv$GU];i.z/zuaGTT8s">
+                                                                    <field name="TEXT">Interface Z dans HH</field>
+                                                                  </block>
+                                                                </value>
                                                               </block>
-                                                            </value>
+                                                            </statement>
                                                           </block>
                                                         </statement>
                                                       </block>
-                                                    </statement>
+                                                    </next>
                                                   </block>
                                                 </next>
                                               </block>

@@ -13,8 +13,8 @@ var debug1 = true;
 
 var osc = require('osc-min');
 var dgram = require("dgram");
-var sockData = dgram.createSocket('udp4');
-var sockMidi = dgram.createSocket('udp4');
+var sockData; // = dgram.createSocket('udp4');
+var sockMidi; // = dgram.createSocket('udp4');
 var dataPort = 3005;
 var midiPort = 3006;
 var serverAddress = "192.168.1.251";
@@ -35,6 +35,17 @@ function displaySignal(sensor, value) {
     process.stdout.write("*");
   }
   console.log(value);
+}
+
+function closeOSCsockets() {
+  if(sockData === undefined) return;
+  
+  if (debug1) console.log("workerInterfaceZ: closeOSCsockets 1", sockData);
+  if (sockData.readyState === 1) {
+    if (debug1) console.log("workerInterfaceZ: closeOSCsockets 2");
+    sockData.close();
+  }
+  if (sockMidi.readyState === 1) sockMidi.close();
 }
 
 parentPort.onmessage = function (mess) {
@@ -60,6 +71,11 @@ parentPort.onmessage = function (mess) {
       initWorker();
       break;
 
+    case "stopInterfaceZ":
+      if (debug1) console.log('INFO: workerInterfaceZ: receive message: Stop OSC sockets');
+      //closeOSCsockets();
+      break;
+
     default:
       break;
   }
@@ -69,10 +85,10 @@ function initWorker() {
   /**
    * Process the OSC messages of the Data port from the Interface Z cards.
    */
+  console.log("initWorker Interface Z");
 
   // Necessary if relaunched
-  sockData.close(dataPort);
-  sockMidi.close(midiPort);
+  closeOSCsockets();
 
   sockData = dgram.createSocket("udp4", function (msg, rinfo) {
     var message;
@@ -185,6 +201,10 @@ function initWorker() {
     if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
   });
 
-  sockData.bind(dataPort, serverAddress);
-  sockMidi.bind(midiPort, serverAddress);
+  try {
+    sockData.bind(dataPort, serverAddress);
+    sockMidi.bind(midiPort, serverAddress);
+  } catch (err) {
+    console.log("Pb on binding socket in woerkerInterfaceZ");
+  }
 }
