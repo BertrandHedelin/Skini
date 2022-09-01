@@ -26,6 +26,7 @@ var tempoSensorsInit = [5, 0, 10, 0, 0, 0, 0, 0];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0];
 var sensorsSensibilities = [100, 5, 100, 5, 5, 5, 5, 5];
+var sensorsRunning = false;
 
 console.log("INFO: workerInterfaceZ: Start Interface Z worker");
 
@@ -38,12 +39,14 @@ function displaySignal(sensor, value) {
 }
 
 function closeOSCsockets() {
-  if(sockData !== undefined) sockData.close();
-  if(sockMidi !== undefined) sockMidi.close();
+  if (sockData !== undefined) sockData.close();
+  if (sockMidi !== undefined) sockMidi.close();
 }
 
 parentPort.onmessage = function (mess) {
   var result = mess.data[0];
+  if (debug1) console.log("workerInterfaceZ: message:", mess.data);
+
   switch (result) {
 
     case "startInterfaceZ":
@@ -55,19 +58,20 @@ parentPort.onmessage = function (mess) {
       tempoSensorsInit = mess.data[6];
       sensorsSensibilities = mess.data[7];
 
-      if (debug1) console.log('INFO: workerInterfaceZ: receive message: Start Worker startInterfaceZ',
+      if (debug) console.log('INFO: workerInterfaceZ: receive message: Start Worker startInterfaceZ',
         serverAddress, interfaceZAddress, dataPort, midiPort, interfaceZMidiPort,
         tempoSensorsInit, sensorsSensibilities);
 
       const message = 'message';
       parentPort.postMessage(message);
 
+      sensorsRunning = true;
       initWorker();
       break;
 
     case "stopInterfaceZ":
       if (debug1) console.log('INFO: workerInterfaceZ: receive message: Stop OSC sockets');
-      closeOSCsockets();
+      sensorsRunning = false;
       break;
 
     default:
@@ -79,20 +83,18 @@ function initWorker() {
   /**
    * Process the OSC messages of the Data port from the Interface Z cards.
    */
-  if(debug1) console.log("initWorker Interface Z");
+  if (debug) console.log("initWorker Interface Z");
 
   // Necessary if relaunched
-  //if(sockData !== undefined) sockData.close();
-  //if(sockMidi !== undefined) sockMidi.close();
   closeOSCsockets();
 
   sockData = dgram.createSocket("udp4", function (msg, rinfo) {
     var message;
     var messageToSend;
+
     try {
       message = osc.fromBuffer(msg); // Message OSC recu
       if (debug) {
-        //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
         if (debug) console.log("Z socket reçoit OSC: [", message.address + " : " +
           message.args[0].value + " : " +
           message.args[1].value + " : " +
@@ -114,7 +116,7 @@ function initWorker() {
                   sensor: i,
                   value: Math.round(message.args[i].value / sensorsSensibilities[i])
                 }
-                parentPort.postMessage(messageToSend);
+                if (sensorsRunning) parentPort.postMessage(messageToSend);
               }
               previousSensorsValues[i] = message.args[i].value;
               tempoSensors[i] = tempoSensorsInit[i];
@@ -125,12 +127,12 @@ function initWorker() {
           break;
 
         default:
-          console.log("OSCetZ.js: socket DATA reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+          console.log("Interface Z: socket DATA reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
           break;
       }
       return;
     } catch (error) {
-      console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
+      console.log("Interface Z: ERR dans réception OSC :", message.args, error);
       return;
     }
   });

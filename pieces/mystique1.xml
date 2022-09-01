@@ -108,49 +108,53 @@
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="hh_sequence" id="+$OW@!VJIvm*dsTax@zy">
+                                                  <block type="hh_abort_interfaceZ_sensor" id="*R4uB==FdBzk,IR(AE7[">
+                                                    <field name="TIMES">5</field>
+                                                    <field name="sensor">0</field>
+                                                    <field name="lowValue">200</field>
+                                                    <field name="highValue">1000</field>
                                                     <statement name="BODY">
-                                                      <block type="hh_await_interfaceZ_sensor" id="hHuOdQ|XF`yo4Bx[$9.4">
-                                                        <field name="TIMES">2</field>
-                                                        <field name="sensor">0</field>
-                                                        <field name="lowValue">20</field>
-                                                        <field name="highValue">50</field>
-                                                        <next>
-                                                          <block type="hh_print_serveur" id="V-5zhh)DP};3xPEvf7.s">
-                                                            <value name="TEXT">
-                                                              <block type="text" id="Uq6=4;0V?%Ur(Ga0?H_$">
-                                                                <field name="TEXT">Interface Z ***** dans HH</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </next>
-                                                      </block>
-                                                    </statement>
-                                                    <next>
-                                                      <block type="hh_abort_interfaceZ_sensor" id="*R4uB==FdBzk,IR(AE7[">
-                                                        <field name="TIMES">5</field>
-                                                        <field name="sensor">0</field>
-                                                        <field name="lowValue">20</field>
-                                                        <field name="highValue">50</field>
+                                                      <block type="hh_fork" id="FlW);HEy+JVgWqU~9F6V">
                                                         <statement name="BODY">
-                                                          <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
-                                                            <field name="TIMES">1</field>
-                                                            <field name="sensor">2</field>
-                                                            <field name="lowValue">0</field>
-                                                            <field name="highValue">40</field>
+                                                          <block type="hh_loop" id="Sh6mj}Gh=)I@yHq0.3{p">
                                                             <statement name="BODY">
-                                                              <block type="hh_print_serveur" id="14.cDu}fa#V6TX7|:SG6">
-                                                                <value name="TEXT">
-                                                                  <block type="text" id="hQv$GU];i.z/zuaGTT8s">
-                                                                    <field name="TEXT">Interface Z dans HH</field>
+                                                              <block type="hh_await_interfaceZ_sensor" id="hHuOdQ|XF`yo4Bx[$9.4">
+                                                                <field name="TIMES">1</field>
+                                                                <field name="sensor">0</field>
+                                                                <field name="lowValue">200</field>
+                                                                <field name="highValue">1000</field>
+                                                                <next>
+                                                                  <block type="hh_print_serveur" id="V-5zhh)DP};3xPEvf7.s">
+                                                                    <value name="TEXT">
+                                                                      <block type="text" id="Uq6=4;0V?%Ur(Ga0?H_$">
+                                                                        <field name="TEXT">Interface Z ***** dans HH</field>
+                                                                      </block>
+                                                                    </value>
                                                                   </block>
-                                                                </value>
+                                                                </next>
                                                               </block>
                                                             </statement>
+                                                            <next>
+                                                              <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
+                                                                <field name="TIMES">1</field>
+                                                                <field name="sensor">2</field>
+                                                                <field name="lowValue">0</field>
+                                                                <field name="highValue">40</field>
+                                                                <statement name="BODY">
+                                                                  <block type="hh_print_serveur" id="14.cDu}fa#V6TX7|:SG6">
+                                                                    <value name="TEXT">
+                                                                      <block type="text" id="hQv$GU];i.z/zuaGTT8s">
+                                                                        <field name="TEXT">Interface Z dans HH</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </statement>
+                                                              </block>
+                                                            </next>
                                                           </block>
                                                         </statement>
                                                       </block>
-                                                    </next>
+                                                    </statement>
                                                   </block>
                                                 </next>
                                               </block>

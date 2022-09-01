@@ -255,6 +255,7 @@ function startWebSocketServer() {
   **************************************************************************************/
   var workerInterfaceZ;
   var workerInterfaceZRunning = false;
+
   /**
   * Function to start a worker for the Interface Z management
   * @function
@@ -1578,9 +1579,9 @@ maybe an hiphop compile Error`);
                 par.tempoSensorsInit,
                 par.sensorsSensibilities);
             } else {
+              if (debug) console.log("INFO: webSocketServeur: stopInterfaceZ", workerInterfaceZ);
               if (workerInterfaceZ !== undefined) {
-                if (debug1) console.log("INFO: webSocketServeur: stopInterfaceZ");
-                workerInterfaceZ.postMessage("stopInterfaceZ");
+                workerInterfaceZ.postMessage(["stopInterfaceZ"]);
               }
             }
           }
