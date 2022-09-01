@@ -254,7 +254,7 @@ function startWebSocketServer() {
     Worker for the Interface Z management
   **************************************************************************************/
   var workerInterfaceZ;
-
+  var workerInterfaceZRunning = false;
   /**
   * Function to start a worker for the Interface Z management
   * @function
@@ -271,16 +271,9 @@ function startWebSocketServer() {
     tempoSensorsInit,
     sensorsSensibilities) {
 
-    if (
-      interfaceZIPaddress === undefined ||
-      portOSCToInterfaceZData === undefined ||
-      tempoSensorsInit === undefined ||
-      sensorsSensibilities === undefined) {
-        console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
-        return;
-    }
-
-    /*     if (workerInterfaceZ !== undefined) {
+    if (workerInterfaceZRunning) {
+      if(debug1) console.log("workerInterfaceZRunning");
+        if (workerInterfaceZ !== undefined) {
           workerInterfaceZ.postMessage(['startInterfaceZ',
             serverAddress,
             interfaceZIPaddress,
@@ -291,7 +284,19 @@ function startWebSocketServer() {
             sensorsSensibilities]);
           return;
         }
-     */
+    }
+    workerInterfaceZRunning = true;
+
+    if (
+      interfaceZIPaddress === undefined ||
+      portOSCToInterfaceZData === undefined ||
+      tempoSensorsInit === undefined ||
+      sensorsSensibilities === undefined) {
+      console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
+      return;
+    }
+
+
     return new Promise((resolve, reject) => {
       workerInterfaceZ = new Worker(filepath);
       if (debug) console.log('Launching worker InterfaceZ', filepath);
@@ -1574,6 +1579,7 @@ maybe an hiphop compile Error`);
                 par.sensorsSensibilities);
             } else {
               if (workerInterfaceZ !== undefined) {
+                if (debug1) console.log("INFO: webSocketServeur: stopInterfaceZ");
                 workerInterfaceZ.postMessage("stopInterfaceZ");
               }
             }
