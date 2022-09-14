@@ -938,57 +938,60 @@ let messageLog = {
 function makeSignalsListeners(machine) {
   // Création des listeners des signaux
   for (var i = 0; i < par.groupesDesSons.length; i++) {
-    var signal = par.groupesDesSons[i][0] + "OUT";
 
-    if (debug) console.log("Addeventlisterner:signal:", signal);
+    if (par.groupesDesSons[i][0] !== "") {
+      var signal = par.groupesDesSons[i][0] + "OUT";
 
-    machine.addEventListener(signal, function (evt) {
-      // Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-      if (debug) console.log("groupeClientSons: listerner:signal:", evt.signalName);
+      if (debug) console.log("Addeventlisterner:signal:", signal);
 
-      var groupeSonLocal = getGroupeSons(evt.signalName);
-      if (groupeSonLocal == -1) {
-        console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signalName);
-        return;
-      }
-      if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
-        "signalName:", evt.signalName,
-        "groupeClientsNo:", evt.signalValue[1],
-        "statut:", evt.signalValue[0],
-        "signalValue:", evt.signalValue);
+      machine.addEventListener(signal, function (evt) {
+        // Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
+        if (debug) console.log("groupeClientSons: listerner:signal:", evt.signalName);
 
-      if (setInMatriceDesPossibles(evt.signalValue[1], groupeSonLocal, evt.signalValue[0]) === -1) {
-        return;
-      }
-
-      // INFORMATION VERS CLIENT CONTROLEUR POUR AFFICHAGE (son, groupe, status)
-      var message = {
-        type: "setInMatrix",
-        son: groupeSonLocal,
-        groupe: evt.signalValue[1],
-        status: evt.signalValue[0]
-      }
-      //console.log("groupecliensSons:socketControleur automate:", socketControleur);
-      if (socketControleur !== undefined) {
-        if (socketControleur.readyState == 1) {
-          socketControleur.send(JSON.stringify(message));
-        } else {
-          console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
+        var groupeSonLocal = getGroupeSons(evt.signalName);
+        if (groupeSonLocal == -1) {
+          console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signalName);
+          return;
         }
-      }
-      // Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
-      var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
-      var msg = {
-        type: "setInMatriceDesPossibles",
-        value: messageScrut
-      }
-      serv.broadcast(JSON.stringify(msg));
-      //hop.broadcast("setInMatriceDesPossibles", messageScrut);
+        if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
+          "signalName:", evt.signalName,
+          "groupeClientsNo:", evt.signalValue[1],
+          "statut:", evt.signalValue[0],
+          "signalValue:", evt.signalValue);
 
-      messageLog.type = "signal";
-      messageLog.value = evt.type;
-      logInfoAutomate(messageLog);
-    });
+        if (setInMatriceDesPossibles(evt.signalValue[1], groupeSonLocal, evt.signalValue[0]) === -1) {
+          return;
+        }
+
+        // INFORMATION VERS CLIENT CONTROLEUR POUR AFFICHAGE (son, groupe, status)
+        var message = {
+          type: "setInMatrix",
+          son: groupeSonLocal,
+          groupe: evt.signalValue[1],
+          status: evt.signalValue[0]
+        }
+        //console.log("groupecliensSons:socketControleur automate:", socketControleur);
+        if (socketControleur !== undefined) {
+          if (socketControleur.readyState == 1) {
+            socketControleur.send(JSON.stringify(message));
+          } else {
+            console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
+          }
+        }
+        // Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
+        var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
+        var msg = {
+          type: "setInMatriceDesPossibles",
+          value: messageScrut
+        }
+        serv.broadcast(JSON.stringify(msg));
+        //hop.broadcast("setInMatriceDesPossibles", messageScrut);
+
+        messageLog.type = "signal";
+        messageLog.value = evt.type;
+        logInfoAutomate(messageLog);
+      });
+    }
   }
 
   // Listener des signaux pour les commandes OSC direct

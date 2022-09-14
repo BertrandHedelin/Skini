@@ -232,26 +232,33 @@ function initWSSocket(host) {
         algoGestionFifo = par.algoGestionFifo;
         document.getElementById("algoGestionFifo").value = algoGestionFifo;
 
-        tempoSensorsInit = par.tempoSensorsInit;
-        document.getElementById("sensorInit1").value = tempoSensorsInit[0];
-        document.getElementById("sensorInit2").value = tempoSensorsInit[1];
-        document.getElementById("sensorInit3").value = tempoSensorsInit[2];
-        document.getElementById("sensorInit4").value = tempoSensorsInit[3];
-        document.getElementById("sensorInit5").value = tempoSensorsInit[4];
-        document.getElementById("sensorInit6").value = tempoSensorsInit[5];
-        document.getElementById("sensorInit7").value = tempoSensorsInit[6];
-        document.getElementById("sensorInit8").value = tempoSensorsInit[7];
+        if (par.tempoSensorsInit !== undefined) {
+          tempoSensorsInit = par.tempoSensorsInit;
+          document.getElementById("sensorInit1").value = tempoSensorsInit[0];
+          document.getElementById("sensorInit2").value = tempoSensorsInit[1];
+          document.getElementById("sensorInit3").value = tempoSensorsInit[2];
+          document.getElementById("sensorInit4").value = tempoSensorsInit[3];
+          document.getElementById("sensorInit5").value = tempoSensorsInit[4];
+          document.getElementById("sensorInit6").value = tempoSensorsInit[5];
+          document.getElementById("sensorInit7").value = tempoSensorsInit[6];
+          document.getElementById("sensorInit8").value = tempoSensorsInit[7];
+        } else {
+          tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+        }
 
-        sensorsSensibilities = par.sensorsSensibilities;
-        document.getElementById("sensorSensibily1").value = sensorsSensibilities[0];
-        document.getElementById("sensorSensibily2").value = sensorsSensibilities[1];
-        document.getElementById("sensorSensibily3").value = sensorsSensibilities[2];
-        document.getElementById("sensorSensibily4").value = sensorsSensibilities[3];
-        document.getElementById("sensorSensibily5").value = sensorsSensibilities[4];
-        document.getElementById("sensorSensibily6").value = sensorsSensibilities[5];
-        document.getElementById("sensorSensibily7").value = sensorsSensibilities[6];
-        document.getElementById("sensorSensibily8").value = sensorsSensibilities[7];
-
+        if (par.sensorsSensibilities !== undefined) {
+          sensorsSensibilities = par.sensorsSensibilities;
+          document.getElementById("sensorSensibily1").value = sensorsSensibilities[0];
+          document.getElementById("sensorSensibily2").value = sensorsSensibilities[1];
+          document.getElementById("sensorSensibily3").value = sensorsSensibilities[2];
+          document.getElementById("sensorSensibily4").value = sensorsSensibilities[3];
+          document.getElementById("sensorSensibily5").value = sensorsSensibilities[4];
+          document.getElementById("sensorSensibily6").value = sensorsSensibilities[5];
+          document.getElementById("sensorSensibily7").value = sensorsSensibilities[6];
+          document.getElementById("sensorSensibily8").value = sensorsSensibilities[7];
+        } else {
+          sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+        }
         break;
 
       default: //console.log("Client reçoit un message inconnu", msgRecu.type);
@@ -331,7 +338,7 @@ class Jspreadsheet extends React.Component {
     par.synchroLink = synchroLink;
     par.synchroSkini = synchroSkini;
     par.gameOSCSignals = gameOSCSignals;
-    par.sensorOSC =sensorOSC;
+    par.sensorOSC = sensorOSC;
 
     par.soundFilesPath1 = document.getElementById("soundFilesPath1").value;
     par.tempoMax = document.getElementById("tempoMax").value;
@@ -343,23 +350,33 @@ class Jspreadsheet extends React.Component {
     par.timer = document.getElementById("timer").value;
     par.algoGestionFifo = document.getElementById("algoGestionFifo").value;
 
-    par.tempoSensorsInit[0] = document.getElementById("sensorInit1").value;
-    par.tempoSensorsInit[1] = document.getElementById("sensorInit2").value;
-    par.tempoSensorsInit[2] = document.getElementById("sensorInit3").value;
-    par.tempoSensorsInit[3] = document.getElementById("sensorInit4").value;
-    par.tempoSensorsInit[4] = document.getElementById("sensorInit5").value;
-    par.tempoSensorsInit[5] = document.getElementById("sensorInit6").value;
-    par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
-    par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
+    console.log("****",typeof document.getElementById("sensorInit1").value );
 
-    par.sensorsSensibilities[0] = document.getElementById("sensorSensibily1").value;
-    par.sensorsSensibilities[1] = document.getElementById("sensorSensibily2").value;
-    par.sensorsSensibilities[2] = document.getElementById("sensorSensibily3").value;
-    par.sensorsSensibilities[3] = document.getElementById("sensorSensibily4").value;
-    par.sensorsSensibilities[4] = document.getElementById("sensorSensibily5").value;
-    par.sensorsSensibilities[5] = document.getElementById("sensorSensibily6").value;
-    par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
-    par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
+    if (document.getElementById("sensorInit1").value !== '') {
+      par.tempoSensorsInit[0] = document.getElementById("sensorInit1").value;
+      par.tempoSensorsInit[1] = document.getElementById("sensorInit2").value;
+      par.tempoSensorsInit[2] = document.getElementById("sensorInit3").value;
+      par.tempoSensorsInit[3] = document.getElementById("sensorInit4").value;
+      par.tempoSensorsInit[4] = document.getElementById("sensorInit5").value;
+      par.tempoSensorsInit[5] = document.getElementById("sensorInit6").value;
+      par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
+      par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
+    } else {
+      par.tempoSensorsInit = [0,0,0,0,0,0,0,0];
+    }
+
+    if (document.getElementById("sensorSensibily1").value !== '') {
+      par.sensorsSensibilities[0] = document.getElementById("sensorSensibily1").value;
+      par.sensorsSensibilities[1] = document.getElementById("sensorSensibily2").value;
+      par.sensorsSensibilities[2] = document.getElementById("sensorSensibily3").value;
+      par.sensorsSensibilities[3] = document.getElementById("sensorSensibily4").value;
+      par.sensorsSensibilities[4] = document.getElementById("sensorSensibily5").value;
+      par.sensorsSensibilities[5] = document.getElementById("sensorSensibily6").value;
+      par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
+      par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
+    } else {
+      par.sensorsSensibilities = [0,0,0,0,0,0,0,0];
+    }
 
     var msg = {
       type: "updateParameters",

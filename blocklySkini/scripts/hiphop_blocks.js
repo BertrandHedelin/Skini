@@ -4287,31 +4287,35 @@ var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 for (var i=0; i < par.groupesDesSons.length; i++) {
-  var signalName = par.groupesDesSons[i][0] + "OUT";
-  
-  if(debug) console.log("Signal Orchestration:", signalName);
+  if(par.groupesDesSons[i][0] !== "") {
+    var signalName = par.groupesDesSons[i][0] + "OUT";
+    
+    if(debug) console.log("Signal Orchestration:", signalName);
 
-  var signal = hh.SIGNAL({
-    "%location":{},
-    "direction":"OUT",
-    "name":signalName,
-    "init_func":function (){return [false, -1];}
-  });
-  signals.push(signal);
+    var signal = hh.SIGNAL({
+      "%location":{},
+      "direction":"OUT",
+      "name":signalName,
+      "init_func":function (){return [false, -1];}
+    });
+    signals.push(signal);
+  }
 }
 
 // Création des signaux IN de sélection de patterns
 for (var i=0; i < par.groupesDesSons.length; i++) {
-  var signalName = par.groupesDesSons[i][0] + "IN";
-  
-  if(debug) console.log("Signal Orchestration:", signalName);
-  
-  var signal = hh.SIGNAL({
-    "%location":{},
-    "direction":"IN",
-    "name":signalName
-  });
-  signals.push(signal);
+  if(par.groupesDesSons[i][0] !== "") {
+    var signalName = par.groupesDesSons[i][0] + "IN";
+    
+    if(debug) console.log("Signal Orchestration:", signalName);
+    
+    var signal = hh.SIGNAL({
+      "%location":{},
+      "direction":"IN",
+      "name":signalName
+    });
+    signals.push(signal);
+  }
 }
 
 function setSignals(){

@@ -223,7 +223,7 @@ function midimix(machineServeur) {
           controlers[i].input.getPortName(controlerIndex));
 
         controlers[i].input.on('message', function (deltaTime, message) {
-          if (debug1) console.log('Input recieved : ' + message + ' d:' + deltaTime);
+          if (debug1) console.log('midimix.js: Input received : ' + message + ' d:' + deltaTime);
 
           // Ici les actions sur commande MIDI
           // On ne distingue pas les controleurs.
@@ -284,7 +284,8 @@ function midimix(machineServeur) {
     }
 
     /**
-    * Initialize the MIDI ports for processing the MIDI messages/commands.
+    * Initialize the MIDI ports for processing the MIDI messages/commands from DAW and
+    * controlers.
     * Put two MIDI listeners one on NoteOn and one on Synchro.
     * @function
     * @memberof midimix

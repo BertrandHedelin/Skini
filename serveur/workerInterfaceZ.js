@@ -45,7 +45,7 @@ function closeOSCsockets() {
 
 parentPort.onmessage = function (mess) {
   var result = mess.data[0];
-  if (debug1) console.log("workerInterfaceZ: message:", mess.data);
+  if (debug) console.log("workerInterfaceZ: message:", mess.data);
 
   switch (result) {
 
@@ -114,7 +114,7 @@ function initWorker() {
                 messageToSend = {
                   type: "INTERFACEZ_RC",
                   sensor: i,
-                  value: Math.round(message.args[i].value / sensorsSensibilities[i])
+                  value: Math.round(message.args[i].value)
                 }
                 if (sensorsRunning) parentPort.postMessage(messageToSend);
               }
