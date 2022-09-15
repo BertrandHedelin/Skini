@@ -1,4 +1,4 @@
-var tick;
+var foo, OSCNOTEON, OSCNOTEOF;
 
 
 
@@ -145,6 +145,24 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
 
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"foo"
+    }),
+
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"OSCNOTEON"
+    }),
+
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"OSCNOTEOF"
+    }),
+
   hh.LOOP(
     {
      "%location":{loop: 1},
@@ -193,30 +211,74 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        oscMidiLocal.sendOSCGame(
+        'TOTO',
+        10,
+        par.portOSCToGame,
+        par.remoteIPAddressGame);
+        }
+      }
+    ),
 
-  hh.ABORT(
-    {
-      "%location":{abort: tick},
-      "%tag":"abort",
-      "immediate":false,
-      "apply": function (){return ((() => {
-          const tick=this["tick"];
-          return tick.now;
-      })());},
-      "countapply":function (){ return 4;}
-    },
-    hh.SIGACCESS({
-      "signame":"tick",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    }),
+        hh.AWAIT(
+          {
+            "%location":{"filename":"hiphop_blocks.js","pos":189},
+            "%tag":"await",
+            "immediate":false,
+            "apply":function (){
+              return ((() => {
+                const OSCNOTEON=this["OSCNOTEON"];
+                return (OSCNOTEON.now  && OSCNOTEON.nowval === 0);
+              })());
+            },
+            "countapply":function (){ return 1;}
+          },
+          hh.SIGACCESS(
+            {"signame":"OSCNOTEON",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          })
+        ),
 
-    hh.LOOP(
-        {
-          "%location":{loop: 1},
-          "%tag":"loop"
-        },
+        hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "foo":"foo",
+              "apply":function (){
+                return ((() => {
+                  //const foo=this["foo"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"foo",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
 
         hh.AWAIT(
           {
@@ -225,18 +287,52 @@ var orchestration = hh.MODULE(
             "immediate":true,
             "apply":function () {
               return ((() => {
-                const tick=this["tick"];
-                return tick.now;
+                const foo=this["foo"];
+                return foo.now;
               })());
             }
           },
           hh.SIGACCESS({
-            "signame":"tick",
+            "signame":"foo",
             "pre":false,
             "val":false,
             "cnt":false
           })
         ),
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "foo":"foo",
+              "apply":function (){
+                return ((() => {
+                  //const foo=this["foo"];
+                  return 11;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"foo",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      ),
 
       hh.ATOM(
         {
@@ -246,16 +342,90 @@ var orchestration = hh.MODULE(
         }
       ),
 
-      hh.PAUSE(
+      ),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+            hh.AWAIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":189},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){
+                  return ((() => {
+                    const foo=this["foo"];
+                    return (foo.now  && foo.nowval === 11);
+                  })());
+                },
+                "countapply":function (){ return 1;}
+              },
+              hh.SIGACCESS(
+                {"signame":"foo",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+      hh.ATOM(
         {
           "%location":{},
-          "%tag":"yield"
+          "%tag":"node",
+          "apply":function () {console.log('foo 11');}
         }
       ),
 
       ),
 
-  ),
+
+    hh.LOOPEACH(
+      {
+        "%location":{loopeach: OSCNOTEON},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const OSCNOTEON=this["OSCNOTEON"];
+            return OSCNOTEON.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"OSCNOTEON",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('OSC NOTE ON');}
+        }
+      ),
+
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            oscMidiLocal.sendOSCGame(
+            'TOTO/TITI',
+            10,
+            par.portOSCToGame,
+            par.remoteIPAddressGame);
+            }
+          }
+        ),
+
+    ),
+
+    ),
 
         ),
         hh.SEQUENCE(

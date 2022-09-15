@@ -556,7 +556,11 @@ window.saveSessionAs = saveSessionAs;
           },
           {
             "kind": "block",
-            "type": "send_OSC_command"
+            "type": "send_OSC_rasp_command"
+          },
+          {
+            "kind": "block",
+            "type": "send_OSC_game_command"
           },
           {
             "kind": "block",

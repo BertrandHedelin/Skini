@@ -252,9 +252,9 @@ exports.sendSceneLumiere = sendSceneLumiere;
 function sendOSCGame(message, value) { // Value = table des données 
   var buf;
   var commandeOSC = "/" + message;
-  if (debug1) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value);
+  if (debug) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value + " : " + ipConfig.portOSCToGame  + " : " + ipConfig.remoteIPAddressGame);
   buf = osc.toBuffer({ address: commandeOSC, args: [value] });
-  return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAdressGame);
+  return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAddressGame);
 };
 exports.sendOSCGame = sendOSCGame;
 

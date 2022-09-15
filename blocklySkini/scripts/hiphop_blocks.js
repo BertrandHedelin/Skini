@@ -2742,8 +2742,8 @@ hh.ATOM(
 
 Blockly.defineBlocksWithJsonArray([
   {
-    "type": "send_OSC_command",
-    "message0": "sendOSC IP %1 message %2 val. %3 ",
+    "type": "send_OSC_rasp_command",
+    "message0": "sendOSC RASP %1 message %2 val. %3 ",
     "args0": [
       {
         "type": "input_value",
@@ -2770,7 +2770,7 @@ Blockly.defineBlocksWithJsonArray([
   }
 ]);
 
-Blockly.JavaScript['send_OSC_command'] = function (block) {
+Blockly.JavaScript['send_OSC_rasp_command'] = function (block) {
   var IpAddress = Blockly.JavaScript.valueToCode(block, 'IpAddress', Blockly.JavaScript.ORDER_ATOMIC);
   var OSCmessage = Blockly.JavaScript.valueToCode(block, 'OSCmessage', Blockly.JavaScript.ORDER_ATOMIC);
   var OSCValue1 = block.getFieldValue('OSCValue1');
@@ -2786,6 +2786,53 @@ Blockly.JavaScript['send_OSC_command'] = function (block) {
       `+ OSCValue1 + `,
       par.raspOSCPort,
       `+ IpAddress + `);
+      }
+    }
+  ),
+  `;
+  return code;
+};
+
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "send_OSC_game_command",
+    "message0": "sendOSC Game message %1 val. %2 ",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "OSCmessage",
+        "check": "String"
+      },
+      {
+        "type": "field_number",
+        "name": "OSCValue1",
+        "value": 0,
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 330,
+    "tooltip": "",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['send_OSC_game_command'] = function (block) {
+  var OSCmessage = Blockly.JavaScript.valueToCode(block, 'OSCmessage', Blockly.JavaScript.ORDER_ATOMIC);
+  var OSCValue1 = block.getFieldValue('OSCValue1');
+
+  var code = `
+  hh.ATOM(
+    {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {
+      oscMidiLocal.sendOSCGame(
+      `+ OSCmessage + `,
+      `+ OSCValue1 + `,
+      par.portOSCToGame,
+      par.remoteIPAddressGame);
       }
     }
   ),
