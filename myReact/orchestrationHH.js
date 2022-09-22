@@ -1,4 +1,4 @@
-var foo, OSCNOTEON, OSCNOTEOF;
+var foo, xy, tick;
 
 
 
@@ -154,13 +154,7 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({
       "%location":{},
       "direction":"INOUT",
-      "name":"OSCNOTEON"
-    }),
-
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"OSCNOTEOF"
+      "name":"xy"
     }),
 
   hh.LOOP(
@@ -213,38 +207,13 @@ var orchestration = hh.MODULE(
 
     hh.ATOM(
       {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        oscMidiLocal.sendOSCGame(
-        'TOTO',
-        10,
-        par.portOSCToGame,
-        par.remoteIPAddressGame);
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          DAW.putPatternInQueue('test2');
         }
       }
     ),
-
-        hh.AWAIT(
-          {
-            "%location":{"filename":"hiphop_blocks.js","pos":189},
-            "%tag":"await",
-            "immediate":false,
-            "apply":function (){
-              return ((() => {
-                const OSCNOTEON=this["OSCNOTEON"];
-                return (OSCNOTEON.now  && OSCNOTEON.nowval === 0);
-              })());
-            },
-            "countapply":function (){ return 1;}
-          },
-          hh.SIGACCESS(
-            {"signame":"OSCNOTEON",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          })
-        ),
 
         hh.FORK(
             {
@@ -253,103 +222,11 @@ var orchestration = hh.MODULE(
             },
 
 
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
-
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "foo":"foo",
-              "apply":function (){
-                return ((() => {
-                  //const foo=this["foo"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"foo",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ),
-
-        hh.AWAIT(
-          {
-            "%location":{},
-            "%tag":"await",
-            "immediate":true,
-            "apply":function () {
-              return ((() => {
-                const foo=this["foo"];
-                return foo.now;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"foo",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          })
-        ),
-
-      hh.PAUSE(
+    hh.LOOP(
         {
-          "%location":{},
-          "%tag":"yield"
-        }
-      ),
-
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "foo":"foo",
-              "apply":function (){
-                return ((() => {
-                  //const foo=this["foo"];
-                  return 11;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"foo",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ),
-
-      hh.PAUSE(
-        {
-          "%location":{},
-          "%tag":"yield"
-        }
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {console.log('foo');}
-        }
-      ),
-
-      ),
-
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
 
             hh.AWAIT(
               {
@@ -358,14 +235,14 @@ var orchestration = hh.MODULE(
                 "immediate":false,
                 "apply":function (){
                   return ((() => {
-                    const foo=this["foo"];
-                    return (foo.now  && foo.nowval === 11);
+                    const xy=this["xy"];
+                    return (xy.now  && xy.nowval === 0);
                   })());
                 },
                 "countapply":function (){ return 1;}
               },
               hh.SIGACCESS(
-                {"signame":"foo",
+                {"signame":"xy",
                 "pre":false,
                 "val":false,
                 "cnt":false
@@ -376,26 +253,172 @@ var orchestration = hh.MODULE(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {console.log('foo 11');}
+          "apply":function () {console.log('xy 0');}
         }
       ),
+
+      ),
+
+    hh.LOOP(
+        {
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
+
+            hh.AWAIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":189},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){
+                  return ((() => {
+                    const xy=this["xy"];
+                    return (xy.now  && xy.nowval === 1);
+                  })());
+                },
+                "countapply":function (){ return 1;}
+              },
+              hh.SIGACCESS(
+                {"signame":"xy",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('xy 1');}
+        }
+      ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('test1');
+            }
+          }
+        ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 5;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      ),
+
+    hh.LOOP(
+        {
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
+
+            hh.AWAIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":189},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){
+                  return ((() => {
+                    const xy=this["xy"];
+                    return (xy.now  && xy.nowval === 2);
+                  })());
+                },
+                "countapply":function (){ return 1;}
+              },
+              hh.SIGACCESS(
+                {"signame":"xy",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('xy 1');}
+        }
+      ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('test2');
+            }
+          }
+        ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 5;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('test3');
+            }
+          }
+        ),
 
       ),
 
 
     hh.LOOPEACH(
       {
-        "%location":{loopeach: OSCNOTEON},
+        "%location":{loopeach: xy},
         "%tag":"do/every",
         "immediate":false,
         "apply": function (){return ((() => {
-            const OSCNOTEON=this["OSCNOTEON"];
-            return OSCNOTEON.now;
+            const xy=this["xy"];
+            return xy.now;
         })());},
         "countapply":function (){ return 1;}
       },
       hh.SIGACCESS({
-        "signame":"OSCNOTEON",
+        "signame":"xy",
         "pre":false,
         "val":false,
         "cnt":false
@@ -405,20 +428,16 @@ var orchestration = hh.MODULE(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {console.log('OSC NOTE ON');}
+          "apply":function () {console.log('loppeach xy');}
         }
       ),
 
         hh.ATOM(
           {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            oscMidiLocal.sendOSCGame(
-            'TOTO/TITI',
-            10,
-            par.portOSCToGame,
-            par.remoteIPAddressGame);
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              DAW.putPatternInQueue('test1');
             }
           }
         ),

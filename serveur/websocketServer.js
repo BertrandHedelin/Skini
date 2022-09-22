@@ -273,18 +273,18 @@ function startWebSocketServer() {
     sensorsSensibilities) {
 
     if (workerInterfaceZRunning) {
-      if(debug1) console.log("workerInterfaceZRunning");
-        if (workerInterfaceZ !== undefined) {
-          workerInterfaceZ.postMessage(['startInterfaceZ',
-            serverAddress,
-            interfaceZIPaddress,
-            portOSCToInterfaceZData,
-            portOSCToInterfaceZMidi,
-            portOSCFromInterfaceZ,
-            tempoSensorsInit,
-            sensorsSensibilities]);
-          return;
-        }
+      if (debug1) console.log("workerInterfaceZRunning");
+      if (workerInterfaceZ !== undefined) {
+        workerInterfaceZ.postMessage(['startInterfaceZ',
+          serverAddress,
+          interfaceZIPaddress,
+          portOSCToInterfaceZData,
+          portOSCToInterfaceZMidi,
+          portOSCFromInterfaceZ,
+          tempoSensorsInit,
+          sensorsSensibilities]);
+        return;
+      }
     }
     workerInterfaceZRunning = true;
 
@@ -473,7 +473,14 @@ function startWebSocketServer() {
    * @inner
    */
   function sendOSCTick() {
-    if (debug) console.log("websocketserver: sendOSCTick");
+    if (debug1) {
+      //console.log("websocketserver: sendOSCTick");
+      var msg = {
+        type: "synchroSkini",
+        text: ""
+      }
+      serv.broadcast(JSON.stringify(msg));
+    }
     receivedTickFromSynchro();
   }
   exports.sendOSCTick = sendOSCTick;

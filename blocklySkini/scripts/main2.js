@@ -80,7 +80,11 @@ function initWSSocket(serverIPAddress) {
         alert(msgRecu.text)
         document.getElementById('consoleArea').value = msgRecu.text;
         break;
-
+        
+      case "synchroSkini":
+        console.log("Reçu synchro Skini");
+        break;
+      
       default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu);
     }
   };

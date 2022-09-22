@@ -21,10 +21,10 @@
 var osc = require('osc-min');
 var dgram = require("dgram");
 var sockData = dgram.createSocket('udp4');
-var portOSCSend = 3010;
-var portOSCReceive= 1010;
-var serverAddress = "192.168.1.251";
-var myAddress = "192.168.1.251";
+var portOSCSend = 1000;
+var portOSCReceive= 3005;
+var serverAddress = "192.168.1.120";
+var myAddress = "192.168.1.127";
 var debug = false;
 var debug1 = true;
 
@@ -36,7 +36,7 @@ sockData = dgram.createSocket("udp4", function (msg, rinfo) {
 
   try {
     message = osc.fromBuffer(msg); // Message OSC recu
-    // console.log(osc.fromBuffer(msg));
+    console.log(osc.fromBuffer(msg));
     if (debug1) {
       console.log("Socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
       // console.log("Socket reçoit OSC: [", message.address + " : " +

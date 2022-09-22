@@ -286,7 +286,7 @@ function putPatternInQueue(patternName) {
     }
   }
 
-  if (debug1) console.log("INFO: controleBAleton: putPatternInQueue: commande :", commande[3]);
+  if (debug) console.log("INFO: controleBAleton: putPatternInQueue: commande :", commande);
 
   if (commande !== undefined) {
     var DAWNote = commande[0];
