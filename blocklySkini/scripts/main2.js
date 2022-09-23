@@ -45,9 +45,10 @@ var options = {
 };
 
 function initWSSocket(serverIPAddress) {
+  var toggle = true;
   console.log("initWSSocket", serverIPAddress);
 
-  ws = new WebSocket("ws://" + serverIPAddress + ":" + websocketServeurPort ); // NODE JS
+  ws = new WebSocket("ws://" + serverIPAddress + ":" + websocketServeurPort); // NODE JS
 
   ws.onopen = function (event) {
     var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
@@ -62,6 +63,7 @@ function initWSSocket(serverIPAddress) {
   //Traitement de la Réception sur le client
   ws.onmessage = function (event) {
     var msgRecu = JSON.parse(event.data);
+
     //console.log( "Client: received [%s]", event.data );
     switch (msgRecu.type) {
       case "message":
@@ -80,11 +82,18 @@ function initWSSocket(serverIPAddress) {
         alert(msgRecu.text)
         document.getElementById('consoleArea').value = msgRecu.text;
         break;
-        
+
       case "synchroSkini":
-        console.log("Reçu synchro Skini");
+        if(debug) console.log("Reçu synchro Skini");
+        if (toggle) {
+          document.getElementById('synchro').style.display = "none";
+          toggle = false;
+        } else {
+          document.getElementById('synchro').style.display = "inline";
+          toggle = true;
+        }
         break;
-      
+
       default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu);
     }
   };
@@ -233,39 +242,39 @@ function init(host) {
   }
   window.loadSession = loadSession;
 
-function createSession(){
-  console.log("createSession");
-  var fileName = window.prompt('Give a descriptor name');
-  if (fileName === undefined || fileName === '') return;
-  document.getElementById("loadSessionTxt").value = fileName + ".csv";
+  function createSession() {
+    console.log("createSession");
+    var fileName = window.prompt('Give a descriptor name');
+    if (fileName === undefined || fileName === '') return;
+    document.getElementById("loadSessionTxt").value = fileName + ".csv";
 
-  if (debug1) console.log("createDescriptors:", fileName);
-  var msg = {
-    type: "createSession",
-    fileName: fileName
-  }
-  ws.send(JSON.stringify(msg));
-  descriptorLoaded = true;
+    if (debug1) console.log("createDescriptors:", fileName);
+    var msg = {
+      type: "createSession",
+      fileName: fileName
+    }
+    ws.send(JSON.stringify(msg));
+    descriptorLoaded = true;
 
-  // To allow a reload of the same file
-  document.getElementById('loadSession').value = ""; 
-}
-window.createSession = createSession;
+    // To allow a reload of the same file
+    document.getElementById('loadSession').value = "";
+  }
+  window.createSession = createSession;
 
-function saveSessionAs(){
-  var fileName = document.getElementById("loadSessionTxt").value;
-  console.log("Save As:", fileName);
-  if(fileName === undefined || fileName === ''){
-    alert("The descriptor must be a csv file with a name");
-    return;
+  function saveSessionAs() {
+    var fileName = document.getElementById("loadSessionTxt").value;
+    console.log("Save As:", fileName);
+    if (fileName === undefined || fileName === '') {
+      alert("The descriptor must be a csv file with a name");
+      return;
+    }
+    var msg = {
+      type: "saveSessionAs",
+      fileName: fileName
+    }
+    ws.send(JSON.stringify(msg));
   }
-  var msg = {
-    type: "saveSessionAs",
-    fileName: fileName
-  }
-  ws.send(JSON.stringify(msg));
-}
-window.saveSessionAs = saveSessionAs;
+  window.saveSessionAs = saveSessionAs;
 
   //*********** Blocks ********************************************
   var toolbox = {
@@ -616,7 +625,7 @@ window.saveSessionAs = saveSessionAs;
           {
             "kind": "block",
             "type": "hh_wait_for_immediate"
-          }, 
+          },
           {
             "kind": "block",
             "type": "hh_wait_for"

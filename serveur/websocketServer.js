@@ -266,9 +266,9 @@ function startWebSocketServer() {
   function workerInterfaceZInit(filepath,
     serverAddress,
     interfaceZIPaddress,
-    portOSCToInterfaceZData,
-    portOSCToInterfaceZMidi,
-    portOSCFromInterfaceZ,
+    portOSCFromInterfaceZData,
+    portOSCFromInterfaceZMidi,
+    portOSCToInterfaceZ,
     tempoSensorsInit,
     sensorsSensibilities) {
 
@@ -278,9 +278,9 @@ function startWebSocketServer() {
         workerInterfaceZ.postMessage(['startInterfaceZ',
           serverAddress,
           interfaceZIPaddress,
-          portOSCToInterfaceZData,
-          portOSCToInterfaceZMidi,
-          portOSCFromInterfaceZ,
+          portOSCFromInterfaceZData,
+          portOSCFromInterfaceZMidi,
+          portOSCToInterfaceZ,
           tempoSensorsInit,
           sensorsSensibilities]);
         return;
@@ -290,7 +290,7 @@ function startWebSocketServer() {
 
     if (
       interfaceZIPaddress === undefined ||
-      portOSCToInterfaceZData === undefined ||
+      portOSCFromInterfaceZData === undefined ||
       tempoSensorsInit === undefined ||
       sensorsSensibilities === undefined) {
       console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
@@ -306,9 +306,9 @@ function startWebSocketServer() {
         workerInterfaceZ.postMessage(['startInterfaceZ',
           serverAddress,
           interfaceZIPaddress,
-          portOSCToInterfaceZData,
-          portOSCToInterfaceZMidi,
-          portOSCFromInterfaceZ,
+          portOSCFromInterfaceZData,
+          portOSCFromInterfaceZMidi,
+          portOSCToInterfaceZ,
           tempoSensorsInit,
           sensorsSensibilities]);
         if (debug) console.log('Launching worker InterfaceZ');
@@ -1580,9 +1580,9 @@ maybe an hiphop compile Error`);
               workerInterfaceZInit('./serveur/workerInterfaceZ.js',
                 ipConfig.serverIPAddress,
                 ipConfig.interfaceZIPaddress,
-                ipConfig.portOSCToInterfaceZData,
-                ipConfig.portOSCToInterfaceZMidi,
-                ipConfig.portOSCFromInterfaceZ,
+                ipConfig.portOSCFromInterfaceZData,
+                ipConfig.portOSCFromInterfaceZMidi,
+                ipConfig.portOSCToInterfaceZ,
                 par.tempoSensorsInit,
                 par.sensorsSensibilities);
             } else {
