@@ -109,6 +109,6 @@ const groupesDesSons = [
   [ "cloche1",15, "group",150,600,20,"#CF1919",[],1 ],
   [ "cloche2",16, "group",200,600,20,"#CF1919",[],1 ],
   [ "cloche3",17, "group",250,600,20,"#CF1919",[],1 ],
-  [ "cloche'",18, "group",300,600,20,"#CF1919",[],1 ],
+  [ "cloche4",18, "group",300,600,20,"#CF1919",[],1 ],
   ];
 exports.groupesDesSons = groupesDesSons;
