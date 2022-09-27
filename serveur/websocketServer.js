@@ -153,7 +153,7 @@ var timerSynchro;
 // Automate des possibles
 var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
 var setTimer;
-var timerDivision = 4; // Default value for the number of pulses for a tick, can evolve during an orchestration
+var timerDivision = 1; // Default value for the number of pulses for a tick, can evolve during an orchestration
 var offsetDivision = 0;
 var compteurDivisionMesure = 0;
 var nbeDeGroupesSons = 0;

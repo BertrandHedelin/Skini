@@ -2,10 +2,11 @@
   <variables>
     <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
     <variable id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</variable>
+    <variable id="a{Z+d9Kr85Kv.SW1Itd{">groupe0</variable>
     <variable id="GgT[r)}l-tjNLIr|Ai03">OSCNOTEOF</variable>
     <variable id="A2!$5fxHs5F8D0kKD#HW">xy</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="152" y="34">
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="127" y="53">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
         <field name="TYPE">INOUT</field>
@@ -47,60 +48,75 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="send_OSC_game_command" id="1vtU;RIE2c8AWP^z*D+F">
-        <field name="OSCValue1">10</field>
-        <value name="OSCmessage">
-          <block type="text" id="-kq$^%nIr(5:,Ra@cj0U">
-            <field name="TEXT">TOTO</field>
-          </block>
-        </value>
+      <block type="addSceneScore" id="z.1Y_:Fsov)*KXz8%J#N">
+        <field name="number">1</field>
         <next>
-          <block type="hh_await_signal_value" id="-Kq6H,Z;Tylw,#r9Z1Wd" disabled="true">
-            <field name="TIMES">1</field>
-            <field name="Signal_Value">0</field>
-            <value name="SIGNAL">
-              <block type="variables_get" id="45ix}22Qox{Y+PA,^nfR">
-                <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</field>
+          <block type="set_group" id="=$RX0}wlu1r/AXO[?h5?">
+            <field name="groupe">255</field>
+            <value name="GROUPS">
+              <block type="variables_get" id="V5:,xFyuUsI|hmd}*WsC">
+                <field name="VAR" id="a{Z+d9Kr85Kv.SW1Itd{">groupe0</field>
               </block>
             </value>
             <next>
-              <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
-                <statement name="BODY">
-                  <block type="hh_sequence" id="#g6c?HPz4}VtQT}6q@!W">
-                    <statement name="BODY">
-                      <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
-                        <field name="Signal_Value">0</field>
-                        <value name="SIGNAL">
-                          <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
-                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                          </block>
-                        </value>
-                        <next>
-                          <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
-                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="hh_pause" id="Y[xi`UZQ)r,[_y}k3fPu">
+              <block type="send_OSC_game_command" id="1vtU;RIE2c8AWP^z*D+F">
+                <field name="OSCValue1">10</field>
+                <value name="OSCmessage">
+                  <block type="text" id="-kq$^%nIr(5:,Ra@cj0U">
+                    <field name="TEXT">TOTO</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_await_signal_value" id="-Kq6H,Z;Tylw,#r9Z1Wd" disabled="true">
+                    <field name="TIMES">1</field>
+                    <field name="Signal_Value">0</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="45ix}22Qox{Y+PA,^nfR">
+                        <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
+                        <statement name="BODY">
+                          <block type="hh_sequence" id="#g6c?HPz4}VtQT}6q@!W">
+                            <statement name="BODY">
+                              <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
+                                <field name="Signal_Value">0</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
                                 <next>
-                                  <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w">
-                                    <field name="Signal_Value">11</field>
+                                  <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
                                     <value name="SIGNAL">
-                                      <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
+                                      <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
                                         <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
+                                      <block type="hh_pause" id="Y[xi`UZQ)r,[_y}k3fPu">
                                         <next>
-                                          <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
-                                            <value name="TEXT">
-                                              <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                                                <field name="TEXT">foo</field>
+                                          <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w">
+                                            <field name="Signal_Value">11</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
+                                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                                               </block>
                                             </value>
+                                            <next>
+                                              <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
+                                                <next>
+                                                  <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
+                                                    <value name="TEXT">
+                                                      <block type="text" id="|(t~Z}|D8y8),mF(um?p">
+                                                        <field name="TEXT">foo</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
                                           </block>
                                         </next>
                                       </block>
@@ -108,95 +124,95 @@
                                   </block>
                                 </next>
                               </block>
-                            </next>
-                          </block>
-                        </next>
-                      </block>
-                    </statement>
-                    <next>
-                      <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX">
-                        <statement name="BODY">
-                          <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
-                            <field name="TIMES">1</field>
-                            <field name="Signal_Value">11</field>
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
-                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
-                                <value name="TEXT">
-                                  <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
-                                    <field name="TEXT">foo 11</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
-                        <next>
-                          <block type="hh_loopeach" id="ki]fd;;fDKer;i+`uj-q">
-                            <field name="TIMES">1</field>
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="h%x#5}XnAeU}2Va8sjHt">
-                                <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</field>
-                              </block>
-                            </value>
-                            <statement name="BODY">
-                              <block type="hh_print_serveur" id=")#C2Hz^m)osW6ZVB:.4W">
-                                <value name="TEXT">
-                                  <block type="text" id="y*P~c9~f}UGq2~QRUY-A">
-                                    <field name="TEXT">OSC NOTE ON</field>
-                                  </block>
-                                </value>
-                                <next>
-                                  <block type="send_OSC_game_command" id="fI`z8v$sRBb7[~`=^V,,">
-                                    <field name="OSCValue1">10</field>
-                                    <value name="OSCmessage">
-                                      <block type="text" id="Y]yBT|A9WK]+w]*XKfen">
-                                        <field name="TEXT">TOTO/TITI</field>
-                                      </block>
-                                    </value>
-                                  </block>
-                                </next>
-                              </block>
                             </statement>
                             <next>
-                              <block type="hh_loopeach" id="J;J+50UKzAFwu3K5G={a">
-                                <field name="TIMES">1</field>
-                                <value name="SIGNAL">
-                                  <block type="variables_get" id="wxyV`3l;f3}Q/5BYH$hg">
-                                    <field name="VAR" id="A2!$5fxHs5F8D0kKD#HW">xy</field>
-                                  </block>
-                                </value>
+                              <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX">
                                 <statement name="BODY">
-                                  <block type="hh_print_serveur" id="lUoRpPVG$T80j]%.GuW}">
-                                    <value name="TEXT">
-                                      <block type="text" id="CozkD|TD5nTNYl|@c?*y">
-                                        <field name="TEXT">xy</field>
+                                  <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
+                                    <field name="TIMES">1</field>
+                                    <field name="Signal_Value">11</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
+                                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="send_OSC_game_command" id="a7:m0Z{L]5mQA;NL_RSf">
-                                        <field name="OSCValue1">10</field>
-                                        <value name="OSCmessage">
-                                          <block type="text" id="G:C{~47F/i[U=~n,48~i">
-                                            <field name="TEXT">TOTO/TITI</field>
+                                      <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
+                                        <value name="TEXT">
+                                          <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                                            <field name="TEXT">foo 11</field>
                                           </block>
                                         </value>
                                       </block>
                                     </next>
                                   </block>
                                 </statement>
+                                <next>
+                                  <block type="hh_loopeach" id="ki]fd;;fDKer;i+`uj-q">
+                                    <field name="TIMES">1</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="h%x#5}XnAeU}2Va8sjHt">
+                                        <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</field>
+                                      </block>
+                                    </value>
+                                    <statement name="BODY">
+                                      <block type="hh_print_serveur" id=")#C2Hz^m)osW6ZVB:.4W">
+                                        <value name="TEXT">
+                                          <block type="text" id="y*P~c9~f}UGq2~QRUY-A">
+                                            <field name="TEXT">OSC NOTE ON</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="send_OSC_game_command" id="fI`z8v$sRBb7[~`=^V,,">
+                                            <field name="OSCValue1">10</field>
+                                            <value name="OSCmessage">
+                                              <block type="text" id="Y]yBT|A9WK]+w]*XKfen">
+                                                <field name="TEXT">TOTO/TITI</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="hh_loopeach" id="J;J+50UKzAFwu3K5G={a">
+                                        <field name="TIMES">1</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="wxyV`3l;f3}Q/5BYH$hg">
+                                            <field name="VAR" id="A2!$5fxHs5F8D0kKD#HW">xy</field>
+                                          </block>
+                                        </value>
+                                        <statement name="BODY">
+                                          <block type="hh_print_serveur" id="lUoRpPVG$T80j]%.GuW}">
+                                            <value name="TEXT">
+                                              <block type="text" id="CozkD|TD5nTNYl|@c?*y">
+                                                <field name="TEXT">xy</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="send_OSC_game_command" id="a7:m0Z{L]5mQA;NL_RSf">
+                                                <field name="OSCValue1">10</field>
+                                                <value name="OSCmessage">
+                                                  <block type="text" id="G:C{~47F/i[U=~n,48~i">
+                                                    <field name="TEXT">TOTO/TITI</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
                               </block>
                             </next>
                           </block>
-                        </next>
+                        </statement>
                       </block>
                     </next>
                   </block>
-                </statement>
+                </next>
               </block>
             </next>
           </block>

@@ -229,6 +229,7 @@ function getNbeDeGroupesSons() {
   return nbeDeGroupesSons;
 }
 exports.getNbeDeGroupesSons = getNbeDeGroupesSons;
+
 /**
  * Get the string name of a pattern according to its number
  * @param  {number} noteSkini - from the pattern description csv file

@@ -350,7 +350,7 @@ window.onbeforeunload = function () {
   if (!automateEncours) {
     console.log("clientControleur:lstopDAWoadDAW:", val);
 
-    		// var bout; 
+        // var bout; 
         // msg.type = "loadDAWTable";
         // msg.value = val -1; // Pour envoyer un index
         // DAWTableEnCours = val;
@@ -452,7 +452,7 @@ window.saveSession = saveSession; */
 
 //************ WEBSOCKET HOP et listener BROADCAST ******************************
 function initWSSocket(host) {
-
+  var toggle = true;
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);
 
   if (debug1) console.log("clientcontroleur.js ws://" + host + ":" + ipConfig.websocketServeurPort);
@@ -512,10 +512,10 @@ function initWSSocket(host) {
       case "lesFilesDattente":
         break;
 
-/*       case "noAutomaton":
-        document.getElementById("MessageDuServeur").innerHTML = "No automaton at this position";
-        automateEncours = false;
-        break; */
+      /*       case "noAutomaton":
+              document.getElementById("MessageDuServeur").innerHTML = "No automaton at this position";
+              automateEncours = false;
+              break; */
 
       case "sessionLoaded":
         document.getElementById("MessageDuServeur").innerHTML = "Session loaded :" + msgRecu.fileName;
@@ -549,6 +549,17 @@ function initWSSocket(host) {
       case "skiniParametres":
         if (debug1) console.log("skiniParametres:", msgRecu.value);
         par = msgRecu.value;
+        break;
+
+      case "synchroSkini":
+        if (debug) console.log("Reçu synchro Skini");
+        if (toggle) {
+          document.getElementById('synchro').style.display = "none";
+          toggle = false;
+        } else {
+          document.getElementById('synchro').style.display = "inline";
+          toggle = true;
+        }
         break;
 
       default: if (debug1) console.log("Le Client reçoit un message inconnu", msgRecu);
@@ -621,7 +632,7 @@ function initServerListener() {
 
 },{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
 module.exports={
-  "remoteIPAddressImage": "localhost",
+  "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "localhost",
   "remoteIPAddressLumiere": "localhost",
   "remoteIPAddressGame": "localhost",
@@ -630,8 +641,8 @@ module.exports={
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,
   "OutPortOSCMIDItoDAW": 12000,
-  "portOSCToGame": 1000,
-  "portOSCFromGame": 3005,
+  "portOSCToGame": 3005,
+  "portOSCFromGame": 1000,
   "distribSequencerPort": 8888,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
@@ -639,4 +650,5 @@ module.exports={
   "sessionPath": "./pieces/",
   "piecePath" : "./pieces/"
 }
+
 },{}]},{},[1]);
