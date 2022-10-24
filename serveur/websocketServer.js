@@ -30,6 +30,7 @@ var parametersFileGlobal;
 let origine = "./serveur/defaultSkiniParametres.js";
 let defaultSession = "./serveur/defaultSession.csv";
 let decacheParameters;
+var childSimulator;
 
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
 // pour orchestrationHH.js
@@ -47,6 +48,16 @@ var sessionPath = ipConfig.sessionPath; //"./pieces/";
 var piecePath = ipConfig.piecePath; //"./pieces/";
 
 /**
+ * To access the simulator from the fork
+ * @param {Object} fork reference
+ */
+function setChildSimulator(child) {
+  if (debug) console.log("INFO: websocket server: setChildSimulator", child);
+  childSimulator = child;
+}
+exports.setChildSimulator = setChildSimulator;
+
+/**
  * To load some modules.
  * Used only at Skini launch.
  * @param {Object} midimix reference
@@ -61,6 +72,22 @@ function setParameters(midimixage) {
   startWebSocketServer();
 }
 exports.setParameters = setParameters;
+
+/**
+ * The simulator can be updated at serveral places
+ */
+function updateSimulatorParameters(param) {
+
+  if (childSimulator !== undefined) {
+    var message = {
+      type: "PARAMETERS",
+      data: param
+    }
+    childSimulator.send(message);
+  } else {
+    if (debug1) console.log("INFO: websocketServer: updateSimulatorParameters :No Fork Simulator");
+  }
+}
 
 /**
  * In order to reload new parametrers in the different modules during a Skini session.
@@ -95,8 +122,10 @@ function reloadParameters(param) {
   DAW.setParameters(param);
   groupesClientSon.setParameters(param);
   midimix.setParameters(param);
+  updateSimulatorParameters(param);
 
   initMidiPort();
+
 }
 
 // const arrayToCSV = (arr, delimiter = ',') =>
@@ -1784,10 +1813,10 @@ maybe an hiphop compile Error`);
             if (err) {
               return console.log(err);
             }
-            if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
+            if (debug) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
           });
 
-          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
+          if (debug) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
             reloadParameters(msgRecu.data);
@@ -1799,7 +1828,7 @@ maybe an hiphop compile Error`);
           try {
             fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
           } catch (err) {
-            console.log("Pb ecriture", destinationUpdate, err);
+            console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
           }
 
           // Recompile the orchestration pour intégrer les modifications

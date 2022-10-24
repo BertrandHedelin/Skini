@@ -12,7 +12,7 @@ disponibles.
 ********************************************/
 'use strict'
 
-var par = require('../../serveur/skiniParametres');
+var par ;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
 
@@ -44,16 +44,14 @@ function initTempi() {
   console.log("INFO simulateur : Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
 
-initTempi();
-
 if (ipConfig.websocketServeurPort !== undefined) {
   var port = ipConfig.websocketServeurPort;
 } else {
   var port = 8080;
 }
 
-if(debug) console.log("----------------------------------------------\n");
-if(debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
+if (debug) console.log("----------------------------------------------\n");
+if (debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
 var ws;
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
@@ -263,7 +261,7 @@ function initWSSocket(port) {
           // Le simulateur simule l'audience.
           // Il se comporte comme tout le monde, avec le groupe que le serveur assigne
           monGroupe = msgRecu.noDeGroupe;
-          if(debug) console.log("SIMULATION DE L'AUDIENCE");
+          if (debug) console.log("SIMULATION DE L'AUDIENCE");
         } else if (!par.simulatorInAseperateGroup) {
           // Je suis ne pas un simulateur de l'audience 
           // et la config n'a pas prévu de simulateur indépendant de l'audience.
@@ -279,7 +277,7 @@ function initWSSocket(port) {
           console.log("SIMULATION INDEPENDANTE DE L'AUDIENCE");
           monGroupe = par.nbeDeGroupesClients - 1;
         }
-        if(debug1) console.log("Simulator in group:", monGroupe, "pseudo:", pseudo);
+        if (debug1) console.log("Simulator in group:", monGroupe, "pseudo:", pseudo);
         actionSurDAWON();
         break;
 
@@ -476,11 +474,27 @@ exports.startClip = startClip;
 
 // ========================= Lancement du simulateur =================
 process.on('message', (message) => {
-  if (message == 'START') {
-    //console.log('Simulator received START message');
-    init(port);
-    setTimeout(() => selectListClips(), 1000);
-    let message = `Simulation Launched by ${pseudo}`;
-    process.send(message);
+  // This is necessary, I dont know why. Otherwise I have an erro on message in the switch
+  // ReferenceError: Cannot access 'message' before initialization
+  var messageLocal = message; 
+
+  if (debug) console.log("INFO: Simulator message : ", messageLocal);
+
+  switch (messageLocal.type) {
+    case 'START_SIMULATOR':
+      //console.log('Simulator received START message');
+      init(port);
+      setTimeout(() => selectListClips(), 1000);
+      let message = `Simulation Launched by ${pseudo}`;
+      process.send(message);
+      break;
+
+    case 'PARAMETERS':
+      if (debug1) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
+      par = messageLocal.data;
+      initTempi();
+      break;
+
+    default: console.log("INFO: Fork Simulator: Type de message inconnu : ", messageLocal);
   }
 });

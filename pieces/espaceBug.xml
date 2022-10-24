@@ -9,8 +9,8 @@
     <variable id=":!rsy)#)Os2fVKU,[H`p">percu</variable>
     <variable id="6BmTQK;K$VH]xcT$3w99">decaleMotif</variable>
     <variable id="vH$*tt.#.gU5c?QzfB51">motif1-3</variable>
+    <variable id="L,czif|J%/U?^xRu9nw+">Senza</variable>
     <variable id="yZ5AgND+~D1S_vK:u#m_">stopMoveTempo</variable>
-    <variable id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</variable>
     <variable id="rTGEj~avAI8tP)p=,WNr">motif1-4</variable>
     <variable id="/G~~oX$!d1y@@QSb[q?Z">motif1-5</variable>
     <variable id="vx7Y(Wn`EneHZL8egv$W">motif1-6</variable>
@@ -32,7 +32,7 @@
     <variable id="g$|A,!bfhCV%[xsf|Pt4">groupeVoix2</variable>
     <variable id=")Li9-C;q^YCQQvsbyu8k">groupeVoix3</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="0y[q@fNC,GGcvw]Xf0d@" x="106" y="-69">
+  <block type="hh_ORCHESTRATION" id="0y[q@fNC,GGcvw]Xf0d@" x="106" y="-263">
     <statement name="MODULES">
       <block type="hh_module" id="*S*#*/[y{mLCIwAl3CNz" collapsed="true">
         <value name="NAME">
@@ -581,163 +581,6 @@
                     </next>
                   </block>
                 </statement>
-                <next>
-                  <block type="hh_module" id="ex0h|1)l4^Q?pxqn=RNw" collapsed="true">
-                    <value name="NAME">
-                      <block type="variables_get" id=")sgRFG66o)i=PnCqVeJt">
-                        <field name="VAR" id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</field>
-                      </block>
-                    </value>
-                    <statement name="BODY">
-                      <block type="hh_sequence" id="bl5~?4+#p_x{g@24UIdY" collapsed="true">
-                        <statement name="BODY">
-                          <block type="putPatternInQueue" id="Ut=V_{Gc8|JR$|l2lQay">
-                            <value name="message">
-                              <block type="text" id="ebz6^l6Tm7{l|3x:;s2K">
-                                <field name="TEXT">Karcaba1</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="putPatternInQueue" id="F(XDIb6hasRE-ynSV|X4">
-                                <value name="message">
-                                  <block type="text" id="t8-4N+Y,#p`sspiUK#4U">
-                                    <field name="TEXT">Karcaba2</field>
-                                  </block>
-                                </value>
-                                <next>
-                                  <block type="putPatternInQueue" id="LLlUh5d;ObT7+#qPop1z">
-                                    <value name="message">
-                                      <block type="text" id="t:Qv^Ec-MJ;)(K]z/,GV">
-                                        <field name="TEXT">Karcaba3</field>
-                                      </block>
-                                    </value>
-                                    <next>
-                                      <block type="putPatternInQueue" id="34Rlb![i8lhrF7WTzDNt">
-                                        <value name="message">
-                                          <block type="text" id="lW]gE}SYMIgf7;nl_yIn">
-                                            <field name="TEXT">Karcaba4</field>
-                                          </block>
-                                        </value>
-                                        <next>
-                                          <block type="putPatternInQueue" id="{6,3-J~fE,~haz(w_-]B">
-                                            <value name="message">
-                                              <block type="text" id="gqvF8M-9GxDr8WcASHHN">
-                                                <field name="TEXT">Karcaba5</field>
-                                              </block>
-                                            </value>
-                                            <next>
-                                              <block type="putPatternInQueue" id="/2I3m3{K4bru0NlNH.su">
-                                                <value name="message">
-                                                  <block type="text" id="F[xd$k?n)qpme+[]~;/~">
-                                                    <field name="TEXT">Karcaba6</field>
-                                                  </block>
-                                                </value>
-                                                <next>
-                                                  <block type="putPatternInQueue" id="pFH$3R=kLker?#R]WG@4">
-                                                    <value name="message">
-                                                      <block type="text" id="aspZD3|S[Uq)FPPpzV^s">
-                                                        <field name="TEXT">Karcaba7</field>
-                                                      </block>
-                                                    </value>
-                                                    <next>
-                                                      <block type="putPatternInQueue" id="Lx,tM5^rgZeA.wNnT=OY">
-                                                        <value name="message">
-                                                          <block type="text" id="Nm.NV*QJH2FN]nU%gCHn">
-                                                            <field name="TEXT">Karcaba8</field>
-                                                          </block>
-                                                        </value>
-                                                        <next>
-                                                          <block type="putPatternInQueue" id=":+R@1L1[INFr0(hHA2T|">
-                                                            <value name="message">
-                                                              <block type="text" id="Vj*`%YZ[!rq@S.3!qs`]">
-                                                                <field name="TEXT">Karcaba9</field>
-                                                              </block>
-                                                            </value>
-                                                            <next>
-                                                              <block type="putPatternInQueue" id="RqNwya}H_@9vaX}?EfR!">
-                                                                <value name="message">
-                                                                  <block type="text" id="K`Fa2|{|05@qTkrYkLp@">
-                                                                    <field name="TEXT">Karcaba10</field>
-                                                                  </block>
-                                                                </value>
-                                                                <next>
-                                                                  <block type="putPatternInQueue" id="{TmBXQx%D:Uj{G[|$)@Q">
-                                                                    <value name="message">
-                                                                      <block type="text" id="{`!Y3az`9XH9_AXV-Gzl">
-                                                                        <field name="TEXT">Karcaba11</field>
-                                                                      </block>
-                                                                    </value>
-                                                                    <next>
-                                                                      <block type="putPatternInQueue" id="6*+65_-p8D*45{nW13|k">
-                                                                        <value name="message">
-                                                                          <block type="text" id="xO=DR|ZOV`m(PJT^{3C4">
-                                                                            <field name="TEXT">Karcaba12</field>
-                                                                          </block>
-                                                                        </value>
-                                                                        <next>
-                                                                          <block type="putPatternInQueue" id="Pf4:-WX(Z//8l*{hn*Xz">
-                                                                            <value name="message">
-                                                                              <block type="text" id="Xs(X|Cz;bz!4nA%w9Gf}">
-                                                                                <field name="TEXT">Karcaba13</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <next>
-                                                                              <block type="putPatternInQueue" id="#69i@E+6k,XR8[+G;Gd8">
-                                                                                <value name="message">
-                                                                                  <block type="text" id="YyRQsQLm~oheK*t}YY5,">
-                                                                                    <field name="TEXT">Karcaba14</field>
-                                                                                  </block>
-                                                                                </value>
-                                                                                <next>
-                                                                                  <block type="putPatternInQueue" id="bc#]3^Oz:!*ylam8j.O7">
-                                                                                    <value name="message">
-                                                                                      <block type="text" id=":O!qa*87atU3@$T~9Jlj">
-                                                                                        <field name="TEXT">Karcaba15</field>
-                                                                                      </block>
-                                                                                    </value>
-                                                                                    <next>
-                                                                                      <block type="putPatternInQueue" id="+MU(t-shu0UP2$a6;}Qa">
-                                                                                        <value name="message">
-                                                                                          <block type="text" id="km8W;|pANkChGwFJ*E(W">
-                                                                                            <field name="TEXT">Karcaba16</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                      </block>
-                                                                                    </next>
-                                                                                  </block>
-                                                                                </next>
-                                                                              </block>
-                                                                            </next>
-                                                                          </block>
-                                                                        </next>
-                                                                      </block>
-                                                                    </next>
-                                                                  </block>
-                                                                </next>
-                                                              </block>
-                                                            </next>
-                                                          </block>
-                                                        </next>
-                                                      </block>
-                                                    </next>
-                                                  </block>
-                                                </next>
-                                              </block>
-                                            </next>
-                                          </block>
-                                        </next>
-                                      </block>
-                                    </next>
-                                  </block>
-                                </next>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
-                      </block>
-                    </statement>
-                  </block>
-                </next>
               </block>
             </next>
           </block>
@@ -835,235 +678,24 @@
           <block type="addSceneScore" id="%Y?%Z[rQ[S(azU_s(fe+">
             <field name="number">1</field>
             <next>
-              <block type="hh_wait_for" id="YG0BFvLj~E0$?/LPIK[w">
-                <field name="TIMES">1</field>
-                <value name="SIGNAL">
-                  <block type="variables_get" id="Y9t.*-{/_/Y8MHJ8[!~`">
-                    <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
+              <block type="set_group" id="o23d)BTHq]6`t]XK-aKO">
+                <field name="groupe">255</field>
+                <value name="GROUPS">
+                  <block type="variables_get" id="Wch]J3wl)Y%EluHkmLO6">
+                    <field name="VAR" id="L,czif|J%/U?^xRu9nw+">Senza</field>
                   </block>
                 </value>
                 <next>
-                  <block type="set_timer_division" id="-ii47u3tHIW,4qQ+x2eB">
-                    <field name="timer">1</field>
+                  <block type="hh_wait_for" id="YG0BFvLj~E0$?/LPIK[w">
+                    <field name="TIMES">1</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="Y9t.*-{/_/Y8MHJ8[!~`">
+                        <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
+                      </block>
+                    </value>
                     <next>
-                      <block type="hh_sequence" id="hoV0~,:@Pu,Ktu:_lMe:">
-                        <statement name="BODY">
-                          <block type="set_tempo" id="go)NpW|w,)M5L0kBIJdt">
-                            <field name="tempo">60</field>
-                            <next>
-                              <block type="alertInfoScoreON" id=":qeArb6*4zYAV4.vw_Jp">
-                                <value name="message">
-                                  <block type="text" id="^,GgbRCy=^@=JYx4SF{5">
-                                    <field name="TEXT">Senza</field>
-                                  </block>
-                                </value>
-                                <next>
-                                  <block type="hh_print_serveur" id=";I;.slm_^{Y!swDzB=02">
-                                    <value name="TEXT">
-                                      <block type="text" id="`$u+T:b5u~HV,|xRNC[^">
-                                        <field name="TEXT">--- Senza</field>
-                                      </block>
-                                    </value>
-                                    <next>
-                                      <block type="putPatternInQueue" id="5~C7Fk?gRqsy#l^%v1ph">
-                                        <value name="message">
-                                          <block type="text" id="tSf,-!,V)5y(uGQ$d+L6">
-                                            <field name="TEXT">Senza1</field>
-                                          </block>
-                                        </value>
-                                        <next>
-                                          <block type="putPatternInQueue" id="V7{NGL])m-#y,lJ3kUrf">
-                                            <value name="message">
-                                              <block type="text" id="cnHvjf_:V9ax@2W;2__l">
-                                                <field name="TEXT">Senza2</field>
-                                              </block>
-                                            </value>
-                                            <next>
-                                              <block type="putPatternInQueue" id="r~,n*7OabA#Xi;T:eI^e">
-                                                <value name="message">
-                                                  <block type="text" id="WN`B4d2a!c6K+A?MRV)!">
-                                                    <field name="TEXT">Senza3</field>
-                                                  </block>
-                                                </value>
-                                                <next>
-                                                  <block type="hh_run" id="ahVvNbl8L]X-0#CV%g1_">
-                                                    <value name="MODULE">
-                                                      <block type="variables_get" id="3K=o?#TXESL{%E@IJjDh">
-                                                        <field name="VAR" id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</field>
-                                                      </block>
-                                                    </value>
-                                                    <next>
-                                                      <block type="hh_sequence" id="Nr!Gq(~;FtR3sP}Tp2U(" collapsed="true" disabled="true">
-                                                        <statement name="BODY">
-                                                          <block type="putPatternInQueue" id="GK$a9*XbNgoaorP9a?{g">
-                                                            <value name="message">
-                                                              <block type="text" id="e?9NIcdO+c%T)qy%.M6:">
-                                                                <field name="TEXT">Karcaba1</field>
-                                                              </block>
-                                                            </value>
-                                                            <next>
-                                                              <block type="putPatternInQueue" id="[V7:#HP[/+(_dnvZyq*o">
-                                                                <value name="message">
-                                                                  <block type="text" id="E/3]3sT#_,ip41X~_P6t">
-                                                                    <field name="TEXT">Karcaba2</field>
-                                                                  </block>
-                                                                </value>
-                                                                <next>
-                                                                  <block type="putPatternInQueue" id="G!)RQJKDw:X[P?;)cBs%">
-                                                                    <value name="message">
-                                                                      <block type="text" id="1*+4d.Ip+~r]lrckqHpQ">
-                                                                        <field name="TEXT">Karcaba3</field>
-                                                                      </block>
-                                                                    </value>
-                                                                    <next>
-                                                                      <block type="putPatternInQueue" id="MMstNK^m-rvs)EIJzPDZ">
-                                                                        <value name="message">
-                                                                          <block type="text" id="mFMOHLNPj}KYyQ4U1t4B">
-                                                                            <field name="TEXT">Karcaba4</field>
-                                                                          </block>
-                                                                        </value>
-                                                                        <next>
-                                                                          <block type="putPatternInQueue" id="xyr_5Rg0~sG~ty~MU%a_">
-                                                                            <value name="message">
-                                                                              <block type="text" id="}1I%)6|$3K[F#3=dj.op">
-                                                                                <field name="TEXT">Karcaba5</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <next>
-                                                                              <block type="putPatternInQueue" id="}C){8-9wl|.RYaQoij0N">
-                                                                                <value name="message">
-                                                                                  <block type="text" id="z;)1?sru:[${}G1-Z#jP">
-                                                                                    <field name="TEXT">Karcaba6</field>
-                                                                                  </block>
-                                                                                </value>
-                                                                                <next>
-                                                                                  <block type="putPatternInQueue" id="4]g}CZ)xxFoJ,E%jUqxE">
-                                                                                    <value name="message">
-                                                                                      <block type="text" id="Mg]R=rn#I~+#(zI^PS|w">
-                                                                                        <field name="TEXT">Karcaba7</field>
-                                                                                      </block>
-                                                                                    </value>
-                                                                                    <next>
-                                                                                      <block type="putPatternInQueue" id="CkOL:;^x_UNZt!(XcwXY">
-                                                                                        <value name="message">
-                                                                                          <block type="text" id="nic:eN_(Lf6uZx,F(j[z">
-                                                                                            <field name="TEXT">Karcaba8</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                        <next>
-                                                                                          <block type="putPatternInQueue" id="?%x-s@u@5cpXhhD?QfZ/">
-                                                                                            <value name="message">
-                                                                                              <block type="text" id="rU5VNq6yJe@h~fudA,28">
-                                                                                                <field name="TEXT">Karcaba9</field>
-                                                                                              </block>
-                                                                                            </value>
-                                                                                            <next>
-                                                                                              <block type="putPatternInQueue" id="]tj](4O[)C*i@D{:NSa[">
-                                                                                                <value name="message">
-                                                                                                  <block type="text" id="_hv!}On=$K3CqR@Z]X?0">
-                                                                                                    <field name="TEXT">Karcaba10</field>
-                                                                                                  </block>
-                                                                                                </value>
-                                                                                                <next>
-                                                                                                  <block type="putPatternInQueue" id="[jJ.9~=pZVd~uR|.$]_W">
-                                                                                                    <value name="message">
-                                                                                                      <block type="text" id="0d7r|zS2Z0%-i{G6VYfu">
-                                                                                                        <field name="TEXT">Karcaba11</field>
-                                                                                                      </block>
-                                                                                                    </value>
-                                                                                                    <next>
-                                                                                                      <block type="putPatternInQueue" id="/{_!/;GL_hq^dXoB!W]^">
-                                                                                                        <value name="message">
-                                                                                                          <block type="text" id="S:R=N+*GQ7cFh3)=7NYh">
-                                                                                                            <field name="TEXT">Karcaba12</field>
-                                                                                                          </block>
-                                                                                                        </value>
-                                                                                                        <next>
-                                                                                                          <block type="putPatternInQueue" id="Eq_om^KvP])fZ,E}(FP.">
-                                                                                                            <value name="message">
-                                                                                                              <block type="text" id="?Pz4XYouAeAEJqH8}u47">
-                                                                                                                <field name="TEXT">Karcaba13</field>
-                                                                                                              </block>
-                                                                                                            </value>
-                                                                                                            <next>
-                                                                                                              <block type="putPatternInQueue" id="E%Q*Bvp:n(9~m}=Rk5?t">
-                                                                                                                <value name="message">
-                                                                                                                  <block type="text" id="C,^c]#}GSM8uDA?E|qP/">
-                                                                                                                    <field name="TEXT">Karcaba14</field>
-                                                                                                                  </block>
-                                                                                                                </value>
-                                                                                                                <next>
-                                                                                                                  <block type="putPatternInQueue" id="[7{(VPk$c9.:)_OGHTzT">
-                                                                                                                    <value name="message">
-                                                                                                                      <block type="text" id="=e)%^64PKJP0OE$/6[HU">
-                                                                                                                        <field name="TEXT">Karcaba15</field>
-                                                                                                                      </block>
-                                                                                                                    </value>
-                                                                                                                    <next>
-                                                                                                                      <block type="putPatternInQueue" id=";GSmAN2D~OZ1yzz;H6uL">
-                                                                                                                        <value name="message">
-                                                                                                                          <block type="text" id="1T.$@{lUv+Dw/Sb0pYR)">
-                                                                                                                            <field name="TEXT">Karcaba16</field>
-                                                                                                                          </block>
-                                                                                                                        </value>
-                                                                                                                      </block>
-                                                                                                                    </next>
-                                                                                                                  </block>
-                                                                                                                </next>
-                                                                                                              </block>
-                                                                                                            </next>
-                                                                                                          </block>
-                                                                                                        </next>
-                                                                                                      </block>
-                                                                                                    </next>
-                                                                                                  </block>
-                                                                                                </next>
-                                                                                              </block>
-                                                                                            </next>
-                                                                                          </block>
-                                                                                        </next>
-                                                                                      </block>
-                                                                                    </next>
-                                                                                  </block>
-                                                                                </next>
-                                                                              </block>
-                                                                            </next>
-                                                                          </block>
-                                                                        </next>
-                                                                      </block>
-                                                                    </next>
-                                                                  </block>
-                                                                </next>
-                                                              </block>
-                                                            </next>
-                                                          </block>
-                                                        </statement>
-                                                        <next>
-                                                          <block type="hh_wait_for" id="WjN#K.D==fEdy?sP{r|#">
-                                                            <field name="TIMES">47</field>
-                                                            <value name="SIGNAL">
-                                                              <block type="variables_get" id="flb+xK*_yG:Zlp1sZ]K1">
-                                                                <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </next>
-                                                      </block>
-                                                    </next>
-                                                  </block>
-                                                </next>
-                                              </block>
-                                            </next>
-                                          </block>
-                                        </next>
-                                      </block>
-                                    </next>
-                                  </block>
-                                </next>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
+                      <block type="set_timer_division" id="-ii47u3tHIW,4qQ+x2eB">
+                        <field name="timer">1</field>
                         <next>
                           <block type="hh_sequence" id="0;Ci)A3[uOT8J/}c-[p0">
                             <statement name="BODY">
@@ -1200,7 +832,7 @@
                               </block>
                             </statement>
                             <next>
-                              <block type="hh_sequence" id="u:QFzCq@Y[zfsi%B|t+L" collapsed="true" disabled="true">
+                              <block type="hh_sequence" id="u:QFzCq@Y[zfsi%B|t+L">
                                 <statement name="BODY">
                                   <block type="set_tempo" id="BIyg`l(yRB@]6M=oh*K)">
                                     <field name="tempo">70</field>
@@ -1571,7 +1203,7 @@
                                                             <statement name="BODY">
                                                               <block type="set_group_during_ticks" id="P`hkZMG]j)f)?qOt{[HA">
                                                                 <field name="user_group">255</field>
-                                                                <field name="number_of_ticks">12</field>
+                                                                <field name="number_of_ticks">25</field>
                                                                 <value name="GROUPS">
                                                                   <block type="variables_get" id="ExyZBI]-fs~mnmZb6SsU">
                                                                     <field name="VAR" id="FnJ8lHd^i2rG_19r^mLa">groupeVoix4</field>
@@ -1597,7 +1229,7 @@
                                                                     <next>
                                                                       <block type="set_group_during_ticks" id="FQ;y.|RjT{z1g3*%dABK">
                                                                         <field name="user_group">255</field>
-                                                                        <field name="number_of_ticks">25</field>
+                                                                        <field name="number_of_ticks">50</field>
                                                                         <value name="GROUPS">
                                                                           <block type="variables_get" id="HlcwYG2wWy|gsswwiOSQ">
                                                                             <field name="VAR" id="}x+7t:q7$/8)sD8h~Hpl">groupeVoix5</field>
@@ -2151,15 +1783,6 @@
                                                                                         </next>
                                                                                       </block>
                                                                                     </statement>
-                                                                                    <next>
-                                                                                      <block type="hh_run" id="v/a4[vI([)k6~|zZu8%B">
-                                                                                        <value name="MODULE">
-                                                                                          <block type="variables_get" id="GA~n[{Wagim6}^,o[sm(">
-                                                                                            <field name="VAR" id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                      </block>
-                                                                                    </next>
                                                                                   </block>
                                                                                 </next>
                                                                               </block>

@@ -10,6 +10,7 @@ var path = require("path");
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
 const { fork } = require('child_process');
+var childSimulator;
 
 function startSkini() {
 
@@ -105,11 +106,15 @@ function startSkini() {
   });
 
   app.get('/simul', function (req, res) {
-    const child = fork(__dirname + '/client/simulateurListe/simulateurFork');
-    child.on('message', (message) => {
+    childSimulator = fork(__dirname + '/client/simulateurListe/simulateurFork');
+    childSimulator.on('message', (message) => {
       console.log('Simulator info :', message);
     });
-    child.send('START');
+    var message = {
+      type : "START_SIMULATOR"
+    }
+    childSimulator.send(message);
+    ws.setChildSimulator(childSimulator);
   });
 
   var port = ipConfig.webserveurPort;
@@ -117,7 +122,6 @@ function startSkini() {
   app.listen(port, () => {
     console.log(`INFO: Skini listening at http://${addressServer}:${port}`);
   });
-
   displayContext(ipConfig);
 }
 

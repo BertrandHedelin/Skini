@@ -7,6 +7,8 @@
 
 var fs = require("fs");
 var today = new Date();
+var debug1= true;
+var debug = false;
 
 function saveParameters(paramFile, params) {
 
@@ -131,12 +133,13 @@ exports.groupesDesSons = groupesDesSons;
   // On écrit en synchrone pour ne pas avoir de pb avec la compilation qui suit
   // dans websocketServer. On n'aurait pu mettre la compilation dans un callback
   // sans synchro. Ce serait plus joli, mais pas utile dans ce cas.
+
+  // Donne un message d'erreur alors que ça fonctionne !!!
   try {
     fs.writeFileSync(paramFile, paramText);
+    if(debug1) console.log("INFO: saveParam.js: saveParameters: file wrtitten :", paramFile);
   } catch (err) {
-    console.log("ERR: saveParameters: Pb ecriture", paramFile, err);
+    //console.log("ERR: saveParam.js: saveParameters: Pb ecriture", paramFile, err);
   }
-
 }
 exports.saveParameters = saveParameters;
-
