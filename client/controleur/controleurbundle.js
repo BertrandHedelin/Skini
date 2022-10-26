@@ -1,16 +1,27 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-/************************
-
-Controle de la matrice des possibles
-entre groupe de sons et groupe de clients
-
-Version Node.js
-
-© Copyright 2017-2022, B. Petit-Heidelein
-
-browserify .\clientcontroleur.js -o .\controleurbundle.js
-
-**************************/
+/**
+ * @fileOverview 
+ * Controle de la matrice des possibles
+ * entre groupe de sons et groupe de clients
+ * browserify .\clientcontroleur.js -o .\controleurbundle.js
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * @version 1.3
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
+ */
 "use strict"
 
 var par;
@@ -647,8 +658,8 @@ module.exports={
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./pieces/",
-  "piecePath" : "./pieces/"
+  "sessionPath": "./tests/",
+  "piecePath" : "./tests/"
 }
 
 },{}]},{},[1]);

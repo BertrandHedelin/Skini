@@ -1,12 +1,26 @@
-'use strict';
 /**
  * @fileOverview Parametrage in React.js
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
- * @version 1.0
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
- * Il faut aussi: browserify paramReact.js -o paramReactbundle.js
+ * Do also : browserify paramReact.js -o paramReactbundle.js
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
+ * @version 1.0
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+ 'use strict';
 
 var par;
 var ipConfig = require("../../serveur/ipConfig.json");

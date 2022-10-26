@@ -2,7 +2,22 @@
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
  * Most of the API and functions here are local.
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.3
  */
 'use strict'
@@ -36,7 +51,7 @@ var childSimulator;
 // pour orchestrationHH.js
 var generatedDir = "./myReact/";
 
-// Répertoires par défaut, ils sont à fixer dans le fichier de configuration de la piece.
+// Répertoires par défaut, ils sont à fixer dans le fichier de configuration.
 // Où se trouvent les fichiers XML d'orchestration
 // On ne peut pas donner de chemin absolu dans un browser.
 // Ce sont les fichiers csv "descripteurs" des patterns
@@ -111,13 +126,6 @@ function reloadParameters(param) {
     }
   }
 
-  if (param.sessionPath !== undefined) {
-    sessionPath = param.sessionPath;
-  }
-  if (param.piecePath !== undefined) {
-    piecePath = param.piecePath;
-  }
-
   oscMidiLocal.setParameters(param);
   DAW.setParameters(param);
   groupesClientSon.setParameters(param);
@@ -125,15 +133,7 @@ function reloadParameters(param) {
   updateSimulatorParameters(param);
 
   initMidiPort();
-
 }
-
-// const arrayToCSV = (arr, delimiter = ',') =>
-//   arr
-//     .map(v =>
-//       v.map(x => (isNaN(x) ? `"${x.replace(/"/g, '')}"` : x)).join(delimiter)
-//     )
-//     .join('\n');
 
 /**
  * Simple conversion from Array to csv
@@ -144,8 +144,6 @@ function reloadParameters(param) {
 const arrayToCSV = (arr, delimiter = ',') =>
   arr.map(v => v.join(delimiter)
   ).join('\n');
-
-
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
 const tripleCrocheTR = 2;
