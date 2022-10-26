@@ -1,8 +1,24 @@
 /**
  * @fileOverview 
- * Entry point to Skini
+ * Entry point to Skini which allow to control interactive and generative 
+ * music based on clips (patterns).
+ * @copyright (C) 2022 Bertrand Petit-Hédelein
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
  * @version 1.3
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  */
 var fs = require('fs');
 var express = require('express');

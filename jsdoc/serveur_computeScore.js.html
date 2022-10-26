@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: serveur/computeScore.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: serveur/computeScore.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview
+ * For evaluating and giving "game scores" when using Skini for interactive Game
+ * using the selection of sequences of patterns on the client (audience) side.
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see &lt;https://www.gnu.org/licenses/>.
+
+ * @author Bertrand Petit-Hédelin &lt;bertrand@hedelin.fr>
+ * @version 1.1
+ */
+'use strict'
+
+var DAW = require('./controleDAW');
+
+var debug = false;
+var debug1 = true;
+
+const typeDebut = 1;
+const typeMilieu = 2;
+const typeFin = 3;
+const typeNeutre = 4;
+const typeMauvais = 5;
+
+/*===================================================================================
+
+Memo of Pattern : Note,	Note stop, Flag usage,	Texte, Fichier son,
+Instrument [5],	Slot, Type [7], not used, Groupe,	Durée
+
+Gestion des clients memorySortable
+
+ clientsEnCours est un tableau d'objets client : 
+
+  var client = {
+    pseudo : pseudo,
+    score : 0,
+    preSequence : -1,
+  }
+
+=====================================================================================*/
+
+/**
+ * A Adds a client to the list of connected clients if it does not already exist.
+ * @param  {string} pseudo
+ * @param  {number} id
+ * @param  {number} groupe
+ * @param  {array} clientsEnCours
+ */
+function putInClientsEnCours(pseudo, id, groupe, clientsEnCours) {
+  // On se base sur le pseudo
+  // l'id pourrait être utilisé plus tard
+  if (clientsEnCours !== undefined) {
+    for (var i = 0; i &lt; clientsEnCours.length; i++) {
+      if (clientsEnCours[i].pseudo === pseudo) {
+        return false;
+      }
+    }
+  }
+  var client = {
+    pseudo: pseudo,
+    groupe: groupe,
+    score: 0,
+    preSequence: -1,
+  }
+  clientsEnCours.push(client);
+  return true;
+}
+exports.putInClientsEnCours = putInClientsEnCours;
+
+/**
+ * Compute a new score for a player using the pseudo.
+ * @param  {string} pseudo the player
+ * @param  {number} score value of the new score
+ * @param  {array} clientsEnCours list of players
+ */
+function updateScore(pseudo, score, clientsEnCours) {
+  var scoreTotal = 0;
+  if (clientsEnCours !== undefined) {
+    for (var i = 0; i &lt; clientsEnCours.length; i++) {
+      if (clientsEnCours[i].pseudo === pseudo) {
+        clientsEnCours[i].score += score;
+        scoreTotal = clientsEnCours[i].score;
+      }
+    }
+  }
+  if (debug) console.log("computeScore.js: updateScore: ", clientsEnCours);
+  return scoreTotal;
+}
+exports.updateScore = updateScore;
+/**
+ * In order to check if a client is asking for the same sequence several times.
+ * @param  {string} pseudo
+ * @param  {array} clientsEnCours
+ */
+function getPreSequence(pseudo, clientsEnCours) {
+  for (var i = 0; i &lt; clientsEnCours.length; i++) {
+    if (clientsEnCours[i].pseudo === pseudo) {
+      return clientsEnCours[i].preSequence;
+    }
+  }
+  console.log("WARN: computeScore.js: getPreSequence : pas de présequence pour ", pseudo, clientsEnCours);
+  return false;
+}
+exports.getPreSequence = getPreSequence;
+
+/**
+ * Insert a sequence of patterns in a list for a specific client.
+ * @param  {string} pseudo
+ * @param  {array} sequence
+ * @param  {array} clientsEnCours
+ */
+function setPreSequence(pseudo, sequence, clientsEnCours) {
+  for (var i = 0; i &lt; clientsEnCours.length; i++) {
+    if (clientsEnCours[i].pseudo === pseudo) {
+      // Plutot que de simplement remplacer preSequence comme on le fait ici, on pourrait ajouter la sequence à la liste
+      // pour avoir des traitements plus riches que de vérifier une simple répetition immédiate
+      clientsEnCours[i].preSequence = sequence;
+      return true;
+    }
+  }
+  console.log("WARN: computeScore.js: setPreSequence : pas de pseudo :", pseudo);
+  return false;
+}
+exports.setPreSequence = setPreSequence;
+/**
+ * Clean the list of scores.
+ * @param  {} clientsEnCours
+ */
+function resetClientEnCours(clientsEnCours) {
+  if (clientsEnCours !== undefined) {
+    for (var i = 0; i &lt; clientsEnCours.length; i++) {
+      clientsEnCours[i].score = 0;
+    }
+  }
+  if (debug) console.log("computeScore.js: resetClientEnCours: ", clientsEnCours);
+}
+exports.resetClientEnCours = resetClientEnCours;
+
+function isInstrumentInTheList(instr, liste) {
+  for (var j = 0; j &lt; liste.length; j++) {
+    if (liste[j] === instr) {
+      return true; // déja dans la liste
+    }
+  }
+  return false;
+}
+
+/*=================================================================
+wasPatternAlreadySelected
+
+sequence est un tableau de notes skini
+
+===================================================================*/
+/**
+ * To check if a pattern was already in the sequence.
+ * @param {number} index pattern number
+ * @param {array} sequence 
+ * @returns {boolean}
+ */
+function wasPatternAlreadySelected(index, sequence) {
+  if (sequence === -1) {
+    return false;
+  }
+  for (var i = 0; i &lt; sequence.length; i++) {
+    if (sequence[i] == index) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/*=================================================================
+computeScoreDMFN, Régles de notation début, milieu, fin, neutre et mauvais
+
+Retourne un score en fonction d'un tableau de types de patterns
+et du tableau des précédents types de patterns qui avait été
+envoyé au serveur.
+
+- ListeTypes est un tableau ordonné d'elements correspondant à une liste de patterns:
+  var element = {
+    type : // Selon le fichier csv
+    index : // Note Skini
+  }
+
+- preSequence est un tableau de note Skini
+
+La répétition d'un pattern est pénalisée
+
+===================================================================*/
+/**
+ * Compute a score using a list of Skini Notes (pattern numbers ) according 
+ * to a previous sequence (list of patterns).
+ * @param {array} listeTypes 
+ * @param {array} preSequence
+ * @returns {number} score
+ */
+function computeScoreDMFN(listeTypes, preSequence) {
+  if (debug) console.log("computeScore.js:computeScore: preSequence:", preSequence);
+
+  var score = 0;
+  if (listeTypes.length > 1) {
+    // Traitement du Début
+    if (wasPatternAlreadySelected(listeTypes[0].index, preSequence)) {
+      score -= 5;
+    } else if (listeTypes[0].type === typeDebut) {
+      score += 10;
+    } else if (listeTypes[0].type === typeMilieu || listeTypes[0].type === typeNeutre) {
+      score += 5;
+    } else if (listeTypes[0].type === typeFin) {
+      score -= 10;
+    } else if (listeTypes[0].type === typeMauvais) {
+      score -= 15;
+    }
+
+    // Fin
+    if (wasPatternAlreadySelected(listeTypes[listeTypes.length - 1].index, preSequence)) {
+      score -= 5;
+    } else if (listeTypes[listeTypes.length - 1].type === typeFin) {
+      score += 10;
+    } else if (listeTypes[listeTypes.length - 1].type === typeMilieu || listeTypes[listeTypes.length - 1].type === typeNeutre) {
+      score += 5;
+    } else if (listeTypes[listeTypes.length - 1].type === typeDebut) {
+      score -= 10;
+    } else if (listeTypes[listeTypes.length - 1].type === typeMauvais) {
+      score -= 15;
+    }
+
+    // Le reste
+    for (var i = 1; i &lt; listeTypes.length - 1; i++) {
+      if (wasPatternAlreadySelected(listeTypes[i].index, preSequence)) {
+        score -= 5;
+      } else if (listeTypes[i].type === typeFin || listeTypes[i].type === typeDebut) {
+        score -= 5;
+      } else if (listeTypes[i].type === typeMilieu) {
+        score += 10;
+      } else if (listeTypes[i].type === typeNeutre) {
+        score += 5;
+      } else if (listeTypes[i].type === typeMauvais) {
+        score -= 15;
+      }
+      if (debug) console.log("computeScore.js:computeScore: le reste:", listeTypes[i], score);
+    }
+  } else if (wasPatternAlreadySelected(listeTypes[0].index, preSequence)) { // Pour un seul élément
+    score -= 5;
+  } else if (listeTypes[0].type === typeMilieu || listeTypes[0].type === typeNeutre) {
+    score += 5;
+  } else if (listeTypes[0].type === typeMauvais) {
+    score -= 15;
+  }
+  if (debug) console.log("computeScore.js: computeScore", listeTypes, ": score:", score);
+  return score;
+}
+
+/*=================================================================
+computeScoreInclass 
+
+Retourne un score en fonction d'un tableau de types de patterns
+et du tableau des précédents types de patterns qui avait été
+envoyé au serveur.
+
+- ListeTypes est un tableau d'elements:
+  var element = {
+    type : // Selon le fichier csv
+    index : // Note Skini
+  }
+
+- preSequence est le tableau de note Skini de la précédente soumission.
+
+===================================================================*/
+
+/**
+ * Compute a score according the classes of the patterns.
+ * If you ask for a pattern in the same class without repeating you get points.
+ * If you ask again for the same patterns as the previous time you lose points.
+ * If you repeat the same pattern in the sequence you lose points.
+ * @param {array} listeTypes list of previous selected classes of patterns
+ * @param {number} patternClass 
+ * @param {array} preSequence previous sequence 
+ * @returns {number} score the computed score
+ */
+function computeScoreInclass(listeTypes, patternClass, preSequence) {
+  var score = 0;
+
+  for (var i = 0; i &lt; listeTypes.length; i++) {
+    if (debug) console.log("computeScore.js :computecomputeScoreInclass: listeTypes[i].type", listeTypes[i].type, " patternClass: ", patternClass);
+    if (listeTypes[i].type === patternClass) {
+      score += 10;
+    } else {
+      score -= 10;
+    }
+  }
+
+  // Si on redemande les mêmes patterns que la fois précédente on perd des points
+  for (var i = 0; i &lt; listeTypes.length; i++) {
+    if (wasPatternAlreadySelected(listeTypes[i].index, preSequence)) {
+      score -= 5;
+    }
+  }
+
+  // Si on répète le même pattern dans la séquence on perd des points
+  for (var i = 0; i &lt; listeTypes.length; i++) {
+    for (var j = i + 1; j &lt; listeTypes.length; j++) {
+      if (listeTypes[i].index === listeTypes[j].index) {
+        score -= 10;
+      }
+    }
+  }
+
+  if (debug) console.log("computeScore.js :computecomputeScoreInclass:", patternClass, " last computation:", score);
+  return score;
+}
+
+/*=================================================================
+ evaluateSequenceOfPatterns
+
+ - patternSequence : un tableau avec les notes Skini associées aux patterns
+ - preSequence : obtenu avec getPreSequence(msgRecu.pseudo, clientsEnCours), un pseudo et 
+ - clientsEnCours qui est un tableau d'objets client : 
+
+  var client = {
+    pseudo : pseudo,
+    score : 0,
+    preSequence : -1,
+    groupe : groupe
+  }
+
+- computeScorePolicy définit le type de scoring, DMFN (début, milieu, fin, neutre), appartenance des patterns
+à une classe (même tonalité, même mode, même style, même rytme...)
+
+- computeScoreClass définit la classe pour les scorings qui en ont besoin (même tonalité, même mode, même style, même rytme...)
+
+===================================================================*/
+/**
+ * Compute the score when submitting a sequence of patten.
+ * @param  {array} patternSequence
+ * @param  {array} preSequence
+ * @param  {number} computeScorePolicy define the algorithm used to compute the score
+ * @param  {number} computeScoreClass
+ */
+function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePolicy, computeScoreClass) {
+  var score = 0;
+  var choix = new Array(patternSequence.length);
+  var lesInstruments = [];
+
+  // Etablir la liste des patterns (choix), car la séquence donnée en paramètre 
+  // ne contient que des index (des notes midi au sens de SKini)
+  if (debug) console.log("computeScore.js: evaluateSequenceOfPatterns", patternSequence);
+
+  for (var i = 0; i &lt; patternSequence.length; i++) {
+    var pattern = DAW.getPatternFromNote(patternSequence[i]);
+    if (pattern === undefined) {
+      console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: pattern undefined");
+    }
+    choix[i] = pattern;
+  }
+  if (debug) console.log("computeScore.js: evaluateSequenceOfPatterns: choix: ", choix);
+
+  //Quel sont les instruments concernés ? On en fait une liste "lesInstruments" dans un tableau
+  //à partir de choix
+  for (var i = 0; i &lt; patternSequence.length; i++) {
+    if (!isInstrumentInTheList(choix[i][5], lesInstruments)) {
+      lesInstruments.push(choix[i][5]);
+    }
+  }
+  if (debug) console.log("computeScore.js: evaluateSequenceOfPatterns: lesInstruments: ", lesInstruments);
+
+  //Pour chaque instrument quelle est l'évaluation du score ?
+  for (var i = 0; i &lt; lesInstruments.length; i++) {
+    //Créer la liste des types et index de pattern pour un instrument
+    var typesInstrEnCours = [];
+    for (var j = 0; j &lt; choix.length; j++) {
+      if (choix[j][5] === lesInstruments[i]) {
+        var element = {
+          type: choix[j][7],
+          index: choix[j][0]
+        }
+        typesInstrEnCours.push(element);
+      }
+    }
+    // Calculer le score pour cet instrument et l'ajouter au total
+    switch (computeScorePolicy) {
+      case 0:
+        if (debug) console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: No policy for scoring this sequence.");
+        break;
+
+      case 1:
+        score += computeScoreDMFN(typesInstrEnCours, preSequence);
+        break;
+
+      case 2:
+        score += computeScoreInclass(typesInstrEnCours, computeScoreClass, preSequence);
+        break;
+
+      default:
+        console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: Policy unknown for scoring this sequence:", computeScorePolicy);
+        break;
+    }
+
+  }
+  if (debug) console.log("computeScore.js: evaluateSequenceOfPatterns: typesInstrEnCours: ", typesInstrEnCours, "preSequence:", preSequence, ":score: ", score);
+  return score;
+}
+exports.evaluateSequenceOfPatterns = evaluateSequenceOfPatterns;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 14:22:29 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

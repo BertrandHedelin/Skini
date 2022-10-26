@@ -1,7 +1,7 @@
 
 /**
- * @fileOverview Control of the DAW
- * <BR> Gestion des groupes de clients et de sons
+ * @fileOverview 
+ * <H3>Control of clients groups and sounds</H3>
  * <BR>
  * La matrice des possibles est un tableau à 2 dimensions qui donne pour chaque groupe de clients
  * l'état des  groupes de patterns,  actifs ou pas.
@@ -22,8 +22,22 @@
  * <BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
  * <BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
  *de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
- * @author Bertrand Hédelin © Copyright 2018-2022
- * @version node.js 1.1
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
+ * @version 1.1
 */
 'use strict'
 

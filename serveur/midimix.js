@@ -10,7 +10,22 @@
  * <BR>Le port de réception des commandes OSC est portWebSocket de la config IP
  * <BR>Remarque: la chaine peut être complexe pour MIDIMIX:
  * <BR>MIDIMIX =(midi)=> Processing =(OSC)=> Serveur =(OSC)=> Processing (VISU)
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.3
  */
 "use strict"
@@ -268,7 +283,6 @@ function midimix(machineServeur) {
     function getMidiPortForSyncFromDAW() {
       for (var i = 0; i < midiConfig.length; i++) {
         if (midiConfig[i].spec === "syncFromDAW") {
-          1
           for (var j = 0; j < midiInput.getPortCount(); ++j) {
             if (midiSync.getPortName(j) === midiConfig[i].name) {
               if (debug) console.log("getMidiPortForSyncFromDAW: Midi" +

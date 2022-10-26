@@ -54,7 +54,7 @@
 
 <header>
     
-        <h2>autocontroleur/groupeClientsSons.js</h2>
+        <h2>client/configurateur/configReact.js</h2>
         
     
 </header>
@@ -63,25 +63,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Control of the DAW
-<BR> Gestion des groupes de clients et de sons
-<BR>
-La matrice des possibles est un tableau à 2 dimensions qui donne pour chaque groupe de clients
-l'état des  groupes de patterns,  actifs ou pas.
-Chaque groupe de patterns, groupe d'éléments comporte plusieurs éléments
-conformément à ce qui est décrit dans le fichier csv de description des patterns.
-<BR> La mise à jour de la matrice des possibles est faite par l'automate hiphop, par le controleur,
-ou par les scrutateurs. Elle est la concrétisation de l'orchestration.
-<BR> Cette matrice est sollicitée en lecture par les clients quand ils emettent le message "selectAllClips" vers le serveur de webSocket.
-Le clientSelecteurSimple emet ce message à l'initialisation (quand un message de modification du contexte DAW est reçu, DAWON) et à chaque fois
-qu'il reçoit par broadcast un message 'groupeClientStatus' qui signifie une modification dans la matrice.
-C'est donc bien à chaque fois qu'une modification est signalée que le client cherche à se mettre à jour.
-<BR> Le message 'groupeClientStatus' de signalisation d'une modification de la matrice est émis par broadcast:
-<BR> - soit par le serveur de WebSocket lorsqu'il reçoit une demande de modification de la matrice des possibles de la part du controleur via les messages:
-"putInMatriceDesPossibles", "ResetMatriceDesPossibles", "setAllMatriceDesPossibles". Pour plus de détail à ce niveau, voir les commentaires dans clientcontroleur.js.
-<BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
-<BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
-de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
+            <div class="description">Configurateur in React.jscompile JSX to js, launch this in the terminal, in ./client/configurateurnpx babel --watch src --out-dir . --presets react-app/prodDo also: browserify configReact.js -o configReactbundle.js</div>
         
 
         
@@ -91,7 +73,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>node.js 1.1</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>1.2</li></ul></dd>
     
 
     
@@ -112,11 +94,14 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin © Copyright 2018-2022</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -126,7 +111,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="autocontroleur_groupeClientsSons.js.html">autocontroleur/groupeClientsSons.js</a>, <a href="autocontroleur_groupeClientsSons.js.html#line2">line 2</a>
+        <a href="client_configurateur_configReact.js.html">client/configurateur/configReact.js</a>, <a href="client_configurateur_configReact.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -175,7 +160,1204 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
 <header>
     
-        <h2>computeScore.js</h2>
+        <h2>client/configurateur/configReactbundle.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Configurateur in React.jscompile JSX to js, launch this in the terminal, in ./client/configurateurnpx babel --watch src --out-dir . --presets react-app/prodDo also: browserify configReact.js -o configReactbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.2</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_configurateur_configReactbundle.js.html">client/configurateur/configReactbundle.js</a>, <a href="client_configurateur_configReactbundle.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/configurateur/src/configReact.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Configurateur in React.jscompile JSX to js, launch this in the terminal, in ./client/configurateurnpx babel --watch src --out-dir . --presets react-app/prodDo also: browserify configReact.js -o configReactbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.2</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_configurateur_src_configReact.js.html">client/configurateur/src/configReact.js</a>, <a href="client_configurateur_src_configReact.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/controleur/clientcontroleur.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Controle de la matrice des possiblesentre groupe de sons et groupe de clientsbrowserify .\clientcontroleur.js -o .\controleurbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.3</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_controleur_clientcontroleur.js.html">client/controleur/clientcontroleur.js</a>, <a href="client_controleur_clientcontroleur.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/controleur/controleurbundle.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Controle de la matrice des possiblesentre groupe de sons et groupe de clientsbrowserify .\clientcontroleur.js -o .\controleurbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.3</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_controleur_controleurbundle.js.html">client/controleur/controleurbundle.js</a>, <a href="client_controleur_controleurbundle.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/parametrage/paramReact.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Parametrage in React.jsTo compile JSX to js, launch this in the terminal, in ./client/parametragenpx babel --watch src --out-dir . --presets react-app/prodDo also : browserify paramReact.js -o paramReactbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_parametrage_paramReact.js.html">client/parametrage/paramReact.js</a>, <a href="client_parametrage_paramReact.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/parametrage/paramReactbundle.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Parametrage in React.jsTo compile JSX to js, launch this in the terminal, in ./client/parametragenpx babel --watch src --out-dir . --presets react-app/prodDo also : browserify paramReact.js -o paramReactbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_parametrage_paramReactbundle.js.html">client/parametrage/paramReactbundle.js</a>, <a href="client_parametrage_paramReactbundle.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/parametrage/src/paramReact.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Parametrage in React.jsTo compile JSX to js, launch this in the terminal, in ./client/parametragenpx babel --watch src --out-dir . --presets react-app/prodDo also : browserify paramReact.js -o paramReactbundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_parametrage_src_paramReact.js.html">client/parametrage/src/paramReact.js</a>, <a href="client_parametrage_src_paramReact.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/score/parto1.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Display the score of the Skini piece
+  browserify parto1.js -o parto1bundle.js</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_score_parto1.js.html">client/score/parto1.js</a>, <a href="client_score_parto1.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/simulateurListe/simulateurFork.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><H3>CODE CLIENT DE SIMULATION D'UNE AUDIENCEUTILISANT LE CLIENT AVEC LISTE (clientListe)</H3><BR>Les clips sont appelés de façon aléatoire selon la liste disponible.Ceci correspond à une audience qui fait n'importe quoi sur les clipsdisponibles.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_simulateurListe_simulateurFork.js.html">client/simulateurListe/simulateurFork.js</a>, <a href="client_simulateurListe_simulateurFork.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>client/simulateurListe/simulateurListe.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><H3>CODE CLIENT DE SIMULATION D'UNE AUDIENCEUTILISANT LE CLIENT AVEC LISTE (clientListe)</H3><BR>Les clips sont appelés de façon aléatoire selon la liste disponible.Ceci correspond à une audience qui fait n'importe quoi sur les clipsdisponibles.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_simulateurListe_simulateurListe.js.html">client/simulateurListe/simulateurListe.js</a>, <a href="client_simulateurListe_simulateurListe.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>serveur/autocontroleur/groupeClientsSons.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><H3>Control of clients groups and sounds</H3>
+<BR>
+La matrice des possibles est un tableau à 2 dimensions qui donne pour chaque groupe de clients
+l'état des  groupes de patterns,  actifs ou pas.
+Chaque groupe de patterns, groupe d'éléments comporte plusieurs éléments
+conformément à ce qui est décrit dans le fichier csv de description des patterns.
+<BR> La mise à jour de la matrice des possibles est faite par l'automate hiphop, par le controleur,
+ou par les scrutateurs. Elle est la concrétisation de l'orchestration.
+<BR> Cette matrice est sollicitée en lecture par les clients quand ils emettent le message "selectAllClips" vers le serveur de webSocket.
+Le clientSelecteurSimple emet ce message à l'initialisation (quand un message de modification du contexte DAW est reçu, DAWON) et à chaque fois
+qu'il reçoit par broadcast un message 'groupeClientStatus' qui signifie une modification dans la matrice.
+C'est donc bien à chaque fois qu'une modification est signalée que le client cherche à se mettre à jour.
+<BR> Le message 'groupeClientStatus' de signalisation d'une modification de la matrice est émis par broadcast:
+<BR> - soit par le serveur de WebSocket lorsqu'il reçoit une demande de modification de la matrice des possibles de la part du controleur via les messages:
+"putInMatriceDesPossibles", "ResetMatriceDesPossibles", "setAllMatriceDesPossibles". Pour plus de détail à ce niveau, voir les commentaires dans clientcontroleur.js.
+<BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
+<BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
+de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.1</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="serveur_autocontroleur_groupeClientsSons.js.html">serveur/autocontroleur/groupeClientsSons.js</a>, <a href="serveur_autocontroleur_groupeClientsSons.js.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>serveur/computeScore.js</h2>
         
     
 </header>
@@ -215,11 +1397,14 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -229,7 +1414,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="computeScore.js.html">computeScore.js</a>, <a href="computeScore.js.html#line1">line 1</a>
+        <a href="serveur_computeScore.js.html">serveur/computeScore.js</a>, <a href="serveur_computeScore.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -278,7 +1463,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
 <header>
     
-        <h2>controleDAW.js</h2>
+        <h2>serveur/controleDAW.js</h2>
         
     
 </header>
@@ -318,11 +1503,27 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin © Copyright 2018-2022</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -332,7 +1533,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controleDAW.js.html">controleDAW.js</a>, <a href="controleDAW.js.html#line1">line 1</a>
+        <a href="serveur_controleDAW.js.html">serveur/controleDAW.js</a>, <a href="serveur_controleDAW.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -381,7 +1582,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
 <header>
     
-        <h2>gameOSC.js</h2>
+        <h2>serveur/gameOSC.js</h2>
         
     
 </header>
@@ -390,7 +1591,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <div class="container-overview">
     
         
-            <div class="description">Controling video game using OSC. Not yet implemented.</div>
+            <div class="description">Control by video game or sensors using OSC.</div>
         
 
         
@@ -400,7 +1601,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>1.1</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>1.2</li></ul></dd>
     
 
     
@@ -421,11 +1622,14 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin  © Copyright 2017-2021, B. Petit-Hédelin</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -435,7 +1639,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="gameOSC.js.html">gameOSC.js</a>, <a href="gameOSC.js.html#line1">line 1</a>
+        <a href="serveur_gameOSC.js.html">serveur/gameOSC.js</a>, <a href="serveur_gameOSC.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -484,7 +1688,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
 <header>
     
-        <h2>midimix.js</h2>
+        <h2>serveur/midimix.js</h2>
         
     
 </header>
@@ -524,11 +1728,14 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -538,7 +1745,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="midimix.js.html">midimix.js</a>, <a href="midimix.js.html#line1">line 1</a>
+        <a href="serveur_midimix.js.html">serveur/midimix.js</a>, <a href="serveur_midimix.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -587,7 +1794,7 @@ de signaler une mise à jour de la matrice. Ceci n'est pas automatique.</div>
 
 <header>
     
-        <h2>OSCandMidi.js</h2>
+        <h2>serveur/OSCandMidi.js</h2>
         
     
 </header>
@@ -629,11 +1836,27 @@ http://www.ccarh.org/courses/253/handout/controllers/</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin © Copyright 2017-2022</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -643,7 +1866,7 @@ http://www.ccarh.org/courses/253/handout/controllers/</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="OSCandMidi.js.html">OSCandMidi.js</a>, <a href="OSCandMidi.js.html#line1">line 1</a>
+        <a href="serveur_OSCandMidi.js.html">serveur/OSCandMidi.js</a>, <a href="serveur_OSCandMidi.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -692,7 +1915,113 @@ http://www.ccarh.org/courses/253/handout/controllers/</div>
 
 <header>
     
-        <h2>websocketServer.js</h2>
+        <h2>serveur/saveParam.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">For the creation of the parameters of the Skini piece</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.1</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="serveur_saveParam.js.html">serveur/saveParam.js</a>, <a href="serveur_saveParam.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>serveur/websocketServer.js</h2>
         
     
 </header>
@@ -734,11 +2063,27 @@ Most of the API and functions here are local.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -748,7 +2093,7 @@ Most of the API and functions here are local.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="websocketServer.js.html">websocketServer.js</a>, <a href="websocketServer.js.html#line1">line 1</a>
+        <a href="serveur_websocketServer.js.html">serveur/websocketServer.js</a>, <a href="serveur_websocketServer.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -797,7 +2142,113 @@ Most of the API and functions here are local.</div>
 
 <header>
     
-        <h2>workerSynchro.js</h2>
+        <h2>serveur/workerInterfaceZ.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Worker to manage the Interface Z</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="serveur_workerInterfaceZ.js.html">serveur/workerInterfaceZ.js</a>, <a href="serveur_workerInterfaceZ.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>serveur/workerSynchro.js</h2>
         
     
 </header>
@@ -837,11 +2288,14 @@ Most of the API and functions here are local.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Bertrand Hédelin  © Copyright 2022, B. Petit-Hédelin</li>
+            <li><a href="mailto:bertrand@hedelin.fr">Bertrand Petit-Hédelin</a></li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(C) 2022 Bertrand Petit-Hédelin  This program is free software: you can redistribute it and/or modify  it under the terms of the GNU General Public License as published by  the Free Software Foundation, either version 3 of the License, or  any later version.  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License for more details.  You should have received a copy of the GNU General Public License  along with this program.  If not, see <https://www.gnu.org/licenses/>.</li></ul></dd>
     
 
     
@@ -851,7 +2305,7 @@ Most of the API and functions here are local.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="workerSynchro.js.html">workerSynchro.js</a>, <a href="workerSynchro.js.html#line1">line 1</a>
+        <a href="serveur_workerSynchro.js.html">serveur/workerSynchro.js</a>, <a href="serveur_workerSynchro.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -896,13 +2350,13 @@ Most of the API and functions here are local.</div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 24 2022 11:52:09 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 14:22:29 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

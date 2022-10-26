@@ -30,29 +30,75 @@
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
  * Most of the API and functions here are local.
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
+ * @copyright (C) 2022 Bertrand Petit-Hédelein
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see &lt;https://www.gnu.org/licenses/>.
+ * 
+ * @author Bertrand Petit-Hédelin &lt;bertrand@hedelin.fr>
  * @version 1.3
  */
 'use strict'
 
+var fs = require("fs");
+var oscMidiLocal = require('./OSCandMidi');
+var ipConfig = require('./ipConfig');
+var compScore = require('./computeScore');
+var gameOSC = require('./gameOSC');
+
+const decache = require('decache');
+const { stringify } = require('querystring');
+const { Worker } = require('worker_threads');
+const saveParam = require('./saveParam.js');
+
+var defaultOrchestrationName = "orchestrationHH.js";
 var par;
 var oscMidiLocal;
 var DAW;
 var groupesClientSon;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
+var parametersFile;
+var parametersFileGlobal;
+let origine = "./serveur/defaultSkiniParametres.js";
+let defaultSession = "./serveur/defaultSession.csv";
+let decacheParameters;
+var childSimulator;
 
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
 // pour orchestrationHH.js
 var generatedDir = "./myReact/";
 
-// Répertoires par défaut, ils sont à fixer dans le fichier de configuration de la piece.
+// Répertoires par défaut, ils sont à fixer dans le fichier de configuration.
 // Où se trouvent les fichiers XML d'orchestration
 // On ne peut pas donner de chemin absolu dans un browser.
 // Ce sont les fichiers csv "descripteurs" des patterns
 // et les fichiers de configuration ".js"
-var sessionPath = "./pieces/";
-var piecePath = "./pieces/";
+// Bug de principe (21/06/2022): On ne peut pas changer ces paramètres dans le fichier .js
+// puisque ces paramètres sont fixés avant tous choix de pièces ....
+// Il devrait s'agir de paramètres globaux et non liés aux fichiers de config de chaque pièce.
+var sessionPath = ipConfig.sessionPath; //"./pieces/";
+var piecePath = ipConfig.piecePath; //"./pieces/";
+
+/**
+ * To access the simulator from the fork
+ * @param {Object} fork reference
+ */
+function setChildSimulator(child) {
+  if (debug) console.log("INFO: websocket server: setChildSimulator", child);
+  childSimulator = child;
+}
+exports.setChildSimulator = setChildSimulator;
 
 /**
  * To load some modules.
@@ -60,64 +106,62 @@ var piecePath = "./pieces/";
  * @param {Object} midimix reference
  */
 function setParameters(midimixage) {
-  //par = param;
   midimix = midimixage;
-  //midimix.setParameters(param); // !!!!
-
   oscMidiLocal = require('./OSCandMidi');
-  //oscMidiLocal.setParameters(param); //!!!!
-
   DAW = require('./controleDAW');
-  //DAW.setParameters(param); //!!!!
-
   groupesClientSon = require('./autocontroleur/groupeClientsSons');
-  //groupesClientSon.setParameters(param); //!!!!
-
-  // if (par.sessionPath !== undefined) {
-  //   sessionPath = par.sessionPath;
-  // }
-  // if (par.piecePath !== undefined) {
-  //   piecePath = par.piecePath;
-  // } //!!!!
-
+  groupesClientSon.setMidimix(midimix);
   initMidiPort();
   startWebSocketServer();
 }
 exports.setParameters = setParameters;
 
 /**
+ * The simulator can be updated at serveral places
+ */
+function updateSimulatorParameters(param) {
+
+  if (childSimulator !== undefined) {
+    var message = {
+      type: "PARAMETERS",
+      data: param
+    }
+    childSimulator.send(message);
+  } else {
+    if (debug1) console.log("INFO: websocketServer: updateSimulatorParameters :No Fork Simulator");
+  }
+}
+
+/**
  * In order to reload new parametrers in the different modules during a Skini session.
  * @param {object} param 
  */
 function reloadParameters(param) {
-  //!!!!
-  if (par.sessionPath !== undefined) {
-    sessionPath = par.sessionPath;
-  }
-  if (par.piecePath !== undefined) {
-    piecePath = par.piecePath;
+  par = param;
+
+  // Le transfert des parametre passe tout en chaine de caractère qui ne
+  // sont pas traduite en int.
+  par.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients);
+
+  // Typage pour les antécédents dans Score. En rechargeant depuis le client
+  // de parametrage on a une chaine de caractères et pas un tableau.
+  for (var i = 0; i &lt; param.groupesDesSons.length; i++) {
+    if (typeof param.groupesDesSons[i][7] === 'string' || param.groupesDesSons[i][7] instanceof String) {
+      par.groupesDesSons[i][7] = param.groupesDesSons[i][7].split(',');
+    }
+    for (var j = 0; j &lt; par.groupesDesSons[i][7].length; j++) {
+      par.groupesDesSons[i][7][j] = parseInt(par.groupesDesSons[i][7][j]);
+    }
   }
 
   oscMidiLocal.setParameters(param);
   DAW.setParameters(param);
   groupesClientSon.setParameters(param);
   midimix.setParameters(param);
+  updateSimulatorParameters(param);
 
-  if (param.sessionPath !== undefined) {
-    sessionPath = param.sessionPath;
-  }
-  if (param.piecePath !== undefined) {
-    piecePath = param.piecePath;
-  }
   initMidiPort();
 }
-
-// const arrayToCSV = (arr, delimiter = ',') =>
-//   arr
-//     .map(v =>
-//       v.map(x => (isNaN(x) ? `"${x.replace(/"/g, '')}"` : x)).join(delimiter)
-//     )
-//     .join('\n');
 
 /**
  * Simple conversion from Array to csv
@@ -128,17 +172,6 @@ function reloadParameters(param) {
 const arrayToCSV = (arr, delimiter = ',') =>
   arr.map(v => v.join(delimiter)
   ).join('\n');
-
-var fs = require("fs");
-var oscMidiLocal = require('./OSCandMidi');
-var ipConfig = require('./ipConfig');
-var compScore = require('./computeScore');
-var gameOSC = require('./gameOSC');
-const decache = require('decache');
-const { stringify } = require('querystring');
-const { Worker } = require('worker_threads');
-
-var defaultOrchestrationName = "orchestrationHH.js";
 
 // INITIALISATION DES DONNEES D'INTERACTION DU SEQUENCEUR
 const tripleCrocheTR = 2;
@@ -175,7 +208,7 @@ var timerSynchro;
 // Automate des possibles
 var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
 var setTimer;
-var timerDivision = 4; // Default value for the number of pulses for a tick, can evolve during an orchestration
+var timerDivision = 1; // Default value for the number of pulses for a tick, can evolve during an orchestration
 var offsetDivision = 0;
 var compteurDivisionMesure = 0;
 var nbeDeGroupesSons = 0;
@@ -272,6 +305,90 @@ function startWebSocketServer() {
     });
   }
 
+  /*************************************************************************************
+    Worker for the Interface Z management
+  **************************************************************************************/
+  var workerInterfaceZ;
+  var workerInterfaceZRunning = false;
+
+  /**
+  * Function to start a worker for the Interface Z management
+  * @function
+  * @memberof Websocketserver
+  * @param {string} worker path
+  * @inner
+  */
+  function workerInterfaceZInit(filepath,
+    serverAddress,
+    interfaceZIPaddress,
+    portOSCFromInterfaceZData,
+    portOSCFromInterfaceZMidi,
+    portOSCToInterfaceZ,
+    tempoSensorsInit,
+    sensorsSensibilities) {
+
+    if (workerInterfaceZRunning) {
+      if (debug1) console.log("workerInterfaceZRunning");
+      if (workerInterfaceZ !== undefined) {
+        workerInterfaceZ.postMessage(['startInterfaceZ',
+          serverAddress,
+          interfaceZIPaddress,
+          portOSCFromInterfaceZData,
+          portOSCFromInterfaceZMidi,
+          portOSCToInterfaceZ,
+          tempoSensorsInit,
+          sensorsSensibilities]);
+        return;
+      }
+    }
+    workerInterfaceZRunning = true;
+
+    if (
+      interfaceZIPaddress === undefined ||
+      portOSCFromInterfaceZData === undefined ||
+      tempoSensorsInit === undefined ||
+      sensorsSensibilities === undefined) {
+      console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
+      return;
+    }
+
+
+    return new Promise((resolve, reject) => {
+      workerInterfaceZ = new Worker(filepath);
+      if (debug) console.log('Launching worker InterfaceZ', filepath);
+
+      workerInterfaceZ.on('online', () => {
+        workerInterfaceZ.postMessage(['startInterfaceZ',
+          serverAddress,
+          interfaceZIPaddress,
+          portOSCFromInterfaceZData,
+          portOSCFromInterfaceZMidi,
+          portOSCToInterfaceZ,
+          tempoSensorsInit,
+          sensorsSensibilities]);
+        if (debug) console.log('Launching worker InterfaceZ');
+      })
+      workerInterfaceZ.on('message', messageFromWorker => {
+        switch (messageFromWorker.type) {
+          case "INTERFACEZ_RC":
+            if (debug1) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+
+          default:
+            break;
+        }
+        return resolve;
+      });
+      workerInterfaceZ.on('error', reject);
+      workerInterfaceZ.on('exit', code => {
+        if (code !== 0) {
+          reject(new Error(`Worker InterfaceZ stopped with exit code:`, code));
+        }
+      });
+    });
+  }
+
   /**
   * Define the function in order to Broadcast to all clients.
   * @function
@@ -319,15 +436,15 @@ function startWebSocketServer() {
   *************************************************************************************/
   /**
    * Send a signal to the orchestration according to the skini note
-   * @param  {number} noteSkini
    * @function
    * @memberof Websocketserver
+   * @param  {number} noteSkini
    * @inner
    */
   function sendSignalFromDAW(noteSkini) {
     if (debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
     var patternName = DAW.getPatternNameFromNote(noteSkini);
-    if (debug1) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
+    if (debug1) console.log("INFO: websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
     if (patternName !== undefined) {
       reactAutomatePossible({ patternSignal: [noteSkini, patternName] });
     } else {
@@ -405,13 +522,20 @@ function startWebSocketServer() {
 
   // Vient de midiMix.js et directement de Bitwig ou de processing
   /**
-   * Called by midimix.js, for OSC and MIDI messages.
+   * Called by midimix.js, for OSC, MIDI, and Link messages.
    * @memberof Websocketserver
    * @function
    * @inner
    */
   function sendOSCTick() {
-    if (debug) console.log("websocketserver: sendOSCTick");
+    if (debug1) {
+      //console.log("websocketserver: sendOSCTick");
+      var msg = {
+        type: "synchroSkini",
+        text: ""
+      }
+      serv.broadcast(JSON.stringify(msg));
+    }
     receivedTickFromSynchro();
   }
   exports.sendOSCTick = sendOSCTick;
@@ -487,15 +611,23 @@ function startWebSocketServer() {
    */
   function reactAutomatePossible(signal) {
     if (automatePossibleMachine !== undefined) {
-      automatePossibleMachine.react(signal);
+      try {
+        automatePossibleMachine.react(signal);
+      } catch (err) {
+        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", err.toString());
+        var msg = {
+          type: "alertBlocklySkini",
+          text: err.toString()
+        }
+        serv.broadcast(JSON.stringify(msg));
+        return false;
+      }
       return true;
     } else {
       if (warnings) console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
       return false;
     }
   }
-
-  if (debug) console.log("websocketserver:automatePossibleMachine: passé");
 
   // Pas au bon endroit, musicien pas en place dans cette version
   //if (par.avecMusicien !== undefined &amp;&amp; par.decalageFIFOavecMusicien !== undefined) {
@@ -814,8 +946,7 @@ function startWebSocketServer() {
         console.log("\n-------------------------------------------------------------");
         console.log(`ATTENTION: 
 Problem when compiling the Orchestration
-maybe an hiphop compile Error.
-.`);
+maybe an hiphop compile Error`);
         console.log("-------------------------------------------------------------");
 
         var msg = {
@@ -823,8 +954,8 @@ maybe an hiphop compile Error.
           text: "See your console, pb on compilation"
         }
         serv.broadcast(JSON.stringify(msg));
-        //throw err;
-        return;
+        throw err;
+        //return;
       }
 
       DAW.setAutomatePossible(automatePossibleMachine);
@@ -834,12 +965,15 @@ maybe an hiphop compile Error.
         type: "consoleBlocklySkini",
         text: "Orchestration loaded"
       }
-      serv.broadcast(JSON.stringify(msg));
+      ws.send(JSON.stringify(msg));
 
-      // Pour l'emission des commandes OSC depuis l'orchestration vers un jeu
-      if (par.gameOSCIn !== undefined) {
+      // Pour l'emission des commandes OSC entre l'orchestration et un jeu ou des capteurs
+      if (par.gameOSCSignals) {
         gameOSC.setOrchestration(automatePossibleMachine);
         gameOSC.init();
+      } else {
+        // Pour fermer la socket si on change pour une pièce sans gameOSC
+        gameOSC.closeSocket();
       }
 
       try {
@@ -870,6 +1004,8 @@ maybe an hiphop compile Error.
 
         case "checkSession":
           DAW.displaySession();
+          console.log("------------------------------------");
+          console.log(par);
           break;
 
         case "cleanQueues":
@@ -927,7 +1063,34 @@ maybe an hiphop compile Error.
           break;
 
         case "compileHH":
-          compileHH();
+          try {
+            compileHH();
+          } catch (err) {
+            console.error(err);
+          }
+          break;
+
+        case "createSession":
+          if (msgRecu.fileName === '') {
+            console.log("WARN: No descriptor file name");
+            break;
+          }
+          if (debug1) console.log("createSession:", sessionPath + msgRecu.fileName + ".csv");
+          sessionFile = sessionPath + msgRecu.fileName + ".csv";
+          // Initialise un fichier de parametres par défaut
+          // C'est à dire en copie un dans un parametersFile temporaire
+          try {
+            fs.copyFileSync(defaultSession, sessionFile);
+          } catch (err) {
+            console.log("websocketServer: Pb ecriture: ", sessionFile, err);
+          }
+          DAW.loadDAWTable(sessionFile);
+
+          var mesReponse = {
+            type: "consoleBlocklySkini",
+            text: "session loaded: " + sessionFile
+          }
+          ws.send(JSON.stringify(mesReponse));
           break;
 
         case "DAWPseudo":
@@ -1029,6 +1192,9 @@ maybe an hiphop compile Error.
           break;
 
         case "getPatternGroups":
+          // It happends when calling this function before loading a piece
+          if (par === undefined) break;
+
           if (DAWStatus !== undefined) {
             var msg = {
               type: "setPatternGroups",
@@ -1062,7 +1228,7 @@ maybe an hiphop compile Error.
                   type: "consoleBlocklySkini",
                   text: "Not an XML file " + orchestrationFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
@@ -1071,7 +1237,7 @@ maybe an hiphop compile Error.
                 type: "consoleBlocklySkini",
                 text: "No orchestration file " + orchestrationFile
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               break;
             }
           } catch (err) {
@@ -1080,7 +1246,7 @@ maybe an hiphop compile Error.
               type: "consoleBlocklySkini",
               text: "Error reading orchestration file " + orchestrationFile
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1089,7 +1255,7 @@ maybe an hiphop compile Error.
               console.error(err);
               return;
             }
-            if (debug1) console.log("loadBlocks:", orchestrationFile);
+            if (debug1) console.log("INFO: loadBlocks: orchestrationFile:", orchestrationFile);
             var msg = {
               type: "blocksLoaded",
               data: data,
@@ -1101,10 +1267,16 @@ maybe an hiphop compile Error.
           // à partir du fichier de config de la pièce
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de xml
-          let parametersFile = sessionPath + msgRecu.fileName;
+
+          // Pour ma mise à jour des parametres dans le browser
+          parametersFileGlobal = msgRecu.fileName.slice(0, -4) + ".js";
+
+          parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = parametersFile.slice(0, -4) + ".js";
+
+          if (debug1) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
           // Attention decache n'utilise pas le même path que parametersFile
-          let decacheParameters = "../" + parametersFile;
+          decacheParameters = "../" + parametersFile;
 
           try {
             if (fs.existsSync(parametersFile)) {
@@ -1112,40 +1284,47 @@ maybe an hiphop compile Error.
               if (extension !== ".js") {
                 console.log("ERR: Not an js file:", parametersFile);
                 let msg = {
-                  type: "consoleBlocklySkini",
-                  text: "Not an JavaScript file " + parametersFile
+                  type: "alertBlocklySkini",
+                  text: "Parameter not an JavaScript file " + parametersFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
               console.log("ERR: No parameter file:", parametersFile);
               let msg = {
-                type: "consoleBlocklySkini",
-                text: "No parameter file " + parametersFile
+                type: "alertBlocklySkini",
+                text: "The parameter file " + parametersFile + " is not updated, don't run the program before modifying it."
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
+              // Initialise un fichier de parametres par défaut
+              // C'est à dire en copie un dans un parametersFile temporaire
+              try {
+                fs.copyFileSync(origine, parametersFile);
+              } catch (err) {
+                console.log("websocketServer: Pb ecriture: ", parametersFile, err);
+              }
               break;
             }
           } catch (err) {
             console.log("ERR: Pb Reading parameter file:", parametersFile, err);
             let msg = {
-              type: "consoleBlocklySkini",
+              type: "alertBlocklySkini",
               text: "Pb Reading parameter file " + parametersFile
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
           decache(decacheParameters);
 
-          // La fait de faire un require ici, annule la référence de par dans 
+          // Le fait de faire un require ici, annule la référence de par dans 
           // les autres modules. Il faut faire un reload dans tous les modules.
           par = require(decacheParameters);
           reloadParameters(par);
 
           // On crée le fichier pour son utilisation par l'orchestration.
-          let destination = "./serveur/skiniParametres.js"
+          let destination = "./serveur/skiniParametres.js";
           try {
             fs.copyFileSync(sessionPath + msgRecu.fileName.slice(0, -4) + ".js", destination);
           } catch (err) {
@@ -1159,7 +1338,7 @@ maybe an hiphop compile Error.
             type: "consoleBlocklySkini",
             text: "Orchestration loaded"
           }
-          serv.broadcast(JSON.stringify(msg));
+          ws.send(JSON.stringify(msg));
           break;
 
         case "loadSession":
@@ -1177,28 +1356,28 @@ maybe an hiphop compile Error.
               if (extension !== ".csv") {
                 console.log("ERR: Not an csv file:", sessionFile);
                 let msg = {
-                  type: "consoleBlocklySkini",
-                  text: "Not an csv file " + sessionFile
+                  type: "alertBlocklySkini",
+                  text: "Descriptor not an csv file " + sessionFile
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 break;
               }
             } else {
               console.log("ERR: No session file:", sessionFile);
               let msg = {
-                type: "consoleBlocklySkini",
+                type: "alertBlocklySkini",
                 text: "No session file " + sessionFile
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               break;
             }
           } catch (err) {
             console.log("ERR: Pb Reading session file:", sessionFile, err);
             let msg = {
-              type: "consoleBlocklySkini",
+              type: "alertBlocklySkini",
               text: "Pb Reading session file " + sessionPath
             }
-            serv.broadcast(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
             break;
           }
 
@@ -1248,37 +1427,82 @@ maybe an hiphop compile Error.
             break;
           }
 
-          if (debug) console.log("saveBlocklyGeneratedFile: fileName", msgRecu.fileName, "\n--------------------");
-          if (debug) console.log(msgRecu.text);
+          // Si on crée une orchestration à partir de rien le fichier de paramètre n'existe pas
+          // On en crée un par défaut.
+          parametersFileGlobal = msgRecu.fileName + ".js";
+          try {
+            if (!fs.existsSync(sessionPath + parametersFileGlobal)) {
+              console.log("ERR: No parameter file:", parametersFileGlobal);
+              let msg = {
+                type: "alertBlocklySkini",
+                text: "The parameter file " + parametersFileGlobal + " is created, don't run the program before modifying it."
+              }
+              ws.send(JSON.stringify(msg));
+              // Initialise un fichier de parametres par défaut
+              try {
+                fs.copyFileSync(origine, sessionPath + parametersFileGlobal);
+                // On recharge les nouveaux paramètres avant la compilation.
+                // Attention decache n'utilise pas le même path que parametersFile
+                decacheParameters = "../" + sessionPath + parametersFileGlobal;
+                decache(decacheParameters);
+                par = require(decacheParameters);
+                reloadParameters(par);
+              } catch (err) {
+                console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
+                break;
+              }
+            }
+          } catch (err) {
+            console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());
+            let msg = {
+              type: "alertBlocklySkini",
+              text: "Pb creating parameter file " + parametersFileGlobal
+            }
+            ws.send(JSON.stringify(msg));
+            break;
+          }
 
           // Ecrit le programme HH pour compilation
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
             if (err) {
               var msg = {
-                type: "consoleBlocklySkini",
+                type: "alertBlocklySkini",
                 text: err.toString()
               }
-              serv.broadcast(JSON.stringify(msg));
+              ws.send(JSON.stringify(msg));
               return console.log(err);
             }
+            if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationName, " written");
           });
 
           // Ecrit le fichier XML Blockly
           fs.writeFile(piecePath + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
             if (err) {
-              return console.log(err);
+              return console.log(err.toString());
             }
             console.log("INFO: websocketServer:", msgRecu.fileName + ".xml", " written");
             var msg = {
               type: "consoleBlocklySkini",
               text: msgRecu.fileName + ".xml written"
             }
-            serv.broadcast(JSON.stringify(msg));
-            if (debug1) console.log("INFO: websocketServer:", piecePath + defaultOrchestrationName, " written");
+            ws.send(JSON.stringify(msg));
 
-            // Compile the orchestration
-            compileHH();
+            // Compile l'orchestration
+            try {
+              compileHH();
+            } catch (err) {
+              console.log("websocketServerSkini:saveBlocklyGeneratedFile:catch:", err.toString());
+            }
           });
+          break;
+
+        case "saveSessionAs":
+          if (debug1) console.log("save descriptors as: ", msgRecu.fileName);
+          try {
+            fs.copyFileSync(sessionFile, sessionPath + msgRecu.fileName);
+          } catch (err) {
+            console.log("websocketServer: Pb ecriture save descriptors as: ", msgRecu.fileName, err);
+          }
           break;
 
         case "selectAllClips":
@@ -1401,9 +1625,26 @@ maybe an hiphop compile Error.
 
             // S'il n'y a pas de synchro Midi ni Link on lance un worker
             if (!par.synchoOnMidiClock &amp;&amp; !par.synchroLink &amp;&amp; par.synchroSkini) {
-              //setMonTimer(timerSynchro); // En local pas utile avec les workers
+              //setMonTimer(timerSynchro); // Pour un timer dans le thread principal, pas utile avec les workers
               if (debug1) console.log("websocketserver: startAutomate:worker synchro");
               workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
+            }
+
+            if (par.sensorOSC) {
+              if (debug1) console.log("INFO: webSocketServeur: With Interface Z sensors");
+              workerInterfaceZInit('./serveur/workerInterfaceZ.js',
+                ipConfig.serverIPAddress,
+                ipConfig.interfaceZIPaddress,
+                ipConfig.portOSCFromInterfaceZData,
+                ipConfig.portOSCFromInterfaceZMidi,
+                ipConfig.portOSCToInterfaceZ,
+                par.tempoSensorsInit,
+                par.sensorsSensibilities);
+            } else {
+              if (debug) console.log("INFO: webSocketServeur: stopInterfaceZ", workerInterfaceZ);
+              if (workerInterfaceZ !== undefined) {
+                workerInterfaceZ.postMessage(["stopInterfaceZ"]);
+              }
             }
           }
 
@@ -1432,6 +1673,17 @@ maybe an hiphop compile Error.
           break;
 
         case "startSpectateur": // On récupère l'ID du client
+          // On autorise la configuration des patterns même sans piece chargée
+          if (msgRecu.text === "configurateur") {
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
+            var mesReponse = {
+              type: "skiniParametres",
+              descriptors: DAW.getSession(),
+              value: par
+            }
+            ws.send(JSON.stringify(mesReponse));
+          }
+
           if (par === undefined) {
             console.log("WARN: A client try to connect but no piece launched");
             break;
@@ -1455,11 +1707,10 @@ maybe an hiphop compile Error.
             break;
           }
 
-          if (msgRecu.text === "configurateur") {
-            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
+          if (msgRecu.text === "pieceParameters") {
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", msgRecu.id);
             var mesReponse = {
               type: "skiniParametres",
-              descriptors: DAW.getSession(),
               value: par
             }
             ws.send(JSON.stringify(mesReponse));
@@ -1561,10 +1812,10 @@ maybe an hiphop compile Error.
             fs.writeFile(sessionFile, arrayToCSV(msgRecu.data), function (err) {
               if (err) {
                 var msg = {
-                  type: "consoleBlocklySkini",
+                  type: "alertBlocklySkini",
                   text: err.toString()
                 }
-                serv.broadcast(JSON.stringify(msg));
+                ws.send(JSON.stringify(msg));
                 return console.log("ERR: websocketserver.js: updateSession: ", err);
               } else {
                 // Le recharger dans DAW
@@ -1582,7 +1833,40 @@ maybe an hiphop compile Error.
           }
           break;
 
-        default: console.log("Web Socket Serveur: Type de message inconnu : ", msgRecu);
+        case "updateParameters":
+          // Save the previous parameters
+          fs.copyFile(sessionPath + parametersFileGlobal, "./backup/" + parametersFileGlobal + ".back", function (err) {
+            if (err) {
+              return console.log(err);
+            }
+            if (debug) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
+          });
+
+          if (debug) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
+          if (parametersFileGlobal !== undefined) {
+            saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
+            reloadParameters(msgRecu.data);
+          }
+
+          // On recrée le fichier pour son utilisation par l'orchestration
+          // avant recompilation.
+          let destinationUpdate = "./serveur/skiniParametres.js";
+          try {
+            fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
+          } catch (err) {
+            console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
+          }
+
+          // Recompile the orchestration pour intégrer les modifications
+          // des paramétres de groupes et tanks.
+          try {
+            compileHH();
+          } catch (err) {
+            console.log("websocketServerSkini:updateParameters:catch:", err);
+          }
+          break;
+
+        default: console.log("INFO: Web Socket Serveur: Type de message inconnu : ", msgRecu);
       }
     });
   });
@@ -1631,13 +1915,13 @@ function getDateTime() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu Mar 24 2022 11:52:09 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 13:48:49 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
