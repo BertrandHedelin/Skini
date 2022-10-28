@@ -8,3 +8,7 @@ serveur/ipConfig.json
 sounds/**
 node_modules/**
 docComplementaires/**
+tests/**
+pieces/**
+.vs/**
+.vscode/**
