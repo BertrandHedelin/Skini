@@ -133,6 +133,16 @@ function selectRandomInList(memoire, liste) {
   var selection;
   var index;
 
+  if(liste === undefined){
+    console.log("INFO: simuateurFork: selectRandomInList: liste undefined");
+    return undefined;
+  }
+  
+  if(memoire === undefined){
+    console.log("INFO: simuateurFork: selectRandomInList: memoire undefined");
+    return undefined;
+  }
+
   if (debug) console.log("*** selectRandomInList:memoire:", memoire, "liste:", liste);
 
   if (liste.length === 0) {

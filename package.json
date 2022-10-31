@@ -10,7 +10,7 @@
     "type": "git",
     "url": "ssh://srv-indes/user/berpetit/home/nodeskini.git"
   },
-  "author": "Bertrand Petiti-Hédelin",
+  "author": "Bertrand Petit-Hédelin",
   "license": "GNU3.0",
   "dependencies": {
     "abletonlink": "^0.1.3",
