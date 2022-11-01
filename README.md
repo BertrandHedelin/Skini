@@ -10,4 +10,3 @@ Installation:
 Skini can use Ableton Link. According to your system the installation of Ableton link may need a C++ compilator.
 
 The documentation in english is not up to date. In French it is OK.
-git pull

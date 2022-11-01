@@ -846,6 +846,12 @@ exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
  * @returns {array} array of clips as in tableDesCommandes
  */
 function getAllClips(groupeDeClients, matriceDesPossibles) {
+
+  // Protection
+  if(groupeDeClients === -1){
+    return -1;
+  }
+
   if (matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {
     console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
     return -1;
