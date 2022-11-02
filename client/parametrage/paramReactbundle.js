@@ -4,6 +4,7 @@
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
  * Do also : browserify paramReact.js -o paramReactbundle.js
+ * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
  * @copyright (C) 2022 Bertrand Petit-Hédelin
@@ -48,6 +49,7 @@ var ws;
 var directMidiON = false;
 var english = false;
 var reactOnPlay = false;
+var pulsationON = false;
 var shufflePatterns = false;
 var nbeDeGroupesClients;
 
@@ -87,6 +89,7 @@ function updateParameters() {
   english = false;
   reactOnPlay = false;
   shufflePatterns = false;
+  pulsationON = false;
   simulatorInAseperateGroup = false;
   useRaspberries = false;
   synchoOnMidiClock = false;
@@ -112,6 +115,10 @@ function updateParameters() {
 
       case "shufflePatterns":
         shufflePatterns = true;
+        break;
+
+      case "pulsationON":
+        pulsationON = true;
         break;
 
       case "useRaspberries":
@@ -198,6 +205,9 @@ function initWSSocket(host) {
 
         shufflePatterns = par.shufflePatterns;
         document.getElementById("shufflePatterns").checked = shufflePatterns;
+
+        pulsationON = par.pulsationON;
+        document.getElementById("pulsationON").checked = pulsationON;
 
         simulatorInAseperateGroup = par.simulatorInAseperateGroup;
         document.getElementById("simulatorInAseperateGroup").checked = simulatorInAseperateGroup;
@@ -349,6 +359,7 @@ var Jspreadsheet = function (_React$Component) {
       par.english = english;
       par.reactOnPlay = reactOnPlay;
       par.shufflePatterns = shufflePatterns;
+      par.pulsationON = pulsationON;
       par.simulatorInAseperateGroup = simulatorInAseperateGroup;
       par.useRaspberries = useRaspberries;
       par.synchoOnMidiClock = synchoOnMidiClock;
@@ -462,8 +473,8 @@ module.exports={
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./tests/",
-  "piecePath" : "./tests/"
+  "sessionPath": "./pieces/",
+  "piecePath" : "./pieces/"
 }
 
 },{}]},{},[1]);

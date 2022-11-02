@@ -6,6 +6,7 @@
     <variable id="WUT;K|L6]cR}*uBdtP^#">groupe3</variable>
     <variable id="0xTjR,ZU%i?HgU/%+Emz">groupe4</variable>
     <variable id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</variable>
+    <variable id=",9Wt!o$R@,tNevY,CFP*">pulsation</variable>
     <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
     <variable id="-V0!mkHZVfLb:/i64^:.">groupe2</variable>
     <variable id="NRd.r{X8K{5ou;XOjCHf">groupe1</variable>
@@ -94,6 +95,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -474,6 +480,11 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
                             </comment>
                             <next>
                               <block type="hh_wait_for" id="X[(/MVDkV$*Ku*%n@TZ=">
@@ -492,6 +503,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
@@ -872,6 +888,11 @@
                                             
                                             
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </comment>
                                             <next>
                                               <block type="hh_wait_for" id="*Z{_+U;3~H!;G`KFa(mM">
@@ -890,6 +911,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     
                                                     
                                                     
@@ -1270,6 +1296,11 @@
                                                             
                                                             
                                                             
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             </comment>
                                                             <next>
                                                               <block type="hh_wait_for" id="_T_-ZGIC_%2U^.n;Y+iT">
@@ -1288,6 +1319,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     
                                                                     
                                                                     
@@ -1668,6 +1704,11 @@
                                                                             
                                                                             
                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             </comment>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="tHLW{+-67(gv]bUBh%(G">
@@ -1761,29 +1802,52 @@
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
-                                            <field name="user_group">255</field>
-                                            <field name="number_of_ticks">10</field>
-                                            <value name="GROUPS">
-                                              <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
-                                                <mutation items="3"></mutation>
-                                                <value name="ADD0">
-                                                  <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
-                                                    <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                          <block type="hh_fork" id="UCovNUTx3#d%:b=QksU2">
+                                            <statement name="BODY">
+                                              <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
+                                                <field name="user_group">255</field>
+                                                <field name="number_of_ticks">10</field>
+                                                <value name="GROUPS">
+                                                  <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
+                                                    <mutation items="3"></mutation>
+                                                    <value name="ADD0">
+                                                      <block type="variables_get" id="Qr=FA%f^Zv}JWdqHyAz?">
+                                                        <field name="VAR" id="WUT;K|L6]cR}*uBdtP^#">groupe3</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD1">
+                                                      <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
+                                                        <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
+                                                        <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
+                                                      </block>
+                                                    </value>
                                                   </block>
                                                 </value>
-                                                <value name="ADD1">
-                                                  <block type="variables_get" id="NaZ-c.ESg40W_jbJ()`[">
-                                                    <field name="VAR" id="0xTjR,ZU%i?HgU/%+Emz">groupe4</field>
+                                                <next>
+                                                  <block type="hh_every" id="YC[Yjn^I6VC~K`n)mC=X" disabled="true">
+                                                    <field name="TIMES">1</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="Fq5T[~zRsHXsv}AaED{N">
+                                                        <field name="VAR" id=",9Wt!o$R@,tNevY,CFP*">pulsation</field>
+                                                      </block>
+                                                    </value>
+                                                    <statement name="BODY">
+                                                      <block type="hh_print_serveur" id="=v3-ExdweUSb%KJgnr?A">
+                                                        <value name="TEXT">
+                                                          <block type="text" id="5YjZl:H]8MTGdv7FCuza">
+                                                            <field name="TEXT">pulsation</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </statement>
                                                   </block>
-                                                </value>
-                                                <value name="ADD2">
-                                                  <block type="variables_get" id="HR*kHsmhT#d)dd3cyBep">
-                                                    <field name="VAR" id="OY,IdMJIn)[kMgJCJ.Ho">groupe5</field>
-                                                  </block>
-                                                </value>
+                                                </next>
                                               </block>
-                                            </value>
+                                            </statement>
                                             <next>
                                               <block type="hh_abort" id="va4r}2*j0dOT)qz!=~f!">
                                                 <field name="TIMES">10</field>

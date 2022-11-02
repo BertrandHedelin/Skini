@@ -3,6 +3,7 @@
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
  * Do also : browserify paramReact.js -o paramReactbundle.js
+ * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
  * @copyright (C) 2022 Bertrand Petit-Hédelin
@@ -20,7 +21,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 'use strict';
+'use strict';
 
 var par;
 var ipConfig = require("../../serveur/ipConfig.json");
@@ -37,6 +38,7 @@ var ws;
 var directMidiON = false;
 var english = false;
 var reactOnPlay = false;
+var pulsationON = false;
 var shufflePatterns = false;
 var nbeDeGroupesClients;
 
@@ -76,6 +78,7 @@ function updateParameters() {
   english = false;
   reactOnPlay = false;
   shufflePatterns = false;
+  pulsationON = false;
   simulatorInAseperateGroup = false;
   useRaspberries = false;
   synchoOnMidiClock = false;
@@ -101,6 +104,10 @@ function updateParameters() {
 
       case "shufflePatterns":
         shufflePatterns = true;
+        break;
+
+      case "pulsationON":
+        pulsationON = true;
         break;
 
       case "useRaspberries":
@@ -197,6 +204,9 @@ function initWSSocket(host) {
 
         shufflePatterns = par.shufflePatterns;
         document.getElementById("shufflePatterns").checked = shufflePatterns;
+
+        pulsationON = par.pulsationON;
+        document.getElementById("pulsationON").checked = pulsationON;
 
         simulatorInAseperateGroup = par.simulatorInAseperateGroup;
         document.getElementById("simulatorInAseperateGroup").checked = simulatorInAseperateGroup;
@@ -346,6 +356,7 @@ class Jspreadsheet extends React.Component {
     par.english = english;
     par.reactOnPlay = reactOnPlay;
     par.shufflePatterns = shufflePatterns;
+    par.pulsationON = pulsationON;
     par.simulatorInAseperateGroup = simulatorInAseperateGroup;
     par.useRaspberries = useRaspberries;
     par.synchoOnMidiClock = synchoOnMidiClock;
@@ -364,7 +375,7 @@ class Jspreadsheet extends React.Component {
     par.timer = document.getElementById("timer").value;
     par.algoGestionFifo = document.getElementById("algoGestionFifo").value;
 
-    console.log("****",typeof document.getElementById("sensorInit1").value );
+    console.log("****", typeof document.getElementById("sensorInit1").value);
 
     if (document.getElementById("sensorInit1").value !== '') {
       par.tempoSensorsInit[0] = document.getElementById("sensorInit1").value;
@@ -376,7 +387,7 @@ class Jspreadsheet extends React.Component {
       par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
       par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
     } else {
-      par.tempoSensorsInit = [0,0,0,0,0,0,0,0];
+      par.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     if (document.getElementById("sensorSensibily1").value !== '') {
@@ -389,7 +400,7 @@ class Jspreadsheet extends React.Component {
       par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
       par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
     } else {
-      par.sensorsSensibilities = [0,0,0,0,0,0,0,0];
+      par.sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     var msg = {

@@ -42,6 +42,9 @@ AUTOMATE
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
 exports.reactOnPlay = false;
 
+// Pour une réaction à chaque pulsation
+exports.pulsationON = false;
+
 /*************************************
 CHEMIN DES FICHIERS SONS MP3 pour les clients
 Le choix se fait sur le client en fonction d'abletonON donc 
