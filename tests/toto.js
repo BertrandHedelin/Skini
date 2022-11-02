@@ -1,8 +1,8 @@
 // 8787
 var monTruc;
 
-function setTruc(texte){
-	monTruc = texte;
+function setTruc(TEXTE){
+	monTruc = TEXTE;
 }
 exports.setTruc = setTruc;
 
