@@ -35,6 +35,12 @@ var debug1 = true;
 var tempoMax, tempoMin, limiteDureeAttente;
 
 function initTempi() {
+
+  if(par === undefined) {
+    console.log("WARN simulator : launch the simulator after loading a piece");
+    return;
+  }
+
   console.log("------------------------------------------------");
   if (par.tempoMax !== undefined) {
     tempoMax = par.tempoMax; // en ms

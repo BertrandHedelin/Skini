@@ -28,8 +28,28 @@
 var par = require('../../serveur/skiniParametres');
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
+var debug = false;
+var debug1 = true;
 
 var tempoMax, tempoMin, limiteDureeAttente;
+var derniersPatternsJoues = [];
+var derniersInstrumentsJoue = [-1, -1, -1];
+
+function getNbeDeGroupesSons() {
+  var tablederniersPatterns = [];
+  var tableVide = [-1, -1, -1];
+  var nbeDeGroupesSons = 0;
+
+  for (var i = 0; i < par.groupesDesSons.length; i++) {
+    if (nbeDeGroupesSons < par.groupesDesSons[i][1]) {
+      nbeDeGroupesSons = par.groupesDesSons[i][1];
+    }
+  }
+  for (var i = 0; i < nbeDeGroupesSons; i++) {
+    tablederniersPatterns.push(tableVide);
+  }
+  return tablederniersPatterns;
+}
 
 function initTempi() {
   console.log("------------------------------------------------");
@@ -54,6 +74,9 @@ function initTempi() {
     console.log("tempoMin par défaut")
   }
 
+  derniersPatternsJoues = getNbeDeGroupesSons();
+  if (debug1) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
+
   console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
 
@@ -73,8 +96,7 @@ var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
 var DAWON = 0;
 var pseudo = "sim" + id;
-var debug = false;
-var debug1 = true;
+
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
 var nombreDePatternsPossible = 1;
 
@@ -103,13 +125,6 @@ Table des commandes donnée par les listes de patterns
  11= réservé client, 12= pseudo
 
 **********************************************************************/
-var derniersPatternsJoues = [
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1]];
-
-var derniersInstrumentsJoue = [-1, -1, -1];
 
 function isInList(element, list) {
   for (var i = 0; i < list.length; i++) {
@@ -135,12 +150,12 @@ function selectRandomInList(memoire, liste) {
   var selection;
   var index;
 
-  if(liste === undefined){
+  if (liste === undefined) {
     console.log("INFO: simuateurFork: selectRandomInList: liste undefined");
     return undefined;
   }
-  
-  if(memoire === undefined){
+
+  if (memoire === undefined) {
     console.log("INFO: simuateurFork: selectRandomInList: memoire undefined");
     return undefined;
   }
@@ -199,11 +214,12 @@ function selectNextClip() {
 
   //Choisir un instrument au hasard, et pas toujours le même
   instrument = selectRandomInList(derniersInstrumentsJoue, listeInstruments);
-  if (debug) console.log("*** selectNextClip:instrument:", instrument);
+  if (debug) console.log("*** selectNextClip:instrument:", instrument, listClips);
   if (instrument === undefined) {
     console.log("ERR:selectNextClip:instrument undefined");
     return undefined;
   }
+
 
   //Choisir les commandes MIDI des patterns pour l'instrument sélectioné
   for (var i = 0; i < listClips.length; i++) {
@@ -216,7 +232,7 @@ function selectNextClip() {
   //Choisir un pattern pour l'instrument sélectioné
   selectionClip = selectRandomInList(derniersPatternsJoues[instrument], listeSelectionClip);
   if (selectionClip === undefined) {
-    console.log("ERR:selectNextClip:selectionClip undefined");
+    console.log("ERR:selectNextClip:selectionClip undefined : ", derniersPatternsJoues[instrument], "\n  listeSelectionClip :", listeSelectionClip);
     return undefined;
   }
   if (debug) console.log("*** selectNextClip:selectionClip:", selectionClip);
@@ -352,12 +368,14 @@ function initWSSocket(port) {
         }
 
         if (debug1) console.log("-- sendPatternSequence", sequenceLocale);
-        msg.type = "sendPatternSequence";
-        msg.patternSequence = sequenceLocale;
-        msg.pseudo = pseudo;
-        msg.groupe = monGroupe;
-        msg.idClient = id;
-        ws.send(JSON.stringify(msg));
+        if (sequenceLocale[0] !== undefined) { // Protection if mistake on the controler
+          msg.type = "sendPatternSequence";
+          msg.patternSequence = sequenceLocale;
+          msg.pseudo = pseudo;
+          msg.groupe = monGroupe;
+          msg.idClient = id;
+          ws.send(JSON.stringify(msg));
+        }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
         if (debug1) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);

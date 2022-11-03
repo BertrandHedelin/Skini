@@ -846,7 +846,7 @@
                   <block type="set_timer_division" id="-ii47u3tHIW,4qQ+x2eB">
                     <field name="timer">1</field>
                     <next>
-                      <block type="hh_sequence" id="hoV0~,:@Pu,Ktu:_lMe:">
+                      <block type="hh_sequence" id="hoV0~,:@Pu,Ktu:_lMe:" collapsed="true" disabled="true">
                         <statement name="BODY">
                           <block type="set_tempo" id="go)NpW|w,)M5L0kBIJdt">
                             <field name="tempo">60</field>
@@ -1200,7 +1200,7 @@
                               </block>
                             </statement>
                             <next>
-                              <block type="hh_sequence" id="u:QFzCq@Y[zfsi%B|t+L" collapsed="true" disabled="true">
+                              <block type="hh_sequence" id="u:QFzCq@Y[zfsi%B|t+L">
                                 <statement name="BODY">
                                   <block type="set_tempo" id="BIyg`l(yRB@]6M=oh*K)">
                                     <field name="tempo">70</field>
@@ -2152,7 +2152,7 @@
                                                                                       </block>
                                                                                     </statement>
                                                                                     <next>
-                                                                                      <block type="hh_run" id="v/a4[vI([)k6~|zZu8%B">
+                                                                                      <block type="hh_run" id="v/a4[vI([)k6~|zZu8%B" disabled="true">
                                                                                         <value name="MODULE">
                                                                                           <block type="variables_get" id="GA~n[{Wagim6}^,o[sm(">
                                                                                             <field name="VAR" id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</field>

@@ -1773,7 +1773,7 @@ maybe an hiphop compile Error`);
           break;
         
         case "stopSimulator":
-          if (debug1) console.log("Web Socket Server: stop Simulator");
+          if (debug) console.log("INFO: Web Socket Server: stop Simulator");
           var message = {
             type : "STOP_SIMULATOR"
           }

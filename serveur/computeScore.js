@@ -361,6 +361,7 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
     var pattern = DAW.getPatternFromNote(patternSequence[i]);
     if (pattern === undefined) {
       console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: pattern undefined");
+      continue;
     }
     choix[i] = pattern;
   }
@@ -368,7 +369,7 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
 
   //Quel sont les instruments concernés ? On en fait une liste "lesInstruments" dans un tableau
   //à partir de choix
-  for (var i = 0; i < patternSequence.length; i++) {
+  for (var i = 0; i < choix.length; i++) {
     if (!isInstrumentInTheList(choix[i][5], lesInstruments)) {
       lesInstruments.push(choix[i][5]);
     }
