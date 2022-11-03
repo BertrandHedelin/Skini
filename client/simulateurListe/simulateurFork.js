@@ -26,8 +26,11 @@
 'use strict'
 
 var par ;
+var ws;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
+var debug = false;
+var debug1 = true;
 
 var tempoMax, tempoMin, limiteDureeAttente;
 
@@ -66,13 +69,11 @@ if (ipConfig.websocketServeurPort !== undefined) {
 if (debug) console.log("----------------------------------------------\n");
 if (debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
-var ws;
+
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
 var DAWON = 0;
 var pseudo = "sim" + id;
-var debug = false;
-var debug1 = true;
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
 var nombreDePatternsPossible = 1;
 
@@ -230,6 +231,11 @@ WEBSOCKET AVEC NODE JS
 
 function initWSSocket(port) {
   var tempoInstantListClip = 0;
+
+  if(ws !== undefined){
+    if(debug1) console.log("INFO: simulateurFork.js: close the socket");
+    ws.close();
+  }
 
   ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
 
@@ -417,8 +423,8 @@ function initWSSocket(port) {
   }
 
   ws.onclose = function (event) {
-    //console.log( "simulateur.js : on CLOSE on WS");
-    setTimeout(function () { initWSSocket(port); }, 3000);
+    console.log( "INFO: simulateurFork.js : on CLOSE on WS");
+    //setTimeout(function () { initWSSocket(port); }, 3000);
   }
 }
 
@@ -513,9 +519,15 @@ process.on('message', (message) => {
       break;
 
     case 'PARAMETERS':
-      if (debug1) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
+      if (debug) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
       par = messageLocal.data;
       initTempi();
+      break;
+
+    case 'STOP_SIMULATOR':
+      if (debug1) console.log("INFO: simulateurFork.js : Simulator Stopped");
+      ws.close();
+      process.exit(0);
       break;
 
     default: console.log("INFO: Fork Simulator: Type de message inconnu : ", messageLocal);

@@ -165,6 +165,26 @@ function init(host) {
   }
   window.loadBlocks = loadBlocks;
 
+  function launchSimulator() {
+    document.getElementById("launchSimulator").style.display = "none";
+    document.getElementById("stopSimulator").style.display = "inline";
+    var msg = {
+      type: "startSimulator",
+    }
+    ws.send(JSON.stringify(msg));
+  }
+  window.launchSimulator = launchSimulator;
+
+  function stopSimulator() {
+    document.getElementById("launchSimulator").style.display = "inline";
+    document.getElementById("stopSimulator").style.display = "none";
+    var msg = {
+      type: "stopSimulator",
+    }
+    ws.send(JSON.stringify(msg));
+  }
+  window.stopSimulator = stopSimulator;
+
   function cleanQueues() {
     var msg = {
       type: "cleanQueues",

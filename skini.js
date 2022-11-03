@@ -121,18 +121,6 @@ function startSkini() {
     res.sendFile(path.join(__dirname + '/client/parametrage/parametrage.html'));
   });
 
-  app.get('/simul', function (req, res) {
-    childSimulator = fork(__dirname + '/client/simulateurListe/simulateurFork');
-    childSimulator.on('message', (message) => {
-      console.log('Simulator info :', message);
-    });
-    var message = {
-      type : "START_SIMULATOR"
-    }
-    childSimulator.send(message);
-    ws.setChildSimulator(childSimulator);
-  });
-
   var port = ipConfig.webserveurPort;
   var addressServer = ipConfig.serverIPAddress;
   app.listen(port, () => {

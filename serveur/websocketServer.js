@@ -32,6 +32,7 @@ const decache = require('decache');
 const { stringify } = require('querystring');
 const { Worker } = require('worker_threads');
 const saveParam = require('./saveParam.js');
+const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.js";
 var par;
@@ -61,16 +62,6 @@ var generatedDir = "./myReact/";
 // Il devrait s'agir de paramètres globaux et non liés aux fichiers de config de chaque pièce.
 var sessionPath = ipConfig.sessionPath; //"./pieces/";
 var piecePath = ipConfig.piecePath; //"./pieces/";
-
-/**
- * To access the simulator from the fork
- * @param {Object} fork reference
- */
-function setChildSimulator(child) {
-  if (debug) console.log("INFO: websocket server: setChildSimulator", child);
-  childSimulator = child;
-}
-exports.setChildSimulator = setChildSimulator;
 
 /**
  * To load some modules.
@@ -1757,6 +1748,16 @@ maybe an hiphop compile Error`);
           ws.send(JSON.stringify(msg));
           break;
 
+        case "startSimulator":
+          if (debug) console.log("Web Socket Server: start Simulator");
+          childSimulator = fork("./client/simulateurListe/simulateurFork.js");
+          var message = {
+            type : "START_SIMULATOR"
+          }
+          childSimulator.send(message);
+          updateSimulatorParameters(par);
+          break;
+
         case "stopAutomate":
           if (DAWTableReady) {
             //if (setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
@@ -1769,6 +1770,14 @@ maybe an hiphop compile Error`);
             }
             serv.broadcast(JSON.stringify(msg));
           }
+          break;
+        
+        case "stopSimulator":
+          if (debug1) console.log("Web Socket Server: stop Simulator");
+          var message = {
+            type : "STOP_SIMULATOR"
+          }
+          childSimulator.send(message);
           break;
 
         case "system": // Message converti en signal pour l'automate central

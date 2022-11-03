@@ -528,7 +528,7 @@ function setTickOnControler(tick) {
     if (socketControleur.readyState == 1) {
       socketControleur.send(JSON.stringify(message));
     } else {
-      console.log("ERR: groupecliensSons: informControleur: socketControleur;", socketControleur.readyState);
+      if(debug) console.log("ERR: groupecliensSons: informControleur: socketControleur not ready;", socketControleur.readyState);
     }
   }
 }

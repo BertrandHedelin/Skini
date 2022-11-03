@@ -405,6 +405,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -631,6 +639,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -669,6 +685,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -1083,6 +1107,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -1121,6 +1153,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -1535,6 +1575,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -1573,6 +1621,14 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       //
       //
       //
@@ -1987,6 +2043,14 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -2195,9 +2259,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap715016":"trap715016",
+              "trap26225":"trap26225",
               "%location":{},
-              "%tag":"trap715016"
+              "%tag":"trap26225"
             },
             hh.FORK(
               {
@@ -2405,7 +2469,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap715016":"trap715016",
+      		          "trap26225":"trap26225",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -2547,9 +2611,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap102834":"trap102834",
+                "trap390517":"trap390517",
                 "%location":{},
-                "%tag":"trap102834"
+                "%tag":"trap390517"
               },
               hh.FORK(
                 {
@@ -2701,7 +2765,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap102834":"trap102834",
+        		          "trap390517":"trap390517",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -2815,9 +2879,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap245688":"trap245688",
+                "trap659547":"trap659547",
                 "%location":{},
-                "%tag":"trap245688"
+                "%tag":"trap659547"
               },
               hh.FORK(
                 {
@@ -2969,7 +3033,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap245688":"trap245688",
+        		          "trap659547":"trap659547",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -3047,9 +3111,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap947621":"trap947621",
+              "trap151268":"trap151268",
               "%location":{},
-              "%tag":"trap947621"
+              "%tag":"trap151268"
             },
             hh.FORK(
               {
@@ -3257,7 +3321,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap947621":"trap947621",
+      		          "trap151268":"trap151268",
       		          "%location":{},
       		          "%tag":"break"
       		        }
