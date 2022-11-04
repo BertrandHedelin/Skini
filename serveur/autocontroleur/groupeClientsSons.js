@@ -658,12 +658,14 @@ function getSignalFromGroup(groupe) {
   if (debug) console.log("groupecliensSons.js : getSignalFromGroup : ", groupe);
 
   var ongoingGroupe = getOnGoingGroupeSons();
+  if (debug) console.log("groupecliensSons.js : ongoingGroupe : ", ongoingGroupe);
+
   for (var i = 0; i < ongoingGroupe.length; i++) {
     if (ongoingGroupe[i][1] == groupe) {
       return ongoingGroupe[i][0];
     }
   }
-  console.log("ERR: groupecliensSons : getSignalFromGroup : groupe inconnu :", groupe);
+  if (debug) console.log("ERR: groupecliensSons : getSignalFromGroup : groupe inconnu :", groupe);
   return -1;
 }
 exports.getSignalFromGroup = getSignalFromGroup;

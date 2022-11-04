@@ -360,8 +360,7 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
   for (var i = 0; i < patternSequence.length; i++) {
     var pattern = DAW.getPatternFromNote(patternSequence[i]);
     if (pattern === undefined) {
-      console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: pattern undefined");
-      continue;
+      if(debug) console.log("WARN: computeScore.js: evaluateSequenceOfPatterns: pattern undefined");
     }
     choix[i] = pattern;
   }
@@ -370,8 +369,10 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
   //Quel sont les instruments concernés ? On en fait une liste "lesInstruments" dans un tableau
   //à partir de choix
   for (var i = 0; i < choix.length; i++) {
-    if (!isInstrumentInTheList(choix[i][5], lesInstruments)) {
-      lesInstruments.push(choix[i][5]);
+    if (choix[i] !== undefined) {
+      if (!isInstrumentInTheList(choix[i][5], lesInstruments)) {
+        lesInstruments.push(choix[i][5]);
+      }
     }
   }
   if (debug) console.log("computeScore.js: evaluateSequenceOfPatterns: lesInstruments: ", lesInstruments);
@@ -381,12 +382,14 @@ function evaluateSequenceOfPatterns(patternSequence, preSequence, computeScorePo
     //Créer la liste des types et index de pattern pour un instrument
     var typesInstrEnCours = [];
     for (var j = 0; j < choix.length; j++) {
-      if (choix[j][5] === lesInstruments[i]) {
-        var element = {
-          type: choix[j][7],
-          index: choix[j][0]
+      if (choix[j] !== undefined) {
+        if (choix[j][5] === lesInstruments[i]) {
+          var element = {
+            type: choix[j][7],
+            index: choix[j][0]
+          }
+          typesInstrEnCours.push(element);
         }
-        typesInstrEnCours.push(element);
       }
     }
     // Calculer le score pour cet instrument et l'ajouter au total

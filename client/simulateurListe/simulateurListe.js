@@ -34,18 +34,13 @@ var debug1 = true;
 var tempoMax, tempoMin, limiteDureeAttente;
 var derniersPatternsJoues = [];
 var derniersInstrumentsJoue = [-1, -1, -1];
+var nbeInstruments = 100; // Attention c'est en dur...
 
-function getNbeDeGroupesSons() {
+function setTableDerniersPatterns() {
   var tablederniersPatterns = [];
   var tableVide = [-1, -1, -1];
-  var nbeDeGroupesSons = 0;
 
-  for (var i = 0; i < par.groupesDesSons.length; i++) {
-    if (nbeDeGroupesSons < par.groupesDesSons[i][1]) {
-      nbeDeGroupesSons = par.groupesDesSons[i][1];
-    }
-  }
-  for (var i = 0; i < nbeDeGroupesSons; i++) {
+  for (var i = 0; i < nbeInstruments; i++) {
     tablederniersPatterns.push(tableVide);
   }
   return tablederniersPatterns;
@@ -74,8 +69,8 @@ function initTempi() {
     console.log("tempoMin par défaut")
   }
 
-  derniersPatternsJoues = getNbeDeGroupesSons();
-  if (debug1) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
+  derniersPatternsJoues = setTableDerniersPatterns();
+  if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
 
   console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
@@ -214,7 +209,7 @@ function selectNextClip() {
 
   //Choisir un instrument au hasard, et pas toujours le même
   instrument = selectRandomInList(derniersInstrumentsJoue, listeInstruments);
-  if (debug) console.log("*** selectNextClip:instrument:", instrument, listClips);
+  if (debug1) console.log("*** selectNextClip:instrument:", instrument, derniersInstrumentsJoue);
   if (instrument === undefined) {
     console.log("ERR:selectNextClip:instrument undefined");
     return undefined;

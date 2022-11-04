@@ -831,6 +831,11 @@ function startWebSocketServer() {
       if (debug) console.log("-----webSocketServeur: playPattern: Pattern reçu:", pattern[0]);
 
       var signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
+
+      if(signal === "-1IN") {
+        console.log("WARN: websocketserveur: playPattern : no group declared :", groupe);
+        return;
+      }
       if (debug) console.log("webSocketServeur: playPattern, signal reçu:", pattern, signal);
 
       var legroupe = groupe; // groupe d'utilisateur

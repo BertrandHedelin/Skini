@@ -25,7 +25,7 @@
  */
 'use strict'
 
-var par ;
+var par;
 var ws;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
@@ -33,10 +33,23 @@ var debug = false;
 var debug1 = true;
 
 var tempoMax, tempoMin, limiteDureeAttente;
+var derniersPatternsJoues = [];
+var derniersInstrumentsJoue = [-1, -1, -1];
+var nbeInstruments = 100; // Attention c'est en dur...
+
+function setTableDerniersPatterns() {
+  var tablederniersPatterns = [];
+  var tableVide = [-1, -1, -1];
+
+  for (var i = 0; i < nbeInstruments; i++) {
+    tablederniersPatterns.push(tableVide);
+  }
+  return tablederniersPatterns;
+}
 
 function initTempi() {
 
-  if(par === undefined) {
+  if (par === undefined) {
     console.log("WARN simulator : launch the simulator after loading a piece");
     return;
   }
@@ -63,6 +76,9 @@ function initTempi() {
     console.log("tempoMin par défaut")
   }
 
+  derniersPatternsJoues = setTableDerniersPatterns();
+  if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
+
   console.log("INFO simulateur : Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
 
@@ -74,7 +90,6 @@ if (ipConfig.websocketServeurPort !== undefined) {
 
 if (debug) console.log("----------------------------------------------\n");
 if (debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
-
 
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
@@ -108,13 +123,6 @@ Table des commandes donnée par les listes de patterns
  11= réservé client, 12= pseudo
 
 **********************************************************************/
-var derniersPatternsJoues = [
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1]];
-
-var derniersInstrumentsJoue = [-1, -1, -1];
 
 function isInList(element, list) {
   for (var i = 0; i < list.length; i++) {
@@ -140,12 +148,12 @@ function selectRandomInList(memoire, liste) {
   var selection;
   var index;
 
-  if(liste === undefined){
+  if (liste === undefined) {
     console.log("INFO: simuateurFork: selectRandomInList: liste undefined");
     return undefined;
   }
-  
-  if(memoire === undefined){
+
+  if (memoire === undefined) {
     console.log("INFO: simuateurFork: selectRandomInList: memoire undefined");
     return undefined;
   }
@@ -238,8 +246,8 @@ WEBSOCKET AVEC NODE JS
 function initWSSocket(port) {
   var tempoInstantListClip = 0;
 
-  if(ws !== undefined){
-    if(debug1) console.log("INFO: simulateurFork.js: close the socket");
+  if (ws !== undefined) {
+    if (debug1) console.log("INFO: simulateurFork.js: close the socket");
     ws.close();
   }
 
@@ -429,7 +437,7 @@ function initWSSocket(port) {
   }
 
   ws.onclose = function (event) {
-    console.log( "INFO: simulateurFork.js : on CLOSE on WS");
+    console.log("INFO: simulateurFork.js : on CLOSE on WS");
     //setTimeout(function () { initWSSocket(port); }, 3000);
   }
 }
@@ -511,7 +519,7 @@ exports.startClip = startClip;
 process.on('message', (message) => {
   // This is necessary, I dont know why. Otherwise I have an erro on message in the switch
   // ReferenceError: Cannot access 'message' before initialization
-  var messageLocal = message; 
+  var messageLocal = message;
 
   if (debug) console.log("INFO: Simulator message : ", messageLocal);
 
