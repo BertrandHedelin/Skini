@@ -258,17 +258,13 @@ function initWSSocket(port) {
   if (jeSuisUneAudience) monIdentite = "sim";
 
   ws.onopen = function (event) {
-    console.log("simulateur.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
+    if(debug) console.log("INFO: simulateurFork.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
     msg.type = "startSpectateur";
     msg.text = monIdentite;
     msg.id = id;
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
 
     msg.type = "getNombreDePatternsPossibleEnListe";
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
   };
 
@@ -320,7 +316,7 @@ function initWSSocket(port) {
           console.log("SIMULATION INDEPENDANTE DE L'AUDIENCE");
           monGroupe = par.nbeDeGroupesClients - 1;
         }
-        if (debug1) console.log("Simulator in group:", monGroupe, "pseudo:", pseudo);
+        if (debug1) console.log("INFO: Simulator in group:", monGroupe, "pseudo:", pseudo);
         actionSurDAWON();
         break;
 
@@ -411,7 +407,7 @@ function initWSSocket(port) {
             }
           }
         }
-        if (debug1) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
+        if (debug) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
         break;
 
       case "patternSequenceAck":

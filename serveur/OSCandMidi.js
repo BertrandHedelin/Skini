@@ -25,7 +25,7 @@ var dgram = require("dgram");
 var udp = dgram.createSocket("udp4");
 
 // Pour permettre le broadcast depuis node.js
-udp.bind(function() { udp.setBroadcast(true); });
+udp.bind(function () { udp.setBroadcast(true); });
 
 // Appelé à la fois par setParameters et reloadParameters dans websocketServer.js
 // donc attention à startOSCandMIDI() et les variables globales.
@@ -73,15 +73,14 @@ function startOSCandMIDI() {
         if (midiConfig[i].spec === "clipToDAW") {
           for (var j = 0; j < midiOutput.getPortCount(); ++j) {
             if (midiOutput.getPortName(j) === midiConfig[i].name) {
-              if (debug) console.log("getMidiPortForClipToDAW: Midi" +
+              if (debug1) console.log("INFO: OSCandMIDI: getMidiPortForClipToDAW: Midi" +
                 midiConfig[i].type + ", usage:" + midiConfig[i].spec +
-                ", bus: " + midiConfig[i].name + ", " + midiConfig[i].comment);
+                ", bus: " + midiOutput.getPortName(j) + ", " + midiConfig[i].comment);
               return j;
             }
           }
         }
       }
-      console.log("ERR: getPortForClipToDAW: no Midi port for controlling the DAW");
       return -1;
     }
   }
@@ -91,8 +90,19 @@ function startOSCandMIDI() {
    */
   function initMidiOUT() {
     midiPortClipToDAW = getMidiPortForClipToDAW();
+
+    if (midiPortClipToDAW === -1) {
+      console.log("------------------------------------------------------")
+      console.log("ERR: initMidiOUT: no Midi port for controlling the DAW");
+      for (var j = 0; j < midiOutput.getPortCount(); ++j) {
+          console.log("INFO: initMidiOUT: Midi port available :" + midiOutput.getPortName(j));
+      }
+      console.log("------------------------------------------------------")
+      return;
+    }
+
     midiOutput.openPort(midiPortClipToDAW);
-    if (debug1) console.log("OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
+    if (debug1) console.log("INFO: OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
   }
   exports.initMidiOUT = initMidiOUT;
 
@@ -266,7 +276,7 @@ exports.sendSceneLumiere = sendSceneLumiere;
 function sendOSCGame(message, value) { // Value = table des données 
   var buf;
   var commandeOSC = "/" + message;
-  if (debug) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value + " : " + ipConfig.portOSCToGame  + " : " + ipConfig.remoteIPAddressGame);
+  if (debug) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value + " : " + ipConfig.portOSCToGame + " : " + ipConfig.remoteIPAddressGame);
   buf = osc.toBuffer({ address: commandeOSC, args: [value] });
   return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAddressGame);
 };
