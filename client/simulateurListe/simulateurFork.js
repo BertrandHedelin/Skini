@@ -345,7 +345,13 @@ function initWSSocket(port) {
 
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
-          tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
+          if(tempoMax === tempoMin) {
+            console.log("WARN: tempoMin and tempoMax must no be equal");
+            tempoInstantListClip = 10;
+          }
+          else {
+            tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
+          }
           if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
           if (DAWON) setTimeout(function () {
             selectListClips();

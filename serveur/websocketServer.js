@@ -629,10 +629,11 @@ function startWebSocketServer() {
       if (socketControleur.readyState == 1) {
         socketControleur.send(JSON.stringify(mesReponse));
       } else {
-        console.log("ERR: websocketserveur:initMatriceDesPossibles:", socketControleur.readyState);
+        if(debug) console.log("WARN: websocketserveur:initMatriceDesPossibles: socketControler status:", socketControleur.readyState);
       }
     }
   }
+  
   /**
    * Action called every quarter note of the MIDI synchro or worker synchro if no MIDI sync.
    * @memberof Websocketserver

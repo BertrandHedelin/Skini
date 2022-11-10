@@ -991,7 +991,7 @@ function makeSignalsListeners(machine) {
           if (socketControleur.readyState == 1) {
             socketControleur.send(JSON.stringify(message));
           } else {
-            console.log("ERR: groupecliensSons:socketControleur automate:problème:", socketControleur.readyState);
+            if(debug) console.log("WARN: groupecliensSons:socketControleur: status:", socketControleur.readyState);
           }
         }
         // Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
@@ -1001,8 +1001,6 @@ function makeSignalsListeners(machine) {
           value: messageScrut
         }
         serv.broadcast(JSON.stringify(msg));
-        //hop.broadcast("setInMatriceDesPossibles", messageScrut);
-
         messageLog.type = "signal";
         messageLog.value = evt.type;
         logInfoAutomate(messageLog);
