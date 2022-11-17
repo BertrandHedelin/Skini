@@ -13,3 +13,4 @@ tests/**
 pieces/**
 .vs/**
 .vscode/**
+.gitignore
