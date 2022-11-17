@@ -593,7 +593,7 @@ function startWebSocketServer() {
   }
 
   // Pas au bon endroit, musicien pas en place dans cette version
-  //if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {
+  //if (par.avecMusicien !== undefined && par.decalageFIFOavecMusicien !== undefined) {p.
   //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
   //}
 
@@ -633,7 +633,7 @@ function startWebSocketServer() {
       }
     }
   }
-  
+
   /**
    * Action called every quarter note of the MIDI synchro or worker synchro if no MIDI sync.
    * @memberof Websocketserver
@@ -725,7 +725,7 @@ function startWebSocketServer() {
     }
 
     // Pour informer que l'on est bien connecté
-    if (debug1) console.log("INFO: Web Socket Server: connection established:");
+    if (debug) console.log("INFO: Web Socket Server: a connection established");
     var msg = {
       type: "message",
       value: "Bienvenue chez Skini !"
@@ -1316,7 +1316,7 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          if (debug1) console.log("loadSession:", sessionPath + msgRecu.fileName);
+          if (debug1) console.log("INFO: loadSession:", sessionPath + msgRecu.fileName);
           sessionFile = sessionPath + msgRecu.fileName;
 
           try {
@@ -1659,7 +1659,7 @@ maybe an hiphop compile Error`);
           }
 
           ws.id = msgRecu.id;
-          if (debug1) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
+          if (debug) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 
           // On ne permet donc qu'un seul controleur.
           // Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.

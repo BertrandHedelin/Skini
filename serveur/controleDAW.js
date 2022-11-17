@@ -465,8 +465,6 @@ function displayQueues() {
     value: file
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('etatDeLaFileAttente', file);
-
   if (debug) console.log("controleDAW: displayQueue: ", msg);
 
   // Pour les musiciens
@@ -475,7 +473,6 @@ function displayQueues() {
     value: filesDattente
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('lesFilesDattente', filesDattente);
 }
 exports.displayQueues = displayQueues;
 
@@ -614,8 +611,6 @@ function playAndShiftEventDAW(timerDivision) {
             value: commandeDAW
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('infoPlayDAW', commandeDAW );
-
           if (debug) console.log("controleDAW:playAndShiftEventDAW: broadcast commandeDAW", commandeDAW);
 
           //Met à jour l'attente quand on a joué le pattern.
@@ -685,7 +680,6 @@ function cleanQueues() {
     value: filesDattente
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('cleanQueues', 255);
 }
 exports.cleanQueues = cleanQueues;
 
@@ -721,7 +715,6 @@ function cleanQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('cleanQueues', instrument);
 }
 exports.cleanQueue = cleanQueue;
 
@@ -747,7 +740,6 @@ function pauseQueues() {
     instrument: 255
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('pauseQueues', 255);
 }
 exports.pauseQueues = pauseQueues;
 
@@ -771,7 +763,6 @@ function resumeQueues() {
     instrument: 255
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('resumeQueues', 255);
 }
 exports.resumeQueues = resumeQueues;
 
@@ -794,8 +785,6 @@ function pauseQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  // Avec l'instrument concerné
-  //hop.broadcast('pauseOneQueue', instrument);
 }
 exports.pauseQueue = pauseQueue;
 
@@ -817,7 +806,6 @@ function resumeQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('resumeOneQueue', instrument);
 }
 exports.resumeQueue = resumeQueue;
 
@@ -852,8 +840,9 @@ function getAllClips(groupeDeClients, matriceDesPossibles) {
     return -1;
   }
 
+  // Happen if we call this function before loading the "matriceDesPossibles"
   if (matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {
-    console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
+    if (debug) console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
     return -1;
   }
 

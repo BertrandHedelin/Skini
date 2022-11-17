@@ -120,7 +120,7 @@ function midimix(machineServeur) {
         if(!linkReadyTostart){
           if(instantPhase === 100){
             linkReadyTostart = true;
-            if(debug1) console.log("midimix:link startup:now ready");
+            if(debug1) console.log("INFO: midimix: link ready");
           }
           return;
         }

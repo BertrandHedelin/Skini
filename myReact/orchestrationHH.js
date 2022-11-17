@@ -120,7 +120,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 
 function setSignals(){
   var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
-  console.log("Number of nets in Orchestration:",machine.nets.length);
+  console.log("INFO: Number of nets in Orchestration:",machine.nets.length);
   return machine;
 }
 exports.setSignals = setSignals;
@@ -217,6 +217,9 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
       //
       //
       //
@@ -649,6 +652,9 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -687,6 +693,9 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
       //
       //
       //
@@ -1119,6 +1128,9 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -1157,6 +1169,9 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
       //
       //
       //
@@ -1589,6 +1604,9 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -1627,6 +1645,9 @@ exports.setSignals = setSignals;
       // 64 -> 0
       // 70 -> +1
       // 75 -> +2
+      //
+      //
+      //
       //
       //
       //
@@ -2059,6 +2080,9 @@ exports.setSignals = setSignals;
       //
       //
       //
+      //
+      //
+      //
 
       hh.ATOM(
         {
@@ -2267,9 +2291,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap474020":"trap474020",
+              "trap853458":"trap853458",
               "%location":{},
-              "%tag":"trap474020"
+              "%tag":"trap853458"
             },
             hh.FORK(
               {
@@ -2477,7 +2501,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap474020":"trap474020",
+      		          "trap853458":"trap853458",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -2619,9 +2643,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap29377":"trap29377",
+                "trap487781":"trap487781",
                 "%location":{},
-                "%tag":"trap29377"
+                "%tag":"trap487781"
               },
               hh.FORK(
                 {
@@ -2773,7 +2797,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap29377":"trap29377",
+        		          "trap487781":"trap487781",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -2887,9 +2911,9 @@ var orchestration = hh.MODULE(
 
             hh.TRAP(
               {
-                "trap91188":"trap91188",
+                "trap21583":"trap21583",
                 "%location":{},
-                "%tag":"trap91188"
+                "%tag":"trap21583"
               },
               hh.FORK(
                 {
@@ -3041,7 +3065,7 @@ var orchestration = hh.MODULE(
         	        ),
         	        hh.EXIT(
         		        {
-        		          "trap91188":"trap91188",
+        		          "trap21583":"trap21583",
         		          "%location":{},
         		          "%tag":"break"
         		        }
@@ -3119,9 +3143,9 @@ var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap783386":"trap783386",
+              "trap558822":"trap558822",
               "%location":{},
-              "%tag":"trap783386"
+              "%tag":"trap558822"
             },
             hh.FORK(
               {
@@ -3329,7 +3353,7 @@ var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap783386":"trap783386",
+      		          "trap558822":"trap558822",
       		          "%location":{},
       		          "%tag":"break"
       		        }
