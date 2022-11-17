@@ -29,4 +29,3 @@ Documentation
 * [User manual](https://github.com/BertrandHedelin/Skini/blob/master/doc/User%20Manual%20Skini%20Node.pdf)
 * [Tutorials on Skini programmings](https://github.com/BertrandHedelin/Skini/blob/master/doc/Tuto%20Skini.pdf)
 
-(The documentation in english is not up completely to date)
