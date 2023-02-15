@@ -846,7 +846,7 @@
                   <block type="set_timer_division" id="-ii47u3tHIW,4qQ+x2eB">
                     <field name="timer">1</field>
                     <next>
-                      <block type="hh_sequence" id="hoV0~,:@Pu,Ktu:_lMe:" collapsed="true" disabled="true">
+                      <block type="hh_sequence" id="hoV0~,:@Pu,Ktu:_lMe:">
                         <statement name="BODY">
                           <block type="set_tempo" id="go)NpW|w,)M5L0kBIJdt">
                             <field name="tempo">60</field>
@@ -893,7 +893,7 @@
                                                       </block>
                                                     </value>
                                                     <next>
-                                                      <block type="hh_sequence" id="Nr!Gq(~;FtR3sP}Tp2U(" collapsed="true" disabled="true">
+                                                      <block type="hh_sequence" id="Nr!Gq(~;FtR3sP}Tp2U(" collapsed="true">
                                                         <statement name="BODY">
                                                           <block type="putPatternInQueue" id="GK$a9*XbNgoaorP9a?{g">
                                                             <value name="message">
@@ -1040,7 +1040,7 @@
                                                         </statement>
                                                         <next>
                                                           <block type="hh_wait_for" id="WjN#K.D==fEdy?sP{r|#">
-                                                            <field name="TIMES">47</field>
+                                                            <field name="TIMES">20</field>
                                                             <value name="SIGNAL">
                                                               <block type="variables_get" id="flb+xK*_yG:Zlp1sZ]K1">
                                                                 <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
@@ -1416,7 +1416,7 @@
                                                         </value>
                                                         <next>
                                                           <block type="hh_wait_for" id="Z,p4V/t;QCL5;?ha~Ow^">
-                                                            <field name="TIMES">32</field>
+                                                            <field name="TIMES">16</field>
                                                             <value name="SIGNAL">
                                                               <block type="variables_get" id="Y}{}_@,dN!HZ^_[4_M:?">
                                                                 <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
@@ -1433,7 +1433,7 @@
                                                                     </value>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="BSw}Vf{ICqK,Xli[++az">
-                                                                        <field name="TIMES">32</field>
+                                                                        <field name="TIMES">16</field>
                                                                         <value name="SIGNAL">
                                                                           <block type="variables_get" id="=YN{B^~|Lq9TbnKcRa|F">
                                                                             <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
@@ -1448,7 +1448,7 @@
                                                                             </value>
                                                                             <next>
                                                                               <block type="hh_wait_for" id="rLTd._w,4l`^gq;jy~qW">
-                                                                                <field name="TIMES">32</field>
+                                                                                <field name="TIMES">16</field>
                                                                                 <value name="SIGNAL">
                                                                                   <block type="variables_get" id="b_V=EMEqbB:btZGdhiee">
                                                                                     <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
@@ -1463,7 +1463,7 @@
                                                                                     </value>
                                                                                     <next>
                                                                                       <block type="hh_wait_for" id="xp^]^X.}{dE~=zcmyhD7">
-                                                                                        <field name="TIMES">32</field>
+                                                                                        <field name="TIMES">16</field>
                                                                                         <value name="SIGNAL">
                                                                                           <block type="variables_get" id="H!~P6zC=Tn2t?lL`HV$I">
                                                                                             <field name="VAR" id="P3mL^3MPz2ftQ}?0@Nw=">tick</field>
@@ -1522,7 +1522,7 @@
                                           </block>
                                         </statement>
                                         <next>
-                                          <block type="hh_fork" id="{Zn1Y%y-TYxtWm4c6{9o">
+                                          <block type="hh_fork" id="{Zn1Y%y-TYxtWm4c6{9o" collapsed="true" disabled="true">
                                             <statement name="BODY">
                                               <block type="set_tempo" id="@L(5V}y`MJsEva@Rpdx7">
                                                 <field name="tempo">150</field>
@@ -1665,7 +1665,7 @@
                                                             <statement name="BODY">
                                                               <block type="set_group_during_ticks" id="sRRov4%G{ofQ6X,4DaJm">
                                                                 <field name="user_group">255</field>
-                                                                <field name="number_of_ticks">44</field>
+                                                                <field name="number_of_ticks">22</field>
                                                                 <value name="GROUPS">
                                                                   <block type="variables_get" id="v8!~(rPMk[[OHXhu+zt8">
                                                                     <field name="VAR" id="!~hc~KOi{VP%9xBQW9/#">groupeVoix0</field>
@@ -1691,7 +1691,7 @@
                                                                     <next>
                                                                       <block type="set_group_during_ticks" id="5^gYCkdHM7:kaDeZsGb^">
                                                                         <field name="user_group">255</field>
-                                                                        <field name="number_of_ticks">44</field>
+                                                                        <field name="number_of_ticks">22</field>
                                                                         <value name="GROUPS">
                                                                           <block type="variables_get" id="`Rz-8g!,t,yV8c970;p!">
                                                                             <field name="VAR" id="YwMUTtwG`*cNe;UkbMA[">groupeVoix1</field>
@@ -1719,7 +1719,7 @@
                                                                         <next>
                                                                           <block type="set_group_during_ticks" id="$n1u5=Cdsng_D}Q.Qr}E">
                                                                             <field name="user_group">255</field>
-                                                                            <field name="number_of_ticks">44</field>
+                                                                            <field name="number_of_ticks">22</field>
                                                                             <value name="GROUPS">
                                                                               <block type="variables_get" id=":9*:kjl9#)S`2$0I5zXl">
                                                                                 <field name="VAR" id="g$|A,!bfhCV%[xsf|Pt4">groupeVoix2</field>
@@ -1747,7 +1747,7 @@
                                                                             <next>
                                                                               <block type="set_group_during_ticks" id=";^6,T|hy+t{j1v0_$Wot">
                                                                                 <field name="user_group">255</field>
-                                                                                <field name="number_of_ticks">44</field>
+                                                                                <field name="number_of_ticks">22</field>
                                                                                 <value name="GROUPS">
                                                                                   <block type="variables_get" id="V)^hq)%hO,X?8%lK^u0h">
                                                                                     <field name="VAR" id=")Li9-C;q^YCQQvsbyu8k">groupeVoix3</field>
@@ -2152,7 +2152,7 @@
                                                                                       </block>
                                                                                     </statement>
                                                                                     <next>
-                                                                                      <block type="hh_run" id="v/a4[vI([)k6~|zZu8%B" disabled="true">
+                                                                                      <block type="hh_run" id="v/a4[vI([)k6~|zZu8%B">
                                                                                         <value name="MODULE">
                                                                                           <block type="variables_get" id="GA~n[{Wagim6}^,o[sm(">
                                                                                             <field name="VAR" id="Oj]xsnzt[6C/Nv/^BZw9">KaracabaMod</field>

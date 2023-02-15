@@ -697,7 +697,7 @@ function cleanQueue(instrument) {
   }
 
   if (filesDattente[instrument] === undefined) {
-    console.log("ERR: controleAbleton.js: cleanQueue d'un instrument inexistant.");
+    console.log("ERR: controleDAW.js: cleanQueue d'un instrument inexistant: ", instrument);
     return;
   }
 

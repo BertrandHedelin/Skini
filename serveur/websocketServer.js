@@ -1826,10 +1826,10 @@ maybe an hiphop compile Error`);
             if (err) {
               return console.log(err);
             }
-            if (debug) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
+            if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
           });
 
-          if (debug) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
+          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
             reloadParameters(msgRecu.data);

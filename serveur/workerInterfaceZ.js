@@ -72,7 +72,7 @@ parentPort.onmessage = function (mess) {
       tempoSensorsInit = mess.data[6];
       sensorsSensibilities = mess.data[7];
 
-      if (debug) console.log('INFO: workerInterfaceZ: receive message: Start Worker startInterfaceZ',
+      if (debug1) console.log('INFO: workerInterfaceZ: receive message: Start Worker startInterfaceZ',
         serverAddress, interfaceZAddress, dataPort, midiPort, interfaceZMidiPort,
         tempoSensorsInit, sensorsSensibilities);
 

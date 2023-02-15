@@ -24,8 +24,8 @@ Most of the history and functionnalities of Skini are described at www.hedelin.f
 Documentation
 -------------
 
-* [installing the application](https://github.com/BertrandHedelin/Skini/blob/master/doc/quickstart.pdf)
-* [Mode d'emploi Skini Node](https://github.com/BertrandHedelin/Skini/blob/master/doc/Mode%20d'emploi%20Skini%20Node.pdf) a description and user's manuel of Skini in French
-* [User manual](https://github.com/BertrandHedelin/Skini/blob/master/doc/User%20Manual%20Skini%20Node.pdf)
+* [Installing the application](https://github.com/BertrandHedelin/Skini/blob/master/doc/quickstart.pdf)
+* [Skini User manual](https://github.com/BertrandHedelin/Skini/blob/master/doc/User%20Manual%20Skini%20Node.pdf)
+* [Mode d'emploi Skini](https://github.com/BertrandHedelin/Skini/blob/master/doc/Mode%20d'emploi%20Skini%20Node.pdf)
 * [Tutorials on Skini programmings](https://github.com/BertrandHedelin/Skini/blob/master/doc/Tuto%20Skini.pdf)
-
+* [jsdoc development documentation](https://github.com/BertrandHedelin/Skini/blob/master/jsdoc/index.html)
