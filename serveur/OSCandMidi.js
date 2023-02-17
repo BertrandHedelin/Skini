@@ -300,18 +300,18 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
     defaultLevel = level;
   }
 
-  // Pour le moment en deux commandes une de niveau et une de jouer le buffer
+/*   // Pour le moment en deux commandes une de niveau et une de jouer le buffer
   if (debug1) console.log("OSCandMidi: play osc to Rapsberry :"
     + IPaddress + " : " + commandeLevel + " : " + level + " : " + level + ":" + duration);
   buf = osc.toBuffer({
     address: commandeLevel,
     args: [
       { type: 'integer', value: parseInt(level) },
-      { type: 'integer', value: duration },
-      { type: 'integer', value: 120 },
+      //{ type: 'integer', value: duration },
+      //{ type: 'integer', value: 120 },
     ]
   });
-  udp.send(buf, 0, buf.length, port, IPaddress);
+  udp.send(buf, 0, buf.length, port, IPaddress); */
 
   if (debug1) console.log("OSCandMidi: play osc to Rapsberry :"
     + IPaddress + " : " + commandeOSC + " : " + bufferNum + " : " + level);
@@ -319,8 +319,7 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
     address: commandeOSC,
     args: [
       { type: 'integer', value: parseInt(bufferNum) },
-      { type: 'integer', value: duration },
-      { type: 'integer', value: 120 },
+      { type: 'integer', value: level }
     ]
   });
   return udp.send(buf, 0, buf.length, port, IPaddress);
@@ -328,7 +327,7 @@ function playOSCRasp(message, bufferNum, port, IPaddress, level, duration) {
 exports.playOSCRasp = playOSCRasp;
 
 /**
- * To send OSC message to a Raspberry
+ * To send a short OSC message with one parameter to a Raspberry
  * @param {string} message
  * @param {number} value
  * @param {number} Udp port
@@ -343,9 +342,7 @@ function sendOSCRasp(message, value1, port, IPaddress) {
   buf = osc.toBuffer({
     address: commandeOSC,
     args: [
-      { type: 'integer', value: parseInt(value1) },
-      { type: 'integer', value: 4 },
-      { type: 'integer', value: 120 },
+      { type: 'integer', value: parseInt(value1) }
     ]
   });
   return udp.send(buf, 0, buf.length, port, IPaddress);
