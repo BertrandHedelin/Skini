@@ -162,7 +162,7 @@ function midimix(machineServeur) {
 
   if (debug) console.log("========= directMidi dans midimix:", directMidi);
 
-  if (directMidi) {
+  if (directMidi && midiConfig[0] !== undefined ) {
     // Le require est fait ici car on doit pouvoir fonctionner en OSC sans MIDI du tout
     // midi-node est dépendant de l'OS. Il faut installer le bon npm.
     var midi = require('midi');

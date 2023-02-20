@@ -514,7 +514,8 @@ function playAndShiftEventDAW(timerDivision) {
     if (debug) console.log("--- ControleDAW.js:FIFO", i, " length:", filesDattente[i].length);
 
     if (debug) console.log("---0 ControleDAW.js:compteursDattente:", i, ":", compteursDattente[i]);
-    // file d'attente = [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
+    // file d'attente = [bus(0), channel(1), note(2), velocity(3), wsid(4),
+    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12)]
     // Si la file n'est pas vide
     if (filesDattente[i] !== undefined) {
       if (filesDattente[i].length !== 0) {

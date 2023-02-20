@@ -27,6 +27,7 @@ var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
 var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
+var midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
 const { stringify } = require('querystring');
@@ -199,6 +200,12 @@ var currentTimeMidi = 0;
  * Init MIDI OUT port if defined in the parameters
  */
 function initMidiPort() {
+
+  // Check the midi config before doing something
+  if (midiConfig[0] === undefined) {
+    return;
+  }
+
   if (par !== undefined) {
     var directMidi = false;
     if (par.directMidiON !== undefined) {
@@ -629,7 +636,7 @@ function startWebSocketServer() {
       if (socketControleur.readyState == 1) {
         socketControleur.send(JSON.stringify(mesReponse));
       } else {
-        if(debug) console.log("WARN: websocketserveur:initMatriceDesPossibles: socketControler status:", socketControleur.readyState);
+        if (debug) console.log("WARN: websocketserveur:initMatriceDesPossibles: socketControler status:", socketControleur.readyState);
       }
     }
   }
@@ -833,7 +840,7 @@ function startWebSocketServer() {
 
       var signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
 
-      if(signal === "-1IN") {
+      if (signal === "-1IN") {
         console.log("WARN: websocketserveur: playPattern : no group declared :", groupe);
         return;
       }
@@ -1758,7 +1765,7 @@ maybe an hiphop compile Error`);
           if (debug) console.log("Web Socket Server: start Simulator");
           childSimulator = fork("./client/simulateurListe/simulateurFork.js");
           var message = {
-            type : "START_SIMULATOR"
+            type: "START_SIMULATOR"
           }
           childSimulator.send(message);
           updateSimulatorParameters(par);
@@ -1777,11 +1784,11 @@ maybe an hiphop compile Error`);
             serv.broadcast(JSON.stringify(msg));
           }
           break;
-        
+
         case "stopSimulator":
           if (debug) console.log("INFO: Web Socket Server: stop Simulator");
           var message = {
-            type : "STOP_SIMULATOR"
+            type: "STOP_SIMULATOR"
           }
           childSimulator.send(message);
           break;

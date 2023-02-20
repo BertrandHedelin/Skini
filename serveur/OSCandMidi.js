@@ -59,8 +59,14 @@ function startOSCandMIDI() {
   }
   if (directMidi) {
     if (debug) console.log("OSCandMidi: commande MIDI depuis Skini");
-    var midi = require('midi');
+
     var midiConfig = require("./midiConfig.json");
+    if(midiConfig[0] === undefined ){
+      console.log("WARN: Midi direct is ON, but no midi interfaces are declared in midiConfig.json");
+      return -1;
+    }
+
+    var midi = require('midi');
 
     // Il ne faut pas recréer midiOutput, mais ceci sera à revoir
     // si on veut changer de configuration Midi en cours de session
