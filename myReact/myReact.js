@@ -11,11 +11,11 @@
  réactive utiles pour Skini.
  Il ne s'agit pas d'un compilateur Estérel ni HipHop (loin de là).
 	
- On utilise la notion de signaux et la notion de réaction.
+ On utilise la notion de signal et la notion de réaction.
 
  Un programme ou une branche de programme sont des tableaux d'objets 'instructions'
  qui sont exécutées en séquence.
- Une 'instruction' peuvent inclure
+ Une 'instruction' peut inclure
  d'autres branches d'instructions comme par, seq ou abort.
 
  L'exécution du programme consiste à dérouler les branches.

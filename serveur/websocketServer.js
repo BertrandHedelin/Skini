@@ -90,7 +90,11 @@ function updateSimulatorParameters(param) {
       type: "PARAMETERS",
       data: param
     }
-    childSimulator.send(message);
+    try {
+      childSimulator.send(message);
+    } catch(err){
+      console.log("ERR: websocketserver: updateSimulatorParameters:", err);
+    }
   } else {
     if (debug1) console.log("INFO: websocketServer: updateSimulatorParameters :No Fork Simulator");
   }

@@ -47,8 +47,6 @@ exports.pulsationON = false;
 
 /*************************************
 CHEMIN DES FICHIERS SONS MP3 pour les clients
-Le choix se fait sur le client en fonction d'abletonON donc 
-de la pièce choisie dans la contrôleur.
 Nom du sous répartoire ./sounds/xxxx
 *************************************/
 exports.soundFilesPath1 = "";

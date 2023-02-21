@@ -1,4 +1,4 @@
-var cleanZone1, sensor0, cleanZone2, sensor2, cleanZone3, cleanZone4, zone1, tick, zone2, zone3, zone4;
+var timer, tick, groupe1, groupe3, groupe2, djembe, piano, groupe5, gaszi, groupe7, groupe6, groupe4;
 
 
 
@@ -126,218 +126,201 @@ function setSignals(){
 exports.setSignals = setSignals;
 
 
-  cleanZone1 = hh.MODULE({"id":"cleanZone1","%location":{},"%tag":"module"},
+  timer = hh.MODULE({"id":"timer","%location":{},"%tag":"module"},
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"IN",
+        "name":"tick"
+      }),
 
 
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(1);
-              }
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'Still 10s to play'
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(2);
-              }
+            serveur.broadcast(JSON.stringify(msg));
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(3);
-              }
-            }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(4);
-              }
-            }
-          ),
-
+          }
       ),
 
-  );
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 4;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
 
-  cleanZone2 = hh.MODULE({"id":"cleanZone2","%location":{},"%tag":"module"},
-
-
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(5);
-              }
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'8s to play'
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(6);
-              }
+            serveur.broadcast(JSON.stringify(msg));
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(7);
-              }
-            }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(8);
-              }
-            }
-          ),
-
+          }
       ),
 
-  );
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 4;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
 
-  cleanZone3 = hh.MODULE({"id":"cleanZone3","%location":{},"%tag":"module"},
-
-
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(9);
-              }
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'6s to play'
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(10);
-              }
+            serveur.broadcast(JSON.stringify(msg));
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(11);
-              }
-            }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(12);
-              }
-            }
-          ),
-
+          }
       ),
 
-  );
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 4;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
 
-  cleanZone4 = hh.MODULE({"id":"cleanZone4","%location":{},"%tag":"module"},
-
-
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
-
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(13);
-              }
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'4s to play'
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(14);
-              }
+            serveur.broadcast(JSON.stringify(msg));
             }
-          ),
+          }
+      ),
 
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(15);
-              }
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 4;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'2s to play'
             }
-          ),
-
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                DAW.cleanQueue(16);
-              }
+            serveur.broadcast(JSON.stringify(msg));
             }
-          ),
+          }
+      ),
 
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 4;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreOFF',
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
+          }
       ),
 
   );
@@ -360,18 +343,6 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
-
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"sensor0"
-    }),
-
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"sensor2"
-    }),
 
   hh.LOOP(
     {
@@ -425,16 +396,8 @@ var orchestration = hh.MODULE(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('moduleIZ');}
-    }
-  ),
-
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
       "apply":function () {
-        setTempo(80);
+        gcs.setTimerDivision(1);
       }
     }
   ),
@@ -444,7 +407,7 @@ var orchestration = hh.MODULE(
       "%location":{},
       "%tag":"node",
       "apply":function () {
-        gcs.setTimerDivision(1);
+        setTempo(110);
       }
     }
   ),
@@ -469,1355 +432,11 @@ var orchestration = hh.MODULE(
       }
     ),
 
-        hh.SEQUENCE(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
-            },
-
-
-        hh.TRAP(
-          {
-            "trap943278":"trap943278",
-            "%location":{},
-            "%tag":"trap943278"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-            hh.SEQUENCE( // sequence 1
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "zone1OUT":"zone1OUT",
-                "apply":function (){
-                  return ((() => {
-                    const zone1OUT = this["zone1OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"zone1OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," zone1", true);
-                }
-    		      }
-    		 	  ),
-
-          	), // fin sequence 1
-        	hh.SEQUENCE(
-    	        {
-    	          "%location":{},
-    	          "%tag":"seq"
-    	        },
-    	        hh.AWAIT(
-    	            {
-    	              "%location":{},
-    	              "%tag":"await",
-    	              "immediate":false,
-    	              "apply":function (){return ((() => {
-    	                const tick =this["tick"];
-    	                return tick.now;})());},
-    	              "countapply":function (){return 24;}
-    	          },
-    	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-    	        ),
-
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "zone1OUT":"zone1OUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const zone1OUT = this["zone1OUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"zone1OUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone1", false); }
-    		      }
-    		 	),
-
-    	        hh.PAUSE(
-    	          {
-    	            "%location":{},
-    	            "%tag":"yield"
-    	          }
-    	        ),
-    	        hh.EXIT(
-    		        {
-    		          "trap943278":"trap943278",
-    		          "%location":{},
-    		          "%tag":"break"
-    		        }
-    	        ), // Exit
-    	      ) // sequence
-        	), // fork
-      	), // trap
-    	hh.PAUSE(
-    	    {
-    	      "%location":{},
-    	      "%tag":"yield"
-    	    }
-    	),
-
-    hh.RUN({
-      "%location":{},
-      "%tag":"run",
-      "module": hh.getModule(  "cleanZone1", {}),
-      "''":"",
-
-    }),
-
-    ),
-
-        hh.SEQUENCE(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
-            },
-
-
-        hh.TRAP(
-          {
-            "trap23738":"trap23738",
-            "%location":{},
-            "%tag":"trap23738"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-            hh.SEQUENCE( // sequence 1
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "zone2OUT":"zone2OUT",
-                "apply":function (){
-                  return ((() => {
-                    const zone2OUT = this["zone2OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"zone2OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," zone2", true);
-                }
-    		      }
-    		 	  ),
-
-          	), // fin sequence 1
-        	hh.SEQUENCE(
-    	        {
-    	          "%location":{},
-    	          "%tag":"seq"
-    	        },
-    	        hh.AWAIT(
-    	            {
-    	              "%location":{},
-    	              "%tag":"await",
-    	              "immediate":false,
-    	              "apply":function (){return ((() => {
-    	                const tick =this["tick"];
-    	                return tick.now;})());},
-    	              "countapply":function (){return 24;}
-    	          },
-    	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-    	        ),
-
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "zone2OUT":"zone2OUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const zone2OUT = this["zone2OUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"zone2OUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone2", false); }
-    		      }
-    		 	),
-
-    	        hh.PAUSE(
-    	          {
-    	            "%location":{},
-    	            "%tag":"yield"
-    	          }
-    	        ),
-    	        hh.EXIT(
-    		        {
-    		          "trap23738":"trap23738",
-    		          "%location":{},
-    		          "%tag":"break"
-    		        }
-    	        ), // Exit
-    	      ) // sequence
-        	), // fork
-      	), // trap
-    	hh.PAUSE(
-    	    {
-    	      "%location":{},
-    	      "%tag":"yield"
-    	    }
-    	),
-
-    hh.RUN({
-      "%location":{},
-      "%tag":"run",
-      "module": hh.getModule(  "cleanZone2", {}),
-      "''":"",
-
-    }),
-
-    ),
-
-        hh.SEQUENCE(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
-            },
-
-
-        hh.TRAP(
-          {
-            "trap755611":"trap755611",
-            "%location":{},
-            "%tag":"trap755611"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-            hh.SEQUENCE( // sequence 1
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "zone3OUT":"zone3OUT",
-                "apply":function (){
-                  return ((() => {
-                    const zone3OUT = this["zone3OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"zone3OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," zone3", true);
-                }
-    		      }
-    		 	  ),
-
-          	), // fin sequence 1
-        	hh.SEQUENCE(
-    	        {
-    	          "%location":{},
-    	          "%tag":"seq"
-    	        },
-    	        hh.AWAIT(
-    	            {
-    	              "%location":{},
-    	              "%tag":"await",
-    	              "immediate":false,
-    	              "apply":function (){return ((() => {
-    	                const tick =this["tick"];
-    	                return tick.now;})());},
-    	              "countapply":function (){return 24;}
-    	          },
-    	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-    	        ),
-
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "zone3OUT":"zone3OUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const zone3OUT = this["zone3OUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"zone3OUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone3", false); }
-    		      }
-    		 	),
-
-    	        hh.PAUSE(
-    	          {
-    	            "%location":{},
-    	            "%tag":"yield"
-    	          }
-    	        ),
-    	        hh.EXIT(
-    		        {
-    		          "trap755611":"trap755611",
-    		          "%location":{},
-    		          "%tag":"break"
-    		        }
-    	        ), // Exit
-    	      ) // sequence
-        	), // fork
-      	), // trap
-    	hh.PAUSE(
-    	    {
-    	      "%location":{},
-    	      "%tag":"yield"
-    	    }
-    	),
-
-    hh.RUN({
-      "%location":{},
-      "%tag":"run",
-      "module": hh.getModule(  "cleanZone3", {}),
-      "''":"",
-
-    }),
-
-    ),
-
-        hh.SEQUENCE(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-              "%tag":"seq"
-            },
-
-
-        hh.TRAP(
-          {
-            "trap79305":"trap79305",
-            "%location":{},
-            "%tag":"trap79305"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-            hh.SEQUENCE( // sequence 1
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "zone4OUT":"zone4OUT",
-                "apply":function (){
-                  return ((() => {
-                    const zone4OUT = this["zone4OUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"zone4OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," zone4", true);
-                }
-    		      }
-    		 	  ),
-
-          	), // fin sequence 1
-        	hh.SEQUENCE(
-    	        {
-    	          "%location":{},
-    	          "%tag":"seq"
-    	        },
-    	        hh.AWAIT(
-    	            {
-    	              "%location":{},
-    	              "%tag":"await",
-    	              "immediate":false,
-    	              "apply":function (){return ((() => {
-    	                const tick =this["tick"];
-    	                return tick.now;})());},
-    	              "countapply":function (){return 24;}
-    	          },
-    	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-    	        ),
-
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "zone4OUT":"zone4OUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const zone4OUT = this["zone4OUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"zone4OUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone4", false); }
-    		      }
-    		 	),
-
-    	        hh.PAUSE(
-    	          {
-    	            "%location":{},
-    	            "%tag":"yield"
-    	          }
-    	        ),
-    	        hh.EXIT(
-    		        {
-    		          "trap79305":"trap79305",
-    		          "%location":{},
-    		          "%tag":"break"
-    		        }
-    	        ), // Exit
-    	      ) // sequence
-        	), // fork
-      	), // trap
-    	hh.PAUSE(
-    	    {
-    	      "%location":{},
-    	      "%tag":"yield"
-    	    }
-    	),
-
-    hh.RUN({
-      "%location":{},
-      "%tag":"run",
-      "module": hh.getModule(  "cleanZone4", {}),
-      "''":"",
-
-    }),
-
-    ),
-
-        hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-
-
-          hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-
-        // Capteur de son
-
-
-      hh.EVERY(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":189},
-          "%tag":"do/every",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-              if( INTERFACEZ_RC.nowval !== undefined ) {
-                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 0
-                  && INTERFACEZ_RC.nowval[1] >1000
-                  && INTERFACEZ_RC.nowval[1] <5000);
-              }
-          })());},
-          "countapply":function (){ return 1;}
-        },
-        hh.SIGACCESS({
-          "signame":"INTERFACEZ_RC",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
-
-        hh.ATOM(
-          {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('Sensor0 1000-5000');}
-          }
-        ),
-
-          hh.ATOM(
-              {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                var msg = {
-                  type: 'alertInfoScoreON',
-                  value:'Zone1'
-                }
-                serveur.broadcast(JSON.stringify(msg));
-                }
-              }
-          ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "sensor0":"sensor0",
-                "apply":function (){
-                  return ((() => {
-                    //const sensor0=this["sensor0"];
-                    return 1;
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"sensor0",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ),
-
-              hh.SEQUENCE(
-                  {
-                    "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                    "%tag":"seq"
-                  },
-
-
-              hh.TRAP(
-                {
-                  "trap525163":"trap525163",
-                  "%location":{},
-                  "%tag":"trap525163"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE( // sequence 1
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                  hh.EMIT(
-                    {
-                      "%location":{},
-                      "%tag":"emit",
-                      "zone1OUT":"zone1OUT",
-                      "apply":function (){
-                        return ((() => {
-                          const zone1OUT = this["zone1OUT"];
-                          return [true, 255];
-                        })());
-                      }
-                    },
-                    hh.SIGACCESS({
-                      "signame":"zone1OUT",
-                      "pre":true,
-                      "val":true,
-                      "cnt":false
-                    })
-                  ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () {
-                        gcs.informSelecteurOnMenuChange(255," zone1", true);
-                      }
-          		      }
-          		 	  ),
-
-                	), // fin sequence 1
-              	hh.SEQUENCE(
-          	        {
-          	          "%location":{},
-          	          "%tag":"seq"
-          	        },
-          	        hh.AWAIT(
-          	            {
-          	              "%location":{},
-          	              "%tag":"await",
-          	              "immediate":false,
-          	              "apply":function (){return ((() => {
-          	                const tick =this["tick"];
-          	                return tick.now;})());},
-          	              "countapply":function (){return 12;}
-          	          },
-          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          	        ),
-
-
-          	        hh.EMIT(
-          	          {
-          	            "%location":{},
-          	            "%tag":"emit",
-          	            "zone1OUT":"zone1OUT",
-          	            "apply":function (){
-          	              return ((() => {
-          	                const zone1OUT = this["zone1OUT"];
-          	                return [false, 255];
-          	              })());
-          	            }
-          	          },
-          	          hh.SIGACCESS({
-          	            "signame":"zone1OUT",
-          	            "pre":true,
-          	            "val":true,
-          	            "cnt":false
-          	          })
-          	        ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone1", false); }
-          		      }
-          		 	),
-
-          	        hh.PAUSE(
-          	          {
-          	            "%location":{},
-          	            "%tag":"yield"
-          	          }
-          	        ),
-          	        hh.EXIT(
-          		        {
-          		          "trap525163":"trap525163",
-          		          "%location":{},
-          		          "%tag":"break"
-          		        }
-          	        ), // Exit
-          	      ) // sequence
-              	), // fork
-            	), // trap
-          	hh.PAUSE(
-          	    {
-          	      "%location":{},
-          	      "%tag":"yield"
-          	    }
-          	),
-
-          hh.RUN({
-            "%location":{},
-            "%tag":"run",
-            "module": hh.getModule(  "cleanZone1", {}),
-            "''":"",
-
-          }),
-
-          ),
-
-      ),
-      // Capteur de distance
-
-
-      hh.EVERY(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":189},
-          "%tag":"do/every",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-              if( INTERFACEZ_RC.nowval !== undefined ) {
-                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 2
-                  && INTERFACEZ_RC.nowval[1] >1000
-                  && INTERFACEZ_RC.nowval[1] <2001);
-              }
-          })());},
-          "countapply":function (){ return 1;}
-        },
-        hh.SIGACCESS({
-          "signame":"INTERFACEZ_RC",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
-
-        hh.ATOM(
-          {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('Sensor2 1000-2000');}
-          }
-        ),
-
-          hh.ATOM(
-              {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                var msg = {
-                  type: 'alertInfoScoreON',
-                  value:'Zone2'
-                }
-                serveur.broadcast(JSON.stringify(msg));
-                }
-              }
-          ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "sensor2":"sensor2",
-                "apply":function (){
-                  return ((() => {
-                    //const sensor2=this["sensor2"];
-                    return 2;
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"sensor2",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ),
-
-              hh.SEQUENCE(
-                  {
-                    "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                    "%tag":"seq"
-                  },
-
-
-              hh.TRAP(
-                {
-                  "trap914003":"trap914003",
-                  "%location":{},
-                  "%tag":"trap914003"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE( // sequence 1
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                  hh.EMIT(
-                    {
-                      "%location":{},
-                      "%tag":"emit",
-                      "zone2OUT":"zone2OUT",
-                      "apply":function (){
-                        return ((() => {
-                          const zone2OUT = this["zone2OUT"];
-                          return [true, 255];
-                        })());
-                      }
-                    },
-                    hh.SIGACCESS({
-                      "signame":"zone2OUT",
-                      "pre":true,
-                      "val":true,
-                      "cnt":false
-                    })
-                  ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () {
-                        gcs.informSelecteurOnMenuChange(255," zone2", true);
-                      }
-          		      }
-          		 	  ),
-
-                	), // fin sequence 1
-              	hh.SEQUENCE(
-          	        {
-          	          "%location":{},
-          	          "%tag":"seq"
-          	        },
-          	        hh.AWAIT(
-          	            {
-          	              "%location":{},
-          	              "%tag":"await",
-          	              "immediate":false,
-          	              "apply":function (){return ((() => {
-          	                const tick =this["tick"];
-          	                return tick.now;})());},
-          	              "countapply":function (){return 12;}
-          	          },
-          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          	        ),
-
-
-          	        hh.EMIT(
-          	          {
-          	            "%location":{},
-          	            "%tag":"emit",
-          	            "zone2OUT":"zone2OUT",
-          	            "apply":function (){
-          	              return ((() => {
-          	                const zone2OUT = this["zone2OUT"];
-          	                return [false, 255];
-          	              })());
-          	            }
-          	          },
-          	          hh.SIGACCESS({
-          	            "signame":"zone2OUT",
-          	            "pre":true,
-          	            "val":true,
-          	            "cnt":false
-          	          })
-          	        ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone2", false); }
-          		      }
-          		 	),
-
-          	        hh.PAUSE(
-          	          {
-          	            "%location":{},
-          	            "%tag":"yield"
-          	          }
-          	        ),
-          	        hh.EXIT(
-          		        {
-          		          "trap914003":"trap914003",
-          		          "%location":{},
-          		          "%tag":"break"
-          		        }
-          	        ), // Exit
-          	      ) // sequence
-              	), // fork
-            	), // trap
-          	hh.PAUSE(
-          	    {
-          	      "%location":{},
-          	      "%tag":"yield"
-          	    }
-          	),
-
-          hh.RUN({
-            "%location":{},
-            "%tag":"run",
-            "module": hh.getModule(  "cleanZone2", {}),
-            "''":"",
-
-          }),
-
-          ),
-
-      ),
-
-
-      hh.EVERY(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":189},
-          "%tag":"do/every",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-              if( INTERFACEZ_RC.nowval !== undefined ) {
-                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 2
-                  && INTERFACEZ_RC.nowval[1] >2000
-                  && INTERFACEZ_RC.nowval[1] <2501);
-              }
-          })());},
-          "countapply":function (){ return 1;}
-        },
-        hh.SIGACCESS({
-          "signame":"INTERFACEZ_RC",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
-
-        hh.ATOM(
-          {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('Sensor2 2000-2501');}
-          }
-        ),
-
-          hh.ATOM(
-              {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                var msg = {
-                  type: 'alertInfoScoreON',
-                  value:'Zone3'
-                }
-                serveur.broadcast(JSON.stringify(msg));
-                }
-              }
-          ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "sensor2":"sensor2",
-                "apply":function (){
-                  return ((() => {
-                    //const sensor2=this["sensor2"];
-                    return 3;
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"sensor2",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ),
-
-              hh.SEQUENCE(
-                  {
-                    "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                    "%tag":"seq"
-                  },
-
-
-              hh.TRAP(
-                {
-                  "trap467516":"trap467516",
-                  "%location":{},
-                  "%tag":"trap467516"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE( // sequence 1
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                  hh.EMIT(
-                    {
-                      "%location":{},
-                      "%tag":"emit",
-                      "zone3OUT":"zone3OUT",
-                      "apply":function (){
-                        return ((() => {
-                          const zone3OUT = this["zone3OUT"];
-                          return [true, 255];
-                        })());
-                      }
-                    },
-                    hh.SIGACCESS({
-                      "signame":"zone3OUT",
-                      "pre":true,
-                      "val":true,
-                      "cnt":false
-                    })
-                  ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () {
-                        gcs.informSelecteurOnMenuChange(255," zone3", true);
-                      }
-          		      }
-          		 	  ),
-
-                	), // fin sequence 1
-              	hh.SEQUENCE(
-          	        {
-          	          "%location":{},
-          	          "%tag":"seq"
-          	        },
-          	        hh.AWAIT(
-          	            {
-          	              "%location":{},
-          	              "%tag":"await",
-          	              "immediate":false,
-          	              "apply":function (){return ((() => {
-          	                const tick =this["tick"];
-          	                return tick.now;})());},
-          	              "countapply":function (){return 12;}
-          	          },
-          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          	        ),
-
-
-          	        hh.EMIT(
-          	          {
-          	            "%location":{},
-          	            "%tag":"emit",
-          	            "zone3OUT":"zone3OUT",
-          	            "apply":function (){
-          	              return ((() => {
-          	                const zone3OUT = this["zone3OUT"];
-          	                return [false, 255];
-          	              })());
-          	            }
-          	          },
-          	          hh.SIGACCESS({
-          	            "signame":"zone3OUT",
-          	            "pre":true,
-          	            "val":true,
-          	            "cnt":false
-          	          })
-          	        ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone3", false); }
-          		      }
-          		 	),
-
-          	        hh.PAUSE(
-          	          {
-          	            "%location":{},
-          	            "%tag":"yield"
-          	          }
-          	        ),
-          	        hh.EXIT(
-          		        {
-          		          "trap467516":"trap467516",
-          		          "%location":{},
-          		          "%tag":"break"
-          		        }
-          	        ), // Exit
-          	      ) // sequence
-              	), // fork
-            	), // trap
-          	hh.PAUSE(
-          	    {
-          	      "%location":{},
-          	      "%tag":"yield"
-          	    }
-          	),
-
-          hh.RUN({
-            "%location":{},
-            "%tag":"run",
-            "module": hh.getModule(  "cleanZone3", {}),
-            "''":"",
-
-          }),
-
-          ),
-
-      ),
-
-
-      hh.EVERY(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":189},
-          "%tag":"do/every",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-              if( INTERFACEZ_RC.nowval !== undefined ) {
-                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === 2
-                  && INTERFACEZ_RC.nowval[1] >2500
-                  && INTERFACEZ_RC.nowval[1] <4000);
-              }
-          })());},
-          "countapply":function (){ return 1;}
-        },
-        hh.SIGACCESS({
-          "signame":"INTERFACEZ_RC",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
-
-        hh.ATOM(
-          {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('Sensor2 2500-4000');}
-          }
-        ),
-
-          hh.ATOM(
-              {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                var msg = {
-                  type: 'alertInfoScoreON',
-                  value:'Zone4'
-                }
-                serveur.broadcast(JSON.stringify(msg));
-                }
-              }
-          ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "sensor2":"sensor2",
-                "apply":function (){
-                  return ((() => {
-                    //const sensor2=this["sensor2"];
-                    return 4;
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"sensor2",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ),
-
-              hh.SEQUENCE(
-                  {
-                    "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                    "%tag":"seq"
-                  },
-
-
-              hh.TRAP(
-                {
-                  "trap869968":"trap869968",
-                  "%location":{},
-                  "%tag":"trap869968"
-                },
-                hh.FORK(
-                  {
-                    "%location":{},
-                    "%tag":"fork"
-                  },
-                  hh.SEQUENCE( // sequence 1
-                    {
-                      "%location":{},
-                      "%tag":"seq"
-                    },
-                  hh.EMIT(
-                    {
-                      "%location":{},
-                      "%tag":"emit",
-                      "zone4OUT":"zone4OUT",
-                      "apply":function (){
-                        return ((() => {
-                          const zone4OUT = this["zone4OUT"];
-                          return [true, 255];
-                        })());
-                      }
-                    },
-                    hh.SIGACCESS({
-                      "signame":"zone4OUT",
-                      "pre":true,
-                      "val":true,
-                      "cnt":false
-                    })
-                  ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () {
-                        gcs.informSelecteurOnMenuChange(255," zone4", true);
-                      }
-          		      }
-          		 	  ),
-
-                	), // fin sequence 1
-              	hh.SEQUENCE(
-          	        {
-          	          "%location":{},
-          	          "%tag":"seq"
-          	        },
-          	        hh.AWAIT(
-          	            {
-          	              "%location":{},
-          	              "%tag":"await",
-          	              "immediate":false,
-          	              "apply":function (){return ((() => {
-          	                const tick =this["tick"];
-          	                return tick.now;})());},
-          	              "countapply":function (){return 12;}
-          	          },
-          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          	        ),
-
-
-          	        hh.EMIT(
-          	          {
-          	            "%location":{},
-          	            "%tag":"emit",
-          	            "zone4OUT":"zone4OUT",
-          	            "apply":function (){
-          	              return ((() => {
-          	                const zone4OUT = this["zone4OUT"];
-          	                return [false, 255];
-          	              })());
-          	            }
-          	          },
-          	          hh.SIGACCESS({
-          	            "signame":"zone4OUT",
-          	            "pre":true,
-          	            "val":true,
-          	            "cnt":false
-          	          })
-          	        ), // Fin emit
-          		    hh.ATOM(
-          		      {
-          		      "%location":{},
-          		      "%tag":"node",
-          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone4", false); }
-          		      }
-          		 	),
-
-          	        hh.PAUSE(
-          	          {
-          	            "%location":{},
-          	            "%tag":"yield"
-          	          }
-          	        ),
-          	        hh.EXIT(
-          		        {
-          		          "trap869968":"trap869968",
-          		          "%location":{},
-          		          "%tag":"break"
-          		        }
-          	        ), // Exit
-          	      ) // sequence
-              	), // fork
-            	), // trap
-          	hh.PAUSE(
-          	    {
-          	      "%location":{},
-          	      "%tag":"yield"
-          	    }
-          	),
-
-          hh.RUN({
-            "%location":{},
-            "%tag":"run",
-            "module": hh.getModule(  "cleanZone4", {}),
-            "''":"",
-
-          }),
-
-          ),
-
-      ),
-
-      ),
-
-    ),
-
   hh.ATOM(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('****** Fin de la pièce');}
+      "apply":function () {console.log('Choose the drums');}
     }
   ),
 
@@ -1826,11 +445,1187 @@ var orchestration = hh.MODULE(
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
+             gcs.setpatternListLength([3,255]);
           }
         }
       ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreON',
+            value:'Choose the drums'
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+
+  hh.AWAIT(
+    {
+      "%location":{},
+      "%tag":"await",
+      "immediate":false,
+      "apply":function () {
+        return ((() => {
+          const tick=this["tick"];
+          return tick.now;
+        })());
+      },
+      "countapply":function (){ return 4;}
+    },
+    hh.SIGACCESS({
+      "signame":"tick",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    })
+  ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreOFF',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            gcs.setComputeScorePolicy(2);
+          }
+        }
+      ),
+
+  hh.LOOP(
+      {
+        "%location":{loop: 1},
+        "%tag":"loop"
+      },
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'addSceneScore',
+                value:1
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+        hh.PAUSE(
+          {
+            "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+            "%tag":"yield"
+          }
+        ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      ),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.setComputeScoreClass(5);
+              }
+            }
+          ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "djembeOUT": "djembeOUT",
+              "apply":function (){
+                return ((() => {
+                  const djembeOUT = this["djembeOUT"];
+                  return [true,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "djembeOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "djembeOUT",true); }
+            }
+       	),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Djembe for group 0'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe5OUT": "groupe5OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe5OUT = this["groupe5OUT"];
+                  return [true,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe5OUT",true); }
+            }
+       	),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('groupe5');}
+        }
+      ),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe5IN =this["groupe5IN"];
+                return groupe5IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe5IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe5OUT": "groupe5OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe5OUT = this["groupe5OUT"];
+                  return [false,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe5OUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(0);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Djembe for group 1'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe6OUT": "groupe6OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe6OUT = this["groupe6OUT"];
+                  return [true,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe6OUT",true); }
+            }
+       	),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe6IN =this["groupe6IN"];
+                return groupe6IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe6IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "djembeOUT": "djembeOUT",
+              "apply":function (){
+                return ((() => {
+                  const djembeOUT = this["djembeOUT"];
+                  return [false,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "djembeOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "djembeOUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe6OUT": "groupe6OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe6OUT = this["groupe6OUT"];
+                  return [false,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe6OUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueue(6);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreOFF',
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(1);
+              }
+            }
+          ),
+
+      ),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.setComputeScoreClass(7);
+              }
+            }
+          ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "pianoOUT": "pianoOUT",
+              "apply":function (){
+                return ((() => {
+                  const pianoOUT = this["pianoOUT"];
+                  return [true,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "pianoOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "pianoOUT",true); }
+            }
+       	),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Piano for group 0'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe7OUT": "groupe7OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe7OUT = this["groupe7OUT"];
+                  return [true,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe7OUT",true); }
+            }
+       	),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('groupe7');}
+        }
+      ),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe7IN =this["groupe7IN"];
+                return groupe7IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe7IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe7OUT": "groupe7OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe7OUT = this["groupe7OUT"];
+                  return [false,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe7OUT",false); }
+            }
+        ),
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(0);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Piano for group 1'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe7OUT": "groupe7OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe7OUT = this["groupe7OUT"];
+                  return [true,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe7OUT",true); }
+            }
+       	),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe7IN =this["groupe7IN"];
+                return groupe7IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe7IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe7OUT": "groupe7OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe7OUT = this["groupe7OUT"];
+                  return [false,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe7OUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "pianoOUT": "pianoOUT",
+              "apply":function (){
+                return ((() => {
+                  const pianoOUT = this["pianoOUT"];
+                  return [false,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "pianoOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "pianoOUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueue(9);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreOFF',
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(1);
+              }
+            }
+          ),
+
+      ),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.setComputeScoreClass(1);
+              }
+            }
+          ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "gasziOUT": "gasziOUT",
+              "apply":function (){
+                return ((() => {
+                  const gasziOUT = this["gasziOUT"];
+                  return [true,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "gasziOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "gasziOUT",true); }
+            }
+       	),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Ney for group 0'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe3OUT": "groupe3OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe3OUT = this["groupe3OUT"];
+                  return [true,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe3OUT",true); }
+            }
+       	),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {console.log('groupe3');}
+        }
+      ),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe3IN =this["groupe3IN"];
+                return groupe3IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe3IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe3OUT": "groupe3OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe3OUT = this["groupe3OUT"];
+                  return [false,0];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(0 , "groupe3OUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(0);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Ney for group 1'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe4OUT": "groupe4OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe4OUT = this["groupe4OUT"];
+                  return [true,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe4OUT",true); }
+            }
+       	),
+
+        hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":110},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){return ((() => {
+                const groupe4IN =this["groupe4IN"];
+                return groupe4IN.now;})());},
+              "countapply":function (){return 1;}
+          },
+          hh.SIGACCESS({"signame":"groupe4IN","pre":false,"val":false,"cnt":false})
+        ),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "timer", {}),
+        "tick":"",
+
+      }),
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "groupe4OUT": "groupe4OUT",
+              "apply":function (){
+                return ((() => {
+                  const groupe4OUT = this["groupe4OUT"];
+                  return [false,1];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "groupe4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(1 , "groupe4OUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "gasziOUT": "gasziOUT",
+              "apply":function (){
+                return ((() => {
+                  const gasziOUT = this["gasziOUT"];
+                  return [false,2];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "gasziOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(2 , "gasziOUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueue(3);
+              }
+            }
+          ),
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreOFF',
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                gcs.cleanChoiceList(1);
+              }
+            }
+          ),
+
+      ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'refreshSceneScore',
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
+          }
+      ),
+
+    	hh.ATOM(
+    	  {
+    	  "%location":{},
+    	  "%tag":"node",
+    	  "apply":function (){
+    	    var msg = {
+    	      type: 'alertInfoScoreON',
+    	      value: " N°1 " + gcs.getWinnerPseudo(0) + " : " + gcs.getWinnerScore(0) + " "
+    	    }
+    	    serveur.broadcast(JSON.stringify(msg));
+    	    }
+    	  }
+    	),
+    	hh.AWAIT(
+    		{
+    		  "%location":{},
+    		  "%tag":"await",
+    		  "immediate":false,
+    		  "apply":function (){return ((() => {
+    		    const tick =this["tick"];
+    		    return tick.now;})());},
+    		  "countapply":function (){return 5;}
+    		},
+    		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+    	),
+    	hh.ATOM(
+    	  {
+    	  "%location":{},
+    	  "%tag":"node",
+    	  "apply":function () {
+    	    var msg = {
+    	      type: 'alertInfoScoreOFF',
+    	    }
+    	    serveur.broadcast(JSON.stringify(msg));
+    	    }
+    	  }
+    	),
+
+    	hh.ATOM(
+    	{
+    	"%location":{},
+    	"%tag":"node",
+    	"apply":function (){
+    			var pseudoLoc = gcs.getWinnerPseudo(0);
+    			if ( pseudoLoc !== ''){
+    			    var msg = {
+    			    type: 'alertInfoScoreON',
+    			    value:  " N° " + 1 + " " + pseudoLoc + " with " + gcs.getWinnerScore(0) + " "
+    			    }
+    			    serveur.broadcast(JSON.stringify(msg));
+
+    			}else{
+    				console.log("WARN: hiphop_blocks.js: displayScore : no score for the rank 0");
+    			}
+    		}
+    	}
+    	),
+
+    	hh.AWAIT(
+    		{
+    		  "%location":{},
+    		  "%tag":"await",
+    		  "immediate":false,
+    		  "apply":function (){return ((() => {
+    		    const tick =this["tick"];
+    		    return tick.now;})());},
+    		  "countapply":function (){return 5;}
+    		},
+    		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+    	),
+    	hh.ATOM(
+    	  {
+    	  "%location":{},
+    	  "%tag":"node",
+    	  "apply":function () {
+    	    var msg = {
+    	      type: 'alertInfoScoreOFF',
+    	    }
+    	    serveur.broadcast(JSON.stringify(msg));
+    	    }
+    	  }
+    	),
+
+    	hh.ATOM(
+    	  {
+    	  "%location":{},
+    	  "%tag":"node",
+    	  "apply":function (){
+    	    var msg = {
+    	      type: 'alertInfoScoreON',
+    	      value: " Total score for all " + gcs.getTotalGameScore() + " "
+    	    }
+    	    serveur.broadcast(JSON.stringify(msg));
+    	    }
+    	  }
+    	),
+    	hh.AWAIT(
+    		{
+    		  "%location":{},
+    		  "%tag":"await",
+    		  "immediate":false,
+    		  "apply":function (){return ((() => {
+    		    const tick =this["tick"];
+    		    return tick.now;})());},
+    		  "countapply":function (){return 5;}
+    		},
+    		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+    	),
+    	hh.ATOM(
+    	  {
+    	  "%location":{},
+    	  "%tag":"node",
+    	  "apply":function () {
+    	    var msg = {
+    	      type: 'alertInfoScoreOFF',
+    	    }
+    	    serveur.broadcast(JSON.stringify(msg));
+    	    }
+    	  }
+    	),
+
+    ),
 
         ),
         hh.SEQUENCE(

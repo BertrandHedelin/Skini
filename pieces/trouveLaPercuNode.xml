@@ -13,7 +13,7 @@
     <variable id="D`B#;Ny4Du[we`s,aRpW">groupe6</variable>
     <variable id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-235" y="54">
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="-183" y="-22">
     <statement name="MODULES">
       <block type="hh_module" id="FC`id43ZS`y9:Nmz?Z_z">
         <value name="NAME">
@@ -132,7 +132,7 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="random_body" id="CsAiJj@PE}G#OUhFw$at" disabled="true">
+      <block type="random_body" id="CsAiJj@PE}G#OUhFw$at" collapsed="true" disabled="true">
         <statement name="sequence1">
           <block type="hh_print_serveur" id="Mh%vzKxXZ/v?!6_@6w)_">
             <value name="TEXT">
@@ -152,7 +152,7 @@
           </block>
         </statement>
         <next>
-          <block type="random_group" id="8iIHJBM|S:o-hnkKggK}" disabled="true">
+          <block type="random_group" id="8iIHJBM|S:o-hnkKggK}" collapsed="true" disabled="true">
             <field name="number_of_groups">2</field>
             <field name="user_group">255</field>
             <field name="number_of_ticks">4</field>
@@ -185,348 +185,186 @@
                   <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
                     <field name="timer">1</field>
                     <next>
-                      <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
-                        <field name="number">1</field>
+                      <block type="set_tempo" id="uKRak48hG_TlZUyZD0[:">
+                        <field name="tempo">110</field>
                         <next>
-                          <block type="hh_print_serveur" id=",`tYxwrh$A)8Ffp/Z72:">
-                            <value name="TEXT">
-                              <block type="text" id="o*575S,s4PLrZpBn+$E2">
-                                <field name="TEXT">Choose the drums</field>
-                              </block>
-                            </value>
+                          <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                            <field name="number">1</field>
                             <next>
-                              <block type="patternListLength" id="pl#*]IrXK_9}%YiE5K}T">
-                                <field name="valeur">3</field>
-                                <field name="groupe">255</field>
+                              <block type="hh_print_serveur" id=",`tYxwrh$A)8Ffp/Z72:">
+                                <value name="TEXT">
+                                  <block type="text" id="o*575S,s4PLrZpBn+$E2">
+                                    <field name="TEXT">Choose the drums</field>
+                                  </block>
+                                </value>
                                 <next>
-                                  <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
-                                    <value name="message">
-                                      <block type="text" id="x|C[Rub)rFkS_2(^nec1">
-                                        <field name="TEXT">Choose the drums</field>
-                                      </block>
-                                    </value>
+                                  <block type="patternListLength" id="pl#*]IrXK_9}%YiE5K}T">
+                                    <field name="valeur">3</field>
+                                    <field name="groupe">255</field>
                                     <next>
-                                      <block type="hh_wait_for" id="/nY{Ug{KX8_)@xoIRd]t">
-                                        <field name="TIMES">4</field>
-                                        <value name="SIGNAL">
-                                          <block type="variables_get" id="s+T$,{[o;PyC#xE4`0+`">
-                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                      <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
+                                        <value name="message">
+                                          <block type="text" id="x|C[Rub)rFkS_2(^nec1">
+                                            <field name="TEXT">Choose the drums</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="alertInfoScoreOFF" id="[]gp,KEz%,_UrpcnZD+u">
+                                          <block type="hh_wait_for" id="/nY{Ug{KX8_)@xoIRd]t">
+                                            <field name="TIMES">4</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="s+T$,{[o;PyC#xE4`0+`">
+                                                <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                              </block>
+                                            </value>
                                             <next>
-                                              <block type="set_score_policy" id="ZfMt.es16v5u%|/Np#Dl">
-                                                <field name="policy">2</field>
+                                              <block type="alertInfoScoreOFF" id="[]gp,KEz%,_UrpcnZD+u">
                                                 <next>
-                                                  <block type="hh_loop" id="]|y)HG)CN+9j);hHZ~5K">
-                                                    <statement name="BODY">
-                                                      <block type="hh_sequence" id="L?_ZtuceoL)vDz@EwWo=">
+                                                  <block type="set_score_policy" id="ZfMt.es16v5u%|/Np#Dl">
+                                                    <field name="policy">2</field>
+                                                    <next>
+                                                      <block type="hh_loop" id="]|y)HG)CN+9j);hHZ~5K">
                                                         <statement name="BODY">
-                                                          <block type="addSceneScore" id="nU#ij=_/f[JZRskP3{4@">
-                                                            <field name="number">1</field>
-                                                            <next>
-                                                              <block type="hh_wait_for" id="IyKw~$gQ)}](p/Cd2h=#">
-                                                                <field name="TIMES">1</field>
-                                                                <value name="SIGNAL">
-                                                                  <block type="variables_get" id="WpLAC@XLOt]1uJRaL0df">
-                                                                    <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                  </block>
-                                                                </value>
-                                                              </block>
-                                                            </next>
-                                                          </block>
-                                                        </statement>
-                                                        <next>
-                                                          <block type="hh_sequence" id="vki]ZOKejMS9ZrX3[(_d">
+                                                          <block type="hh_sequence" id="L?_ZtuceoL)vDz@EwWo=">
                                                             <statement name="BODY">
-                                                              <block type="set_score_class" id="TQJ;]_DW(R+c8XMMpY#8">
-                                                                <field name="class">5</field>
+                                                              <block type="addSceneScore" id="nU#ij=_/f[JZRskP3{4@">
+                                                                <field name="number">1</field>
                                                                 <next>
-                                                                  <block type="set_group" id="dci;EIEixsCY$W=AFv7Q">
-                                                                    <field name="groupe">2</field>
-                                                                    <value name="GROUPS">
-                                                                      <block type="variables_get" id="^sI6RwD*Y7FO*jv+*bD4">
-                                                                        <field name="VAR" id="~YxadVt:@N-|nQbbUt5Y">djembe</field>
+                                                                  <block type="hh_wait_for" id="IyKw~$gQ)}](p/Cd2h=#">
+                                                                    <field name="TIMES">1</field>
+                                                                    <value name="SIGNAL">
+                                                                      <block type="variables_get" id="WpLAC@XLOt]1uJRaL0df">
+                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                       </block>
                                                                     </value>
-                                                                    <next>
-                                                                      <block type="alertInfoScoreON" id=")^Eg^{trwPPy)(w*nK,?">
-                                                                        <value name="message">
-                                                                          <block type="text" id="R5|ST1ugOj79(.ebBX7z">
-                                                                            <field name="TEXT">Djembe for group 0</field>
-                                                                          </block>
-                                                                        </value>
-                                                                        <next>
-                                                                          <block type="set_group" id=";0.9XT7scu_*q|W4k6G:">
-                                                                            <field name="groupe">0</field>
-                                                                            <value name="GROUPS">
-                                                                              <block type="variables_get" id="g|zC;-X~N_3!fc[bm?BM">
-                                                                                <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
-                                                                              </block>
-                                                                            </value>
-                                                                            <next>
-                                                                              <block type="hh_print_serveur" id="Ki@P|aPl^tl?M0LPy)#1">
-                                                                                <value name="TEXT">
-                                                                                  <block type="text" id="R(aa+!agjAzNe^h:SZh;">
-                                                                                    <field name="TEXT">groupe5</field>
-                                                                                  </block>
-                                                                                </value>
-                                                                                <next>
-                                                                                  <block type="wait_for_signal_in_group" id="#h}A!tQH5JGP!OF3=)bN">
-                                                                                    <field name="TIMES">1</field>
-                                                                                    <value name="SIGNAL">
-                                                                                      <block type="variables_get" id="d5U8t3y3Ke.e`vm,exPI">
-                                                                                        <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
-                                                                                      </block>
-                                                                                    </value>
-                                                                                    <next>
-                                                                                      <block type="hh_run" id="rOdOf2y6A+yL]vSrt!0C">
-                                                                                        <value name="MODULE">
-                                                                                          <block type="variables_get" id="[?_5x-;P:1XQps3oZtm.">
-                                                                                            <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                        <value name="SIGNALS">
-                                                                                          <block type="variables_get" id="oiTvYhBb$b=Fmhz9=N%x">
-                                                                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                        <next>
-                                                                                          <block type="unset_group" id="4E20P0Y-txBdNEk]mx)]">
-                                                                                            <field name="groupe">0</field>
-                                                                                            <value name="GROUPS">
-                                                                                              <block type="variables_get" id="A0/kHuD:NV]m6kHCFMJ5">
-                                                                                                <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
-                                                                                              </block>
-                                                                                            </value>
-                                                                                            <next>
-                                                                                              <block type="cleanChoiceList" id="0HXwg,[NS2+$eNy}ZKed">
-                                                                                                <field name="groupe">0</field>
-                                                                                                <next>
-                                                                                                  <block type="alertInfoScoreON" id="E]}LDuG8nQ;KVOwCC]^n">
-                                                                                                    <value name="message">
-                                                                                                      <block type="text" id="kcm/u_XHa^h/|o#rn,+K">
-                                                                                                        <field name="TEXT">Djembe for group 1</field>
-                                                                                                      </block>
-                                                                                                    </value>
-                                                                                                    <next>
-                                                                                                      <block type="set_group" id="~0jeggPhx=|[F(Dt{Riv">
-                                                                                                        <field name="groupe">1</field>
-                                                                                                        <value name="GROUPS">
-                                                                                                          <block type="variables_get" id="pZ]DFG{}ad1N;t}6$]3W">
-                                                                                                            <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
-                                                                                                          </block>
-                                                                                                        </value>
-                                                                                                        <next>
-                                                                                                          <block type="wait_for_signal_in_group" id="S3hi0ja|o:}F}D4I?}yD">
-                                                                                                            <field name="TIMES">1</field>
-                                                                                                            <value name="SIGNAL">
-                                                                                                              <block type="variables_get" id="=Hf1!0MsWaRe[w=_%U|?">
-                                                                                                                <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
-                                                                                                              </block>
-                                                                                                            </value>
-                                                                                                            <next>
-                                                                                                              <block type="hh_run" id=",1U$;9xIjl|gs#`CYyE0">
-                                                                                                                <value name="MODULE">
-                                                                                                                  <block type="variables_get" id="}+-WB*.;4~[i:%/tIuY(">
-                                                                                                                    <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
-                                                                                                                  </block>
-                                                                                                                </value>
-                                                                                                                <value name="SIGNALS">
-                                                                                                                  <block type="variables_get" id="NED=BdsWVyCgn~43|G@:">
-                                                                                                                    <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
-                                                                                                                  </block>
-                                                                                                                </value>
-                                                                                                                <next>
-                                                                                                                  <block type="unset_group" id="rG+YeV}s]D!eeWTbuLA-">
-                                                                                                                    <field name="groupe">2</field>
-                                                                                                                    <value name="GROUPS">
-                                                                                                                      <block type="variables_get" id="]{I-d_ZPf^w7RQpHmibr">
-                                                                                                                        <field name="VAR" id="~YxadVt:@N-|nQbbUt5Y">djembe</field>
-                                                                                                                      </block>
-                                                                                                                    </value>
-                                                                                                                    <next>
-                                                                                                                      <block type="unset_group" id="HL^3EYYfNE_JSjyBK@2b">
-                                                                                                                        <field name="groupe">1</field>
-                                                                                                                        <value name="GROUPS">
-                                                                                                                          <block type="variables_get" id="b7)Lgu5?[j(jWlMuQ5:5">
-                                                                                                                            <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
-                                                                                                                          </block>
-                                                                                                                        </value>
-                                                                                                                        <next>
-                                                                                                                          <block type="cleanOneQueue" id="RcsQ~vFVXin~]ftV1c|X">
-                                                                                                                            <field name="number">6</field>
-                                                                                                                            <next>
-                                                                                                                              <block type="alertInfoScoreOFF" id="0u{qxEu4p4aMKGBT*,zQ">
-                                                                                                                                <next>
-                                                                                                                                  <block type="cleanChoiceList" id="hEv0zcWdqI:1jA,)33P4">
-                                                                                                                                    <field name="groupe">1</field>
-                                                                                                                                  </block>
-                                                                                                                                </next>
-                                                                                                                              </block>
-                                                                                                                            </next>
-                                                                                                                          </block>
-                                                                                                                        </next>
-                                                                                                                      </block>
-                                                                                                                    </next>
-                                                                                                                  </block>
-                                                                                                                </next>
-                                                                                                              </block>
-                                                                                                            </next>
-                                                                                                          </block>
-                                                                                                        </next>
-                                                                                                      </block>
-                                                                                                    </next>
-                                                                                                  </block>
-                                                                                                </next>
-                                                                                              </block>
-                                                                                            </next>
-                                                                                          </block>
-                                                                                        </next>
-                                                                                      </block>
-                                                                                    </next>
-                                                                                  </block>
-                                                                                </next>
-                                                                              </block>
-                                                                            </next>
-                                                                          </block>
-                                                                        </next>
-                                                                      </block>
-                                                                    </next>
                                                                   </block>
                                                                 </next>
                                                               </block>
                                                             </statement>
                                                             <next>
-                                                              <block type="hh_sequence" id="I}!n-cZB]g(!V~_Ve=6u">
+                                                              <block type="hh_sequence" id="vki]ZOKejMS9ZrX3[(_d">
                                                                 <statement name="BODY">
-                                                                  <block type="set_score_class" id="w:b6mE*.)nF#!otdc/%G">
-                                                                    <field name="class">7</field>
+                                                                  <block type="set_score_class" id="TQJ;]_DW(R+c8XMMpY#8">
+                                                                    <field name="class">5</field>
                                                                     <next>
-                                                                      <block type="set_group" id="zktJYeGC1e(m,y5l+Kp[">
+                                                                      <block type="set_group" id="dci;EIEixsCY$W=AFv7Q">
                                                                         <field name="groupe">2</field>
                                                                         <value name="GROUPS">
-                                                                          <block type="variables_get" id="%NatYNm/,,#ri;m1h!Md">
-                                                                            <field name="VAR" id="d$]#t+NL~U3`hn@FfXp^">piano</field>
+                                                                          <block type="variables_get" id="^sI6RwD*Y7FO*jv+*bD4">
+                                                                            <field name="VAR" id="~YxadVt:@N-|nQbbUt5Y">djembe</field>
                                                                           </block>
                                                                         </value>
                                                                         <next>
-                                                                          <block type="alertInfoScoreON" id="FCz9:a@Hku)W2?TKr_jD">
+                                                                          <block type="alertInfoScoreON" id=")^Eg^{trwPPy)(w*nK,?">
                                                                             <value name="message">
-                                                                              <block type="text" id="!t}v:_R9d_.;Fzi8Ko[J">
-                                                                                <field name="TEXT">Piano for group 0</field>
+                                                                              <block type="text" id="R5|ST1ugOj79(.ebBX7z">
+                                                                                <field name="TEXT">Djembe for group 0</field>
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="set_group" id="N4*2o{I0]/,RbPxd?},U">
+                                                                              <block type="set_group" id=";0.9XT7scu_*q|W4k6G:">
                                                                                 <field name="groupe">0</field>
                                                                                 <value name="GROUPS">
-                                                                                  <block type="variables_get" id="W@sL,9Q7X@jYwOkiBJcI">
-                                                                                    <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                  <block type="variables_get" id="g|zC;-X~N_3!fc[bm?BM">
+                                                                                    <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
                                                                                   </block>
                                                                                 </value>
                                                                                 <next>
-                                                                                  <block type="hh_print_serveur" id=":23fL9z0,Da}dwu;~Twm">
+                                                                                  <block type="hh_print_serveur" id="Ki@P|aPl^tl?M0LPy)#1">
                                                                                     <value name="TEXT">
-                                                                                      <block type="text" id="-xxbjhI2+x3[QJN$H#_L">
-                                                                                        <field name="TEXT">groupe7</field>
+                                                                                      <block type="text" id="R(aa+!agjAzNe^h:SZh;">
+                                                                                        <field name="TEXT">groupe5</field>
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="wait_for_signal_in_group" id="VQi0~uIh?yxH0r)r?9%R">
+                                                                                      <block type="wait_for_signal_in_group" id="#h}A!tQH5JGP!OF3=)bN">
                                                                                         <field name="TIMES">1</field>
                                                                                         <value name="SIGNAL">
-                                                                                          <block type="variables_get" id="Fg*Z$3#I=R3JYD|Tgt[i">
-                                                                                            <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                          <block type="variables_get" id="d5U8t3y3Ke.e`vm,exPI">
+                                                                                            <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="hh_run" id="jXhr+!4rAu[e#$|QGqHc">
+                                                                                          <block type="hh_run" id="rOdOf2y6A+yL]vSrt!0C">
                                                                                             <value name="MODULE">
-                                                                                              <block type="variables_get" id="1|qEltMD5xhs3XSyUJJ$">
+                                                                                              <block type="variables_get" id="[?_5x-;P:1XQps3oZtm.">
                                                                                                 <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
                                                                                               </block>
                                                                                             </value>
                                                                                             <value name="SIGNALS">
-                                                                                              <block type="variables_get" id="L3%MgBT~I%Q#2UKsC_;u">
+                                                                                              <block type="variables_get" id="oiTvYhBb$b=Fmhz9=N%x">
                                                                                                 <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                                               </block>
                                                                                             </value>
                                                                                             <next>
-                                                                                              <block type="unset_group" id="*FX4)B+?qg,TP0wkRPy(">
+                                                                                              <block type="unset_group" id="4E20P0Y-txBdNEk]mx)]">
                                                                                                 <field name="groupe">0</field>
                                                                                                 <value name="GROUPS">
-                                                                                                  <block type="variables_get" id="^kB=X:xFJ/bqY[FL$gr~">
-                                                                                                    <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                  <block type="variables_get" id="A0/kHuD:NV]m6kHCFMJ5">
+                                                                                                    <field name="VAR" id="3#10#zr!)$-a#iD`EOEe">groupe5</field>
                                                                                                   </block>
                                                                                                 </value>
                                                                                                 <next>
-                                                                                                  <block type="hh_pause" id="_.N-d|.!mIM/Q,LOfrRK">
+                                                                                                  <block type="cleanChoiceList" id="0HXwg,[NS2+$eNy}ZKed">
+                                                                                                    <field name="groupe">0</field>
                                                                                                     <next>
-                                                                                                      <block type="cleanChoiceList" id="6aTi1qB1zyqE;WdHY8s$">
-                                                                                                        <field name="groupe">0</field>
+                                                                                                      <block type="alertInfoScoreON" id="E]}LDuG8nQ;KVOwCC]^n">
+                                                                                                        <value name="message">
+                                                                                                          <block type="text" id="kcm/u_XHa^h/|o#rn,+K">
+                                                                                                            <field name="TEXT">Djembe for group 1</field>
+                                                                                                          </block>
+                                                                                                        </value>
                                                                                                         <next>
-                                                                                                          <block type="alertInfoScoreON" id="c99bKJkIqeUpN-cd)kc7">
-                                                                                                            <value name="message">
-                                                                                                              <block type="text" id="H{(Lp]=s/!:09UceoMM-">
-                                                                                                                <field name="TEXT">Piano for group 1</field>
+                                                                                                          <block type="set_group" id="~0jeggPhx=|[F(Dt{Riv">
+                                                                                                            <field name="groupe">1</field>
+                                                                                                            <value name="GROUPS">
+                                                                                                              <block type="variables_get" id="pZ]DFG{}ad1N;t}6$]3W">
+                                                                                                                <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
                                                                                                               </block>
                                                                                                             </value>
                                                                                                             <next>
-                                                                                                              <block type="set_group" id="x-U^jq/2VoHqW=ZG,b@?">
-                                                                                                                <field name="groupe">1</field>
-                                                                                                                <value name="GROUPS">
-                                                                                                                  <block type="variables_get" id="1CT.$m#tXMQScetQ8x:u">
-                                                                                                                    <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                              <block type="wait_for_signal_in_group" id="S3hi0ja|o:}F}D4I?}yD">
+                                                                                                                <field name="TIMES">1</field>
+                                                                                                                <value name="SIGNAL">
+                                                                                                                  <block type="variables_get" id="=Hf1!0MsWaRe[w=_%U|?">
+                                                                                                                    <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
                                                                                                                   </block>
                                                                                                                 </value>
                                                                                                                 <next>
-                                                                                                                  <block type="wait_for_signal_in_group" id="qRZON|p@{OyIEpg/o=W9">
-                                                                                                                    <field name="TIMES">1</field>
-                                                                                                                    <value name="SIGNAL">
-                                                                                                                      <block type="variables_get" id="Mv-lYAAa6BX)-l6}mJFF">
-                                                                                                                        <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                                  <block type="hh_run" id=",1U$;9xIjl|gs#`CYyE0">
+                                                                                                                    <value name="MODULE">
+                                                                                                                      <block type="variables_get" id="}+-WB*.;4~[i:%/tIuY(">
+                                                                                                                        <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                    <value name="SIGNALS">
+                                                                                                                      <block type="variables_get" id="NED=BdsWVyCgn~43|G@:">
+                                                                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                                                                       </block>
                                                                                                                     </value>
                                                                                                                     <next>
-                                                                                                                      <block type="hh_run" id="6XZQ|wU#H;`j}e@l$+H|">
-                                                                                                                        <value name="MODULE">
-                                                                                                                          <block type="variables_get" id="dvb|MiVOBQ)$[RG+2UUt">
-                                                                                                                            <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
-                                                                                                                          </block>
-                                                                                                                        </value>
-                                                                                                                        <value name="SIGNALS">
-                                                                                                                          <block type="variables_get" id="t|(zn-`/*BhgpP-ET/O]">
-                                                                                                                            <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                                                      <block type="unset_group" id="rG+YeV}s]D!eeWTbuLA-">
+                                                                                                                        <field name="groupe">2</field>
+                                                                                                                        <value name="GROUPS">
+                                                                                                                          <block type="variables_get" id="]{I-d_ZPf^w7RQpHmibr">
+                                                                                                                            <field name="VAR" id="~YxadVt:@N-|nQbbUt5Y">djembe</field>
                                                                                                                           </block>
                                                                                                                         </value>
                                                                                                                         <next>
-                                                                                                                          <block type="unset_group" id="YjJ1OL~`{UCr3V7D3*B}">
+                                                                                                                          <block type="unset_group" id="HL^3EYYfNE_JSjyBK@2b">
                                                                                                                             <field name="groupe">1</field>
                                                                                                                             <value name="GROUPS">
-                                                                                                                              <block type="variables_get" id="ng~0yAz2X3a:yQc@g8}U">
-                                                                                                                                <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                                              <block type="variables_get" id="b7)Lgu5?[j(jWlMuQ5:5">
+                                                                                                                                <field name="VAR" id="D`B#;Ny4Du[we`s,aRpW">groupe6</field>
                                                                                                                               </block>
                                                                                                                             </value>
                                                                                                                             <next>
-                                                                                                                              <block type="unset_group" id="hnhIDONi!4pu!!g7@@B+">
-                                                                                                                                <field name="groupe">2</field>
-                                                                                                                                <value name="GROUPS">
-                                                                                                                                  <block type="variables_get" id="RdeonwUAPfT1{zK1XgIM">
-                                                                                                                                    <field name="VAR" id="d$]#t+NL~U3`hn@FfXp^">piano</field>
-                                                                                                                                  </block>
-                                                                                                                                </value>
+                                                                                                                              <block type="cleanOneQueue" id="RcsQ~vFVXin~]ftV1c|X">
+                                                                                                                                <field name="number">6</field>
                                                                                                                                 <next>
-                                                                                                                                  <block type="cleanOneQueue" id="x/Xop$r1tlnNn:/o4DJj">
-                                                                                                                                    <field name="number">9</field>
+                                                                                                                                  <block type="alertInfoScoreOFF" id="0u{qxEu4p4aMKGBT*,zQ">
                                                                                                                                     <next>
-                                                                                                                                      <block type="alertInfoScoreOFF" id="qriI`T/aF5tHI=yQ0@Yy">
-                                                                                                                                        <next>
-                                                                                                                                          <block type="cleanChoiceList" id="kxA]=4ER*QFLt1AWQUT=">
-                                                                                                                                            <field name="groupe">1</field>
-                                                                                                                                          </block>
-                                                                                                                                        </next>
+                                                                                                                                      <block type="cleanChoiceList" id="hEv0zcWdqI:1jA,)33P4">
+                                                                                                                                        <field name="groupe">1</field>
                                                                                                                                       </block>
                                                                                                                                     </next>
                                                                                                                                   </block>
@@ -564,136 +402,132 @@
                                                                   </block>
                                                                 </statement>
                                                                 <next>
-                                                                  <block type="hh_sequence" id="NF-MF`?+nt2j(#M?EkPc">
+                                                                  <block type="hh_sequence" id="I}!n-cZB]g(!V~_Ve=6u">
                                                                     <statement name="BODY">
-                                                                      <block type="set_score_class" id="Ohg]F[.D{0z@qzvPP|-d">
-                                                                        <field name="class">1</field>
+                                                                      <block type="set_score_class" id="w:b6mE*.)nF#!otdc/%G">
+                                                                        <field name="class">7</field>
                                                                         <next>
-                                                                          <block type="set_group" id="9+$-+|$_tA]c_~lEs65k">
+                                                                          <block type="set_group" id="zktJYeGC1e(m,y5l+Kp[">
                                                                             <field name="groupe">2</field>
                                                                             <value name="GROUPS">
-                                                                              <block type="variables_get" id="`7i~EyzDx5[$R]v=:)0u">
-                                                                                <field name="VAR" id="HAh#vFhhI}o0iU4^*CV,">gaszi</field>
+                                                                              <block type="variables_get" id="%NatYNm/,,#ri;m1h!Md">
+                                                                                <field name="VAR" id="d$]#t+NL~U3`hn@FfXp^">piano</field>
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="alertInfoScoreON" id="]0vl.SW]cDr*M7ZU5d}]">
+                                                                              <block type="alertInfoScoreON" id="FCz9:a@Hku)W2?TKr_jD">
                                                                                 <value name="message">
-                                                                                  <block type="text" id="kgr4=sHF8WD--VP5/nXu">
-                                                                                    <field name="TEXT">Ney for group 0</field>
+                                                                                  <block type="text" id="!t}v:_R9d_.;Fzi8Ko[J">
+                                                                                    <field name="TEXT">Piano for group 0</field>
                                                                                   </block>
                                                                                 </value>
                                                                                 <next>
-                                                                                  <block type="set_group" id="Aiptt3yp96CU#%IkiVJn">
+                                                                                  <block type="set_group" id="N4*2o{I0]/,RbPxd?},U">
                                                                                     <field name="groupe">0</field>
                                                                                     <value name="GROUPS">
-                                                                                      <block type="variables_get" id="x,I`hriPwz5KnJ|%b|t-">
-                                                                                        <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
+                                                                                      <block type="variables_get" id="W@sL,9Q7X@jYwOkiBJcI">
+                                                                                        <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="hh_print_serveur" id="^:w;kps-$`d;RDBh./~C">
+                                                                                      <block type="hh_print_serveur" id=":23fL9z0,Da}dwu;~Twm">
                                                                                         <value name="TEXT">
-                                                                                          <block type="text" id="qU[L=!*MiTHNwGesZTt@">
-                                                                                            <field name="TEXT">groupe3</field>
+                                                                                          <block type="text" id="-xxbjhI2+x3[QJN$H#_L">
+                                                                                            <field name="TEXT">groupe7</field>
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="wait_for_signal_in_group" id="v!_cpyz2l:s]9rgbdn49">
+                                                                                          <block type="wait_for_signal_in_group" id="VQi0~uIh?yxH0r)r?9%R">
                                                                                             <field name="TIMES">1</field>
                                                                                             <value name="SIGNAL">
-                                                                                              <block type="variables_get" id="CsXM=~qn~@a1bYC}.,[J">
-                                                                                                <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
+                                                                                              <block type="variables_get" id="Fg*Z$3#I=R3JYD|Tgt[i">
+                                                                                                <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
                                                                                               </block>
                                                                                             </value>
                                                                                             <next>
-                                                                                              <block type="hh_run" id="@J:eI^`W-NgAj8cO{Hr#">
+                                                                                              <block type="hh_run" id="jXhr+!4rAu[e#$|QGqHc">
                                                                                                 <value name="MODULE">
-                                                                                                  <block type="variables_get" id="!shP5.6$:VX7j5@~Sq#}">
+                                                                                                  <block type="variables_get" id="1|qEltMD5xhs3XSyUJJ$">
                                                                                                     <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
                                                                                                   </block>
                                                                                                 </value>
                                                                                                 <value name="SIGNALS">
-                                                                                                  <block type="variables_get" id="KN?E;]`b|(()3BouRR9l">
+                                                                                                  <block type="variables_get" id="L3%MgBT~I%Q#2UKsC_;u">
                                                                                                     <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                                                   </block>
                                                                                                 </value>
                                                                                                 <next>
-                                                                                                  <block type="hh_pause" id="L0@S`?,v-])uY%%/i/hE">
+                                                                                                  <block type="unset_group" id="*FX4)B+?qg,TP0wkRPy(">
+                                                                                                    <field name="groupe">0</field>
+                                                                                                    <value name="GROUPS">
+                                                                                                      <block type="variables_get" id="^kB=X:xFJ/bqY[FL$gr~">
+                                                                                                        <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                      </block>
+                                                                                                    </value>
                                                                                                     <next>
-                                                                                                      <block type="unset_group" id="1|#r#r)y;AEY`w^|ar//">
-                                                                                                        <field name="groupe">0</field>
-                                                                                                        <value name="GROUPS">
-                                                                                                          <block type="variables_get" id="u_;1C[NZHsL3z?K~f+R@">
-                                                                                                            <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
-                                                                                                          </block>
-                                                                                                        </value>
+                                                                                                      <block type="hh_pause" id="_.N-d|.!mIM/Q,LOfrRK">
                                                                                                         <next>
-                                                                                                          <block type="cleanChoiceList" id="b09p$4OB4IksOt6DIZnX">
+                                                                                                          <block type="cleanChoiceList" id="6aTi1qB1zyqE;WdHY8s$">
                                                                                                             <field name="groupe">0</field>
                                                                                                             <next>
-                                                                                                              <block type="alertInfoScoreON" id="wQRwRW7//gACug~.B/;C">
+                                                                                                              <block type="alertInfoScoreON" id="c99bKJkIqeUpN-cd)kc7">
                                                                                                                 <value name="message">
-                                                                                                                  <block type="text" id="yNV3{{2(R.zf7!1CadwK">
-                                                                                                                    <field name="TEXT">Ney for group 1</field>
+                                                                                                                  <block type="text" id="H{(Lp]=s/!:09UceoMM-">
+                                                                                                                    <field name="TEXT">Piano for group 1</field>
                                                                                                                   </block>
                                                                                                                 </value>
                                                                                                                 <next>
-                                                                                                                  <block type="set_group" id="TkYr@w=GKPPYx(ji1)Wb">
+                                                                                                                  <block type="set_group" id="x-U^jq/2VoHqW=ZG,b@?">
                                                                                                                     <field name="groupe">1</field>
                                                                                                                     <value name="GROUPS">
-                                                                                                                      <block type="variables_get" id="xfY@mEE#e3D[{)*VTS*r">
-                                                                                                                        <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                      <block type="variables_get" id="1CT.$m#tXMQScetQ8x:u">
+                                                                                                                        <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
                                                                                                                       </block>
                                                                                                                     </value>
                                                                                                                     <next>
-                                                                                                                      <block type="wait_for_signal_in_group" id="i#h;*%/Nj?K.gs4(b;qw">
+                                                                                                                      <block type="wait_for_signal_in_group" id="qRZON|p@{OyIEpg/o=W9">
                                                                                                                         <field name="TIMES">1</field>
                                                                                                                         <value name="SIGNAL">
-                                                                                                                          <block type="variables_get" id="6yPCYyoUrp$8eT*o8lQK">
-                                                                                                                            <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                          <block type="variables_get" id="Mv-lYAAa6BX)-l6}mJFF">
+                                                                                                                            <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
                                                                                                                           </block>
                                                                                                                         </value>
                                                                                                                         <next>
-                                                                                                                          <block type="hh_run" id="eG4ePr,+F70dnL(()`4`">
+                                                                                                                          <block type="hh_run" id="6XZQ|wU#H;`j}e@l$+H|">
                                                                                                                             <value name="MODULE">
-                                                                                                                              <block type="variables_get" id="{{}b[N/;D$e=s3Ylx`AG">
+                                                                                                                              <block type="variables_get" id="dvb|MiVOBQ)$[RG+2UUt">
                                                                                                                                 <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
                                                                                                                               </block>
                                                                                                                             </value>
                                                                                                                             <value name="SIGNALS">
-                                                                                                                              <block type="variables_get" id="|_zT1Z5SyF9/O`TxlxHb">
+                                                                                                                              <block type="variables_get" id="t|(zn-`/*BhgpP-ET/O]">
                                                                                                                                 <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
                                                                                                                               </block>
                                                                                                                             </value>
                                                                                                                             <next>
-                                                                                                                              <block type="hh_pause" id=";Nz!y!Ka*cF~,^F.g_0a">
+                                                                                                                              <block type="unset_group" id="YjJ1OL~`{UCr3V7D3*B}">
+                                                                                                                                <field name="groupe">1</field>
+                                                                                                                                <value name="GROUPS">
+                                                                                                                                  <block type="variables_get" id="ng~0yAz2X3a:yQc@g8}U">
+                                                                                                                                    <field name="VAR" id="3kI=*dV?Hq`7sn%5en@q">groupe7</field>
+                                                                                                                                  </block>
+                                                                                                                                </value>
                                                                                                                                 <next>
-                                                                                                                                  <block type="unset_group" id="2:e5e6Pd~7fXTMdseA3o">
-                                                                                                                                    <field name="groupe">1</field>
+                                                                                                                                  <block type="unset_group" id="hnhIDONi!4pu!!g7@@B+">
+                                                                                                                                    <field name="groupe">2</field>
                                                                                                                                     <value name="GROUPS">
-                                                                                                                                      <block type="variables_get" id="yd9t!]xCir;[dF}%F,S+">
-                                                                                                                                        <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                                      <block type="variables_get" id="RdeonwUAPfT1{zK1XgIM">
+                                                                                                                                        <field name="VAR" id="d$]#t+NL~U3`hn@FfXp^">piano</field>
                                                                                                                                       </block>
                                                                                                                                     </value>
                                                                                                                                     <next>
-                                                                                                                                      <block type="unset_group" id="I.LsbFU}RE]UKQ%0B~2?">
-                                                                                                                                        <field name="groupe">2</field>
-                                                                                                                                        <value name="GROUPS">
-                                                                                                                                          <block type="variables_get" id="+X4Rp{6uzD]g9y/ddm.C">
-                                                                                                                                            <field name="VAR" id="HAh#vFhhI}o0iU4^*CV,">gaszi</field>
-                                                                                                                                          </block>
-                                                                                                                                        </value>
+                                                                                                                                      <block type="cleanOneQueue" id="x/Xop$r1tlnNn:/o4DJj">
+                                                                                                                                        <field name="number">9</field>
                                                                                                                                         <next>
-                                                                                                                                          <block type="cleanOneQueue" id="%]=?Wh+]u~!/P{;*:Jhu">
-                                                                                                                                            <field name="number">3</field>
+                                                                                                                                          <block type="alertInfoScoreOFF" id="qriI`T/aF5tHI=yQ0@Yy">
                                                                                                                                             <next>
-                                                                                                                                              <block type="alertInfoScoreOFF" id="6RJu8~2};g3v`NU!rn;1">
-                                                                                                                                                <next>
-                                                                                                                                                  <block type="cleanChoiceList" id="L*+l!U$/2G6,%p(B;i.}">
-                                                                                                                                                    <field name="groupe">1</field>
-                                                                                                                                                  </block>
-                                                                                                                                                </next>
+                                                                                                                                              <block type="cleanChoiceList" id="kxA]=4ER*QFLt1AWQUT=">
+                                                                                                                                                <field name="groupe">1</field>
                                                                                                                                               </block>
                                                                                                                                             </next>
                                                                                                                                           </block>
@@ -733,17 +567,188 @@
                                                                       </block>
                                                                     </statement>
                                                                     <next>
-                                                                      <block type="refreshSceneScore" id=":}*VPO|[iO~0D-mm9yIy">
-                                                                        <next>
-                                                                          <block type="bestScore" id="FMSB5KvvJuT_hQ$eUJPu">
-                                                                            <field name="ticks">5</field>
+                                                                      <block type="hh_sequence" id="NF-MF`?+nt2j(#M?EkPc">
+                                                                        <statement name="BODY">
+                                                                          <block type="set_score_class" id="Ohg]F[.D{0z@qzvPP|-d">
+                                                                            <field name="class">1</field>
                                                                             <next>
-                                                                              <block type="displayScore" id="5xmRBm^K}eZ^JoQaV-F/">
-                                                                                <field name="rank">1</field>
+                                                                              <block type="set_group" id="9+$-+|$_tA]c_~lEs65k">
+                                                                                <field name="groupe">2</field>
+                                                                                <value name="GROUPS">
+                                                                                  <block type="variables_get" id="`7i~EyzDx5[$R]v=:)0u">
+                                                                                    <field name="VAR" id="HAh#vFhhI}o0iU4^*CV,">gaszi</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="alertInfoScoreON" id="]0vl.SW]cDr*M7ZU5d}]">
+                                                                                    <value name="message">
+                                                                                      <block type="text" id="kgr4=sHF8WD--VP5/nXu">
+                                                                                        <field name="TEXT">Ney for group 0</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="set_group" id="Aiptt3yp96CU#%IkiVJn">
+                                                                                        <field name="groupe">0</field>
+                                                                                        <value name="GROUPS">
+                                                                                          <block type="variables_get" id="x,I`hriPwz5KnJ|%b|t-">
+                                                                                            <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="hh_print_serveur" id="^:w;kps-$`d;RDBh./~C">
+                                                                                            <value name="TEXT">
+                                                                                              <block type="text" id="qU[L=!*MiTHNwGesZTt@">
+                                                                                                <field name="TEXT">groupe3</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="wait_for_signal_in_group" id="v!_cpyz2l:s]9rgbdn49">
+                                                                                                <field name="TIMES">1</field>
+                                                                                                <value name="SIGNAL">
+                                                                                                  <block type="variables_get" id="CsXM=~qn~@a1bYC}.,[J">
+                                                                                                    <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="hh_run" id="@J:eI^`W-NgAj8cO{Hr#">
+                                                                                                    <value name="MODULE">
+                                                                                                      <block type="variables_get" id="!shP5.6$:VX7j5@~Sq#}">
+                                                                                                        <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <value name="SIGNALS">
+                                                                                                      <block type="variables_get" id="KN?E;]`b|(()3BouRR9l">
+                                                                                                        <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="hh_pause" id="L0@S`?,v-])uY%%/i/hE">
+                                                                                                        <next>
+                                                                                                          <block type="unset_group" id="1|#r#r)y;AEY`w^|ar//">
+                                                                                                            <field name="groupe">0</field>
+                                                                                                            <value name="GROUPS">
+                                                                                                              <block type="variables_get" id="u_;1C[NZHsL3z?K~f+R@">
+                                                                                                                <field name="VAR" id="oQNuy^#]{E_jL-5QAzOY">groupe3</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <next>
+                                                                                                              <block type="cleanChoiceList" id="b09p$4OB4IksOt6DIZnX">
+                                                                                                                <field name="groupe">0</field>
+                                                                                                                <next>
+                                                                                                                  <block type="alertInfoScoreON" id="wQRwRW7//gACug~.B/;C">
+                                                                                                                    <value name="message">
+                                                                                                                      <block type="text" id="yNV3{{2(R.zf7!1CadwK">
+                                                                                                                        <field name="TEXT">Ney for group 1</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                    <next>
+                                                                                                                      <block type="set_group" id="TkYr@w=GKPPYx(ji1)Wb">
+                                                                                                                        <field name="groupe">1</field>
+                                                                                                                        <value name="GROUPS">
+                                                                                                                          <block type="variables_get" id="xfY@mEE#e3D[{)*VTS*r">
+                                                                                                                            <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                          </block>
+                                                                                                                        </value>
+                                                                                                                        <next>
+                                                                                                                          <block type="wait_for_signal_in_group" id="i#h;*%/Nj?K.gs4(b;qw">
+                                                                                                                            <field name="TIMES">1</field>
+                                                                                                                            <value name="SIGNAL">
+                                                                                                                              <block type="variables_get" id="6yPCYyoUrp$8eT*o8lQK">
+                                                                                                                                <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                              </block>
+                                                                                                                            </value>
+                                                                                                                            <next>
+                                                                                                                              <block type="hh_run" id="eG4ePr,+F70dnL(()`4`">
+                                                                                                                                <value name="MODULE">
+                                                                                                                                  <block type="variables_get" id="{{}b[N/;D$e=s3Ylx`AG">
+                                                                                                                                    <field name="VAR" id="Sk=)C%r}uS^6M}fR]Hxt">timer</field>
+                                                                                                                                  </block>
+                                                                                                                                </value>
+                                                                                                                                <value name="SIGNALS">
+                                                                                                                                  <block type="variables_get" id="|_zT1Z5SyF9/O`TxlxHb">
+                                                                                                                                    <field name="VAR" id="hchBnoEv(z!xIgDRVuzY">tick</field>
+                                                                                                                                  </block>
+                                                                                                                                </value>
+                                                                                                                                <next>
+                                                                                                                                  <block type="hh_pause" id=";Nz!y!Ka*cF~,^F.g_0a">
+                                                                                                                                    <next>
+                                                                                                                                      <block type="unset_group" id="2:e5e6Pd~7fXTMdseA3o">
+                                                                                                                                        <field name="groupe">1</field>
+                                                                                                                                        <value name="GROUPS">
+                                                                                                                                          <block type="variables_get" id="yd9t!]xCir;[dF}%F,S+">
+                                                                                                                                            <field name="VAR" id="WU%EV{Sd)3_s!nw9Sd2P">groupe4</field>
+                                                                                                                                          </block>
+                                                                                                                                        </value>
+                                                                                                                                        <next>
+                                                                                                                                          <block type="unset_group" id="I.LsbFU}RE]UKQ%0B~2?">
+                                                                                                                                            <field name="groupe">2</field>
+                                                                                                                                            <value name="GROUPS">
+                                                                                                                                              <block type="variables_get" id="+X4Rp{6uzD]g9y/ddm.C">
+                                                                                                                                                <field name="VAR" id="HAh#vFhhI}o0iU4^*CV,">gaszi</field>
+                                                                                                                                              </block>
+                                                                                                                                            </value>
+                                                                                                                                            <next>
+                                                                                                                                              <block type="cleanOneQueue" id="%]=?Wh+]u~!/P{;*:Jhu">
+                                                                                                                                                <field name="number">3</field>
+                                                                                                                                                <next>
+                                                                                                                                                  <block type="alertInfoScoreOFF" id="6RJu8~2};g3v`NU!rn;1">
+                                                                                                                                                    <next>
+                                                                                                                                                      <block type="cleanChoiceList" id="L*+l!U$/2G6,%p(B;i.}">
+                                                                                                                                                        <field name="groupe">1</field>
+                                                                                                                                                      </block>
+                                                                                                                                                    </next>
+                                                                                                                                                  </block>
+                                                                                                                                                </next>
+                                                                                                                                              </block>
+                                                                                                                                            </next>
+                                                                                                                                          </block>
+                                                                                                                                        </next>
+                                                                                                                                      </block>
+                                                                                                                                    </next>
+                                                                                                                                  </block>
+                                                                                                                                </next>
+                                                                                                                              </block>
+                                                                                                                            </next>
+                                                                                                                          </block>
+                                                                                                                        </next>
+                                                                                                                      </block>
+                                                                                                                    </next>
+                                                                                                                  </block>
+                                                                                                                </next>
+                                                                                                              </block>
+                                                                                                            </next>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="refreshSceneScore" id=":}*VPO|[iO~0D-mm9yIy">
+                                                                            <next>
+                                                                              <block type="bestScore" id="FMSB5KvvJuT_hQ$eUJPu">
                                                                                 <field name="ticks">5</field>
                                                                                 <next>
-                                                                                  <block type="totalGameScore" id="rPD{7bYjQ_lr*Jd3},h%">
+                                                                                  <block type="displayScore" id="5xmRBm^K}eZ^JoQaV-F/">
+                                                                                    <field name="rank">1</field>
                                                                                     <field name="ticks">5</field>
+                                                                                    <next>
+                                                                                      <block type="totalGameScore" id="rPD{7bYjQ_lr*Jd3},h%">
+                                                                                        <field name="ticks">5</field>
+                                                                                      </block>
+                                                                                    </next>
                                                                                   </block>
                                                                                 </next>
                                                                               </block>
@@ -757,9 +762,9 @@
                                                               </block>
                                                             </next>
                                                           </block>
-                                                        </next>
+                                                        </statement>
                                                       </block>
-                                                    </statement>
+                                                    </next>
                                                   </block>
                                                 </next>
                                               </block>
