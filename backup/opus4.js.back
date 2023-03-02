@@ -36,7 +36,7 @@ exports.limiteDureeAttente = 20; // En pulsations
 AUTOMATE
 *********************************************************/
 // Pour un automate conforme à un rechargement selon les déclarations de module HipHop
-exports.reactOnPlay = false;
+exports.reactOnPlay = true;
 
 // Pour une réaction à chaque pulsation
 exports.pulsationON = false;

@@ -32,7 +32,7 @@ const WebSocket = require('ws');
 var debug = false;
 var debug1 = true;
 
-var tempoMax, tempoMin, limiteDureeAttente;
+var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
 var derniersPatternsJoues = [];
 var derniersInstrumentsJoue = [-1, -1, -1];
 var nbeInstruments = 100; // Attention c'est en dur...
@@ -56,14 +56,14 @@ function initTempi() {
 
   console.log("------------------------------------------------");
   if (par.tempoMax !== undefined) {
-    tempoMax = par.tempoMax; // en ms
+    tempoMax = parseInt(par.tempoMax); // en ms
   } else {
     tempoMax = 500;
     console.log("tempoMax par défaut")
   }
 
   if (par.tempoMin !== undefined) {
-    tempoMin = par.tempoMin; // en ms
+    tempoMin = parseInt(par.tempoMin); // en ms
   } else {
     tempoMin = 100;
     console.log("tempoMin par défaut")
@@ -258,7 +258,7 @@ function initWSSocket(port) {
   if (jeSuisUneAudience) monIdentite = "sim";
 
   ws.onopen = function (event) {
-    if(debug) console.log("INFO: simulateurFork.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
+    if (debug) console.log("INFO: simulateurFork.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
     msg.type = "startSpectateur";
     msg.text = monIdentite;
     msg.id = id;
@@ -290,7 +290,8 @@ function initWSSocket(port) {
         break;
 
       case "dureeAttente": // Quand le son a été demandé
-        if (debug) console.log("dureeAttente:", msgRecu.text, msgRecu.son);;
+        if (debug) console.log("SimulatuerFork.js: dureeAttente:", msgRecu.text, msgRecu.son);
+        dureeAttente = parseInt(msgRecu.text);
         break;
 
       case "groupe":
@@ -345,14 +346,14 @@ function initWSSocket(port) {
 
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
-          if(tempoMax === tempoMin) {
+          if (tempoMax === tempoMin) {
             console.log("WARN: tempoMin and tempoMax must no be equal");
             tempoInstantListClip = 10;
           }
           else {
-            tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
+            tempoInstantListClip =  Math.floor(tempoMin + (Math.random() * (tempoMax - tempoMin)));
           }
-          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, tempoMax, tempoMin );
           if (DAWON) setTimeout(function () {
             selectListClips();
           },
@@ -371,13 +372,24 @@ function initWSSocket(port) {
           if (debug) console.log("--- WS Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
         }
 
-        if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
-        msg.type = "sendPatternSequence";
-        msg.patternSequence = sequenceLocale;
-        msg.pseudo = pseudo;
-        msg.groupe = monGroupe;
-        msg.idClient = id;
-        ws.send(JSON.stringify(msg));
+        if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
+        if (dureeAttente < limiteDureeAttente) {
+          if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
+          msg.type = "sendPatternSequence";
+          msg.patternSequence = sequenceLocale;
+          msg.pseudo = pseudo;
+          msg.groupe = monGroupe;
+          msg.idClient = id;
+          ws.send(JSON.stringify(msg));
+        } else {
+          msg.type = "sendPatternSequence";
+          msg.patternSequence = [];
+          msg.pseudo = pseudo;
+          msg.groupe = monGroupe;
+          msg.idClient = id;
+          ws.send(JSON.stringify(msg));
+          dureeAttente = 0;
+        }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
         if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, pseudo);

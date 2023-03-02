@@ -32,7 +32,7 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 
 var debug = false;
-var debug1 = true;
+var debug1 = false;
 
 var serv;
 var nbeDeCommandes;
@@ -967,9 +967,10 @@ function ordonneFifo(fifo, pattern) {
   // On ordonne la fifo en partant de l'indice haut qui correspond au denier pattern entré
   // ceci évite de trop perturber le timing d'éntrée des patterns dans la fifo.
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
+  if (debug1) console.log("---- ordonneFifo", fifo, pattern[8], pattern[9]);
 
   if (fifo.length === 0 || pattern[9] === typeNeutre) {
-    if (debug) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
     fifo.push(pattern);
     return;
   }
@@ -981,7 +982,7 @@ function ordonneFifo(fifo, pattern) {
 
   switch (pattern[9]) {
     case typeFin:
-      if (fifo.length - 1 > 0) {
+      if (fifo.length > 1) {
         if (putPatternBetween(fifo, typeDebut, typeDebut, pattern)) { return; }
         if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
         if (fifo[fifo.length - 1][9] === typeFin) { // le dernier élément est déjà une fin F
@@ -991,7 +992,7 @@ function ordonneFifo(fifo, pattern) {
       break; // On pousse
 
     case typeDebut:
-      if (fifo.length - 1 > 0) {
+      if (fifo.length > 1) {
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeFin, typeMilieu, pattern)) { return; }
       } else {
@@ -1004,26 +1005,21 @@ function ordonneFifo(fifo, pattern) {
       break; // On pousse
 
     case typeMilieu:
-      if (fifo.length - 1 > 0) {
+      if (fifo.length > 1) {
         if (putPatternBetween(fifo, typeDebut, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeMilieu, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }
       } else { // Il n'y a qu'un élément dans la Fifo.
         if (fifo[0][9] === typeFin) { // Si c'est une fin
           if (debug1) console.log("---- ordonneFifo: Permuttons F et M");
-          fifo.splice(0, 0, pattern);
+          fifo.splice(0, 0, pattern); // Insère un élément en début de fifo
+          return;
         }
         else { // C'est qu'on a un debut avant, mais on pourra avoir un début apres ou un autre milieu
           if (debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo: on le jette");
           return; // On perd le pattern sinon, donc pas utilisable en interaction.
         }
       }
-      // Attention : Ce return est une façon de ne placer un milieu que si on est certain de l'avoir caser proprement.
-      // On perd le pattern sinon, donc pas utilisable en interaction.
-      if (debug1) console.log("---- ordonneFifo: Un pattern Milieu supprimé");
-      return;
-
-      break; // On pousse
 
     case typeMauvais:
       // On ne fait rien dans ce cas.
@@ -1031,6 +1027,6 @@ function ordonneFifo(fifo, pattern) {
 
     default: if (debug1) console.log("---- ordonneFifo:Pattern de type inconnu");
   }
-  if (debug) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
+  if (debug1) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
   fifo.push(pattern);
 }
