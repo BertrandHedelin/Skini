@@ -215,7 +215,6 @@ function selectNextClip() {
     return undefined;
   }
 
-
   //Choisir les commandes MIDI des patterns pour l'instrument sélectioné
   for (var i = 0; i < listClips.length; i++) {
     if (listClips[i][5] === instrument) {
@@ -224,7 +223,7 @@ function selectNextClip() {
   }
   if (debug) console.log("*** selectNextClip:listeSelectionClip:", listeSelectionClip);
 
-  //Choisir un pattern pour l'instrument sélectioné
+  //Choisir un pattern pour l'instrument sélectionné
   selectionClip = selectRandomInList(derniersPatternsJoues[instrument], listeSelectionClip);
   if (selectionClip === undefined) {
     console.log("ERR:selectNextClip:selectionClip undefined : ", derniersPatternsJoues[instrument], "\n  listeSelectionClip :", listeSelectionClip);
@@ -342,7 +341,7 @@ function initWSSocket(port) {
 
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
-          if(tempoMax === tempoMin) {
+          if (tempoMax === tempoMin) {
             console.log("WARN: tempoMin and tempoMax must no be equal");
             tempoInstantListClip = 10;
           }

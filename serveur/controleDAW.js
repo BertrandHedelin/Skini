@@ -32,7 +32,7 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 
 var debug = false;
-var debug1 = false;
+var debug1 = true;
 
 var serv;
 var nbeDeCommandes;
@@ -558,9 +558,9 @@ function playAndShiftEventDAW(timerDivision) {
             if (par.useRaspberries !== undefined) {
               // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level, durée)
               if (debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage,
-               commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
+                commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               if (par.useRaspberries && !isNaN(commandeDAW[11])) {
-                 oscMidi.playOSCRasp(par.playBufferMessage, 
+                oscMidi.playOSCRasp(par.playBufferMessage,
                   commandeDAW[11], par.raspOSCPort, commandeDAW[10],
                   commandeDAW[12], commandeDAW[6]);
               } else {
@@ -837,7 +837,7 @@ exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
 function getAllClips(groupeDeClients, matriceDesPossibles) {
 
   // Protection
-  if(groupeDeClients === -1){
+  if (groupeDeClients === -1) {
     return -1;
   }
 
@@ -924,7 +924,10 @@ exports.getListClips = getListClips;
 //************** Réorganisation des Fifos **************
 // Le mécanisme est décrit dans la doc utilisateur de Skini.
 // 
-
+/**
+ * Insert a pattern between two types of patterns.
+ * Starts from the end of the FIFO.
+ */
 function putPatternBetween(fifo, avant, apres, pattern) {
   for (var i = fifo.length - 1; i > 0; i--) {
     if (debug) console.log("-- putPatternBetween:", fifo.length, i);
@@ -940,18 +943,19 @@ function putPatternBetween(fifo, avant, apres, pattern) {
   return false;
 }
 
-// Pas utilisé
-function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
-  if (debug) console.log("---- putPatternFirstWithoutSecond");
+/**
+ * Insert a pattern before a type of pattern.
+ * Starts from the end of the FIFO.
+ */
+function putPatternBefore(fifo, apres, pattern) {
+  if (debug1) console.log("---- putPatternBefore");
 
   for (var i = fifo.length - 1; i > 0; i--) {
-    if (fifo[i][9] === avant) {
-      if (fifo[i - 1][9] !== apres) {
-        if (debug) console.log("---- putPatternFirstWithoutSecond: On met le pattern:", pattern[7], "de type:", pattern[9],
-          "en", i, " (entre types", apres, " et ", avant, ")");
-        fifo.splice(i, 0, pattern);
-        return true;
-      }
+    if (fifo[i][9] === apres) {
+      if (debug1) console.log("---- putPatternBefore: On met le pattern:", pattern[7], "de type:", pattern[9],
+        "en", i, " (avant: ", apres, ")");
+      fifo.splice(i, 0, pattern);
+      return true;
     }
   }
   return false;
@@ -967,42 +971,39 @@ function ordonneFifo(fifo, pattern) {
   // On ordonne la fifo en partant de l'indice haut qui correspond au denier pattern entré
   // ceci évite de trop perturber le timing d'éntrée des patterns dans la fifo.
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
-  if (debug1) console.log("---- ordonneFifo", fifo, pattern[8], pattern[9]);
+  if (debug) console.log("---- ordonneFifo", pattern[8], pattern[9]);
 
   if (fifo.length === 0 || pattern[9] === typeNeutre) {
-    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern");
     fifo.push(pattern);
     return;
   }
 
   if (fifo.length === 0 && pattern[9] === typeMilieu) {
-    if (debug1) console.log("---- ordonneFifo: M tout seul, on le jette");
+    if (debug1) console.log("---- ordonneFifo: M tout seul");
+    fifo.push(pattern);
     return;
   }
 
   switch (pattern[9]) {
-    case typeFin:
-      if (fifo.length > 1) {
-        if (putPatternBetween(fifo, typeDebut, typeDebut, pattern)) { return; }
-        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
-        if (fifo[fifo.length - 1][9] === typeFin) { // le dernier élément est déjà une fin F
-          if (putPatternBetween(fifo, typeDebut, typeMilieu, pattern)) { return; }
-        }
-      }
-      break; // On pousse
-
     case typeDebut:
-      if (fifo.length > 1) {
+      if (fifo.length > 1) { // Au moins 2 elements
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeFin, typeMilieu, pattern)) { return; }
-      } else {
-        if (fifo[0][9] === typeFin) {
-          if (debug1) console.log("---- ordonneFifo: Permuttons F et D");
+        if (putPatternBetween(fifo, typeMilieu, typeFin, pattern)) { return; }
+        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
+        fifo.push(pattern);
+        return;
+      } else { // Un seul élément
+        if (fifo[0][9] === typeFin || fifo[0][9] === typeMilieu) {
+          if (debug1) console.log("---- ordonneFifo: Permuttons F ou M et D");
           fifo.splice(0, 0, pattern);
+          return;
+        } else { // ça fait 2 débuts de suite
+          fifo.push(pattern);
           return;
         }
       }
-      break; // On pousse
 
     case typeMilieu:
       if (fifo.length > 1) {
@@ -1016,9 +1017,23 @@ function ordonneFifo(fifo, pattern) {
           return;
         }
         else { // C'est qu'on a un debut avant, mais on pourra avoir un début apres ou un autre milieu
-          if (debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo: on le jette");
-          return; // On perd le pattern sinon, donc pas utilisable en interaction.
+          if (debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo");
+          fifo.splice(0, 0, pattern); // Insère un élément en début de fifo
+          return;
         }
+      }
+
+    case typeFin:
+      if (fifo.length > 1) {
+        if (putPatternBetween(fifo, typeDebut, typeDebut, pattern)) { return; }
+        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
+        if (fifo[fifo.length - 1][9] === typeFin) { // le dernier élément est déjà une fin F
+          if (putPatternBetween(fifo, typeDebut, typeMilieu, pattern)) { return; }
+        }
+      } else {
+        // ça fait une fin toute seule
+        fifo.push(pattern);
+        return;
       }
 
     case typeMauvais:
@@ -1027,6 +1042,4 @@ function ordonneFifo(fifo, pattern) {
 
     default: if (debug1) console.log("---- ordonneFifo:Pattern de type inconnu");
   }
-  if (debug1) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
-  fifo.push(pattern);
 }
