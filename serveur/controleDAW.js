@@ -32,7 +32,7 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 
 var debug = false;
-var debug1 = true;
+var debug1 = false;
 
 var serv;
 var nbeDeCommandes;
@@ -962,7 +962,7 @@ function putPatternBefore(fifo, apres, pattern) {
 }
 
 /**
- * Reorder a queue according to the pattern types.
+ * Reorder a queue according to the pattern types DMFN.
  * 
  * @param  {Array} fifo - of the "queue" or "instrument"
  * @param  {Array} pattern
@@ -974,7 +974,7 @@ function ordonneFifo(fifo, pattern) {
   if (debug) console.log("---- ordonneFifo", pattern[8], pattern[9]);
 
   if (fifo.length === 0 || pattern[9] === typeNeutre) {
-    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern");
+    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N");
     fifo.push(pattern);
     return;
   }
