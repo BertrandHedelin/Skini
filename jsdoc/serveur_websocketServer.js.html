@@ -55,11 +55,13 @@ var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
 var compScore = require('./computeScore');
 var gameOSC = require('./gameOSC');
+var midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
 const { stringify } = require('querystring');
 const { Worker } = require('worker_threads');
 const saveParam = require('./saveParam.js');
+const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.js";
 var par;
@@ -91,16 +93,6 @@ var sessionPath = ipConfig.sessionPath; //"./pieces/";
 var piecePath = ipConfig.piecePath; //"./pieces/";
 
 /**
- * To access the simulator from the fork
- * @param {Object} fork reference
- */
-function setChildSimulator(child) {
-  if (debug) console.log("INFO: websocket server: setChildSimulator", child);
-  childSimulator = child;
-}
-exports.setChildSimulator = setChildSimulator;
-
-/**
  * To load some modules.
  * Used only at Skini launch.
  * @param {Object} midimix reference
@@ -126,7 +118,11 @@ function updateSimulatorParameters(param) {
       type: "PARAMETERS",
       data: param
     }
-    childSimulator.send(message);
+    try {
+      childSimulator.send(message);
+    } catch(err){
+      console.log("ERR: websocketserver: updateSimulatorParameters:", err);
+    }
   } else {
     if (debug1) console.log("INFO: websocketServer: updateSimulatorParameters :No Fork Simulator");
   }
@@ -236,6 +232,12 @@ var currentTimeMidi = 0;
  * Init MIDI OUT port if defined in the parameters
  */
 function initMidiPort() {
+
+  // Check the midi config before doing something
+  if (midiConfig[0] === undefined) {
+    return;
+  }
+
   if (par !== undefined) {
     var directMidi = false;
     if (par.directMidiON !== undefined) {
@@ -630,7 +632,7 @@ function startWebSocketServer() {
   }
 
   // Pas au bon endroit, musicien pas en place dans cette version
-  //if (par.avecMusicien !== undefined &amp;&amp; par.decalageFIFOavecMusicien !== undefined) {
+  //if (par.avecMusicien !== undefined &amp;&amp; par.decalageFIFOavecMusicien !== undefined) {p.
   //DAW.setAvecMusicien(par.avecMusicien, par.decalageFIFOavecMusicien);
   //}
 
@@ -666,10 +668,11 @@ function startWebSocketServer() {
       if (socketControleur.readyState == 1) {
         socketControleur.send(JSON.stringify(mesReponse));
       } else {
-        console.log("ERR: websocketserveur:initMatriceDesPossibles:", socketControleur.readyState);
+        if (debug) console.log("WARN: websocketserveur:initMatriceDesPossibles: socketControler status:", socketControleur.readyState);
       }
     }
   }
+
   /**
    * Action called every quarter note of the MIDI synchro or worker synchro if no MIDI sync.
    * @memberof Websocketserver
@@ -761,7 +764,7 @@ function startWebSocketServer() {
     }
 
     // Pour informer que l'on est bien connecté
-    if (debug1) console.log("INFO: Web Socket Server: connection established:");
+    if (debug) console.log("INFO: Web Socket Server: a connection established");
     var msg = {
       type: "message",
       value: "Bienvenue chez Skini !"
@@ -868,6 +871,11 @@ function startWebSocketServer() {
       if (debug) console.log("-----webSocketServeur: playPattern: Pattern reçu:", pattern[0]);
 
       var signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
+
+      if (signal === "-1IN") {
+        console.log("WARN: websocketserveur: playPattern : no group declared :", groupe);
+        return;
+      }
       if (debug) console.log("webSocketServeur: playPattern, signal reçu:", pattern, signal);
 
       var legroupe = groupe; // groupe d'utilisateur
@@ -1347,7 +1355,7 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          if (debug1) console.log("loadSession:", sessionPath + msgRecu.fileName);
+          if (debug1) console.log("INFO: loadSession:", sessionPath + msgRecu.fileName);
           sessionFile = sessionPath + msgRecu.fileName;
 
           try {
@@ -1690,7 +1698,7 @@ maybe an hiphop compile Error`);
           }
 
           ws.id = msgRecu.id;
-          if (debug1) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
+          if (debug) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 
           // On ne permet donc qu'un seul controleur.
           // Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.
@@ -1785,6 +1793,16 @@ maybe an hiphop compile Error`);
           ws.send(JSON.stringify(msg));
           break;
 
+        case "startSimulator":
+          if (debug) console.log("Web Socket Server: start Simulator");
+          childSimulator = fork("./client/simulateurListe/simulateurFork.js");
+          var message = {
+            type: "START_SIMULATOR"
+          }
+          childSimulator.send(message);
+          updateSimulatorParameters(par);
+          break;
+
         case "stopAutomate":
           if (DAWTableReady) {
             //if (setTimer !== undefined &amp;&amp; !par.synchoOnMidiClock) clearInterval(setTimer);
@@ -1797,6 +1815,14 @@ maybe an hiphop compile Error`);
             }
             serv.broadcast(JSON.stringify(msg));
           }
+          break;
+
+        case "stopSimulator":
+          if (debug) console.log("INFO: Web Socket Server: stop Simulator");
+          var message = {
+            type: "STOP_SIMULATOR"
+          }
+          childSimulator.send(message);
           break;
 
         case "system": // Message converti en signal pour l'automate central
@@ -1839,10 +1865,10 @@ maybe an hiphop compile Error`);
             if (err) {
               return console.log(err);
             }
-            if (debug) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
+            if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
           });
 
-          if (debug) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
+          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
             reloadParameters(msgRecu.data);
@@ -1915,13 +1941,13 @@ function getDateTime() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternBefore">putPatternBefore</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 14:22:29 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 07 2023 12:09:18 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,6 +1,19 @@
-var Piano, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, Percu, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, Flesh, Massive, nappeViolons;
+var Piano, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, Percu, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, Flesh, nappeViolons, Massive;
 
 
+// Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
+// On a donc un contrôle sur la construction des phrases musicales.
+// Le simulateur a des contraintes sur les timers : 3000 min et
+// 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel
+// aux tanks en contrôlant/limitant les répétitions de patterns.
+// Si le simulateur va trop vite, il peut rappeler un
+// pattern avant qu'il ait été dévalidé sur le serveur,
+// surtout quand le paramètre reactOnPlay est actif.
+//
+//
+//
+//
+//
 
 "use strict";
 var hh = require("../hiphop/hiphop.js");
@@ -9797,6 +9810,15 @@ exports.setSignals = setSignals;
         }
     ) // Fin atom,
   ); // Fin module
+  // La transposition si fait dans Ableton Live. D'où les
+  // ratios dans l'initialisation de la pièce pour cadrer
+  // avec le paramètre MIDI des CC. (min -36, max +36).
+  // 64 -> 0
+  // 67 -> +2 ...
+  //
+  //
+  //
+  //
 
   TransPianoEtNappe = hh.MODULE({"id":"TransPianoEtNappe","%location":{},"%tag":"module"},
 
@@ -10024,6 +10046,52 @@ var orchestration = hh.MODULE(
     }
   ),
 
+        hh.SEQUENCE(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+              "%tag":"seq"
+            },
+
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'setListeDesTypes',
+              }
+              serveur.broadcast(JSON.stringify(msg));
+            }
+          }
+        ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'listeDesTypes',
+              text:'1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11'
+            }
+            serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+      ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+               gcs.setpatternListLength([11,255]);
+            }
+          }
+        ),
+
+    ),
+
   hh.ATOM(
     {
       "%location":{},
@@ -10081,16 +10149,6 @@ var orchestration = hh.MODULE(
           "%location":{},
           "%tag":"node",
           "apply":function () {
-             gcs.setpatternListLength([4,255]);
-          }
-        }
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
             DAW.cleanQueues();
             gcs.cleanChoiceList(255);
           }
@@ -10110,14 +10168,14 @@ var orchestration = hh.MODULE(
         "%tag":"signal"
       },
       hh.SIGNAL({
-        "name":"stop510493"
+        "name":"stop727194"
       }),
 
         hh.TRAP(
           {
-            "trap510493":"trap510493",
+            "trap727194":"trap727194",
             "%location":{},
-            "%tag":"trap510493"
+            "%tag":"trap727194"
           },
           hh.FORK(
             {
@@ -10145,7 +10203,7 @@ var orchestration = hh.MODULE(
                       "%tag":"run",
                       "module": hh.getModule("Piano", {"filename":"","pos":2}),
                       "autocomplete":true,
-                      "stopReservoir":"stop510493"
+                      "stopReservoir":"stop727194"
                     }
                   ),
                 ),
@@ -10165,7 +10223,7 @@ var orchestration = hh.MODULE(
                   "apply":function (){return ((() => {
                     const tick =this["tick"];
                     return tick.now;})());},
-                  "countapply":function (){return 30;}
+                  "countapply":function (){return 40;}
               },
               hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
             ),
@@ -10174,18 +10232,18 @@ var orchestration = hh.MODULE(
                 "%location":{},
                 "%tag":"emit",
                 //"stopReservoir":"stopReservoir",
-                "stop510493" : "stop510493",
+                "stop727194" : "stop727194",
                 "apply":function (){
                   return ((() => {
                     //const stopReservoir = this["stopReservoir"];
-                    const stop510493 = this["stop510493"];
+                    const stop727194 = this["stop727194"];
                     return 0;
                   })());
                 }
               },
               hh.SIGACCESS({
                 //"signame":"stopReservoir",
-                "signame":"stop510493",
+                "signame":"stop727194",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -10201,7 +10259,7 @@ var orchestration = hh.MODULE(
 
             hh.EXIT(
             {
-              "trap510493":"trap510493",
+              "trap727194":"trap727194",
               "%location":{},
               "%tag":"break"
             }), // Exit
@@ -10255,16 +10313,16 @@ var orchestration = hh.MODULE(
               {
                 "%location":{},
                 "%tag":"emit",
-                "MassiveOUT": "MassiveOUT",
+                "FleshOUT": "FleshOUT",
                 "apply":function (){
                   return ((() => {
-                    const MassiveOUT = this["MassiveOUT"];
+                    const FleshOUT = this["FleshOUT"];
                     return [true,255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame": "MassiveOUT",
+                "signame": "FleshOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -10274,7 +10332,7 @@ var orchestration = hh.MODULE(
               {
               "%location":{},
               "%tag":"node",
-              "apply":function () { gcs.informSelecteurOnMenuChange(255 , "MassiveOUT",true); }
+              "apply":function () { gcs.informSelecteurOnMenuChange(255 , "FleshOUT",true); }
               }
          	),
 
@@ -10288,16 +10346,16 @@ var orchestration = hh.MODULE(
         {
           "%location":{},
           "%tag":"emit",
-          "MassiveOUT": "MassiveOUT",
+          "FleshOUT": "FleshOUT",
           "apply":function (){
             return ((() => {
-              const MassiveOUT = this["MassiveOUT"];
+              const FleshOUT = this["FleshOUT"];
               return [false,255];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame": "MassiveOUT",
+          "signame": "FleshOUT",
           "pre":true,
           "val":true,
           "cnt":false
@@ -10307,7 +10365,7 @@ var orchestration = hh.MODULE(
         {
         "%location":{},
         "%tag":"node",
-        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "MassiveOUT",false); }
+        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "FleshOUT",false); }
         }
     ),
 
@@ -10326,7 +10384,17 @@ var orchestration = hh.MODULE(
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            DAW.cleanQueue(8);
+            DAW.cleanQueue(2);
+          }
+        }
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.cleanQueue(6);
           }
         }
       ),
@@ -10337,14 +10405,14 @@ var orchestration = hh.MODULE(
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop109791"
+      "name":"stop639229"
     }),
 
       hh.TRAP(
         {
-          "trap109791":"trap109791",
+          "trap639229":"trap639229",
           "%location":{},
-          "%tag":"trap109791"
+          "%tag":"trap639229"
         },
         hh.FORK(
           {
@@ -10372,7 +10440,7 @@ var orchestration = hh.MODULE(
                     "%tag":"run",
                     "module": hh.getModule("Saxo", {"filename":"","pos":2}),
                     "autocomplete":true,
-                    "stopReservoir":"stop109791"
+                    "stopReservoir":"stop639229"
                   }
                 ),
               ),
@@ -10401,18 +10469,18 @@ var orchestration = hh.MODULE(
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop109791" : "stop109791",
+              "stop639229" : "stop639229",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop109791 = this["stop109791"];
+                  const stop639229 = this["stop639229"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop109791",
+              "signame":"stop639229",
               "pre":true,
               "val":true,
               "cnt":false
@@ -10428,7 +10496,7 @@ var orchestration = hh.MODULE(
 
           hh.EXIT(
           {
-            "trap109791":"trap109791",
+            "trap639229":"trap639229",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -10467,14 +10535,14 @@ var orchestration = hh.MODULE(
         "%tag":"signal"
       },
       hh.SIGNAL({
-        "name":"stop601345"
+        "name":"stop357882"
       }),
 
         hh.TRAP(
           {
-            "trap601345":"trap601345",
+            "trap357882":"trap357882",
             "%location":{},
-            "%tag":"trap601345"
+            "%tag":"trap357882"
           },
           hh.FORK(
             {
@@ -10502,7 +10570,7 @@ var orchestration = hh.MODULE(
                       "%tag":"run",
                       "module": hh.getModule("Flute", {"filename":"","pos":2}),
                       "autocomplete":true,
-                      "stopReservoir":"stop601345"
+                      "stopReservoir":"stop357882"
                     }
                   ),
                 ),
@@ -10531,18 +10599,18 @@ var orchestration = hh.MODULE(
                 "%location":{},
                 "%tag":"emit",
                 //"stopReservoir":"stopReservoir",
-                "stop601345" : "stop601345",
+                "stop357882" : "stop357882",
                 "apply":function (){
                   return ((() => {
                     //const stopReservoir = this["stopReservoir"];
-                    const stop601345 = this["stop601345"];
+                    const stop357882 = this["stop357882"];
                     return 0;
                   })());
                 }
               },
               hh.SIGACCESS({
                 //"signame":"stopReservoir",
-                "signame":"stop601345",
+                "signame":"stop357882",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -10558,7 +10626,7 @@ var orchestration = hh.MODULE(
 
             hh.EXIT(
             {
-              "trap601345":"trap601345",
+              "trap357882":"trap357882",
               "%location":{},
               "%tag":"break"
             }), // Exit

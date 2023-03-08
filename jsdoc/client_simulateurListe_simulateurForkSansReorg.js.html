@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: client/simulateurListe/simulateurListe.js</title>
+    <title>JSDoc: Source: client/simulateurListe/simulateurForkSansReorg.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: client/simulateurListe/simulateurListe.js</h1>
+    <h1 class="page-title">Source: client/simulateurListe/simulateurForkSansReorg.js</h1>
 
     
 
@@ -53,20 +53,21 @@
  */
 'use strict'
 
-var par = require('../../serveur/skiniParametres');
+var par;
+var ws;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
 var debug = false;
 var debug1 = true;
 
-var tempoMax, tempoMin, limiteDureeAttente;
+var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
 var derniersPatternsJoues = [];
 var derniersInstrumentsJoue = [-1, -1, -1];
 var nbeInstruments = 100; // Attention c'est en dur...
 
 function setTableDerniersPatterns() {
   var tablederniersPatterns = [];
-  var tableVide = [-1, -1, -1];
+  var tableVide = [-1, -1, -1]; // Ce tableau définit la taille de la "mémoire" pour les non répétitions de patterns
 
   for (var i = 0; i &lt; nbeInstruments; i++) {
     tablederniersPatterns.push(tableVide);
@@ -75,16 +76,22 @@ function setTableDerniersPatterns() {
 }
 
 function initTempi() {
+
+  if (par === undefined) {
+    console.log("WARN simulator : launch the simulator after loading a piece");
+    return;
+  }
+
   console.log("------------------------------------------------");
   if (par.tempoMax !== undefined) {
-    tempoMax = par.tempoMax; // en ms
+    tempoMax = parseInt(par.tempoMax); // en ms
   } else {
     tempoMax = 500;
     console.log("tempoMax par défaut")
   }
 
   if (par.tempoMin !== undefined) {
-    tempoMin = par.tempoMin; // en ms
+    tempoMin = parseInt(par.tempoMin); // en ms
   } else {
     tempoMin = 100;
     console.log("tempoMin par défaut")
@@ -100,10 +107,8 @@ function initTempi() {
   derniersPatternsJoues = setTableDerniersPatterns();
   if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
 
-  console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
+  console.log("INFO simulateur : Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
-
-initTempi();
 
 if (ipConfig.websocketServeurPort !== undefined) {
   var port = ipConfig.websocketServeurPort;
@@ -111,17 +116,15 @@ if (ipConfig.websocketServeurPort !== undefined) {
   var port = 8080;
 }
 
-console.log("----------------------------------------------\n");
-console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
+if (debug) console.log("----------------------------------------------\n");
+if (debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
-var ws;
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
 var DAWON = 0;
 var pseudo = "sim" + id;
-
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
-var nombreDePatternsPossible = 1;
+var nombreDePatternsPossible = 1; // Valeur par défaut qui peut être modifiée par l'orchestration
 
 var numClip;
 var msg = { // On met des valeurs pas defaut
@@ -144,8 +147,9 @@ for (var i = 0; i &lt; myArgs.length; i++) {
 /************************ NON REPETITION DES CLIPS ********************
 Table des commandes donnée par les listes de patterns
 
- 0= note, 1=note stop, 2=flag, 3=nom, 4=fichier son, 5=instrument, 6=Slot, 7=niveau2, 8=niveau3, 9=groupe, 10=durée
- 11= réservé client, 12= pseudo
+ 0= note, 1=note stop, 2=flag, 3=nom, 4=fichier son, 
+ 5=instrument, 6=Slot, 7=type, 8=free, 9=groupe, 10=durée
+ 11= IP, 12= buffer, 13=niveau
 
 **********************************************************************/
 
@@ -164,10 +168,11 @@ function sendPseudo(texte) {
 }
 
 /* --------------------------------------------------------------------
- * On évite de reprendre un élément de la liste qui serait dans mémoire.
+ * On évite de reprendre un élément de la liste qui serait dans la mémoire.
  * Nous avons les cas particuliers où la liste est de taille équivalente
  * ou inferieure à la mémoire.
- * retourne un élément de la liste.
+ * Cette fonction retourne un élément de la liste en tenant compte de l'état de la mémoire.
+ * C'est utilisé pour les instruments et pour les patterns.
  * --------------------------------------------------------------------*/
 function selectRandomInList(memoire, liste) {
   var selection;
@@ -237,7 +242,7 @@ function selectNextClip() {
 
   //Choisir un instrument au hasard, et pas toujours le même
   instrument = selectRandomInList(derniersInstrumentsJoue, listeInstruments);
-  if (debug1) console.log("*** selectNextClip:instrument:", instrument, derniersInstrumentsJoue);
+  if (debug) console.log("*** selectNextClip:instrument:", instrument);
   if (instrument === undefined) {
     console.log("ERR:selectNextClip:instrument undefined");
     return undefined;
@@ -251,10 +256,12 @@ function selectNextClip() {
   }
   if (debug) console.log("*** selectNextClip:listeSelectionClip:", listeSelectionClip);
 
-  //Choisir un pattern pour l'instrument sélectionné
+  // Choisir un pattern pour l'instrument sélectionné
+  // Pas suffisant avec l'application de modèles sur la suite des patterns
+  // La sélection doit se faire en fonction des types.
   selectionClip = selectRandomInList(derniersPatternsJoues[instrument], listeSelectionClip);
   if (selectionClip === undefined) {
-    console.log("ERR:selectNextClip:selectionClip undefined : ", derniersPatternsJoues[instrument], "\n  listeSelectionClip :", listeSelectionClip);
+    console.log("ERR:selectNextClip:selectionClip undefined");
     return undefined;
   }
   if (debug) console.log("*** selectNextClip:selectionClip:", selectionClip);
@@ -271,6 +278,11 @@ WEBSOCKET AVEC NODE JS
 function initWSSocket(port) {
   var tempoInstantListClip = 0;
 
+  if (ws !== undefined) {
+    if (debug1) console.log("INFO: simulateurFork.js: close the socket");
+    ws.close();
+  }
+
   ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
 
   // Par défaut je suis hors audience
@@ -278,17 +290,13 @@ function initWSSocket(port) {
   if (jeSuisUneAudience) monIdentite = "sim";
 
   ws.onopen = function (event) {
-    console.log("simulateur.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
+    if (debug) console.log("INFO: simulateurFork.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
     msg.type = "startSpectateur";
     msg.text = monIdentite;
     msg.id = id;
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
 
     msg.type = "getNombreDePatternsPossibleEnListe";
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
   };
 
@@ -314,7 +322,8 @@ function initWSSocket(port) {
         break;
 
       case "dureeAttente": // Quand le son a été demandé
-        if (debug) console.log("dureeAttente:", msgRecu.text, msgRecu.son);;
+        if (debug) console.log("SimulatuerFork.js: dureeAttente:", msgRecu.text, msgRecu.son);
+        dureeAttente = parseInt(msgRecu.text);
         break;
 
       case "groupe":
@@ -324,7 +333,7 @@ function initWSSocket(port) {
           // Le simulateur simule l'audience.
           // Il se comporte comme tout le monde, avec le groupe que le serveur assigne
           monGroupe = msgRecu.noDeGroupe;
-          console.log("SIMULATION DE L'AUDIENCE");
+          if (debug) console.log("SIMULATION DE L'AUDIENCE");
         } else if (!par.simulatorInAseperateGroup) {
           // Je suis ne pas un simulateur de l'audience 
           // et la config n'a pas prévu de simulateur indépendant de l'audience.
@@ -340,7 +349,7 @@ function initWSSocket(port) {
           console.log("SIMULATION INDEPENDANTE DE L'AUDIENCE");
           monGroupe = par.nbeDeGroupesClients - 1;
         }
-        console.log("Je suis dans le groupe:", monGroupe, "pseudo:", pseudo);
+        if (debug1) console.log("INFO: Simulator in group:", monGroupe, "pseudo:", pseudo);
         actionSurDAWON();
         break;
 
@@ -374,9 +383,9 @@ function initWSSocket(port) {
             tempoInstantListClip = 10;
           }
           else {
-            tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
+            tempoInstantListClip =  Math.floor(tempoMin + (Math.random() * (tempoMax - tempoMin)));
           }
-          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, tempoMax, tempoMin );
           if (DAWON) setTimeout(function () {
             selectListClips();
           },
@@ -392,21 +401,32 @@ function initWSSocket(port) {
           //Version qui évite trop de répétitions
           numClip = selectNextClip();
           sequenceLocale[i] = numClip;
+
+          // On a une liste
           if (debug) console.log("--- WS Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
         }
 
-        if (debug1) console.log("-- sendPatternSequence", sequenceLocale);
-        if (sequenceLocale[0] !== undefined) { // Protection if mistake on the controler
+        if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
+        if (dureeAttente &lt; limiteDureeAttente) {
+          if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
           msg.type = "sendPatternSequence";
           msg.patternSequence = sequenceLocale;
           msg.pseudo = pseudo;
           msg.groupe = monGroupe;
           msg.idClient = id;
           ws.send(JSON.stringify(msg));
+        } else {
+          msg.type = "sendPatternSequence";
+          msg.patternSequence = [];
+          msg.pseudo = pseudo;
+          msg.groupe = monGroupe;
+          msg.idClient = id;
+          ws.send(JSON.stringify(msg));
+          dureeAttente = 0;
         }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
-        if (debug1) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+        if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, pseudo);
         if (DAWON) setTimeout(function () {
           selectListClips();
         },
@@ -439,11 +459,11 @@ function initWSSocket(port) {
             }
           }
         }
-        if (debug1) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
+        if (debug) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
         break;
 
       case "patternSequenceAck":
-        if (debug1) console.log("Reçu socket : patternSequenceAck: score ", msgRecu.score);
+        if (debug) console.log("Reçu socket : patternSequenceAck: score ", msgRecu.score);
         break;
 
       case "texteServeur":
@@ -465,8 +485,8 @@ function initWSSocket(port) {
   }
 
   ws.onclose = function (event) {
-    //console.log( "simulateur.js : on CLOSE on WS");
-    setTimeout(function () { initWSSocket(port); }, 3000);
+    console.log("INFO: simulateurFork.js : on CLOSE on WS");
+    //setTimeout(function () { initWSSocket(port); }, 3000);
   }
 }
 
@@ -544,18 +564,37 @@ function startClip(indexChoisi) {
 exports.startClip = startClip;
 
 // ========================= Lancement du simulateur =================
-init(port);
+process.on('message', (message) => {
+  // This is necessary, I dont know why. Otherwise I have an erro on message in the switch
+  // ReferenceError: Cannot access 'message' before initialization
+  var messageLocal = message;
 
-// Le principe est de demander la liste des clips périodiquement.
-// Le serveur renvoie la liste avec le message "listClips" et on envoie alors 
-// un clip au hasard dans la liste disponible.
-// C'est bavard au niveau réseau cas on sollicite abusivement le serveur sur les listes de clip
-// mais c'est une simulation.
+  if (debug) console.log("INFO: Simulator message : ", messageLocal);
 
-setTimeout(() => selectListClips(), 1000);
+  switch (messageLocal.type) {
+    case 'START_SIMULATOR':
+      //console.log('Simulator received START message');
+      init(port);
+      setTimeout(() => selectListClips(), 1000);
+      let message = `Simulation Launched by ${pseudo}`;
+      process.send(message);
+      break;
 
-//selectListClips();
+    case 'PARAMETERS':
+      if (debug) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
+      par = messageLocal.data;
+      initTempi();
+      break;
 
+    case 'STOP_SIMULATOR':
+      if (debug1) console.log("INFO: simulateurFork.js : Simulator Stopped");
+      ws.close();
+      process.exit(0);
+      break;
+
+    default: console.log("INFO: Fork Simulator: Type de message inconnu : ", messageLocal);
+  }
+});
 </code></pre>
         </article>
     </section>

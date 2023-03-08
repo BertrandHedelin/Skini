@@ -3087,6 +3087,108 @@ Blockly.JavaScript['patternListLength'] = function (block) {
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
   {
+    "type": "setTypeList",
+    "message0": "set type list for simulator %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "message",
+        "check": "String"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 160,
+    "tooltip": "setTypeList",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['setTypeList'] = function (block) {
+  var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = `
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'listeDesTypes',
+          text:` + value + `
+        }
+        serveur.broadcast(JSON.stringify(msg));
+      }
+    }
+  ),
+  `
+  return code;
+};
+
+// Revu HH node
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "activateTypeList",
+    "message0": "activate Type list in simulator",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 160,
+    "tooltip": "break",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['activateTypeList'] = function (block) {
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'setListeDesTypes',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+    ),
+`
+  return code;
+};
+
+// Revu HH node
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "deactivateTypeList",
+    "message0": "deactivate Type list in simulator",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 160,
+    "tooltip": "break",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['deactivateTypeList'] = function (block) {
+  var code = `
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'unsetListeDesTypes',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+    ),
+`
+  return code;
+};
+
+// Revu HH node
+Blockly.defineBlocksWithJsonArray([
+  {
     "type": "cleanChoiceList",
     "message0": "clean choice list for group %1",
     "args0": [

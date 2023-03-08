@@ -3,9 +3,16 @@
  * <H3>CODE CLIENT DE SIMULATION D'UNE AUDIENCE
  * UTILISANT LE CLIENT AVEC LISTE (clientListe)</H3>
  * <BR>
- * Les clips sont appelés de façon aléatoire selon la liste disponible.
- * Ceci correspond à une audience qui fait n'importe quoi sur les clips
- * disponibles.
+ * Scénario possibles:
+ * - Les clips sont appelés de façon aléatoire selon la liste disponible.
+ * Ceci correspond à une audience qui fait à peu n'importe quoi sur les clips
+ * disponibles, en limitant les répétitions.
+ * - Les listes de clips correpondant à des séquences de type. Dans le cas de 
+ * définition de type, ceci correspond à une audience qui joue parfaitement le jeu.
+ * 
+ * Le simulateur est un outil de production de musique générative selon un combinatoire
+ * contrôlée.
+ * 
  * @version 1.0
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @copyright (C) 2022 Bertrand Petit-Hédelin
@@ -29,11 +36,12 @@ var par;
 var ws;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
+
 var debug = false;
 var debug1 = true;
 
 // For creating list of patterns according to a type sequence
-var processTypes = true;
+var processTypes = false;
 
 var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
 var derniersPatternsJoues = [];
@@ -121,23 +129,32 @@ for (var i = 0; i < myArgs.length; i++) {
 }
 
 /*******************************************************************
- * Traitement des listes reçues pour s'adapter à une séquence de types
- * 
- * 
+ * GESTION DES TYPES
+ * Traitement des listes reçues pour s'adapter à une séquence de types.
+ * En utilisant les types avec des tanks on n'a pas besoin de gérer 
+ * la mémoires des patterns sélectionnés, ni de revoir les FIFOs.
  *******************************************************************/
 // Table of positions for the types in listOfPatterns
-// The index correpond to the type
-var types = [1, 2, 3, 4];
-var listOfTypes = [[], [], [], [], [], [], [], [], [], [], [], []];
+// The index correpond to the type.
+var types = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+var listOfTypes = [[]];
+
+function resetListOfTypes() {
+  for (i = 0; i < types.length; i++) {
+    listOfTypes.push([]);
+  }
+}
+
+resetListOfTypes();
 
 /**
  * Initialize the list of patterns according to their types 
  * The index correponds to the type.
- * listOfTypes = [[],[],[],[],[],[],[],[],[],[],[],[]];
  * @param {Array} list
  */
 function setListOfTypes(list) {
-  listOfTypes = [[],[],[],[],[],[],[],[],[],[],[],[]];
+  // A remettre à 0 avant de faire des push.
+  resetListOfTypes();
 
   for (var i = 0; i < list.length; i++) {
     listOfTypes[list[i][7]].push(list[i][3]);
@@ -177,7 +194,7 @@ function removePatternInTypes(types, patternName) {
   for (var i = 0; i < types.length; i++) {
     for (var j = 0; j < types[i].length; j++) {
       if (types[j] === patternName) {
-        if(debug) console.log("Simulateur: removePatternInTypes: ", patternName);
+        if (debug) console.log("Simulateur: removePatternInTypes: ", patternName);
         types[j].splice(j, 1);
       }
     }
@@ -199,7 +216,7 @@ function getPattern(list, patternName) {
  * @param {Array} list of present types
  * @param {Array} types 
  * @param {Array} listOfPatterns
- * @returns {Array} selected
+ * @returns {Array} selected list of Skini notes
  */
 function getListOfPatternsSelected(list, types, listOfPatterns) {
   var selected = [];
@@ -525,6 +542,14 @@ function initWSSocket(port) {
           tempoInstantListClip);
         break;
 
+      case "listeDesTypes":
+        types = msgRecu.text.split(',');
+        for (var i = 0; i < types.length; i++) {
+          types[i] = parseInt(types[i]);
+        }
+        if (debug1) console.log("Simulator: List of Types:", types);
+        break;
+
       case "message":
         if (debug) console.log(msgRecu.text);
         break;
@@ -558,8 +583,18 @@ function initWSSocket(port) {
         if (debug) console.log("Reçu socket : patternSequenceAck: score ", msgRecu.score);
         break;
 
+      case "setListeDesTypes":
+        if (debug1) console.log("Simulator: Set the type list")
+        processTypes = true;
+        break;
+
       case "texteServeur":
         if (debug) console.log("Reçu Broadcast:", msgRecu.value);
+        break;
+
+      case "unsetListeDesTypes":
+        if (debug1) console.log("Simulator: Unset the type list")
+        processTypes = false;
         break;
 
       default: if (debug) console.log("Le simulateur reçoit un message inconnu", msgRecu);

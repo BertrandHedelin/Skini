@@ -53,23 +53,48 @@
  */
 'use strict'
 
-var par ;
+var par;
+var ws;
 var ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
+var debug = false;
+var debug1 = true;
 
-var tempoMax, tempoMin, limiteDureeAttente;
+// For creating list of patterns according to a type sequence
+var processTypes = true;
+
+var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
+var derniersPatternsJoues = [];
+var derniersInstrumentsJoue = [-1, -1, -1];
+var nbeInstruments = 100; // Attention c'est en dur...
+
+function setTableDerniersPatterns() {
+  var tablederniersPatterns = [];
+  var tableVide = [-1, -1, -1]; // Ce tableau définit la taille de la "mémoire" pour les non répétitions de patterns
+
+  for (var i = 0; i &lt; nbeInstruments; i++) {
+    tablederniersPatterns.push(tableVide);
+  }
+  return tablederniersPatterns;
+}
 
 function initTempi() {
+
+  if (par === undefined) {
+    console.log("WARN simulator : launch the simulator after loading a piece");
+    return;
+  }
+
   console.log("------------------------------------------------");
   if (par.tempoMax !== undefined) {
-    tempoMax = par.tempoMax; // en ms
+    tempoMax = parseInt(par.tempoMax); // en ms
   } else {
     tempoMax = 500;
     console.log("tempoMax par défaut")
   }
 
   if (par.tempoMin !== undefined) {
-    tempoMin = par.tempoMin; // en ms
+    tempoMin = parseInt(par.tempoMin); // en ms
   } else {
     tempoMin = 100;
     console.log("tempoMin par défaut")
@@ -81,6 +106,9 @@ function initTempi() {
     limiteDureeAttente = 100;
     console.log("tempoMin par défaut")
   }
+
+  derniersPatternsJoues = setTableDerniersPatterns();
+  if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
 
   console.log("INFO simulateur : Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
 };
@@ -94,15 +122,12 @@ if (ipConfig.websocketServeurPort !== undefined) {
 if (debug) console.log("----------------------------------------------\n");
 if (debug) console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
-var ws;
 var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
 var monGroupe = -1; // non initialisé
 var DAWON = 0;
 var pseudo = "sim" + id;
-var debug = false;
-var debug1 = true;
 var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
-var nombreDePatternsPossible = 1;
+var nombreDePatternsPossible = 1; // Valeur par défaut qui peut être modifiée par l'orchestration
 
 var numClip;
 var msg = { // On met des valeurs pas defaut
@@ -122,20 +147,128 @@ for (var i = 0; i &lt; myArgs.length; i++) {
     jeSuisUneAudience = false;
   }
 }
+
+/*******************************************************************
+ * GESTION DES TYPES
+ * Traitement des listes reçues pour s'adapter à une séquence de types.
+ * En utilisant les types avec des tanks on n'a pas besoin de gérer 
+ * la mémoires des patterns sélectionnés, ni de revoir les FIFOs.
+ * 
+ *******************************************************************/
+// Table of positions for the types in listOfPatterns
+// The index correpond to the type
+var types = [1, 2, 3, 4];
+var listOfTypes = [[], [], [], [], [], [], [], [], [], [], [], []];
+
+/**
+ * Initialize the list of patterns according to their types 
+ * The index correponds to the type.
+ * listOfTypes = [[],[],[],[],[],[],[],[],[],[],[],[]];
+ * @param {Array} list
+ */
+function setListOfTypes(list) {
+  // A remettre à 0 avant de faire des push.
+  listOfTypes = [[],[],[],[],[],[],[],[],[],[],[],[]];
+
+  for (var i = 0; i &lt; list.length; i++) {
+    listOfTypes[list[i][7]].push(list[i][3]);
+  }
+  if (debug) console.log("simulateur: setListOfTypes:", listOfTypes);
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+/**
+ * Get randomly an element in a list and remove it
+ * from the list
+ * @param {Array} list 
+ * @returns {*} an element of the list
+ */
+function selectOnePattern(list) {
+  var randomIndex;
+  var selected;
+  randomIndex = getRandomInt(list.length);
+  selected = list[randomIndex];
+  list.splice(randomIndex, 1);
+  if (debug) console.log("Simulateur: selectOnePattern:", selected);
+  return selected;
+}
+
+function removePattern(list, patternName) {
+  for (var i = 0; i &lt; list.length; i++) {
+    if (list[i][3] === patternName) {
+      list.splice(i, 1);
+    }
+  }
+}
+
+function removePatternInTypes(types, patternName) {
+  for (var i = 0; i &lt; types.length; i++) {
+    for (var j = 0; j &lt; types[i].length; j++) {
+      if (types[j] === patternName) {
+        if(debug) console.log("Simulateur: removePatternInTypes: ", patternName);
+        types[j].splice(j, 1);
+      }
+    }
+  }
+}
+
+function getPattern(list, patternName) {
+  if (debug) console.log("Simulateur: getPattern :", list, patternName, listOfTypes);
+  for (var i = 0; i &lt; list.length; i++) {
+    if (list[i][3] === patternName) {
+      return list[i];
+    }
+  }
+}
+
+/**
+ * Create a list of "selected patterns" according to 
+ * a sequence described in types.
+ * @param {Array} list of present types
+ * @param {Array} types 
+ * @param {Array} listOfPatterns
+ * @returns {Array} selected
+ */
+function getListOfPatternsSelected(list, types, listOfPatterns) {
+  var selected = [];
+  var indexTypes;
+  var patternSelected;
+  var numClips = [];
+  var gotAPattern;
+
+  for (var i = 0; i &lt; types.length; i++) {
+    indexTypes = types[i];
+    if (list[indexTypes].length !== 0) {
+      patternSelected = selectOnePattern(list[indexTypes]);
+      gotAPattern = getPattern(listOfPatterns, patternSelected);
+      selected.push(gotAPattern);
+      removePattern(listOfPatterns, patternSelected);
+      removePatternInTypes(list, patternSelected);
+    }
+  }
+
+  if (debug) console.log("simulateur: getListOfPatternsSelected: selected", selected);
+
+  // A ce niveau on a une liste des patterns, il nous faut juste la liste des notes
+  for (var i = 0; i &lt; nombreDePatternsPossible; i++) {
+    if (selected[i] !== undefined) {
+      numClips.push(selected[i][0]);
+    }
+  }
+  return numClips;
+}
+
 /************************ NON REPETITION DES CLIPS ********************
 Table des commandes donnée par les listes de patterns
 
- 0= note, 1=note stop, 2=flag, 3=nom, 4=fichier son, 5=instrument, 6=Slot, 7=niveau2, 8=niveau3, 9=groupe, 10=durée
- 11= réservé client, 12= pseudo
+ 0= note, 1=note stop, 2=flag, 3=nom, 4=fichier son, 
+ 5=instrument, 6=Slot, 7=type, 8=free, 9=groupe, 10=durée
+ 11= IP, 12= buffer, 13=niveau
 
 **********************************************************************/
-var derniersPatternsJoues = [
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1],
-  [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1], [-1, -1, -1]];
-
-var derniersInstrumentsJoue = [-1, -1, -1];
 
 function isInList(element, list) {
   for (var i = 0; i &lt; list.length; i++) {
@@ -152,14 +285,25 @@ function sendPseudo(texte) {
 }
 
 /* --------------------------------------------------------------------
- * On évite de reprendre un élément de la liste qui serait dans mémoire.
+ * On évite de reprendre un élément de la liste qui serait dans la mémoire.
  * Nous avons les cas particuliers où la liste est de taille équivalente
  * ou inferieure à la mémoire.
- * retourne un élément de la liste.
+ * Cette fonction retourne un élément de la liste en tenant compte de l'état de la mémoire.
+ * C'est utilisé pour les instruments et pour les patterns.
  * --------------------------------------------------------------------*/
 function selectRandomInList(memoire, liste) {
   var selection;
   var index;
+
+  if (liste === undefined) {
+    console.log("INFO: simuateurFork: selectRandomInList: liste undefined");
+    return undefined;
+  }
+
+  if (memoire === undefined) {
+    console.log("INFO: simuateurFork: selectRandomInList: memoire undefined");
+    return undefined;
+  }
 
   if (debug) console.log("*** selectRandomInList:memoire:", memoire, "liste:", liste);
 
@@ -198,7 +342,7 @@ function selectRandomInList(memoire, liste) {
   }
 }
 
-// Retourne la note MIDI (Skini) d'un pattern choisi au hasard
+// Retourne laSelectionClip note MIDI (Skini) d'un pattern choisi au hasard
 function selectNextClip() {
   var selectionClip;
   var listeSelectionClip = [];
@@ -229,7 +373,9 @@ function selectNextClip() {
   }
   if (debug) console.log("*** selectNextClip:listeSelectionClip:", listeSelectionClip);
 
-  //Choisir un pattern pour l'instrument sélectioné
+  // Choisir un pattern pour l'instrument sélectionné
+  // Pas suffisant avec l'application de modèles sur la suite des patterns
+  // La sélection doit se faire en fonction des types.
   selectionClip = selectRandomInList(derniersPatternsJoues[instrument], listeSelectionClip);
   if (selectionClip === undefined) {
     console.log("ERR:selectNextClip:selectionClip undefined");
@@ -249,6 +395,11 @@ WEBSOCKET AVEC NODE JS
 function initWSSocket(port) {
   var tempoInstantListClip = 0;
 
+  if (ws !== undefined) {
+    if (debug1) console.log("INFO: simulateurFork.js: close the socket");
+    ws.close();
+  }
+
   ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
 
   // Par défaut je suis hors audience
@@ -256,17 +407,13 @@ function initWSSocket(port) {
   if (jeSuisUneAudience) monIdentite = "sim";
 
   ws.onopen = function (event) {
-    console.log("simulateur.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
+    if (debug) console.log("INFO: simulateurFork.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
     msg.type = "startSpectateur";
     msg.text = monIdentite;
     msg.id = id;
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
 
     msg.type = "getNombreDePatternsPossibleEnListe";
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
     ws.send(JSON.stringify(msg));
   };
 
@@ -292,7 +439,8 @@ function initWSSocket(port) {
         break;
 
       case "dureeAttente": // Quand le son a été demandé
-        if (debug) console.log("dureeAttente:", msgRecu.text, msgRecu.son);;
+        if (debug) console.log("SimulatuerFork.js: dureeAttente:", msgRecu.text, msgRecu.son);
+        dureeAttente = parseInt(msgRecu.text);
         break;
 
       case "groupe":
@@ -318,7 +466,7 @@ function initWSSocket(port) {
           console.log("SIMULATION INDEPENDANTE DE L'AUDIENCE");
           monGroupe = par.nbeDeGroupesClients - 1;
         }
-        if (debug1) console.log("Simulator in group:", monGroupe, "pseudo:", pseudo);
+        if (debug1) console.log("INFO: Simulator in group:", monGroupe, "pseudo:", pseudo);
         actionSurDAWON();
         break;
 
@@ -347,33 +495,58 @@ function initWSSocket(port) {
 
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
-          tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
-          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+          if (tempoMax === tempoMin) {
+            console.log("WARN: tempoMin and tempoMax must no be equal");
+            tempoInstantListClip = 10;
+          }
+          else {
+            tempoInstantListClip = Math.floor(tempoMin + (Math.random() * (tempoMax - tempoMin)));
+          }
+          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, tempoMax, tempoMin);
           if (DAWON) setTimeout(function () {
-            selectListClips();
+            selectListClips(); // Envoie une demande des clips dispos au serveur
           },
             tempoInstantListClip);
           break;
         }
 
         // Selection de clips dans la liste
-        if (debug) console.log("\n--- WS Recu : listClips 1ere ligne:", listClips[0][4], "Nombre clip dispo:", listClips.length);
+        if (debug) console.log("\n--- Simulateur Recu : listClips 1ere ligne:", listClips[0][4], "Nombre clip dispo:", listClips.length);
         var sequenceLocale = [];
 
-        for (var i = 0; i &lt; nombreDePatternsPossible; i++) {
-          //Version qui évite trop de répétitions
-          numClip = selectNextClip();
-          sequenceLocale[i] = numClip;
-          if (debug) console.log("--- WS Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
+        if (processTypes) {
+          setListOfTypes(listClips);
+          sequenceLocale = getListOfPatternsSelected(listOfTypes, types, listClips);
+          if (debug1) console.log("Simulateur: sequence selon les types:", sequenceLocale);
+        } else {
+          for (var i = 0; i &lt; nombreDePatternsPossible; i++) {
+            //Version qui évite trop de répétitions
+            numClip = selectNextClip();
+            sequenceLocale[i] = numClip;
+            // On a une liste
+            if (debug) console.log("--- Simulateur Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
+          }
         }
 
-        if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
-        msg.type = "sendPatternSequence";
-        msg.patternSequence = sequenceLocale;
-        msg.pseudo = pseudo;
-        msg.groupe = monGroupe;
-        msg.idClient = id;
-        ws.send(JSON.stringify(msg));
+        // Emission de la liste        
+        if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
+        if (dureeAttente &lt; limiteDureeAttente) { // On est dans des délais raisonnables
+          if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
+          msg.type = "sendPatternSequence";
+          msg.patternSequence = sequenceLocale;
+          msg.pseudo = pseudo;
+          msg.groupe = monGroupe;
+          msg.idClient = id;
+          ws.send(JSON.stringify(msg));
+        } else {
+          // msg.type = "sendPatternSequence";
+          // msg.patternSequence = [];
+          // msg.pseudo = pseudo;
+          // msg.groupe = monGroupe;
+          // msg.idClient = id;
+          // ws.send(JSON.stringify(msg));
+          dureeAttente = 0;
+        }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
         if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip, pseudo);
@@ -409,7 +582,7 @@ function initWSSocket(port) {
             }
           }
         }
-        if (debug1) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
+        if (debug) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
         break;
 
       case "patternSequenceAck":
@@ -435,8 +608,8 @@ function initWSSocket(port) {
   }
 
   ws.onclose = function (event) {
-    //console.log( "simulateur.js : on CLOSE on WS");
-    setTimeout(function () { initWSSocket(port); }, 3000);
+    console.log("INFO: simulateurFork.js : on CLOSE on WS");
+    //setTimeout(function () { initWSSocket(port); }, 3000);
   }
 }
 
@@ -517,7 +690,7 @@ exports.startClip = startClip;
 process.on('message', (message) => {
   // This is necessary, I dont know why. Otherwise I have an erro on message in the switch
   // ReferenceError: Cannot access 'message' before initialization
-  var messageLocal = message; 
+  var messageLocal = message;
 
   if (debug) console.log("INFO: Simulator message : ", messageLocal);
 
@@ -531,9 +704,15 @@ process.on('message', (message) => {
       break;
 
     case 'PARAMETERS':
-      if (debug1) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
+      if (debug) console.log("INFO: Simulator parameters : ", messageLocal.data.groupesDesSons[0]);
       par = messageLocal.data;
       initTempi();
+      break;
+
+    case 'STOP_SIMULATOR':
+      if (debug1) console.log("INFO: simulateurFork.js : Simulator Stopped");
+      ws.close();
+      process.exit(0);
       break;
 
     default: console.log("INFO: Fork Simulator: Type de message inconnu : ", messageLocal);
@@ -549,13 +728,13 @@ process.on('message', (message) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternBefore">putPatternBefore</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 14:22:29 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 07 2023 12:09:18 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

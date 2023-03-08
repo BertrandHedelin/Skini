@@ -722,6 +722,33 @@ function init(host) {
             "type": "hh_abort_interfaceZ_sensor"
           }
         ]
+      },
+      {
+        "kind": "category",
+        "name": "Generative",
+        "categorystyle": "list_category",
+        "contents": [
+          {
+            "kind": "block",
+            "type": "activateTypeList"
+          },
+          {
+            "kind": "block",
+            "type": "deactivateTypeList"
+          },
+          {
+            "kind": "block",
+            "type": "setTypeList"
+          },
+          {
+            "kind": "block",
+            "type": "text"
+          },
+          {
+            "kind": "block",
+            "type": "patternListLength"
+          }
+        ]
       }
     ]
   }

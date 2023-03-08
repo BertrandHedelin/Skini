@@ -60,7 +60,7 @@ var groupesClientSon = require('./autocontroleur/groupeClientsSons');
 const { Socket } = require('dgram');
 
 var debug = false;
-var debug1 = true;
+var debug1 = false;
 
 var serv;
 var nbeDeCommandes;
@@ -493,8 +493,6 @@ function displayQueues() {
     value: file
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('etatDeLaFileAttente', file);
-
   if (debug) console.log("controleDAW: displayQueue: ", msg);
 
   // Pour les musiciens
@@ -503,7 +501,6 @@ function displayQueues() {
     value: filesDattente
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('lesFilesDattente', filesDattente);
 }
 exports.displayQueues = displayQueues;
 
@@ -545,7 +542,8 @@ function playAndShiftEventDAW(timerDivision) {
     if (debug) console.log("--- ControleDAW.js:FIFO", i, " length:", filesDattente[i].length);
 
     if (debug) console.log("---0 ControleDAW.js:compteursDattente:", i, ":", compteursDattente[i]);
-    // file d'attente = [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
+    // file d'attente = [bus(0), channel(1), note(2), velocity(3), wsid(4),
+    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12)]
     // Si la file n'est pas vide
     if (filesDattente[i] !== undefined) {
       if (filesDattente[i].length !== 0) {
@@ -588,9 +586,9 @@ function playAndShiftEventDAW(timerDivision) {
             if (par.useRaspberries !== undefined) {
               // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level, durée)
               if (debug) console.log("controleDAW.js: playAndShiftEventDAW:", par.playBufferMessage,
-               commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
+                commandeDAW[11], par.raspOSCPort, commandeDAW[10], commandeDAW[12]);
               if (par.useRaspberries &amp;&amp; !isNaN(commandeDAW[11])) {
-                 oscMidi.playOSCRasp(par.playBufferMessage, 
+                oscMidi.playOSCRasp(par.playBufferMessage,
                   commandeDAW[11], par.raspOSCPort, commandeDAW[10],
                   commandeDAW[12], commandeDAW[6]);
               } else {
@@ -642,8 +640,6 @@ function playAndShiftEventDAW(timerDivision) {
             value: commandeDAW
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('infoPlayDAW', commandeDAW );
-
           if (debug) console.log("controleDAW:playAndShiftEventDAW: broadcast commandeDAW", commandeDAW);
 
           //Met à jour l'attente quand on a joué le pattern.
@@ -713,7 +709,6 @@ function cleanQueues() {
     value: filesDattente
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('cleanQueues', 255);
 }
 exports.cleanQueues = cleanQueues;
 
@@ -731,7 +726,7 @@ function cleanQueue(instrument) {
   }
 
   if (filesDattente[instrument] === undefined) {
-    console.log("ERR: controleAbleton.js: cleanQueue d'un instrument inexistant.");
+    console.log("ERR: controleDAW.js: cleanQueue d'un instrument inexistant: ", instrument);
     return;
   }
 
@@ -749,7 +744,6 @@ function cleanQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('cleanQueues', instrument);
 }
 exports.cleanQueue = cleanQueue;
 
@@ -775,7 +769,6 @@ function pauseQueues() {
     instrument: 255
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('pauseQueues', 255);
 }
 exports.pauseQueues = pauseQueues;
 
@@ -799,7 +792,6 @@ function resumeQueues() {
     instrument: 255
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('resumeQueues', 255);
 }
 exports.resumeQueues = resumeQueues;
 
@@ -822,8 +814,6 @@ function pauseQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  // Avec l'instrument concerné
-  //hop.broadcast('pauseOneQueue', instrument);
 }
 exports.pauseQueue = pauseQueue;
 
@@ -845,7 +835,6 @@ function resumeQueue(instrument) {
     instrument: instrument
   }
   serv.broadcast(JSON.stringify(msg));
-  //hop.broadcast('resumeOneQueue', instrument);
 }
 exports.resumeQueue = resumeQueue;
 
@@ -874,8 +863,15 @@ exports.nbeDeSpectateursConnectes = nbeDeSpectateursConnectes;
  * @returns {array} array of clips as in tableDesCommandes
  */
 function getAllClips(groupeDeClients, matriceDesPossibles) {
+
+  // Protection
+  if (groupeDeClients === -1) {
+    return -1;
+  }
+
+  // Happen if we call this function before loading the "matriceDesPossibles"
   if (matriceDesPossibles[groupeDeClients] === undefined || groupeDeClients === undefined) {
-    console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
+    if (debug) console.log("WARN:controleDAW :getAllClips:cannot get groupeDeClients:", groupeDeClients, "from matriceDesPossibles");
     return -1;
   }
 
@@ -956,7 +952,10 @@ exports.getListClips = getListClips;
 //************** Réorganisation des Fifos **************
 // Le mécanisme est décrit dans la doc utilisateur de Skini.
 // 
-
+/**
+ * Insert a pattern between two types of patterns.
+ * Starts from the end of the FIFO.
+ */
 function putPatternBetween(fifo, avant, apres, pattern) {
   for (var i = fifo.length - 1; i > 0; i--) {
     if (debug) console.log("-- putPatternBetween:", fifo.length, i);
@@ -972,25 +971,26 @@ function putPatternBetween(fifo, avant, apres, pattern) {
   return false;
 }
 
-// Pas utilisé
-function putPatternFirstWithoutSecond(fifo, avant, apres, pattern) {
-  if (debug) console.log("---- putPatternFirstWithoutSecond");
+/**
+ * Insert a pattern before a type of pattern.
+ * Starts from the end of the FIFO.
+ */
+function putPatternBefore(fifo, apres, pattern) {
+  if (debug1) console.log("---- putPatternBefore");
 
   for (var i = fifo.length - 1; i > 0; i--) {
-    if (fifo[i][9] === avant) {
-      if (fifo[i - 1][9] !== apres) {
-        if (debug) console.log("---- putPatternFirstWithoutSecond: On met le pattern:", pattern[7], "de type:", pattern[9],
-          "en", i, " (entre types", apres, " et ", avant, ")");
-        fifo.splice(i, 0, pattern);
-        return true;
-      }
+    if (fifo[i][9] === apres) {
+      if (debug1) console.log("---- putPatternBefore: On met le pattern:", pattern[7], "de type:", pattern[9],
+        "en", i, " (avant: ", apres, ")");
+      fifo.splice(i, 0, pattern);
+      return true;
     }
   }
   return false;
 }
 
 /**
- * Reorder a queue according to the pattern types.
+ * Reorder a queue according to the pattern types DMFN.
  * 
  * @param  {Array} fifo - of the "queue" or "instrument"
  * @param  {Array} pattern
@@ -999,63 +999,70 @@ function ordonneFifo(fifo, pattern) {
   // On ordonne la fifo en partant de l'indice haut qui correspond au denier pattern entré
   // ceci évite de trop perturber le timing d'éntrée des patterns dans la fifo.
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
+  if (debug) console.log("---- ordonneFifo", pattern[8], pattern[9]);
 
   if (fifo.length === 0 || pattern[9] === typeNeutre) {
-    if (debug) console.log("---- ordonneFifo: Fifo vide ou pattern N:push le pattern");
+    if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N");
     fifo.push(pattern);
     return;
   }
 
   if (fifo.length === 0 &amp;&amp; pattern[9] === typeMilieu) {
-    if (debug1) console.log("---- ordonneFifo: M tout seul, on le jette");
+    if (debug1) console.log("---- ordonneFifo: M tout seul");
+    fifo.push(pattern);
     return;
   }
 
   switch (pattern[9]) {
-    case typeFin:
-      if (fifo.length - 1 > 0) {
-        if (putPatternBetween(fifo, typeDebut, typeDebut, pattern)) { return; }
-        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
-        if (fifo[fifo.length - 1][9] === typeFin) { // le dernier élément est déjà une fin F
-          if (putPatternBetween(fifo, typeDebut, typeMilieu, pattern)) { return; }
-        }
-      }
-      break; // On pousse
-
     case typeDebut:
-      if (fifo.length - 1 > 0) {
+      if (fifo.length > 1) { // Au moins 2 elements
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeFin, typeMilieu, pattern)) { return; }
-      } else {
-        if (fifo[0][9] === typeFin) {
-          if (debug1) console.log("---- ordonneFifo: Permuttons F et D");
+        if (putPatternBetween(fifo, typeMilieu, typeFin, pattern)) { return; }
+        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
+        fifo.push(pattern);
+        return;
+      } else { // Un seul élément
+        if (fifo[0][9] === typeFin || fifo[0][9] === typeMilieu) {
+          if (debug1) console.log("---- ordonneFifo: Permuttons F ou M et D");
           fifo.splice(0, 0, pattern);
+          return;
+        } else { // ça fait 2 débuts de suite
+          fifo.push(pattern);
           return;
         }
       }
-      break; // On pousse
 
     case typeMilieu:
-      if (fifo.length - 1 > 0) {
+      if (fifo.length > 1) {
         if (putPatternBetween(fifo, typeDebut, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeMilieu, typeFin, pattern)) { return; }
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }
       } else { // Il n'y a qu'un élément dans la Fifo.
         if (fifo[0][9] === typeFin) { // Si c'est une fin
           if (debug1) console.log("---- ordonneFifo: Permuttons F et M");
-          fifo.splice(0, 0, pattern);
+          fifo.splice(0, 0, pattern); // Insère un élément en début de fifo
+          return;
         }
         else { // C'est qu'on a un debut avant, mais on pourra avoir un début apres ou un autre milieu
-          if (debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo: on le jette");
-          return; // On perd le pattern sinon, donc pas utilisable en interaction.
+          if (debug1) console.log("---- ordonneFifo: Un pattern Milieu seul dans la fifo");
+          fifo.splice(0, 0, pattern); // Insère un élément en début de fifo
+          return;
         }
       }
-      // Attention : Ce return est une façon de ne placer un milieu que si on est certain de l'avoir caser proprement.
-      // On perd le pattern sinon, donc pas utilisable en interaction.
-      if (debug1) console.log("---- ordonneFifo: Un pattern Milieu supprimé");
-      return;
 
-      break; // On pousse
+    case typeFin:
+      if (fifo.length > 1) {
+        if (putPatternBetween(fifo, typeDebut, typeDebut, pattern)) { return; }
+        if (putPatternBetween(fifo, typeMilieu, typeMilieu, pattern)) { return; }
+        if (fifo[fifo.length - 1][9] === typeFin) { // le dernier élément est déjà une fin F
+          if (putPatternBetween(fifo, typeDebut, typeMilieu, pattern)) { return; }
+        }
+      } else {
+        // ça fait une fin toute seule
+        fifo.push(pattern);
+        return;
+      }
 
     case typeMauvais:
       // On ne fait rien dans ce cas.
@@ -1063,8 +1070,6 @@ function ordonneFifo(fifo, pattern) {
 
     default: if (debug1) console.log("---- ordonneFifo:Pattern de type inconnu");
   }
-  if (debug) console.log("---- ordonneFifo: On push le pattern aprés traitement:", pattern[7]);
-  fifo.push(pattern);
 }
 </code></pre>
         </article>
@@ -1076,13 +1081,13 @@ function ordonneFifo(fifo, pattern) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setChildSimulator">setChildSimulator</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#makeOneAutomatePossibleMachine">makeOneAutomatePossibleMachine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternBefore">putPatternBefore</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 14:22:29 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 07 2023 12:09:18 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
