@@ -140,6 +140,7 @@ var types = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 var listOfTypes = [[]];
 
 function resetListOfTypes() {
+  listOfTypes = [[]];
   for (i = 0; i < types.length; i++) {
     listOfTypes.push([]);
   }
@@ -225,21 +226,52 @@ function getListOfPatternsSelected(list, types, listOfPatterns) {
   var numClips = [];
   var gotAPattern;
 
+  if (debug) {
+    var testList = [];
+    for (var i = 0; i < listOfPatterns.length; i++) {
+      if (listOfPatterns[i] !== undefined) {
+        testList.push([listOfPatterns[i][0], listOfPatterns[i][7]]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: listOfPatterns:", testList);
+  }
+
+  if (debug) {
+    var testList = [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] !== undefined) {
+        testList.push(list[i][0]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: listOfTypes:", testList);
+  }
+
   for (var i = 0; i < types.length; i++) {
     indexTypes = types[i];
-    if (list[indexTypes].length !== 0) {
-      patternSelected = selectOnePattern(list[indexTypes]);
-      gotAPattern = getPattern(listOfPatterns, patternSelected);
-      selected.push(gotAPattern);
-      removePattern(listOfPatterns, patternSelected);
-      removePatternInTypes(list, patternSelected);
+    if (list[indexTypes] !== undefined) {
+      if (list[indexTypes].length !== 0) {
+        patternSelected = selectOnePattern(list[indexTypes]);
+        gotAPattern = getPattern(listOfPatterns, patternSelected);
+        selected.push(gotAPattern);
+        removePattern(listOfPatterns, patternSelected);
+        removePatternInTypes(list, patternSelected);
+      }
     }
   }
 
-  if (debug) console.log("simulateur: getListOfPatternsSelected: selected", selected);
+  if (debug) {
+    testList = [];
+    for (var i = 0; i < selected.length; i++) {
+      if (selected[i] !== undefined) {
+        testList.push([selected[i][0], selected[i][7]]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: selected:", testList, "\n");
+  }
 
   // A ce niveau on a une liste des patterns, il nous faut juste la liste des notes
-  for (var i = 0; i < nombreDePatternsPossible; i++) {
+  // limitée au nombre de patterns dans la liste à soumettre.
+  for (var i = 0; i < selected.length ; i++) {
     if (selected[i] !== undefined) {
       numClips.push(selected[i][0]);
     }
@@ -604,16 +636,10 @@ function initWSSocket(port) {
 
   ws.onerror = function (event) {
     console.log("simulateur.js : received ERROR on WS");
-    /*		console.log( "reconnecting...");
-        setTimeout(function() {
-          initTempi();
-          initWSSocket(port);
-        }, 5000);*/
   }
 
   ws.onclose = function (event) {
     console.log("INFO: simulateurFork.js : on CLOSE on WS");
-    //setTimeout(function () { initWSSocket(port); }, 3000);
   }
 }
 

@@ -31,7 +31,7 @@ const WebSocket = require('ws');
 var debug = false;
 var debug1 = true;
 
-var tempoMax, tempoMin, limiteDureeAttente;
+var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
 var derniersPatternsJoues = [];
 var derniersInstrumentsJoue = [-1, -1, -1];
 var nbeInstruments = 100; // Attention c'est en dur...
@@ -113,6 +113,164 @@ for (var i = 0; i < myArgs.length; i++) {
     jeSuisUneAudience = false;
   }
 }
+
+/*******************************************************************
+ * GESTION DES TYPES
+ * Traitement des listes reçues pour s'adapter à une séquence de types.
+ * En utilisant les types avec des tanks on n'a pas besoin de gérer 
+ * la mémoires des patterns sélectionnés, ni de revoir les FIFOs.
+ *******************************************************************/
+// Table of positions for the types in listOfPatterns
+// The index correpond to the type.
+var types = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+var processTypes = true;
+var listOfTypes = [[]];
+
+function resetListOfTypes() {
+  listOfTypes = [[]];
+  for (i = 0; i < types.length; i++) {
+    listOfTypes.push([]);
+  }
+
+  console.log("resetListOfTypes:",listOfTypes );
+}
+
+resetListOfTypes();
+
+/**
+ * Initialize the list of patterns according to their types 
+ * The index correponds to the type.
+ * @param {Array} list of patterns
+ */
+function setListOfTypes(list) {
+  // A remettre à 0 avant de faire des push.
+  resetListOfTypes();
+
+  console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
+
+  for (var i = 0; i < list.length; i++) {
+    listOfTypes[list[i][7]].push(list[i][3]);
+  }
+  if (debug) console.log("simulateur: setListOfTypes:", listOfTypes);
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+/**
+ * Get randomly an element in a list and remove it
+ * from the list
+ * @param {Array} list 
+ * @returns {*} an element of the list
+ */
+function selectOnePattern(list) {
+  var randomIndex;
+  var selected;
+  randomIndex = getRandomInt(list.length);
+  selected = list[randomIndex];
+  list.splice(randomIndex, 1);
+  if (debug) console.log("Simulateur: selectOnePattern:", selected);
+  return selected;
+}
+
+function removePattern(list, patternName) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i][3] === patternName) {
+      list.splice(i, 1);
+    }
+  }
+}
+
+function removePatternInTypes(types, patternName) {
+  for (var i = 0; i < types.length; i++) {
+    for (var j = 0; j < types[i].length; j++) {
+      if (types[j] === patternName) {
+        if (debug) console.log("Simulateur: removePatternInTypes: ", patternName);
+        types[j].splice(j, 1);
+      }
+    }
+  }
+}
+
+function getPattern(list, patternName) {
+  if (debug) console.log("Simulateur: getPattern :", list, patternName, listOfTypes);
+  for (var i = 0; i < list.length; i++) {
+    if (list[i][3] === patternName) {
+      return list[i];
+    }
+  }
+}
+
+/**
+ * Create a list of "selected patterns" according to 
+ * a sequence described in types.
+ * @param {Array} list of present types
+ * @param {Array} types 
+ * @param {Array} listOfPatterns
+ * @returns {Array} selected list of Skini notes
+ */
+function getListOfPatternsSelected(list, types, listOfPatterns) {
+  var selected = [];
+  var indexTypes;
+  var patternSelected;
+  var numClips = [];
+  var gotAPattern;
+
+  if (debug) {
+    var testList = [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] !== undefined) {
+        testList.push(list[i][0]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: listOfTypes:", testList);
+  }
+
+  if (debug) {
+    var testList = [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] !== undefined) {
+        testList.push(list[i][0]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: listOfTypes:", testList);
+  }
+
+  for (var i = 0; i < types.length; i++) {
+    indexTypes = types[i];
+    if (list[indexTypes] !== undefined) {
+      if (list[indexTypes].length !== 0) {
+        patternSelected = selectOnePattern(list[indexTypes]);
+        gotAPattern = getPattern(listOfPatterns, patternSelected);
+        selected.push(gotAPattern);
+        removePattern(listOfPatterns, patternSelected);
+        removePatternInTypes(list, patternSelected);
+      }
+    }
+  }
+
+  if (debug) {
+    testList = [];
+    for (var i = 0; i < selected.length; i++) {
+      if (selected[i] !== undefined) {
+        testList.push([selected[i][0], selected[i][7]]);
+      }
+    }
+    console.log("** simulateur: getListOfPatternsSelected: selected:", testList, "\n");
+  }
+
+  if (debug) console.log("simulateur: getListOfPatternsSelected: selected", selected);
+
+  // A ce niveau on a une liste des patterns, il nous faut juste la liste des notes
+  for (var i = 0; i < selected.length; i++) {
+    if (selected[i] !== undefined) {
+      numClips.push(selected[i][0]);
+    }
+  }
+  return numClips;
+}
+
 /************************ NON REPETITION DES CLIPS ********************
 Table des commandes donnée par les listes de patterns
 
@@ -286,7 +444,8 @@ function initWSSocket(port) {
         break;
 
       case "dureeAttente": // Quand le son a été demandé
-        if (debug) console.log("dureeAttente:", msgRecu.text, msgRecu.son);;
+        if (debug) console.log("dureeAttente:", msgRecu.text, msgRecu.son);
+        dureeAttente = parseInt(msgRecu.text);
         break;
 
       case "groupe":
@@ -360,21 +519,32 @@ function initWSSocket(port) {
         if (debug) console.log("\n--- WS Recu : listClips 1ere ligne:", listClips[0][4], "Nombre clip dispo:", listClips.length);
         var sequenceLocale = [];
 
-        for (var i = 0; i < nombreDePatternsPossible; i++) {
-          //Version qui évite trop de répétitions
-          numClip = selectNextClip();
-          sequenceLocale[i] = numClip;
-          if (debug) console.log("--- WS Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
+        if (processTypes) {
+          setListOfTypes(listClips);
+          sequenceLocale = getListOfPatternsSelected(listOfTypes, types, listClips);
+          if (debug1) console.log("Simulateur: sequence selon les types:", sequenceLocale);
+        } else {
+          for (var i = 0; i < nombreDePatternsPossible; i++) {
+            //Version qui évite trop de répétitions
+            numClip = selectNextClip();
+            sequenceLocale[i] = numClip;
+            // On a une liste
+            if (debug) console.log("--- Simulateur Recu : listClips: choisi", numClip, " : ", listClips[numClip][4], "\n");
+          }
         }
 
-        if (debug1) console.log("-- sendPatternSequence", sequenceLocale);
-        if (sequenceLocale[0] !== undefined) { // Protection if mistake on the controler
+        // Emission de la liste        
+        if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
+        if (dureeAttente < limiteDureeAttente) { // On est dans des délais raisonnables
+          if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
           msg.type = "sendPatternSequence";
           msg.patternSequence = sequenceLocale;
           msg.pseudo = pseudo;
           msg.groupe = monGroupe;
           msg.idClient = id;
           ws.send(JSON.stringify(msg));
+        } else {
+          dureeAttente = 0;
         }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
@@ -383,6 +553,14 @@ function initWSSocket(port) {
           selectListClips();
         },
           tempoInstantListClip);
+        break;
+
+      case "listeDesTypes":
+        types = msgRecu.text.split(',');
+        for (var i = 0; i < types.length; i++) {
+          types[i] = parseInt(types[i]);
+        }
+        if (debug1) console.log("Simulator: List of Types:", types);
         break;
 
       case "message":
@@ -416,6 +594,16 @@ function initWSSocket(port) {
 
       case "patternSequenceAck":
         if (debug1) console.log("Reçu socket : patternSequenceAck: score ", msgRecu.score);
+        break;
+
+      case "setListeDesTypes":
+        if (debug1) console.log("Simulator: Set the type list")
+        processTypes = true;
+        break;
+
+      case "unsetListeDesTypes":
+        if (debug1) console.log("Simulator: Unset the type list")
+        processTypes = false;
         break;
 
       case "texteServeur":

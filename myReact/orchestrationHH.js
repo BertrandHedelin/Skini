@@ -1,4 +1,4 @@
-var Piano, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, Percu, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, Flesh, nappeViolons, Massive;
+var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, Percu, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, TransPianoEtNappe2, TransPianoEtNappe3, TransSaxo, nappeViolons, Flesh, Massive;
 
 
 // Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
@@ -9,6 +9,16 @@ var Piano, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1I
 // Si le simulateur va trop vite, il peut rappeler un
 // pattern avant qu'il ait été dévalidé sur le serveur,
 // surtout quand le paramètre reactOnPlay est actif.
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -228,7 +238,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro1 = this["Piano1Intro1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -245,7 +255,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro1OUT", true);
               }
             }
         ),
@@ -257,7 +267,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro2 = this["Piano1Intro2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -274,7 +284,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro2OUT", true);
               }
             }
         ),
@@ -286,7 +296,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro3 = this["Piano1Intro3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -303,7 +313,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro3OUT", true);
               }
             }
         ),
@@ -315,7 +325,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro4 = this["Piano1Intro4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -332,7 +342,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro4OUT", true);
               }
             }
         ),
@@ -344,7 +354,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro5 = this["Piano1Intro5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -361,7 +371,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro5OUT", true);
               }
             }
         ),
@@ -373,7 +383,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro6 = this["Piano1Intro6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -390,7 +400,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro6OUT", true);
               }
             }
         ),
@@ -402,7 +412,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Intro7 = this["Piano1Intro7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -419,7 +429,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Intro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro7OUT", true);
               }
             }
         ),
@@ -431,7 +441,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu1 = this["Piano1Milieu1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -448,7 +458,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu1OUT", true);
               }
             }
         ),
@@ -460,7 +470,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu2 = this["Piano1Milieu2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -477,7 +487,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu2OUT", true);
               }
             }
         ),
@@ -489,7 +499,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu3 = this["Piano1Milieu3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -506,7 +516,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu3OUT", true);
               }
             }
         ),
@@ -518,7 +528,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu4 = this["Piano1Milieu4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -535,7 +545,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu4OUT", true);
               }
             }
         ),
@@ -547,7 +557,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu5 = this["Piano1Milieu5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -564,7 +574,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu5OUT", true);
               }
             }
         ),
@@ -576,7 +586,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu6 = this["Piano1Milieu6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -593,7 +603,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu6OUT", true);
               }
             }
         ),
@@ -605,7 +615,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Milieu7 = this["Piano1Milieu7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -622,7 +632,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Milieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu7OUT", true);
               }
             }
         ),
@@ -634,7 +644,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin1 = this["Piano1Fin1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -651,7 +661,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin1OUT", true);
               }
             }
         ),
@@ -663,7 +673,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin2 = this["Piano1Fin2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -680,7 +690,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin2OUT", true);
               }
             }
         ),
@@ -692,7 +702,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin3 = this["Piano1Fin3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -709,7 +719,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin3OUT", true);
               }
             }
         ),
@@ -721,7 +731,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin4 = this["Piano1Fin4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -738,7 +748,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin4OUT", true);
               }
             }
         ),
@@ -750,7 +760,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin5 = this["Piano1Fin5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -767,7 +777,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin5OUT", true);
               }
             }
         ),
@@ -779,7 +789,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin6 = this["Piano1Fin6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -796,7 +806,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin6OUT", true);
               }
             }
         ),
@@ -808,7 +818,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Piano1Fin7 = this["Piano1Fin7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -825,7 +835,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Piano1Fin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin7OUT", true);
               }
             }
         ),
@@ -864,7 +874,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro1OUT = this["Piano1Intro1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -881,7 +891,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro1OUT", false);
               }
             }
           )
@@ -916,7 +926,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro2OUT = this["Piano1Intro2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -933,7 +943,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro2OUT", false);
               }
             }
           )
@@ -968,7 +978,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro3OUT = this["Piano1Intro3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -985,7 +995,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro3OUT", false);
               }
             }
           )
@@ -1020,7 +1030,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro4OUT = this["Piano1Intro4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1037,7 +1047,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro4OUT", false);
               }
             }
           )
@@ -1072,7 +1082,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro5OUT = this["Piano1Intro5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1089,7 +1099,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro5OUT", false);
               }
             }
           )
@@ -1124,7 +1134,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro6OUT = this["Piano1Intro6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1141,7 +1151,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro6OUT", false);
               }
             }
           )
@@ -1176,7 +1186,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Intro7OUT = this["Piano1Intro7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1193,7 +1203,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Intro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Intro7OUT", false);
               }
             }
           )
@@ -1228,7 +1238,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu1OUT = this["Piano1Milieu1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1245,7 +1255,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu1OUT", false);
               }
             }
           )
@@ -1280,7 +1290,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu2OUT = this["Piano1Milieu2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1297,7 +1307,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu2OUT", false);
               }
             }
           )
@@ -1332,7 +1342,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu3OUT = this["Piano1Milieu3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1349,7 +1359,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu3OUT", false);
               }
             }
           )
@@ -1384,7 +1394,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu4OUT = this["Piano1Milieu4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1401,7 +1411,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu4OUT", false);
               }
             }
           )
@@ -1436,7 +1446,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu5OUT = this["Piano1Milieu5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1453,7 +1463,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu5OUT", false);
               }
             }
           )
@@ -1488,7 +1498,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu6OUT = this["Piano1Milieu6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1505,7 +1515,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu6OUT", false);
               }
             }
           )
@@ -1540,7 +1550,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Milieu7OUT = this["Piano1Milieu7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1557,7 +1567,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Milieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Milieu7OUT", false);
               }
             }
           )
@@ -1592,7 +1602,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin1OUT = this["Piano1Fin1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1609,7 +1619,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin1OUT", false);
               }
             }
           )
@@ -1644,7 +1654,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin2OUT = this["Piano1Fin2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1661,7 +1671,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin2OUT", false);
               }
             }
           )
@@ -1696,7 +1706,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin3OUT = this["Piano1Fin3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1713,7 +1723,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin3OUT", false);
               }
             }
           )
@@ -1748,7 +1758,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin4OUT = this["Piano1Fin4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1765,7 +1775,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin4OUT", false);
               }
             }
           )
@@ -1800,7 +1810,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin5OUT = this["Piano1Fin5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1817,7 +1827,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin5OUT", false);
               }
             }
           )
@@ -1852,7 +1862,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin6OUT = this["Piano1Fin6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1869,7 +1879,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin6OUT", false);
               }
             }
           )
@@ -1904,7 +1914,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Piano1Fin7OUT = this["Piano1Fin7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -1921,7 +1931,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Piano1Fin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Piano1Fin7OUT", false);
               }
             }
           )
@@ -1951,7 +1961,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro1 = this["Piano1Intro1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -1970,7 +1980,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro2 = this["Piano1Intro2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -1989,7 +1999,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro3 = this["Piano1Intro3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2008,7 +2018,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro4 = this["Piano1Intro4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2027,7 +2037,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro5 = this["Piano1Intro5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2046,7 +2056,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro6 = this["Piano1Intro6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2065,7 +2075,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Intro7 = this["Piano1Intro7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2084,7 +2094,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu1 = this["Piano1Milieu1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2103,7 +2113,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu2 = this["Piano1Milieu2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2122,7 +2132,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu3 = this["Piano1Milieu3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2141,7 +2151,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu4 = this["Piano1Milieu4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2160,7 +2170,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu5 = this["Piano1Milieu5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2179,7 +2189,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu6 = this["Piano1Milieu6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2198,7 +2208,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Milieu7 = this["Piano1Milieu7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2217,7 +2227,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin1 = this["Piano1Fin1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2236,7 +2246,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin2 = this["Piano1Fin2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2255,7 +2265,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin3 = this["Piano1Fin3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2274,7 +2284,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin4 = this["Piano1Fin4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2293,7 +2303,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin5 = this["Piano1Fin5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2312,7 +2322,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin6 = this["Piano1Fin6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2331,7 +2341,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Piano1Fin7 = this["Piano1Fin7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -2347,7 +2357,7 @@ exports.setSignals = setSignals;
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1", false);
+            gcs.informSelecteurOnMenuChange(0 , "Piano1Intro1", false);
             console.log("--- FIN RESERVOIR:", "Piano1Intro1");
             var msg = {
             type: 'killTank',
@@ -2448,7 +2458,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro1 = this["SaxIntro1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2465,7 +2475,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro1OUT", true);
               }
             }
         ),
@@ -2477,7 +2487,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro2 = this["SaxIntro2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2494,7 +2504,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro2OUT", true);
               }
             }
         ),
@@ -2506,7 +2516,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro3 = this["SaxIntro3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2523,7 +2533,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro3OUT", true);
               }
             }
         ),
@@ -2535,7 +2545,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro4 = this["SaxIntro4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2552,7 +2562,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro4OUT", true);
               }
             }
         ),
@@ -2564,7 +2574,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro5 = this["SaxIntro5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2581,7 +2591,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro5OUT", true);
               }
             }
         ),
@@ -2593,7 +2603,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro6 = this["SaxIntro6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2610,7 +2620,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro6OUT", true);
               }
             }
         ),
@@ -2622,7 +2632,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxIntro7 = this["SaxIntro7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2639,7 +2649,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro7OUT", true);
               }
             }
         ),
@@ -2651,7 +2661,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu1 = this["SaxMilieu1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2668,7 +2678,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu1OUT", true);
               }
             }
         ),
@@ -2680,7 +2690,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu2 = this["SaxMilieu2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2697,7 +2707,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu2OUT", true);
               }
             }
         ),
@@ -2709,7 +2719,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu3 = this["SaxMilieu3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2726,7 +2736,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu3OUT", true);
               }
             }
         ),
@@ -2738,7 +2748,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu4 = this["SaxMilieu4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2755,7 +2765,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu4OUT", true);
               }
             }
         ),
@@ -2767,7 +2777,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu5 = this["SaxMilieu5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2784,7 +2794,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu5OUT", true);
               }
             }
         ),
@@ -2796,7 +2806,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu6 = this["SaxMilieu6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2813,7 +2823,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu6OUT", true);
               }
             }
         ),
@@ -2825,7 +2835,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxMilieu7 = this["SaxMilieu7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2842,7 +2852,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu7OUT", true);
               }
             }
         ),
@@ -2854,7 +2864,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin1 = this["SaxFin1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2871,7 +2881,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin1OUT", true);
               }
             }
         ),
@@ -2883,7 +2893,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin2 = this["SaxFin2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2900,7 +2910,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin2OUT", true);
               }
             }
         ),
@@ -2912,7 +2922,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin3 = this["SaxFin3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2929,7 +2939,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin3OUT", true);
               }
             }
         ),
@@ -2941,7 +2951,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin4 = this["SaxFin4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2958,7 +2968,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin4OUT", true);
               }
             }
         ),
@@ -2970,7 +2980,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin5 = this["SaxFin5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -2987,7 +2997,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin5OUT", true);
               }
             }
         ),
@@ -2999,7 +3009,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin6 = this["SaxFin6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -3016,7 +3026,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin6OUT", true);
               }
             }
         ),
@@ -3028,7 +3038,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const SaxFin7 = this["SaxFin7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -3045,7 +3055,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "SaxFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin7OUT", true);
               }
             }
         ),
@@ -3084,7 +3094,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro1OUT = this["SaxIntro1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3101,7 +3111,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro1OUT", false);
               }
             }
           )
@@ -3136,7 +3146,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro2OUT = this["SaxIntro2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3153,7 +3163,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro2OUT", false);
               }
             }
           )
@@ -3188,7 +3198,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro3OUT = this["SaxIntro3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3205,7 +3215,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro3OUT", false);
               }
             }
           )
@@ -3240,7 +3250,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro4OUT = this["SaxIntro4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3257,7 +3267,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro4OUT", false);
               }
             }
           )
@@ -3292,7 +3302,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro5OUT = this["SaxIntro5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3309,7 +3319,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro5OUT", false);
               }
             }
           )
@@ -3344,7 +3354,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro6OUT = this["SaxIntro6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3361,7 +3371,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro6OUT", false);
               }
             }
           )
@@ -3396,7 +3406,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxIntro7OUT = this["SaxIntro7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3413,7 +3423,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxIntro7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxIntro7OUT", false);
               }
             }
           )
@@ -3448,7 +3458,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu1OUT = this["SaxMilieu1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3465,7 +3475,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu1OUT", false);
               }
             }
           )
@@ -3500,7 +3510,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu2OUT = this["SaxMilieu2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3517,7 +3527,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu2OUT", false);
               }
             }
           )
@@ -3552,7 +3562,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu3OUT = this["SaxMilieu3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3569,7 +3579,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu3OUT", false);
               }
             }
           )
@@ -3604,7 +3614,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu4OUT = this["SaxMilieu4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3621,7 +3631,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu4OUT", false);
               }
             }
           )
@@ -3656,7 +3666,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu5OUT = this["SaxMilieu5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3673,7 +3683,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu5OUT", false);
               }
             }
           )
@@ -3708,7 +3718,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu6OUT = this["SaxMilieu6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3725,7 +3735,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu6OUT", false);
               }
             }
           )
@@ -3760,7 +3770,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxMilieu7OUT = this["SaxMilieu7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3777,7 +3787,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxMilieu7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxMilieu7OUT", false);
               }
             }
           )
@@ -3812,7 +3822,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin1OUT = this["SaxFin1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3829,7 +3839,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin1OUT", false);
               }
             }
           )
@@ -3864,7 +3874,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin2OUT = this["SaxFin2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3881,7 +3891,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin2OUT", false);
               }
             }
           )
@@ -3916,7 +3926,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin3OUT = this["SaxFin3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3933,7 +3943,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin3OUT", false);
               }
             }
           )
@@ -3968,7 +3978,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin4OUT = this["SaxFin4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -3985,7 +3995,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin4OUT", false);
               }
             }
           )
@@ -4020,7 +4030,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin5OUT = this["SaxFin5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -4037,7 +4047,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin5OUT", false);
               }
             }
           )
@@ -4072,7 +4082,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin6OUT = this["SaxFin6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -4089,7 +4099,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin6OUT", false);
               }
             }
           )
@@ -4124,7 +4134,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const SaxFin7OUT = this["SaxFin7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -4141,7 +4151,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "SaxFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "SaxFin7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "SaxFin7OUT", false);
               }
             }
           )
@@ -4171,7 +4181,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro1 = this["SaxIntro1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4190,7 +4200,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro2 = this["SaxIntro2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4209,7 +4219,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro3 = this["SaxIntro3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4228,7 +4238,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro4 = this["SaxIntro4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4247,7 +4257,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro5 = this["SaxIntro5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4266,7 +4276,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro6 = this["SaxIntro6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4285,7 +4295,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxIntro7 = this["SaxIntro7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4304,7 +4314,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu1 = this["SaxMilieu1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4323,7 +4333,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu2 = this["SaxMilieu2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4342,7 +4352,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu3 = this["SaxMilieu3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4361,7 +4371,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu4 = this["SaxMilieu4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4380,7 +4390,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu5 = this["SaxMilieu5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4399,7 +4409,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu6 = this["SaxMilieu6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4418,7 +4428,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxMilieu7 = this["SaxMilieu7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4437,7 +4447,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin1 = this["SaxFin1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4456,7 +4466,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin2 = this["SaxFin2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4475,7 +4485,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin3 = this["SaxFin3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4494,7 +4504,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin4 = this["SaxFin4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4513,7 +4523,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin5 = this["SaxFin5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4532,7 +4542,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin6 = this["SaxFin6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4551,7 +4561,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const SaxFin7 = this["SaxFin7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -4567,7 +4577,7 @@ exports.setSignals = setSignals;
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "SaxIntro1", false);
+            gcs.informSelecteurOnMenuChange(0 , "SaxIntro1", false);
             console.log("--- FIN RESERVOIR:", "SaxIntro1");
             var msg = {
             type: 'killTank',
@@ -4668,7 +4678,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro1 = this["BrassIntro1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4685,7 +4695,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro1OUT", true);
               }
             }
         ),
@@ -4697,7 +4707,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro2 = this["BrassIntro2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4714,7 +4724,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro2OUT", true);
               }
             }
         ),
@@ -4726,7 +4736,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro3 = this["BrassIntro3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4743,7 +4753,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro3OUT", true);
               }
             }
         ),
@@ -4755,7 +4765,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro4 = this["BrassIntro4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4772,7 +4782,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro4OUT", true);
               }
             }
         ),
@@ -4784,7 +4794,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro5 = this["BrassIntro5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4801,7 +4811,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro5OUT", true);
               }
             }
         ),
@@ -4813,7 +4823,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro6 = this["BrassIntro6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4830,7 +4840,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro6OUT", true);
               }
             }
         ),
@@ -4842,7 +4852,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassIntro7 = this["BrassIntro7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4859,7 +4869,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro7OUT", true);
               }
             }
         ),
@@ -4871,7 +4881,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu1 = this["BrassMilieu1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4888,7 +4898,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu1OUT", true);
               }
             }
         ),
@@ -4900,7 +4910,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu2 = this["BrassMilieu2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4917,7 +4927,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu2OUT", true);
               }
             }
         ),
@@ -4929,7 +4939,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu3 = this["BrassMilieu3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4946,7 +4956,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu3OUT", true);
               }
             }
         ),
@@ -4958,7 +4968,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu4 = this["BrassMilieu4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -4975,7 +4985,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu4OUT", true);
               }
             }
         ),
@@ -4987,7 +4997,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu5 = this["BrassMilieu5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5004,7 +5014,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu5OUT", true);
               }
             }
         ),
@@ -5016,7 +5026,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu6 = this["BrassMilieu6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5033,7 +5043,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu6OUT", true);
               }
             }
         ),
@@ -5045,7 +5055,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassMilieu7 = this["BrassMilieu7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5062,7 +5072,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu7OUT", true);
               }
             }
         ),
@@ -5074,7 +5084,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin1 = this["BrassFin1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5091,7 +5101,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin1OUT", true);
               }
             }
         ),
@@ -5103,7 +5113,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin2 = this["BrassFin2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5120,7 +5130,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin2OUT", true);
               }
             }
         ),
@@ -5132,7 +5142,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin3 = this["BrassFin3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5149,7 +5159,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin3OUT", true);
               }
             }
         ),
@@ -5161,7 +5171,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin4 = this["BrassFin4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5178,7 +5188,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin4OUT", true);
               }
             }
         ),
@@ -5190,7 +5200,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin5 = this["BrassFin5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5207,7 +5217,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin5OUT", true);
               }
             }
         ),
@@ -5219,7 +5229,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin6 = this["BrassFin6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5236,7 +5246,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin6OUT", true);
               }
             }
         ),
@@ -5248,7 +5258,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const BrassFin7 = this["BrassFin7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -5265,7 +5275,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "BrassFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin7OUT", true);
               }
             }
         ),
@@ -5304,7 +5314,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro1OUT = this["BrassIntro1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5321,7 +5331,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro1OUT", false);
               }
             }
           )
@@ -5356,7 +5366,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro2OUT = this["BrassIntro2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5373,7 +5383,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro2OUT", false);
               }
             }
           )
@@ -5408,7 +5418,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro3OUT = this["BrassIntro3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5425,7 +5435,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro3OUT", false);
               }
             }
           )
@@ -5460,7 +5470,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro4OUT = this["BrassIntro4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5477,7 +5487,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro4OUT", false);
               }
             }
           )
@@ -5512,7 +5522,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro5OUT = this["BrassIntro5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5529,7 +5539,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro5OUT", false);
               }
             }
           )
@@ -5564,7 +5574,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro6OUT = this["BrassIntro6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5581,7 +5591,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro6OUT", false);
               }
             }
           )
@@ -5616,7 +5626,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassIntro7OUT = this["BrassIntro7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5633,7 +5643,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassIntro7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassIntro7OUT", false);
               }
             }
           )
@@ -5668,7 +5678,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu1OUT = this["BrassMilieu1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5685,7 +5695,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu1OUT", false);
               }
             }
           )
@@ -5720,7 +5730,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu2OUT = this["BrassMilieu2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5737,7 +5747,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu2OUT", false);
               }
             }
           )
@@ -5772,7 +5782,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu3OUT = this["BrassMilieu3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5789,7 +5799,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu3OUT", false);
               }
             }
           )
@@ -5824,7 +5834,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu4OUT = this["BrassMilieu4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5841,7 +5851,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu4OUT", false);
               }
             }
           )
@@ -5876,7 +5886,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu5OUT = this["BrassMilieu5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5893,7 +5903,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu5OUT", false);
               }
             }
           )
@@ -5928,7 +5938,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu6OUT = this["BrassMilieu6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5945,7 +5955,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu6OUT", false);
               }
             }
           )
@@ -5980,7 +5990,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassMilieu7OUT = this["BrassMilieu7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -5997,7 +6007,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassMilieu7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassMilieu7OUT", false);
               }
             }
           )
@@ -6032,7 +6042,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin1OUT = this["BrassFin1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6049,7 +6059,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin1OUT", false);
               }
             }
           )
@@ -6084,7 +6094,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin2OUT = this["BrassFin2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6101,7 +6111,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin2OUT", false);
               }
             }
           )
@@ -6136,7 +6146,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin3OUT = this["BrassFin3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6153,7 +6163,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin3OUT", false);
               }
             }
           )
@@ -6188,7 +6198,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin4OUT = this["BrassFin4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6205,7 +6215,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin4OUT", false);
               }
             }
           )
@@ -6240,7 +6250,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin5OUT = this["BrassFin5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6257,7 +6267,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin5OUT", false);
               }
             }
           )
@@ -6292,7 +6302,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin6OUT = this["BrassFin6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6309,7 +6319,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin6OUT", false);
               }
             }
           )
@@ -6344,7 +6354,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const BrassFin7OUT = this["BrassFin7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -6361,7 +6371,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "BrassFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "BrassFin7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "BrassFin7OUT", false);
               }
             }
           )
@@ -6391,7 +6401,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro1 = this["BrassIntro1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6410,7 +6420,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro2 = this["BrassIntro2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6429,7 +6439,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro3 = this["BrassIntro3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6448,7 +6458,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro4 = this["BrassIntro4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6467,7 +6477,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro5 = this["BrassIntro5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6486,7 +6496,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro6 = this["BrassIntro6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6505,7 +6515,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassIntro7 = this["BrassIntro7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6524,7 +6534,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu1 = this["BrassMilieu1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6543,7 +6553,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu2 = this["BrassMilieu2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6562,7 +6572,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu3 = this["BrassMilieu3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6581,7 +6591,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu4 = this["BrassMilieu4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6600,7 +6610,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu5 = this["BrassMilieu5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6619,7 +6629,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu6 = this["BrassMilieu6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6638,7 +6648,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassMilieu7 = this["BrassMilieu7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6657,7 +6667,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin1 = this["BrassFin1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6676,7 +6686,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin2 = this["BrassFin2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6695,7 +6705,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin3 = this["BrassFin3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6714,7 +6724,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin4 = this["BrassFin4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6733,7 +6743,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin5 = this["BrassFin5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6752,7 +6762,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin6 = this["BrassFin6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6771,7 +6781,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const BrassFin7 = this["BrassFin7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -6787,7 +6797,7 @@ exports.setSignals = setSignals;
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "BrassIntro1", false);
+            gcs.informSelecteurOnMenuChange(0 , "BrassIntro1", false);
             console.log("--- FIN RESERVOIR:", "BrassIntro1");
             var msg = {
             type: 'killTank',
@@ -6888,7 +6898,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro1 = this["FluteIntro1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -6905,7 +6915,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro1OUT", true);
               }
             }
         ),
@@ -6917,7 +6927,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro2 = this["FluteIntro2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -6934,7 +6944,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro2OUT", true);
               }
             }
         ),
@@ -6946,7 +6956,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro3 = this["FluteIntro3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -6963,7 +6973,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro3OUT", true);
               }
             }
         ),
@@ -6975,7 +6985,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro4 = this["FluteIntro4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -6992,7 +7002,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro4OUT", true);
               }
             }
         ),
@@ -7004,7 +7014,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro5 = this["FluteIntro5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7021,7 +7031,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro5OUT", true);
               }
             }
         ),
@@ -7033,7 +7043,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro6 = this["FluteIntro6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7050,7 +7060,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro6OUT", true);
               }
             }
         ),
@@ -7062,7 +7072,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteIntro7 = this["FluteIntro7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7079,7 +7089,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro7OUT", true);
               }
             }
         ),
@@ -7091,7 +7101,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu1 = this["FluteMilieu1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7108,7 +7118,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu1OUT", true);
               }
             }
         ),
@@ -7120,7 +7130,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu2 = this["FluteMilieu2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7137,7 +7147,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu2OUT", true);
               }
             }
         ),
@@ -7149,7 +7159,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu3 = this["FluteMilieu3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7166,7 +7176,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu3OUT", true);
               }
             }
         ),
@@ -7178,7 +7188,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu4 = this["FluteMilieu4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7195,7 +7205,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu4OUT", true);
               }
             }
         ),
@@ -7207,7 +7217,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu5 = this["FluteMilieu5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7224,7 +7234,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu5OUT", true);
               }
             }
         ),
@@ -7236,7 +7246,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu6 = this["FluteMilieu6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7253,7 +7263,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu6OUT", true);
               }
             }
         ),
@@ -7265,7 +7275,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteMilieu7 = this["FluteMilieu7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7282,7 +7292,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu7OUT", true);
               }
             }
         ),
@@ -7294,7 +7304,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin1 = this["FluteFin1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7311,7 +7321,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin1OUT", true);
               }
             }
         ),
@@ -7323,7 +7333,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin2 = this["FluteFin2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7340,7 +7350,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin2OUT", true);
               }
             }
         ),
@@ -7352,7 +7362,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin3 = this["FluteFin3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7369,7 +7379,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin3OUT", true);
               }
             }
         ),
@@ -7381,7 +7391,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin4 = this["FluteFin4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7398,7 +7408,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin4OUT", true);
               }
             }
         ),
@@ -7410,7 +7420,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin5 = this["FluteFin5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7427,7 +7437,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin5OUT", true);
               }
             }
         ),
@@ -7439,7 +7449,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin6 = this["FluteFin6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7456,7 +7466,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin6OUT", true);
               }
             }
         ),
@@ -7468,7 +7478,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const FluteFin7 = this["FluteFin7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -7485,7 +7495,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "FluteFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin7OUT", true);
               }
             }
         ),
@@ -7524,7 +7534,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro1OUT = this["FluteIntro1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7541,7 +7551,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro1OUT", false);
               }
             }
           )
@@ -7576,7 +7586,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro2OUT = this["FluteIntro2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7593,7 +7603,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro2OUT", false);
               }
             }
           )
@@ -7628,7 +7638,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro3OUT = this["FluteIntro3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7645,7 +7655,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro3OUT", false);
               }
             }
           )
@@ -7680,7 +7690,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro4OUT = this["FluteIntro4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7697,7 +7707,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro4OUT", false);
               }
             }
           )
@@ -7732,7 +7742,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro5OUT = this["FluteIntro5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7749,7 +7759,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro5OUT", false);
               }
             }
           )
@@ -7784,7 +7794,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro6OUT = this["FluteIntro6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7801,7 +7811,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro6OUT", false);
               }
             }
           )
@@ -7836,7 +7846,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteIntro7OUT = this["FluteIntro7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7853,7 +7863,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteIntro7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteIntro7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteIntro7OUT", false);
               }
             }
           )
@@ -7888,7 +7898,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu1OUT = this["FluteMilieu1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7905,7 +7915,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu1OUT", false);
               }
             }
           )
@@ -7940,7 +7950,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu2OUT = this["FluteMilieu2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -7957,7 +7967,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu2OUT", false);
               }
             }
           )
@@ -7992,7 +8002,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu3OUT = this["FluteMilieu3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8009,7 +8019,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu3OUT", false);
               }
             }
           )
@@ -8044,7 +8054,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu4OUT = this["FluteMilieu4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8061,7 +8071,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu4OUT", false);
               }
             }
           )
@@ -8096,7 +8106,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu5OUT = this["FluteMilieu5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8113,7 +8123,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu5OUT", false);
               }
             }
           )
@@ -8148,7 +8158,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu6OUT = this["FluteMilieu6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8165,7 +8175,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu6OUT", false);
               }
             }
           )
@@ -8200,7 +8210,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteMilieu7OUT = this["FluteMilieu7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8217,7 +8227,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteMilieu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteMilieu7OUT", false);
               }
             }
           )
@@ -8252,7 +8262,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin1OUT = this["FluteFin1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8269,7 +8279,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin1OUT", false);
               }
             }
           )
@@ -8304,7 +8314,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin2OUT = this["FluteFin2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8321,7 +8331,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin2OUT", false);
               }
             }
           )
@@ -8356,7 +8366,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin3OUT = this["FluteFin3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8373,7 +8383,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin3OUT", false);
               }
             }
           )
@@ -8408,7 +8418,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin4OUT = this["FluteFin4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8425,7 +8435,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin4OUT", false);
               }
             }
           )
@@ -8460,7 +8470,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin5OUT = this["FluteFin5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8477,7 +8487,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin5OUT", false);
               }
             }
           )
@@ -8512,7 +8522,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin6OUT = this["FluteFin6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8529,7 +8539,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin6OUT", false);
               }
             }
           )
@@ -8564,7 +8574,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const FluteFin7OUT = this["FluteFin7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -8581,7 +8591,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "FluteFin7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "FluteFin7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "FluteFin7OUT", false);
               }
             }
           )
@@ -8611,7 +8621,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro1 = this["FluteIntro1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8630,7 +8640,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro2 = this["FluteIntro2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8649,7 +8659,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro3 = this["FluteIntro3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8668,7 +8678,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro4 = this["FluteIntro4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8687,7 +8697,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro5 = this["FluteIntro5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8706,7 +8716,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro6 = this["FluteIntro6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8725,7 +8735,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteIntro7 = this["FluteIntro7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8744,7 +8754,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu1 = this["FluteMilieu1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8763,7 +8773,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu2 = this["FluteMilieu2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8782,7 +8792,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu3 = this["FluteMilieu3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8801,7 +8811,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu4 = this["FluteMilieu4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8820,7 +8830,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu5 = this["FluteMilieu5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8839,7 +8849,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu6 = this["FluteMilieu6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8858,7 +8868,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteMilieu7 = this["FluteMilieu7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8877,7 +8887,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin1 = this["FluteFin1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8896,7 +8906,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin2 = this["FluteFin2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8915,7 +8925,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin3 = this["FluteFin3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8934,7 +8944,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin4 = this["FluteFin4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8953,7 +8963,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin5 = this["FluteFin5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8972,7 +8982,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin6 = this["FluteFin6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -8991,7 +9001,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const FluteFin7 = this["FluteFin7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9007,7 +9017,7 @@ exports.setSignals = setSignals;
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "FluteIntro1", false);
+            gcs.informSelecteurOnMenuChange(0 , "FluteIntro1", false);
             console.log("--- FIN RESERVOIR:", "FluteIntro1");
             var msg = {
             type: 'killTank',
@@ -9080,7 +9090,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu1 = this["Percu1OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9097,7 +9107,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu1OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu1OUT", true);
               }
             }
         ),
@@ -9109,7 +9119,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu2 = this["Percu2OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9126,7 +9136,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu2OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu2OUT", true);
               }
             }
         ),
@@ -9138,7 +9148,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu3 = this["Percu3OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9155,7 +9165,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu3OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu3OUT", true);
               }
             }
         ),
@@ -9167,7 +9177,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu4 = this["Percu4OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9184,7 +9194,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu4OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu4OUT", true);
               }
             }
         ),
@@ -9196,7 +9206,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu5 = this["Percu5OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9213,7 +9223,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu5OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu5OUT", true);
               }
             }
         ),
@@ -9225,7 +9235,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu6 = this["Percu6OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9242,7 +9252,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu6OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu6OUT", true);
               }
             }
         ),
@@ -9254,7 +9264,7 @@ exports.setSignals = setSignals;
                 "apply":function (){
                   return ((() => {
                     const Percu7 = this["Percu7OUT"];
-                    return [true, 255 ];
+                    return [true, 0 ];
                   })());
                 }
               },
@@ -9271,7 +9281,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("-- makeReservoir:  atom:", "Percu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu7OUT", true);
+                gcs.informSelecteurOnMenuChange(0 , "Percu7OUT", true);
               }
             }
         ),
@@ -9310,7 +9320,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu1OUT = this["Percu1OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9327,7 +9337,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu1OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu1OUT", false);
               }
             }
           )
@@ -9362,7 +9372,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu2OUT = this["Percu2OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9379,7 +9389,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu2OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu2OUT", false);
               }
             }
           )
@@ -9414,7 +9424,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu3OUT = this["Percu3OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9431,7 +9441,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu3OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu3OUT", false);
               }
             }
           )
@@ -9466,7 +9476,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu4OUT = this["Percu4OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9483,7 +9493,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu4OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu4OUT", false);
               }
             }
           )
@@ -9518,7 +9528,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu5OUT = this["Percu5OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9535,7 +9545,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu5OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu5OUT", false);
               }
             }
           )
@@ -9570,7 +9580,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu6OUT = this["Percu6OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9587,7 +9597,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu6OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu6OUT", false);
               }
             }
           )
@@ -9622,7 +9632,7 @@ exports.setSignals = setSignals;
               "apply":function (){
                 return ((() => {
                   const Percu7OUT = this["Percu7OUT"];
-                  return [false, 255];
+                  return [false, 0];
                 })());
               }
             },
@@ -9639,7 +9649,7 @@ exports.setSignals = setSignals;
             "%tag":"node",
             "apply":function () {
                 //console.log("--! makeAwait:  atom:", "Percu7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "Percu7OUT", false);
+                gcs.informSelecteurOnMenuChange(0 , "Percu7OUT", false);
               }
             }
           )
@@ -9669,7 +9679,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu1 = this["Percu1OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9688,7 +9698,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu2 = this["Percu2OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9707,7 +9717,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu3 = this["Percu3OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9726,7 +9736,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu4 = this["Percu4OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9745,7 +9755,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu5 = this["Percu5OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9764,7 +9774,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu6 = this["Percu6OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9783,7 +9793,7 @@ exports.setSignals = setSignals;
           "apply":function (){
             return ((() => {
               const Percu7 = this["Percu7OUT"];
-              return [false, 255 ];
+              return [false, 0 ];
             })());
           }
         },
@@ -9799,7 +9809,7 @@ exports.setSignals = setSignals;
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "Percu1", false);
+            gcs.informSelecteurOnMenuChange(0 , "Percu1", false);
             console.log("--- FIN RESERVOIR:", "Percu1");
             var msg = {
             type: 'killTank',
@@ -9819,6 +9829,16 @@ exports.setSignals = setSignals;
   //
   //
   //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   TransPianoEtNappe = hh.MODULE({"id":"TransPianoEtNappe","%location":{},"%tag":"module"},
 
@@ -9834,27 +9854,6 @@ exports.setSignals = setSignals;
           "%location":{loop: 1},
           "%tag":"loop"
         },
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 4;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
 
       hh.ATOM(
         {
@@ -9879,7 +9878,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 4;}
+          "countapply":function (){ return 1;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -9912,7 +9911,7 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 4;}
+          "countapply":function (){ return 1;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -9945,7 +9944,281 @@ exports.setSignals = setSignals;
               return tick.now;
             })());
           },
-          "countapply":function (){ return 4;}
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      ),
+
+  );
+  // La transposition si fait dans Ableton Live. D'où les
+  // ratios dans l'initialisation de la pièce pour cadrer
+  // avec le paramètre MIDI des CC. (min -36, max +36).
+  // 64 -> 0
+  // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+  TransPianoEtNappe2 = hh.MODULE({"id":"TransPianoEtNappe2","%location":{},"%tag":"module"},
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"INOUT",
+        "name":"tick"
+      }),
+
+
+    hh.LOOP(
+        {
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = -2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      ),
+
+  );
+  // La transposition si fait dans Ableton Live. D'où les
+  // ratios dans l'initialisation de la pièce pour cadrer
+  // avec le paramètre MIDI des CC. (min -36, max +36).
+  // 64 -> 0
+  // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+  TransPianoEtNappe3 = hh.MODULE({"id":"TransPianoEtNappe3","%location":{},"%tag":"module"},
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"INOUT",
+        "name":"tick"
+      }),
+
+
+    hh.LOOP(
+        {
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = -2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
         },
         hh.SIGACCESS({
           "signame":"tick",
@@ -9965,6 +10238,223 @@ exports.setSignals = setSignals;
             oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
           }
         }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      ),
+
+  );
+  // La transposition si fait dans Ableton Live. D'où les
+  // ratios dans l'initialisation de la pièce pour cadrer
+  // avec le paramètre MIDI des CC. (min -36, max +36).
+  // 64 -> 0
+  // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+  TransSaxo = hh.MODULE({"id":"TransSaxo","%location":{},"%tag":"module"},
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"INOUT",
+        "name":"tick"
+      }),
+
+      hh.SIGNAL({
+        "%location":{},
+        "direction":"INOUT",
+        "name":"StartTransSaxo"
+      }),
+
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":true,
+          "apply":function () {
+            return ((() => {
+              const StartTransSaxo=this["StartTransSaxo"];
+              return StartTransSaxo.now;
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"StartTransSaxo",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+    hh.LOOP(
+        {
+          "%location":{loop: 1},
+          "%tag":"loop"
+        },
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = -5; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
+      ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            transposeValue = -7; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          }
+        }
+      ),
+
+      hh.AWAIT(
+        {
+          "%location":{},
+          "%tag":"await",
+          "immediate":false,
+          "apply":function () {
+            return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+            })());
+          },
+          "countapply":function (){ return 2;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        })
       ),
 
       ),
@@ -9989,6 +10479,12 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
+
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"StartTransSaxo"
+    }),
 
   hh.LOOP(
     {
@@ -10073,7 +10569,7 @@ var orchestration = hh.MODULE(
           "apply":function () {
             var msg = {
               type: 'listeDesTypes',
-              text:'1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11'
+              text:'1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11'
             }
             serveur.broadcast(JSON.stringify(msg));
           }
@@ -10085,64 +10581,85 @@ var orchestration = hh.MODULE(
             "%location":{},
             "%tag":"node",
             "apply":function () {
-               gcs.setpatternListLength([11,255]);
+               gcs.setpatternListLength([12,255]);
             }
           }
         ),
 
     ),
 
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        setTempo(60);
-      }
-    }
-  ),
+        hh.SEQUENCE(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+              "%tag":"seq"
+            },
 
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        gcs.setTimerDivision(1);
-      }
-    }
-  ),
 
     hh.ATOM(
-        {
+      {
         "%location":{},
         "%tag":"node",
         "apply":function () {
-          var msg = {
-            type: 'addSceneScore',
-            value:1
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
+          setTempo(70);
         }
-    ),
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
-        "%tag":"yield"
       }
     ),
 
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        ratioTranspose = 1.763;
-        offsetTranspose = 63.5;
-        if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          gcs.setTimerDivision(1);
+        }
       }
-    }
-  ),
+    ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'addSceneScore',
+              value:1
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
+          }
+      ),
+      hh.PAUSE(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+          "%tag":"yield"
+        }
+      ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          ratioTranspose = 1.763;
+          offsetTranspose = 63.5;
+          if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
+        }
+      }
+    ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+        }
+      }
+    ),
+
+    ),
 
       hh.ATOM(
         {
@@ -10151,6 +10668,466 @@ var orchestration = hh.MODULE(
           "apply":function () {
             DAW.cleanQueues();
             gcs.cleanChoiceList(255);
+          }
+        }
+      ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(70);
+      }
+    }
+  ),
+
+  hh.LOCAL(
+    {
+      "%location":{},
+      "%tag":"signal"
+    },
+    hh.SIGNAL({
+      "name":"stop532535"
+    }),
+
+      hh.TRAP(
+        {
+          "trap532535":"trap532535",
+          "%location":{},
+          "%tag":"trap532535"
+        },
+        hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+          hh.SEQUENCE( // sequence 1
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.RUN(
+                  {
+                    "%location":{"filename":"","pos":1},
+                    "%tag":"run",
+                    "module": hh.getModule("Percu", {"filename":"","pos":2}),
+                    "autocomplete":true,
+                    "stopReservoir":"stop532535"
+                  }
+                ),
+              ),
+
+          )
+        ),
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){return ((() => {
+                  const tick =this["tick"];
+                  return tick.now;})());},
+                "countapply":function (){return 5;}
+            },
+            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+          ),
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              //"stopReservoir":"stopReservoir",
+              "stop532535" : "stop532535",
+              "apply":function (){
+                return ((() => {
+                  //const stopReservoir = this["stopReservoir"];
+                  const stop532535 = this["stop532535"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              //"signame":"stopReservoir",
+              "signame":"stop532535",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          ),
+
+          hh.EXIT(
+          {
+            "trap532535":"trap532535",
+            "%location":{},
+            "%tag":"break"
+          }), // Exit
+        ) // sequence
+      ), // fork
+    ), // trap
+
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    )
+  ),
+
+    hh.ATOM(
+        {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          var msg = {
+            type: 'alertInfoScoreOFF',
+          }
+          serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+    ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.cleanQueue(5);
+          }
+        }
+      ),
+
+        hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "StartTransSaxo":"StartTransSaxo",
+              "apply":function (){
+                return ((() => {
+                  //const StartTransSaxo=this["StartTransSaxo"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"StartTransSaxo",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+
+      hh.LOCAL(
+        {
+          "%location":{},
+          "%tag":"signal"
+        },
+        hh.SIGNAL({
+          "name":"stop790634"
+        }),
+
+          hh.TRAP(
+            {
+              "trap790634":"trap790634",
+              "%location":{},
+              "%tag":"trap790634"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE( // sequence 1
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE(
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+                    hh.RUN(
+                      {
+                        "%location":{"filename":"","pos":1},
+                        "%tag":"run",
+                        "module": hh.getModule("Saxo", {"filename":"","pos":2}),
+                        "autocomplete":true,
+                        "stopReservoir":"stop790634"
+                      }
+                    ),
+                  ),
+
+              )
+            ),
+            hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.AWAIT(
+                  {
+                    "%location":{},
+                    "%tag":"await",
+                    "immediate":false,
+                    "apply":function (){return ((() => {
+                      const tick =this["tick"];
+                      return tick.now;})());},
+                    "countapply":function (){return 50;}
+                },
+                hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+              ),
+              hh.EMIT(
+                {
+                  "%location":{},
+                  "%tag":"emit",
+                  //"stopReservoir":"stopReservoir",
+                  "stop790634" : "stop790634",
+                  "apply":function (){
+                    return ((() => {
+                      //const stopReservoir = this["stopReservoir"];
+                      const stop790634 = this["stop790634"];
+                      return 0;
+                    })());
+                  }
+                },
+                hh.SIGACCESS({
+                  //"signame":"stopReservoir",
+                  "signame":"stop790634",
+                  "pre":true,
+                  "val":true,
+                  "cnt":false
+                })
+              ), // Fin emit
+
+              hh.PAUSE(
+                {
+                  "%location":{},
+                  "%tag":"yield"
+                }
+              ),
+
+              hh.EXIT(
+              {
+                "trap790634":"trap790634",
+                "%location":{},
+                "%tag":"break"
+              }), // Exit
+            ) // sequence
+          ), // fork
+        ), // trap
+
+        hh.PAUSE(
+          {
+            "%location":{},
+            "%tag":"yield"
+          }
+        )
+      ),
+
+      ),
+
+
+    hh.ABORT(
+      {
+        "%location":{abort: tick},
+        "%tag":"abort",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+        })());},
+        "countapply":function (){ return 50;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+      hh.RUN({
+        "%location":{},
+        "%tag":"run",
+        "module": hh.getModule(  "TransSaxo", {}),
+        "tick":"",
+        "StartTransSaxo":"",
+
+      }),
+
+    ),
+
+    ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.cleanQueue(2);
+          }
+        }
+      ),
+
+  hh.LOCAL(
+    {
+      "%location":{},
+      "%tag":"signal"
+    },
+    hh.SIGNAL({
+      "name":"stop41058"
+    }),
+
+      hh.TRAP(
+        {
+          "trap41058":"trap41058",
+          "%location":{},
+          "%tag":"trap41058"
+        },
+        hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+          hh.SEQUENCE( // sequence 1
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.RUN(
+                  {
+                    "%location":{"filename":"","pos":1},
+                    "%tag":"run",
+                    "module": hh.getModule("Percu", {"filename":"","pos":2}),
+                    "autocomplete":true,
+                    "stopReservoir":"stop41058"
+                  }
+                ),
+              ),
+
+          )
+        ),
+        hh.SEQUENCE(
+          {
+            "%location":{},
+            "%tag":"seq"
+          },
+          hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function (){return ((() => {
+                  const tick =this["tick"];
+                  return tick.now;})());},
+                "countapply":function (){return 5;}
+            },
+            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+          ),
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              //"stopReservoir":"stopReservoir",
+              "stop41058" : "stop41058",
+              "apply":function (){
+                return ((() => {
+                  //const stopReservoir = this["stopReservoir"];
+                  const stop41058 = this["stop41058"];
+                  return 0;
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              //"signame":"stopReservoir",
+              "signame":"stop41058",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          ),
+
+          hh.EXIT(
+          {
+            "trap41058":"trap41058",
+            "%location":{},
+            "%tag":"break"
+          }), // Exit
+        ) // sequence
+      ), // fork
+    ), // trap
+
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    )
+  ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            DAW.cleanQueue(5);
           }
         }
       ),
@@ -10168,14 +11145,14 @@ var orchestration = hh.MODULE(
         "%tag":"signal"
       },
       hh.SIGNAL({
-        "name":"stop727194"
+        "name":"stop469604"
       }),
 
         hh.TRAP(
           {
-            "trap727194":"trap727194",
+            "trap469604":"trap469604",
             "%location":{},
-            "%tag":"trap727194"
+            "%tag":"trap469604"
           },
           hh.FORK(
             {
@@ -10201,9 +11178,9 @@ var orchestration = hh.MODULE(
                     {
                       "%location":{"filename":"","pos":1},
                       "%tag":"run",
-                      "module": hh.getModule("Piano", {"filename":"","pos":2}),
+                      "module": hh.getModule("Flute", {"filename":"","pos":2}),
                       "autocomplete":true,
-                      "stopReservoir":"stop727194"
+                      "stopReservoir":"stop469604"
                     }
                   ),
                 ),
@@ -10232,18 +11209,18 @@ var orchestration = hh.MODULE(
                 "%location":{},
                 "%tag":"emit",
                 //"stopReservoir":"stopReservoir",
-                "stop727194" : "stop727194",
+                "stop469604" : "stop469604",
                 "apply":function (){
                   return ((() => {
                     //const stopReservoir = this["stopReservoir"];
-                    const stop727194 = this["stop727194"];
+                    const stop469604 = this["stop469604"];
                     return 0;
                   })());
                 }
               },
               hh.SIGACCESS({
                 //"signame":"stopReservoir",
-                "signame":"stop727194",
+                "signame":"stop469604",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -10259,7 +11236,7 @@ var orchestration = hh.MODULE(
 
             hh.EXIT(
             {
-              "trap727194":"trap727194",
+              "trap469604":"trap469604",
               "%location":{},
               "%tag":"break"
             }), // Exit
@@ -10285,7 +11262,7 @@ var orchestration = hh.MODULE(
             const tick=this["tick"];
             return tick.now;
         })());},
-        "countapply":function (){ return 20;}
+        "countapply":function (){ return 40;}
       },
       hh.SIGACCESS({
         "signame":"tick",
@@ -10294,354 +11271,64 @@ var orchestration = hh.MODULE(
         "cnt":false
       }),
 
-            hh.FORK(
-                {
-                  "%location":{},
-                  "%tag":"fork"
-                },
-
-
-        hh.RUN({
-          "%location":{},
-          "%tag":"run",
-          "module": hh.getModule(  "TransPianoEtNappe", {}),
-          "tick":"",
-
-        }),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "FleshOUT": "FleshOUT",
-                "apply":function (){
-                  return ((() => {
-                    const FleshOUT = this["FleshOUT"];
-                    return [true,255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame": "FleshOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ),
-            hh.ATOM(
-              {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () { gcs.informSelecteurOnMenuChange(255 , "FleshOUT",true); }
-              }
-         	),
-
-        ),
-
-    ),
-
-    ),
-
-      hh.EMIT(
+      hh.ABORT(
         {
-          "%location":{},
-          "%tag":"emit",
-          "FleshOUT": "FleshOUT",
-          "apply":function (){
-            return ((() => {
-              const FleshOUT = this["FleshOUT"];
-              return [false,255];
-            })());
-          }
+          "%location":{abort:stopMoveTempo},
+          "%tag":"abort",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const stopMoveTempo =this["stopMoveTempo"];
+              return stopMoveTempo.now;
+          })());},
         },
         hh.SIGACCESS({
-          "signame": "FleshOUT",
-          "pre":true,
-          "val":true,
+          "signame":"stopMoveTempo",
+          "pre":false,
+          "val":false,
           "cnt":false
-        })
+        }),
+        hh.EVERY(
+          {
+            "%location":{every: tick},
+            "%tag":"do/every",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                const tick=this["tick"];
+                return tick.now;
+            })());},
+            "countapply":function (){ return  1;}
+          },
+          hh.SIGACCESS({
+            "signame":"tick",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          }),
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                moveTempo(2, 5);
+              }
+            }
+          )
+        )
       ),
-      hh.ATOM(
-        {
+
+
+    ),
+
+    ),
+
+    hh.ATOM(
+      {
         "%location":{},
         "%tag":"node",
-        "apply":function () { gcs.informSelecteurOnMenuChange(255 , "FleshOUT",false); }
+        "apply":function () {
+          DAW.putPatternInQueue('Percu4');
         }
-    ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueue(1);
-          }
-        }
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueue(2);
-          }
-        }
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueue(6);
-          }
-        }
-      ),
-
-  hh.LOCAL(
-    {
-      "%location":{},
-      "%tag":"signal"
-    },
-    hh.SIGNAL({
-      "name":"stop639229"
-    }),
-
-      hh.TRAP(
-        {
-          "trap639229":"trap639229",
-          "%location":{},
-          "%tag":"trap639229"
-        },
-        hh.FORK(
-          {
-            "%location":{},
-            "%tag":"fork"
-          },
-          hh.SEQUENCE( // sequence 1
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.FORK(
-              {
-                "%location":{},
-                "%tag":"fork"
-              },
-              hh.SEQUENCE(
-                {
-                  "%location":{},
-                  "%tag":"seq"
-                },
-                hh.RUN(
-                  {
-                    "%location":{"filename":"","pos":1},
-                    "%tag":"run",
-                    "module": hh.getModule("Saxo", {"filename":"","pos":2}),
-                    "autocomplete":true,
-                    "stopReservoir":"stop639229"
-                  }
-                ),
-              ),
-
-          )
-        ),
-        hh.SEQUENCE(
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-          hh.AWAIT(
-              {
-                "%location":{},
-                "%tag":"await",
-                "immediate":false,
-                "apply":function (){return ((() => {
-                  const tick =this["tick"];
-                  return tick.now;})());},
-                "countapply":function (){return 30;}
-            },
-            hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-          ),
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              //"stopReservoir":"stopReservoir",
-              "stop639229" : "stop639229",
-              "apply":function (){
-                return ((() => {
-                  //const stopReservoir = this["stopReservoir"];
-                  const stop639229 = this["stop639229"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              //"signame":"stopReservoir",
-              "signame":"stop639229",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-
-          hh.PAUSE(
-            {
-              "%location":{},
-              "%tag":"yield"
-            }
-          ),
-
-          hh.EXIT(
-          {
-            "trap639229":"trap639229",
-            "%location":{},
-            "%tag":"break"
-          }), // Exit
-        ) // sequence
-      ), // fork
-    ), // trap
-
-    hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
       }
-    )
-  ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueue(2);
-          }
-        }
-      ),
-
-        hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-
-
-    hh.LOCAL(
-      {
-        "%location":{},
-        "%tag":"signal"
-      },
-      hh.SIGNAL({
-        "name":"stop357882"
-      }),
-
-        hh.TRAP(
-          {
-            "trap357882":"trap357882",
-            "%location":{},
-            "%tag":"trap357882"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-            hh.SEQUENCE( // sequence 1
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-              hh.FORK(
-                {
-                  "%location":{},
-                  "%tag":"fork"
-                },
-                hh.SEQUENCE(
-                  {
-                    "%location":{},
-                    "%tag":"seq"
-                  },
-                  hh.RUN(
-                    {
-                      "%location":{"filename":"","pos":1},
-                      "%tag":"run",
-                      "module": hh.getModule("Flute", {"filename":"","pos":2}),
-                      "autocomplete":true,
-                      "stopReservoir":"stop357882"
-                    }
-                  ),
-                ),
-
-            )
-          ),
-          hh.SEQUENCE(
-            {
-              "%location":{},
-              "%tag":"seq"
-            },
-            hh.AWAIT(
-                {
-                  "%location":{},
-                  "%tag":"await",
-                  "immediate":false,
-                  "apply":function (){return ((() => {
-                    const tick =this["tick"];
-                    return tick.now;})());},
-                  "countapply":function (){return 30;}
-              },
-              hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-            ),
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                //"stopReservoir":"stopReservoir",
-                "stop357882" : "stop357882",
-                "apply":function (){
-                  return ((() => {
-                    //const stopReservoir = this["stopReservoir"];
-                    const stop357882 = this["stop357882"];
-                    return 0;
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                //"signame":"stopReservoir",
-                "signame":"stop357882",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-
-            hh.PAUSE(
-              {
-                "%location":{},
-                "%tag":"yield"
-              }
-            ),
-
-            hh.EXIT(
-            {
-              "trap357882":"trap357882",
-              "%location":{},
-              "%tag":"break"
-            }), // Exit
-          ) // sequence
-        ), // fork
-      ), // trap
-
-      hh.PAUSE(
-        {
-          "%location":{},
-          "%tag":"yield"
-        }
-      )
-    ),
-
     ),
 
       hh.EMIT(
