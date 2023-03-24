@@ -5595,9 +5595,9 @@ Blockly.JavaScript['hh_await_interfaceZ_sensor'] = function (block) {
           "immediate":false,
           "apply":function (){
             return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC` + sensor + `"];
+              const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
               //console.log("*****", ` + sensor + `, ` + lowValue + `,` + highValue + `, INTERFACEZ_RC.nowval );
-              if( INTERFACEZ_RC.nowval !== undefined ) {
+              if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
                 return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
                   && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
                   && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);

@@ -501,16 +501,16 @@ var orchestration = hh.MODULE(
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const INTERFACEZ_RC = this["INTERFACEZ_RC7"];
+                  const INTERFACEZ_RC7 = this["INTERFACEZ_RC7"];
                   //console.log("*****", 7, 3,5000, INTERFACEZ_RC.nowval );
-                  if( INTERFACEZ_RC.nowval !== undefined ) {
+                  if( INTERFACEZ_RC7.nowval !== undefined ) {
                     return INTERFACEZ_RC7.now && ( INTERFACEZ_RC7.nowval[0] === 7
                       && INTERFACEZ_RC7.nowval[1] >3
                       && INTERFACEZ_RC7.nowval[1] <5000);
                   }
                 })());
               },
-              "countapply":function (){ return 1;}
+              "countapply":function (){ return 3;}
             },
             hh.SIGACCESS(
               {"signame":"INTERFACEZ_RC7",
