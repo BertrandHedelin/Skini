@@ -36,10 +36,10 @@ var interfaceZAddress = "192.168.1.250";
 var interfaceZMidiPort = 1000;
 var debug = false;
 var debug1 = true;
-var tempoSensorsInit = [5, 0, 10, 0, 0, 0, 0, 0];
+var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0];
-var sensorsSensibilities = [100, 5, 100, 5, 5, 5, 5, 5];
+var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200];
 var sensorsRunning = false;
 
 console.log("INFO: workerInterfaceZ: Start Interface Z worker");
@@ -109,24 +109,34 @@ function initWorker() {
     try {
       message = osc.fromBuffer(msg); // Message OSC recu
       if (debug) {
-        if (debug) console.log("Z socket reçoit OSC: [", message.address + " : " +
+        console.log("Z socket reçoit OSC: [", message.address + " : " +
           message.args[0].value + " : " +
           message.args[1].value + " : " +
-          message.args[2].value + "]");
+          message.args[2].value + " : " +
+          message.args[3].value + " : " +
+          message.args[4].value + " : " +
+          message.args[5].value + " : " +
+          message.args[6].value + " : " +
+          message.args[7].value + "]");
       }
       switch (message.address) {
         case "/INTERFACEZ/RC":
           for (var i = 0; i < 8; i++) {
-            if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
+            if(tempoSensorsInit[i] === 0 ){ // Dont process this sensor
+              //continue;
+              if (debug) console.log("workerInterfaceZ: Dont process this sensor[", i, "]");
             }
-            else if (tempoSensors[i] === 1) {
+            else if (tempoSensors[i] > 1) {
+              tempoSensors[i]--;
+            } else {
+              if (debug) console.log("workerInterfaceZ: tempoSensors[", i, "] = 1");
               if (
                 message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
                 message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
                 if (debug) displaySignal(i, Math.round(message.args[i].value / 100));
 
                 messageToSend = {
-                  type: "INTERFACEZ_RC",
+                  type: "INTERFACEZ_RC" + i,
                   sensor: i,
                   value: Math.round(message.args[i].value)
                 }
@@ -134,8 +144,7 @@ function initWorker() {
               }
               previousSensorsValues[i] = message.args[i].value;
               tempoSensors[i] = tempoSensorsInit[i];
-            } else {
-              tempoSensors[i]--;
+              if (debug) console.log("workerInterfaceZ: tempoSensors :", tempoSensors, "tempoSensorsInit :", tempoSensorsInit);
             }
           }
           break;

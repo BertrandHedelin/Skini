@@ -92,7 +92,7 @@ function updateSimulatorParameters(param) {
     }
     try {
       childSimulator.send(message);
-    } catch(err){
+    } catch (err) {
       console.log("ERR: websocketserver: updateSimulatorParameters:", err);
     }
   } else {
@@ -302,7 +302,7 @@ function startWebSocketServer() {
     sensorsSensibilities) {
 
     if (workerInterfaceZRunning) {
-      if (debug1) console.log("workerInterfaceZRunning");
+      if (debug1) console.log("INFO: workerInterfaceZRunning");
       if (workerInterfaceZ !== undefined) {
         workerInterfaceZ.postMessage(['startInterfaceZ',
           serverAddress,
@@ -343,10 +343,17 @@ function startWebSocketServer() {
         if (debug) console.log('Launching worker InterfaceZ');
       })
       workerInterfaceZ.on('message', messageFromWorker => {
+        if (debug1) console.log("Websoclketserver: messageFromWorker: ", messageFromWorker);
+
         switch (messageFromWorker.type) {
           case "INTERFACEZ_RC":
-            if (debug1) console.log("websocketServer:message from worker:", messageFromWorker);
-            reactAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value] });
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            inputAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+
+          case "INTERFACEZ_RC7":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC7: [messageFromWorker.sensor, messageFromWorker.value] });
             break;
 
           default:
@@ -586,6 +593,7 @@ function startWebSocketServer() {
   function reactAutomatePossible(signal) {
     if (automatePossibleMachine !== undefined) {
       try {
+        if (debug) console.log("INFO: webSocketServer.js: reactAutomatePossible:", signal);
         automatePossibleMachine.react(signal);
       } catch (err) {
         console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", err.toString());
@@ -599,6 +607,27 @@ function startWebSocketServer() {
       return true;
     } else {
       if (warnings) console.log("WARN: websocketserver: reactAutomatePossible: automate undefined");
+      return false;
+    }
+  }
+
+  function inputAutomatePossible(signal) {
+    if (automatePossibleMachine !== undefined) {
+      try {
+        if (debug) console.log("INFO: webSocketServer.js: inputAutomatePossible:", signal);
+        automatePossibleMachine.input(signal);
+      } catch (err) {
+        console.log("ERROR: webSocketServer.js: inputAutomatePossible: Error on react:", err.toString());
+        var msg = {
+          type: "alertBlocklySkini",
+          text: err.toString()
+        }
+        serv.broadcast(JSON.stringify(msg));
+        return false;
+      }
+      return true;
+    } else {
+      if (warnings) console.log("WARN: websocketserver: inputAutomatePossible: automate undefined");
       return false;
     }
   }

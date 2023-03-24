@@ -4544,6 +4544,14 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
     hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
     hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC0"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC1"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC2"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC3"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC4"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC5"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC6"}), 
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC7"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
@@ -5587,19 +5595,19 @@ Blockly.JavaScript['hh_await_interfaceZ_sensor'] = function (block) {
           "immediate":false,
           "apply":function (){
             return ((() => {
-              const INTERFACEZ_RC = this["INTERFACEZ_RC"];
+              const INTERFACEZ_RC = this["INTERFACEZ_RC` + sensor + `"];
               //console.log("*****", ` + sensor + `, ` + lowValue + `,` + highValue + `, INTERFACEZ_RC.nowval );
               if( INTERFACEZ_RC.nowval !== undefined ) {
-                return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === ` + sensor + `
-                  && INTERFACEZ_RC.nowval[1] >` + lowValue + ` 
-                  && INTERFACEZ_RC.nowval[1] <` + highValue + `);
+                return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+                  && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
+                  && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
               }
             })());
           },
           "countapply":function (){ return ` + times + `;}
         },
         hh.SIGACCESS(
-          {"signame":"INTERFACEZ_RC",
+          {"signame":"INTERFACEZ_RC` + sensor + `",
           "pre":false,
           "val":false,
           "cnt":false

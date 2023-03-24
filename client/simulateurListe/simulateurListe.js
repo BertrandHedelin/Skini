@@ -122,7 +122,7 @@ for (var i = 0; i < myArgs.length; i++) {
  *******************************************************************/
 // Table of positions for the types in listOfPatterns
 // The index correpond to the type.
-var types = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+var types = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 var processTypes = true;
 var listOfTypes = [[]];
 
