@@ -43,7 +43,7 @@ var debug1 = true;
 7 : Bouton           -----> sensibilité sans importance
 *****************************************/
 
-var tempoSensorsInit = [10, 0, 0, 0, 0, 0, 0, 10];
+var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0];
 var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200];
@@ -159,48 +159,48 @@ sockMidi = dgram.createSocket("udp4", function (msg, rinfo) {
 /**
  * Process the OSC messages of the MiniWi port.
  */
-// sockMiniWI = dgram.createSocket("udp4", function (msg, rinfo) {
-//   var message;
+sockMiniWI = dgram.createSocket("udp4", function (msg, rinfo) {
+  var message;
 
-//   try {
-//     message = osc.fromBuffer(msg); // Message OSC recu
-//     // console.log(osc.fromBuffer(msg));
-//     if (debug1) {
-//       //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
-//       console.log("Z socket reçoit OSC: [", message.address + " : " +
-//         message.args[0].value + " : " +
-//         message.args[1].value + " : " +
-//         message.args[2].value + "]");
-//     }
-//     switch (message.address) {
-//       case "/INTERFACEZ/RC":
-//         for (var i = 0; i < 8; i++) {
-//           if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
-//           }
-//           else if (tempoSensors[i] === 1) {
-//             if (
-//               message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
-//               message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
-//               displaySignal(i, Math.round(message.args[i].value));
-//             }
-//             previousSensorsValues[i] = message.args[i].value;
-//             tempoSensors[i] = tempoSensorsInit[i];
-//           } else {
-//             tempoSensors[i]--;
-//           }
-//         }
-//         break;
+  try {
+    message = osc.fromBuffer(msg); // Message OSC recu
+    // console.log(osc.fromBuffer(msg));
+    if (debug1) {
+      //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
+      console.log("Z socket reçoit OSC: [", message.address + " : " +
+        message.args[0].value + " : " +
+        message.args[1].value + " : " +
+        message.args[2].value + "]");
+    }
+    switch (message.address) {
+      case "/INTERFACEZ/RC":
+        for (var i = 0; i < 8; i++) {
+          if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
+          }
+          else if (tempoSensors[i] === 1) {
+            if (
+              message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
+              message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
+              displaySignal(i, Math.round(message.args[i].value));
+            }
+            previousSensorsValues[i] = message.args[i].value;
+            tempoSensors[i] = tempoSensorsInit[i];
+          } else {
+            tempoSensors[i]--;
+          }
+        }
+        break;
 
-//       default:
-//         console.log("OSCetZ.js: socket MiniWi reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
-//         break;
-//     }
-//     return;
-//   } catch (error) {
-//     console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
-//     return;
-//   }
-// });
+      default:
+        console.log("OSCetZ.js: socket MiniWi reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+        break;
+    }
+    return;
+  } catch (error) {
+    console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
+    return;
+  }
+});
 
 sockData.on('listening', function () {
   var addressData = sockData.address();
@@ -212,14 +212,14 @@ sockMidi.on('listening', function () {
   if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
 });
 
-// sockMiniWI.on('listening', function () {
-//   var addressMidi = sockMiniWI.address();
-//   if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
-// });
+sockMiniWI.on('listening', function () {
+  var addressMidi = sockMiniWI.address();
+  if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
+});
 
 sockData.bind(dataPort, serverAddress);
 sockMidi.bind(midiPort, serverAddress);
-//sockMiniWI.bind(miniWiPort, serverAddress);
+sockMiniWI.bind(miniWiPort, serverAddress);
 
 // Exemple d'émission vers MIDI =====================================
 

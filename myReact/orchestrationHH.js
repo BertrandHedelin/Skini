@@ -494,31 +494,517 @@ var orchestration = hh.MODULE(
             },
 
 
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":189},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const INTERFACEZ_RC7 = this["INTERFACEZ_RC7"];
-                  //console.log("*****", 7, 3,5000, INTERFACEZ_RC.nowval );
-                  if( INTERFACEZ_RC7.nowval !== undefined ) {
-                    return INTERFACEZ_RC7.now && ( INTERFACEZ_RC7.nowval[0] === 7
-                      && INTERFACEZ_RC7.nowval[1] >3
-                      && INTERFACEZ_RC7.nowval[1] <5000);
-                  }
-                })());
+          hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
               },
-              "countapply":function (){ return 3;}
-            },
-            hh.SIGACCESS(
-              {"signame":"INTERFACEZ_RC7",
-              "pre":false,
-              "val":false,
-              "cnt":false
-            })
+
+        // Capteur de son
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC7 = this["INTERFACEZ_RC7"];
+              if( INTERFACEZ_RC7.nowval !== undefined ) {
+                return INTERFACEZ_RC7.now && ( INTERFACEZ_RC7.nowval[0] === 7
+                  && INTERFACEZ_RC7.nowval[1] >3
+                  && INTERFACEZ_RC7.nowval[1] <5000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC7",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor7 3-5000');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone7'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
           ),
+
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "sensor0":"sensor0",
+                "apply":function (){
+                  return ((() => {
+                    //const sensor0=this["sensor0"];
+                    return 1;
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"sensor0",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ),
+
+      ),
+      // Capteur de distance
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC1 = this["INTERFACEZ_RC1"];
+              if( INTERFACEZ_RC1.nowval !== undefined ) {
+                return INTERFACEZ_RC1.now && ( INTERFACEZ_RC1.nowval[0] === 1
+                  && INTERFACEZ_RC1.nowval[1] >1000
+                  && INTERFACEZ_RC1.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC1",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor1');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone2'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                "sensor2":"sensor2",
+                "apply":function (){
+                  return ((() => {
+                    //const sensor2=this["sensor2"];
+                    return 2;
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"sensor2",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ),
+
+      ),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC2 = this["INTERFACEZ_RC2"];
+              if( INTERFACEZ_RC2.nowval !== undefined ) {
+                return INTERFACEZ_RC2.now && ( INTERFACEZ_RC2.nowval[0] === 2
+                  && INTERFACEZ_RC2.nowval[1] >1000
+                  && INTERFACEZ_RC2.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC2",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor2');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone2'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+      ),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+              if( INTERFACEZ_RC3.nowval !== undefined ) {
+                return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                  && INTERFACEZ_RC3.nowval[1] >1000
+                  && INTERFACEZ_RC3.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC3",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor3');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone3'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+              hh.SEQUENCE(
+                  {
+                    "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                    "%tag":"seq"
+                  },
+
+
+              hh.TRAP(
+                {
+                  "trap440786":"trap440786",
+                  "%location":{},
+                  "%tag":"trap440786"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE( // sequence 1
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+                  hh.EMIT(
+                    {
+                      "%location":{},
+                      "%tag":"emit",
+                      "zone4OUT":"zone4OUT",
+                      "apply":function (){
+                        return ((() => {
+                          const zone4OUT = this["zone4OUT"];
+                          return [true, 255];
+                        })());
+                      }
+                    },
+                    hh.SIGACCESS({
+                      "signame":"zone4OUT",
+                      "pre":true,
+                      "val":true,
+                      "cnt":false
+                    })
+                  ), // Fin emit
+          		    hh.ATOM(
+          		      {
+          		      "%location":{},
+          		      "%tag":"node",
+          		      "apply":function () {
+                        gcs.informSelecteurOnMenuChange(255," zone4", true);
+                      }
+          		      }
+          		 	  ),
+
+                	), // fin sequence 1
+              	hh.SEQUENCE(
+          	        {
+          	          "%location":{},
+          	          "%tag":"seq"
+          	        },
+          	        hh.AWAIT(
+          	            {
+          	              "%location":{},
+          	              "%tag":"await",
+          	              "immediate":false,
+          	              "apply":function (){return ((() => {
+          	                const tick =this["tick"];
+          	                return tick.now;})());},
+          	              "countapply":function (){return 12;}
+          	          },
+          	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+          	        ),
+
+
+          	        hh.EMIT(
+          	          {
+          	            "%location":{},
+          	            "%tag":"emit",
+          	            "zone4OUT":"zone4OUT",
+          	            "apply":function (){
+          	              return ((() => {
+          	                const zone4OUT = this["zone4OUT"];
+          	                return [false, 255];
+          	              })());
+          	            }
+          	          },
+          	          hh.SIGACCESS({
+          	            "signame":"zone4OUT",
+          	            "pre":true,
+          	            "val":true,
+          	            "cnt":false
+          	          })
+          	        ), // Fin emit
+          		    hh.ATOM(
+          		      {
+          		      "%location":{},
+          		      "%tag":"node",
+          		      "apply":function () { gcs.informSelecteurOnMenuChange(255," zone4", false); }
+          		      }
+          		 	),
+
+          	        hh.PAUSE(
+          	          {
+          	            "%location":{},
+          	            "%tag":"yield"
+          	          }
+          	        ),
+          	        hh.EXIT(
+          		        {
+          		          "trap440786":"trap440786",
+          		          "%location":{},
+          		          "%tag":"break"
+          		        }
+          	        ), // Exit
+          	      ) // sequence
+              	), // fork
+            	), // trap
+          	hh.PAUSE(
+          	    {
+          	      "%location":{},
+          	      "%tag":"yield"
+          	    }
+          	),
+
+          hh.RUN({
+            "%location":{},
+            "%tag":"run",
+            "module": hh.getModule(  "cleanZone4", {}),
+            "''":"",
+
+          }),
+
+          ),
+
+      ),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC4 = this["INTERFACEZ_RC4"];
+              if( INTERFACEZ_RC4.nowval !== undefined ) {
+                return INTERFACEZ_RC4.now && ( INTERFACEZ_RC4.nowval[0] === 4
+                  && INTERFACEZ_RC4.nowval[1] >1000
+                  && INTERFACEZ_RC4.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC4",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor4');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone4'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+      ),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC5 = this["INTERFACEZ_RC5"];
+              if( INTERFACEZ_RC5.nowval !== undefined ) {
+                return INTERFACEZ_RC5.now && ( INTERFACEZ_RC5.nowval[0] === 5
+                  && INTERFACEZ_RC5.nowval[1] >1000
+                  && INTERFACEZ_RC5.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC5",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor5');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone5'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+      ),
+
+
+      hh.EVERY(
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":189},
+          "%tag":"do/every",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const INTERFACEZ_RC6 = this["INTERFACEZ_RC6"];
+              if( INTERFACEZ_RC6.nowval !== undefined ) {
+                return INTERFACEZ_RC6.now && ( INTERFACEZ_RC6.nowval[0] === 6
+                  && INTERFACEZ_RC6.nowval[1] >1000
+                  && INTERFACEZ_RC6.nowval[1] <4000);
+              }
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"INTERFACEZ_RC6",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {console.log('Sensor6');}
+          }
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreON',
+                  value:'Zone6'
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+      ),
+
+      ),
 
     ),
 

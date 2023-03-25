@@ -343,7 +343,7 @@ function startWebSocketServer() {
         if (debug) console.log('Launching worker InterfaceZ');
       })
       workerInterfaceZ.on('message', messageFromWorker => {
-        if (debug1) console.log("Websoclketserver: messageFromWorker: ", messageFromWorker);
+        if (debug) console.log("Websoclketserver: messageFromWorker: ", messageFromWorker);
 
         switch (messageFromWorker.type) {
           case "INTERFACEZ_RC":
@@ -351,6 +351,34 @@ function startWebSocketServer() {
             inputAutomatePossible({ INTERFACEZ_RC: [messageFromWorker.sensor, messageFromWorker.value] });
             break;
 
+          case "INTERFACEZ_RC0":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC0: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC1":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC1: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC2":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC2: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC3":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC3: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC4":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC4: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC5":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC5: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC6":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC6: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
           case "INTERFACEZ_RC7":
             if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
             reactAutomatePossible({ INTERFACEZ_RC7: [messageFromWorker.sensor, messageFromWorker.value] });

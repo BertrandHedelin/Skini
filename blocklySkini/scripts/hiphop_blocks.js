@@ -5680,17 +5680,17 @@ hh.LOOPEACH(
     "%tag":"do/every",
     "immediate":false,
     "apply": function (){return ((() => {
-        const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-        if( INTERFACEZ_RC.nowval !== undefined ) {
-          return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === ` + sensor + `
-            && INTERFACEZ_RC.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC.nowval[1] <` + highValue + `);
+        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
+        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
+          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+            && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
         }
     })());},
     "countapply":function (){ return ` + times + `;}
   },
   hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC",
+    "signame":"INTERFACEZ_RC` + sensor + `",
     "pre":false,
     "val":false,
     "cnt":false
@@ -5764,17 +5764,17 @@ hh.EVERY(
     "%tag":"do/every",
     "immediate":false,
     "apply": function (){return ((() => {
-        const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-        if( INTERFACEZ_RC.nowval !== undefined ) {
-          return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === ` + sensor + `
-            && INTERFACEZ_RC.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC.nowval[1] <` + highValue + `);
+        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
+        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
+          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+            && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
         }
     })());},
     "countapply":function (){ return ` + times + `;}
   },
   hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC",
+    "signame":"INTERFACEZ_RC` + sensor + `",
     "pre":false,
     "val":false,
     "cnt":false
@@ -5848,17 +5848,17 @@ hh.ABORT(
     "%tag":"do/every",
     "immediate":false,
     "apply": function (){return ((() => {
-        const INTERFACEZ_RC = this["INTERFACEZ_RC"];
-        if( INTERFACEZ_RC.nowval !== undefined ) {
-          return INTERFACEZ_RC.now && ( INTERFACEZ_RC.nowval[0] === ` + sensor + `
-            && INTERFACEZ_RC.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC.nowval[1] <` + highValue + `);
+        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
+        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
+          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+            && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
         }
     })());},
     "countapply":function (){ return ` + times + `;}
   },
   hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC",
+    "signame":"INTERFACEZ_RC` + sensor + `",
     "pre":false,
     "val":false,
     "cnt":false
