@@ -96,8 +96,8 @@ exports.timer = 500; // Pour une tempo de 110
 exports.gamesOSCSignals = false;
 
 exports.sensorOSC = false;
-exports.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
-exports.sensorsSensibilities = [5, 5, 5, 5, 5, 5, 5, 5];
+exports.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+exports.sensorsSensibilities = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 
 const bleu = "#008CBA";
 const rouge = '#CF1919';

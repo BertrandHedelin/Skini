@@ -4552,6 +4552,10 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC5"}), 
     hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC6"}), 
     hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC7"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC8"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC9"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC10"}),
+    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC11"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
     hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 

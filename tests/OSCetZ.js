@@ -34,27 +34,44 @@ var interfaceZMidiPort = 1000;
 
 var debug = false;
 var debug1 = true;
-//var tempoSensorsInit = [5, 5, 10, 10, 10, 10, 10, 10];
 
 /****************************************
 0 lumière           -----> sensibilité 200
 1,2,3,4 : distance  -----> sensibilité 100
 5, 6 : chaleur mouvement  -----> sensibilité 200
 7 : Bouton           -----> sensibilité sans importance
+
+8-11: MiniWi
+
 *****************************************/
 
-var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10];
+var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,];
 var tempoSensors = tempoSensorsInit.slice();
-var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0];
-var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200];
+var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200, 100, 200, 200, 200];
 
 function displaySignal(sensor, value) {
-  var val = value/100;
+  var val = value / 100;
   process.stdout.write(sensor.toString() + ': ');
   for (var i = 0; i < val; i++) {
     process.stdout.write("*");
   }
   console.log(value);
+}
+
+function displaySignalMiniWi(value) {
+  var val;
+  for (var j = 0; j < 4; j++) {
+
+    val = value[j] / 100;
+    if (val !== 0) {
+      process.stdout.write(j + 8 + ': ');
+      for (var i = 0; i < val; i++) {
+        process.stdout.write("*");
+      }
+      console.log(val);
+    }
+  }
 }
 
 /**
@@ -158,37 +175,43 @@ sockMidi = dgram.createSocket("udp4", function (msg, rinfo) {
 
 /**
  * Process the OSC messages of the MiniWi port.
+ * We consider that the MinWi sensors start from 8 to 11.
+ * 0 to 7 is for the 8 Ana/8 Num OSC Card
  */
 sockMiniWI = dgram.createSocket("udp4", function (msg, rinfo) {
   var message;
+  var messMiniWi = [0, 0, 0, 0];
 
   try {
     message = osc.fromBuffer(msg); // Message OSC recu
     // console.log(osc.fromBuffer(msg));
-    if (debug1) {
+    if (debug) {
       //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
       console.log("Z socket reçoit OSC: [", message.address + " : " +
         message.args[0].value + " : " +
         message.args[1].value + " : " +
-        message.args[2].value + "]");
+        message.args[2].value + " : " +
+        message.args[3].value + "]");
     }
     switch (message.address) {
-      case "/INTERFACEZ/RC":
-        for (var i = 0; i < 8; i++) {
+      case "/CA":
+        // Process the Sensor from 8 to 11
+        for (var i = 8; i < 12; i++) {
           if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
           }
           else if (tempoSensors[i] === 1) {
             if (
-              message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
-              message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
-              displaySignal(i, Math.round(message.args[i].value));
+              message.args[i - 8].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
+              message.args[i - 8].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
+              messMiniWi[i - 8] = message.args[i - 8].value;
             }
-            previousSensorsValues[i] = message.args[i].value;
+            previousSensorsValues[i] = message.args[i - 8].value;
             tempoSensors[i] = tempoSensorsInit[i];
           } else {
             tempoSensors[i]--;
           }
         }
+        displaySignalMiniWi(messMiniWi);
         break;
 
       default:

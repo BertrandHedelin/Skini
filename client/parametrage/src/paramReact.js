@@ -2,7 +2,7 @@
  * @fileOverview Parametrage in React.js
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
- * Do also : browserify paramReact.js -o paramReactbundle.js
+ * Do also : browserify paramReact.js -o paramReactbundle.js in 
  * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
@@ -61,8 +61,8 @@ var algoGestionFifo;
 var gameOSCSignals = false;
 
 var sensorOSC = false;
-var tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
-var sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+var tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
@@ -266,8 +266,12 @@ function initWSSocket(host) {
           document.getElementById("sensorInit6").value = tempoSensorsInit[5];
           document.getElementById("sensorInit7").value = tempoSensorsInit[6];
           document.getElementById("sensorInit8").value = tempoSensorsInit[7];
+          document.getElementById("sensorInit9").value = tempoSensorsInit[8];
+          document.getElementById("sensorInit10").value = tempoSensorsInit[9];
+          document.getElementById("sensorInit11").value = tempoSensorsInit[10];
+          document.getElementById("sensorInit12").value = tempoSensorsInit[11];
         } else {
-          tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+          tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
 
         if (par.sensorsSensibilities !== undefined) {
@@ -280,8 +284,12 @@ function initWSSocket(host) {
           document.getElementById("sensorSensibily6").value = sensorsSensibilities[5];
           document.getElementById("sensorSensibily7").value = sensorsSensibilities[6];
           document.getElementById("sensorSensibily8").value = sensorsSensibilities[7];
+          document.getElementById("sensorSensibily9").value = sensorsSensibilities[8];
+          document.getElementById("sensorSensibily10").value = sensorsSensibilities[9];
+          document.getElementById("sensorSensibily11").value = sensorsSensibilities[10];
+          document.getElementById("sensorSensibily12").value = sensorsSensibilities[11];
         } else {
-          sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+          sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
         break;
 
@@ -386,8 +394,12 @@ class Jspreadsheet extends React.Component {
       par.tempoSensorsInit[5] = document.getElementById("sensorInit6").value;
       par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
       par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
+      par.tempoSensorsInit[8] = document.getElementById("sensorInit9").value;
+      par.tempoSensorsInit[9] = document.getElementById("sensorInit10").value;
+      par.tempoSensorsInit[10] = document.getElementById("sensorInit11").value;
+      par.tempoSensorsInit[11] = document.getElementById("sensorInit12").value;
     } else {
-      par.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+      par.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     if (document.getElementById("sensorSensibily1").value !== '') {
@@ -399,8 +411,12 @@ class Jspreadsheet extends React.Component {
       par.sensorsSensibilities[5] = document.getElementById("sensorSensibily6").value;
       par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
       par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
+      par.sensorsSensibilities[8] = document.getElementById("sensorSensibily9").value;
+      par.sensorsSensibilities[9] = document.getElementById("sensorSensibily10").value;
+      par.sensorsSensibilities[10] = document.getElementById("sensorSensibily11").value;
+      par.sensorsSensibilities[11] = document.getElementById("sensorSensibily12").value;
     } else {
-      par.sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+      par.sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     var msg = {

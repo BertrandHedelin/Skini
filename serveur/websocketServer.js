@@ -297,6 +297,7 @@ function startWebSocketServer() {
     interfaceZIPaddress,
     portOSCFromInterfaceZData,
     portOSCFromInterfaceZMidi,
+    portOSCFromInterfaceZMiniWi,
     portOSCToInterfaceZ,
     tempoSensorsInit,
     sensorsSensibilities) {
@@ -309,6 +310,7 @@ function startWebSocketServer() {
           interfaceZIPaddress,
           portOSCFromInterfaceZData,
           portOSCFromInterfaceZMidi,
+          portOSCFromInterfaceZMiniWi,
           portOSCToInterfaceZ,
           tempoSensorsInit,
           sensorsSensibilities]);
@@ -320,12 +322,12 @@ function startWebSocketServer() {
     if (
       interfaceZIPaddress === undefined ||
       portOSCFromInterfaceZData === undefined ||
+      portOSCFromInterfaceZMiniWi === undefined ||
       tempoSensorsInit === undefined ||
       sensorsSensibilities === undefined) {
       console.log("WARN: You try to use the Interface Z sensors but do not configure ipConfig");
       return;
     }
-
 
     return new Promise((resolve, reject) => {
       workerInterfaceZ = new Worker(filepath);
@@ -337,6 +339,7 @@ function startWebSocketServer() {
           interfaceZIPaddress,
           portOSCFromInterfaceZData,
           portOSCFromInterfaceZMidi,
+          portOSCFromInterfaceZMiniWi,
           portOSCToInterfaceZ,
           tempoSensorsInit,
           sensorsSensibilities]);
@@ -382,6 +385,22 @@ function startWebSocketServer() {
           case "INTERFACEZ_RC7":
             if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
             reactAutomatePossible({ INTERFACEZ_RC7: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC8":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC8: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC9":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC9: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC10":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC10: [messageFromWorker.sensor, messageFromWorker.value] });
+            break;
+          case "INTERFACEZ_RC11":
+            if (debug) console.log("websocketServer:message from worker:", messageFromWorker);
+            reactAutomatePossible({ INTERFACEZ_RC11: [messageFromWorker.sensor, messageFromWorker.value] });
             break;
 
           default:
@@ -1674,6 +1693,7 @@ maybe an hiphop compile Error`);
                 ipConfig.interfaceZIPaddress,
                 ipConfig.portOSCFromInterfaceZData,
                 ipConfig.portOSCFromInterfaceZMidi,
+                ipConfig.portOSCFromInterfaceZMiniWi,
                 ipConfig.portOSCToInterfaceZ,
                 par.tempoSensorsInit,
                 par.sensorsSensibilities);
