@@ -36,16 +36,16 @@ var debug = false;
 var debug1 = true;
 
 /****************************************
-0 lumière           -----> sensibilité 200
-1,2,3,4 : distance  -----> sensibilité 100
-5, 6 : chaleur mouvement  -----> sensibilité 200
-7 : Bouton           -----> sensibilité sans importance
+0,1,2,3 : distance  -----> sensibilité 100
+4, 5: chaleur mouvement  -----> sensibilité 200
 
 8-11: MiniWi
 
+Bouton           -----> sensibilité sans importance
+lumière           -----> sensibilité 200
 *****************************************/
 
-var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,];
+var tempoSensorsInit = [0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200, 100, 200, 200, 200];
@@ -93,7 +93,7 @@ sockData = dgram.createSocket("udp4", function (msg, rinfo) {
     switch (message.address) {
       case "/INTERFACEZ/RC":
         for (var i = 0; i < 8; i++) {
-          if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
+          if (tempoSensorsInit[i] === 0) { // 0 means "Do not process the sensor"
           }
           else if (tempoSensors[i] === 1) {
             if (
