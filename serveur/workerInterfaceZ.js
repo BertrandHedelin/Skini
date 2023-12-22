@@ -22,7 +22,7 @@
 
 const { parentPort } = require('worker_threads');
 
-var debug = false;
+var debug = true;
 var debug1 = true;
 
 var osc = require('osc-min');

@@ -45,7 +45,7 @@ Bouton           -----> sensibilité sans importance
 lumière           -----> sensibilité 200
 *****************************************/
 
-var tempoSensorsInit = [0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200, 100, 200, 200, 200];
@@ -82,7 +82,7 @@ sockData = dgram.createSocket("udp4", function (msg, rinfo) {
 
   try {
     message = osc.fromBuffer(msg); // Message OSC recu
-    // console.log(osc.fromBuffer(msg));
+    //console.log(osc.fromBuffer(msg));
     if (debug) {
       //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
       console.log("Z socket reçoit OSC: [", message.address + " : " +

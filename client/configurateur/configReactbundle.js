@@ -137,7 +137,7 @@ function initWSSocket(host) {
         var options = {
           data: msgRecu.descriptors,
           minDimensions: [14, 14],
-          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }, { type: 'text', width: 80, title: 'Level' }]
+          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 90, title: 'Group Index' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }, { type: 'text', width: 80, title: 'Level' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
         break;
@@ -275,22 +275,27 @@ var Jspreadsheet = function (_React$Component2) {
 },{"../../serveur/ipConfig.json":2}],2:[function(require,module,exports){
 module.exports={
   "remoteIPAddressImage": "192.168.1.251",
-  "remoteIPAddressSound": "localhost",
+  "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "localhost",
-  "serverIPAddress": "localhost",
+  "remoteIPAddressGame": "192.168.1.251",
+  "interfaceZIPaddress": "192.168.1.250",
+  "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,
   "OutPortOSCMIDItoDAW": 12000,
-  "portOSCToGame": 3005,
-  "portOSCFromGame": 1000,
-  "distribSequencerPort": 8888,
+  "portOSCToGame": 1010,
+  "portOSCFromGame": 3010,
+  "portOSCFromInterfaceZData": 3005,
+  "portOSCFromInterfaceZMidi": 3006,
+  "portOSCFromInterfaceZMiniWi": 8888,
+  "portOSCToInterfaceZ": 1000,
+  "distribSequencerPort": 8899,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./tests/",
-  "piecePath" : "./tests/"
+  "sessionPath": "./pieces/",
+  "piecePath" : "./pieces/"
 }
 
 },{}]},{},[1]);
