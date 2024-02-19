@@ -263,6 +263,122 @@ Blockly.JavaScript['hh_await_signal_value'] = function (block) {
   return code;
 };
 
+// Revu HH Node
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_if_signal",
+    "message0": "if signal %1 %2",
+    "args0": [
+       {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "input_statement",
+        "name": "BODY"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "if_pattern",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['hh_if_signal'] = function (block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+ 
+  var code = `
+      hh.IF(
+        {
+          "%location":{if: ` + value + `},
+          "%tag":"if",
+          "immediate":false,
+          "apply":function (){
+            return ((() => {
+              const ` + value + `=this["` + value + `"];
+              return ` + value + `.now;
+            })());
+          },
+        },
+        hh.SIGACCESS(
+          {"signame":"` + value + `",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+        `+ statements_body + `
+      ),
+    `
+  return code;
+};
+
+// Revu HH Node
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_if_signal_value",
+    "message0": "if signal %1 with value %2 %3",
+    "args0": [
+       {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "field_number",
+        "name": "Signal_Value",
+        "value": 0
+      },
+      {
+        "type": "input_statement",
+        "name": "BODY"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "if_pattern",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['hh_if_signal_value'] = function (block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let valueOfTheSignal = block.getFieldValue('Signal_Value');
+
+  var code = `
+      hh.IF(
+        {
+          "%location":{if: ` + value + `},
+          "%tag":"if",
+          "immediate":false,
+          "apply":function (){
+            return ((() => {
+              const ` + value + `=this["` + value + `"];
+              return (` + value + `.now  && ` + value + `.nowval === ` + valueOfTheSignal + `);
+            })());
+          },
+        },
+        hh.SIGACCESS(
+          {"signame":"` + value + `",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+        `+ statements_body + `
+      ),
+    `
+  return code;
+};
+
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
   {

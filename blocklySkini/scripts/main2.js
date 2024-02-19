@@ -656,6 +656,14 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "hh_if_signal"
+          },
+          {
+            "kind": "block",
+            "type": "hh_if_signal_value"
+          },
+          {
+            "kind": "block",
             "type": "hh_print_serveur"
           },
           {

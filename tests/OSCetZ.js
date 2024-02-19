@@ -45,10 +45,10 @@ Bouton           -----> sensibilité sans importance
 lumière           -----> sensibilité 200
 *****************************************/
 
-var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+var tempoSensorsInit = [1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 10];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200, 100, 200, 200, 200];
+var sensorsSensibilities = [1, 100, 100, 100, 100, 200, 200, 200, 100, 200, 1, 200];
 
 function displaySignal(sensor, value) {
   var val = value / 100;
@@ -69,7 +69,7 @@ function displaySignalMiniWi(value) {
       for (var i = 0; i < val; i++) {
         process.stdout.write("*");
       }
-      console.log(val);
+      console.log(value[j]);
     }
   }
 }

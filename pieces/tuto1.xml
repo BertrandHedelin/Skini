@@ -92,19 +92,38 @@
                 <statement name="BODY">
                   <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
                     <field name="TIMES">1</field>
-                    <field name="Signal_Value">11</field>
+                    <field name="Signal_Value">0</field>
                     <value name="SIGNAL">
                       <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
                         <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                       </block>
                     </value>
                     <next>
-                      <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
-                        <value name="TEXT">
-                          <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
-                            <field name="TEXT">foo 11</field>
+                      <block type="hh_if_signal_value" id="eZVt)LZ2c{XMZxUD#=h-">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="N:UlI5WLvMhwVMDm!S!b">
+                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                           </block>
                         </value>
+                        <statement name="BODY">
+                          <block type="hh_print_serveur" id="+iH)]#1n!5Ut#!4J^l_l">
+                            <value name="TEXT">
+                              <block type="text" id="v0ko/{oonz]^(ux4BbCc">
+                                <field name="TEXT">foo 0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL," disabled="true">
+                            <value name="TEXT">
+                              <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                                <field name="TEXT">foo 11</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
                       </block>
                     </next>
                   </block>

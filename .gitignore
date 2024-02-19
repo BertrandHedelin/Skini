@@ -1,6 +1,7 @@
 *.zip
 archive/**
 doc/src/**
+backup/**
 mp3/**
 **/.DS_Store
 skinilog.json
