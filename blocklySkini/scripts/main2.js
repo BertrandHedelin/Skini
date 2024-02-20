@@ -719,6 +719,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "hh_if_interfaceZ_sensor"
+          },
+          {
+            "kind": "block",
             "type": "hh_loopeach_interfaceZ_sensor"
           },
           {

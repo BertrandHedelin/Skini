@@ -1,4 +1,4 @@
-var foo;
+var cleanZone1, sensor0, cleanZone2, sensor2, cleanZone3, sensor5, cleanZone4, tick;
 
 
 
@@ -160,7 +160,19 @@ var orchestration = hh.MODULE(
     hh.SIGNAL({
       "%location":{},
       "direction":"INOUT",
-      "name":"foo"
+      "name":"sensor0"
+    }),
+
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"sensor2"
+    }),
+
+    hh.SIGNAL({
+      "%location":{},
+      "direction":"INOUT",
+      "name":"sensor5"
     }),
 
   hh.LOOP(
@@ -211,154 +223,620 @@ var orchestration = hh.MODULE(
         hh.SEQUENCE(
          {"%location":{},"%tag":"fork"},
 
-        hh.FORK(
+        hh.SEQUENCE(
             {
-              "%location":{},
-              "%tag":"fork"
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+              "%tag":"seq"
             },
 
 
-          hh.SEQUENCE(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
-              },
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+               gcs.setpatternListLength([5,255]);
+            }
+          }
+        ),
 
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {console.log('moduleIZ');}
+      }
+    ),
+    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
 
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "foo":"foo",
-              "apply":function (){
-                return ((() => {
-                  //const foo=this["foo"];
-                  return 0;
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"foo",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ),
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        oscMidiLocal.sendNoteOn( par.busMidiDAW,
+        5,
+        2,
+        100);
+        }
+      }
+    ),
 
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          setTempo(80);
+        }
+      }
+    ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          gcs.setTimerDivision(1);
+        }
+      }
+    ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'addSceneScore',
+              value:1
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
+          }
+      ),
       hh.PAUSE(
         {
-          "%location":{},
+          "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
           "%tag":"yield"
         }
       ),
 
-          hh.EMIT(
+    ),
+
+  hh.LOOP(
+      {
+        "%location":{loop: 1},
+        "%tag":"loop"
+      },
+
+
+    hh.ABORT(
+      {
+        "%location":{"filename":"hiphop_blocks.js","pos":189},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const INTERFACEZ_RC11 = this["INTERFACEZ_RC11"];
+            if( INTERFACEZ_RC11.nowval !== undefined ) {
+              return INTERFACEZ_RC11.now && ( INTERFACEZ_RC11.nowval[0] === 11
+                && INTERFACEZ_RC11.nowval[1] >500
+                && INTERFACEZ_RC11.nowval[1] <5000);
+            }
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"INTERFACEZ_RC11",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+            hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+
+
+              hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+
+
+
+          hh.EVERY(
             {
-              "%location":{},
-              "%tag":"emit",
-              "foo":"foo",
-              "apply":function (){
-                return ((() => {
-                  //const foo=this["foo"];
-                  return 2;
-                })());
-              }
+              "%location":{"filename":"hiphop_blocks.js","pos":189},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+                  if( INTERFACEZ_RC3.nowval !== undefined ) {
+                    return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >3000
+                      && INTERFACEZ_RC3.nowval[1] <4000);
+                  }
+              })());},
+              "countapply":function (){ return 1;}
             },
             hh.SIGACCESS({
-              "signame":"foo",
-              "pre":true,
-              "val":true,
+              "signame":"INTERFACEZ_RC3",
+              "pre":false,
+              "val":false,
               "cnt":false
-            })
+            }),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {console.log('Sensor3-1');}
+              }
+            ),
+
+              hh.ATOM(
+                  {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    var msg = {
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3-1'
+                    }
+                    serveur.broadcast(JSON.stringify(msg));
+                    }
+                  }
+              ),
+
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    DAW.putPatternInQueue('sensor3-1');
+                  }
+                }
+              ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 3;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+                hh.ATOM(
+                  {
+                    "%location":{},
+                    "%tag":"node",
+                    "apply":function () {
+                      DAW.cleanQueue(16);
+                    }
+                  }
+                ),
+
           ),
 
-      ),
 
-          hh.SEQUENCE(
+          hh.EVERY(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":189},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+                  if( INTERFACEZ_RC3.nowval !== undefined ) {
+                    return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >2000
+                      && INTERFACEZ_RC3.nowval[1] <2500);
+                  }
+              })());},
+              "countapply":function (){ return 1;}
+            },
+            hh.SIGACCESS({
+              "signame":"INTERFACEZ_RC3",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            }),
+
+            hh.ATOM(
               {
-                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
-                "%tag":"seq"
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {console.log('Sensor3-2');}
+              }
+            ),
+
+              hh.ATOM(
+                  {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    var msg = {
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3-2'
+                    }
+                    serveur.broadcast(JSON.stringify(msg));
+                    }
+                  }
+              ),
+
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    DAW.putPatternInQueue('sensor3-2');
+                  }
+                }
+              ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 3;}
               },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+                hh.ATOM(
+                  {
+                    "%location":{},
+                    "%tag":"node",
+                    "apply":function () {
+                      DAW.cleanQueue(17);
+                    }
+                  }
+                ),
+
+          ),
 
 
-        hh.AWAIT(
+          hh.EVERY(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":189},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+                  if( INTERFACEZ_RC3.nowval !== undefined ) {
+                    return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >1000
+                      && INTERFACEZ_RC3.nowval[1] <1999);
+                  }
+              })());},
+              "countapply":function (){ return 1;}
+            },
+            hh.SIGACCESS({
+              "signame":"INTERFACEZ_RC3",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            }),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {console.log('Sensor3-3');}
+              }
+            ),
+
+              hh.ATOM(
+                  {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    var msg = {
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3-3'
+                    }
+                    serveur.broadcast(JSON.stringify(msg));
+                    }
+                  }
+              ),
+
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    DAW.putPatternInQueue('sensor3-3');
+                  }
+                }
+              ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 3;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+                hh.ATOM(
+                  {
+                    "%location":{},
+                    "%tag":"node",
+                    "apply":function () {
+                      DAW.cleanQueue(18);
+                    }
+                  }
+                ),
+
+          ),
+
+
+          hh.EVERY(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":189},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+                  if( INTERFACEZ_RC3.nowval !== undefined ) {
+                    return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >500
+                      && INTERFACEZ_RC3.nowval[1] <999);
+                  }
+              })());},
+              "countapply":function (){ return 1;}
+            },
+            hh.SIGACCESS({
+              "signame":"INTERFACEZ_RC3",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            }),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {console.log('Sensor3-4');}
+              }
+            ),
+
+              hh.ATOM(
+                  {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    var msg = {
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3-4'
+                    }
+                    serveur.broadcast(JSON.stringify(msg));
+                    }
+                  }
+              ),
+
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    DAW.putPatternInQueue('sensor3-4');
+                  }
+                }
+              ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 3;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+                hh.ATOM(
+                  {
+                    "%location":{},
+                    "%tag":"node",
+                    "apply":function () {
+                      DAW.cleanQueue(19);
+                    }
+                  }
+                ),
+
+          ),
+
+
+          hh.EVERY(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":189},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const INTERFACEZ_RC3 = this["INTERFACEZ_RC3"];
+                  if( INTERFACEZ_RC3.nowval !== undefined ) {
+                    return INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >0
+                      && INTERFACEZ_RC3.nowval[1] <499);
+                  }
+              })());},
+              "countapply":function (){ return 1;}
+            },
+            hh.SIGACCESS({
+              "signame":"INTERFACEZ_RC3",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            }),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {console.log('Sensor3-5');}
+              }
+            ),
+
+              hh.ATOM(
+                  {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    var msg = {
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3-5'
+                    }
+                    serveur.broadcast(JSON.stringify(msg));
+                    }
+                  }
+              ),
+
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    DAW.putPatternInQueue('sensor3-5');
+                  }
+                }
+              ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 3;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+                hh.ATOM(
+                  {
+                    "%location":{},
+                    "%tag":"node",
+                    "apply":function () {
+                      DAW.cleanQueue(20);
+                    }
+                  }
+                ),
+
+          ),
+
+          ),
+
+        ),
+
+    ),
+
+    hh.PAUSE(
+      {
+        "%location":{},
+        "%tag":"yield"
+      }
+    ),
+
+        hh.ATOM(
           {
             "%location":{},
-            "%tag":"await",
-            "immediate":true,
+            "%tag":"node",
             "apply":function () {
-              return ((() => {
-                const foo=this["foo"];
-                return foo.now;
-              })());
+              DAW.cleanQueues();
+              gcs.cleanChoiceList(255);
             }
-          },
-          hh.SIGACCESS({
-            "signame":"foo",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          })
-        ),
-
-            hh.IF(
-              {
-                "%location":{if: foo},
-                "%tag":"if",
-                "immediate":false,
-                "apply":function (){
-                  return ((() => {
-                    const foo=this["foo"];
-                    return foo.now;
-                  })());
-                },
-              },
-              hh.SIGACCESS(
-                {"signame":"foo",
-                "pre":false,
-                "val":false,
-                "cnt":false
-              }),
-
-        hh.ATOM(
-          {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('foo 1');}
           }
         ),
+    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
 
-            ),
+    hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        oscMidiLocal.sendNoteOn( par.busMidiDAW,
+        5,
+        2,
+        100);
+        }
+      }
+    ),
 
-            hh.IF(
-              {
-                "%location":{if: foo},
-                "%tag":"if",
-                "immediate":false,
-                "apply":function (){
-                  return ((() => {
-                    const foo=this["foo"];
-                    return (foo.now  && foo.nowval === 0);
-                  })());
-                },
-              },
-              hh.SIGACCESS(
-                {"signame":"foo",
-                "pre":false,
-                "val":false,
-                "cnt":false
-              }),
-
-        hh.ATOM(
+      hh.ATOM(
           {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {console.log('foo 0');}
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'Ca repart !'
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
           }
-        ),
-
-            ),
-
       ),
 
     ),

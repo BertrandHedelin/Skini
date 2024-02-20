@@ -50,25 +50,29 @@
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w" disabled="true">
-                                    <field name="Signal_Value">11</field>
-                                    <value name="SIGNAL">
-                                      <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
-                                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                                      </block>
-                                    </value>
+                                  <block type="hh_pause" id="6g0#u8.lzvC;3GqV[r1e">
                                     <next>
-                                      <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
+                                      <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w">
+                                        <field name="Signal_Value">0</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
+                                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                          </block>
+                                        </value>
                                         <next>
-                                          <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI">
-                                            <field name="JScode">console.log("BAR", bar)</field>
+                                          <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
                                             <next>
-                                              <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
-                                                <value name="TEXT">
-                                                  <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                                                    <field name="TEXT">foo</field>
+                                              <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI">
+                                                <field name="JScode">console.log("BAR", bar)</field>
+                                                <next>
+                                                  <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
+                                                    <value name="TEXT">
+                                                      <block type="text" id="|(t~Z}|D8y8),mF(um?p">
+                                                        <field name="TEXT">foo</field>
+                                                      </block>
+                                                    </value>
                                                   </block>
-                                                </value>
+                                                </next>
                                               </block>
                                             </next>
                                           </block>
@@ -99,29 +103,29 @@
                       </block>
                     </value>
                     <next>
-                      <block type="hh_if_signal_value" id="eZVt)LZ2c{XMZxUD#=h-">
-                        <field name="Signal_Value">0</field>
-                        <value name="SIGNAL">
-                          <block type="variables_get" id="N:UlI5WLvMhwVMDm!S!b">
-                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                      <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
+                        <value name="TEXT">
+                          <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                            <field name="TEXT">foo 11</field>
                           </block>
                         </value>
-                        <statement name="BODY">
-                          <block type="hh_print_serveur" id="+iH)]#1n!5Ut#!4J^l_l">
-                            <value name="TEXT">
-                              <block type="text" id="v0ko/{oonz]^(ux4BbCc">
-                                <field name="TEXT">foo 0</field>
-                              </block>
-                            </value>
-                          </block>
-                        </statement>
                         <next>
-                          <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL," disabled="true">
-                            <value name="TEXT">
-                              <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
-                                <field name="TEXT">foo 11</field>
+                          <block type="hh_if_signal_value" id="eZVt)LZ2c{XMZxUD#=h-">
+                            <field name="Signal_Value">0</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="N:UlI5WLvMhwVMDm!S!b">
+                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                               </block>
                             </value>
+                            <statement name="BODY">
+                              <block type="hh_print_serveur" id="+iH)]#1n!5Ut#!4J^l_l">
+                                <value name="TEXT">
+                                  <block type="text" id="v0ko/{oonz]^(ux4BbCc">
+                                    <field name="TEXT">foo 0</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
                           </block>
                         </next>
                       </block>

@@ -5824,6 +5824,84 @@ hh.LOOPEACH(
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
   {
+    "type": "hh_if_interfaceZ_sensor",
+    "message0": "if sensor %1 between %2 and %3 %4 %5",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "sensor",
+        "check": "Number",
+        "value": 0
+      },
+      {
+        "type": "field_number",
+        "name": "lowValue",
+        "check": "Number",
+        "value": 0
+      },
+      {
+        "type": "field_number",
+        "name": "highValue",
+        "check": "Number",
+        "value": 0
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "BODY"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "loopeach",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['hh_if_interfaceZ_sensor'] = function (block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
+  let sensor = block.getFieldValue('sensor');
+  let lowValue = block.getFieldValue('lowValue');
+  let highValue = block.getFieldValue('highValue');
+
+  var code = `
+
+hh.IF(
+  {
+    "%location":{"filename":"hiphop_blocks.js","pos":189},
+    "%tag":"do/if",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
+        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
+          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+            && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
+        }
+    })());},
+  },
+  hh.SIGACCESS({
+    "signame":"INTERFACEZ_RC` + sensor + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
+  `+ statements_body + `
+  )
+),
+`;
+  return code;
+};
+
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+  {
     "type": "hh_every_interfaceZ_sensor",
     "message0": "every %1 sensor %2 between %3 and %4 %5 %6",
     "args0": [
