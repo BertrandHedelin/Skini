@@ -17,12 +17,20 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
- * @version 1.3
+ * @version 1.4
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  */
+import {createRequire} from 'module';
+const require = createRequire(import.meta.url);
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 var fs = require('fs');
 var express = require('express');
-var path = require("path");
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
 const { fork } = require('child_process');
