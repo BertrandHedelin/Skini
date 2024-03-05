@@ -2,7 +2,7 @@
  * @fileOverview 
  * Entry point to Skini which allow to control interactive and generative 
  * music based on clips (patterns).
- * @copyright (C) 2022 Bertrand Petit-Hédelein
+ * @copyright (C) 2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
