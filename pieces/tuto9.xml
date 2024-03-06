@@ -1,8 +1,8 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="NZckNgPsUGPF`[)1?]MJ">myModule</variable>
-    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
     <variable id="#}3K=pkBW|;;f(^-*]WW">foo</variable>
+    <variable id="v/G885K)-!Ncv)7oc7@Z">tick</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="204" y="75">
     <statement name="MODULES">
@@ -33,7 +33,7 @@
               <block type="hh_print_serveur" id="ym{L*WsZFzihSJr!$AWJ">
                 <value name="TEXT">
                   <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
-                    <field name="TEXT">foo</field>
+                    <field name="TEXT">foo tuto9</field>
                   </block>
                 </value>
               </block>

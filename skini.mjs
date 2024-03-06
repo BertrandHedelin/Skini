@@ -36,6 +36,9 @@ var midiConfig = require("./serveur/midiConfig.json");
 const { fork } = require('child_process');
 var childSimulator;
 
+// Websocket dans le Serveur
+import * as ws from './serveur/websocketServer.mjs';
+
 function startSkini() {
 
   // Nettoyage du log précédents
@@ -51,8 +54,8 @@ function startSkini() {
     console.error(err)
   }
 
-  // Websocket dans le Serveur
-  var ws = require('./serveur/websocketServer');
+  //var ws = require('./serveur/websocketServer');
+
   var oscReceiveDAW = require("./serveur/midimix.js");
 
   // Load the necessary modules in the websocket server at launch

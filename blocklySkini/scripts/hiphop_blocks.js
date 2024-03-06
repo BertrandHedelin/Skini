@@ -4522,6 +4522,7 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function (block) {
 
   var code = `
 "use strict";
+
 var hh = require("../hiphop/hiphop.js");
 
 // C'est la seule façon d'échanger les paramètres nécessaires à la compilation
@@ -4546,7 +4547,7 @@ var tempoMin = 40;
 var tempoGlobal = 60;
 
 function setServ(ser, daw, groupeCS, oscMidi, mix){
-  //console.log("hh_ORCHESTRATION: setServ");
+  if(debug1) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -4609,7 +4610,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   if(par.groupesDesSons[i][0] !== "") {
     var signalName = par.groupesDesSons[i][0] + "OUT";
     
-    if(debug) console.log("Signal Orchestration:", signalName);
+    if(debug1) console.log("Signal Orchestration:", signalName);
 
     var signal = hh.SIGNAL({
       "%location":{},
@@ -4626,7 +4627,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   if(par.groupesDesSons[i][0] !== "") {
     var signalName = par.groupesDesSons[i][0] + "IN";
     
-    if(debug) console.log("Signal Orchestration:", signalName);
+    if(debug1) console.log("Signal Orchestration:", signalName);
     
     var signal = hh.SIGNAL({
       "%location":{},
