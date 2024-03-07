@@ -859,28 +859,31 @@ AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
  * Create and compile the hipHop.js orchestration from the blocky generated code.
  * @returns {object} the HipHop.js machine
  */
-export function makeOneAutomatePossibleMachine() {
-  var machine;
+var machine;
+export function getMachine() {
+  return machine;
+}
+
+/**
+ * Create and compile the hipHop.js orchestration from the blocky generated code.
+ * update machine
+ */
+var tempIndex = 0;
+export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
+
+  decache(myReactOrchestration);
 
   // Recharge l'orchestration depuis le fichier généré par Blockly,
   // fichier éventuellement mis à jour à la main pour test.
-  decache(myReactOrchestration);
-
-  //import(myReactOrchestration).then((orchestration) => {
-    try {
-      orchestration = require(myReactOrchestration);
-     if (debug1) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
-    } catch (err) {
-      console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err.toString());
-      throw err;
-    }
+  await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {
+    if (debug1) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", myReactOrchestration + '?foo=bar' + tempIndex);
 
     if (orchestration.setServ === undefined) {
       console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
       throw "Pb on acces to:" + myReactOrchestration;
     }
-
+    tempIndex++;
     // Pour permettre les broadcasts et autres depuis l'orchestration
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
 
@@ -893,16 +896,39 @@ export function makeOneAutomatePossibleMachine() {
       throw err;
     }
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
-  // }).catch((err) => {
-  //   console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
-  //   throw err;
-  // });
-
-  // if (machine === undefined) {
-  //   console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:machine udefined");
-  // }
-  return machine;
+  });
 };
+
+/* export function makeOneAutomatePossibleMachine() {
+  if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
+  // Recharge l'orchestration depuis le fichier généré par Blockly,
+  // fichier éventuellement mis à jour à la main pour test.
+  decache(myReactOrchestration);
+   try {
+    orchestration = require(myReactOrchestration);
+    if (debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
+  } catch (err) {
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err.toString());
+    throw err;
+  }
+  if (orchestration.setServ === undefined) {
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
+    throw "Pb on acces to:" + myReactOrchestration;
+  }
+  // Pour permettre les broadcasts et autres depuis l'orchestration
+  orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
+
+  // C'est là que se fait la compilation HipHop.js
+  try {
+    var machine = orchestration.setSignals();
+    makeSignalsListeners(machine);
+  } catch (err) {
+    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
+    throw err;
+  }
+  return machine;
+}
+//exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine; */
 
 let messageLog = {
   date: "",

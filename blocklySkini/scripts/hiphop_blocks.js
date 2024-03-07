@@ -4413,7 +4413,7 @@ Blockly.JavaScript['abort_move_tempo'] = function (block) {
 *
 ********************************************************/
 
-// NodeSkini
+/* // NodeSkini
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_orchestration",
@@ -4453,9 +4453,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['hh_orchestration'] = function (block) {
   var number_trajet = block.getFieldValue('trajet');
   var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
-
   var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
-
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   if (statements_body === '') return '';
 
@@ -4478,7 +4476,7 @@ prg.react();
 
 `;
   return code;
-};
+}; */
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -4638,16 +4636,11 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   }
 }
 
-function setSignals(){
-  var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
-  console.log("INFO: Number of nets in Orchestration:",machine.nets.length);
-  return machine;
-}
-exports.setSignals = setSignals;
+
 
   ` + statements_modules + `
 
-var orchestration = hh.MODULE(
+const orchestration = hh.MODULE(
     {"id":"Orchestration","%location":{},"%tag":"module"},
     signals,
 
@@ -4761,6 +4754,13 @@ var orchestration = hh.MODULE(
   )
 );
 exports.orchestration = orchestration;
+
+function setSignals(){
+  var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
+  console.log("INFO: Number of nets in Orchestration:",machine.nets.length);
+  return machine;
+}
+exports.setSignals = setSignals;
 `;
   return code;
 };

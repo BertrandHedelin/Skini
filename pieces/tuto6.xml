@@ -15,7 +15,7 @@
           <block type="hh_print_serveur" id="JTODDS1wfa9:v^5`UnIw">
             <value name="TEXT">
               <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
-                <field name="TEXT">foo</field>
+                <field name="TEXT">foo 2</field>
               </block>
             </value>
           </block>

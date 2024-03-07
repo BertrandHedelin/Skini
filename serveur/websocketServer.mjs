@@ -477,7 +477,7 @@ function startWebSocketServer() {
     return serv;
   }
   _getBroadCastServer = getBroadCastServer;
- 
+
   /************************************************************************************
     Fonction pour emission de signaux depuis Ableton vers l'automatePossibleMachine.
   *************************************************************************************/
@@ -658,7 +658,7 @@ function startWebSocketServer() {
    */
   function reactAutomatePossible(signal) {
 
-    if(debug) console.log("reactAutomatePossible 1:", signal, automatePossibleMachine);
+    if (debug) console.log("reactAutomatePossible 1:", signal, automatePossibleMachine);
 
     if (automatePossibleMachine !== undefined) {
       try {
@@ -1013,12 +1013,21 @@ function startWebSocketServer() {
      * @function
      * @inner
      */
-    function compileHH() {
+    var prevAutomate;
+    async function compileHH() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
       try {
-        automatePossibleMachine = groupesClientSon.makeOneAutomatePossibleMachine();
-        if(automatePossibleMachine === undefined) {
+        await groupesClientSon.makeOneAutomatePossibleMachine();
+        if (debug1) console.log("INFO: websocketServer: Break:");
+        automatePossibleMachine = groupesClientSon.getMachine();
+
+        if(prevAutomate === automatePossibleMachine) {
+          console.log("------------------------- Pas de changement")
+        }
+        prevAutomate = automatePossibleMachine;
+
+        if (automatePossibleMachine === undefined) {
           console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
         }
       } catch (err) {

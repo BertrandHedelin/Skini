@@ -9,7 +9,7 @@
               "<node_internals>/**"
           ],
           "runtimeArgs": [
-            "skini.js",
+            "skini.mjs",
             //"./pieces/trouveLaPercuNode.js"
           ],
           "program": "${workspaceFolder}/",
