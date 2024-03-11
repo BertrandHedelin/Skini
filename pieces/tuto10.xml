@@ -1,6 +1,6 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
-    <variable id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</variable>
+    <variable id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</variable>
     <variable id="e~?Hofi|/CqL68B=.2=m">tick</variable>
     <variable id="L/uUotHI-n=5.RDdUqh:">trap1</variable>
   </variables>
@@ -10,7 +10,7 @@
         <field name="TYPE">INOUT</field>
         <value name="signal">
           <block type="variables_get" id="D=6!_Z[WaSrf$zTE-$K5">
-            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</field>
           </block>
         </value>
       </block>
@@ -22,7 +22,7 @@
           <block type="alertInfoScoreON" id="5H,RhqkJWqd+BZ~zTKSD">
             <value name="message">
               <block type="text" id="FBKiOcP$lB9)cDImHUp.">
-                <field name="TEXT">Start demo HH</field>
+                <field name="TEXT">Start demo HH 2</field>
               </block>
             </value>
             <next>
@@ -92,7 +92,7 @@
                                             <field name="TIMES">1</field>
                                             <value name="SIGNAL">
                                               <block type="variables_get" id="fI!F_7F[|}%j)b$6~JS4">
-                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</field>
                                               </block>
                                             </value>
                                             <next>
@@ -138,7 +138,7 @@
                                             <field name="Signal_Value">0</field>
                                             <value name="SIGNAL">
                                               <block type="variables_get" id="BQR9#xK]:dt(8NXz]591">
-                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</field>
                                               </block>
                                             </value>
                                             <next>

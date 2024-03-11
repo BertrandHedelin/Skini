@@ -4520,8 +4520,10 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function (block) {
 
   var code = `
 "use strict";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-var hh = require("../hiphop/hiphop.js");
+import * as hh from "@hop/hiphop";
 
 // C'est la seule façon d'échanger les paramètres nécessaires à la compilation
 // lors de la création des signaux.
@@ -4544,7 +4546,7 @@ var tempoMax = 160;
 var tempoMin = 40;
 var tempoGlobal = 60;
 
-function setServ(ser, daw, groupeCS, oscMidi, mix){
+export function setServ(ser, daw, groupeCS, oscMidi, mix){
   if(debug1) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
@@ -4552,7 +4554,6 @@ function setServ(ser, daw, groupeCS, oscMidi, mix){
   oscMidiLocal = oscMidi;
   midimix = mix;
 }
-exports.setServ = setServ;
 
 function setTempo(value){
   tempoGlobal = value;
@@ -4640,7 +4641,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 
   ` + statements_modules + `
 
-const orchestration = hh.MODULE(
+export var orchestration = hh.MODULE(
     {"id":"Orchestration","%location":{},"%tag":"module"},
     signals,
 
@@ -4753,14 +4754,12 @@ const orchestration = hh.MODULE(
     )
   )
 );
-exports.orchestration = orchestration;
 
-function setSignals(){
+export function setSignals() {
   var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
-  console.log("INFO: Number of nets in Orchestration:",machine.nets.length);
+  console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
   return machine;
 }
-exports.setSignals = setSignals;
 `;
   return code;
 };

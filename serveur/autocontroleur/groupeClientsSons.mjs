@@ -79,7 +79,7 @@ var groupesSon;
 var groupeName = "";
 
 // On créé ce fichier à partir du xml de Blockly
-var myReactOrchestration = "../../myReact/orchestrationHH.js";
+var myReactOrchestration = "../../myReact/orchestrationHH.mjs";
 var socketControleur;
 var computeScorePolicy = 0;
 var computeScoreClass = 0;
@@ -871,18 +871,13 @@ export function getMachine() {
 var tempIndex = 0;
 export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
-
-  decache(myReactOrchestration);
-
   // Recharge l'orchestration depuis le fichier généré par Blockly,
   // fichier éventuellement mis à jour à la main pour test.
   await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {
-    if (debug1) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", myReactOrchestration + '?foo=bar' + tempIndex);
-
-    if (orchestration.setServ === undefined) {
-      console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
-      throw "Pb on acces to:" + myReactOrchestration;
-    }
+    // if (orchestration.setServ === undefined) {
+    //   console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
+    //   throw "Pb on acces to:" + myReactOrchestration;
+    // }
     tempIndex++;
     // Pour permettre les broadcasts et autres depuis l'orchestration
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
@@ -896,7 +891,7 @@ export async function makeOneAutomatePossibleMachine() {
       throw err;
     }
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
-  });
+  }).catch(err => console.log("makeOneAutomatePossibleMachine err:", err));;
 };
 
 /* export function makeOneAutomatePossibleMachine() {

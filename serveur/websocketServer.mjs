@@ -37,7 +37,7 @@ const { Worker } = require('worker_threads');
 const saveParam = require('./saveParam.js');
 const { fork } = require("child_process");
 
-var defaultOrchestrationName = "orchestrationHH.js";
+var defaultOrchestrationName = "orchestrationHH.mjs";
 var par;
 var oscMidiLocal;
 var DAW;
@@ -1014,15 +1014,22 @@ function startWebSocketServer() {
      * @inner
      */
     var prevAutomate;
+
     async function compileHH() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
-      try {
-        await groupesClientSon.makeOneAutomatePossibleMachine();
-        if (debug1) console.log("INFO: websocketServer: Break:");
-        automatePossibleMachine = groupesClientSon.getMachine();
 
-        if(prevAutomate === automatePossibleMachine) {
+      try {
+        await new Promise((resolve, reject) => {
+          groupesClientSon.makeOneAutomatePossibleMachine().then(() => {
+            resolve("resolve done!");
+          });
+        });
+        
+        automatePossibleMachine = groupesClientSon.getMachine();
+        if (debug) console.log("INFO: websocketServer: Break:", automatePossibleMachine);
+
+        if (prevAutomate === automatePossibleMachine) {
           console.log("------------------------- Pas de changement")
         }
         prevAutomate = automatePossibleMachine;

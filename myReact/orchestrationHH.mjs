@@ -3,8 +3,10 @@ var tick;
 
 
 "use strict";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-var hh = require("../hiphop/hiphop.js");
+import * as hh from "@hop/hiphop";
 
 // C'est la seule façon d'échanger les paramètres nécessaires à la compilation
 // lors de la création des signaux.
@@ -27,7 +29,7 @@ var tempoMax = 160;
 var tempoMin = 40;
 var tempoGlobal = 60;
 
-function setServ(ser, daw, groupeCS, oscMidi, mix){
+export function setServ(ser, daw, groupeCS, oscMidi, mix){
   if(debug1) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
@@ -35,7 +37,6 @@ function setServ(ser, daw, groupeCS, oscMidi, mix){
   oscMidiLocal = oscMidi;
   midimix = mix;
 }
-exports.setServ = setServ;
 
 function setTempo(value){
   tempoGlobal = value;
@@ -123,7 +124,7 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
 
 
 
-var orchestration = hh.MODULE(
+export var orchestration = hh.MODULE(
     {"id":"Orchestration","%location":{},"%tag":"module"},
     signals,
 
@@ -220,48 +221,83 @@ var orchestration = hh.MODULE(
       "cnt":false
     }),
 
-    hh.LOOP(
-        {
-          "%location":{loop: 1},
-          "%tag":"loop"
-        },
 
-        hh.AWAIT(
-          {
-            "%location":{},
-            "%tag":"await",
-            "immediate":true,
-            "apply":function () {
-              return ((() => {
-                const tick=this["tick"];
-                return tick.now;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"tick",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          })
-        ),
+    hh.LOOPEACH(
+      {
+        "%location":{loopeach: tick},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
 
       hh.ATOM(
         {
           "%location":{},
           "%tag":"node",
-          "apply":function () {console.log('foo tuto5 3eme');}
+          "apply":function () {console.log('bar bu');}
         }
       ),
 
-      hh.PAUSE(
+    ),
+
+  ),
+
+
+  hh.ABORT(
+    {
+      "%location":{abort: tick},
+      "%tag":"abort",
+      "immediate":false,
+      "apply": function (){return ((() => {
+          const tick=this["tick"];
+          return tick.now;
+      })());},
+      "countapply":function (){ return 4;}
+    },
+    hh.SIGACCESS({
+      "signame":"tick",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    }),
+
+    hh.EVERY(
+      {
+        "%location":{every: tick},
+        "%tag":"do/every",
+        "immediate":false,
+        "apply": function (){return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+        })());},
+        "countapply":function (){ return 1;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      }),
+
+      hh.ATOM(
         {
           "%location":{},
-          "%tag":"yield"
+          "%tag":"node",
+          "apply":function () {console.log('foo');}
         }
       ),
 
-      ),
+    ),
 
   ),
 
@@ -300,12 +336,9 @@ var orchestration = hh.MODULE(
     )
   )
 );
-exports.orchestration = orchestration;
 
-function setSignals(){
-  //console.log("INFO: setSignals: Orchestration:", );
+export function setSignals() {
   var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
   console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
   return machine;
 }
-exports.setSignals = setSignals;

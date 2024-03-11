@@ -3,7 +3,7 @@
     <variable id="#}3K=pkBW|;;f(^-*]WW">foo</variable>
     <variable id="?!ju!`Bu;OM5eg+9Y%f]">bar</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="140" y="-16">
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="130" y="112">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="CjErFt(^VI@K2HDe!=Is">
         <field name="TYPE">INOUT</field>
