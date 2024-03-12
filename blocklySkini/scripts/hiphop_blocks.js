@@ -767,7 +767,7 @@ Blockly.JavaScript['run_tank'] = function (block) {
 hh.RUN({
     "%location":{"filename":"","pos":1},
     "%tag":"run",
-    "module":`+ listTanks[i] + `, {"filename":"","pos":2}),
+    "module":`+ listTanks[i] + `, //{"filename":"","pos":2}),
     "autocomplete":true
   }),
 
@@ -879,7 +879,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] + `, //{"filename":"","pos":2}),
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
@@ -3866,7 +3866,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] +`, //{"filename":"","pos":2},
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
@@ -4023,7 +4023,7 @@ hh.LOCAL(
           {
             "%location":{"filename":"","pos":1},
             "%tag":"run",
-            "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
+            "module": `+ listTanks[i] + `, //{"filename":"","pos":2},
             "autocomplete":true,
             "stopReservoir":"stop` + varRandom + `"
           }
@@ -4183,7 +4183,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] + `, {"filename":"","pos":2},
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
