@@ -24,11 +24,12 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-var fs = require("fs");
+import * as fs from "fs";
+import * as compScore from './computeScore.mjs';
+import * as gameOSC from './gameOSC.mjs';
+
 var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
-var compScore = require('./computeScore');
-var gameOSC = require('./gameOSC');
 var midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
@@ -41,7 +42,6 @@ var defaultOrchestrationName = "orchestrationHH.mjs";
 var par;
 var oscMidiLocal;
 var DAW;
-//var groupesClientSon;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
 var parametersFile;
@@ -49,6 +49,7 @@ var parametersFileGlobal;
 let origine = "./serveur/defaultSkiniParametres.js";
 let defaultSession = "./serveur/defaultSession.csv";
 let decacheParameters;
+var tempIndex;
 var childSimulator;
 
 // Declarations to move from CJS to ES6
@@ -90,13 +91,16 @@ import * as groupesClientSon from './autocontroleur/groupeClientsSons.mjs';
  * Used only at Skini launch.
  * @param {Object} midimix reference
  */
-export function setParameters(midimixage) {
+export async function setParameters(midimixage) {
   midimix = midimixage;
   oscMidiLocal = require('./OSCandMidi');
-  DAW = require('./controleDAW');
-  groupesClientSon.setMidimix(midimix);
-  initMidiPort();
-  startWebSocketServer();
+
+  await import('./controleDAW.mjs').then((daw) => {
+    DAW = daw;
+    groupesClientSon.setMidimix(midimix);
+    initMidiPort();
+    startWebSocketServer();
+  });
 }
 
 /**
@@ -659,19 +663,20 @@ function startWebSocketServer() {
   function reactAutomatePossible(signal) {
 
     if (debug) console.log("reactAutomatePossible 1:", signal, automatePossibleMachine);
+    if (debug) console.log("reactAutomatePossible 1:", signal);
 
     if (automatePossibleMachine !== undefined) {
       try {
         if (debug) console.log("INFO: webSocketServer.js: reactAutomatePossible 2:", signal);
         automatePossibleMachine.react(signal);
       } catch (err) {
-        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", err.toString());
+        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", signal, err.toString());
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
         }
-        serv.broadcast(JSON.stringify(msg));
-        return false;
+        //serv.broadcast(JSON.stringify(msg));
+        //return false;
       }
       return true;
     } else {
@@ -686,7 +691,7 @@ function startWebSocketServer() {
         if (debug) console.log("INFO: webSocketServer.js: inputAutomatePossible:", signal);
         automatePossibleMachine.input(signal);
       } catch (err) {
-        console.log("ERROR: webSocketServer.js: inputAutomatePossible: Error on react:", err.toString());
+        console.log("ERROR: webSocketServer.js: inputAutomatePossible: Error on react:", signal, err.toString());
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
@@ -1416,6 +1421,12 @@ maybe an hiphop compile Error`);
 
           // Le fait de faire un require ici, annule la référence de par dans 
           // les autres modules. Il faut faire un reload dans tous les modules.
+          // await import(decacheParameters  + '?foo=bar' + tempIndex).then((parameters) => {
+          //   par = parameters;
+          //   reloadParameters(par);
+          // });
+          // tempIndex++;
+
           par = require(decacheParameters);
           reloadParameters(par);
 

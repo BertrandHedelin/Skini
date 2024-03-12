@@ -44,6 +44,15 @@
                             <field name="TEXT">foo</field>
                           </block>
                         </value>
+                        <next>
+                          <block type="putPatternInQueue" id="@N0f||38~PgQ51^P%yIm">
+                            <value name="message">
+                              <block type="text" id="3;KbWgH105%{GvG8)AW^">
+                                <field name="TEXT">test8</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
                       </block>
                     </next>
                   </block>

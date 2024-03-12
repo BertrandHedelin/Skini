@@ -45,7 +45,6 @@ const require = createRequire(import.meta.url);
 
 var debug = false;
 var debug1 = true;
-const decache = require('decache');
 var par;
 
 /**
@@ -54,10 +53,12 @@ var par;
  */
 export function setParameters(param) {
   par = param;
+  if(debug) console.log("groupeClientsSOns.mjs: setParameters:", param);
   initGroupeClientsSons();
 }
 
-var DAW = require('../controleDAW');
+import * as DAW from '../controleDAW.mjs';
+//var DAW = require('../controleDAW');
 var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
 import * as fs from "fs";
 
@@ -283,7 +284,7 @@ export function getGroupScore(rank) {
 /*===========================================================================
 getTimerDivision, getComputeScorePolicy, getComputeScoreClass
 
-Fonctions passerelle entre websocketServerSkini.js, controleDAW.js
+Fonctions passerelle entre websocketServerSkini.js, controleDAW.mjs
 et les orchestrations car il n'y a pas de lien direct de l'orchestration
 vers websocketServerSkini. Il y en a dans l'autre sens via des react().
 
@@ -656,7 +657,7 @@ function getGroupeSons(signal) {
 
   var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
-  if (debug) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
+  if (debug) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
   for (var i = 0; i < nbeDeGroupesSons; i++) {
     if (groupesSon[i][0] === undefined) {
@@ -664,10 +665,10 @@ function getGroupeSons(signal) {
       return -1;
     }
     if (groupesSon[i][0] === signalLocal) {
-      return groupesSon[i][1]; // et pas i !!
+      return groupesSon[i][1];
     }
   }
-  console.log("ERR: groupeClientSons.js: getGroupeSons: signal inconnu", signalLocal);
+  console.log("ERR: groupeClientSons.mjs: getGroupeSons: signal inconnu", signalLocal);
   return -1;
 }
 
@@ -675,7 +676,7 @@ function getGroupeSons(signal) {
 
   var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
-  if (debug1) console.log("groupeClientSons.js: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "groupesDesSons.length:", par.groupesDesSons.length);
+  if (debug1) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "groupesDesSons.length:", par.groupesDesSons.length);
 
   for (var i = 0; i < par.groupesDesSons.length ; i++) {
     if  ( par.groupesDesSons[i][0] === undefined) {
@@ -686,7 +687,7 @@ function getGroupeSons(signal) {
       return par.groupesDesSons[i][1];
     }
   }
-  console.log("ERR: groupeClientSons.js: getGroupeSons: signal inconnu", signalLocal);
+  console.log("ERR: groupeClientSons.mjs: getGroupeSons: signal inconnu", signalLocal);
   return -1;
 }*/
 
@@ -702,7 +703,7 @@ export function getNameGroupeSons(index) {
     }
   }
   if (groupesSon[index] === undefined) {
-    console.log("ERR: groupeClientSons.js: getNameGroupeSons: index inconnu", index, groupesSon);
+    console.log("ERR: groupeClientSons.mjs: getNameGroupeSons: index inconnu", index, groupesSon);
     return -1;
   }
 }
@@ -721,12 +722,12 @@ export function setGroupesSon(DAWState) {
 
   groupesSon = par.groupesDesSons;
   if (groupesSon == undefined) {
-    console.log("ERR: groupeClientSons.js: setGroupesSon: groupesSon:undefined:DAWStatus:", DAWState);
+    console.log("ERR: groupeClientSons.mjs: setGroupesSon: groupesSon:undefined:DAWStatus:", DAWState);
     return -1;
   }
 
   if (groupesSon.length == 0) {
-    console.log("WARNING: groupeClientSons.js: setGroupesSon: groupesSon vide");
+    console.log("WARNING: groupeClientSons.mjs: setGroupesSon: groupesSon vide");
     return -1;
   }
 
@@ -769,8 +770,8 @@ export function createMatriceDesPossibles() {
  * @returns {number} 0 is OK, -1 is a problem
  */
 export function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
-  if (debug) console.log("groupeClientSons.js: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
-  if (debug) console.log("groupeClientSons.js: setInMatriceDesPossibles:", matriceDesPossibles);
+  if (debug) console.log("groupeClientSons.mjs: setInMatriceDesPossibles ", groupeClient, groupeDeSons, status);
+  if (debug) console.log("groupeClientSons.mjs: setInMatriceDesPossibles:", matriceDesPossibles);
 
   if (groupeClient === 255) { // On traite tous les groupes
     for (var i = 0; i < par.nbeDeGroupesClients; i++) {
@@ -779,7 +780,7 @@ export function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
     return 0;
   }
   if (groupeClient >= par.nbeDeGroupesClients) {
-    console.log("ERR: groupeClientSons.js:setInMatriceDesPossibles:groupeClient size exceeded:", groupeClient);
+    console.log("ERR: groupeClientSons.mjs:setInMatriceDesPossibles:groupeClient size exceeded:", groupeClient);
     return -1;
   }
   matriceDesPossibles[groupeClient][groupeDeSons] = status;
@@ -894,40 +895,9 @@ export async function makeOneAutomatePossibleMachine() {
   }).catch(err => console.log("makeOneAutomatePossibleMachine err:", err));;
 };
 
-/* export function makeOneAutomatePossibleMachine() {
-  if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
-  // Recharge l'orchestration depuis le fichier généré par Blockly,
-  // fichier éventuellement mis à jour à la main pour test.
-  decache(myReactOrchestration);
-   try {
-    orchestration = require(myReactOrchestration);
-    if (debug) console.log("groupecliensSons: makeOneAutomatePossibleMachine:", orchestration);
-  } catch (err) {
-    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", err.toString());
-    throw err;
-  }
-  if (orchestration.setServ === undefined) {
-    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
-    throw "Pb on acces to:" + myReactOrchestration;
-  }
-  // Pour permettre les broadcasts et autres depuis l'orchestration
-  orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
-
-  // C'est là que se fait la compilation HipHop.js
-  try {
-    var machine = orchestration.setSignals();
-    makeSignalsListeners(machine);
-  } catch (err) {
-    console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
-    throw err;
-  }
-  return machine;
-}
-//exports.makeOneAutomatePossibleMachine = makeOneAutomatePossibleMachine; */
-
 let messageLog = {
   date: "",
-  source: "groupeClientSons.js",
+  source: "groupeClientSons.mjs",
   type: "log"
 }
 
@@ -953,7 +923,7 @@ function makeSignalsListeners(machine) {
           console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signalName);
           return;
         }
-        if (debug) console.log("groupeClientSOns.js:Addeventlisterner: groupeSons:", groupeSonLocal,
+        if (debug) console.log("groupeClientSons.mjs:Addeventlisterner: groupeSons:", groupeSonLocal,
           "signalName:", evt.signalName,
           "groupeClientsNo:", evt.signalValue[1],
           "statut:", evt.signalValue[0],

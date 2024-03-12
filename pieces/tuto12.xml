@@ -71,7 +71,7 @@
                                             </value>
                                             <next>
                                               <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13">
-                                                <field name="JScode">for (var i=0; i&lt;9; i++){&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
+                                                <field name="JScode">var bar;&amp;#10;for (var i=0; i&lt;9; i++){&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
                                                 <next>
                                                   <block type="hh_wait_for" id="^{G5tt8unO({Vs|y1*T1">
                                                     <field name="TIMES">2</field>

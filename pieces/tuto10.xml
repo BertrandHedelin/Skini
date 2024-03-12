@@ -1,10 +1,11 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</variable>
+    <variable id="3c/~n6W:3wYb?Kp5_*bz">Groupe1</variable>
     <variable id="e~?Hofi|/CqL68B=.2=m">tick</variable>
     <variable id="L/uUotHI-n=5.RDdUqh:">trap1</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="+TVwrSF`WXyYjVSGfJ$c" x="95" y="-107">
+  <block type="hh_ORCHESTRATION" id="+TVwrSF`WXyYjVSGfJ$c" x="105" y="31">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="1L#G~YyJ^|f:f33_Dd0D">
         <field name="TYPE">INOUT</field>
@@ -13,6 +14,16 @@
             <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">stopTrap12</field>
           </block>
         </value>
+        <next>
+          <block type="hh_declare_signal" id="u:%;7z*`EGf%RKwgFnHM">
+            <field name="TYPE">INOUT</field>
+            <value name="signal">
+              <block type="variables_get" id="[S;(r,500#rrjpmH,Q|.">
+                <field name="VAR" id="3c/~n6W:3wYb?Kp5_*bz">Groupe1</field>
+              </block>
+            </value>
+          </block>
+        </next>
       </block>
     </statement>
     <statement name="BODY">

@@ -33,7 +33,7 @@
               <block type="hh_print_serveur" id="ym{L*WsZFzihSJr!$AWJ">
                 <value name="TEXT">
                   <block type="text" id="MCJX(l1=~vU14+IlcDYQ">
-                    <field name="TEXT">foo tuto9</field>
+                    <field name="TEXT">foo tuto</field>
                   </block>
                 </value>
               </block>
