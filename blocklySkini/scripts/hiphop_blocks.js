@@ -767,7 +767,8 @@ Blockly.JavaScript['run_tank'] = function (block) {
 hh.RUN({
     "%location":{"filename":"","pos":1},
     "%tag":"run",
-    "module": hh.getModule("`+ listTanks[i] + `", {"filename":"","pos":2}),
+    "module": `+ listTanks[i] + `,
+    {"filename":"","pos":2}),
     "autocomplete":true
   }),
 
@@ -879,7 +880,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": hh.getModule("`+ listTanks[i] + `", {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
@@ -3866,7 +3867,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": hh.getModule("`+ listTanks[i] + `", {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
@@ -4023,7 +4024,7 @@ hh.LOCAL(
           {
             "%location":{"filename":"","pos":1},
             "%tag":"run",
-            "module": hh.getModule("`+ listTanks[i] + `", {"filename":"","pos":2}),
+            "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
             "autocomplete":true,
             "stopReservoir":"stop` + varRandom + `"
           }
@@ -4183,7 +4184,7 @@ hh.LOCAL(
                 {
                   "%location":{"filename":"","pos":1},
                   "%tag":"run",
-                  "module": hh.getModule("`+ listTanks[i] + `", {"filename":"","pos":2}),
+                  "module": `+ listTanks[i] + `, {"filename":"","pos":2}),
                   "autocomplete":true,
                   "stopReservoir":"stop` + varRandom + `"
                 }
@@ -4846,7 +4847,7 @@ Blockly.JavaScript['hh_run'] = function (block) {
 hh.RUN({
   "%location":{},
   "%tag":"run",
-  "module": hh.getModule(  "` + modulehh + `", {}),
+  "module": ` + modulehh + `,  // hh.getModule(     {}),
   `
   for (var i = 0; i < listGroupes.length; i++) {
     code += `"` + listGroupes[i] + `":"",
