@@ -1365,7 +1365,7 @@ maybe an hiphop compile Error`);
             ws.send(JSON.stringify(msg));
           });
 
-          // Essai de chargement des paramètres
+          // Chargement des paramètres
           // à partir du fichier de config de la pièce
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de xml
@@ -1376,7 +1376,7 @@ maybe an hiphop compile Error`);
           parametersFile = sessionPath + msgRecu.fileName;
           parametersFile = parametersFile.slice(0, -4) + ".js";
 
-          if (debug1) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
+          if (debug) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
           // Attention decache n'utilise pas le même path que parametersFile
           decacheParameters = "../" + parametersFile;
 
@@ -1429,6 +1429,9 @@ maybe an hiphop compile Error`);
           // tempIndex++;
 
           par = require(decacheParameters);
+
+          if(debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
+
           reloadParameters(par);
 
           // On crée le fichier pour son utilisation par l'orchestration.
@@ -1554,11 +1557,16 @@ maybe an hiphop compile Error`);
                 decacheParameters = "../" + sessionPath + parametersFileGlobal;
                 decache(decacheParameters);
                 par = require(decacheParameters);
+
+                if(debug1) console.log("websocketserveur.js: saveBlocklyGeneratedFile; après require de dechacheParameters:", par.groupesDesSons);
+ 
                 reloadParameters(par);
               } catch (err) {
                 console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
                 break;
               }
+            } else {
+              if(debug1) console.log("websocketserveur.js: saveBlocklyGeneratedFile: si OK:", par.groupesDesSons);
             }
           } catch (err) {
             console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());

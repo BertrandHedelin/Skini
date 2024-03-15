@@ -4522,22 +4522,33 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function (block) {
 "use strict";
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
+const decache = require('decache');
 
 import * as hh from "@hop/hiphop";
 
 // C'est la seule façon d'échanger les paramètres nécessaires à la compilation
 // lors de la création des signaux.
-var par = require('../serveur/skiniParametres');
 
-var midimix;
-var oscMidiLocal;
+//decache('../serveur/skiniParametres.js');
+//var par = require('../serveur/skiniParametres');
+//import par from '../serveur/skiniParametres.js';
 
-var gcs;
-var DAW;
-var serveur;
+var par;
+let tempIndex = Date.now();
+await import('../serveur/skiniParametres.js' + '?foo=bar' + tempIndex).then((parameters) => {
+   par = parameters;
+});
 
 var debug = false;
 var debug1 = true;
+
+if(debug1) console.log("******* Signal Orchestration:", tempIndex, par.groupesDesSons);
+
+var midimix;
+var oscMidiLocal;
+var gcs;
+var DAW;
+var serveur;
 
 // Avec des valeurs initiales
 var CCChannel = 1;
