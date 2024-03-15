@@ -1024,6 +1024,7 @@ function startWebSocketServer() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
 
+      // Not OK  with reload
       try {
         await new Promise((resolve, reject) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then(() => {

@@ -33,6 +33,16 @@ var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 "use strict";
 import { createRequire } from 'module';
@@ -9854,6 +9864,16 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   //
   //
   //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   TransPianoEtNappe = hh.MODULE({"id":"TransPianoEtNappe","%location":{},"%tag":"module"},
 
@@ -10000,6 +10020,16 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   //
   //
   //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   TransPianoEtNappe2 = hh.MODULE({"id":"TransPianoEtNappe2","%location":{},"%tag":"module"},
 
@@ -10123,6 +10153,16 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -10335,6 +10375,16 @@ for (var i=0; i < par.groupesDesSons.length; i++) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -10781,14 +10831,14 @@ export var orchestration = hh.MODULE(
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop281273"
+          "name":"stop20251"
         }),
 
           hh.TRAP(
             {
-              "trap281273":"trap281273",
+              "trap20251":"trap20251",
               "%location":{},
-              "%tag":"trap281273"
+              "%tag":"trap20251"
             },
             hh.FORK(
               {
@@ -10816,7 +10866,7 @@ export var orchestration = hh.MODULE(
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop281273"
+                        "stopReservoir":"stop20251"
                       }
                     ),
                   ),
@@ -10845,18 +10895,18 @@ export var orchestration = hh.MODULE(
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop281273" : "stop281273",
+                  "stop20251" : "stop20251",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop281273 = this["stop281273"];
+                      const stop20251 = this["stop20251"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop281273",
+                  "signame":"stop20251",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -10872,7 +10922,7 @@ export var orchestration = hh.MODULE(
 
               hh.EXIT(
               {
-                "trap281273":"trap281273",
+                "trap20251":"trap20251",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -10890,9 +10940,9 @@ export var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap634276":"trap634276",
+              "trap955564":"trap955564",
               "%location":{},
-              "%tag":"trap634276"
+              "%tag":"trap955564"
             },
             hh.FORK(
               {
@@ -10988,7 +11038,7 @@ export var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap634276":"trap634276",
+      		          "trap955564":"trap955564",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -11116,14 +11166,14 @@ export var orchestration = hh.MODULE(
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop537882"
+          "name":"stop100535"
         }),
 
           hh.TRAP(
             {
-              "trap537882":"trap537882",
+              "trap100535":"trap100535",
               "%location":{},
-              "%tag":"trap537882"
+              "%tag":"trap100535"
             },
             hh.FORK(
               {
@@ -11151,7 +11201,7 @@ export var orchestration = hh.MODULE(
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop537882"
+                        "stopReservoir":"stop100535"
                       }
                     ),
                   ),
@@ -11180,18 +11230,18 @@ export var orchestration = hh.MODULE(
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop537882" : "stop537882",
+                  "stop100535" : "stop100535",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop537882 = this["stop537882"];
+                      const stop100535 = this["stop100535"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop537882",
+                  "signame":"stop100535",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -11207,7 +11257,7 @@ export var orchestration = hh.MODULE(
 
               hh.EXIT(
               {
-                "trap537882":"trap537882",
+                "trap100535":"trap100535",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -11225,9 +11275,9 @@ export var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap731297":"trap731297",
+              "trap829464":"trap829464",
               "%location":{},
-              "%tag":"trap731297"
+              "%tag":"trap829464"
             },
             hh.FORK(
               {
@@ -11323,7 +11373,7 @@ export var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap731297":"trap731297",
+      		          "trap829464":"trap829464",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -11451,14 +11501,14 @@ export var orchestration = hh.MODULE(
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop491154"
+          "name":"stop858669"
         }),
 
           hh.TRAP(
             {
-              "trap491154":"trap491154",
+              "trap858669":"trap858669",
               "%location":{},
-              "%tag":"trap491154"
+              "%tag":"trap858669"
             },
             hh.FORK(
               {
@@ -11486,7 +11536,7 @@ export var orchestration = hh.MODULE(
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop491154"
+                        "stopReservoir":"stop858669"
                       }
                     ),
                   ),
@@ -11515,18 +11565,18 @@ export var orchestration = hh.MODULE(
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop491154" : "stop491154",
+                  "stop858669" : "stop858669",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop491154 = this["stop491154"];
+                      const stop858669 = this["stop858669"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop491154",
+                  "signame":"stop858669",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -11542,7 +11592,7 @@ export var orchestration = hh.MODULE(
 
               hh.EXIT(
               {
-                "trap491154":"trap491154",
+                "trap858669":"trap858669",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -11560,9 +11610,9 @@ export var orchestration = hh.MODULE(
 
           hh.TRAP(
             {
-              "trap301492":"trap301492",
+              "trap219738":"trap219738",
               "%location":{},
-              "%tag":"trap301492"
+              "%tag":"trap219738"
             },
             hh.FORK(
               {
@@ -11658,7 +11708,7 @@ export var orchestration = hh.MODULE(
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap301492":"trap301492",
+      		          "trap219738":"trap219738",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -11834,14 +11884,14 @@ export var orchestration = hh.MODULE(
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop248679"
+      "name":"stop781831"
     }),
 
       hh.TRAP(
         {
-          "trap248679":"trap248679",
+          "trap781831":"trap781831",
           "%location":{},
-          "%tag":"trap248679"
+          "%tag":"trap781831"
         },
         hh.FORK(
           {
@@ -11869,7 +11919,7 @@ export var orchestration = hh.MODULE(
                     "%tag":"run",
                     "module": Percu, //{"filename":"","pos":2},
                     "autocomplete":true,
-                    "stopReservoir":"stop248679"
+                    "stopReservoir":"stop781831"
                   }
                 ),
               ),
@@ -11898,18 +11948,18 @@ export var orchestration = hh.MODULE(
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop248679" : "stop248679",
+              "stop781831" : "stop781831",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop248679 = this["stop248679"];
+                  const stop781831 = this["stop781831"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop248679",
+              "signame":"stop781831",
               "pre":true,
               "val":true,
               "cnt":false
@@ -11925,7 +11975,7 @@ export var orchestration = hh.MODULE(
 
           hh.EXIT(
           {
-            "trap248679":"trap248679",
+            "trap781831":"trap781831",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -12004,14 +12054,14 @@ export var orchestration = hh.MODULE(
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop413469"
+          "name":"stop699605"
         }),
 
           hh.TRAP(
             {
-              "trap413469":"trap413469",
+              "trap699605":"trap699605",
               "%location":{},
-              "%tag":"trap413469"
+              "%tag":"trap699605"
             },
             hh.FORK(
               {
@@ -12039,7 +12089,7 @@ export var orchestration = hh.MODULE(
                         "%tag":"run",
                         "module": Saxo, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop413469"
+                        "stopReservoir":"stop699605"
                       }
                     ),
                   ),
@@ -12068,18 +12118,18 @@ export var orchestration = hh.MODULE(
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop413469" : "stop413469",
+                  "stop699605" : "stop699605",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop413469 = this["stop413469"];
+                      const stop699605 = this["stop699605"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop413469",
+                  "signame":"stop699605",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -12095,7 +12145,7 @@ export var orchestration = hh.MODULE(
 
               hh.EXIT(
               {
-                "trap413469":"trap413469",
+                "trap699605":"trap699605",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -12161,14 +12211,14 @@ export var orchestration = hh.MODULE(
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop735859"
+      "name":"stop287625"
     }),
 
       hh.TRAP(
         {
-          "trap735859":"trap735859",
+          "trap287625":"trap287625",
           "%location":{},
-          "%tag":"trap735859"
+          "%tag":"trap287625"
         },
         hh.FORK(
           {
@@ -12196,7 +12246,7 @@ export var orchestration = hh.MODULE(
                     "%tag":"run",
                     "module": Percu, //{"filename":"","pos":2},
                     "autocomplete":true,
-                    "stopReservoir":"stop735859"
+                    "stopReservoir":"stop287625"
                   }
                 ),
               ),
@@ -12225,18 +12275,18 @@ export var orchestration = hh.MODULE(
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop735859" : "stop735859",
+              "stop287625" : "stop287625",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop735859 = this["stop735859"];
+                  const stop287625 = this["stop287625"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop735859",
+              "signame":"stop287625",
               "pre":true,
               "val":true,
               "cnt":false
@@ -12252,7 +12302,7 @@ export var orchestration = hh.MODULE(
 
           hh.EXIT(
           {
-            "trap735859":"trap735859",
+            "trap287625":"trap287625",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -12291,14 +12341,14 @@ export var orchestration = hh.MODULE(
         "%tag":"signal"
       },
       hh.SIGNAL({
-        "name":"stop263189"
+        "name":"stop918119"
       }),
 
         hh.TRAP(
           {
-            "trap263189":"trap263189",
+            "trap918119":"trap918119",
             "%location":{},
-            "%tag":"trap263189"
+            "%tag":"trap918119"
           },
           hh.FORK(
             {
@@ -12326,7 +12376,7 @@ export var orchestration = hh.MODULE(
                       "%tag":"run",
                       "module": Flute, //{"filename":"","pos":2},
                       "autocomplete":true,
-                      "stopReservoir":"stop263189"
+                      "stopReservoir":"stop918119"
                     }
                   ),
                 ),
@@ -12355,18 +12405,18 @@ export var orchestration = hh.MODULE(
                 "%location":{},
                 "%tag":"emit",
                 //"stopReservoir":"stopReservoir",
-                "stop263189" : "stop263189",
+                "stop918119" : "stop918119",
                 "apply":function (){
                   return ((() => {
                     //const stopReservoir = this["stopReservoir"];
-                    const stop263189 = this["stop263189"];
+                    const stop918119 = this["stop918119"];
                     return 0;
                   })());
                 }
               },
               hh.SIGACCESS({
                 //"signame":"stopReservoir",
-                "signame":"stop263189",
+                "signame":"stop918119",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -12382,7 +12432,7 @@ export var orchestration = hh.MODULE(
 
             hh.EXIT(
             {
-              "trap263189":"trap263189",
+              "trap918119":"trap918119",
               "%location":{},
               "%tag":"break"
             }), // Exit

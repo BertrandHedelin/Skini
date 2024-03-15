@@ -22,7 +22,7 @@
  * <BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
  * <BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
  *de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.1
+ * @version 1.4
 */
 'use strict'
 
