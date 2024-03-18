@@ -4407,77 +4407,6 @@ Blockly.JavaScript['abort_move_tempo'] = function (block) {
   return code;
 };
 
-/*******************************************************
-*
-* Blocs HipHop
-*
-********************************************************/
-
-/* // NodeSkini
-Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "hh_orchestration",
-    "message0": "Orch Test %1 %2 mod %3 sig %4 body %5 ",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "trajet",
-        "value": 1,
-        "check": "Number"
-      },
-      {
-        "type": "input_dummy"
-      },
-      {
-        "type": "input_statement",
-        "name": "MODULES"
-      },
-      {
-        "type": "input_statement",
-        "name": "SIGNALS"
-      },
-      {
-        "type": "input_statement",
-        "name": "BODY"
-      }
-    ],
-    //"previousStatement": null,
-    //"nextStatement": null,
-    "colour": 240,
-    "tooltip": "",
-    "helpUrl": ""
-  }
-]);
-
-// NodeSkini
-Blockly.JavaScript['hh_orchestration'] = function (block) {
-  var number_trajet = block.getFieldValue('trajet');
-  var statements_signals = Blockly.JavaScript.statementToCode(block, 'SIGNALS');
-  var statements_modules = Blockly.JavaScript.statementToCode(block, 'MODULES');
-  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  if (statements_body === '') return '';
-
-  var code = `
-hh = require("../hiphop/hiphop.js");
-
-  ` + statements_modules + `
-
-prg = hh.MACHINE({"id":"prg","%location":{},"%tag":"machine"},
-
-  ` + statements_signals + `
-
-  ` + statements_body + `
-
-);
-
-module.exports=prg;
-
-prg.react();
-
-`;
-  return code;
-}; */
-
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
   {
@@ -4520,30 +4449,11 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function (block) {
 
   var code = `
 "use strict";
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const decache = require('decache');
 
 import * as hh from "@hop/hiphop";
-
-// C'est la seule façon d'échanger les paramètres nécessaires à la compilation
-// lors de la création des signaux.
-
-//decache('../serveur/skiniParametres.js');
-//var par = require('../serveur/skiniParametres');
-//import par from '../serveur/skiniParametres.js';
-
 var par;
-let tempIndex = Date.now();
-await import('../serveur/skiniParametres.js' + '?foo=bar' + tempIndex).then((parameters) => {
-   par = parameters;
-});
-
 var debug = false;
 var debug1 = true;
-
-if(debug1) console.log("******* Signal Orchestration:", tempIndex, par.groupesDesSons);
-
 var midimix;
 var oscMidiLocal;
 var gcs;
@@ -4594,7 +4504,6 @@ var ratioTranspose = 1.763;
 var offsetTranspose = 63.5;
 
 function moveTempo(value, limit){
-
   if(tempoLimit >= limit){
     tempoLimit = 0;
     tempoIncrease = !tempoIncrease;
@@ -4616,161 +4525,162 @@ var signals = [];
 var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
-for (var i=0; i < par.groupesDesSons.length; i++) {
-  if(par.groupesDesSons[i][0] !== "") {
-    var signalName = par.groupesDesSons[i][0] + "OUT";
-    
-    if(debug1) console.log("Signal Orchestration:", signalName);
+export function setSignals(param) {
+  par = param;
 
-    var signal = hh.SIGNAL({
-      "%location":{},
-      "direction":"OUT",
-      "name":signalName,
-      "init_func":function (){return [false, -1];}
-    });
-    signals.push(signal);
+  for (var i=0; i < param.groupesDesSons.length; i++) {
+    if(param.groupesDesSons[i][0] !== "") {
+      var signalName = param.groupesDesSons[i][0] + "OUT";
+      
+      if(debug1) console.log("Signal Orchestration:", signalName);
+
+      var signal = hh.SIGNAL({
+        "%location":{},
+        "direction":"OUT",
+        "name":signalName,
+        "init_func":function (){return [false, -1];}
+      });
+      signals.push(signal);
+    }
   }
-}
 
-// Création des signaux IN de sélection de patterns
-for (var i=0; i < par.groupesDesSons.length; i++) {
-  if(par.groupesDesSons[i][0] !== "") {
-    var signalName = par.groupesDesSons[i][0] + "IN";
-    
-    if(debug1) console.log("Signal Orchestration:", signalName);
-    
-    var signal = hh.SIGNAL({
-      "%location":{},
-      "direction":"IN",
-      "name":signalName
-    });
-    signals.push(signal);
+  // Création des signaux IN de sélection de patterns
+  for (var i=0; i < param.groupesDesSons.length; i++) {
+    if(param.groupesDesSons[i][0] !== "") {
+      var signalName = param.groupesDesSons[i][0] + "IN";
+      
+      if(debug1) console.log("Signal Orchestration:", signalName);
+      
+      var signal = hh.SIGNAL({
+        "%location":{},
+        "direction":"IN",
+        "name":signalName
+      });
+      signals.push(signal);
+    }
   }
-}
 
+    ` + statements_modules + `
 
+  var orchestration = hh.MODULE(
+      {"id":"Orchestration","%location":{},"%tag":"module"},
+      signals,
 
-  ` + statements_modules + `
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"start"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC0"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC1"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC2"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC3"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC4"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC5"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC6"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC7"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC8"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC9"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC10"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC11"}),
+      hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
+      hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
-export var orchestration = hh.MODULE(
-    {"id":"Orchestration","%location":{},"%tag":"module"},
-    signals,
-
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"start"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC0"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC1"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC2"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC3"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC4"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC5"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC6"}), 
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC7"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC8"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC9"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC10"}),
-    hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC11"}),
-    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
-    hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
-
-  ` + statements_signals + `
-  hh.LOOP(
-    {
-     "%location":{loop: 1},
-      "%tag":"loop"
-    },
-    hh.ABORT(
+    ` + statements_signals + `
+    hh.LOOP(
       {
-        "%location":{abort: halt},
-        "%tag":"abort",
-        "immediate":false,
-        "apply": function (){return ((() => {
-            const halt=this["halt"];
-            return halt.now;
-        })());},
-        "countapply":function (){ return 1;}
+      "%location":{loop: 1},
+        "%tag":"loop"
       },
-      hh.SIGACCESS({
-        "signame":"halt",
-        "pre":false,
-        "val":false,
-        "cnt":false
-      }),
-
-      hh.AWAIT(
+      hh.ABORT(
         {
-          "%location":{},
-          "%tag":"await",
-          "immediate":true,
-          "apply":function () {
-            return ((() => {
-              const start=this["start"];
-              return start.now;
-            })());
-          },
+          "%location":{abort: halt},
+          "%tag":"abort",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const halt=this["halt"];
+              return halt.now;
+          })());},
+          "countapply":function (){ return 1;}
         },
         hh.SIGACCESS({
-          "signame":"start",
+          "signame":"halt",
           "pre":false,
           "val":false,
           "cnt":false
-        })
-      ),
+        }),
 
-      hh.FORK(
-        {"%location":{},"%tag":"fork"},
-        hh.SEQUENCE(
-         {"%location":{},"%tag":"fork"},
-        ` + statements_body + `
-        ),
-        hh.SEQUENCE(
-        {"%location":{},"%tag":"fork"},
-        hh.EVERY(
+        hh.AWAIT(
           {
             "%location":{},
-            "%tag":"every",
-            "immediate":false,
-            "apply": function (){return ((() => {
-                  const tick = this["tick"];
-                  return tick.now;
-            })());},
+            "%tag":"await",
+            "immediate":true,
+            "apply":function () {
+              return ((() => {
+                const start=this["start"];
+                return start.now;
+              })());
+            },
           },
           hh.SIGACCESS({
-              "signame":"tick",
-              "pre":false,
-              "val":false,
-              "cnt":false
-          }),
-            hh.ATOM(
-              {
-                "%location":{},
-                "%tag":"node",
-                "apply":function () {
-                  gcs.setTickOnControler(tickCounter);
-                  tickCounter++;
+            "signame":"start",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          })
+        ),
+
+        hh.FORK(
+          {"%location":{},"%tag":"fork"},
+          hh.SEQUENCE(
+          {"%location":{},"%tag":"fork"},
+          ` + statements_body + `
+          ),
+          hh.SEQUENCE(
+          {"%location":{},"%tag":"fork"},
+          hh.EVERY(
+            {
+              "%location":{},
+              "%tag":"every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                    const tick = this["tick"];
+                    return tick.now;
+              })());},
+            },
+            hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+            }),
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    gcs.setTickOnControler(tickCounter);
+                    tickCounter++;
+                  }
                 }
-              }
+              )
             )
           )
         )
       )
     )
-  )
-);
+  );
 
-export function setSignals() {
-  var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
-  console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
-  return machine;
-}
+    if(debug1) console.log("orchestrationHH.mjs: setSignals", param.groupesDesSons);
+    var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
+    console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
+    return machine;
+  }
 `;
   return code;
 };

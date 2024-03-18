@@ -885,7 +885,7 @@ export async function makeOneAutomatePossibleMachine() {
 
     // C'est là que se fait la compilation HipHop.js
     try {
-      machine = orchestration.setSignals();
+      machine = orchestration.setSignals(par);
       makeSignalsListeners(machine);
     } catch (err) {
       console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
