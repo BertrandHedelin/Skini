@@ -4468,7 +4468,7 @@ var tempoMin = 40;
 var tempoGlobal = 60;
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix){
-  if(debug1) console.log("hh_ORCHESTRATION: setServ");
+  if(debug) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -4532,7 +4532,7 @@ export function setSignals(param) {
     if(param.groupesDesSons[i][0] !== "") {
       var signalName = param.groupesDesSons[i][0] + "OUT";
       
-      if(debug1) console.log("Signal Orchestration:", signalName);
+      if(debug) console.log("Signal Orchestration:", signalName);
 
       var signal = hh.SIGNAL({
         "%location":{},
@@ -4549,7 +4549,7 @@ export function setSignals(param) {
     if(param.groupesDesSons[i][0] !== "") {
       var signalName = param.groupesDesSons[i][0] + "IN";
       
-      if(debug1) console.log("Signal Orchestration:", signalName);
+      if(debug) console.log("Signal Orchestration:", signalName);
       
       var signal = hh.SIGNAL({
         "%location":{},
@@ -4676,7 +4676,7 @@ export function setSignals(param) {
     )
   );
 
-    if(debug1) console.log("orchestrationHH.mjs: setSignals", param.groupesDesSons);
+    if(debug) console.log("orchestrationHH.mjs: setSignals", param.groupesDesSons);
     var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
     console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
     return machine;

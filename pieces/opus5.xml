@@ -110,7 +110,7 @@
     <variable id="8pE8BK/Ke(lDfn5R:_RK">S2Action</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="jUb7P;](+;..mGa9mt]S" x="169" y="-360">
-    <comment pinned="false" h="80" w="160">Sur la base d'Opus5 avec Hop/HipHop. On utilise la session Ableton Live Opus5</comment>
+    <comment pinned="true" h="107" w="321">Sur la base d'Opus5 avec Hop/HipHop. On utilise la session Ableton Live Opus5</comment>
     <statement name="MODULES">
       <block type="tank" id="P9eel:QhyYlYWIK)TucI" collapsed="true">
         <field name="groupeClient">255</field>

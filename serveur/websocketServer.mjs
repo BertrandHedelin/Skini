@@ -1024,7 +1024,7 @@ function startWebSocketServer() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
 
-      // Not OK  with reload
+      // Not OK for the signals with reload ?
       try {
         await new Promise((resolve, reject) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then(() => {
@@ -1557,16 +1557,13 @@ maybe an hiphop compile Error`);
                 decacheParameters = "../" + sessionPath + parametersFileGlobal;
                 decache(decacheParameters);
                 par = require(decacheParameters);
-
-                if(debug1) console.log("websocketserveur.js: saveBlocklyGeneratedFile; après require de dechacheParameters:", par.groupesDesSons);
- 
                 reloadParameters(par);
               } catch (err) {
                 console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
                 break;
               }
             } else {
-              if(debug1) console.log("websocketserveur.js: saveBlocklyGeneratedFile: si OK:", par.groupesDesSons);
+              if(debug) console.log("websocketserveur.js: saveBlocklyGeneratedFile: si OK:", par.groupesDesSons);
             }
           } catch (err) {
             console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());
