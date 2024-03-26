@@ -5465,6 +5465,67 @@ hh.EVERY(
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
   {
+    "type": "hh_suspend",
+    "message0": "suspend %1 signal %2 %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "TIMES",
+        "value": 1,
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "input_statement",
+        "name": "BODY"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "await",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['hh_suspend'] = function (block) {
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  if (statements_body === '') return '';
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+  let value = value_signal.replace(/\'/g, "");
+  let times = block.getFieldValue('TIMES');
+
+  var code = `
+hh.SUSPEND(
+  {
+    "%location":{suspend: ` + value + `},
+    "%tag":"do/every",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body + `
+),
+`;
+  return code;
+};
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+  {
     "type": "hh_abort",
     "message0": "abort %1 signal %2 %3",
     "args0": [

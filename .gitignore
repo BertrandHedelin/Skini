@@ -11,6 +11,5 @@ sounds/**
 node_modules/**
 docComplementaires/**
 tests/**
-pieces/**
 .vs/**
 .vscode/**

@@ -1,0 +1,161 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="MylcmI5W~+)m0H#dYbD4">harp</variable>
+    <variable id="jfZl-le?)2vTbMz(AmnD">flute</variable>
+    <variable id="l:AU7UOgWVwd,4~)ik1$">voice</variable>
+    <variable id="6`6q)7syJ+{H1NpsbC#3">percu</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="55" y="-242">
+    <statement name="BODY">
+      <block type="cleanqueues" id="Qt2K7:(|~A1,|0{1fvWh">
+        <next>
+          <block type="putPatternInQueue" id="b,0cYOhj%o4/x%}b~vY.">
+            <value name="message">
+              <block type="text" id="R]juUq%wnx+Z4mVrU3`{">
+                <field name="TEXT">stop</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_print_serveur" id="^qobTNF+:9c(gC_i|]BM">
+                <value name="TEXT">
+                  <block type="text" id="0iqC2{b5bgUA~}.@3)`E">
+                    <field name="TEXT">intro harp flute - - - - - - - - - - - - - - - - - - </field>
+                  </block>
+                </value>
+                <next>
+                  <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+                    <field name="timer">1</field>
+                    <next>
+                      <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+                        <field name="tempo">120</field>
+                        <next>
+                          <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                            <field name="number">1</field>
+                            <next>
+                              <block type="hh_fork" id="Wr%O^qMFj658=+k,=CEf">
+                                <statement name="BODY">
+                                  <block type="set_group_during_ticks" id=";}Q(`k9EO$8a8%HtGU%B">
+                                    <field name="user_group">255</field>
+                                    <field name="number_of_ticks">30</field>
+                                    <value name="GROUPS">
+                                      <block type="variables_get" id="xQ{F/zs_wS.}N9~kb1/H">
+                                        <field name="VAR" id="MylcmI5W~+)m0H#dYbD4">harp</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="set_group_during_ticks" id="n2g0Z|q:+]Yp3Y{jf]$I">
+                                        <field name="user_group">255</field>
+                                        <field name="number_of_ticks">30</field>
+                                        <value name="GROUPS">
+                                          <block type="variables_get" id="9xX!=xF[v{I_kF^]dXb?">
+                                            <field name="VAR" id="jfZl-le?)2vTbMz(AmnD">flute</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="hh_print_serveur" id="QE0BXE%HZ|*/7Q^:|;1L">
+                                    <value name="TEXT">
+                                      <block type="text" id="Mkq?^{f5@O:xSVn^L9^-">
+                                        <field name="TEXT">stop previous net - entree voix</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB">
+                                        <next>
+                                          <block type="putPatternInQueue" id="AT}(ZpQ$ublzs7`.iujU" disabled="true">
+                                            <value name="message">
+                                              <block type="text" id="k0K|rxc9qm}O:?X};1L6">
+                                                <field name="TEXT">stop</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="hh_print_serveur" id=",s(.maw(thOqb%X/*}bX">
+                                                <value name="TEXT">
+                                                  <block type="text" id="]cc816Aeem!qx_NG+Xx!">
+                                                    <field name="TEXT">clean et voice</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="set_group_during_ticks" id="!AZM3OFO2_TO}O5pMkIn" disabled="true">
+                                                    <field name="user_group">255</field>
+                                                    <field name="number_of_ticks">40</field>
+                                                    <value name="GROUPS">
+                                                      <block type="variables_get" id="XM|%=!^S%=`Q[}{k+L-S">
+                                                        <field name="VAR" id="l:AU7UOgWVwd,4~)ik1$">voice</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_print_serveur" id="KM=MM#v^Mr]S024FoKS$">
+                                                        <value name="TEXT">
+                                                          <block type="text" id="t9_[d_a.VJ};(EhALxb)">
+                                                            <field name="TEXT">clean et percu</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="cleanqueues" id=":1xZVFYLJyUH;E)Qrsud">
+                                                            <next>
+                                                              <block type="set_group_during_ticks" id="f,R%T$dJ5/*%!5/J)A$P">
+                                                                <field name="user_group">255</field>
+                                                                <field name="number_of_ticks">40</field>
+                                                                <value name="GROUPS">
+                                                                  <block type="variables_get" id="tF](/x9P4YF**ze+F:Cb">
+                                                                    <field name="VAR" id="6`6q)7syJ+{H1NpsbC#3">percu</field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="hh_print_serveur" id="b#D%/ey}=uU=YO+A6E=,">
+                                                                    <value name="TEXT">
+                                                                      <block type="text" id="q]k4@Av;VV~.!/B=GRAq">
+                                                                        <field name="TEXT">fini</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="cleanqueues" id="Z5v~3+b?N$G0DmR(y%Ev">
+                                                                        <next>
+                                                                          <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
+                                                                            <value name="message">
+                                                                              <block type="text" id="8@914pyNxRN!N)P;:Hxf">
+                                                                                <field name="TEXT">Fin demo Ableton</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

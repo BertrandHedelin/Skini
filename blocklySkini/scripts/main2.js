@@ -696,6 +696,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "hh_suspend"
+          },
+          {
+            "kind": "block",
             "type": "hh_abort"
           },
           {
