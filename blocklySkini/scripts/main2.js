@@ -640,6 +640,10 @@ function init(host) {
           },
           {
             "kind": "block",
+            "type": "hh_sustain_value"
+          },
+          {
+            "kind": "block",
             "type": "hh_await_signal_value"
           },
           {

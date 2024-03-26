@@ -312,7 +312,9 @@ Blockly.JavaScript['hh_if_signal'] = function (block) {
           "val":false,
           "cnt":false
         }),
+        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
         `+ statements_body + `
+        )
       ),
     `
   return code;
@@ -373,7 +375,9 @@ Blockly.JavaScript['hh_if_signal_value'] = function (block) {
           "val":false,
           "cnt":false
         }),
+        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
         `+ statements_body + `
+        )
       ),
     `
   return code;
@@ -4871,6 +4875,62 @@ Blockly.JavaScript['hh_emit_value'] = function (block) {
       {
         "%location":{},
         "%tag":"emit", 
+        "`+ value + `":"` + value + `",
+        "apply":function (){
+          return ((() => {
+            //const `+ value + `=this["` + value + `"];
+            return `+ number_signal_value + `;
+          })());
+        }
+      },
+      hh.SIGACCESS({
+        "signame":"`+ value + `",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
+    `;
+  return code;
+};
+
+
+// NodeSkini
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "hh_sustain_value",
+    "message0": "sustain signal %1 with value %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "SIGNAL",
+        "check": "String"
+      },
+      {
+        "type": "field_number",
+        "name": "Signal_Value",
+        "value": 0
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "Emit",
+    "helpUrl": ""
+  }
+]);
+
+Blockly.JavaScript['hh_sustain_value'] = function (block) {
+  var number_signal_value = block.getFieldValue('Signal_Value');
+  var value_signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
+
+  let value = value_signal.replace(/\'|\(|\)/g, "");
+
+  var code = `
+    hh.SUSTAIN(
+      {
+        "%location":{},
+        "%tag":"sustain", 
         "`+ value + `":"` + value + `",
         "apply":function (){
           return ((() => {
