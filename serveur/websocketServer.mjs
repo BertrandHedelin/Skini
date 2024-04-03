@@ -27,7 +27,8 @@ const require = createRequire(import.meta.url);
 import * as fs from "fs";
 import * as compScore from './computeScore.mjs';
 import * as gameOSC from './gameOSC.mjs';
-import * as oscMidiLocal from './OSCandMidi.mjs'
+import * as oscMidiLocal from './OSCandMidi.mjs';
+import * as saveParam from './saveParam.mjs';
 
 var ipConfig = require('./ipConfig');
 var midiConfig = require("./midiConfig.json");
@@ -35,7 +36,7 @@ var midiConfig = require("./midiConfig.json");
 const decache = require('decache');
 const { stringify } = require('querystring');
 const { Worker } = require('worker_threads');
-const saveParam = require('./saveParam.js');
+//const saveParam = require('./saveParam.js');
 const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.mjs";
