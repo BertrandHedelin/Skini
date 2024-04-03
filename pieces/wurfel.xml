@@ -150,6 +150,24 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="94|zS(f#9Aj=F9[-sLQU" collapsed="true">
@@ -871,6 +889,24 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                         
                                                                         
                                                                         
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
                                                                         </comment>
                                                                         <value name="NAME">
                                                                           <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -921,7 +957,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                                                   </block>
                                                                                                 </value>
                                                                                                 <next>
-                                                                                                  <block type="send_midi_cc" id="=xVaNzb9f`bqx@agVi6O" collapsed="true">
+                                                                                                  <block type="send_midi_cc" id="=xVaNzb9f`bqx@agVi6O">
                                                                                                     <field name="channelMidi">1</field>
                                                                                                     <field name="CCMidi">80</field>
                                                                                                     <field name="valueMidi">0</field>
@@ -982,6 +1018,24 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                     
                                                                     
                                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1210,7 +1264,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                       <block type="hh_sequence" id="2U#.-IM~JzK0BxI7^vAC">
                         <statement name="BODY">
                           <block type="set_tempo" id="1Ewe(R#XnzXfa//Og8,h">
-                            <field name="tempo">90</field>
+                            <field name="tempo">60</field>
                             <next>
                               <block type="set_timer_division" id="?q~N#!)7]M;4y11zzj4[">
                                 <field name="timer">1</field>
@@ -1440,7 +1494,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                 </statement>
                                 <next>
                                   <block type="move_tempo" id="M;5)lITELmIll/)]c6T/">
-                                    <field name="VALUE">2</field>
+                                    <field name="VALUE">4</field>
                                     <field name="LIMIT">10</field>
                                     <field name="EVERY">1</field>
                                     <value name="SIGNAL">

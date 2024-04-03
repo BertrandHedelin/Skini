@@ -33,11 +33,10 @@ var fs = require('fs');
 var express = require('express');
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
-const { fork } = require('child_process');
-var childSimulator;
 
 // Websocket dans le Serveur
 import * as ws from './serveur/websocketServer.mjs';
+import * as oscReceiveDAW from "./serveur/midimix.mjs";
 
 function startSkini() {
 
@@ -53,10 +52,6 @@ function startSkini() {
   } catch(err) {
     console.error(err)
   }
-
-  //var ws = require('./serveur/websocketServer');
-
-  var oscReceiveDAW = require("./serveur/midimix.js");
 
   // Load the necessary modules in the websocket server at launch
   ws.setParameters(oscReceiveDAW);
