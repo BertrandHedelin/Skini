@@ -59,7 +59,8 @@ export function setParameters(param) {
 
 import * as DAW from '../controleDAW.mjs';
 //var DAW = require('../controleDAW');
-var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
+import * as oscMidiLocal from '../OSCandMidi.mjs'
+//var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
 import * as fs from "fs";
 
 export var serv;

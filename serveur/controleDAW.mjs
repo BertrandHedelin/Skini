@@ -1,7 +1,7 @@
 /**
  * @fileOverview Control of the DAW
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 var csv = require('csv-array');
-var oscMidi = require("./OSCandMidi");
+import * as oscMidi from './OSCandMidi.mjs'
 import * as fs from "fs";
 
 var par;

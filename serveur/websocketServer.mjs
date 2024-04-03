@@ -27,8 +27,8 @@ const require = createRequire(import.meta.url);
 import * as fs from "fs";
 import * as compScore from './computeScore.mjs';
 import * as gameOSC from './gameOSC.mjs';
+import * as oscMidiLocal from './OSCandMidi.mjs'
 
-var oscMidiLocal = require('./OSCandMidi');
 var ipConfig = require('./ipConfig');
 var midiConfig = require("./midiConfig.json");
 
@@ -40,7 +40,6 @@ const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.mjs";
 var par;
-var oscMidiLocal;
 var DAW;
 var midimix;
 var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
@@ -93,8 +92,7 @@ import * as groupesClientSon from './autocontroleur/groupeClientsSons.mjs';
  */
 export async function setParameters(midimixage) {
   midimix = midimixage;
-  oscMidiLocal = require('./OSCandMidi');
-
+  //await import('./OSCandMidi.mjs');
   await import('./controleDAW.mjs').then((daw) => {
     DAW = daw;
     groupesClientSon.setMidimix(midimix);
