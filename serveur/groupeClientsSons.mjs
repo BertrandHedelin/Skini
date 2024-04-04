@@ -57,9 +57,9 @@ export function setParameters(param) {
   initGroupeClientsSons();
 }
 
-import * as DAW from '../controleDAW.mjs';
+import * as DAW from './controleDAW.mjs';
 //var DAW = require('../controleDAW');
-import * as oscMidiLocal from '../OSCandMidi.mjs'
+import * as oscMidiLocal from './OSCandMidi.mjs'
 //var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
 import * as fs from "fs";
 
@@ -81,7 +81,7 @@ var groupesSon;
 var groupeName = "";
 
 // On créé ce fichier à partir du xml de Blockly
-var myReactOrchestration = "../../myReact/orchestrationHH.mjs";
+var myReactOrchestration = "../myReact/orchestrationHH.mjs";
 var socketControleur;
 var computeScorePolicy = 0;
 var computeScoreClass = 0;

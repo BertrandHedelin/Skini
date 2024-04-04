@@ -36,7 +36,8 @@ var midiConfig = require("./midiConfig.json");
 const decache = require('decache');
 const { stringify } = require('querystring');
 import { Worker } from 'worker_threads';
-const { fork } = require("child_process");
+import { fork } from "child_process";
+//const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.mjs";
 var par;
@@ -83,7 +84,7 @@ var generatedDir = "./myReact/";
 var sessionPath = ipConfig.sessionPath; //"./pieces/";
 var piecePath = ipConfig.piecePath; //"./pieces/";
 
-import * as groupesClientSon from './autocontroleur/groupeClientsSons.mjs';
+import * as groupesClientSon from './groupeClientsSons.mjs';
 
 /**
  * To load some modules.
@@ -1738,7 +1739,7 @@ maybe an hiphop compile Error`);
             if (!par.synchoOnMidiClock && !par.synchroLink && par.synchroSkini) {
               //setMonTimer(timerSynchro); // Pour un timer dans le thread principal, pas utile avec les workers
               if (debug1) console.log("websocketserver: startAutomate:worker synchro");
-              workerSynchroInit('./serveur/workerSynchro.js', timerSynchro); // Avec un worker
+              workerSynchroInit('./serveur/workerSynchro.mjs', timerSynchro); // Avec un worker
             }
 
             if (par.sensorOSC) {
@@ -1899,7 +1900,7 @@ maybe an hiphop compile Error`);
 
         case "startSimulator":
           if (debug) console.log("Web Socket Server: start Simulator");
-          childSimulator = fork("./client/simulateurListe/simulateurFork.js");
+          childSimulator = fork("./client/simulateurListe/simulateurFork.mjs");
           var message = {
             type: "START_SIMULATOR"
           }

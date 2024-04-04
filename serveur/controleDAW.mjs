@@ -29,7 +29,7 @@ export function setParameters(param) {
   par = param;
 }
 
-import * as groupesClientSon from './autocontroleur/groupeClientsSons.mjs'
+import * as groupesClientSon from './groupeClientsSons.mjs'
 //var groupesClientSon = require('./autocontroleur/groupeClientsSons.mjs');
 const { Socket } = require('dgram');
 

@@ -36,6 +36,7 @@ var dataPort = 3005;
 var midiPort = 3006;
 var miniWiPort = 8888;
 
+// Specific to Interface Z hardware. IP addresses are fixed.
 var serverAddress = "192.168.1.251";
 var interfaceZAddress = "192.168.1.250";
 var interfaceZMidiPort = 1000;
