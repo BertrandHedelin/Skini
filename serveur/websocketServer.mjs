@@ -2,7 +2,7 @@
  * @fileOverview Websocket management. This is the main part of Skini for messages
  * management and control. Something like a main switch.
  * Most of the API and functions here are local.
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.3
+ * @version 1.4
  */
 'use strict'
 import { createRequire } from 'module';
@@ -35,8 +35,7 @@ var midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
 const { stringify } = require('querystring');
-const { Worker } = require('worker_threads');
-//const saveParam = require('./saveParam.js');
+import { Worker } from 'worker_threads';
 const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.mjs";
@@ -1744,7 +1743,7 @@ maybe an hiphop compile Error`);
 
             if (par.sensorOSC) {
               if (debug1) console.log("INFO: webSocketServeur: With Interface Z sensors");
-              workerInterfaceZInit('./serveur/workerInterfaceZ.js',
+              workerInterfaceZInit('./serveur/workerInterfaceZ.mjs',
                 ipConfig.serverIPAddress,
                 ipConfig.interfaceZIPaddress,
                 ipConfig.portOSCFromInterfaceZData,
