@@ -37,7 +37,6 @@ const decache = require('decache');
 const { stringify } = require('querystring');
 import { Worker } from 'worker_threads';
 import { fork } from "child_process";
-//const { fork } = require("child_process");
 
 var defaultOrchestrationName = "orchestrationHH.mjs";
 var par;
@@ -1421,6 +1420,7 @@ maybe an hiphop compile Error`);
 
           // Le fait de faire un require ici, annule la référence de par dans 
           // les autres modules. Il faut faire un reload dans tous les modules.
+
           // await import(decacheParameters  + '?foo=bar' + tempIndex).then((parameters) => {
           //   par = parameters;
           //   reloadParameters(par);
@@ -1428,9 +1428,7 @@ maybe an hiphop compile Error`);
           // tempIndex++;
 
           par = require(decacheParameters);
-
           if(debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
-
           reloadParameters(par);
 
           // On crée le fichier pour son utilisation par l'orchestration.
@@ -1514,7 +1512,6 @@ maybe an hiphop compile Error`);
             status: msgRecu.status
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('groupeClientStatus',JSON.stringify(msg));
           break;
 
         case "ResetMatriceDesPossibles":
@@ -1528,7 +1525,6 @@ maybe an hiphop compile Error`);
             status: false
           }
           serv.broadcast(JSON.stringify(msg));
-          //hop.broadcast('groupeClientStatus',JSON.stringify(mesReponse));
           break;
 
         case "saveBlocklyGeneratedFile":

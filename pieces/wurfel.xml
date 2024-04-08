@@ -185,6 +185,12 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
     
     
     
+    
+    
+    
+    
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="94|zS(f#9Aj=F9[-sLQU" collapsed="true">
@@ -941,6 +947,12 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                         
                                                                         
                                                                         
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
                                                                         </comment>
                                                                         <value name="NAME">
                                                                           <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -1052,6 +1064,12 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                     
                                                                     
                                                                                             
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1510,7 +1528,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                         <next>
                           <block type="hh_fork" id="DCk{:I},6Px=;aXW{vIK">
                             <statement name="BODY">
-                              <block type="hh_sequence" id="QQ+zVl1L2L3UX{#K#JQf" disabled="true">
+                              <block type="hh_sequence" id="QQ+zVl1L2L3UX{#K#JQf">
                                 <statement name="BODY">
                                   <block type="pauseQueues" id="KaO{@5U_kua6R^,.YwFk">
                                     <next>

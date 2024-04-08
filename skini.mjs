@@ -25,11 +25,10 @@ const require = createRequire(import.meta.url);
 
 import path from 'path';
 import { fileURLToPath } from 'url';
+import * as fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-var fs = require('fs');
 var express = require('express');
 var ipConfig = require("./serveur/ipConfig.json");
 var midiConfig = require("./serveur/midiConfig.json");
