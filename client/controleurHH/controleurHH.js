@@ -94,53 +94,44 @@ function initWSSocket(serverIPAddress) {
       default: if (debug) console.log("Le Client reçoit un message inconnu", msgRecu);
     }
   };
-
   ws.onerror = function (event) {
     console.log("controleurHH.js : received error on WS", ws.socket, " ", event);
   }
-
   ws.onclose = function (event) {
   }
 }
 window.initWSSocket = initWSSocket;
 
 function init(host) {
-  let currentButton;
   console.log("init");
   initWSSocket(host);
 
-  function saveBlocksAndGenerateHH() {
-    // Enregistre le fichier Blockly
-    let fichierSelectionne = document.getElementById('saveFile').value;
-    console.log("saveBlocks:", fichierSelectionne);
-    let xmlDom = Blockly.Xml.workspaceToDom(workspace);
-    let pretty = Blockly.Xml.domToPrettyText(xmlDom);
-    console.log("saveBlocks XML :", pretty.length);
-
-    console.log("-------- Début code JS ");
-    var code = Blockly.JavaScript.workspaceToCode(workspace);
-    console.log(code);
-    console.log("--------code JS ");
-
+  function loadHHFile() {
+    let fichierSelectionne = document.getElementById('loadFile').files[0].name;
+    console.log("loadHHFile fichier:", fichierSelectionne);
+    document.getElementById("HHFile").value = fichierSelectionne; //.slice(0, -4);
     var msg = {
-      type: "saveBlocklyGeneratedFile",
-      fileName: fichierSelectionne,
-      xmlBlockly: pretty,
-      text: code
+      type: "loadHHFile",
+      fileName: fichierSelectionne
     }
-
-    DAWTableEnCours = 1;
     ws.send(JSON.stringify(msg));
-  }
-  window.saveBlocksAndGenerateHH = saveBlocksAndGenerateHH;
-
-  function loadBlocks() {
-    console.log("loadBlocks", fichierSelectionne);
+    console.log("loadHHFile", fichierSelectionne);
 
     // To allow a reload of the same file
     document.getElementById('loadFile').value = "";
   }
-  window.loadBlocks = loadBlocks;
+  window.loadHHFile = loadHHFile;
+
+  function compileHH() {
+    let fichierSelectionne = document.getElementById("HHFile").value;
+    console.log("compileHHEditionFile");
+    var msg = {
+      type: "compileHHEditionFile",
+      fileName: fichierSelectionne
+    }
+    ws.send(JSON.stringify(msg));
+  }
+  window.compileHH = compileHH;
 
   function launchSimulator() {
     document.getElementById("launchSimulator").style.display = "none";
@@ -169,21 +160,6 @@ function init(host) {
     ws.send(JSON.stringify(msg));
   }
   cleanQueues = cleanQueues;
-
-  function loadDAW(val) {
-    if (!automateEncours) {
-      console.log("clientControleur:loadDAW:", val);
-      var msg = {
-        type: "compileHH", //"loadDAWTable",
-        value: val - 1, // Pour envoyer un index
-      }
-      DAWTableEnCours = val;
-      ws.send(JSON.stringify(msg));
-    } else {
-      alert("WARNING: Orchestration running, stop before selecting another one.")
-    }
-  }
-  window.loadDAW = loadDAW;
 
   function startAutomate() {
     if (DAWTableEnCours !== 0 && !automateEncours && descriptorLoaded) {
@@ -272,7 +248,5 @@ function init(host) {
     ws.send(JSON.stringify(msg));
   }
   window.saveSessionAs = saveSessionAs;
-
-
 }
 window.init = init;

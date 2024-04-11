@@ -855,7 +855,7 @@ AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
 
 **************************************************************/
 /**
- * Create the hipHop.js orchestration from the blocky generated code.
+ * To get the HH machine. But should be useless.
  * @returns {object} the HipHop.js machine
  */
 var machine;
@@ -876,7 +876,6 @@ export async function makeOneAutomatePossibleMachine() {
     tempIndex++;
     // Pour permettre les broadcasts et autres depuis l'orchestration
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
-
     // C'est là que se fait la machine HipHop.js
     try {
       machine = orchestration.setSignals(par);
@@ -886,7 +885,11 @@ export async function makeOneAutomatePossibleMachine() {
       throw err;
     }
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
-  }).catch(err => console.log("makeOneAutomatePossibleMachine err:", err));;
+  }).catch(err => console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine err:", err));;
+  // Si on met le return dans le then de l'import on ne récupère par la machine.
+  // Je ne comprends pas pourquoi car setsignals et makeSignalsListeners sont synchrones.
+  // C'est comme si le return se faisait avant ces deux fonctions, donc de façon asynchrone.
+  return machine;
 };
 
 let messageLog = {

@@ -47,6 +47,7 @@ var parametersFile;
 var parametersFileGlobal;
 let origine = "./serveur/defaultSkiniParametres.js";
 let defaultSession = "./serveur/defaultSession.csv";
+var HipHopSrc; // Fichier HipHop éditer en texte et à compiler
 let decacheParameters;
 var tempIndex;
 var childSimulator;
@@ -1020,12 +1021,13 @@ function startWebSocketServer() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
       try {
-        await new Promise((resolve, reject) => {
-          groupesClientSon.makeOneAutomatePossibleMachine().then(() => {
+        await new Promise((resolve) => {
+          groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
+            automatePossibleMachine = machine;
             resolve("resolve done!");
           });
         });
-        automatePossibleMachine = groupesClientSon.getMachine();
+        //automatePossibleMachine = groupesClientSon.getMachine();
         if (automatePossibleMachine === undefined) {
           console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
         }
@@ -1156,6 +1158,10 @@ maybe an hiphop compile Error`);
           } catch (err) {
             console.error(err);
           }
+          break;
+
+        case "compileHHEditionFile":
+          if (debug1) console.log("websocketServer: compileHHEditionFile:", msgRecu);
           break;
 
         case "createSession":
@@ -1416,7 +1422,7 @@ maybe an hiphop compile Error`);
           // tempIndex++;
 
           par = require(decacheParameters);
-          if(debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
+          if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
           reloadParameters(par);
 
           // On crée le fichier pour son utilisation par l'orchestration.
@@ -1435,6 +1441,25 @@ maybe an hiphop compile Error`);
             text: "Orchestration loaded"
           }
           ws.send(JSON.stringify(msg));
+          break;
+
+        case "loadHHFile":
+          if (msgRecu.fileName === '') {
+            console.log("WARN: No Hiphop file selected");
+            break;
+          }
+          if (debug1) console.log("INFO: loadHHFile:", msgRecu.fileName);
+          HipHopSrc = msgRecu.fileName;
+
+          let extension = HipHopSrc.slice(-6);
+          if (extension !== ".hh.js") {
+            console.log("ERR: Not an HipHop js file:", HipHopSrc);
+            let msg = {
+              type: "alertBlocklySkini",
+              text: "You try to load a not HipHop JavaScript file : " + HipHopSrc
+            }
+            ws.send(JSON.stringify(msg));
+          }
           break;
 
         case "loadSession":
@@ -1546,7 +1571,7 @@ maybe an hiphop compile Error`);
                 break;
               }
             } else {
-              if(debug) console.log("websocketserveur.js: saveBlocklyGeneratedFile: si OK:", par.groupesDesSons);
+              if (debug) console.log("websocketserveur.js: saveBlocklyGeneratedFile: si OK:", par.groupesDesSons);
             }
           } catch (err) {
             console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());
