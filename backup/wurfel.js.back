@@ -30,7 +30,7 @@ exports.english = true;
 ************************************/
 exports.tempoMax = 3010; // En ms
 exports.tempoMin = 3000; // En ms
-exports.limiteDureeAttente = 21; // En pulsations
+exports.limiteDureeAttente = 20; // En pulsations
 
 /********************************************************
 AUTOMATE

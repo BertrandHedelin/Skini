@@ -24,6 +24,7 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
+import { compile } from "@hop/hiphop/lib/hhc-compiler.mjs";
 import * as fs from "fs";
 import * as compScore from './computeScore.mjs';
 import * as gameOSC from './gameOSC.mjs';
@@ -49,8 +50,11 @@ let origine = "./serveur/defaultSkiniParametres.js";
 let defaultSession = "./serveur/defaultSession.csv";
 var HipHopSrc; // Fichier HipHop éditer en texte et à compiler
 let decacheParameters;
-var tempIndex;
 var childSimulator;
+const targetHH = "./myReact/orchestrationHH.mjs"; // Redondant à revoir
+// Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
+// pour orchestrationHH.js
+var generatedDir = "./myReact/";
 
 // Declarations to move from CJS to ES6
 var _getBroadCastServer, _sendSignalFromDAW, _sendSignalFromMIDI, _sendSignalStopFromMIDI;
@@ -68,10 +72,6 @@ export {
   _getAutomatePossible as getAutomatePossible,
   _setPatternListLength as setPatternListLength
 };
-
-// Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
-// pour orchestrationHH.js
-var generatedDir = "./myReact/";
 
 // Répertoires par défaut, ils sont à fixer dans le fichier de configuration.
 // Où se trouvent les fichiers XML d'orchestration
@@ -805,6 +805,8 @@ function startWebSocketServer() {
   }
   _setPatternListLength = setPatternListLength;
 
+
+
   /*************************************************************************************
     WEB SOCKET MANAGEMENT
   **************************************************************************************/
@@ -1075,12 +1077,91 @@ maybe an hiphop compile Error`);
     }
 
     /**
+   * Load the parameters
+   * @memberof Websocketserver
+   * @function
+   * @inner
+   */
+    function loadParameters(fileName) {
+      // Chargement des paramètres
+      // à partir du fichier de config de la pièce
+      // qui a le même nom que le fichier d'orchestration
+
+      if (debug1) console.log("INFO: loadBlocks: parametersFile: ", fileName);
+      // Attention decache n'utilise pas le même path que parametersFile
+      decacheParameters = "../" + fileName;
+
+      try {
+        if (fs.existsSync(fileName)) {
+          let extension = fileName.slice(-3);
+          if (extension !== ".js") {
+            console.log("ERR: Not an js file:", fileName);
+            let msg = {
+              type: "alertBlocklySkini",
+              text: "Parameter not an JavaScript file " + fileName
+            }
+            ws.send(JSON.stringify(msg));
+            return;
+          }
+        } else {
+          console.log("ERR: No parameter file:", fileName);
+          let msg = {
+            type: "alertBlocklySkini",
+            text: "The parameter file " + fileName + " is not updated, don't run the program before modifying it."
+          }
+          ws.send(JSON.stringify(msg));
+          // Initialise un fichier de parametres par défaut
+          // C'est à dire en copie un dans un parametersFile temporaire
+          try {
+            fs.copyFileSync(origine, fileName);
+          } catch (err) {
+            console.log("websocketServer: Pb ecriture: ", fileName, err);
+          }
+          return;
+        }
+      } catch (err) {
+        console.log("ERR: Pb Reading parameter file:", fileName, err);
+        let msg = {
+          type: "alertBlocklySkini",
+          text: "Pb Reading parameter file " + fileName
+        }
+        ws.send(JSON.stringify(msg));
+        return;
+      }
+
+      decache(decacheParameters);
+
+      // Le fait de faire un require ici, annule la référence de par dans 
+      // les autres modules. Il faut faire un reload dans tous les modules.
+      par = require(decacheParameters);
+      if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
+      reloadParameters(par);
+
+      // On crée le fichier pour son utilisation par l'orchestration.
+      // let destination = "./serveur/skiniParametres.js";
+      // try {
+      //   fs.copyFileSync(fileName, destination);
+      // } catch (err) {
+      //   console.log("Pb ecriture", destination, err);
+      // }
+
+      // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
+      midimix.midimix(automatePossibleMachine);
+
+      msg = {
+        type: "consoleBlocklySkini",
+        text: "Orchestration loaded"
+      }
+      ws.send(JSON.stringify(msg));
+    }
+
+    /**
      * Process the websocket messages. The protocols are here.
      * @memberof Websocketserver
      * @function
      * @inner
      */
-    ws.on('message', function (message) {
+    ws.on('message', async function (message) {
       if (debug) console.log('received: %s', message);
 
       var msgRecu = JSON.parse(message);
@@ -1162,6 +1243,13 @@ maybe an hiphop compile Error`);
 
         case "compileHHEditionFile":
           if (debug1) console.log("websocketServer: compileHHEditionFile:", msgRecu);
+          const fragment = compile(piecePath + HipHopSrc, {});
+          await fragment.output(targetHH);
+          try {
+            compileHH();
+          } catch (err) {
+            console.log("websocketServerSkini:compileHHEditionFile:catch:", err);
+          }
           break;
 
         case "createSession":
@@ -1300,11 +1388,6 @@ maybe an hiphop compile Error`);
           }
           break;
 
-        case "loadDAWTable": // Piloté par le controleur, charge une config et les automates
-          // Controle de l'existence de la table (déclaration du fichier csv) avant de la charger
-          loadDAWTableFunc(msgRecu.value);
-          break;
-
         case "loadBlocks":
           if (msgRecu.fileName === '') {
             console.log("WARN: No orchestration");
@@ -1362,85 +1445,12 @@ maybe an hiphop compile Error`);
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de xml
 
-          // Pour ma mise à jour des parametres dans le browser
+          // Entre autre pour la mise à jour des parametres dans le browser
           parametersFileGlobal = msgRecu.fileName.slice(0, -4) + ".js";
-
           parametersFile = sessionPath + msgRecu.fileName;
+          // Construction du nom à partir du fichier xml
           parametersFile = parametersFile.slice(0, -4) + ".js";
-
-          if (debug) console.log("INFO: loadBlocks: parametersFile: ", parametersFile);
-          // Attention decache n'utilise pas le même path que parametersFile
-          decacheParameters = "../" + parametersFile;
-
-          try {
-            if (fs.existsSync(parametersFile)) {
-              let extension = parametersFile.slice(-3);
-              if (extension !== ".js") {
-                console.log("ERR: Not an js file:", parametersFile);
-                let msg = {
-                  type: "alertBlocklySkini",
-                  text: "Parameter not an JavaScript file " + parametersFile
-                }
-                ws.send(JSON.stringify(msg));
-                break;
-              }
-            } else {
-              console.log("ERR: No parameter file:", parametersFile);
-              let msg = {
-                type: "alertBlocklySkini",
-                text: "The parameter file " + parametersFile + " is not updated, don't run the program before modifying it."
-              }
-              ws.send(JSON.stringify(msg));
-              // Initialise un fichier de parametres par défaut
-              // C'est à dire en copie un dans un parametersFile temporaire
-              try {
-                fs.copyFileSync(origine, parametersFile);
-              } catch (err) {
-                console.log("websocketServer: Pb ecriture: ", parametersFile, err);
-              }
-              break;
-            }
-          } catch (err) {
-            console.log("ERR: Pb Reading parameter file:", parametersFile, err);
-            let msg = {
-              type: "alertBlocklySkini",
-              text: "Pb Reading parameter file " + parametersFile
-            }
-            ws.send(JSON.stringify(msg));
-            break;
-          }
-
-          decache(decacheParameters);
-
-          // Le fait de faire un require ici, annule la référence de par dans 
-          // les autres modules. Il faut faire un reload dans tous les modules.
-
-          // await import(decacheParameters  + '?foo=bar' + tempIndex).then((parameters) => {
-          //   par = parameters;
-          //   reloadParameters(par);
-          // });
-          // tempIndex++;
-
-          par = require(decacheParameters);
-          if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
-          reloadParameters(par);
-
-          // On crée le fichier pour son utilisation par l'orchestration.
-          let destination = "./serveur/skiniParametres.js";
-          try {
-            fs.copyFileSync(sessionPath + msgRecu.fileName.slice(0, -4) + ".js", destination);
-          } catch (err) {
-            console.log("Pb ecriture", destination, err);
-          }
-
-          // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
-          midimix.midimix(automatePossibleMachine);
-
-          msg = {
-            type: "consoleBlocklySkini",
-            text: "Orchestration loaded"
-          }
-          ws.send(JSON.stringify(msg));
+          loadParameters(parametersFile);
           break;
 
         case "loadHHFile":
@@ -1460,6 +1470,18 @@ maybe an hiphop compile Error`);
             }
             ws.send(JSON.stringify(msg));
           }
+
+          // Chargement des paramètres
+          // à partir du fichier de config de la pièce
+          // qui a le même nom que le fichier d'orchestration avec un extension js 
+          // au lieu de hh.js
+
+          // Entre autre pour la mise à jour des parametres dans le browser
+          parametersFileGlobal = msgRecu.fileName.slice(0, -6) + ".js";
+          parametersFile = sessionPath + msgRecu.fileName;
+          // Construction du nom à partir du fichier hh.js
+          parametersFile = parametersFile.slice(0, -6) + ".js";
+          loadParameters(parametersFile);
           break;
 
         case "loadSession":

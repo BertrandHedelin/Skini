@@ -869,7 +869,7 @@ export function getMachine() {
  */
 var tempIndex = 0;
 export async function makeOneAutomatePossibleMachine() {
-  if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine");
+  if (debug1) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", par.groupesDesSons);
   // Recharge l'orchestration depuis le fichier généré par Blockly,
   // fichier éventuellement mis à jour à la main pour test.
   await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {

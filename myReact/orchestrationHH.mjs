@@ -81,6 +81,10 @@ var type0, StartTransSaxo, type1, T72, T56, T75, T40, T83, T18, type2, T6, T82, 
 //
 //
 //
+//
+//
+//
+//
 
 "use strict";
 
@@ -11239,6 +11243,10 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
   //
   //
   //
