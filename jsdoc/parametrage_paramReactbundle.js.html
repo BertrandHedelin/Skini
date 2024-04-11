@@ -27,15 +27,30 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&amp;&amp;require;if(!f&amp;&amp;c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&amp;&amp;require,i=0;i&lt;t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict';
 /**
  * @fileOverview Parametrage in React.js
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
- * @version 1.0
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
- * Il faut aussi: browserify paramReact.js -o paramReactbundle.js
+ * Do also : browserify paramReact.js -o paramReactbundle.js in 
+ * 
+ * @author Bertrand Petit-Hédelin &lt;bertrand@hedelin.fr>
+ * @version 1.0
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see &lt;https://www.gnu.org/licenses/>.
  */
+'use strict';
 
 var _typeof = typeof Symbol === "function" &amp;&amp; typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj &amp;&amp; typeof Symbol === "function" &amp;&amp; obj.constructor === Symbol &amp;&amp; obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -62,6 +77,7 @@ var ws;
 var directMidiON = false;
 var english = false;
 var reactOnPlay = false;
+var pulsationON = false;
 var shufflePatterns = false;
 var nbeDeGroupesClients;
 
@@ -84,8 +100,8 @@ var algoGestionFifo;
 var gameOSCSignals = false;
 
 var sensorOSC = false;
-var tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
-var sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+var tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
@@ -101,6 +117,7 @@ function updateParameters() {
   english = false;
   reactOnPlay = false;
   shufflePatterns = false;
+  pulsationON = false;
   simulatorInAseperateGroup = false;
   useRaspberries = false;
   synchoOnMidiClock = false;
@@ -126,6 +143,10 @@ function updateParameters() {
 
       case "shufflePatterns":
         shufflePatterns = true;
+        break;
+
+      case "pulsationON":
+        pulsationON = true;
         break;
 
       case "useRaspberries":
@@ -213,6 +234,9 @@ function initWSSocket(host) {
         shufflePatterns = par.shufflePatterns;
         document.getElementById("shufflePatterns").checked = shufflePatterns;
 
+        pulsationON = par.pulsationON;
+        document.getElementById("pulsationON").checked = pulsationON;
+
         simulatorInAseperateGroup = par.simulatorInAseperateGroup;
         document.getElementById("simulatorInAseperateGroup").checked = simulatorInAseperateGroup;
 
@@ -271,8 +295,12 @@ function initWSSocket(host) {
           document.getElementById("sensorInit6").value = tempoSensorsInit[5];
           document.getElementById("sensorInit7").value = tempoSensorsInit[6];
           document.getElementById("sensorInit8").value = tempoSensorsInit[7];
+          document.getElementById("sensorInit9").value = tempoSensorsInit[8];
+          document.getElementById("sensorInit10").value = tempoSensorsInit[9];
+          document.getElementById("sensorInit11").value = tempoSensorsInit[10];
+          document.getElementById("sensorInit12").value = tempoSensorsInit[11];
         } else {
-          tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+          tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
 
         if (par.sensorsSensibilities !== undefined) {
@@ -285,8 +313,12 @@ function initWSSocket(host) {
           document.getElementById("sensorSensibily6").value = sensorsSensibilities[5];
           document.getElementById("sensorSensibily7").value = sensorsSensibilities[6];
           document.getElementById("sensorSensibily8").value = sensorsSensibilities[7];
+          document.getElementById("sensorSensibily9").value = sensorsSensibilities[8];
+          document.getElementById("sensorSensibily10").value = sensorsSensibilities[9];
+          document.getElementById("sensorSensibily11").value = sensorsSensibilities[10];
+          document.getElementById("sensorSensibily12").value = sensorsSensibilities[11];
         } else {
-          sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+          sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
         break;
 
@@ -363,6 +395,7 @@ var Jspreadsheet = function (_React$Component) {
       par.english = english;
       par.reactOnPlay = reactOnPlay;
       par.shufflePatterns = shufflePatterns;
+      par.pulsationON = pulsationON;
       par.simulatorInAseperateGroup = simulatorInAseperateGroup;
       par.useRaspberries = useRaspberries;
       par.synchoOnMidiClock = synchoOnMidiClock;
@@ -392,8 +425,12 @@ var Jspreadsheet = function (_React$Component) {
         par.tempoSensorsInit[5] = document.getElementById("sensorInit6").value;
         par.tempoSensorsInit[6] = document.getElementById("sensorInit7").value;
         par.tempoSensorsInit[7] = document.getElementById("sensorInit8").value;
+        par.tempoSensorsInit[8] = document.getElementById("sensorInit9").value;
+        par.tempoSensorsInit[9] = document.getElementById("sensorInit10").value;
+        par.tempoSensorsInit[10] = document.getElementById("sensorInit11").value;
+        par.tempoSensorsInit[11] = document.getElementById("sensorInit12").value;
       } else {
-        par.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0];
+        par.tempoSensorsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       }
 
       if (document.getElementById("sensorSensibily1").value !== '') {
@@ -405,8 +442,12 @@ var Jspreadsheet = function (_React$Component) {
         par.sensorsSensibilities[5] = document.getElementById("sensorSensibily6").value;
         par.sensorsSensibilities[6] = document.getElementById("sensorSensibily7").value;
         par.sensorsSensibilities[7] = document.getElementById("sensorSensibily8").value;
+        par.sensorsSensibilities[8] = document.getElementById("sensorSensibily9").value;
+        par.sensorsSensibilities[9] = document.getElementById("sensorSensibily10").value;
+        par.sensorsSensibilities[10] = document.getElementById("sensorSensibily11").value;
+        par.sensorsSensibilities[11] = document.getElementById("sensorSensibily12").value;
       } else {
-        par.sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0];
+        par.sensorsSensibilities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       }
 
       var msg = {
@@ -464,7 +505,7 @@ module.exports={
   "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "192.168.1.260",
+  "remoteIPAddressGame": "192.168.1.251",
   "interfaceZIPaddress": "192.168.1.250",
   "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
@@ -495,13 +536,13 @@ module.exports={
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 13:52:08 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Apr 08 2024 09:59:57 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

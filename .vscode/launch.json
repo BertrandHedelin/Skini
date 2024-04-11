@@ -2,15 +2,15 @@
   "version": "0.2.0",
   "configurations": [
       {
-          "type": "pwa-node",
+          "type": "node",
           "request": "launch",
           "name": "Launch URL Shortener",
           "skipFiles": [
               "<node_internals>/**"
           ],
           "runtimeArgs": [
-            "skini.mjs",
-            //"./pieces/trouveLaPercuNode.js"
+            //"./tests/hh1.3/testRecompHH.mjs"
+            "skini.mjs"
           ],
           "program": "${workspaceFolder}/",
       }

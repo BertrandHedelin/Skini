@@ -22,7 +22,7 @@
  * <BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
  * <BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
  *de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.1
+ * @version 1.4
 */
 'use strict'
 import { createRequire } from 'module';
@@ -58,9 +58,7 @@ export function setParameters(param) {
 }
 
 import * as DAW from './controleDAW.mjs';
-//var DAW = require('../controleDAW');
-import * as oscMidiLocal from './OSCandMidi.mjs'
-//var oscMidiLocal = require('../OSCandMidi'); // Pour OSC vers Game
+import * as oscMidiLocal from './OSCandMidi.mjs'; // Pour OSC vers Game
 import * as fs from "fs";
 
 export var serv;
@@ -98,7 +96,6 @@ function initGroupeClientsSons() {
   for (var i = 0; i < groupesClient.length; i++) {
     groupesClient[i] = new Array();
   }
-
   matriceDesPossibles = new Array(par.nbeDeGroupesClients);
 }
 
@@ -858,7 +855,7 @@ AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
 
 **************************************************************/
 /**
- * Create and compile the hipHop.js orchestration from the blocky generated code.
+ * Create the hipHop.js orchestration from the blocky generated code.
  * @returns {object} the HipHop.js machine
  */
 var machine;
@@ -876,15 +873,11 @@ export async function makeOneAutomatePossibleMachine() {
   // Recharge l'orchestration depuis le fichier généré par Blockly,
   // fichier éventuellement mis à jour à la main pour test.
   await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {
-    // if (orchestration.setServ === undefined) {
-    //   console.log("ERR: groupecliensSons: makeAutomatePossibleMachine:", "Pb on acces to:", myReactOrchestration);
-    //   throw "Pb on acces to:" + myReactOrchestration;
-    // }
     tempIndex++;
     // Pour permettre les broadcasts et autres depuis l'orchestration
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
 
-    // C'est là que se fait la compilation HipHop.js
+    // C'est là que se fait la machine HipHop.js
     try {
       machine = orchestration.setSignals(par);
       makeSignalsListeners(machine);

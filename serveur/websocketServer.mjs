@@ -1011,33 +1011,21 @@ function startWebSocketServer() {
     }
 
     /**
-     * Compile the HipHop Programm.
+     * Build the HipHop Programm.
      * @memberof Websocketserver
      * @function
      * @inner
      */
-    var prevAutomate;
-
     async function compileHH() {
       DAWTableReady = false;
       if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
-
-      // Not OK for the signals with reload ?
       try {
         await new Promise((resolve, reject) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then(() => {
             resolve("resolve done!");
           });
         });
-        
         automatePossibleMachine = groupesClientSon.getMachine();
-        if (debug) console.log("INFO: websocketServer: Break:", automatePossibleMachine);
-
-        if (prevAutomate === automatePossibleMachine) {
-          console.log("------------------------- Pas de changement")
-        }
-        prevAutomate = automatePossibleMachine;
-
         if (automatePossibleMachine === undefined) {
           console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
         }

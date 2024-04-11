@@ -20,7 +20,7 @@
  * @version 1.4
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  */
-import {createRequire} from 'module';
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 import path from 'path';
@@ -48,7 +48,7 @@ function startSkini() {
         console.error("WARN: Pas de log précédents:", err)
       }
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 
@@ -108,6 +108,10 @@ function startSkini() {
   // Avec /controleur ça plante le client ???
   app.get('/contr', function (req, res) {
     res.sendFile(path.join(__dirname + '/client/controleur/controleur.html'));
+  });
+
+  app.get('/contrHH', function (req, res) {
+    res.sendFile(path.join(__dirname + '/client/controleurHH/controleurHH.html'));
   });
 
   app.get('/skini', function (req, res) {

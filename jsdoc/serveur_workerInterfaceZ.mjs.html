@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: serveur/workerInterfaceZ.mjs</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: serveur/workerInterfaceZ.mjs</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview 
+ * Worker to manage the Interface Z
+ * @author Bertrand Petit-Hédelin &lt;bertrand@hedelin.fr>
+ * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see &lt;https://www.gnu.org/licenses/>.
+ * @version 1.4
+ */
+'use strict'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+import  { parentPort } from 'worker_threads';
+var osc = require('osc-min');
+import * as dgram from "dgram";
+var sockData; // = dgram.createSocket('udp4');
+var sockMidi; // = dgram.createSocket('udp4');
+var sockMiniWI;
+
+var debug = true;
+var debug1 = true;
+
+var dataPort = 3005;
+var midiPort = 3006;
+var miniWiPort = 8888;
+
+// Specific to Interface Z hardware. IP addresses are fixed.
+var serverAddress = "192.168.1.251";
+var interfaceZAddress = "192.168.1.250";
+var interfaceZMidiPort = 1000;
+
+var debug = false;
+var debug1 = true;
+var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,];
+var tempoSensors = tempoSensorsInit.slice();
+var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var sensorsSensibilities = [100, 100, 100, 100, 100, 200, 200, 200, 100, 200, 200, 200];
+var sensorsRunning = false;
+
+console.log("INFO: workerInterfaceZ: Start Interface Z worker");
+
+function displaySignal(sensor, value) {
+  process.stdout.write(sensor.toString() + ': ');
+  for (var i = 0; i &lt; value; i++) {
+    process.stdout.write("*");
+  }
+  console.log(value);
+}
+
+function displaySignalMiniWi(value) {
+  var val;
+  for (var j = 0; j &lt; 4; j++) {
+
+    val = value[j] / 100;
+    if (val !== 0) {
+      process.stdout.write(j + 8 + ': ');
+      for (var i = 0; i &lt; val; i++) {
+        process.stdout.write("*");
+      }
+      console.log(val);
+    }
+  }
+}
+
+function closeOSCsockets() {
+  try {
+    if (sockData !== undefined) sockData.close();
+    if (sockMidi !== undefined) sockMidi.close();
+    if (sockMiniWI !== undefined) sockMiniWI.close();
+  } catch (err) {
+    console.log("ERR: workerInterfaceZ: closeOSCsockets: ", err);
+  }
+}
+
+// Data received from the Server launching the worker
+parentPort.onmessage = function (mess) {
+  var result = mess.data[0];
+  if (debug) console.log("workerInterfaceZ: message:", mess.data);
+
+  switch (result) {
+
+    case "startInterfaceZ":
+      serverAddress = mess.data[1];
+      interfaceZAddress = mess.data[2];
+      dataPort = mess.data[3];
+      midiPort = mess.data[4];
+      miniWiPort = mess.data[5];
+      interfaceZMidiPort = mess.data[6];
+      tempoSensorsInit = mess.data[7];
+      sensorsSensibilities = mess.data[8];
+
+      if (debug1) console.log('INFO: workerInterfaceZ: receive message: Start Worker startInterfaceZ',
+        serverAddress, interfaceZAddress, dataPort, midiPort, miniWiPort, interfaceZMidiPort,
+        tempoSensorsInit, sensorsSensibilities);
+
+      const message = 'message';
+      parentPort.postMessage(message);
+
+      sensorsRunning = true;
+      initWorker();
+      break;
+
+    case "stopInterfaceZ":
+      if (debug1) console.log('INFO: workerInterfaceZ: receive message: Stop OSC sockets');
+      sensorsRunning = false;
+      break;
+
+    default:
+      break;
+  }
+}
+
+function initWorker() {
+  /**
+   * Process the OSC messages of the Data port from the Interface Z cards.
+   */
+  if (debug) console.log("initWorker Interface Z");
+
+  // Necessary if relaunched
+  closeOSCsockets();
+
+  sockData = dgram.createSocket("udp4", function (msg, rinfo) {
+    var message;
+    var messageToSend;
+
+    try {
+      message = osc.fromBuffer(msg); // Message OSC recu
+      if (debug) {
+        console.log("Z socket reçoit OSC: [", message.address + " : " +
+          message.args[0].value + " : " +
+          message.args[1].value + " : " +
+          message.args[2].value + " : " +
+          message.args[3].value + " : " +
+          message.args[4].value + " : " +
+          message.args[5].value + " : " +
+          message.args[6].value + " : " +
+          message.args[7].value + "]");
+      }
+      switch (message.address) {
+        case "/INTERFACEZ/RC":
+          for (var i = 0; i &lt; 8; i++) {
+            if (tempoSensorsInit[i] === 0) { // Dont process this sensor
+              //continue;
+              if (debug) console.log("workerInterfaceZ: Dont process this sensor[", i, "]");
+            }
+            else if (tempoSensors[i] > 1) {
+              tempoSensors[i]--;
+            } else {
+              if (debug) console.log("workerInterfaceZ: tempoSensors[", i, "] = 1");
+              if (
+                message.args[i].value &lt; previousSensorsValues[i] - sensorsSensibilities[i] ||
+                message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
+                if (debug1) displaySignal(i, Math.round(message.args[i].value / 100));
+
+                messageToSend = {
+                  type: "INTERFACEZ_RC" + i,
+                  sensor: i,
+                  value: Math.round(message.args[i].value)
+                }
+                if (sensorsRunning) parentPort.postMessage(messageToSend);
+              }
+              previousSensorsValues[i] = message.args[i].value;
+              tempoSensors[i] = tempoSensorsInit[i];
+              if (debug) console.log("workerInterfaceZ: tempoSensors :", tempoSensors, "tempoSensorsInit :", tempoSensorsInit);
+            }
+          }
+          break;
+
+        default:
+          console.log("Interface Z: socket DATA reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+          break;
+      }
+      return;
+    } catch (error) {
+      console.log("Interface Z: ERR dans réception OSC :", message.args, error);
+      return;
+    }
+  });
+
+  /**
+  * Process the OSC messages of the Midi port from the Interface Z cards.
+  */
+  sockMidi = dgram.createSocket("udp4", function (msg, rinfo) {
+    var message;
+    var buf;
+
+    try {
+      message = osc.fromBuffer(msg); // Message OSC recu
+      // console.log(osc.fromBuffer(msg));
+      if (debug) {
+        //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
+        console.log("Z socket reçoit OSC: [", message.address + " : " +
+          message.args[0].value + " : " +
+          message.args[1].value + " : " +
+          message.args[2].value + "]");
+      }
+      switch (message.address) {
+        case "/OSCSYSEXC":
+          break;
+
+        case "/OSCNOTEON":
+          console.log("Z socket reçoit OSC: [", message.address + " : " +
+            message.args[0].value + " : " +
+            message.args[1].value + " : " +
+            message.args[2].value + "]");
+
+          // Exemple de reroutage du MIDI IN converti en OSC vers MIDI OUT
+          // buf = osc.toBuffer(
+          //   {
+          //     address: "/OSCNOTEON",
+          //     args: [
+          //       { type: 'integer', value: message.args[0].value },
+          //       { type: 'integer', value: message.args[1].value },
+          //       { type: 'integer', value: message.args[2].value }]
+          //   }
+          // );
+          // Le port 1000 est fixe.
+          //sockMidi.send(buf, 0, buf.length, 1000, "192.168.1.250");
+          break;
+
+        default:
+          console.log("OSCetZ.js: socket MIDI reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+          break;
+      }
+      return;
+    } catch (error) {
+      console.log("OSCetZ.js: ERR dans réception OSC :", message.args, error);
+      return;
+    }
+  });
+
+  /**
+   * Process the OSC messages of the MiniWi port.
+   * We consider that the MinWi sensors start from 8 to 11.
+   * 0 to 7 is for the 8 Ana/8 Num OSC Card
+   */
+  sockMiniWI = dgram.createSocket("udp4", function (msg, rinfo) {
+    var message;
+    var messMiniWi = [0, 0, 0, 0];
+    var messageToSend;
+
+    try {
+      message = osc.fromBuffer(msg); // Message OSC recu
+      // console.log(osc.fromBuffer(msg));
+      if (debug) {
+        //console.log("OSCetZ.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value , "]");
+        console.log("Z socket reçoit OSC from MiniWi: [", message.address + " -> " +
+          message.args[0].value + " : " +
+          message.args[1].value + " : " +
+          message.args[2].value + " : " +
+          message.args[3].value + "]");
+      }
+      switch (message.address) {
+        case "/CA":
+          // Process the Sensor of the MiniWi as sensors from 8 to 11
+          for (var i = 8; i &lt; 12; i++) {
+            if (tempoSensors[i] === 0) { // 0 means "Do not process the sensor"
+            }
+            else if (tempoSensors[i] === 1) {
+              if (
+                message.args[i - 8].value &lt; previousSensorsValues[i] - sensorsSensibilities[i] ||
+                message.args[i - 8].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
+                messMiniWi[i - 8] = message.args[i - 8].value;
+
+                messageToSend = {
+                  type: "INTERFACEZ_RC" + i,
+                  sensor: i,
+                  value: Math.round(message.args[i - 8].value)
+                }
+                if (sensorsRunning) parentPort.postMessage(messageToSend);
+                if(debug) console.log("workerInterfaceZ.js: socket MiniWi post:", messageToSend);
+              }
+              previousSensorsValues[i] = message.args[i - 8].value;
+              tempoSensors[i] = tempoSensorsInit[i];
+            } else {
+              tempoSensors[i]--;
+            }
+          }
+          displaySignalMiniWi(messMiniWi);
+          break;
+
+        default:
+          console.log("workerInterfaceZ.js: socket MiniWi reçoit OSC: [", message.address + " : " + (message.args[0].value), "]");
+          break;
+      }
+      return;
+    } catch (error) {
+      console.log("workerInterfaceZ.js: ERR dans réception OSC :", message.args, error);
+      return;
+    }
+  });
+
+  sockData.on('listening', function () {
+    var addressData = sockData.address();
+    if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressData.address + ":" + addressData.port);
+  });
+
+  sockMidi.on('listening', function () {
+    var addressMidi = sockMidi.address();
+    if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
+  });
+
+  sockMiniWI.on('listening', function () {
+    var addressMidi = sockMiniWI.address();
+    if (debug1) console.log('INFO: OSCetZ.js: UDP Server listening on ' + addressMidi.address + ":" + addressMidi.port);
+  });
+
+  try {
+    sockData.bind(dataPort, serverAddress);
+    sockMidi.bind(midiPort, serverAddress);
+    sockMiniWI.bind(miniWiPort, serverAddress);
+  } catch (err) {
+    console.log("Pb on binding socket in workerInterfaceZ");
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="midimix.html">midimix</a></li><li><a href="Websocketserver.html">Websocketserver</a></li></ul><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#alertInfoScoreOFF">alertInfoScoreOFF</a></li><li><a href="global.html#alertInfoScoreON">alertInfoScoreON</a></li><li><a href="global.html#arrayToCSV">arrayToCSV</a></li><li><a href="global.html#cleanChoiceList">cleanChoiceList</a></li><li><a href="global.html#cleanQueue">cleanQueue</a></li><li><a href="global.html#cleanQueues">cleanQueues</a></li><li><a href="global.html#closeSocket">closeSocket</a></li><li><a href="global.html#computeScoreDMFN">computeScoreDMFN</a></li><li><a href="global.html#computeScoreInclass">computeScoreInclass</a></li><li><a href="global.html#createMatriceDesPossibles">createMatriceDesPossibles</a></li><li><a href="global.html#displayMatriceDesPossibles">displayMatriceDesPossibles</a></li><li><a href="global.html#displayQueues">displayQueues</a></li><li><a href="global.html#displaySession">displaySession</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#evaluateSequenceOfPatterns">evaluateSequenceOfPatterns</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getAbletonLinkStatus">getAbletonLinkStatus</a></li><li><a href="global.html#getAllClips">getAllClips</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getClientsEncours">getClientsEncours</a></li><li><a href="global.html#getComputeScoreClass">getComputeScoreClass</a></li><li><a href="global.html#getComputeScorePolicy">getComputeScorePolicy</a></li><li><a href="global.html#getDelayEventDAW">getDelayEventDAW</a></li><li><a href="global.html#getGroupClient">getGroupClient</a></li><li><a href="global.html#getGroupesClient">getGroupesClient</a></li><li><a href="global.html#getGroupesClientLength">getGroupesClientLength</a></li><li><a href="global.html#getGroupeSons">getGroupeSons</a></li><li><a href="global.html#getGroupScore">getGroupScore</a></li><li><a href="global.html#getIdsClient">getIdsClient</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getNameGroupeSons">getNameGroupeSons</a></li><li><a href="global.html#getNbeDeGroupesSons">getNbeDeGroupesSons</a></li><li><a href="global.html#getNombreDePatternsPossibleEnListe">getNombreDePatternsPossibleEnListe</a></li><li><a href="global.html#getOnGoingGroupeSons">getOnGoingGroupeSons</a></li><li><a href="global.html#getPatternFromNote">getPatternFromNote</a></li><li><a href="global.html#getPatternNameFromNote">getPatternNameFromNote</a></li><li><a href="global.html#getPreSequence">getPreSequence</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getSignalFromGroup">getSignalFromGroup</a></li><li><a href="global.html#getStatusInMatriceDesPossibles">getStatusInMatriceDesPossibles</a></li><li><a href="global.html#getTimerDivision">getTimerDivision</a></li><li><a href="global.html#getTotalGameScore">getTotalGameScore</a></li><li><a href="global.html#getWinnerPseudo">getWinnerPseudo</a></li><li><a href="global.html#getWinnerScore">getWinnerScore</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#informSelecteurOnMenuChange">informSelecteurOnMenuChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initBroadCastServer">initBroadCastServer</a></li><li><a href="global.html#initGroupeClientsSons">initGroupeClientsSons</a></li><li><a href="global.html#initMidiPort">initMidiPort</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#loadDAWTable">loadDAWTable</a></li><li><a href="global.html#machine">machine</a></li><li><a href="global.html#makeSignalsListeners">makeSignalsListeners</a></li><li><a href="global.html#nbeDeSpectateursConnectes">nbeDeSpectateursConnectes</a></li><li><a href="global.html#ordonneFifo">ordonneFifo</a></li><li><a href="global.html#pauseQueue">pauseQueue</a></li><li><a href="global.html#pauseQueues">pauseQueues</a></li><li><a href="global.html#playAndShiftEventDAW">playAndShiftEventDAW</a></li><li><a href="global.html#playOSCRasp">playOSCRasp</a></li><li><a href="global.html#pushEventDAW">pushEventDAW</a></li><li><a href="global.html#putIdInGroupClient">putIdInGroupClient</a></li><li><a href="global.html#putInClientsEnCours">putInClientsEnCours</a></li><li><a href="global.html#putPatternBefore">putPatternBefore</a></li><li><a href="global.html#putPatternBetween">putPatternBetween</a></li><li><a href="global.html#putPatternInQueue">putPatternInQueue</a></li><li><a href="global.html#rankWinners">rankWinners</a></li><li><a href="global.html#reloadParameters">reloadParameters</a></li><li><a href="global.html#removeIdInGroupClient">removeIdInGroupClient</a></li><li><a href="global.html#resetClientEnCours">resetClientEnCours</a></li><li><a href="global.html#resetMatrice">resetMatrice</a></li><li><a href="global.html#resetMatriceDesPossibles">resetMatriceDesPossibles</a></li><li><a href="global.html#resumeQueue">resumeQueue</a></li><li><a href="global.html#resumeQueues">resumeQueues</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#sendAllNoteOff">sendAllNoteOff</a></li><li><a href="global.html#sendBankSelect">sendBankSelect</a></li><li><a href="global.html#sendControlChange">sendControlChange</a></li><li><a href="global.html#sendNoteOff">sendNoteOff</a></li><li><a href="global.html#sendNoteOn">sendNoteOn</a></li><li><a href="global.html#sendOSCGame">sendOSCGame</a></li><li><a href="global.html#sendOSCProcessing">sendOSCProcessing</a></li><li><a href="global.html#sendOSCRasp">sendOSCRasp</a></li><li><a href="global.html#sendProcessing">sendProcessing</a></li><li><a href="global.html#sendProgramChange">sendProgramChange</a></li><li><a href="global.html#sendSceneLumiere">sendSceneLumiere</a></li><li><a href="global.html#setAutomatePossible">setAutomatePossible</a></li><li><a href="global.html#setClientsEncours">setClientsEncours</a></li><li><a href="global.html#setComputeScoreClass">setComputeScoreClass</a></li><li><a href="global.html#setComputeScorePolicy">setComputeScorePolicy</a></li><li><a href="global.html#setGroupesSon">setGroupesSon</a></li><li><a href="global.html#setInMatriceDesPossibles">setInMatriceDesPossibles</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li><li><a href="global.html#setMatriceDesPossibles">setMatriceDesPossibles</a></li><li><a href="global.html#setMidimix">setMidimix</a></li><li><a href="global.html#setNbeDeGroupesSons">setNbeDeGroupesSons</a></li><li><a href="global.html#setOrchestration">setOrchestration</a></li><li><a href="global.html#setParameters">setParameters</a></li><li><a href="global.html#setpatternListLength">setpatternListLength</a></li><li><a href="global.html#setPreSequence">setPreSequence</a></li><li><a href="global.html#setSocketControleur">setSocketControleur</a></li><li><a href="global.html#setTickOnControler">setTickOnControler</a></li><li><a href="global.html#setTimerDivision">setTimerDivision</a></li><li><a href="global.html#setWebSocketServer">setWebSocketServer</a></li><li><a href="global.html#startWebSocketServer">startWebSocketServer</a></li><li><a href="global.html#tempIndex">tempIndex</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateSimulatorParameters">updateSimulatorParameters</a></li><li><a href="global.html#wasPatternAlreadySelected">wasPatternAlreadySelected</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Apr 08 2024 10:24:14 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

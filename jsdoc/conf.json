@@ -1,0 +1,9 @@
+{
+  "source": {
+      "includePattern": ".+\\.(m?js(doc|x)?)$"
+  },
+  "opts": {
+      "destination": "./jsdoc/"
+  },
+  "plugins": ["plugins/markdown"]
+}

@@ -30,11 +30,27 @@
 'use strict';
 /**
  * @fileOverview Configurateur in React.js
- * @author Bertrand Hédelin  © Copyright 2017-2022, B. Petit-Hédelin
- * @version 1.2
- * To compile JSX to js, launch this in the terminal, in ./client/configurateur
+ * compile JSX to js, launch this in the terminal, in ./client/configurateur
  * npx babel --watch src --out-dir . --presets react-app/prod
- * Il faut aussi: browserify configReact.js -o configReactbundle.js
+ * Do also: browserify configReact.js -o configReactbundle.js
+ * 
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see &lt;https://www.gnu.org/licenses/>.
+ * 
+ * @version 1.2
+ * @author Bertrand Petit-Hédelin &lt;bertrand@hedelin.fr>
  */
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -149,7 +165,7 @@ function initWSSocket(host) {
         var options = {
           data: msgRecu.descriptors,
           minDimensions: [14, 14],
-          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 80, title: 'Group' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }, { type: 'text', width: 80, title: 'Level' }]
+          columns: [{ type: 'text', width: 80, title: 'Note' }, { type: 'text', width: 80, title: 'Note stop' }, { type: 'text', width: 80, title: 'Flag' }, { type: 'text', width: 120, title: 'Text' }, { type: 'text', width: 120, title: 'Sound file' }, { type: 'text', width: 80, title: 'Instrument' }, { type: 'text', width: 80, title: 'Slot' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'Free' }, { type: 'text', width: 90, title: 'Group Index' }, { type: 'text', width: 80, title: 'Duration' }, { type: 'text', width: 100, title: 'IP address' }, { type: 'text', width: 80, title: 'Buffer num' }, { type: 'text', width: 80, title: 'Level' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
         break;
@@ -286,22 +302,30 @@ var Jspreadsheet = function (_React$Component2) {
 //ReactDOM.render(&lt;LikeButton />, domContainer);
 },{"../../serveur/ipConfig.json":2}],2:[function(require,module,exports){
 module.exports={
-  "remoteIPAddressImage": "localhost",
-  "remoteIPAddressSound": "localhost",
+  "remoteIPAddressImage": "192.168.1.251",
+  "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "localhost",
-  "serverIPAddress": "192.168.1.75",
+  "remoteIPAddressGame": "192.168.1.251",
+  "interfaceZIPaddress": "192.168.1.250",
+  "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,
   "OutPortOSCMIDItoDAW": 12000,
-  "portOSCToGame": 1000,
-  "portOSCFromGame": 3005,
-  "distribSequencerPort": 8888,
+  "portOSCToGame": 1010,
+  "portOSCFromGame": 3010,
+  "portOSCFromInterfaceZData": 3005,
+  "portOSCFromInterfaceZMidi": 3006,
+  "portOSCFromInterfaceZMiniWi": 8888,
+  "portOSCToInterfaceZ": 1000,
+  "distribSequencerPort": 8899,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
-  "inportLumiere": 9000
+  "inportLumiere": 9000,
+  "sessionPath": "./pieces/",
+  "piecePath" : "./pieces/"
 }
+
 },{}]},{},[1]);
 </code></pre>
         </article>
@@ -313,13 +337,13 @@ module.exports={
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Sortable.html">Sortable</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_detectNearestEmptySortable">_detectNearestEmptySortable</a></li><li><a href="global.html#_getInsertDirection">_getInsertDirection</a></li><li><a href="global.html#_typeof">_typeof</a></li><li><a href="global.html#documentExists">documentExists</a></li><li><a href="global.html#formula">formula</a></li><li><a href="global.html#getChild">getChild</a></li><li><a href="global.html#getListOfPatternsSelected">getListOfPatternsSelected</a></li><li><a href="global.html#getRect">getRect</a></li><li><a href="global.html#getRelativeScrollOffset">getRelativeScrollOffset</a></li><li><a href="global.html#index">index</a></li><li><a href="global.html#indexOfObject">indexOfObject</a></li><li><a href="global.html#insertMultiDragClones">insertMultiDragClones</a></li><li><a href="global.html#isScrolledPast">isScrolledPast</a></li><li><a href="global.html#lastChild">lastChild</a></li><li><a href="global.html#selectOnePattern">selectOnePattern</a></li><li><a href="global.html#setListOfTypes">setListOfTypes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Oct 26 2022 13:52:08 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Apr 08 2024 09:59:57 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

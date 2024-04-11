@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="./blocklySkini/styles/index.css">
+  <meta charset="UTF-8" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width">
+  <title>HipHop for Skini </title>
+</head>
+
+<body onload="init(window.location.hostname);">
+  <table>
+    <thead>
+      <tr>
+        <td>
+          <header class="mdl-color--cyan-500">
+            <h2 class="mode-maker">Skini HipHop <i id="synchro">@</i></h2>
+
+            <div id="menubar">
+              <label for="loadFile" class="small button">Load HH and config.</label>
+              <input type="file" id="loadFile" oninput="loadBlocks();" />
+
+<!--               <button class="small button" id="buttonSave" onclick="saveBlocksAndGenerateHH();">Compile
+                HH </button>
+              <input class="inputText" type="text" id="saveFile" /> -->
+
+              <button class="small button" id="buttonCreateSession" onclick="createSession()">Create descr.</button>
+
+              <label for="loadSession" class="small button">Load descr.</label>
+              <input type="file" id="loadSession" onchange="loadSession();" />
+
+              <button class="small button" id="buttonSaveSessionAs" onclick="saveSessionAs()">Save descr. as </button>
+
+              <input class="inputText" type="text" id="loadSessionTxt" />
+
+              <button id="buttonStopAutomate" class="small button red" style="display:none"
+                onclick="stopAutomate();">Stop</button>
+              <button id="buttonStartAutomate" class="small button blue" onclick="startAutomate();">Start</button>
+
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/contr','Controleur',
+              'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Controler</button>
+
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/conf','Patterns',
+              'height=400, width=800,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Patterns</button>
+
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/score','Score',
+              'height=400, width=700,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Score</button>
+
+              <button type="button" class="small button" onclick="window.open('http://' + window.location.hostname + ':' + window.location.port + '/param','Parameters',
+              'height=400, width=600,  top=200, left=300, toolbar=no, menubar=no, directories=no, location=no, resizable=yes, scrollbars=yes, status=no'); 
+              return false;">Parameters</button>
+
+              <button class="small button" id="launchSimulator" onclick="launchSimulator()">Start Simulator</button>
+              <button id="stopSimulator" class="small button red" style="display:none" onclick="stopSimulator();">Stop
+                Simulator</button>
+
+              <input class="inputText" type="text" id="consoleArea" />
+            </div>
+          </header>
+        </td>
+      </tr>
+    </thead>
+  </table>
+
+  <script src="./client/controleurHH/controleurHH.js"></script>
+</body>
+
+</html>
