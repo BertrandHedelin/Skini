@@ -771,17 +771,9 @@ Blockly.JavaScript['run_tank'] = function (block) {
 hh.RUN({
     "%location":{"filename":"","pos":1},
     "%tag":"run",
-    "module":`+ listTanks[i] + `, //{"filename":"","pos":2}),
+    "module":`+ listTanks[i] + `,
     "autocomplete":true
   }),
-
-/*  hh.PAUSE(
-    {
-      "%location":{},
-      "%tag":"yield"
-    }
-  ),*/
-
   `;
   }
   return code;
@@ -4833,7 +4825,8 @@ Blockly.JavaScript['hh_declare_signal'] = function (block) {
   hh.SIGNAL({
     "%location":{},
     "direction":"` + dropdown_type + `",
-    "name":"` + value + `"
+    "name":"` + value + `",
+    "combine_func":(x, y) => x + y
   }),
 `;
   return code;

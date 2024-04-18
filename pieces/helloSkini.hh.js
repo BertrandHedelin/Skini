@@ -3,7 +3,7 @@
 
 import { ReactiveMachine } from "@hop/hiphop";
 
-var par;
+//var par;
 var midimix;
 var oscMidiLocal;
 var gcs;
@@ -80,23 +80,23 @@ var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 export function setSignals(param) {
-  par = param;
+  //par = param;
 
-  for (var i=0; i < param.groupesDesSons.length; i++) {
+/*   for (var i=0; i < param.groupesDesSons.length; i++) {
     if(param.groupesDesSons[i][0] !== "") {
       var signalName = param.groupesDesSons[i][0] + "OUT";
 
       if(debug1) console.log("Signal Orchestration:", signalName);
 
-/*       var signal = hh.SIGNAL({
+     var signal = hh.SIGNAL({
         "%location":{},
         "direction":"OUT",
         "name":signalName,
         "init_func":function (){return [false, -1];}
-      }); */
+      });
       signals.push(signal);
     }
-  }
+  } */
 }
 
 const Program = hiphop module() {

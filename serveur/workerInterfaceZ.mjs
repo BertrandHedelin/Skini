@@ -53,10 +53,10 @@ console.log("INFO: workerInterfaceZ: Start Interface Z worker");
 
 function displaySignal(sensor, value) {
   process.stdout.write(sensor.toString() + ': ');
-  for (var i = 0; i < value; i++) {
+  for (var i = 0; i < value/100; i++) {
     process.stdout.write("*");
   }
-  console.log(value);
+  console.log(" ", value);
 }
 
 function displaySignalMiniWi(value) {
@@ -69,7 +69,7 @@ function displaySignalMiniWi(value) {
       for (var i = 0; i < val; i++) {
         process.stdout.write("*");
       }
-      console.log(val);
+      console.log(value[j]);
     }
   }
 }
@@ -162,7 +162,7 @@ function initWorker() {
               if (
                 message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
                 message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
-                if (debug1) displaySignal(i, Math.round(message.args[i].value / 100));
+                if (debug1) displaySignal(i, Math.round(message.args[i].value));
 
                 messageToSend = {
                   type: "INTERFACEZ_RC" + i,

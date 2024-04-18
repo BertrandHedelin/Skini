@@ -669,7 +669,7 @@ function startWebSocketServer() {
         if (debug) console.log("INFO: webSocketServer.js: reactAutomatePossible 2:", signal);
         automatePossibleMachine.react(signal);
       } catch (err) {
-        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react:", signal, err.toString());
+        console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react for signal:", signal, err.toString());
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
@@ -1130,7 +1130,6 @@ maybe an hiphop compile Error`);
       }
 
       decache(decacheParameters);
-
       // Le fait de faire un require ici, annule la référence de par dans 
       // les autres modules. Il faut faire un reload dans tous les modules.
       par = require(decacheParameters);

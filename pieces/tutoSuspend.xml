@@ -45,18 +45,37 @@
                       </block>
                     </value>
                     <next>
-                      <block type="hh_sustain_value" id="Dp{)r/*#K?{35dB%Wmz7">
-                        <field name="Signal_Value">0</field>
+                      <block type="hh_abort" id="pIteh?9Wnb=7D$Xvf0Xf">
+                        <field name="TIMES">5</field>
                         <value name="SIGNAL">
-                          <block type="variables_get" id="VA1-t,lgXWw4Ogc-V*y1">
-                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                          <block type="variables_get" id="7sqdOGGE6ko-G6IYKbLn">
+                            <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
                           </block>
                         </value>
+                        <statement name="BODY">
+                          <block type="hh_print_serveur" id="`=w5|RF;#U@sH(8#)ih(">
+                            <value name="TEXT">
+                              <block type="text" id=",G74}y*4=I2S31IwLVf0">
+                                <field name="TEXT">foo suspends</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_sustain_value" id="Dp{)r/*#K?{35dB%Wmz7">
+                                <field name="Signal_Value">0</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="VA1-t,lgXWw4Ogc-V*y1">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
                         <next>
                           <block type="hh_print_serveur" id="H!W7F]0$g6^e3tOeLPp)">
                             <value name="TEXT">
                               <block type="text" id="*N1p|kX/o,``fT{k[O#~">
-                                <field name="TEXT">foo stop</field>
+                                <field name="TEXT">foo stops suspend</field>
                               </block>
                             </value>
                           </block>
