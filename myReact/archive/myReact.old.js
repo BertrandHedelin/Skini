@@ -216,12 +216,12 @@ exports.printProgram = printProgram;
  
 var instrIndex = 0;
 
-function createInstruction(name, signal, signalValue, count, action, nextInstr){
+function createInstruction(name, signal, nowval, count, action, nextInstr){
 	var instruction = {
 		name: name,
 		signal: signal,
 		signalActivated: false,
-		signalValue: signalValue,
+		nowval: nowval,
 		count: 0,
 		countMax: count,
 		action: action,
@@ -232,7 +232,7 @@ function createInstruction(name, signal, signalValue, count, action, nextInstr){
 	};
 
 	if(debug) console.log("createInstruction", instruction.name, instruction.signal,
-		instruction.signalValue, instruction.index);
+		instruction.nowval, instruction.index);
 
 	instrIndex++;
 	return instruction;
@@ -312,7 +312,7 @@ function execInstruction(command, branch){
 						// absorbé par cette await
 						if(debug) console.log("await dans la branche:", branch);
 						setSignal(branch, command.signal,
-							command.signalValue, false);
+							command.nowval, false);
 						// Brule la commande
 						command.burnt = true;
 						return true;
@@ -338,7 +338,7 @@ function execInstruction(command, branch){
 						// pour éviter la prise en compte du signal
 						// absorbé par cette await
 						setSignal(branch, command.signal, 
-							command.signalValue, false);
+							command.nowval, false);
 						// Brule la commande
 						command.burnt = true;
 						return true;
@@ -349,14 +349,14 @@ function execInstruction(command, branch){
 				}
 
 			case "emit":
-				if(debug) console.log("-- emit --", command.signal, command.signalValue, command.index);
+				if(debug) console.log("-- emit --", command.signal, command.nowval, command.index);
 				// Une sorte de broadcast du signal
 				// qui consiste à mettre à jour tous les signaux
 				// command.signal qui se trouvent dans les instructions
-				activateSignal(command.signal, command.signalValue);
+				activateSignal(command.signal, command.nowval);
 
 				// Inspiré de HipHop. Assicié une action à une emission dans le programme.
-				playEventListener(command.signal, command.signalValue);
+				playEventListener(command.signal, command.nowval);
 
 				if(debug) console.log("-- emit activé : ", command.signal, command.burnt);
 				command.burnt = true;
@@ -377,7 +377,7 @@ function execInstruction(command, branch){
 						// pour éviter la prise en compte du signal
 						// absorbé par cette every
 						//setSignal(command.nextInstr, command.signal, 
-						//	command.signalValue, false);
+						//	command.nowval, false);
 
 						command.signalActivated = false;
 

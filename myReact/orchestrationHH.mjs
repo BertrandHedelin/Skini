@@ -112,6 +112,8 @@ var type0, StartTransSaxo, type1, T72, T56, T75, T40, T83, T18, type2, T6, T82, 
 //
 //
 //
+//
+//
 
 "use strict";
 
@@ -195,14 +197,14 @@ export function setSignals(param) {
 
   for (var i=0; i < param.groupesDesSons.length; i++) {
     if(param.groupesDesSons[i][0] !== "") {
-      var signalName = param.groupesDesSons[i][0] + "OUT";
+      var signame = param.groupesDesSons[i][0] + "OUT";
 
-      if(debug) console.log("Signal Orchestration:", signalName);
+      if(debug) console.log("Signal Orchestration:", signame);
 
       var signal = hh.SIGNAL({
         "%location":{},
         "direction":"OUT",
-        "name":signalName,
+        "name":signame,
         "init_func":function (){return [false, -1];}
       });
       signals.push(signal);
@@ -212,14 +214,14 @@ export function setSignals(param) {
   // Création des signaux IN de sélection de patterns
   for (var i=0; i < param.groupesDesSons.length; i++) {
     if(param.groupesDesSons[i][0] !== "") {
-      var signalName = param.groupesDesSons[i][0] + "IN";
+      var signame = param.groupesDesSons[i][0] + "IN";
 
-      if(debug) console.log("Signal Orchestration:", signalName);
+      if(debug) console.log("Signal Orchestration:", signame);
 
       var signal = hh.SIGNAL({
         "%location":{},
         "direction":"IN",
-        "name":signalName
+        "name":signame
       });
       signals.push(signal);
     }
@@ -11270,6 +11272,8 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
   //
   //
   //

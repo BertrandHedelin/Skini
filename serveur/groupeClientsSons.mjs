@@ -652,8 +652,6 @@ export function setNbeDeGroupesSons(groupesSons) {
  * @returns {number} group number
  */
 function getGroupeSons(signal) {
-
-  if (debug1) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal);
   var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
   if (debug) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
@@ -914,20 +912,20 @@ function makeSignalsListeners(machine) {
 
       machine.addEventListener(signal, function (evt) {
         // Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-        if (debug1) console.log("groupeClientSons: listerner:signal:", evt.signalName, evt);
+        if (debug) console.log("groupeClientSons: listerner:signal:", evt.signame, evt);
 
-        var groupeSonLocal = getGroupeSons(evt.signalName);
+        var groupeSonLocal = getGroupeSons(evt?.signame || evt.signame);
         if (groupeSonLocal == -1) {
-          console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signalName);
+          console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signame);
           return;
         }
         if (debug) console.log("groupeClientSons.mjs:Addeventlisterner: groupeSons:", groupeSonLocal,
-          "signalName:", evt.signalName,
-          "groupeClientsNo:", evt.signalValue[1],
-          "statut:", evt.signalValue[0],
-          "signalValue:", evt.signalValue);
+          "signame:", evt.signame,
+          "groupeClientsNo:", evt.nowval[1],
+          "statut:", evt.nowval[0],
+          "nowval:", evt.nowval);
 
-        if (setInMatriceDesPossibles(evt.signalValue[1], groupeSonLocal, evt.signalValue[0]) === -1) {
+        if (setInMatriceDesPossibles(evt.nowval[1], groupeSonLocal, evt.nowval[0]) === -1) {
           return;
         }
 
@@ -935,8 +933,8 @@ function makeSignalsListeners(machine) {
         var message = {
           type: "setInMatrix",
           son: groupeSonLocal,
-          groupe: evt.signalValue[1],
-          status: evt.signalValue[0]
+          groupe: evt.nowval[1],
+          status: evt.nowval[0]
         }
         //console.log("groupecliensSons:socketControleur automate:", socketControleur);
         if (socketControleur !== undefined) {
@@ -947,7 +945,7 @@ function makeSignalsListeners(machine) {
           }
         }
         // Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
-        var messageScrut = [evt.signalValue[1], groupeSonLocal, evt.signalValue[0]];
+        var messageScrut = [evt.nowval[1], groupeSonLocal, evt.nowval[0]];
         var msg = {
           type: "setInMatriceDesPossibles",
           value: messageScrut
@@ -967,8 +965,8 @@ function makeSignalsListeners(machine) {
         var signal = par.gameOSCOut[i];
         if(debug1) console.log("Signal OSC ajouté:", signal);
         machine.addEventListener( signal , function(evt) {
-          if(debug1) console.log("groupeClientsSons:Emission d'une commande OSC depuis orchestration:", evt.signalName);
-          oscMidiLocal.sendOSCGame(evt.signalName, evt.signalValue);
+          if(debug1) console.log("groupeClientsSons:Emission d'une commande OSC depuis orchestration:", evt.signame);
+          oscMidiLocal.sendOSCGame(evt.signame, evt.nowval);
         });
       }
     }*/
@@ -983,8 +981,8 @@ function makeListener(machine) {
       var signal = par.gameOSCOut[i];
       if(debug) console.log("Signal OSC ajouté:", signal);
       machine.addEventListener( signal , function(evt) {
-        if(debug) console.log("groupeClientsSons:Emission d'une commande OSC depuis orchestration:", evt.signalName);
-        oscMidiLocal.sendOSCGame(evt.signalName, evt.signalValue);
+        if(debug) console.log("groupeClientsSons:Emission d'une commande OSC depuis orchestration:", evt.signame);
+        oscMidiLocal.sendOSCGame(evt.signame, evt.nowval);
       });
     }
   }
@@ -998,13 +996,13 @@ function makeListener(machine) {
 
     // Mise à jour du suivi des longueurs de listes
     for (var i=0; i < nombreDePatternsPossibleEnListe.length; i++){
-      if(	nombreDePatternsPossibleEnListe[i][1] === evt.signalValue[1]){
-        nombreDePatternsPossibleEnListe[i][0] = evt.signalValue[0];
+      if(	nombreDePatternsPossibleEnListe[i][1] === evt.nowval[1]){
+        nombreDePatternsPossibleEnListe[i][0] = evt.nowval[0];
         sendMessage(nombreDePatternsPossibleEnListe);
         return;
       }
     }
-    nombreDePatternsPossibleEnListe.push([evt.signalValue[0], evt.signalValue[1]]);
+    nombreDePatternsPossibleEnListe.push([evt.nowval[0], evt.nowval[1]]);
     sendMessage(nombreDePatternsPossibleEnListe);
   });
 
