@@ -653,6 +653,7 @@ export function setNbeDeGroupesSons(groupesSons) {
  */
 function getGroupeSons(signal) {
 
+  if (debug1) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal);
   var signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
   if (debug) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
@@ -913,7 +914,7 @@ function makeSignalsListeners(machine) {
 
       machine.addEventListener(signal, function (evt) {
         // Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
-        if (debug) console.log("groupeClientSons: listerner:signal:", evt.signalName);
+        if (debug1) console.log("groupeClientSons: listerner:signal:", evt.signalName, evt);
 
         var groupeSonLocal = getGroupeSons(evt.signalName);
         if (groupeSonLocal == -1) {

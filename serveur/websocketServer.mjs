@@ -670,6 +670,9 @@ function startWebSocketServer() {
         automatePossibleMachine.react(signal);
       } catch (err) {
         console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react for signal:", signal, err.toString());
+
+        throw err;
+
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
