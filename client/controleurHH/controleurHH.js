@@ -13,7 +13,7 @@ var workspace;
 var prog;
 var websocketServeurPort = 8383;
 
-var DAWTableEnCours = 0;
+var DAWTableEnCours = 1;  // Est-ce bien utile pour HH !! à revoir globalement
 var automateEncours = false;
 var descriptorLoaded = false;
 

@@ -3,26 +3,26 @@
 
 import { ReactiveMachine } from "@hop/hiphop";
 
-//var par;
-var midimix;
-var oscMidiLocal;
-var gcs;
-var DAW;
-var serveur;
-var tick;
+//let par;
+let midimix;
+let oscMidiLocal;
+let gcs;
+let DAW;
+let serveur;
+let signals;
 
 // Avec des valeurs initiales
-var CCChannel = 1;
-var CCTempo = 100;
-var tempoMax = 160;
-var tempoMin = 40;
-var tempoGlobal = 60;
+let CCChannel = 1;
+let CCTempo = 100;
+let tempoMax = 160;
+let tempoMin = 40;
+let tempoGlobal = 60;
 
-var debug = false;
-var debug1 = true;
+let debug = false;
+let debug1 = true;
 
-export function setServ(ser, daw, groupeCS, oscMidi, mix){
-  if(debug) console.log("hh_ORCHESTRATION: setServ");
+export function setServ(ser, daw, groupeCS, oscMidi, mix) {
+  if (debug) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -30,91 +30,102 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
   midimix = mix;
 }
 
-function setTempo(value){
+function setTempo(value) {
   tempoGlobal = value;
 
-  if(midimix.getAbletonLinkStatus()) {
-    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
+  if (midimix.getAbletonLinkStatus()) {
+    if (debug) console.log("ORCHESTRATION: set tempo Link:", value);
     midimix.setTempoLink(value);
     return;
   }
-  if ( value > tempoMax || value < tempoMin) {
+  if (value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
     return;
   }
-  var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
+  let tempo = Math.round(127 / (tempoMax - tempoMin) * (value - tempoMin));
   if (debug) {
-    console.log("Set tempo blockly:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW() );
+    console.log("Set tempo blockly:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW());
   }
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
-var tempoValue = 0;
-var tempoRythme = 0;
-var tempoLimit = 0;
-var tempoIncrease = true;
-var transposeValue = 0;
-//var ratioTranspose = 1.763;
-//var offsetTranspose = 63.5;
+let tempoValue = 0;
+let tempoRythme = 0;
+let tempoLimit = 0;
+let tempoIncrease = true;
+let transposeValue = 0;
+let ratioTranspose = 1763 / 1000;
+let offsetTranspose = 635 / 10;
 
-function moveTempo(value, limit){
-  if(tempoLimit >= limit){
+
+function moveTempo(value, limit) {
+  if (tempoLimit >= limit) {
     tempoLimit = 0;
     tempoIncrease = !tempoIncrease;
   }
 
-  if(tempoIncrease){
+  if (tempoIncrease) {
     tempoGlobal += value;
-  }else{
+  } else {
     tempoGlobal -= value;
   }
-  if(debug) console.log("moveTempo:", tempoGlobal);
+  if (debug) console.log("moveTempo:", tempoGlobal);
   setTempo(tempoGlobal);
   tempoLimit++;
 }
 
-// Création des signaux OUT de contrôle de la matrice des possibles
-// Ici et immédiatement.
-var signals = [];
-var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
-var tickCounter = 0;
+function creationInterfaces(groupes) {
+  if (groupes !== undefined) {
+    return `out ${groupes.map(function (k) { 
+      console.log(k[0]);
+      return k[0] + "OUT";
+     })}; in ${groupes.map(function (k) { 
+      console.log(k[0]);
+      return k[0] + "IN";
+     })};
+    `
+   }
+}
 
 export function setSignals(param) {
-  //par = param;
+  var i = 0;
+  let interText =  creationInterfaces(param.groupesDesSons);
+  console.log("inter:", interText);
 
-/*   for (var i=0; i < param.groupesDesSons.length; i++) {
-    if(param.groupesDesSons[i][0] !== "") {
-      var signame = param.groupesDesSons[i][0] + "OUT";
+  hiphop interface groupes {out group1OUT, group2OUT; in group1IN, group2IN;};
+  //hiphop interface groupes interText;
 
-      if(debug1) console.log("Signal Orchestration:", signame);
+  const Program = hiphop module() implements groupes {
+  //const Program = hiphop module() {
+    in A, B, R;
+    out O, P;
+    in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
+    in stopResevoir, stopMoveTempo;
 
-     var signal = hh.SIGNAL({
-        "%location":{},
-        "direction":"OUT",
-        "name":signame,
-        "init_func":function (){return [false, -1];}
-      });
-      signals.push(signal);
-    }
-  } */
-}
-
-const Program = hiphop module() {
-  in A, B, R;
-  out O, P;
-  do {
-     fork {
-      await(A.now);
-        emit P();
+    await (start.now);
+  
+    fork {
+      abort(halt.now){
+        every(tick.now){
+          host{ console.log("tick from HH 2", i++); }
+        }
+      }
+      host{ console.log("Reçu Halt"); }
     } par {
-      await(B.now);
+      do {
+       fork {
+          await (A.now);
+          emit P();
+        } par {
+          await (B.now);
+        }
+       emit O();
+       host{ console.log("aaaa"); }
+      } every(R.now)
     }
-     emit O();
-     host{ console.log("aaaa"); }
-  } every(R.now)
-}
-
-export function getMachine(){
-  const prg = new ReactiveMachine(Program, "ABRO");
+  }
+  
+  const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 }
+

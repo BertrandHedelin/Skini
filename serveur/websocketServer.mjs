@@ -670,13 +670,11 @@ function startWebSocketServer() {
         automatePossibleMachine.react(signal);
       } catch (err) {
         console.log("ERROR: webSocketServer.js: reactAutomatePossible: Error on react for signal:", signal, err.toString());
-
-        throw err;
-
         var msg = {
           type: "alertBlocklySkini",
           text: err.toString()
         }
+        throw err;
         //serv.broadcast(JSON.stringify(msg));
         //return false;
       }
@@ -1244,13 +1242,24 @@ maybe an hiphop compile Error`);
           break;
 
         case "compileHHEditionFile":
-          if (debug1) console.log("websocketServer: compileHHEditionFile:", msgRecu);
-          const fragment = compile(piecePath + HipHopSrc, {});
-          await fragment.output(targetHH);
+
+          if (debug1) console.log("websocketServer: compileHHEditionFile:", msgRecu,
+            ":", piecePath + HipHopSrc, ":", targetHH);
+
+          try {
+            const fragment = compile(piecePath + HipHopSrc, {});
+            await fragment.output(targetHH);
+            await fragment.sourcemap(targetHH);
+          } catch (err) {
+            console.log("websocketServerSkini:compileHHEditionFile:fragment:", err);
+            throw err;
+          }
+
           try {
             compileHH();
           } catch (err) {
-            console.log("websocketServerSkini:compileHHEditionFile:catch:", err);
+            console.log("websocketServerSkini:compileHHEditionFile:compileHH:", err);
+            throw err;
           }
           break;
 
