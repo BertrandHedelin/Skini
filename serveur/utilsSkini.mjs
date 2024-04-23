@@ -27,7 +27,7 @@ import { ReactiveMachine } from "@hop/hiphop";
 export function creationInterfacesOUT(groupes) {
   if (groupes !== undefined) {
     return groupes.map(function (k) {
-      return k[0] + "OUT";
+         return k[0] + "OUT";
     })
   };
 }
@@ -35,7 +35,7 @@ export function creationInterfacesOUT(groupes) {
 export function creationInterfacesIN(groupes) {
   if (groupes !== undefined) {
     return groupes.map(function (k) {
-      return k[0] + "IN";
+        return k[0] + "IN";
     })
   };
 }
@@ -90,3 +90,11 @@ export function alertInfoScoreON(message, serveur) {
   }
   serveur.broadcast(JSON.stringify(msg));
 }
+
+export function alertInfoScoreOFF(serveur) {
+  var msg = {
+    type: 'alertInfoScoreOFF',
+  }
+  serveur.broadcast(JSON.stringify(msg));
+}
+

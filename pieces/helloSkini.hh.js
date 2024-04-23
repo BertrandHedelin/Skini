@@ -43,47 +43,79 @@ export function setSignals(param) {
   var i = 0;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
-  console.log("inter:", interTextIN, interTextOUT);
+  var IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
+    "INTERFACEZ_RC3", "INTERFACEZ_RC4", "INTERFACEZ_RC5", "INTERFACEZ_RC6",
+    "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
-  const Program = hiphop module() {
-    in A, B, R;
-    out O, P;
-    in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
-    in stopResevoir, stopMoveTempo;
-    out ... ${ interTextOUT };
-    in ... ${ interTextIN };
+  console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
-    await(start.now);
-    host{utilsSkini.addSceneScore(1, serveur);}
-    host{utilsSkini.alertInfoScoreON("Skini HH", serveur);}
+  hiphop module sensorIZ(name) {
+    in sensorIZ, tick;
+    loop{
+      await (sensorIZ.now);
+      //host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", sensorIZ.nowval ); }
+      //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
 
-    emit group1OUT([true, 0]);
-
-    fork {
-      abort(halt.now){
-        every(tick.now){
-          host{
-            console.log("tick from HH", i++);
-            gcs.setTickOnControler(i);
-          }
-        }
+      if( sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000) {
+        host{utilsSkini.alertInfoScoreON(name + ": Zone 1", serveur);}
+        host{ DAW.putPatternInQueue(name + "-1"); }
+       }
+      if( sensorIZ.nowval[1] < 2999 && sensorIZ.nowval[1] > 2000) {
+        host{utilsSkini.alertInfoScoreON(name + " : Zone 2", serveur);}
+        host{ DAW.putPatternInQueue(name + "-2"); }
       }
-      emit group1OUT([false, 0]);
-      host{ console.log("Reçu Halt"); }
-    } par {
-      do {
-       fork {
-          await(A.now);
-          emit P();
-        } par {
-          await(B.now);
-        }
-       emit O();
-       host{ console.log("aaaa"); }
-      } every(R.now)
+      if( sensorIZ.nowval[1] < 1999 && sensorIZ.nowval[1] > 1000) {
+        host{utilsSkini.alertInfoScoreON(name + " : Zone 3", serveur);}
+        host{ DAW.putPatternInQueue(name + "-3"); }
+      }
+      if( sensorIZ.nowval[1] < 999 && sensorIZ.nowval[1] > 500) {
+        host{utilsSkini.alertInfoScoreON(name + ": Zone 4", serveur);}
+        host{ DAW.putPatternInQueue(name + "-4"); }
+      }
+      await  count (4,tick.now);
     }
   }
 
+  const Program = hiphop module() {
+
+    in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
+    in stopResevoir, stopMoveTempo;
+    in ... ${ IZsignals };
+    out ... ${ interTextOUT };
+    in ... ${ interTextIN };
+
+    await(tick.now);
+    await(start.now);
+    host{ utilsSkini.addSceneScore(1, serveur); }
+    host{ utilsSkini.alertInfoScoreON("Skini HH", serveur); }
+
+    emit sensor1OUT([true, 0]);
+    abort(halt.now){
+      fork {
+        every(tick.now){
+          host{
+            //console.log("tick from HH", i++);
+            gcs.setTickOnControler(i++);
+          }
+        }
+        emit sensor0OUT([false, 0]);
+        host{ console.log("Reçu Halt"); }
+        host{ utilsSkini.alertInfoScoreOFF(serveur); }
+      } par {
+        run sensorIZ("sensor0") {INTERFACEZ_RC0 as sensorIZ, tick as tick};
+      } par {
+        run sensorIZ("sensor1") {INTERFACEZ_RC1 as sensorIZ, tick as tick};
+      } par {
+        run sensorIZ("sensor2") {INTERFACEZ_RC2 as sensorIZ, tick as tick};
+      } par {
+        run sensorIZ("sensor3") {INTERFACEZ_RC3 as sensorIZ, tick as tick};
+      } par {
+        run sensorIZ("sensor4") {INTERFACEZ_RC4 as sensorIZ, tick as tick};
+      } par {
+        run sensorIZ("sensor5") {INTERFACEZ_RC5 as sensorIZ, tick as tick};
+      }
+    }
+  }
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 }
