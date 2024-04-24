@@ -64,7 +64,7 @@ export function setSignals(param) {
     host{utilsSkini.addSceneScore(1, serveur);}
     host{utilsSkini.alertInfoScoreON("Skini HH", serveur);}
 
-    emit group1OUT([true, 0]);
+    emit sensor0OUT([true, 0]);
     host{ DAW.putPatternInQueue("sensor0-1");}
 
     fork {
@@ -76,11 +76,11 @@ export function setSignals(param) {
           }
         }
       }
-      emit group1OUT([false, 0]);
+      emit sensor0OUT([false, 0]);
       host{ console.log("Reçu Halt"); }
       host{utilsSkini.alertInfoScoreOFF(serveur);}
     } par {
-      do {
+      every(INTERFACEZ_RC0.now) {
         //host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
         //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
         if( INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
@@ -90,13 +90,13 @@ export function setSignals(param) {
         if( INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur);}
         }
-        if( INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
+        else if( INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 3", serveur);}
         }
-        if( INTERFACEZ_RC0.nowval[1] < 999 && INTERFACEZ_RC0.nowval[1] > 500) {
+        else if( INTERFACEZ_RC0.nowval[1] < 999 && INTERFACEZ_RC0.nowval[1] > 500) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 4", serveur);}
         }
-      } every(INTERFACEZ_RC0.now)
+      }
     }
   }
 
