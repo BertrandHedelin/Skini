@@ -32,6 +32,8 @@ let offsetTranspose = 635 / 10;
 let debug = false;
 let debug1 = true;
 
+const Instruments = [ "sensor2", "sensor3", "sensor4" ];
+
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
@@ -39,6 +41,59 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   gcs = groupeCS;
   oscMidiLocal = oscMidi;
   midimix = mix;
+}
+
+function makeAwait(instruments, groupeClient) {
+  return hiphop fork ${ instruments.map(val => hiphop {
+     await (this[`${val}IN`].now);
+     emit ${`${val}OUT`}([false, groupeClient]);
+     host{ console.log("---------------------------- makeAwait", instruments, groupeClient)}
+  })}
+}
+
+function makeReservoir(groupeClient, instrument, serv, gcs) {
+  return hiphop ${
+      hiphop { 
+        laTrappe: {
+        //abort immediate (stopReservoir.now) { // To kill  the tank
+            //yield;
+            
+            host {
+              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
+              var msg = {
+                type: 'startTank',
+                value:instrument[0]
+              }
+              serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
+            }
+            ${instrument.map(val => hiphop {
+              emit ${`${val}OUT`}([true, groupeClient])})
+            }
+            
+            host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true);}
+            ${makeAwait(instrument, groupeClient)}
+            host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
+            break  laTrappe;
+        }
+
+        ${instrument.map(val => hiphop {
+          emit ${`${val}OUT`}([false, groupeClient])})
+        }
+
+        host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
+        host { 
+          console.log("--- ABORT RESERVOIR:", instrument[0]);
+          var msg = {
+            type: 'killTank',
+            value:instrument[0]
+          }
+          serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
+        }
+        
+        //}
+      //}
+    }
+  }
 }
 
 export function setSignals(param) {
@@ -85,6 +140,7 @@ export function setSignals(param) {
         //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
         if( INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur);}
+          emit sensor2IN();
           //host{ DAW.putPatternInQueue("sensorO-1");}
         }
         if( INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
@@ -97,6 +153,11 @@ export function setSignals(param) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 4", serveur);}
         }
       }
+    } par {
+      yield;
+      ${makeReservoir(1, Instruments, serveur, gcs)}
+      //${utilsSkini.makeAwait(Instruments, 1)}
+      //${makeAwait(Instruments, 0)}
     }
   }
 

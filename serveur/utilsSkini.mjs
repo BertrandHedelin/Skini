@@ -23,6 +23,7 @@
 "use hopscript"
 
 import { ReactiveMachine } from "@hop/hiphop";
+import { format } from "util";
 
 export function creationInterfacesOUT(groupes) {
   if (groupes !== undefined) {
@@ -39,6 +40,61 @@ export function creationInterfacesIN(groupes) {
     })
   };
 }
+
+
+// export function makeAwait(instruments, groupeClient) {
+//   return hiphop fork ${ instruments.map(val => hiphop {
+//      await (this[`${val}IN`].nowval);
+//      emit ${`${val}OUT`}(${val}); //([false, groupeClient]);
+//      host{ gcs.informSelecteurOnMenuChange(groupeClient, val, false)};
+//   }) }
+// }
+
+// export function makeAwait(instruments, groupeClient ) {
+//   return hiphop fork ${ instruments.map(val => hiphop {
+//      await (this[`${val}IN`].nowval);
+//      emit ${`${val}OUT`}([false, groupeClient]);
+//   }) }
+// }
+
+/*
+function makeReservoir(groupeClient, instrument, serv, gsc) {
+  return hiphop 
+    laTrappe: {
+      abort immediate (stopReservoir.now) { // To kill  the tank
+      host { 
+       console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
+       serv.broadcast('startTank', instrument[0] ); // Pour les gestions des tanks dans l'affichage de la partition "score"
+      }
+      ${ instrument.map( function(val) {
+            return hiphop ${
+              emit ${`${val}OUT`}([true, groupeClient]);
+            }
+          }
+        )
+      }
+      host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true); 	 }
+      ${makeAwait(instrument, groupeClient)}
+      host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
+      break  laTrappe;
+   }
+
+   ${instrument.map( function(val) {
+        return hiphop ${
+          emit ${`${val}OUT`}([false, groupeClient]);
+        }
+        }
+      )
+   }
+
+   host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
+   hop { 
+     console.log("--- ABORT RESERVOIR:", instrument[0]);
+     serv.broadcast('killTank', instrument[0] ); // Pour les gestions des tanks dans l'affichage de la partition "score"
+    }
+ }
+}
+*/
 
 export function setTempo(value) {
   tempoGlobal = value;
