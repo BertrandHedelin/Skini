@@ -55,9 +55,7 @@ function makeReservoir(groupeClient, instrument, serv, gcs) {
   return hiphop ${
       hiphop { 
         laTrappe: {
-        //abort immediate (stopReservoir.now) { // To kill  the tank
-            //yield;
-            
+        abort immediate (stopReservoir.now) { // To kill  the tank
             host {
               console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
               var msg = {
@@ -90,10 +88,16 @@ function makeReservoir(groupeClient, instrument, serv, gcs) {
           serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
         }
         
-        //}
-      //}
+      }
     }
   }
+}
+
+var reservoirSensor = hiphop module (tick, stopReservoir) { // Pourquoi faut-il avoir ces signaux en paramètres ??
+  in tick, stopReservoir;
+  in ... ${ Instruments.map(i => `${i}IN`) };
+  out ... ${ Instruments.map(i => `${i}OUT`) };
+  ${makeReservoir(1, Instruments, serveur, gcs)}
 }
 
 export function setSignals(param) {
@@ -107,9 +111,8 @@ export function setSignals(param) {
   console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
   const Program = hiphop module() {
-
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
-    in stopResevoir, stopMoveTempo;
+    inout stopReservoir, stopMoveTempo;
     in ... ${IZsignals};
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
@@ -126,7 +129,7 @@ export function setSignals(param) {
       abort(halt.now){
         every(tick.now){
           host{
-            console.log("tick from HH", i++);
+            //console.log("tick from HH", i++);
             gcs.setTickOnControler(i);
           }
         }
@@ -145,19 +148,20 @@ export function setSignals(param) {
         }
         if( INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur);}
+          //emit sensor3IN();
+          emit stopReservoir();
         }
         else if( INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 3", serveur);}
         }
         else if( INTERFACEZ_RC0.nowval[1] < 999 && INTERFACEZ_RC0.nowval[1] > 500) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 4", serveur);}
+          emit sensor4IN();
         }
       }
     } par {
       yield;
-      ${makeReservoir(1, Instruments, serveur, gcs)}
-      //${utilsSkini.makeAwait(Instruments, 1)}
-      //${makeAwait(Instruments, 0)}
+      run ${reservoirSensor}() {*}
     }
   }
 
