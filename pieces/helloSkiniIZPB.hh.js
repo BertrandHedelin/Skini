@@ -35,7 +35,7 @@ let debug1 = true;
 const Instruments = [ "sensor2", "sensor3", "sensor4" ];
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
-  if (debug) console.log("hh_ORCHESTRATION: setServ");
+  if (debug1) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -51,7 +51,7 @@ function makeAwait(instruments, groupeClient) {
   })}
 }
 
-function makeReservoir(groupeClient, instrument, serv, gcs) {
+function makeReservoir(groupeClient, instrument, serv) {
   return hiphop ${
       hiphop { 
         laTrappe: {
@@ -67,7 +67,7 @@ function makeReservoir(groupeClient, instrument, serv, gcs) {
             ${instrument.map(val => hiphop {
               emit ${`${val}OUT`}([true, groupeClient])})
             }
-            
+            host { console.log("----------------- gcs = ", typeof gcs);}
             host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true);}
             ${makeAwait(instrument, groupeClient)}
             host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
@@ -87,17 +87,16 @@ function makeReservoir(groupeClient, instrument, serv, gcs) {
           }
           serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
         }
-        
       }
     }
   }
 }
 
-var reservoirSensor = hiphop module (tick, stopReservoir) { // Pourquoi faut-il avoir ces signaux en paramètres ??
+var reservoirSensor = hiphop module () { // Pourquoi faut-il avoir ces signaux en paramètres ??
   in tick, stopReservoir;
   in ... ${ Instruments.map(i => `${i}IN`) };
   out ... ${ Instruments.map(i => `${i}OUT`) };
-  ${makeReservoir(1, Instruments, serveur, gcs)}
+  ${makeReservoir(1, Instruments, serveur)}
 }
 
 export function setSignals(param) {
