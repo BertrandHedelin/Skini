@@ -79,7 +79,7 @@ export function moveTempo(value, limit) {
 export function addSceneScore(message, serveur) {
   var msg = {
     type: 'addSceneScore',
-    value: ` + number + `
+    value: message
   }
   serveur.broadcast(JSON.stringify(msg));
 }
@@ -95,6 +95,21 @@ export function alertInfoScoreON(message, serveur) {
 export function alertInfoScoreOFF(serveur) {
   var msg = {
     type: 'alertInfoScoreOFF',
+  }
+  serveur.broadcast(JSON.stringify(msg));
+}
+
+export function removeSceneScore(message, serveur) {
+  var msg = {
+    type: 'removeSceneScore',
+    value: message
+  }
+  serveur.broadcast(JSON.stringify(msg));
+}
+
+export function refreshSceneScore(serveur) {
+  var msg = {
+    type: 'refreshSceneScore',
   }
   serveur.broadcast(JSON.stringify(msg));
 }
