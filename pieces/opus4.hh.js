@@ -252,7 +252,7 @@ export function setSignals(param) {
     "INTERFACEZ_RC3", "INTERFACEZ_RC4", "INTERFACEZ_RC5", "INTERFACEZ_RC6",
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
-  console.log("inter:", interTextIN, interTextOUT, IZsignals);
+  //console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
   //************************************* LES SESSIONS *************************
   const soloFlute = hiphop module () {
@@ -465,6 +465,10 @@ export function setSignals(param) {
         utilsSkini.addSceneScore(1, serveur);
         utilsSkini.alertInfoScoreON("Skini HH", serveur);
         transposeAll(0, param);
+
+        utilsSkini.setListeDesTypes(serveur);
+        utilsSkini.setTypeList("1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11",serveur);
+        utilsSkini.setpatternListLength(12, 255, gcs)
        }
 
       abort(halt.now){

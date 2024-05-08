@@ -34,7 +34,7 @@ import * as groupesClientSon from './groupeClientsSons.mjs'
 const { Socket } = require('dgram');
 
 var debug = false;
-var debug1 = false;
+var debug1 = true;
 
 var serv;
 var nbeDeCommandes;

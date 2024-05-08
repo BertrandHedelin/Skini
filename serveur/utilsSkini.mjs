@@ -114,3 +114,21 @@ export function refreshSceneScore(serveur) {
   serveur.broadcast(JSON.stringify(msg));
 }
 
+export function setListeDesTypes(serveur) {
+  var msg = {
+    type: 'setListeDesTypes',
+  }
+  serveur.broadcast(JSON.stringify(msg));
+}
+
+export function setTypeList(liste, serveur) {
+  var msg = {
+    type: 'listeDesTypes',
+    text: liste
+  }
+  serveur.broadcast(JSON.stringify(msg));
+}
+
+export function setpatternListLength(long, groupe, gcs){
+  gcs.setpatternListLength([long,groupe]);
+}

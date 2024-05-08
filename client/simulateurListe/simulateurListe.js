@@ -132,7 +132,7 @@ function resetListOfTypes() {
     listOfTypes.push([]);
   }
 
-  console.log("resetListOfTypes:",listOfTypes );
+  if(debug) console.log("resetListOfTypes:",listOfTypes );
 }
 
 resetListOfTypes();
@@ -146,7 +146,7 @@ function setListOfTypes(list) {
   // A remettre à 0 avant de faire des push.
   resetListOfTypes();
 
-  console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
+  if(debug) console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
 
   for (var i = 0; i < list.length; i++) {
     listOfTypes[list[i][7]].push(list[i][3]);
@@ -536,7 +536,7 @@ function initWSSocket(port) {
         // Emission de la liste        
         if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
         if (dureeAttente < limiteDureeAttente) { // On est dans des délais raisonnables
-          if (debug) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
+          if (debug1) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
           msg.type = "sendPatternSequence";
           msg.patternSequence = sequenceLocale;
           msg.pseudo = pseudo;
@@ -568,7 +568,7 @@ function initWSSocket(port) {
         break;
 
       case "nombreDePatternsPossibleEnListe":
-        if (debug) console.log("socket : nombreDePatternsPossibleEnListe: msgRecu: ", msgRecu.nombreDePatternsPossible);
+        if (debug1) console.log("socket : nombreDePatternsPossibleEnListe: msgRecu: ", msgRecu.nombreDePatternsPossible);
         var nombreDePatternsPossibleEnListe = msgRecu.nombreDePatternsPossible;
         var flagFin = false;
 

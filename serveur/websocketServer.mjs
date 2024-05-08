@@ -1482,11 +1482,16 @@ maybe an hiphop compile Error`);
             ws.send(JSON.stringify(msg));
           }
 
+          try {
+            compileHH();
+          } catch (err) {
+            console.log("websocketServerSkini:loadHHFile:catch:", err);
+          }
+
           // Chargement des paramètres
           // à partir du fichier de config de la pièce
           // qui a le même nom que le fichier d'orchestration avec un extension js 
           // au lieu de hh.js
-
           // Entre autre pour la mise à jour des parametres dans le browser
           parametersFileGlobal = msgRecu.fileName.slice(0, -6) + ".js";
           parametersFile = sessionPath + msgRecu.fileName;
@@ -1678,6 +1683,7 @@ maybe an hiphop compile Error`);
 
         case "sendPatternSequence":
           var patternSequence = msgRecu.patternSequence;
+          if (debug) console.log("websocketserver: reçu : sendPatternSequence", patternSequence, msgRecu.pseudo);
 
           // Pour définir la façon dont sera calculé le score pour cette séquence de patterns
           computeScorePolicy = groupesClientSon.getComputeScorePolicy();

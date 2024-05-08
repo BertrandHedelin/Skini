@@ -125,226 +125,226 @@ var i=0;
 let interTextOUT=utilsSkini.creationInterfacesOUT(param.groupesDesSons);
 let interTextIN=utilsSkini.creationInterfacesIN(param.groupesDesSons);
 var IZsignals=['INTERFACEZ_RC','INTERFACEZ_RC0','INTERFACEZ_RC1','INTERFACEZ_RC2','INTERFACEZ_RC3','INTERFACEZ_RC4','INTERFACEZ_RC5','INTERFACEZ_RC6','INTERFACEZ_RC7','INTERFACEZ_RC8','INTERFACEZ_RC9','INTERFACEZ_RC10','INTERFACEZ_RC11'];
-console.log('inter:',interTextIN,interTextOUT,IZsignals);const soloFlute=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8090},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8110},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8182},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8250},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8264},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8271},'name':'stopReservoirFlute'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8295},'%tag':'pragma','apply':function () {
-console.log('-- DEBUT FLUTE SOLO --');}}),$$hiphop.TRAP({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':8348},'%tag':'solo'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':8362},'%tag':'fork'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8376},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8376},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':8376},'%tag':'run','autocomplete':true,'stopReservoirFlute':'stopReservoir','module':resevoirFlute,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8454},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':8773},'%tag':'await','immediate':false,'apply':function () {
+const soloFlute=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8092},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8112},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8184},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8252},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8266},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8273},'name':'stopReservoirFlute'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8297},'%tag':'pragma','apply':function () {
+console.log('-- DEBUT FLUTE SOLO --');}}),$$hiphop.TRAP({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':8350},'%tag':'solo'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':8364},'%tag':'fork'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8378},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8378},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':8378},'%tag':'run','autocomplete':true,'stopReservoirFlute':'stopReservoir','module':resevoirFlute,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8456},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':8775},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 40;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':8815},'%tag':'emit','signame':'stopReservoirFlute'}),$$hiphop.EXIT({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':8853},'%tag':'break'})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8881},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':8817},'%tag':'emit','signame':'stopReservoirFlute'}),$$hiphop.EXIT({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':8855},'%tag':'break'})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':8883},'%tag':'pragma','apply':function () {
 console.log('-- FIN FLUTE SOLO --');}})));
-const soloPiano=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8958},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8978},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9050},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9118},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9118},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9147},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9154},'name':'stopReservoirPiano'}),$$hiphop.TRAP({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':9178},'%tag':'solo'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':9192},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9192},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':9206},'%tag':'pragma','apply':function () {
+const soloPiano=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':8960},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':8980},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9052},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9120},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9120},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9149},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':9156},'name':'stopReservoirPiano'}),$$hiphop.TRAP({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':9180},'%tag':'solo'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':9194},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9194},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':9208},'%tag':'pragma','apply':function () {
 console.log('-- DEBUT PIANO --');}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9256},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':9256},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':9256},'%tag':'run','autocomplete':true,'stopReservoirPiano':'stopReservoir','module':resevoirPiano1,'%frame':__frame}));
-})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9329},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':9471},'%tag':'await','immediate':false,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9258},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':9258},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':9258},'%tag':'run','autocomplete':true,'stopReservoirPiano':'stopReservoir','module':resevoirPiano1,'%frame':__frame}));
+})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':9331},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':9473},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 59;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':9512},'%tag':'emit','signame':'stopReservoirPiano'}),$$hiphop.EXIT({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':9548},'%tag':'break'})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':9574},'%tag':'every','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':9514},'%tag':'emit','signame':'stopReservoirPiano'}),$$hiphop.EXIT({'solo':'solo','%location':{'filename':'./pieces/opus4.hh.js','pos':9550},'%tag':'break'})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':9576},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return patternSignal.now && (patternSignal.nowval[1] === 'Piano1Fin1' || patternSignal.nowval[1] === 'Piano1Fin2' || patternSignal.nowval[1] === 'Piano1Fin3' || patternSignal.nowval[1] === 'Piano1Fin4' || patternSignal.nowval[1] === 'Piano1Fin5' || patternSignal.nowval[1] === 'Piano1Fin6' || patternSignal.nowval[1] === 'Piano1Fin7');
 })());
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10018},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10020},'%tag':'pragma','apply':function () {
 const patternSignal=this.patternSignal;{
-console.log('--- SoloPiano1: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10110},'%tag':'await','immediate':false,'apply':function () {
+console.log('--- SoloPiano1: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10112},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 2;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10148},'%tag':'pragma','apply':function () {
-DAW.putPatternInQueue('Percu2');}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10216},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10150},'%tag':'pragma','apply':function () {
+DAW.putPatternInQueue('Percu2');}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10218},'%tag':'pragma','apply':function () {
 console.log('-- FIN PIANO --');}})));
-const saxoEtViolons=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10291},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10310},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10382},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10450},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10464},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10471},'name':'stopReservoirSax'}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':10493},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10493},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10505},'%tag':'pragma','apply':function () {
+const saxoEtViolons=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10293},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10312},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10384},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10452},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10466},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':10473},'name':'stopReservoirSax'}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':10495},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10495},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10507},'%tag':'pragma','apply':function () {
 gcs.informSelecteurOnMenuChange(255,'Saxo tonal',true);}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10576},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10576},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':10576},'%tag':'run','autocomplete':true,'stopReservoirSax':'stopReservoir','module':resevoirSaxo,'%frame':__frame}));
-})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10644},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10655},'%tag':'await','immediate':false,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10578},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10578},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':10578},'%tag':'run','autocomplete':true,'stopReservoirSax':'stopReservoir','module':resevoirSaxo,'%frame':__frame}));
+})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':10646},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10657},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 12 * 2;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10698},'%tag':'emit','signame':'nappeViolonsOUT','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10700},'%tag':'emit','signame':'nappeViolonsOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10734},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Nappe',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10800},'%tag':'await','immediate':false,'apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10736},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Nappe',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10802},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 12 * 5;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10894},'%tag':'emit','signame':'stopReservoirSax'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10925},'%tag':'emit','signame':'nappeViolonsOUT','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10896},'%tag':'emit','signame':'stopReservoirSax'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':10927},'%tag':'emit','signame':'nappeViolonsOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10962},'%tag':'pragma','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':10964},'%tag':'pragma','apply':function () {
 gcs.informSelecteurOnMenuChange(255,'Nappe',false);}})))));
-const brassEtPercu=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11064},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11084},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11156},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11224},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11238},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11245},'name':'stopReservoirBrassetPercu'}),$$hiphop.TRAP({'brass':'brass','%location':{'filename':'./pieces/opus4.hh.js','pos':11276},'%tag':'brass'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':11292},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11292},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11306},'%tag':'pragma','apply':function () {
-setTempo(60,param);tempoGlobal=60;}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':11389},'%tag':'fork'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11405},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11405},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':11405},'%tag':'run','autocomplete':true,'stopReservoirBrassetPercu':'stopReservoir','module':resevoirBrass,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11485},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11500},'%tag':'await','immediate':false,'apply':function () {
+const brassEtPercu=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11066},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11086},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11158},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11226},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11240},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':11247},'name':'stopReservoirBrassetPercu'}),$$hiphop.TRAP({'brass':'brass','%location':{'filename':'./pieces/opus4.hh.js','pos':11278},'%tag':'brass'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':11294},'%tag':'fork'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11294},'%tag':'fork'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11308},'%tag':'pragma','apply':function () {
+setTempo(60,param);tempoGlobal=60;}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':11391},'%tag':'fork'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11407},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11407},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':11407},'%tag':'run','autocomplete':true,'stopReservoirBrassetPercu':'stopReservoir','module':resevoirBrass,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11487},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11502},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 20;
 }},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11538},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11538},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':11538},'%tag':'run','autocomplete':true,'stopReservoirBrassetPercu':'stopReservoir','module':resevoirPercu,'%frame':__frame}));
-})([]),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11620},'%tag':'await','immediate':false,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11540},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11540},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':11540},'%tag':'run','autocomplete':true,'stopReservoirBrassetPercu':'stopReservoir','module':resevoirPercu,'%frame':__frame}));
+})([]),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11622},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 5;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':11657},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':11659},'%tag':'if','apply':function () {
 return deuxiemeAlea > 0;
-}},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11684},'%tag':'emit','signame':'MassiveOUT','apply':function () {
+}},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11686},'%tag':'emit','signame':'MassiveOUT','apply':function () {
 return [true,255];
-}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11719},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Massive',true);}})))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11798},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11887},'%tag':'await','immediate':false,'apply':function () {
+}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':11721},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Massive',true);}})))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':11800},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11889},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 12 * 7;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11975},'%tag':'emit','signame':'stopReservoirBrassetPercu'}),$$hiphop.EXIT({'brass':'brass','%location':{'filename':'./pieces/opus4.hh.js','pos':12018},'%tag':'break'})))),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':12043},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':11977},'%tag':'emit','signame':'stopReservoirBrassetPercu'}),$$hiphop.EXIT({'brass':'brass','%location':{'filename':'./pieces/opus4.hh.js','pos':12020},'%tag':'break'})))),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':12045},'%tag':'if','apply':function () {
 return deuxiemeAlea > 0;
-}},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12070},'%tag':'emit','signame':'MassiveOUT','apply':function () {
+}},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12072},'%tag':'emit','signame':'MassiveOUT','apply':function () {
 return [false,255];
-}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12100},'%tag':'pragma','apply':function () {
+}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12102},'%tag':'pragma','apply':function () {
 gcs.informSelecteurOnMenuChange(255,'Massive',false);}})));
-var transposeSaxoModal=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':12202},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12221},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12293},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12361},'direction':'IN','name':'tick'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':12375}},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12387},'%tag':'pragma','apply':function () {
-transposition=0;transpose(CCTransposeSaxo,transposition,param);degre2mineursaxo(false,param);tonalite=(tonalite + 2) % 6;setTonalite(CCtonalite,tonalite);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12686},'%tag':'await','immediate':false,'apply':function () {
+var transposeSaxoModal=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':12204},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12223},'direction':'OUT','name':n})),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12295},'direction':'IN','name':n})),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':12363},'direction':'IN','name':'tick'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':12377}},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12389},'%tag':'pragma','apply':function () {
+transposition=0;transpose(CCTransposeSaxo,transposition,param);degre2mineursaxo(false,param);tonalite=(tonalite + 2) % 6;setTonalite(CCtonalite,tonalite);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12688},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 8;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12719},'%tag':'pragma','apply':function () {
-transposition=-5;degre2mineursaxo(true,param);transpose(CCTransposeSaxo,transposition,param);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12909},'%tag':'await','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12721},'%tag':'pragma','apply':function () {
+transposition=-5;degre2mineursaxo(true,param);transpose(CCTransposeSaxo,transposition,param);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':12911},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 8;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12942},'%tag':'pragma','apply':function () {
-transposition=2;degre2mineursaxo(true);transpose(CCTransposeSaxo,transposition,param);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13124},'%tag':'await','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':12944},'%tag':'pragma','apply':function () {
+transposition=2;degre2mineursaxo(true);transpose(CCTransposeSaxo,transposition,param);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13126},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 8;
 }},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}))));
-const resetAll=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':13188},'%tag':'module'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13203},'%tag':'pragma','apply':function () {
+const resetAll=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':13190},'%tag':'module'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13205},'%tag':'pragma','apply':function () {
 console.log('--Reset Automate Opus4 sans jeu');DAW.cleanQueues();}}));
-const bougeTempo=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':13404},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13420},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13433},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13440},'name':'inverseTempo'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':13459}},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':13471},'%tag':'fork'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13486},'%tag':'every','immediate':false,'apply':function () {
+const bougeTempo=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':13406},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13422},'direction':'IN','name':'tick'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13435},'%tag':'signal'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':13442},'name':'inverseTempo'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':13461}},$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':13473},'%tag':'fork'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13488},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 10;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13532},'%tag':'emit','signame':'inverseTempo'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':13580}},$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13596},'%tag':'abort','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13534},'%tag':'emit','signame':'inverseTempo'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':13582}},$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13598},'%tag':'abort','immediate':false,'apply':function () {
 return ((() => {
 const inverseTempo=this.inverseTempo;return inverseTempo.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'inverseTempo','pre':false,'val':false,'cnt':false}),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13635},'%tag':'every','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'inverseTempo','pre':false,'val':false,'cnt':false}),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13637},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 2;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13679},'%tag':'pragma','apply':function () {
-tempoGlobal+=2;setTempo(tempoGlobal,param);}}))),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13825},'%tag':'abort','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13681},'%tag':'pragma','apply':function () {
+tempoGlobal+=2;setTempo(tempoGlobal,param);}}))),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':13827},'%tag':'abort','immediate':false,'apply':function () {
 return ((() => {
 const inverseTempo=this.inverseTempo;return inverseTempo.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'inverseTempo','pre':false,'val':false,'cnt':false}),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13862},'%tag':'every','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'inverseTempo','pre':false,'val':false,'cnt':false}),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':13864},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
 },'countapply':function () {
 return 2;
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13904},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':13906},'%tag':'pragma','apply':function () {
 tempoGlobal-=2;setTempo(tempoGlobal,param);}}))))))));
-const setAleas=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14089},'%tag':'module'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14104},'%tag':'pragma','apply':function () {
+const setAleas=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14091},'%tag':'module'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14106},'%tag':'pragma','apply':function () {
 premierAlea=Math.floor(Math.random() * Math.floor(3));deuxiemeAlea=Math.floor(Math.random() * Math.floor(3));troisiemeAlea=Math.floor(Math.random() * Math.floor(3));if (debug1) console.log('-- Aleas:',premierAlea,deuxiemeAlea,troisiemeAlea);
 }}));
-const Program=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14428},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'start'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'halt'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'DAWON'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'pulsation'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'midiSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14443},'direction':'IN','name':'emptyQueueSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14532},'direction':'INOUT','name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14532},'direction':'INOUT','name':'stopMoveTempo'}),IZsignals.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14575},'direction':'IN','name':n})),interTextOUT.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14603},'direction':'OUT','name':n})),interTextIN.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14633},'direction':'IN','name':n})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':14660}},(function () {
-let tickCounter=undefined;return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14672},'%tag':'let'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14676},'%tag':'hop','apply':function () {
+const Program=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14430},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'start'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'halt'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'DAWON'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'pulsation'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'midiSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14445},'direction':'IN','name':'emptyQueueSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14534},'direction':'INOUT','name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14534},'direction':'INOUT','name':'stopMoveTempo'}),IZsignals.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14577},'direction':'IN','name':n})),interTextOUT.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14605},'direction':'OUT','name':n})),interTextIN.map((n) => $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus4.hh.js','pos':14635},'direction':'IN','name':n})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus4.hh.js','pos':14662}},(function () {
+let tickCounter=undefined;return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14674},'%tag':'let'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14678},'%tag':'hop','apply':function () {
 tickCounter=0;}}),(function () {
-let patternCounter=undefined;return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14699},'%tag':'let'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14703},'%tag':'hop','apply':function () {
-patternCounter=1;}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':14729},'%tag':'await','immediate':false,'apply':function () {
+let patternCounter=undefined;return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':14701},'%tag':'let'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14705},'%tag':'hop','apply':function () {
+patternCounter=1;}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':14731},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const start=this.start;return start.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'start','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14753},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(1,serveur);utilsSkini.addSceneScore(1,serveur);utilsSkini.alertInfoScoreON('Skini HH',serveur);transposeAll(0,param);}}),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':15010},'%tag':'abort','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'start','pre':false,'val':false,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':14755},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(1,serveur);utilsSkini.refreshSceneScore(serveur);utilsSkini.addSceneScore(1,serveur);utilsSkini.alertInfoScoreON('Skini HH',serveur);transposeAll(0,param);utilsSkini.setListeDesTypes(serveur);utilsSkini.setTypeList('1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11',serveur);utilsSkini.setpatternListLength(12,255,gcs);}}),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus4.hh.js','pos':15191},'%tag':'abort','immediate':false,'apply':function () {
 return ((() => {
 const halt=this.halt;return halt.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'halt','pre':false,'val':false,'cnt':false}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':15035},'%tag':'fork'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':15052},'%tag':'every','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'halt','pre':false,'val':false,'cnt':false}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus4.hh.js','pos':15216},'%tag':'fork'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':15233},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const tick=this.tick;return tick.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15081},'%tag':'pragma','apply':function () {
-gcs.setTickOnControler(tickCounter++);}})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':15164},'%tag':'every','immediate':false,'apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'tick','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15262},'%tag':'pragma','apply':function () {
+gcs.setTickOnControler(tickCounter++);}})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':15345},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const INTERFACEZ_RC0=this.INTERFACEZ_RC0;return INTERFACEZ_RC0.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':false,'cnt':false}),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':15395},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':false,'cnt':false}),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':15576},'%tag':'if','apply':function () {
 return ((() => {
 const INTERFACEZ_RC0=this.INTERFACEZ_RC0;return INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000;
 })());
-}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15483},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 1',serveur);}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':15637},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15664},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 1',serveur);}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':15818},'%tag':'if','apply':function () {
 return ((() => {
 const INTERFACEZ_RC0=this.INTERFACEZ_RC0;return INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000;
 })());
-}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':15709},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15725},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 2',serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':15813},'%tag':'emit','signame':'stopReservoir'})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':15861},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':15890},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15906},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 2',serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus4.hh.js','pos':15994},'%tag':'emit','signame':'stopReservoir'})),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':16042},'%tag':'if','apply':function () {
 return ((() => {
 const INTERFACEZ_RC0=this.INTERFACEZ_RC0;return INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000;
 })());
-}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':15949},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 3',serveur);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':16049},'%tag':'if','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16130},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 3',serveur);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus4.hh.js','pos':16230},'%tag':'if','apply':function () {
 return ((() => {
 const INTERFACEZ_RC0=this.INTERFACEZ_RC0;return INTERFACEZ_RC0.nowval[1] < 999 && INTERFACEZ_RC0.nowval[1] > 500;
 })());
-}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16135},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 4',serveur);}}))))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16240},'%tag':'par'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16256},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'INTERFACEZ_RC0','pre':false,'val':true,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16316},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreON('Sensor RC0 : Zone 4',serveur);}}))))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16421},'%tag':'par'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16437},'%tag':'pragma','apply':function () {
 setTempo(60,param);tempoGlobal=60;}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16543},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16543},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16543},'%tag':'run','autocomplete':true,'module':resevoirPiano1,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16724},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16724},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16724},'%tag':'run','autocomplete':true,'module':resevoirPiano1,'%frame':__frame}));
 })([])),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16683},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16683},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16683},'%tag':'run','autocomplete':true,'module':resevoirFlute,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16864},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16864},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16864},'%tag':'run','autocomplete':true,'module':resevoirFlute,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16737},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16737},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16737},'%tag':'run','autocomplete':true,'module':resevoirSaxo,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16918},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16918},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16918},'%tag':'run','autocomplete':true,'module':resevoirSaxo,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16792},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16792},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16792},'%tag':'run','autocomplete':true,'module':resevoirBrass,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16973},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16973},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16973},'%tag':'run','autocomplete':true,'module':resevoirBrass,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16848},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16848},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16848},'%tag':'run','autocomplete':true,'module':resevoirPercu,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':17029},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17029},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':17029},'%tag':'run','autocomplete':true,'module':resevoirPercu,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':16904},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16904},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':16904},'%tag':'run','autocomplete':true,'module':bougeTempo,'%frame':__frame}));
-})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':16957},'%tag':'every','immediate':false,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus4.hh.js','pos':17085},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17085},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus4.hh.js','pos':17085},'%tag':'run','autocomplete':true,'module':bougeTempo,'%frame':__frame}));
+})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus4.hh.js','pos':17138},'%tag':'every','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return patternSignal.now;
 })());
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':16997},'%tag':'pragma','apply':function () {
-console.log('Pattern counter:',patternCounter++);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17090},'%tag':'pragma','apply':function () {
-console.log('Reçu Halt');}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17166},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17178},'%tag':'pragma','apply':function () {
+console.log('Pattern counter:',patternCounter++);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17271},'%tag':'pragma','apply':function () {
+console.log('Reçu Halt');}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus4.hh.js','pos':17347},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreOFF(serveur);}}));
 })());
 })()));
