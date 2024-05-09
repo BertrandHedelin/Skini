@@ -941,7 +941,8 @@ function putPatternBefore(fifo, apres, pattern) {
 
 /**
  * Reorder a queue according to the pattern types DMFN.
- * 
+ * The simulator offer the possibility to do that in a more
+ * powerfull way with the list of types.
  * @param  {Array} fifo - of the "queue" or "instrument"
  * @param  {Array} pattern
  */
@@ -949,7 +950,7 @@ function ordonneFifo(fifo, pattern) {
   // On ordonne la fifo en partant de l'indice haut qui correspond au denier pattern entré
   // ceci évite de trop perturber le timing d'éntrée des patterns dans la fifo.
   // pattern en fifo => [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal, typePattern]
-  if (debug) console.log("---- ordonneFifo", pattern[8], pattern[9]);
+  if (debug1) console.log("---- ordonneFifo", pattern[8], pattern[9]);
 
   if (fifo.length === 0 || pattern[9] === typeNeutre) {
     if (debug1) console.log("---- ordonneFifo: Fifo vide ou pattern N");

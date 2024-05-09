@@ -1,8 +1,15 @@
 /**
- * @fileOverview Opus4
- * @copyright (C) 2024 Bertrand Petit-Hédelin
+ * @fileOverview Opus4. Reprise de la version créée avec Hop en 2019.
+ * Fonctionne avec Ableton, opus4V3.als.
+ * Il s'agit d'un forme de pièce orchestrale. Ici on se donne la possibilité
+ * de contrôler le déroulement avec des capteurs Interface Z.
+ * Cette pièce possédait une version en interaction avec une démo UnrealEngine.
+ * Il s'agit d'un exemple de contrôle d'Ableton avec une utilisation
+ * systématique des réservoirs.
+ * 
+ * @copyright (C) 2019-2024 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.0
+ * @version 1.3
  */
 
 "use strict"
@@ -62,6 +69,10 @@ var premierAlea = 0;
 var deuxiemeAlea = 0;
 var troisiemeAlea = 0;
 
+/*************************************************************************
+ * Les fonctions JavaScript
+ * 
+ */
 function setTempo(value, par) {
   if (value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
@@ -90,21 +101,26 @@ function transposeAll(value, par) {
 
 function degre2mineursaxo(value, par) {
   if (value) {
-    oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCdegre2Mineursaxo, 100);
+    oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCdegre2Mineursaxo, 100);
   } else {
-    oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCdegre2Mineursaxo, 0);
+    oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCdegre2Mineursaxo, 0);
   }
   if (debug) console.log("-- CCdegre2Mineur:", value);
 }
 
-function setTonalite(CCtonalite, value) {
+function setTonalite(CCtonalite, value, par) {
   var CCTon;
 
   CCTon = Math.round(1763 / 1000 * value + 635 / 10);
-  oscMidiLocal.controlChange(par.busMidiDAW, CCChannel, CCtonalite, CCTon);
+  oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCtonalite, CCTon);
   if (debug) console.log("-- setTonalite:", CCtonalite, "->", value, "demi-tons");
 }
 
+/****************************************************************************
+ * Appelé par Skini pour mettre en place tous les accès aux fonctions de
+ * contrôle.
+ * 
+ */
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
@@ -166,7 +182,10 @@ function makeReservoir(groupeClient, instrument) {
   }
 }
 
-// Les réservoirs *************************************************************
+/***************************************************************************
+ * Les modules HH pour les réservoirs
+ * 
+ */
 let piano = [
   "Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
   "Piano1Intro6", "Piano1Intro7", "Piano1Milieu1", "Piano1Milieu2", "Piano1Milieu3",
@@ -243,7 +262,11 @@ var resevoirPercu = hiphop module ()
 	${ makeReservoir(255, percu) };
 }
 
-// L'orchestration ***********************************************************
+/***************************************************************************
+ * L'ensemble des modules HH pour l'orchestration
+ * Tout est évalué avec l'appel à setSignals
+ * 
+ */
 export function setSignals(param) {
   var i = 0;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
@@ -324,13 +347,14 @@ export function setSignals(param) {
       host{ gcs.informSelecteurOnMenuChange(255,"Saxo tonal", true); }
       run ${resevoirSaxo} () {*, stopReservoir as stopReservoirSax};
     }par{
-      await count( 12 * 2, tick.now);
+      await count( 4, tick.now);
       emit nappeViolonsOUT([true, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"Nappe", true); }
       await count( 12 * 5, tick.now); // Pour attendre effectivement la fin du reservoir
       emit stopReservoirSax();
       emit nappeViolonsOUT([false, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"Nappe", false); }
+      hop{ DAW.cleanQueue(3);} // Nappe
     }
   }
 
@@ -356,7 +380,7 @@ export function setSignals(param) {
           host{ gcs.informSelecteurOnMenuChange(255,"Massive", true); }
         }
       }par{
-        // Pour attendre un durée max
+        // Pour attendre une durée max
         // avant de passer à la suite
         await count( 12 * 7, tick.now);
         // Il faut tuer le reservoir brass
@@ -381,7 +405,7 @@ export function setSignals(param) {
         degre2mineursaxo(false, param); // ajustement du mode
     
         tonalite = (tonalite+2)% 6;
-        setTonalite(CCtonalite, tonalite); // Tonalité globale
+        setTonalite(CCtonalite, tonalite, param); // Tonalité globale
       }
       await count (8, tick.now);
       host{
@@ -392,7 +416,7 @@ export function setSignals(param) {
       await count (8, tick.now);
       host{
         transposition = 2;
-        degre2mineursaxo(true); // ajustement du mode
+        degre2mineursaxo(true, param); // ajustement du mode
         transpose(CCTransposeSaxo, transposition, param); // Changement de degré
       }
       await count (8, tick.now);
@@ -448,6 +472,10 @@ export function setSignals(param) {
     }
   }
 
+  /****************************************************
+   * L'orchestration qui est mise en place par la machine HH
+   * 
+   */
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
     inout stopReservoir, stopMoveTempo;
@@ -468,7 +496,8 @@ export function setSignals(param) {
 
         utilsSkini.setListeDesTypes(serveur);
         utilsSkini.setTypeList("1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11",serveur);
-        utilsSkini.setpatternListLength(12, 255, gcs)
+        utilsSkini.setpatternListLength(12, 255, gcs);
+        gcs.setTimerDivision(1);
        }
 
       abort(halt.now){
@@ -486,7 +515,6 @@ export function setSignals(param) {
             }
             if (INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
               host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur); }
-              emit stopReservoir();
             }
             else if (INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
               host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 3", serveur); }
@@ -506,17 +534,19 @@ export function setSignals(param) {
           //run ${resevoirFlute} () {*}
           //run ${soloFlute} () {*};
 
-          run ${ resevoirPiano1 } () {*}
+          // run ${ resevoirPiano1 } () {*}
           //run ${ resevoirSaxo } () {*}
           //run ${ resevoirBrass } () {*}
+        // } par {
+        //   run ${resevoirFlute} () {*}
+        // } par {
+        //   run ${ saxoEtViolons } () {*}
+        // } par {
+        //   run ${ transposeSaxoModal } () {*}
         } par {
-          run ${resevoirFlute} () {*}
-        } par {
-          run ${ resevoirSaxo } () {*}
-        } par {
-          run ${ resevoirBrass } () {*}
-        } par {
-          run ${ resevoirPercu } () {*}
+          run ${ brassEtPercu } () {*}
+        // } par {
+        //   run ${ resevoirPercu } () {*}
         } par {
           run ${ bougeTempo } () {*}
         } par {
