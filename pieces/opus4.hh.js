@@ -11,7 +11,7 @@
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.3
  */
-
+// @ts-nocheck
 "use strict"
 "use hopscript"
 
@@ -464,10 +464,10 @@ export function setSignals(param) {
   }
 
   const setAleas = hiphop module (){
-    host{ 
-      premierAlea =  Math.floor(Math.random() * Math.floor(3));
-      deuxiemeAlea =  Math.floor(Math.random() * Math.floor(3));
-      troisiemeAlea =  Math.floor(Math.random() * Math.floor(3));
+    host{
+      premierAlea = Math.floor(Math.random() * Math.floor(3));
+      deuxiemeAlea = Math.floor(Math.random() * Math.floor(3));
+      troisiemeAlea = Math.floor(Math.random() * Math.floor(3));
       if (debug1) console.log("-- Aleas:", premierAlea, deuxiemeAlea, troisiemeAlea);
     }
   }

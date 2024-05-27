@@ -4,7 +4,7 @@
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
  */
-
+// @ts-nocheck
 "use strict"
 "use hopscript"
 

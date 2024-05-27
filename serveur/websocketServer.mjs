@@ -20,6 +20,7 @@
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.4
  */
+// @ts-check
 'use strict'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -31,7 +32,7 @@ import * as gameOSC from './gameOSC.mjs';
 import * as oscMidiLocal from './OSCandMidi.mjs';
 import * as saveParam from './saveParam.mjs';
 
-var ipConfig = require('./ipConfig');
+var ipConfig = require('./ipConfig.json');
 var midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
@@ -89,7 +90,7 @@ import * as groupesClientSon from './groupeClientsSons.mjs';
 /**
  * To load some modules.
  * Used only at Skini launch.
- * @param {Object} midimix reference
+ * @param {Object} midimixage reference
  */
 export async function setParameters(midimixage) {
   midimix = midimixage;
@@ -263,7 +264,7 @@ function startWebSocketServer() {
   * Function to start a worker for the synchro when not using a midi sync coming from a DAW
   * @function
   * @memberof Websocketserver
-  * @param {string} worker path
+  * @param {string} filepath path
   * @param {number} timer
   * @inner
   */
@@ -295,7 +296,7 @@ function startWebSocketServer() {
       workerSync.on('error', reject);
       workerSync.on('exit', code => {
         if (code !== 0) {
-          reject(new Error(`Worker stopped with exit code:`, code));
+          reject(new Error(`Worker stopped with exit code:`+ code));
         }
       });
     });
@@ -311,7 +312,7 @@ function startWebSocketServer() {
   * Function to start a worker for the Interface Z management
   * @function
   * @memberof Websocketserver
-  * @param {string} worker path
+  * @param {string} filepath worker path
   * @inner
   */
   function workerInterfaceZInit(filepath,
@@ -433,7 +434,7 @@ function startWebSocketServer() {
       workerInterfaceZ.on('error', reject);
       workerInterfaceZ.on('exit', code => {
         if (code !== 0) {
-          reject(new Error(`Worker InterfaceZ stopped with exit code:`, code));
+          reject(new Error(`Worker InterfaceZ stopped with exit code:`+ code));
         }
       });
     });
@@ -443,7 +444,7 @@ function startWebSocketServer() {
   * Define the function in order to Broadcast to all clients.
   * @function
   * @memberof Websocketserver
-  * @param {string} message
+  * @param {string} data message
   * @inner
   */
   serv.broadcast = function broadcast(data) {
@@ -467,7 +468,7 @@ function startWebSocketServer() {
 
   /**
    * In order to get the server used for broadcasting
-   * @returns {Server} - return the server for Broadcasting
+   * @returns {serv} - return the server for Broadcasting
    * @function
    * @memberof Websocketserver
    * @inner
@@ -524,7 +525,6 @@ function startWebSocketServer() {
    * @memberof Websocketserver
    * @function
    * @inner
-   * @param  {number} noteSkini
    */
   function sendSignalStopFromMIDI() {
     if (!reactAutomatePossible({ halt: undefined })) {
@@ -642,7 +642,7 @@ function startWebSocketServer() {
    * @memberof Websocketserver
    * @function
    * @inner
-   * @returns {machine} - the HipHop machine
+   * @returns {automatePossibleMachine} - the HipHop machine
    */
   function getAutomatePossible() {
     if (automatePossibleMachine !== undefined) {
@@ -779,7 +779,7 @@ function startWebSocketServer() {
    * @memberof Websocketserver
    * @function
    * @inner
-   * @param {number} syncho in ms
+   * @param {number} timer in ms
    */
   function setMonTimer(timer) {
     if (!par.synchoOnMidiClock) {
@@ -799,14 +799,12 @@ function startWebSocketServer() {
    * @memberof Websocketserver
    * @function
    * @inner
-   * @param {number} length of the list of the client
+   * @param {number} value length of the list of the client
    */
   function setPatternListLength(value) {
     if (debug1) console.log("websocketserver.js : setPatternListLength : value :", value);
   }
   _setPatternListLength = setPatternListLength;
-
-
 
   /*************************************************************************************
     WEB SOCKET MANAGEMENT
@@ -884,9 +882,9 @@ function startWebSocketServer() {
      * @memberof Websocketserver
      * @function
      * @inner
-     * @param {array} pattern description according to the csv file.
-     * @param {string} Hiphop signal
-     * @param {number} user group (web client group)
+     * @param {array} clip pattern description according to the csv file.
+     * @param {string} signal Hiphop signal
+     * @param {number} leGroupe user group (web client group)
      * @param {string} pseudo 
      * @param {number} monId
      * @returns {number} waiting time
@@ -897,7 +895,7 @@ function startWebSocketServer() {
       DAWNote = DAWNote % 127;
       if (DAWChannel > 15) {
         if (debug) console.log("Web Socket Server.js : pushNoteOnDAW: Nombre de canaux midi dépassé.");
-        return;
+        return 0;
       }
       var nom = clip[3];
       var DAWInstrument = clip[5];
