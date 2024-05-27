@@ -296,7 +296,7 @@ export function putPatternInQueue(patternName) {
     }
   }
 
-  if (debug1) console.log("INFO: controleBAleton: putPatternInQueue: commande :", commande);
+  if (debug) console.log("INFO: controleDAW: putPatternInQueue: commande :", commande);
 
   if (commande !== undefined) {
     var DAWNote = commande[0];
@@ -693,10 +693,10 @@ export function cleanQueue(instrument) {
   filesDattente[instrument] = [];
   compteursDattente[instrument] = 0;
 
-  messageLog.source = "controleAbleton.js";
+  messageLog.source = "controleDAW.js";
   messageLog.type = "VIDAGE FILE ATTENTE " + instrument;
   logInfoDAW(messageLog);
-  if (debug) console.log("controleAbleton: cleanQueue: ", instrument);
+  if (debug) console.log("controleDAW: cleanQueue: ", instrument);
 
   // Avec l'instrument concerné
   var msg = {
