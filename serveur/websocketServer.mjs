@@ -94,7 +94,6 @@ import * as groupesClientSon from './groupeClientsSons.mjs';
  */
 export async function setParameters(midimixage) {
   midimix = midimixage;
-  //await import('./OSCandMidi.mjs');
   await import('./controleDAW.mjs').then((daw) => {
     DAW = daw;
     groupesClientSon.setMidimix(midimix);
