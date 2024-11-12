@@ -53,8 +53,8 @@ export function init() {
       message = osc.fromBuffer(msg);
       // Voir pour plus de paramètres reçus du jeu ou du controleur OSC !!
 
-      var signal = message.address.slice(1); // pour enlever le slash du message
-      signal = signal.replace(/\//g, "_"); // On n'aime pas les slashs dans des signaux
+      var signal = message.address.slice(1); // pour enlever le slash du début message
+      signal = signal.replace(/\//g, "_"); // On n'aime pas les slashs dans des signaux on met des _ à la place.
 
       if (debug) console.log("gameOSC.js: init :", signal, ":", message);
       orchestration.react({ [signal]: message.args[0].value });

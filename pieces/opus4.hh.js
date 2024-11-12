@@ -329,7 +329,7 @@ export function setSignals(param) {
           || patternSignal.nowval[1] === "Piano1Fin7"		
           ))
           {
-            host{console.log("--- SoloPiano1: Pattern en FIFO:", patternSignal.nowval[1]); }
+            host{console.log("--- SoloPiano: Pattern de fin en FIFO:", patternSignal.nowval[1]); }
             await count(2, tick.now);
             //hop{DAW.putPatternInQueue("Percu2");}
           }
@@ -357,7 +357,10 @@ export function setSignals(param) {
       await count( 4, tick.now);
       emit nappeViolonsOUT([true, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"Nappe", true); }
-      await count( 12 * 5, tick.now); // Pour attendre effectivement la fin du reservoir
+      // Pour attendre effectivement la fin du reservoir
+      // dans le cas de séléction à l'exécution
+      // mais aussi pour arrêter la nappe au bon moment
+      await count( 12 * 5, tick.now); 
       emit stopReservoirSax();
       emit nappeViolonsOUT([false, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"Nappe", false); }
@@ -491,7 +494,7 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
     // Pour basculer d'un scénario avec ou sans capteurs
-    let sensors = true;
+    let sensors = false;
 
     loop{
       let tickCounter = 0;
@@ -552,24 +555,23 @@ export function setSignals(param) {
           }
           if(!sensors){
             fork{
-            //run ${brassEtPercu} () {*};
-            //run ${saxoEtViolons} () {*};
-            //run ${soloPiano} () {*};
-            //run ${resevoirFlute} () {*}
-            run ${soloFlute} () {*};
+              //run ${brassEtPercu} () {*};
+              //run ${saxoEtViolons} () {*};
+              //run ${soloPiano} () {*};
+              //run ${resevoirFlute} () {*}
+              run ${soloFlute} () {*};
 
-            //run ${ resevoirPiano1 } () {*}
-            //run ${ resevoirSaxo } () {*}
-            //run ${ resevoirBrass } () {*}
-            // } par {
-              //run ${soloFlute} () {*}
-            // } par {
-            //   run ${ saxoEtViolons } () {*}
-            // } par {
-            //   run ${ transposeSaxoModal } () {*}
+              //run ${ resevoirPiano1 } () {*}
+              //run ${ resevoirSaxo } () {*}
+              //run ${ resevoirBrass } () {*}
+              // } par {
+                //run ${soloFlute} () {*}
+              // } par {
+              //   run ${ saxoEtViolons } () {*}
+              // } par {
+              run ${ transposeSaxoModal } () {*}
             } par {
               run ${ soloPiano } () {*}
-              //await count(40, tick.now);
               //run ${ brassEtPercu } () {*}
             // } par {
             //   run ${ resevoirPercu } () {*}

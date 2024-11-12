@@ -286,7 +286,12 @@ export function sendOSCGame(message, value) { // Value = table des données
   var buf;
   var commandeOSC = "/" + message;
   if (debug) console.log("LogosOSCandMidi: sends osc to Game or controler :" + commandeOSC + " : " + value + " : " + ipConfig.portOSCToGame + " : " + ipConfig.remoteIPAddressGame);
-  buf = osc.toBuffer({ address: commandeOSC, args: [value] });
+  
+  //buf = osc.toBuffer({ address: commandeOSC, args: [value] });
+  
+  // OSC Pour ESP 32
+  buf = osc.toBuffer({ address: commandeOSC, args: [{ type: 'integer', value: value }] });
+
   return udp.send(buf, 0, buf.length, ipConfig.portOSCToGame, ipConfig.remoteIPAddressGame);
 };
 

@@ -96,11 +96,9 @@ exports.sensorOSC = false;
 exports.tempoSensorsInit = [0,0,0,0,0,0,0,0,0,0,0,0];
 exports.sensorsSensibilities = [5,5,5,5,5,5,5,5,5,5,5,5];
 
-const groupesDesSons = [
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
+const groupesDesSons =  [
+  [ "groupe0",0, "group",170,100,20,"#CF1919",[],1 ],
+  [ "groupe1",1, "group",200,200,20,"#CF1919",[],1 ],
+  [ "groupe2",2, "group",300,300,20,"#CF1919",[],1 ],
   ];
 exports.groupesDesSons = groupesDesSons;

@@ -2,7 +2,7 @@
   "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "192.168.1.251",
+  "remoteIPAddressGame": "192.168.1.223",
   "interfaceZIPaddress": "192.168.1.250",
   "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
