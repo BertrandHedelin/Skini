@@ -229,7 +229,7 @@
                             <field name="valueMidi">100</field>
                             <comment pinned="false" h="56" w="413">Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton</comment>
                             <next>
-                              <block type="hh_sequence" id="irMX)A|YzT@[_4]L;GEI">
+                              <block type="hh_sequence" id="irMX)A|YzT@[_4]L;GEI" disabled="true">
                                 <statement name="BODY">
                                   <block type="hh_await_interfaceZ_sensor" id="C514agN*c+@PKU+f?nKL">
                                     <field name="TIMES">1</field>

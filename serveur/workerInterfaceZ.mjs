@@ -42,7 +42,7 @@ var interfaceZAddress = "192.168.1.250";
 var interfaceZMidiPort = 1000;
 
 var debug = false;
-var debug1 = true;
+var debug1 = false;
 var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

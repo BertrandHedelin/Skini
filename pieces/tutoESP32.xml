@@ -2,6 +2,11 @@
   <variables>
     <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
     <variable id="{|gNmoIsXkh[G44u]`WE">ESP32_sensor1</variable>
+    <variable id="CdFF].uaL7RV[IZa:s$,">ESP32_accel</variable>
+    <variable id="qj:/~CXP/8?NyS^)FhHv">ESP32_gyro</variable>
+    <variable id="#f.y*RW})dC`-g)08xg6">ESP32_motion</variable>
+    <variable id="{nSZaMa(yESzXpPBj$k$">ESP32_shock</variable>
+    <variable id="Uv-:/4si|#|$.F4qh$fS">ESP32_touch</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="127" y="53">
     <statement name="SIGNALS">
@@ -20,6 +25,56 @@
                 <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">ESP32_sensor1</field>
               </block>
             </value>
+            <next>
+              <block type="hh_declare_signal" id="!iZ8pKK)yHjd_P$KtQ*@">
+                <field name="TYPE">INOUT</field>
+                <value name="signal">
+                  <block type="variables_get" id="mM4BafRNdng-tGv{}[xa">
+                    <field name="VAR" id="CdFF].uaL7RV[IZa:s$,">ESP32_accel</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_declare_signal" id="^|8(iILY4}^+;WkjFjy7">
+                    <field name="TYPE">INOUT</field>
+                    <value name="signal">
+                      <block type="variables_get" id="1EKk#C.g10Ppy{v,B*Fy">
+                        <field name="VAR" id="qj:/~CXP/8?NyS^)FhHv">ESP32_gyro</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_declare_signal" id="jAeQjf,3q*|7*FLFmg0X">
+                        <field name="TYPE">INOUT</field>
+                        <value name="signal">
+                          <block type="variables_get" id="U=(1q5biaq$A0KmPv0~2">
+                            <field name="VAR" id="#f.y*RW})dC`-g)08xg6">ESP32_motion</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_declare_signal" id="`Q]@W|E|d5%(^Qe()tvk">
+                            <field name="TYPE">INOUT</field>
+                            <value name="signal">
+                              <block type="variables_get" id="%X@.K{1(8nf+0.$tV/h0">
+                                <field name="VAR" id="{nSZaMa(yESzXpPBj$k$">ESP32_shock</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_declare_signal" id="FWdX1f+zo#{e=Jby@$VQ">
+                                <field name="TYPE">INOUT</field>
+                                <value name="signal">
+                                  <block type="variables_get" id="Lad)4w1L}:,wYxHxu/Pz">
+                                    <field name="VAR" id="Uv-:/4si|#|$.F4qh$fS">ESP32_touch</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
           </block>
         </next>
       </block>
@@ -28,76 +83,157 @@
       <block type="addSceneScore" id="z.1Y_:Fsov)*KXz8%J#N">
         <field name="number">1</field>
         <next>
-          <block type="hh_await_signal_value" id="-Kq6H,Z;Tylw,#r9Z1Wd">
+          <block type="hh_wait_for" id="KF1v_vWxlIYktwK95r*w">
             <field name="TIMES">1</field>
-            <field name="Signal_Value">12</field>
             <value name="SIGNAL">
               <block type="variables_get" id="45ix}22Qox{Y+PA,^nfR">
                 <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">ESP32_sensor1</field>
               </block>
             </value>
             <next>
-              <block type="hh_print_serveur" id="we7!L2x{(EoF6|nEkX*s">
-                <value name="TEXT">
-                  <block type="text" id="CKT*Q{sLZ{;U|Xo,,ZYB">
-                    <field name="TEXT">Skini reçoit ESP32_1 à 12</field>
-                  </block>
-                </value>
+              <block type="hh_await_signal_value" id="-Kq6H,Z;Tylw,#r9Z1Wd" disabled="true">
+                <field name="TIMES">1</field>
+                <field name="Signal_Value">12</field>
                 <next>
-                  <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
-                    <statement name="BODY">
-                      <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX" disabled="true">
+                  <block type="hh_print_serveur" id="we7!L2x{(EoF6|nEkX*s">
+                    <value name="TEXT">
+                      <block type="text" id="CKT*Q{sLZ{;U|Xo,,ZYB">
+                        <field name="TEXT">Skini reçoit ESP32_1 à 12</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_fork" id="ju7-f(^=.PHMCNkn;xZ,">
                         <statement name="BODY">
-                          <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
-                            <field name="TIMES">1</field>
-                            <field name="Signal_Value">11</field>
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
-                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
-                                <value name="TEXT">
-                                  <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
-                                    <field name="TEXT">foo 11</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
-                        <next>
-                          <block type="hh_loopeach" id="ki]fd;;fDKer;i+`uj-q">
-                            <field name="TIMES">1</field>
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="h%x#5}XnAeU}2Va8sjHt">
-                                <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">ESP32_sensor1</field>
-                              </block>
-                            </value>
+                          <block type="hh_sequence" id="Y{f?jqV/7)ufL*ys5QxX" disabled="true">
                             <statement name="BODY">
-                              <block type="hh_print_serveur" id=")#C2Hz^m)osW6ZVB:.4W">
-                                <value name="TEXT">
-                                  <block type="text" id="y*P~c9~f}UGq2~QRUY-A">
-                                    <field name="TEXT">Skini reçoit ESP32_1</field>
+                              <block type="hh_await_signal_value" id="*wiPQ6|9EsLO;$BK~:`:">
+                                <field name="TIMES">1</field>
+                                <field name="Signal_Value">11</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="zQH;UAT=NvM@VFki#hSb">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="send_OSC_game_command" id="fI`z8v$sRBb7[~`=^V,,">
-                                    <field name="OSCValue1">10</field>
-                                    <value name="OSCmessage">
-                                      <block type="text" id="Y]yBT|A9WK]+w]*XKfen">
-                                        <field name="TEXT">ESP32/1</field>
+                                  <block type="hh_print_serveur" id="B4]GmFZJU=!BQ9pKFoL,">
+                                    <value name="TEXT">
+                                      <block type="text" id="i5Ws~w:Sp;Bm9q8h,16K">
+                                        <field name="TEXT">foo 11</field>
                                       </block>
                                     </value>
                                   </block>
                                 </next>
                               </block>
                             </statement>
+                            <next>
+                              <block type="hh_loopeach" id="ki]fd;;fDKer;i+`uj-q">
+                                <field name="TIMES">1</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="h%x#5}XnAeU}2Va8sjHt">
+                                    <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">ESP32_sensor1</field>
+                                  </block>
+                                </value>
+                                <statement name="BODY">
+                                  <block type="hh_print_serveur" id=")#C2Hz^m)osW6ZVB:.4W">
+                                    <value name="TEXT">
+                                      <block type="text" id="y*P~c9~f}UGq2~QRUY-A">
+                                        <field name="TEXT">Skini reçoit ESP32_1</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="send_OSC_game_command" id="fI`z8v$sRBb7[~`=^V,,">
+                                        <field name="OSCValue1">10</field>
+                                        <value name="OSCmessage">
+                                          <block type="text" id="Y]yBT|A9WK]+w]*XKfen">
+                                            <field name="TEXT">ESP32/1</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="hh_loopeach" id=")n9Z]p]9!uk;%Wz4k9cA">
+                                    <field name="TIMES">1</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="F53V4``1|O`hy4#$ey38">
+                                        <field name="VAR" id="{nSZaMa(yESzXpPBj$k$">ESP32_shock</field>
+                                      </block>
+                                    </value>
+                                    <statement name="BODY">
+                                      <block type="hh_print_serveur" id="IB.WZ%yZC5~+5pABEa^X">
+                                        <value name="TEXT">
+                                          <block type="text" id="9LY*7cR!Q;!nlH=.d(#Y">
+                                            <field name="TEXT">Skini reçoit un Choc</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="hh_loopeach" id="+`Gb$EyCD,{Nsb()^F6_">
+                                        <field name="TIMES">1</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="*YlgrqF2H3C,oiA4Pl%M">
+                                            <field name="VAR" id="#f.y*RW})dC`-g)08xg6">ESP32_motion</field>
+                                          </block>
+                                        </value>
+                                        <statement name="BODY">
+                                          <block type="hh_print_serveur" id="yV0|G/m7hxn5;OtJ$RtI">
+                                            <value name="TEXT">
+                                              <block type="text" id=":b2x=YY-h1`)klv)@G[8">
+                                                <field name="TEXT">Skini reçoit une motion</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="hh_loopeach" id="PmC3U!*e9)7prfmq4*=4">
+                                            <field name="TIMES">1</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="hO=QyTURtayYObzyVs*p">
+                                                <field name="VAR" id="qj:/~CXP/8?NyS^)FhHv">ESP32_gyro</field>
+                                              </block>
+                                            </value>
+                                            <statement name="BODY">
+                                              <block type="hh_print_serveur" id="I45P7Xhj)P-aLuqI2rBJ">
+                                                <value name="TEXT">
+                                                  <block type="text" id="{H=E9eN?dF/a)KajiM;3">
+                                                    <field name="TEXT">Skini reçoit une gyro</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </statement>
+                                            <next>
+                                              <block type="hh_loopeach" id="zm~XDlGUcc=b?iu5E@m@">
+                                                <field name="TIMES">1</field>
+                                                <value name="SIGNAL">
+                                                  <block type="variables_get" id="IVS4Uv2I?DDe:}_lXybI">
+                                                    <field name="VAR" id="Uv-:/4si|#|$.F4qh$fS">ESP32_touch</field>
+                                                  </block>
+                                                </value>
+                                                <statement name="BODY">
+                                                  <block type="hh_print_serveur" id="1{_Ep7{J?54S(p;t3Yfq">
+                                                    <value name="TEXT">
+                                                      <block type="text" id="RYbn.Jqa0b5KNL*fu5os">
+                                                        <field name="TEXT">Skini reçoit une touche</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
                           </block>
-                        </next>
+                        </statement>
                       </block>
-                    </statement>
+                    </next>
                   </block>
                 </next>
               </block>
