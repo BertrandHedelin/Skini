@@ -11,6 +11,7 @@
 import { ReactiveMachine } from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
 
+
 // Declaration for the communication with the Skini engine
 let midimix;
 let oscMidiLocal;
@@ -65,13 +66,20 @@ export function setSignals(param) {
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
 
-  var IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
-    "INTERFACEZ_RC3", "INTERFACEZ_RC4", "INTERFACEZ_RC5", "INTERFACEZ_RC6",
-    "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
+  var IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0",
+    "INTERFACEZ_RC1", "INTERFACEZ_RC2",
+    "INTERFACEZ_RC3", "INTERFACEZ_RC4",
+    "INTERFACEZ_RC5", "INTERFACEZ_RC6",
+    "INTERFACEZ_RC7", "INTERFACEZ_RC8",
+    "INTERFACEZ_RC9", "INTERFACEZ_RC10",
+    "INTERFACEZ_RC11"];
 
-  var ESP32signals = ["ESP32_motion", "ESP32_shock", "ESP32_touch", "ESP32_light", "ESP32_gyro", "ESP32_sensor1", "ESP32_accel"];
+  var ESP32signals = ["ESP32_motion", "ESP32_shock", 
+    "ESP32_touch", "ESP32_light", 
+    "ESP32_gyro", "ESP32_sensor1", 
+    "ESP32_accel", "ESP32_capa"];
 
-  console.log("inter:", interTextIN, interTextOUT, IZsignals);
+  console.log("inter:", interTextIN, interTextOUT, IZsignals, ESP32signals);
 
   hiphop module sensorIZ(name) {
     in sensorIZ, tick;
@@ -81,33 +89,36 @@ export function setSignals(param) {
     loop{
 
       host{ console.log(" *-*-*-*-*-*-*- Sensor RC", sensorIZ.nowval ); }
-      //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
-
-      if (sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000) {
-        host{ utilsSkini.alertInfoScoreON(name + ": Zone 1", serveur); }
+      
+      if ( sensorIZ.nowval == undefined) {
+        host{ console.log("Capteur sans valeur : ", sensorIZ.nowval); }
+      }
+      else if (sensorIZ.nowval[1] < 6000 && sensorIZ.nowval[1] > 3000) {
         emit zone1OUT([true, 0]);
       }
       else if (sensorIZ.nowval[1] < 2999 && sensorIZ.nowval[1] > 2000) {
-        host{ utilsSkini.alertInfoScoreON(name + " : Zone 2", serveur); }
         emit zone2OUT([true, 0]);
       }
       else if (sensorIZ.nowval[1] < 1999 && sensorIZ.nowval[1] > 1000) {
-        host{ utilsSkini.alertInfoScoreON(name + " : Zone 3", serveur); }
         emit zone3OUT([true, 0]);
       }
       else if (sensorIZ.nowval[1] < 999 && sensorIZ.nowval[1] > 500) {
-        host{ utilsSkini.alertInfoScoreON(name + ": Zone 4", serveur); }
         emit zone4OUT([true, 0]);
       }
       else if (sensorIZ.nowval[1] < 499 && sensorIZ.nowval[1] > 0) {
-        host{ utilsSkini.alertInfoScoreON(name + ": Zone 6", serveur); }
         emit zone6OUT([true, 0]);
+      } else {
+        host{ console.log("Capteur sans valeur : ", sensorIZ.nowval); }
+      }
+
+      if(sensorIZ.nowval !== undefined) {
+        host{ utilsSkini.alertInfoScoreON(name + ":" + sensorIZ.nowval[1], serveur); }
       }
       await count(4, tick.now);
     }
   }
 
-/* hiphop module stopAll() {
+hiphop module stopAll() {
     out ... ${ interTextOUT };
 
     emit zone1OUT([false, 0]);
@@ -120,15 +131,16 @@ export function setSignals(param) {
     emit zone9OUT([false, 0]);
     emit zone10OUT([false, 0]);
   }
- */
+
   const Program = hiphop module() {
 
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
     in stopResevoir, stopMoveTempo;
-    in ... ${ ESP32signals };
+
     in ... ${ IZsignals };
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
+    in ... ${ ESP32signals };
 
     loop{
       await(tick.now);
@@ -136,41 +148,77 @@ export function setSignals(param) {
       host{ utilsSkini.addSceneScore(1, serveur); }
       host{ utilsSkini.alertInfoScoreON("Skini HH", serveur); }
 
-      abort(halt.now){
+      abort(halt.now || ESP32_shock.now){
         fork {
           every(tick.now){
             host{
-              //console.log("tick from HH", i++);
               gcs.setTickOnControler(i++);
             }
           }
-           emit zone1OUT([false, 0]);
-           host{ utilsSkini.alertInfoScoreOFF(serveur); }
         } par {
-          run sensorIZ("zone1") { INTERFACEZ_RC1 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone2") { INTERFACEZ_RC2 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone3") { INTERFACEZ_RC3 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone4") { INTERFACEZ_RC4 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone6") { INTERFACEZ_RC5 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone7") { INTERFACEZ_RC5 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone8") { INTERFACEZ_RC5 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone9") { INTERFACEZ_RC5 as sensorIZ, tick as tick };
-        } par {
-          run sensorIZ("zone10") { INTERFACEZ_RC5 as sensorIZ, tick as tick };
+          emit zone1OUT([false, 0]);
+          host{ utilsSkini.alertInfoScoreOFF(serveur); }
+          fork {
+            every(INTERFACEZ_RC0.now) {
+              host{ console.log("Reçu RC0"); }
+              emit zone1OUT([true, 0]);
+              emit zone2OUT([true, 0]);
+              yield;
+            }
+          } par {
+            every(INTERFACEZ_RC1.now) {
+              host{ console.log("Reçu RC1"); }
+              yield;
+            }
+          } par {
+            every(INTERFACEZ_RC2.now) {
+              host{ console.log("Reçu RC2"); }
+              yield;
+            }
+          } par {
+            every(INTERFACEZ_RC3.now) {
+              host{ console.log("Reçu RC3"); }
+              yield;
+            }
+          } par {
+            every(ESP32_touch.now) {
+              host{ console.log("Reçu ESP32 touch"); }
+              yield;
+            }
+          } par {
+            every(ESP32_light.now) {
+              host{ console.log("Reçu ESP32 light", ESP32_light.nowval ); }
+              yield;
+            }
+          } par {
+            every(ESP32_capa.now) {
+              host{ console.log("Reçu ESP32 capa", ESP32_capa.nowval ); }
+              yield;
+            }
+          } par {
+            // every(ESP32_shock.now) {
+            //   host{ console.log("Reçu ESP32 Choc"); }
+            //   yield;
+            // }
+          }
         }
       }
       host{ console.log("Reçu Halt"); }
       host{ utilsSkini.alertInfoScoreON("Stop Skini HH", serveur); }
-    }
-  }
+      emit zone1OUT([false, 0]);
+      emit zone2OUT([false, 0]);
+      emit zone3OUT([false, 0]);
+      emit zone4OUT([false, 0]);
+      emit zone6OUT([false, 0]);
+      emit zone7OUT([false, 0]);
+      emit zone8OUT([false, 0]);
+      emit zone9OUT([false, 0]);
+      emit zone10OUT([false, 0]);
+      // Commande d'arrêt, note 300 de Skini
+      host {oscMidiLocal.sendNoteOn(param.busMidiDAW, 3, 46, 100);}
+    } // loop
+  } // program
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
-}
+} // set signals
 
