@@ -1,8 +1,8 @@
 /**
- * @fileOverview Example of control with Interface Z sensors
- * @copyright (C) 2024 Bertrand Petit-Hédelin
+ * @fileOverview Example of control with Interface Z sensors and ESP32 controler
+ * @copyright (C) 2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.0
+ * @version 1.1
  */
 // @ts-nocheck
 "use strict"
@@ -19,7 +19,7 @@ let gcs;
 let DAW;
 let serveur;
 
-// Avec des valeurs initiales
+// Examples of initial values
 let CCChannel = 1;
 let CCTempo = 100;
 let tempoMax = 160;
@@ -56,9 +56,11 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
 }
 
 /**
- * Defines and creates the hiphop programm
+ * Defines and creates the hiphop programm. This function is called by the Skini 
+ * platform. 
  * @function
- * @param  {Object} parameter for the piece
+ * @param  {Object} parameters for the piece, 
+ * set in the web interface with the "parameter" button.
  */
 export function setSignals(param) {
   var i = 0;
@@ -81,6 +83,11 @@ export function setSignals(param) {
 
   console.log("inter:", interTextIN, interTextOUT, IZsignals, ESP32signals);
 
+  /**
+   * Module to process the distances given by the IZ sensors
+   * @function
+   * @param  {Object} Name to identify the sensor
+   */
   hiphop module sensorIZ(name) {
     in sensorIZ, tick;
     out zone1OUT, zone2OUT, zone3OUT, zone4OUT;
@@ -110,22 +117,32 @@ export function setSignals(param) {
       }
   }
 
-hiphop module stopAll() {
-    out zone1OUT, zone2OUT, zone3OUT;
-    out zone4OUT, zone6OUT, zone7OUT;
-    out zone8OUT, zone9OUT, zone10OUT;
+  /**
+   * Module to unset all groups of clips
+   * @function
+   * @param
+   */
+  hiphop module stopAll() {
+      out zone1OUT, zone2OUT, zone3OUT;
+      out zone4OUT, zone6OUT, zone7OUT;
+      out zone8OUT, zone9OUT, zone10OUT;
 
-    emit zone1OUT([false, 0]);
-    emit zone2OUT([false, 0]);
-    emit zone3OUT([false, 0]);
-    emit zone4OUT([false, 0]);
-    emit zone6OUT([false, 0]);
-    emit zone7OUT([false, 0]);
-    emit zone8OUT([false, 0]);
-    emit zone9OUT([false, 0]);
-    emit zone10OUT([false, 0]);
-  }
+      emit zone1OUT([false, 0]);
+      emit zone2OUT([false, 0]);
+      emit zone3OUT([false, 0]);
+      emit zone4OUT([false, 0]);
+      emit zone6OUT([false, 0]);
+      emit zone7OUT([false, 0]);
+      emit zone8OUT([false, 0]);
+      emit zone9OUT([false, 0]);
+      emit zone10OUT([false, 0]);
+    }
 
+  /**
+   * The main HH module with the Orchestration
+   * @function
+   * @param
+   */
   const Program = hiphop module() {
 
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -136,6 +153,7 @@ hiphop module stopAll() {
     in ... ${ interTextIN };
     in ... ${ ESP32signals };
 
+    // start.now is activated by the "start" button of the web interface
     await(start.now);
     loop{
       await(tick.now);
@@ -227,6 +245,8 @@ hiphop module stopAll() {
       }
     } // loop
   } // program
+
+  // Creation of the HH machine.
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 } // set signals
