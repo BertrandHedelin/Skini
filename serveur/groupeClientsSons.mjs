@@ -535,7 +535,12 @@ Gestion des Groupes de clients
  */
 export function putIdInGroupClient(id, groupe) {
   if (debug) console.log("groupecliensSons:", id, groupe);
-  groupesClient[groupe].push(id);
+  
+  if (groupesClient[groupe] !== undefined) {
+    groupesClient[groupe].push(id);
+  } else {
+    console.log("ERR: groupecliensSons: putIdInGroupClient :", id, groupe);
+  }
 }
 
 /**
