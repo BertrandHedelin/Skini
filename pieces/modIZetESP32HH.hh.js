@@ -1,5 +1,7 @@
 /**
  * @fileOverview Example of control with Interface Z sensors and ESP32 controler
+ * Works with Ableton Orcheste16SkinIZ.als
+ * The tempo in Ableton must be 80.
  * @copyright (C) 2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.1
@@ -11,7 +13,6 @@
 import { ReactiveMachine } from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
 
-
 // Declaration for the communication with the Skini engine
 let midimix;
 let oscMidiLocal;
@@ -21,7 +22,7 @@ let serveur;
 
 // Examples of initial values
 let CCChannel = 1;
-let CCTempo = 100;
+let CCTempo = 305;
 let tempoMax = 160;
 let tempoMin = 40;
 let tempoGlobal = 60;
@@ -90,8 +91,8 @@ export function setSignals(param) {
    */
   hiphop module sensorIZ(name) {
     in sensorIZ, tick;
-    out zone1OUT, zone2OUT, zone3OUT, zone4OUT;
-    //out ... ${ interTextOUT };
+    //out zone1OUT, zone2OUT, zone3OUT, zone4OUT;
+    out ... ${ interTextOUT };
 
       host{ console.log(" *-*-*-*-*-*-*- Sensor ", name, sensorIZ.nowval ); }
       
@@ -115,6 +116,7 @@ export function setSignals(param) {
       if(sensorIZ.nowval !== undefined) {
         host{ utilsSkini.alertInfoScoreON(name + ":" + sensorIZ.nowval[1], serveur); }
       }
+      await  count (8,tick.now);
   }
 
   /**
@@ -123,10 +125,7 @@ export function setSignals(param) {
    * @param
    */
   hiphop module stopAll() {
-      out zone1OUT, zone2OUT, zone3OUT;
-      out zone4OUT, zone6OUT, zone7OUT;
-      out zone8OUT, zone9OUT, zone10OUT;
-
+    out ... ${ interTextOUT };
       emit zone1OUT([false, 0]);
       emit zone2OUT([false, 0]);
       emit zone3OUT([false, 0]);
@@ -155,6 +154,7 @@ export function setSignals(param) {
 
     // start.now is activated by the "start" button of the web interface
     await(start.now);
+
     loop{
       await(tick.now);
       host{ utilsSkini.addSceneScore(1, serveur); }
@@ -163,6 +163,9 @@ export function setSignals(param) {
         console.log("Appuyer sur le bouton");
        }
       await(ESP32_touch.now);
+
+      host{ utilsSkini.setTempo(80, param, oscMidiLocal, midimix,
+        tempoMax, tempoMin, CCChannel, CCTempo); }
 
       abort(halt.now || ESP32_shock.now){
         // Pour l'affichage du temps dans le controleur
@@ -175,6 +178,7 @@ export function setSignals(param) {
         } par { // L'orchestration commence ici
           host{ utilsSkini.alertInfoScoreOFF(serveur); }
           fork {
+            // Set groups zones 1, 2, 3, 4, according to the distance to the IZ sensor 0 
             every(INTERFACEZ_RC0.now) {
               host{ console.log("Reçu RC0"); }
               run sensorIZ("RC0") {
@@ -183,20 +187,40 @@ export function setSignals(param) {
               };
             }
           } par {
-            every(INTERFACEZ_RC1.now) {
-              host{ console.log("Reçu RC1"); }
-              emit zone8OUT([true, 0]);
-            }
-          } par {
-            every(INTERFACEZ_RC2.now) {
-              host{ console.log("Reçu RC2"); }
-              emit zone9OUT([true, 0]);
-            }
-          } par {
-            every(INTERFACEZ_RC3.now) {
-              host{ console.log("Reçu RC3"); }
-              emit zone10OUT([true, 0]);
-            }
+            Sensors123: {
+              fork{
+                every(INTERFACEZ_RC1.now) {
+                  host{ console.log("Reçu RC1"); }
+                  emit zone8OUT([true, 0]);
+                  await  count (8,tick.now);
+                  emit zone8OUT([false, 0]);
+                }
+              } par {
+                every(INTERFACEZ_RC2.now) {
+                  host{ console.log("Reçu RC2"); }
+                  emit zone9OUT([true, 0]);
+                  await  count (8,tick.now);
+                  emit zone9OUT([false, 0]);
+                }
+              } par {
+                every(INTERFACEZ_RC3.now) {
+                  host{ console.log("Reçu RC3"); }
+                  emit zone10OUT([true, 0]);
+                  await  count (8,tick.now);
+                  emit zone10OUT([false, 0]);
+                }
+              } par {
+                every(INTERFACEZ_RC4.now) {
+                  host{ console.log("Reçu RC4"); }
+                  emit zone7OUT([true, 0]);
+                  await  count (8,tick.now);
+                  emit zone7OUT([false, 0]);
+                }
+              } par {
+                await (ESP32_capa.now);
+                break Sensors123;
+              }
+            }  
           } par {
             every(ESP32_touch.now) {
               host{ console.log("Reçu ESP32 touch"); }
@@ -217,7 +241,7 @@ export function setSignals(param) {
               yield;
             }
           } par {
-            // Le morceau de fin se mélange aux clips 
+            // Le morceau de fin
             every(ESP32_capa.now) {
               host{ console.log("Reçu ESP32 capa", ESP32_capa.nowval ); }
               host{ utilsSkini.alertInfoScoreON("Pour la fin", serveur); }

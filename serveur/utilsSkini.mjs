@@ -25,6 +25,9 @@
 import { ReactiveMachine } from "@hop/hiphop";
 import { format } from "util";
 
+let debug = true;
+let debug1 = true;
+
 export function creationInterfacesOUT(groupes) {
   if (groupes !== undefined) {
     return groupes.map(function (k) {
@@ -41,8 +44,8 @@ export function creationInterfacesIN(groupes) {
   };
 }
 
-export function setTempo(value) {
-  tempoGlobal = value;
+export function setTempo(value, par, oscMidiLocal, midimix, 
+  tempoMax, tempoMin, CCChannel, CCTempo) {
 
   if (midimix.getAbletonLinkStatus()) {
     if (debug) console.log("ORCHESTRATION: set tempo Link:", value);
@@ -55,7 +58,7 @@ export function setTempo(value) {
   }
   let tempo = Math.round(127 / (tempoMax - tempoMin) * (value - tempoMin));
   if (debug) {
-    console.log("Set tempo blockly:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW());
+    console.log("Set tempo:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW());
   }
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
 }

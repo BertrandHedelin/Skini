@@ -144,7 +144,7 @@ export function midimix(machineServeur) {
   function setTempoLink(tempo) {
     if (link !== undefined) {
       link.bpm = tempo;
-      if(debug) console.log("INFO: midimix.js: setTempolink:", tempo);
+      if(debug1) console.log("INFO: midimix.js: setTempolink:", tempo);
     }
   }
   _setTempoLink = setTempoLink;
