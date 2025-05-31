@@ -3,8 +3,12 @@
  * @fileOverview 
  * Controle de la matrice des possibles
  * entre groupe de sons et groupe de clients
+ * 
  * browserify .\clientcontroleur.js -o .\controleurbundle.js
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * sur Mac
+ * browserify ./clientcontroleur.js -o ./controleurbundle.js
+ * 
+ * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -143,7 +147,9 @@ function creationPad() {
 function setPadButton(son, groupe, status) {
   // Traite une colone complète
   if (groupe == 255) {
-    var id = son;
+
+    var id = parseInt(son); // Pas de typage en JS, d'où des pb.
+
     for (var j = 0; j < nbeLignesPad; j++) {
       var bouton = document.getElementById("padBouton" + id.toString());
       if (bouton == undefined) {
@@ -169,7 +175,8 @@ function setPadButton(son, groupe, status) {
     return;
   }
 
-  var idBouton = "padBouton" + (son + groupe * nbeColonesPad);
+  var index = parseInt(son) + groupe * nbeColonesPad;
+  var idBouton = "padBouton" + index;
   if (debug) console.log("clientcontroleur:setPadButton:idBouton", idBouton);
   var leBouton = document.getElementById(idBouton);
   if (status) {
@@ -357,78 +364,6 @@ window.onbeforeunload = function () {
   ws.close();
 }
 
-/* function loadDAW(val) {
-  if (!automateEncours) {
-    console.log("clientControleur:lstopDAWoadDAW:", val);
-
-        // var bout; 
-        // msg.type = "loadDAWTable";
-        // msg.value = val -1; // Pour envoyer un index
-        // DAWTableEnCours = val;
-        // ws.send(JSON.stringify(msg));
-    
-        // for (var i=1; i < 4; i++ ) {
-        //   bout = "buttonLoadDAW" + i;
-        //   document.getElementById( bout ).style.backgroundColor = "#4CAF50"; // Green
-        // }
-        // bout = "buttonLoadDAW" + val;
-
-    msg.type = "loadDAWTable";
-    msg.value = 0; // Pour envoyer un index
-    DAWTableEnCours = val;
-    ws.send(JSON.stringify(msg));
-
-    var bout = "buttonLoadDAW";
-    document.getElementById(bout).style.backgroundColor = "#008CBA"; // bleu
-  } else {
-    alert("WARNING: Automaton running, stop before selecting another one.")
-  }
-}
-window.loadDAW = loadDAW; */
-
-/* function stopDAW() {
-  msg.type = "setDAWON";
-  msg.value = 0;
-  ws.send(JSON.stringify(msg));
-  document.getElementById("buttonStartDAW").style.display = "inline";
-  document.getElementById("buttonStopDAW").style.display = "none";
-
-  cleanQueues();
-  resetAllPad();
-}
-window.stopDAW = stopDAW; */
-
-/* function startAutomate() {
-  msg.type = "setDAWON";
-  if (DAWTableEnCours !== 0) {
-    msg.value = DAWTableEnCours;
-    ws.send(JSON.stringify(msg));
-    document.getElementById("buttonStartAutomate").style.display = "none";
-    document.getElementById("buttonStopAutomate").style.display = "inline";
-    msg.type = "startAutomate";
-    ws.send(JSON.stringify(msg));
-    automateEncours = true;
-  } else {
-    alert("WARNING: No automaton selected")
-  }
-}
-window.startAutomate = startAutomate; */
-
-/* function stopAutomate() {
-  document.getElementById("buttonStartAutomate").style.display = "inline";
-  document.getElementById("buttonStopAutomate").style.display = "none";
-
-  var bout = "buttonLoadDAW";
-  document.getElementById(bout).style.backgroundColor = "#4CAF50"; // Green
-
-  msg.type = "stopAutomate";
-  ws.send(JSON.stringify(msg));
-  resetAllPad();
-  automateEncours = false;
-  cleanQueues();
-}
-window.stopAutomate = stopAutomate; */
-
 function checkSession() {
   msg.type = "checkSession";
   ws.send(JSON.stringify(msg));
@@ -461,7 +396,7 @@ window.loadSession = loadSession; */
 }
 window.saveSession = saveSession; */
 
-//************ WEBSOCKET HOP et listener BROADCAST ******************************
+//************ WEBSOCKET et listener BROADCAST ******************************
 function initWSSocket(host) {
   var toggle = true;
   ws = new WebSocket("ws://" + host + ":" + ipConfig.websocketServeurPort);
@@ -522,11 +457,6 @@ function initWSSocket(host) {
 
       case "lesFilesDattente":
         break;
-
-      /*       case "noAutomaton":
-              document.getElementById("MessageDuServeur").innerHTML = "No automaton at this position";
-              automateEncours = false;
-              break; */
 
       case "sessionLoaded":
         document.getElementById("MessageDuServeur").innerHTML = "Session loaded :" + msgRecu.fileName;
@@ -646,7 +576,7 @@ module.exports={
   "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "192.168.1.251",
+  "remoteIPAddressGame": "192.168.1.223",
   "interfaceZIPaddress": "192.168.1.250",
   "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,

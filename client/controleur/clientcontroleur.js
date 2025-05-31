@@ -2,7 +2,11 @@
  * @fileOverview 
  * Controle de la matrice des possibles
  * entre groupe de sons et groupe de clients
+ * 
  * browserify .\clientcontroleur.js -o .\controleurbundle.js
+ * sur Mac
+ * browserify ./clientcontroleur.js -o ./controleurbundle.js
+ * 
  * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -142,7 +146,9 @@ function creationPad() {
 function setPadButton(son, groupe, status) {
   // Traite une colone complète
   if (groupe == 255) {
-    var id = son;
+
+    var id = parseInt(son); // Pas de typage en JS, d'où des pb.
+
     for (var j = 0; j < nbeLignesPad; j++) {
       var bouton = document.getElementById("padBouton" + id.toString());
       if (bouton == undefined) {
@@ -168,7 +174,8 @@ function setPadButton(son, groupe, status) {
     return;
   }
 
-  var idBouton = "padBouton" + (son + groupe * nbeColonesPad);
+  var index = parseInt(son) + groupe * nbeColonesPad;
+  var idBouton = "padBouton" + index;
   if (debug) console.log("clientcontroleur:setPadButton:idBouton", idBouton);
   var leBouton = document.getElementById(idBouton);
   if (status) {
