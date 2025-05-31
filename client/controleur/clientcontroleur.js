@@ -7,7 +7,7 @@
  * sur Mac
  * browserify ./clientcontroleur.js -o ./controleurbundle.js
  * 
- * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2025 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
- * @version 1.3
+ * @version 1.4
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  */
 "use strict"
@@ -55,8 +55,12 @@ var automateEncours = true;
 var serverHostname;
 // Autres déclarations
 
-var msg = { // On met des valeurs pas defaut, mais ce n'est pas nécessaire.
-  type: "configuration",
+// On met des valeurs pas defaut, mais ce n'est pas nécessaire.
+const msg = { type: "configuration" };
+
+const COLORS = {
+  BLEU: "padBoutonBleu",
+  DEFAULT: "padBouton",
 };
 
 // Cette fonction est activée à la demande de chaque client sequenceur
@@ -66,22 +70,17 @@ var msg = { // On met des valeurs pas defaut, mais ce n'est pas nécessaire.
 // controleur ---- ws "resetSequenceur" --->  websocketserveur  ----- broadcast "resetSequenceur" ---->   clientsequenceur ----------  ws vers Processing "erasePatern"  -----> Processing  vide
 // C'est un montage compliqué mais Processing ne reçoit pas les broadcast de hop.
 function resetSequenceur() {
-  var msg = {
-    type: "resetSequenceur",
-  };
-  ws.send(JSON.stringify(msg));
+  ws.send(JSON.stringify({ type: "resetSequenceur" }));
 }
 window.resetSequenceur = resetSequenceur;
 
 function creationPad() {
 
-  var place = document.getElementById("listBoutonsLiens");
-  var compteurBouton = 0;
+  const place = document.getElementById("listBoutonsLiens");
+  let compteurBouton = 0;
 
   // On vide le PAD
-  while (place.firstChild) {
-    place.removeChild(place.firstChild);
-  }
+  place.innerHTML = '';
 
   // Première ligne
   var em = document.createElement("a");
@@ -89,7 +88,7 @@ function creationPad() {
   place.appendChild(em);
   em.innerHTML = "-";
 
-  for (var j = 0; j < nbeColonesPad; j++) {
+  for (let j = 0; j < nbeColonesPad; j++) {
     var em = document.createElement("button");
     em.dataset.colone = j;
     em.setAttribute("class", "numColone");
@@ -98,101 +97,78 @@ function creationPad() {
     em.innerHTML = j;
   }
 
-  var el = document.createElement("br");
-  place.appendChild(el);
+  place.appendChild(document.createElement("br"));
 
   // Le PAD
-  for (var i = 0; i < nbeLignesPad; i++) {
-    var em = document.createElement("a");
+  for (let i = 0; i < nbeLignesPad; i++) {
+    const em = document.createElement("a");
     em.setAttribute("class", "texteSon");
     place.appendChild(em);
     em.innerHTML = i;
 
-    for (var j = 0; j < nbeColonesPad; j++) {
-      var bouton = document.createElement("button");
+    for (let j = 0; j < nbeColonesPad; j++) {
+      const bouton = document.createElement("button");
       bouton.id = "padBouton" + compteurBouton;
       compteurBouton++;
       bouton.dataset.ligne = i;
       bouton.dataset.colone = j;
 
       bouton.setAttribute("class", "padBouton");
-      bouton.addEventListener("click", function (event) { clickPadBouton(this.id); });
+      bouton.addEventListener("click", () => clickPadBouton(bouton.id));
       place.appendChild(bouton);
     }
-    var el = document.createElement("br");
-    place.appendChild(el);
+    place.appendChild(document.createElement("br"));
   }
 
   // Etat des scrutateurs
-  for (var i = 0; i < nbeColonesPad; i++) {
-    etatScrutateurs[i] = 0;
-  }
-  var em = document.createElement("a");
-  em.setAttribute("class", "texteSon");
-  place.appendChild(em);
-  em.innerHTML = "-";
+  etatScrutateurs = Array(nbeColonesPad).fill(0);
+  const scrutHeader = document.createElement("a");
+  scrutHeader.className = "texteSon";
+  scrutHeader.innerHTML = "-";
+  place.appendChild(scrutHeader);
 
-  for (var j = 0; j < nbeColonesPad; j++) {
-    var em = document.createElement("button");
+  for (let j = 0; j < nbeColonesPad; j++) {
+    const em = document.createElement("button");
     em.setAttribute("class", "etatScrut");
     em.setAttribute("id", "etatScrut" + j);
     place.appendChild(em);
     em.innerHTML = "-";
   }
-  var el = document.createElement("br");
-  place.appendChild(el);
+  place.appendChild(document.createElement("br"));
 }
 
 function setPadButton(son, groupe, status) {
   // Traite une colone complète
-  if (groupe == 255) {
-
-    var id = parseInt(son); // Pas de typage en JS, d'où des pb.
-
-    for (var j = 0; j < nbeLignesPad; j++) {
-      var bouton = document.getElementById("padBouton" + id.toString());
-      if (bouton == undefined) {
-        console.log("ERR setAllPad: bouton undefined", id);
-        return;
-      }
-      if (status) {
-        bouton.setAttribute("class", "padBoutonBleu");
-      } else {
-        bouton.setAttribute("class", "padBouton");
-      }
+  if (groupe === 255) {
+    let id = parseInt(son);
+    for (let j = 0; j < nbeLignesPad; j++) {
+      const button = document.getElementById(`padBouton${id}`);
+      if (!button) return console.error("ERR setAllPad: boutton undefined", id);
+      button.className = status ? COLORS.BLEU : COLORS.DEFAULT;
       id += nbeColonesPad;
     }
     return;
   }
 
-  if (groupe >= par.nbeDeGroupesClients) {
-    console.log("ERR: setPadButton:groupeClient size exceeded:", groupe);
-    return;
-  }
-  if (son >= nbeColonesPad) {
-    console.log("ERR: setPadButton:groupeSons size exceeded:", son);
-    return;
+ if (groupe >= par.nbeDeGroupesClients || son >= nbeColonesPad) {
+    return console.error("ERR: setPadButton out of bounds", { son, groupe });
   }
 
-  var index = parseInt(son) + groupe * nbeColonesPad;
-  var idBouton = "padBouton" + index;
+  const index = parseInt(son) + groupe * nbeColonesPad;
+  const idBouton = "padBouton" + index;
   if (debug) console.log("clientcontroleur:setPadButton:idBouton", idBouton);
-  var leBouton = document.getElementById(idBouton);
-  if (status) {
-    leBouton.setAttribute("class", "padBoutonBleu");
-  } else {
-    leBouton.setAttribute("class", "padBouton");
-  }
+  const leBouton = document.getElementById(idBouton);
+  leBouton.className = status ? COLORS.BLEU : COLORS.DEFAULT;
 }
 
 function clickColoneBouton(colone) {
-  var id = parseInt(colone);
-  var status;
+  let id = parseInt(colone);
+  let status;
 
   if (debug) console.log("clickColoneBouton: bouton:", id, " nbeColonesPad:", nbeColonesPad);
 
-  for (var j = 0; j < nbeLignesPad; j++) {
-    var bouton = document.getElementById("padBouton" + id.toString());
+  for (let j = 0; j < nbeLignesPad; j++) {
+    const bouton = document.getElementById("padBouton" + id.toString());
 
     if (bouton == undefined) {
       console.log("ERR setAlclickColoneBouton: bouton undefined", id);
@@ -208,13 +184,12 @@ function clickColoneBouton(colone) {
       status = true;
     }
 
-    var msg = {
+    ws.send(JSON.stringify({
       type: "putInMatriceDesPossibles",
       clients: j,
       sons: colone,
-      status: status
-    };
-    ws.send(JSON.stringify(msg));
+      status
+    }));
 
     id += nbeColonesPad;
   }
@@ -222,37 +197,27 @@ function clickColoneBouton(colone) {
 window.clickColoneBouton = clickColoneBouton;
 
 // Quand on clique un bouton (X,Y)
-function clickPadBouton(padBouton) {
-  var bouton = document.getElementById(padBouton);
-  var status;
+function clickPadBouton(padBoutonId) {
+  const button = document.getElementById(padBoutonId);
+  const isActive = button.className === COLORS.BLEU;
+  const status = !isActive;
+  button.className = status ? COLORS.BLEU : COLORS.DEFAULT;
 
-  if (debug) console.log("LIGNE, COLONE", bouton.dataset.ligne, bouton.dataset.colone);
-
-  if (bouton.getAttribute("class") == "padBoutonBleu") { // Désactive le lien entre groupes
-    bouton.setAttribute("class", "padBouton");
-    status = false;
-
-  } else { // Active le lien
-    bouton.setAttribute("class", "padBoutonBleu");
-    status = true;
-  }
-
-  var msg = {
+  ws.send(JSON.stringify({
     type: "putInMatriceDesPossibles",
-    clients: bouton.dataset.ligne,
-    sons: bouton.dataset.colone,
-    status: status
-  };
-  ws.send(JSON.stringify(msg));
+    clients: button.dataset.ligne,
+    sons: button.dataset.colone,
+    status
+  }));
 }
 exports.clickPadBouton = clickPadBouton;
 
 function resetAllPad() {
   if (automateEncours) {
-    var id = 0;
-    for (var j = 0; j < nbeLignesPad; j++) {
-      for (var i = 0; i < nbeColonesPad; i++) {
-        var bouton = document.getElementById("padBouton" + id.toString());
+    let id = 0;
+    for (let j = 0; j < nbeLignesPad; j++) {
+      for (let i = 0; i < nbeColonesPad; i++) {
+        const bouton = document.getElementById("padBouton" + id.toString());
         if (bouton == undefined) {
           console.log("setAllPad:undefined", colone);
           return;
@@ -262,7 +227,7 @@ function resetAllPad() {
       }
     }
 
-    var msg = {
+    const msg = {
       type: "ResetMatriceDesPossibles",
     };
     ws.send(JSON.stringify(msg));

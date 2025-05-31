@@ -1,6 +1,8 @@
 /**
  * @fileOverview Display the score of the Skini piece
-  browserify parto1.js -o parto1bundle.js
+ * 
+ * browserify parto1.js -o parto1bundle.js
+ *
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
  * @copyright (C) 2022 Bertrand Petit-Hédelin
