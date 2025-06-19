@@ -7,9 +7,20 @@
  * Il s'agit d'un exemple de contrôle d'Ableton avec une utilisation
  * systématique des réservoirs.
  * 
- * @copyright (C) 2019-2024 Bertrand Petit-Hédelin
+ * Il y a quasiment tout ce que l'on peut faire avec Skini:
+ * - Groupes
+ * - Réservoirs
+ * - Controles Midi, CC, transpositions...
+ * - Controle de tempo
+ * - Affichage
+ * - Scénarios aléatoires
+ * - Test des patterns joués par Live
+ * - Utilisation de capteurs (ici IZ)
+ * - Ordonnancement des clips en FIFO
+ * 
+ * @copyright (C) 2019-2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.3
+ * @version 1.4
  */
 // @ts-nocheck
 "use strict"
@@ -55,19 +66,19 @@ const CCdegre2Mineursaxo = 73;
 const CCtonalite = 74;
 
 // Pour des transpositions par patterns
-var compteurTransInit = 407;
-var compteurTrans = compteurTransInit;
-var compteurTransMax = 414;
+let compteurTransInit = 407;
+let compteurTrans = compteurTransInit;
+let compteurTransMax = 414;
 
-var transposition = 0;
-var tonalite = 0;
+let transposition = 0;
+let tonalite = 0;
 
-var tempoGlobal = 60;
-var changeTempo = 0;
+let tempoGlobal = 60;
+let changeTempo = 0;
 
-var premierAlea = 0;
-var deuxiemeAlea = 0;
-var troisiemeAlea = 0;
+let premierAlea = 0;
+let deuxiemeAlea = 0;
+let troisiemeAlea = 0;
 
 /*************************************************************************
  * Les fonctions JavaScript
@@ -79,22 +90,22 @@ function setTempo(value, par) {
     return;
   }
   // Dans DAW, pour cette pièce, le controle MIDI du tempo se fait entre 60 et 160
-  var tempo = Math.round(127 / (tempoMax - tempoMin) * (value - tempoMin));
+  let tempo = Math.round(127 / (tempoMax - tempoMin) * (value - tempoMin));
   if (debug) console.log("Set tempo:", value);
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
 // de -12 à +12 demi-tons avec transpose Chromatic DAW
 function transpose(CCinstrument, value, par) {
-  var CCTransposeValue;
+  let CCTransposeValue;
 
   CCTransposeValue = Math.round(1763 / 1000 * value + 635 / 10);
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCinstrument, CCTransposeValue);
-  //if (debug1) console.log("-- Transposition instrument:", CCinstrument, "->", value, "demi-tons" );
+  if (debug1) console.log("-- Transposition instrument:", CCinstrument, "->", value, "demi-tons" );
 }
 
 function transposeAll(value, par) {
-  for (var i = 61; i <= 74; i++) {
+  for (let i = 61; i <= 74; i++) {
     transpose(i, value, par);
   }
 }
@@ -109,7 +120,7 @@ function degre2mineursaxo(value, par) {
 }
 
 function setTonalite(CCtonalite, value, par) {
-  var CCTon;
+  let CCTon;
 
   CCTon = Math.round(1763 / 1000 * value + 635 / 10);
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCtonalite, CCTon);
@@ -187,7 +198,7 @@ function makeReservoir(groupeClient, instrument) {
  * Les modules HH pour les réservoirs
  * 
  */
-let piano = [
+const piano = [
   "Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
   "Piano1Intro6", "Piano1Intro7", "Piano1Milieu1", "Piano1Milieu2", "Piano1Milieu3",
   "Piano1Milieu4", "Piano1Milieu5", "Piano1Milieu6", "Piano1Milieu7",
@@ -195,14 +206,14 @@ let piano = [
   "Piano1Fin6", "Piano1Fin7"
 ]
 
-var resevoirPiano1 = hiphop module () {
+const resevoirPiano1 = hiphop module () {
   in stopReservoir;
   in ... ${ piano.map(i => `${i}IN`) };
   out ... ${ piano.map(i => `${i}OUT`) };
 	${ makeReservoir(255, piano) };
 }
 
-let saxo = [
+const saxo = [
   "SaxIntro1", "SaxIntro2", "SaxIntro3", "SaxIntro4", "SaxIntro5",
   "SaxIntro6", "SaxIntro7", "SaxMilieu1", "SaxMilieu2", "SaxMilieu3",
   "SaxMilieu4", "SaxMilieu5", "SaxMilieu6", "SaxMilieu7",
@@ -210,7 +221,7 @@ let saxo = [
   "SaxFin6", "SaxFin7"
 ];
 
-var resevoirSaxo = hiphop module () 
+const resevoirSaxo = hiphop module () 
 {
   in stopReservoir;
   in ... ${ saxo.map(i => `${i}IN`) };
@@ -218,7 +229,7 @@ var resevoirSaxo = hiphop module ()
 	${ makeReservoir(255, saxo) };
 }
 
-let brass = [
+const brass = [
   "BrassIntro1", "BrassIntro2", "BrassIntro3", "BrassIntro4", "BrassIntro5",
   "BrassIntro6", "BrassIntro7", "BrassMilieu1", "BrassMilieu2", "BrassMilieu3",
   "BrassMilieu4", "BrassMilieu5", "BrassMilieu6", "BrassMilieu7",
@@ -226,7 +237,7 @@ let brass = [
   "BrassFin6", "BrassFin7"
 ];
 
-var resevoirBrass = hiphop module () 
+const resevoirBrass = hiphop module () 
 {
   in stopReservoir;
   in ... ${ brass.map(i => `${i}IN`) };
@@ -234,7 +245,7 @@ var resevoirBrass = hiphop module ()
 	${ makeReservoir(255, brass) };
 }
 
-let flute = [
+const flute = [
   "FluteIntro1", "FluteIntro2", "FluteIntro3", "FluteIntro4", "FluteIntro5",
   "FluteIntro6", "FluteIntro7", "FluteMilieu1", "FluteMilieu2", "FluteMilieu3",
   "FluteMilieu4", "FluteMilieu5", "FluteMilieu6", "FluteMilieu7",
@@ -242,7 +253,7 @@ let flute = [
   "FluteFin6", "FluteFin7"
 ];
 
-var resevoirFlute = hiphop module () 
+const resevoirFlute = hiphop module () 
 {
   in stopReservoir;
   in ... ${ flute.map(i => `${i}IN`) };
@@ -250,12 +261,12 @@ var resevoirFlute = hiphop module ()
 	${makeReservoir(255, flute)};
 }
 
-let percu = [
+const percu = [
   "Percu1", "Percu2", "Percu3", "Percu4", "Percu5",
   "Percu6", "Percu7"
 ];
 
-var resevoirPercu = hiphop module () 
+const resevoirPercu = hiphop module () 
 {
   in stopReservoir;
   in ... ${ percu.map(i => `${i}IN`) };
@@ -272,7 +283,7 @@ export function setSignals(param) {
   var i = 0;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
-  var IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
+  const IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
     "INTERFACEZ_RC3", "INTERFACEZ_RC4", "INTERFACEZ_RC5", "INTERFACEZ_RC6",
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
@@ -286,7 +297,7 @@ export function setSignals(param) {
 
     signal stopReservoirFlute;
     host{ console.log("-- DEBUT FLUTE SOLO --"); }
-      solo: {
+    solo: {
       fork{
         run ${ resevoirFlute } () {*, stopReservoirFlute as stopReservoir };
         }par{
@@ -294,8 +305,10 @@ export function setSignals(param) {
           // reservoir qui occupe 55 ticks + 4 ticks de transitions.
           // Dans le cas de séléction à l'exécution, c'est une durée max. Mais les répétitions seront possibles
           // dans le réservoir.
-          await count(40, tick.now);
+          await count(57, tick.now);
           emit stopReservoirFlute();
+          // Si on ne vide pas la FIFO ça continue à jouer, c'est un choix musical possible.
+          hop{ DAW.cleanQueue(6);}
           break solo;
         }
       }
@@ -315,8 +328,9 @@ export function setSignals(param) {
       }par{
         // Pour attendre effectivement la fin du reservoir qui occupe 55 ticks + 4 ticks de transitions
         // cf. plus faut
-        await count( 55, tick.now);
+        await count( 58, tick.now);
         emit stopReservoirPiano();
+        hop{ DAW.cleanQueue(1);}
         break solo;
       }par{
         every (patternSignal.now && 
@@ -336,6 +350,7 @@ export function setSignals(param) {
       }par{
         every immediate (stopSolo.now){
           emit stopReservoirPiano();
+          hop{ DAW.cleanQueue(1);}
           host{console.log("--- SoloPiano: Tuer par stopSolo")}
           break solo;
         }
@@ -360,11 +375,12 @@ export function setSignals(param) {
       // Pour attendre effectivement la fin du reservoir
       // dans le cas de séléction à l'exécution
       // mais aussi pour arrêter la nappe au bon moment
-      await count( 12 * 5, tick.now); 
+      await count( 20, tick.now); 
       emit stopReservoirSax();
       emit nappeViolonsOUT([false, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"Nappe", false); }
       hop{ DAW.cleanQueue(3);} // Nappe
+      hop{ DAW.cleanQueue(2);} // Saxo
     }
   }
 
@@ -494,7 +510,7 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
     // Pour basculer d'un scénario avec ou sans capteurs
-    let sensors = false;
+    const sensors = false;
 
     loop{
       let tickCounter = 0;
@@ -559,20 +575,27 @@ export function setSignals(param) {
               //run ${saxoEtViolons} () {*};
               //run ${soloPiano} () {*};
               //run ${resevoirFlute} () {*}
-              run ${soloFlute} () {*};
+              
+              //run ${soloFlute} () {*};
 
               //run ${ resevoirPiano1 } () {*}
               //run ${ resevoirSaxo } () {*}
               //run ${ resevoirBrass } () {*}
-              // } par {
-                //run ${soloFlute} () {*}
-              // } par {
-              //   run ${ saxoEtViolons } () {*}
-              // } par {
+              
+              fork {
+                run ${ soloPiano } () {*}  // 57 ticks
+              } par {
+                run ${ soloFlute } () {*}; // 57 ticks
+              } par {
+                await count(57, tick.now);
+              }
+              run ${ saxoEtViolons } () {*} // 84 ticks
+
+            } par {
               run ${ transposeSaxoModal } () {*}
             } par {
-              run ${ soloPiano } () {*}
-              //run ${ brassEtPercu } () {*}
+            //  run ${ soloPiano } () {*}
+            //  run ${ brassEtPercu } () {*}
             // } par {
             //   run ${ resevoirPercu } () {*}
             } par {

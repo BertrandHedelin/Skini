@@ -80,7 +80,7 @@ export function setSignals(param) {
   var ESP32signals = ["ESP32_motion", "ESP32_shock", 
     "ESP32_touch", "ESP32_light", 
     "ESP32_gyro", "ESP32_sensor1", 
-    "ESP32_accel", "ESP32_capa"];
+    "ESP32_accel", "ESP32_capa","ESP32_heartbeat"];
 
   console.log("inter:", interTextIN, interTextOUT, IZsignals, ESP32signals);
 
@@ -116,7 +116,15 @@ export function setSignals(param) {
       if(sensorIZ.nowval !== undefined) {
         host{ utilsSkini.alertInfoScoreON(name + ":" + sensorIZ.nowval[1], serveur); }
       }
-      await  count (8,tick.now);
+      await  count (16,tick.now);
+      run stopAll() { zone1OUT, zone2OUT, zone3OUT, 
+        zone4OUT, zone6OUT, zone7OUT,
+        zone8OUT, zone9OUT, zone10OUT};
+      host {
+        // Commande d'arrêt, note 301 de Skini et vidage des FIFO
+        DAW.cleanQueues();
+        oscMidiLocal.sendNoteOn(param.busMidiDAW, 3, 47, 100);
+      }
   }
 
   /**
