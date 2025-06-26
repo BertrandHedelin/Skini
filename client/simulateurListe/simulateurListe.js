@@ -42,32 +42,22 @@ function setTableDerniersPatterns(nbeInstr) {
 
 function initTempi() {
   console.log("------------------------------------------------");
-  if (par.tempoMax !== undefined) {
-    tempoMax = par.tempoMax; // en ms
-  } else {
-    tempoMax = 500;
-    console.log("tempoMax par défaut")
-  }
-
-  if (par.tempoMin !== undefined) {
-    tempoMin = par.tempoMin; // en ms
-  } else {
-    tempoMin = 100;
-    console.log("tempoMin par défaut")
-  }
-
-  if (par.limiteDureeAttente !== undefined) {
-    limiteDureeAttente = par.limiteDureeAttente; // en ms
-  } else {
-    limiteDureeAttente = 100;
-    console.log("tempoMin par défaut")
-  }
-
+  
+  // Initialisation avec valeurs par défaut
+  tempoMax = par.tempoMax ?? 500;
+  tempoMin = par.tempoMin ?? 100;
+  limiteDureeAttente = par.limiteDureeAttente ?? 100;
+  
+  // Logs des valeurs par défaut utilisées
+  if (par.tempoMax === undefined) console.log("tempoMax par défaut");
+  if (par.tempoMin === undefined) console.log("tempoMin par défaut");
+  if (par.limiteDureeAttente === undefined) console.log("limiteDureeAttente par défaut");
+  
   derniersPatternsJoues = setTableDerniersPatterns(nbeInstruments);
-  if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
-
-  console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
-};
+  if (debug) console.log("derniersPatternsJoues:", derniersPatternsJoues);
+  
+  console.log(`Paramètres tempo: Min=${tempoMin} Max=${tempoMax} limiteDureeAttente=${limiteDureeAttente}`);
+}
 
 initTempi();
 
@@ -90,22 +80,12 @@ let listClips; // Devient une array avec toutes les infos sur les clips selectio
 let nombreDePatternsPossible = 1;
 
 let numClip;
-var msg = { // On met des valeurs pas defaut
-  type: "configuration",
-  text: "ECRAN_NOIR",
-  pseudo: "Anonyme",
-  value: 0,
-};
-
 let myArgs = process.argv.slice(2);
-//console.log('myArgs: ', myArgs);
 
 // Décodage du paramètre pour une simulation indépendante de l'audience
 let jeSuisUneAudience = true;
-for (let i = 0; i < myArgs.length; i++) {
-  if (myArgs[i] === "-sim") {
-    jeSuisUneAudience = false;
-  }
+if (myArgs.includes("-sim")) {
+  jeSuisUneAudience = false;
 }
 
 /*******************************************************************
@@ -134,14 +114,16 @@ resetListOfTypes();
  * @param {Array} list of patterns
  */
 function setListOfTypes(list) {
-  // A remettre à 0 avant de faire des push.
   resetListOfTypes();
 
   if (debug) console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
 
-  for (let i = 0; i < list.length; i++) {
-    listOfTypes[list[i][7]].push(list[i][3]);
-  }
+  list.forEach(item => {
+    const typeKey = item[7];
+    const value = item[3];
+    listOfTypes[typeKey].push(value);
+  });
+
   if (debug) console.log("simulateur: setListOfTypes:", listOfTypes);
 }
 
@@ -165,28 +147,17 @@ function selectOnePattern(list) {
   return selected;
 }
 
-
-function removePattern(list, patternName) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i][3] === patternName) {
-      list.splice(i, 1);
-    }
-  }
-}
-
 /**
- * To remove a pattern from the list which is an array of arrays
+ * To remove a pattern from the list of patterns
  * where the index is the type
- * @param {Array} list of pattern by types
+ * @param {Array} list of patterns
  * @param patternName
  */
-function removePatternInTypes(types, patternName) {
-  for (let i = 0; i < types.length; i++) {
-    for (let j = 0; j < types[i].length; j++) {
-      if (types[j] === patternName) {
-        if (debug) console.log("Simulateur: removePatternInTypes: ", patternName);
-        types[j].splice(j, 1);
-      }
+function removePattern(list, patternName) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i][3] === patternName) {
+      list.splice(i, 1);
+      if (debug1) console.log("Simulateur: removePattern:", patternName);
     }
   }
 }
@@ -211,7 +182,7 @@ function getPattern(list, patternName) {
  * Create a list of "selected patterns" according to 
  * a sequence described in types.
  * @param {Array} list of patterns indexed by present types
- * @param {Array} list of types types availaible
+ * @param {Array} list of types availaible
  * @param {Array} listOfPatterns
  * @returns {Array} selected list of Skini notes
  */
@@ -239,10 +210,11 @@ function getListOfPatternsSelected(list, types, listOfPatterns) {
     if (list[indexTypes] !== undefined) {
       if (list[indexTypes].length !== 0) {
         patternSelected = selectOnePattern(list[indexTypes]);
+
         gotAPattern = getPattern(listOfPatterns, patternSelected);
         selected.push(gotAPattern); // Add the pattern to the selected list
+
         removePattern(listOfPatterns, patternSelected);
-        removePatternInTypes(list, patternSelected);
       }
     }
   }
@@ -385,17 +357,12 @@ function initWSSocket(port) {
 
   ws.onopen = function (event) {
     console.log("simulateur.js Websocket : ", "ws://" + ipConfig.serverIPAddress + ":" + port + "/hop/serv");
-    msg.type = "startSpectateur";
-    msg.text = monIdentite;
-    msg.id = id;
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
-    ws.send(JSON.stringify(msg));
+    const messages = [
+      { type: "startSpectateur", text: monIdentite, id },
+      { type: "getNombreDePatternsPossibleEnListe" }
+    ];
 
-    msg.type = "getNombreDePatternsPossibleEnListe";
-    // Node est super rapide
-    //setTimeout( ()=> ws.send(JSON.stringify(msg)), 500 );
-    ws.send(JSON.stringify(msg));
+    messages.forEach(msg => ws.send(JSON.stringify(msg)));
   };
 
   //Traitement de la Réception sur le client
@@ -513,12 +480,13 @@ function initWSSocket(port) {
         if (debug) console.log("-- sendPatternSequence: attente:", dureeAttente, limiteDureeAttente);
         if (dureeAttente < limiteDureeAttente) { // On est dans des délais raisonnables
           if (debug1) console.log("-- sendPatternSequence", sequenceLocale, pseudo);
-          msg.type = "sendPatternSequence";
-          msg.patternSequence = sequenceLocale;
-          msg.pseudo = pseudo;
-          msg.groupe = monGroupe;
-          msg.idClient = id;
-          ws.send(JSON.stringify(msg));
+          ws.send(JSON.stringify({
+            type: "sendPatternSequence",
+            patternSequence: sequenceLocale,
+            pseudo: pseudo,
+            groupe: monGroupe,
+            idClient: id
+          }));
         } else {
           dureeAttente = 0;
         }
@@ -532,10 +500,7 @@ function initWSSocket(port) {
         break;
 
       case "listeDesTypes":
-        types = msgRecu.text.split(',');
-        for (let i = 0; i < types.length; i++) {
-          types[i] = parseInt(types[i]);
-        }
+        types = msgRecu.text.split(',').map(str => parseInt(str));
         if (debug1) console.log("Simulator: List of Types:", types);
         break;
 
@@ -636,30 +601,11 @@ function actionSurGroupeClientStatus(sons, status) {
 //========== Controle des CLIPS =================================
 function selectListClips() { // selecteurV2
   if (debug) console.log("selectListClips: groupe", monGroupe);
-
-  msg.type = "selectAllClips";
-  msg.groupe = monGroupe;
-  ws.send(JSON.stringify(msg));
+  ws.send(JSON.stringify({
+    type: "selectAllClips",
+    groupe: monGroupe
+  }));
 }
-
-// Demande au serveur de lancer le clip
-var compteurTest = 0;
-function startClip(indexChoisi) {
-
-  if (indexChoisi == -1) return -1; // Protection sur un choix sans selection au départ
-  msg.pseudo = pseudo; //noms[index];
-
-  msg.type = "DAWStartClip";
-  msg.clipChoisi = listClips[indexChoisi];
-
-  compteurTest++;
-  console.log("startClip:", compteurTest, " :", listClips[indexChoisi][3], "par", pseudo);
-  //msg.pseudo = pseudo;
-  msg.groupe = monGroupe;
-  ws.send(JSON.stringify(msg));
-  indexChoisi = -1;
-}
-exports.startClip = startClip;
 
 // ========================= Lancement du simulateur =================
 init(port);
@@ -672,5 +618,4 @@ init(port);
 
 setTimeout(() => selectListClips(), 1000);
 
-//selectListClips();
 

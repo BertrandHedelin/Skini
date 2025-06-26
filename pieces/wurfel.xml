@@ -240,6 +240,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
     
     
     
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="94|zS(f#9Aj=F9[-sLQU" collapsed="true">
@@ -1051,6 +1053,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                         
                                                                         
                                                                         
+                                                                        
+                                                                        
                                                                         </comment>
                                                                         <value name="NAME">
                                                                           <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -1163,6 +1167,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                                                     
                                                                     
                                                                                             
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1711,9 +1717,9 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                 </statement>
                                 <next>
                                   <block type="move_tempo" id="M;5)lITELmIll/)]c6T/">
-                                    <field name="VALUE">4</field>
-                                    <field name="LIMIT">10</field>
-                                    <field name="EVERY">1</field>
+                                    <field name="VALUE">2</field>
+                                    <field name="LIMIT">8</field>
+                                    <field name="EVERY">4</field>
                                     <value name="SIGNAL">
                                       <block type="variables_get" id="cx|(_*B6md@g`6B^vj3R">
                                         <field name="VAR" id="l+?F^f.C@f$4gqP^:wa=">tick</field>

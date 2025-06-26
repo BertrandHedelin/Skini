@@ -1938,18 +1938,18 @@
                               </block>
                             </value>
                             <next>
-                              <block type="activateTypeList" id="7.TM@.wS1D}:ql$61{l-" disabled="true">
+                              <block type="activateTypeList" id="7.TM@.wS1D}:ql$61{l-">
                                 <next>
-                                  <block type="setTypeList" id="G,a/%w:}yuRSk+N3@(I=" disabled="true">
+                                  <block type="setTypeList" id="G,a/%w:}yuRSk+N3@(I=">
                                     <value name="message">
                                       <block type="text" id="UAv7QFlL{oTI=|}ROJ!C">
                                         <field name="TEXT">1,2,3,4</field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]">
-                                        <field name="valeur">3</field>
-                                        <field name="groupe">255</field>
+                                      <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]" disabled="true">
+                                        <field name="valeur">4</field>
+                                        <field name="groupe">0</field>
                                         <comment pinned="false" h="80" w="160">Pour limiter le travail du simulateur à une liste de 1 pattern</comment>
                                         <next>
                                           <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
@@ -1966,7 +1966,7 @@
                                                   <block type="hh_fork" id="UCovNUTx3#d%:b=QksU2">
                                                     <statement name="BODY">
                                                       <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
-                                                        <field name="user_group">255</field>
+                                                        <field name="user_group">2</field>
                                                         <field name="number_of_ticks">10</field>
                                                         <value name="GROUPS">
                                                           <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">
@@ -2288,7 +2288,7 @@
                                                                                                           </block>
                                                                                                         </value>
                                                                                                         <next>
-                                                                                                          <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!">
+                                                                                                          <block type="alertInfoScoreON" id="0:oUkP445:)CkWkN~Rm!" disabled="true">
                                                                                                             <value name="message">
                                                                                                               <block type="text" id="y`J*2?gwH?4RGXc?)TL~">
                                                                                                                 <field name="TEXT">Fin Mars 2022</field>
