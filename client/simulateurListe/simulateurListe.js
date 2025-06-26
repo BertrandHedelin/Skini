@@ -1,12 +1,12 @@
 /**
  * @fileOverview
- * <H3>CODE CLIENT DE SIMULATION D'UNE AUDIENCE
+ * <H3>CODE CLIENT DE GENERATION DE SEQUENCES
  * UTILISANT LE CLIENT AVEC LISTE (clientListe)</H3>
  * <BR>
  * Les clips sont appelés de façon aléatoire selon la liste disponible.
  * Ceci correspond à une audience qui fait n'importe quoi sur les clips
  * disponibles.
- * @version 1.1
+ * @version 1.2
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @copyright (C) 2022-2025 Bertrand Petit-Hédelin
  *

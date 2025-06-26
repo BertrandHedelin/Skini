@@ -1663,7 +1663,7 @@ maybe an hiphop compile Error`);
         case "selectAllClips":
           var listClips = DAW.getAllClips(msgRecu.groupe, groupesClientSon.matriceDesPossibles);
           if (listClips !== -1) {
-            if (debug) console.log("Web Socket Serveur: selectAllClips:", ws.id, "groupe:", msgRecu.groupe, listClips[0]);
+            if (debug) console.log("Web Socket Serveur: selectAllClips for id:", ws.id, "groupe:", msgRecu.groupe, " premier pattern:", listClips[0]);
             var msg = {
               type: "listClips",
               listClips: listClips

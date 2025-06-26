@@ -106,12 +106,15 @@
     <variable id="|0Urc6:{^BN~Bp2T]5%G">Flesh</variable>
     <variable id="lnIdAmS%X`6DFJ9Z*xz9">Massive</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="+wcZk9H$_gf1|BP2k;Z/" x="302" y="66">
+  <block type="hh_ORCHESTRATION" id="+wcZk9H$_gf1|BP2k;Z/" x="177" y="-355">
     <comment pinned="false" h="158" w="657">Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
 On a donc un contrôle sur la construction des phrases musicales.
 Le simulateur a des contraintes sur les timers : 3000 min et 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel aux tanks en contrôlant/limitant les répétitions de patterns. 
 Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été dévalidé sur le serveur, surtout quand le paramètre reactOnPlay est actif.
 
+    
+    
+    
     
     
     
@@ -736,6 +739,9 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                            
+                            
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -819,6 +825,9 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                                
+                                
+                                
                                 
                                 
                                 
@@ -1003,6 +1012,9 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                     
                                     
                                     
+                                    
+                                    
+                                    
                                     </comment>
                                     <value name="NAME">
                                       <block type="variables_get" id="zC/p_t^mzd0}LkXR$#}+">
@@ -1120,6 +1132,9 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                                 
+                                        
+                                        
+                                        
                                         
                                         
                                         
@@ -1405,7 +1420,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                     </value>
                                     <next>
                                       <block type="set_group_during_ticks" id="U_CNgxI?%X8MI9)lT#*4">
-                                        <field name="user_group">1</field>
+                                        <field name="user_group">255</field>
                                         <field name="number_of_ticks">30</field>
                                         <value name="GROUPS">
                                           <block type="variables_get" id="W^hR.Cn,k{%eZEly|UI+">

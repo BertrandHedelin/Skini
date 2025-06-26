@@ -300,6 +300,11 @@
                     
                     
                     
+                    
+                    
+                    
+                    
+                    
                     </comment>
                     <next>
                       <block type="hh_wait_for" id="ZI(PXqyt/NjAPP!oek]p">
@@ -318,6 +323,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                            
+                            
+                            
+                            
+                            
                             
                             
                             
@@ -746,6 +756,11 @@
                                     
                                     
                                     
+                                    
+                                    
+                                    
+                                    
+                                    
                                     </comment>
                                     <next>
                                       <block type="hh_wait_for" id="d8h}H9vIPN^O`-`2%FC~">
@@ -764,6 +779,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                            
+                                            
+                                            
+                                            
+                                            
                                             
                                             
                                             
@@ -1192,6 +1212,11 @@
                                                     
                                                     
                                                     
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     </comment>
                                                     <next>
                                                       <block type="hh_wait_for" id="DO[?:xL%kI]l6]=Y$me!">
@@ -1210,6 +1235,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
                                                             
                                                             
                                                             
@@ -1638,6 +1668,11 @@
                                                                     
                                                                     
                                                                     
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
                                                                     </comment>
                                                                     <next>
                                                                       <block type="hh_wait_for" id="e1AJu2%k*:H2$kc^$ZMT">
@@ -1656,6 +1691,11 @@
 64 -&gt; 0
 70 -&gt; +1
 75 -&gt; +2
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                             
                                                                             
                                                                             
@@ -1917,7 +1957,7 @@
         </value>
         <next>
           <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
-            <field name="timer">2</field>
+            <field name="timer">1</field>
             <next>
               <block type="tempo_parameters" id="-?%,n:S,bOjuK_u$$GG^">
                 <field name="channelTempo">1</field>
@@ -1938,18 +1978,18 @@
                               </block>
                             </value>
                             <next>
-                              <block type="activateTypeList" id="7.TM@.wS1D}:ql$61{l-">
+                              <block type="activateTypeList" id="7.TM@.wS1D}:ql$61{l-" disabled="true">
                                 <next>
-                                  <block type="setTypeList" id="G,a/%w:}yuRSk+N3@(I=">
+                                  <block type="setTypeList" id="G,a/%w:}yuRSk+N3@(I=" disabled="true">
                                     <value name="message">
                                       <block type="text" id="UAv7QFlL{oTI=|}ROJ!C">
                                         <field name="TEXT">1,2,3,4</field>
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]" disabled="true">
+                                      <block type="patternListLength" id="T}VK*K3mq=;9dSf_c@i]">
                                         <field name="valeur">4</field>
-                                        <field name="groupe">0</field>
+                                        <field name="groupe">1</field>
                                         <comment pinned="false" h="80" w="160">Pour limiter le travail du simulateur à une liste de 1 pattern</comment>
                                         <next>
                                           <block type="hh_fork" id="V:tO5.i1JqCn.)h^$ajP">
@@ -1966,7 +2006,7 @@
                                                   <block type="hh_fork" id="UCovNUTx3#d%:b=QksU2">
                                                     <statement name="BODY">
                                                       <block type="set_group_during_ticks" id="4+ZW86WhAfme$tX^iad.">
-                                                        <field name="user_group">2</field>
+                                                        <field name="user_group">255</field>
                                                         <field name="number_of_ticks">10</field>
                                                         <value name="GROUPS">
                                                           <block type="lists_create_with" id="po_Q(Tcnj~JHR(yxfwr6">

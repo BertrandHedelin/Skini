@@ -1,134 +1,7 @@
-var type0, StartTransSaxo, type1, T72, T56, T75, T40, T83, T18, type2, T6, T82, T39, T73, T3, T45, type3, T59, T42, T54, T16, T28, T62, type4, T25, T74, T1, T68, T53, T38, type5, T81, T14, T65, T29, T37, T4, type6, T41, T7, T43, T55, T17, T27, type7, tick, T89, T26, T15, T2, T44, T52, type8, T13, T71, T80, T61, T70, T94, type9, T36, T76, T9, T22, T63, T11, type10, transposeClavier, type11, type12, type13, type14, type15, T5, T20, T34, T67, T85, T92, T46, T64, T93, T49, T32, T24, T79, T84, T48, T77, T96, T86, T30, T8, T69, T57, T12, T51, T95, T35, T58, T87, T23, T60, T19, T47, T90, T33, T50, T78, T66, T88, T21, T10, T91, T31, TransSaxo;
+var Piano, Violons, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Trompette, ViolonsIntro1, ViolonsIntro2, ViolonsIntro3, ViolonsIntro4, ViolonsIntro5, ViolonsIntro6, ViolonsMilieu1, ViolonsMilieu2, ViolonsMilieu3, ViolonsMilieu4, ViolonsFin1, ViolonsFin2, ViolonsFin3, ViolonsFin4, ViolonsFin5, Cors, RiseHit, Trompette1, Trompette2, Trompette3, Trompette4, Trompette5, Trompette6, Trompette7, Trompette8, Trompette9, Flute, Cors1, Cors2, Cors3, Cors4, Bassons, FluteDebut1, FluteDebut2, FluteDebut3, FluteDebut4, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteNeutre1, FluteNeutre2, FluteNeutre3, Percu, BassonDebut1, BassonDebut2, BassonDebut3, BassonDebut4, BassonMilieu1, BassonMilieu2, BassonMilieu3, BassonMilieu4, BassonMilieu5, BassonNeutre1, BassonNeutre2, Clarinette, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, ClarinetteDebut1, ClarinetteDebut2, ClarinetteDebut3, ClarinetteMilieu1, ClarinetteMilieu2, ClarinetteMilieu3, ClarinetteMilieu4, ClarinetteMilieu5, ClarinetteFin1, ClarinetteFin2, ClarinetteFin3, NappeCello, NappeViolons, NappeCTB, NappeCTBRythme, NappeAlto, tick, S1Action, NappeCelloRythme, S2Action;
 
 
-// Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
-// On a donc un contrôle sur la construction des phrases musicales.
-// Le simulateur a des contraintes sur les timers : 3000 min et
-// 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel
-// aux tanks en contrôlant/limitant les répétitions de patterns.
-// Si le simulateur va trop vite, il peut rappeler un
-// pattern avant qu'il ait été dévalidé sur le serveur,
-// surtout quand le paramètre reactOnPlay est actif.
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// Sur la base d'Opus5 avec Hop/HipHop. On utilise la session Ableton Live Opus5
 
 "use strict";
 
@@ -243,20 +116,42 @@ export function setSignals(param) {
   }
 
 
-    // Module tank type0 + T72
-    type0 = hh.MODULE({"id":"type0","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T72IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T56IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T75IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T40IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T83IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T18IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T72OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T56OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T75OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T40OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T83OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T18OUT"}),
+    // Module tank Piano + Piano1Intro1
+    Piano = hh.MODULE({"id":"Piano","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Intro1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Intro2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Intro3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Intro4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Intro5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Milieu7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Fin1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Fin2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Fin3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Fin4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Piano1Fin5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Intro1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Intro2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Intro3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Intro4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Intro5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Milieu7OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Fin1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Fin2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Fin3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Fin4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Piano1Fin5OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -285,10 +180,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T72" );
+                console.log("-- MAKE RESERVOIR:", "Piano1Intro1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T72"
+                  value:  "Piano1Intro1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -298,28 +193,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T72OUT":"T72OUT",
+                "Piano1Intro1OUT":"Piano1Intro1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T72 = this["T72OUT"];
+                    const Piano1Intro1 = this["Piano1Intro1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T72OUT",
+                "signame":"Piano1Intro1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T72OUT true
+          ), // Fin emit Piano1Intro1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T72OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T72OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Intro1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1OUT", true);
               }
             }
         ),
@@ -327,28 +222,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T56OUT":"T56OUT",
+                "Piano1Intro2OUT":"Piano1Intro2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T56 = this["T56OUT"];
+                    const Piano1Intro2 = this["Piano1Intro2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T56OUT",
+                "signame":"Piano1Intro2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T56OUT true
+          ), // Fin emit Piano1Intro2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T56OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T56OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Intro2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro2OUT", true);
               }
             }
         ),
@@ -356,28 +251,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T75OUT":"T75OUT",
+                "Piano1Intro3OUT":"Piano1Intro3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T75 = this["T75OUT"];
+                    const Piano1Intro3 = this["Piano1Intro3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T75OUT",
+                "signame":"Piano1Intro3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T75OUT true
+          ), // Fin emit Piano1Intro3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T75OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T75OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Intro3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro3OUT", true);
               }
             }
         ),
@@ -385,28 +280,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T40OUT":"T40OUT",
+                "Piano1Intro4OUT":"Piano1Intro4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T40 = this["T40OUT"];
+                    const Piano1Intro4 = this["Piano1Intro4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T40OUT",
+                "signame":"Piano1Intro4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T40OUT true
+          ), // Fin emit Piano1Intro4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T40OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T40OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Intro4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro4OUT", true);
               }
             }
         ),
@@ -414,28 +309,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T83OUT":"T83OUT",
+                "Piano1Intro5OUT":"Piano1Intro5OUT",
                 "apply":function (){
                   return ((() => {
-                    const T83 = this["T83OUT"];
+                    const Piano1Intro5 = this["Piano1Intro5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T83OUT",
+                "signame":"Piano1Intro5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T83OUT true
+          ), // Fin emit Piano1Intro5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T83OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T83OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Intro5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro5OUT", true);
               }
             }
         ),
@@ -443,38 +338,357 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T18OUT":"T18OUT",
+                "Piano1Milieu1OUT":"Piano1Milieu1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T18 = this["T18OUT"];
+                    const Piano1Milieu1 = this["Piano1Milieu1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T18OUT",
+                "signame":"Piano1Milieu1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T18OUT true
+          ), // Fin emit Piano1Milieu1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T18OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T18OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu1OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T72
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu2OUT":"Piano1Milieu2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu2 = this["Piano1Milieu2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu3OUT":"Piano1Milieu3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu3 = this["Piano1Milieu3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu4OUT":"Piano1Milieu4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu4 = this["Piano1Milieu4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu5OUT":"Piano1Milieu5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu5 = this["Piano1Milieu5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu5OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu6OUT":"Piano1Milieu6OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu6 = this["Piano1Milieu6OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu6OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu6OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu6OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Milieu7OUT":"Piano1Milieu7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Milieu7 = this["Piano1Milieu7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Milieu7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Milieu7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Milieu7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu7OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Fin1OUT":"Piano1Fin1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Fin1 = this["Piano1Fin1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Fin1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Fin1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Fin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Fin2OUT":"Piano1Fin2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Fin2 = this["Piano1Fin2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Fin2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Fin2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Fin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Fin3OUT":"Piano1Fin3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Fin3 = this["Piano1Fin3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Fin3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Fin3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Fin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Fin4OUT":"Piano1Fin4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Fin4 = this["Piano1Fin4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Fin4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Fin4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Fin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Piano1Fin5OUT":"Piano1Fin5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Piano1Fin5 = this["Piano1Fin5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Piano1Fin5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Piano1Fin5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Piano1Fin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin5OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:Piano1Intro1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T72
+        hh.SEQUENCE( // Debut sequence pour Piano1Intro1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -486,47 +700,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T72IN  =this["T72IN"];
-                  return T72IN.now;
+                  const Piano1Intro1IN  =this["Piano1Intro1IN"];
+                  return Piano1Intro1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T72IN",
+            hh.SIGACCESS({"signame":"Piano1Intro1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T72IN
+          ), // Fin await Piano1Intro1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T72OUT" : "T72OUT",
+              "Piano1Intro1OUT" : "Piano1Intro1OUT",
               "apply":function (){
                 return ((() => {
-                  const T72OUT = this["T72OUT"];
+                  const Piano1Intro1OUT = this["Piano1Intro1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T72OUT",
+              "signame":"Piano1Intro1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T72OUT true
+          ), // Fin emit Piano1Intro1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T72OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T72OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Intro1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T72
+        ) // Fin sequence pour Piano1Intro1
   ,
-        hh.SEQUENCE( // Debut sequence pour T56
+        hh.SEQUENCE( // Debut sequence pour Piano1Intro2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -538,47 +752,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T56IN  =this["T56IN"];
-                  return T56IN.now;
+                  const Piano1Intro2IN  =this["Piano1Intro2IN"];
+                  return Piano1Intro2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T56IN",
+            hh.SIGACCESS({"signame":"Piano1Intro2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T56IN
+          ), // Fin await Piano1Intro2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T56OUT" : "T56OUT",
+              "Piano1Intro2OUT" : "Piano1Intro2OUT",
               "apply":function (){
                 return ((() => {
-                  const T56OUT = this["T56OUT"];
+                  const Piano1Intro2OUT = this["Piano1Intro2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T56OUT",
+              "signame":"Piano1Intro2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T56OUT true
+          ), // Fin emit Piano1Intro2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T56OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T56OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Intro2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T56
+        ) // Fin sequence pour Piano1Intro2
   ,
-        hh.SEQUENCE( // Debut sequence pour T75
+        hh.SEQUENCE( // Debut sequence pour Piano1Intro3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -590,47 +804,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T75IN  =this["T75IN"];
-                  return T75IN.now;
+                  const Piano1Intro3IN  =this["Piano1Intro3IN"];
+                  return Piano1Intro3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T75IN",
+            hh.SIGACCESS({"signame":"Piano1Intro3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T75IN
+          ), // Fin await Piano1Intro3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T75OUT" : "T75OUT",
+              "Piano1Intro3OUT" : "Piano1Intro3OUT",
               "apply":function (){
                 return ((() => {
-                  const T75OUT = this["T75OUT"];
+                  const Piano1Intro3OUT = this["Piano1Intro3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T75OUT",
+              "signame":"Piano1Intro3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T75OUT true
+          ), // Fin emit Piano1Intro3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T75OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T75OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Intro3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T75
+        ) // Fin sequence pour Piano1Intro3
   ,
-        hh.SEQUENCE( // Debut sequence pour T40
+        hh.SEQUENCE( // Debut sequence pour Piano1Intro4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -642,47 +856,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T40IN  =this["T40IN"];
-                  return T40IN.now;
+                  const Piano1Intro4IN  =this["Piano1Intro4IN"];
+                  return Piano1Intro4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T40IN",
+            hh.SIGACCESS({"signame":"Piano1Intro4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T40IN
+          ), // Fin await Piano1Intro4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T40OUT" : "T40OUT",
+              "Piano1Intro4OUT" : "Piano1Intro4OUT",
               "apply":function (){
                 return ((() => {
-                  const T40OUT = this["T40OUT"];
+                  const Piano1Intro4OUT = this["Piano1Intro4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T40OUT",
+              "signame":"Piano1Intro4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T40OUT true
+          ), // Fin emit Piano1Intro4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T40OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T40OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Intro4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T40
+        ) // Fin sequence pour Piano1Intro4
   ,
-        hh.SEQUENCE( // Debut sequence pour T83
+        hh.SEQUENCE( // Debut sequence pour Piano1Intro5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -694,47 +908,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T83IN  =this["T83IN"];
-                  return T83IN.now;
+                  const Piano1Intro5IN  =this["Piano1Intro5IN"];
+                  return Piano1Intro5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T83IN",
+            hh.SIGACCESS({"signame":"Piano1Intro5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T83IN
+          ), // Fin await Piano1Intro5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T83OUT" : "T83OUT",
+              "Piano1Intro5OUT" : "Piano1Intro5OUT",
               "apply":function (){
                 return ((() => {
-                  const T83OUT = this["T83OUT"];
+                  const Piano1Intro5OUT = this["Piano1Intro5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T83OUT",
+              "signame":"Piano1Intro5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T83OUT true
+          ), // Fin emit Piano1Intro5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T83OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T83OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Intro5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Intro5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T83
+        ) // Fin sequence pour Piano1Intro5
   ,
-        hh.SEQUENCE( // Debut sequence pour T18
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -746,46 +960,618 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T18IN  =this["T18IN"];
-                  return T18IN.now;
+                  const Piano1Milieu1IN  =this["Piano1Milieu1IN"];
+                  return Piano1Milieu1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T18IN",
+            hh.SIGACCESS({"signame":"Piano1Milieu1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T18IN
+          ), // Fin await Piano1Milieu1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T18OUT" : "T18OUT",
+              "Piano1Milieu1OUT" : "Piano1Milieu1OUT",
               "apply":function (){
                 return ((() => {
-                  const T18OUT = this["T18OUT"];
+                  const Piano1Milieu1OUT = this["Piano1Milieu1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T18OUT",
+              "signame":"Piano1Milieu1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T18OUT true
+          ), // Fin emit Piano1Milieu1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T18OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T18OUT", false);
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T18
-      ), // Fin fork de make await avec en premiere position:T72
+        ) // Fin sequence pour Piano1Milieu1
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu2IN  =this["Piano1Milieu2IN"];
+                  return Piano1Milieu2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu2OUT" : "Piano1Milieu2OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu2OUT = this["Piano1Milieu2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu2
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu3IN  =this["Piano1Milieu3IN"];
+                  return Piano1Milieu3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu3OUT" : "Piano1Milieu3OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu3OUT = this["Piano1Milieu3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu3
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu4IN  =this["Piano1Milieu4IN"];
+                  return Piano1Milieu4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu4OUT" : "Piano1Milieu4OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu4OUT = this["Piano1Milieu4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu4
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu5IN  =this["Piano1Milieu5IN"];
+                  return Piano1Milieu5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu5OUT" : "Piano1Milieu5OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu5OUT = this["Piano1Milieu5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu5
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu6
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu6IN  =this["Piano1Milieu6IN"];
+                  return Piano1Milieu6IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu6IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu6IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu6OUT" : "Piano1Milieu6OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu6OUT = this["Piano1Milieu6OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu6OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu6OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu6
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Milieu7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu7IN  =this["Piano1Milieu7IN"];
+                  return Piano1Milieu7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Milieu7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Milieu7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Milieu7OUT" : "Piano1Milieu7OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Milieu7OUT = this["Piano1Milieu7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Milieu7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Milieu7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Milieu7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Milieu7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Milieu7
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Fin1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin1IN  =this["Piano1Fin1IN"];
+                  return Piano1Fin1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Fin1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Fin1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Fin1OUT" : "Piano1Fin1OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin1OUT = this["Piano1Fin1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Fin1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Fin1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Fin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Fin1
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Fin2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin2IN  =this["Piano1Fin2IN"];
+                  return Piano1Fin2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Fin2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Fin2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Fin2OUT" : "Piano1Fin2OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin2OUT = this["Piano1Fin2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Fin2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Fin2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Fin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Fin2
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Fin3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin3IN  =this["Piano1Fin3IN"];
+                  return Piano1Fin3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Fin3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Fin3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Fin3OUT" : "Piano1Fin3OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin3OUT = this["Piano1Fin3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Fin3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Fin3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Fin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Fin3
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Fin4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin4IN  =this["Piano1Fin4IN"];
+                  return Piano1Fin4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Fin4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Fin4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Fin4OUT" : "Piano1Fin4OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin4OUT = this["Piano1Fin4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Fin4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Fin4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Fin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Fin4
+  ,
+        hh.SEQUENCE( // Debut sequence pour Piano1Fin5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin5IN  =this["Piano1Fin5IN"];
+                  return Piano1Fin5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Piano1Fin5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Piano1Fin5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Piano1Fin5OUT" : "Piano1Fin5OUT",
+              "apply":function (){
+                return ((() => {
+                  const Piano1Fin5OUT = this["Piano1Fin5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Piano1Fin5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Piano1Fin5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Piano1Fin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Piano1Fin5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Piano1Fin5
+      ), // Fin fork de make await avec en premiere position:Piano1Intro1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -806,126 +1592,335 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T72OUT":"T72OUT",
+          "Piano1Intro1OUT":"Piano1Intro1OUT",
           "apply":function (){
             return ((() => {
-              const T72 = this["T72OUT"];
+              const Piano1Intro1 = this["Piano1Intro1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T72OUT",
+          "signame":"Piano1Intro1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T72OUT false,
+    ), // Fin emit Piano1Intro1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T56OUT":"T56OUT",
+          "Piano1Intro2OUT":"Piano1Intro2OUT",
           "apply":function (){
             return ((() => {
-              const T56 = this["T56OUT"];
+              const Piano1Intro2 = this["Piano1Intro2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T56OUT",
+          "signame":"Piano1Intro2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T56OUT false,
+    ), // Fin emit Piano1Intro2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T75OUT":"T75OUT",
+          "Piano1Intro3OUT":"Piano1Intro3OUT",
           "apply":function (){
             return ((() => {
-              const T75 = this["T75OUT"];
+              const Piano1Intro3 = this["Piano1Intro3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T75OUT",
+          "signame":"Piano1Intro3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T75OUT false,
+    ), // Fin emit Piano1Intro3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T40OUT":"T40OUT",
+          "Piano1Intro4OUT":"Piano1Intro4OUT",
           "apply":function (){
             return ((() => {
-              const T40 = this["T40OUT"];
+              const Piano1Intro4 = this["Piano1Intro4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T40OUT",
+          "signame":"Piano1Intro4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T40OUT false,
+    ), // Fin emit Piano1Intro4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T83OUT":"T83OUT",
+          "Piano1Intro5OUT":"Piano1Intro5OUT",
           "apply":function (){
             return ((() => {
-              const T83 = this["T83OUT"];
+              const Piano1Intro5 = this["Piano1Intro5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T83OUT",
+          "signame":"Piano1Intro5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T83OUT false,
+    ), // Fin emit Piano1Intro5OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T18OUT":"T18OUT",
+          "Piano1Milieu1OUT":"Piano1Milieu1OUT",
           "apply":function (){
             return ((() => {
-              const T18 = this["T18OUT"];
+              const Piano1Milieu1 = this["Piano1Milieu1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T18OUT",
+          "signame":"Piano1Milieu1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T18OUT false
+    ), // Fin emit Piano1Milieu1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu2OUT":"Piano1Milieu2OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu2 = this["Piano1Milieu2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu3OUT":"Piano1Milieu3OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu3 = this["Piano1Milieu3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu4OUT":"Piano1Milieu4OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu4 = this["Piano1Milieu4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu5OUT":"Piano1Milieu5OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu5 = this["Piano1Milieu5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu6OUT":"Piano1Milieu6OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu6 = this["Piano1Milieu6OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu6OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Milieu7OUT":"Piano1Milieu7OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Milieu7 = this["Piano1Milieu7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Milieu7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Milieu7OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Fin1OUT":"Piano1Fin1OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Fin1 = this["Piano1Fin1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Fin1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Fin1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Fin2OUT":"Piano1Fin2OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Fin2 = this["Piano1Fin2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Fin2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Fin2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Fin3OUT":"Piano1Fin3OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Fin3 = this["Piano1Fin3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Fin3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Fin3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Fin4OUT":"Piano1Fin4OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Fin4 = this["Piano1Fin4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Fin4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Fin4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Piano1Fin5OUT":"Piano1Fin5OUT",
+          "apply":function (){
+            return ((() => {
+              const Piano1Fin5 = this["Piano1Fin5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Piano1Fin5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Piano1Fin5OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T72", false);
-            console.log("--- FIN RESERVOIR:", "T72");
+            gcs.informSelecteurOnMenuChange(255 , "Piano1Intro1", false);
+            console.log("--- FIN RESERVOIR:", "Piano1Intro1");
             var msg = {
             type: 'killTank',
-            value:  "T72"
+            value:  "Piano1Intro1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -933,20 +1928,38 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type1 + T6
-    type1 = hh.MODULE({"id":"type1","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T6IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T82IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T39IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T73IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T3IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T45IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T6OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T82OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T39OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T73OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T3OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T45OUT"}),
+    // Module tank Violons + ViolonsIntro1
+    Violons = hh.MODULE({"id":"Violons","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsIntro6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsMilieu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsMilieu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsMilieu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsMilieu4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsFin1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsFin2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsFin3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsFin4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ViolonsFin5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsIntro6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsMilieu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsMilieu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsMilieu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsMilieu4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsFin1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsFin2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsFin3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsFin4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ViolonsFin5OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -975,10 +1988,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T6" );
+                console.log("-- MAKE RESERVOIR:", "ViolonsIntro1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T6"
+                  value:  "ViolonsIntro1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -988,28 +2001,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T6OUT":"T6OUT",
+                "ViolonsIntro1OUT":"ViolonsIntro1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T6 = this["T6OUT"];
+                    const ViolonsIntro1 = this["ViolonsIntro1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T6OUT",
+                "signame":"ViolonsIntro1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T6OUT true
+          ), // Fin emit ViolonsIntro1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T6OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro1OUT", true);
               }
             }
         ),
@@ -1017,28 +2030,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T82OUT":"T82OUT",
+                "ViolonsIntro2OUT":"ViolonsIntro2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T82 = this["T82OUT"];
+                    const ViolonsIntro2 = this["ViolonsIntro2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T82OUT",
+                "signame":"ViolonsIntro2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T82OUT true
+          ), // Fin emit ViolonsIntro2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T82OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T82OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro2OUT", true);
               }
             }
         ),
@@ -1046,28 +2059,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T39OUT":"T39OUT",
+                "ViolonsIntro3OUT":"ViolonsIntro3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T39 = this["T39OUT"];
+                    const ViolonsIntro3 = this["ViolonsIntro3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T39OUT",
+                "signame":"ViolonsIntro3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T39OUT true
+          ), // Fin emit ViolonsIntro3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T39OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T39OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro3OUT", true);
               }
             }
         ),
@@ -1075,28 +2088,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T73OUT":"T73OUT",
+                "ViolonsIntro4OUT":"ViolonsIntro4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T73 = this["T73OUT"];
+                    const ViolonsIntro4 = this["ViolonsIntro4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T73OUT",
+                "signame":"ViolonsIntro4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T73OUT true
+          ), // Fin emit ViolonsIntro4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T73OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T73OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro4OUT", true);
               }
             }
         ),
@@ -1104,28 +2117,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T3OUT":"T3OUT",
+                "ViolonsIntro5OUT":"ViolonsIntro5OUT",
                 "apply":function (){
                   return ((() => {
-                    const T3 = this["T3OUT"];
+                    const ViolonsIntro5 = this["ViolonsIntro5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T3OUT",
+                "signame":"ViolonsIntro5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T3OUT true
+          ), // Fin emit ViolonsIntro5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T3OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro5OUT", true);
               }
             }
         ),
@@ -1133,38 +2146,299 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T45OUT":"T45OUT",
+                "ViolonsIntro6OUT":"ViolonsIntro6OUT",
                 "apply":function (){
                   return ((() => {
-                    const T45 = this["T45OUT"];
+                    const ViolonsIntro6 = this["ViolonsIntro6OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T45OUT",
+                "signame":"ViolonsIntro6OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T45OUT true
+          ), // Fin emit ViolonsIntro6OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T45OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T45OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ViolonsIntro6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro6OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T6
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsMilieu1OUT":"ViolonsMilieu1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsMilieu1 = this["ViolonsMilieu1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsMilieu1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsMilieu1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsMilieu2OUT":"ViolonsMilieu2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsMilieu2 = this["ViolonsMilieu2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsMilieu2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsMilieu2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsMilieu3OUT":"ViolonsMilieu3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsMilieu3 = this["ViolonsMilieu3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsMilieu3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsMilieu3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsMilieu4OUT":"ViolonsMilieu4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsMilieu4 = this["ViolonsMilieu4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsMilieu4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsMilieu4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsFin1OUT":"ViolonsFin1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsFin1 = this["ViolonsFin1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsFin1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsFin1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsFin2OUT":"ViolonsFin2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsFin2 = this["ViolonsFin2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsFin2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsFin2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsFin3OUT":"ViolonsFin3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsFin3 = this["ViolonsFin3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsFin3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsFin3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsFin4OUT":"ViolonsFin4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsFin4 = this["ViolonsFin4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsFin4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsFin4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsFin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ViolonsFin5OUT":"ViolonsFin5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ViolonsFin5 = this["ViolonsFin5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ViolonsFin5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ViolonsFin5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ViolonsFin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin5OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:ViolonsIntro1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T6
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1176,47 +2450,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T6IN  =this["T6IN"];
-                  return T6IN.now;
+                  const ViolonsIntro1IN  =this["ViolonsIntro1IN"];
+                  return ViolonsIntro1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T6IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T6IN
+          ), // Fin await ViolonsIntro1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T6OUT" : "T6OUT",
+              "ViolonsIntro1OUT" : "ViolonsIntro1OUT",
               "apply":function (){
                 return ((() => {
-                  const T6OUT = this["T6OUT"];
+                  const ViolonsIntro1OUT = this["ViolonsIntro1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T6OUT",
+              "signame":"ViolonsIntro1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T6OUT true
+          ), // Fin emit ViolonsIntro1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T6OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T6OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T6
+        ) // Fin sequence pour ViolonsIntro1
   ,
-        hh.SEQUENCE( // Debut sequence pour T82
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1228,47 +2502,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T82IN  =this["T82IN"];
-                  return T82IN.now;
+                  const ViolonsIntro2IN  =this["ViolonsIntro2IN"];
+                  return ViolonsIntro2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T82IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T82IN
+          ), // Fin await ViolonsIntro2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T82OUT" : "T82OUT",
+              "ViolonsIntro2OUT" : "ViolonsIntro2OUT",
               "apply":function (){
                 return ((() => {
-                  const T82OUT = this["T82OUT"];
+                  const ViolonsIntro2OUT = this["ViolonsIntro2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T82OUT",
+              "signame":"ViolonsIntro2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T82OUT true
+          ), // Fin emit ViolonsIntro2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T82OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T82OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T82
+        ) // Fin sequence pour ViolonsIntro2
   ,
-        hh.SEQUENCE( // Debut sequence pour T39
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1280,47 +2554,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T39IN  =this["T39IN"];
-                  return T39IN.now;
+                  const ViolonsIntro3IN  =this["ViolonsIntro3IN"];
+                  return ViolonsIntro3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T39IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T39IN
+          ), // Fin await ViolonsIntro3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T39OUT" : "T39OUT",
+              "ViolonsIntro3OUT" : "ViolonsIntro3OUT",
               "apply":function (){
                 return ((() => {
-                  const T39OUT = this["T39OUT"];
+                  const ViolonsIntro3OUT = this["ViolonsIntro3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T39OUT",
+              "signame":"ViolonsIntro3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T39OUT true
+          ), // Fin emit ViolonsIntro3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T39OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T39OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T39
+        ) // Fin sequence pour ViolonsIntro3
   ,
-        hh.SEQUENCE( // Debut sequence pour T73
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1332,47 +2606,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T73IN  =this["T73IN"];
-                  return T73IN.now;
+                  const ViolonsIntro4IN  =this["ViolonsIntro4IN"];
+                  return ViolonsIntro4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T73IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T73IN
+          ), // Fin await ViolonsIntro4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T73OUT" : "T73OUT",
+              "ViolonsIntro4OUT" : "ViolonsIntro4OUT",
               "apply":function (){
                 return ((() => {
-                  const T73OUT = this["T73OUT"];
+                  const ViolonsIntro4OUT = this["ViolonsIntro4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T73OUT",
+              "signame":"ViolonsIntro4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T73OUT true
+          ), // Fin emit ViolonsIntro4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T73OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T73OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T73
+        ) // Fin sequence pour ViolonsIntro4
   ,
-        hh.SEQUENCE( // Debut sequence pour T3
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1384,47 +2658,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T3IN  =this["T3IN"];
-                  return T3IN.now;
+                  const ViolonsIntro5IN  =this["ViolonsIntro5IN"];
+                  return ViolonsIntro5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T3IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T3IN
+          ), // Fin await ViolonsIntro5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T3OUT" : "T3OUT",
+              "ViolonsIntro5OUT" : "ViolonsIntro5OUT",
               "apply":function (){
                 return ((() => {
-                  const T3OUT = this["T3OUT"];
+                  const ViolonsIntro5OUT = this["ViolonsIntro5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T3OUT",
+              "signame":"ViolonsIntro5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T3OUT true
+          ), // Fin emit ViolonsIntro5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T3OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T3
+        ) // Fin sequence pour ViolonsIntro5
   ,
-        hh.SEQUENCE( // Debut sequence pour T45
+        hh.SEQUENCE( // Debut sequence pour ViolonsIntro6
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1436,46 +2710,514 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T45IN  =this["T45IN"];
-                  return T45IN.now;
+                  const ViolonsIntro6IN  =this["ViolonsIntro6IN"];
+                  return ViolonsIntro6IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T45IN",
+            hh.SIGACCESS({"signame":"ViolonsIntro6IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T45IN
+          ), // Fin await ViolonsIntro6IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T45OUT" : "T45OUT",
+              "ViolonsIntro6OUT" : "ViolonsIntro6OUT",
               "apply":function (){
                 return ((() => {
-                  const T45OUT = this["T45OUT"];
+                  const ViolonsIntro6OUT = this["ViolonsIntro6OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T45OUT",
+              "signame":"ViolonsIntro6OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T45OUT true
+          ), // Fin emit ViolonsIntro6OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T45OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T45OUT", false);
+                //console.log("--! makeAwait:  atom:", "ViolonsIntro6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro6OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T45
-      ), // Fin fork de make await avec en premiere position:T6
+        ) // Fin sequence pour ViolonsIntro6
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsMilieu1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu1IN  =this["ViolonsMilieu1IN"];
+                  return ViolonsMilieu1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsMilieu1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsMilieu1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsMilieu1OUT" : "ViolonsMilieu1OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu1OUT = this["ViolonsMilieu1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsMilieu1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsMilieu1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsMilieu1
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsMilieu2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu2IN  =this["ViolonsMilieu2IN"];
+                  return ViolonsMilieu2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsMilieu2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsMilieu2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsMilieu2OUT" : "ViolonsMilieu2OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu2OUT = this["ViolonsMilieu2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsMilieu2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsMilieu2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsMilieu2
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsMilieu3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu3IN  =this["ViolonsMilieu3IN"];
+                  return ViolonsMilieu3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsMilieu3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsMilieu3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsMilieu3OUT" : "ViolonsMilieu3OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu3OUT = this["ViolonsMilieu3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsMilieu3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsMilieu3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsMilieu3
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsMilieu4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu4IN  =this["ViolonsMilieu4IN"];
+                  return ViolonsMilieu4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsMilieu4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsMilieu4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsMilieu4OUT" : "ViolonsMilieu4OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsMilieu4OUT = this["ViolonsMilieu4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsMilieu4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsMilieu4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsMilieu4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsMilieu4
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsFin1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin1IN  =this["ViolonsFin1IN"];
+                  return ViolonsFin1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsFin1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsFin1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsFin1OUT" : "ViolonsFin1OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin1OUT = this["ViolonsFin1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsFin1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsFin1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsFin1
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsFin2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin2IN  =this["ViolonsFin2IN"];
+                  return ViolonsFin2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsFin2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsFin2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsFin2OUT" : "ViolonsFin2OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin2OUT = this["ViolonsFin2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsFin2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsFin2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsFin2
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsFin3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin3IN  =this["ViolonsFin3IN"];
+                  return ViolonsFin3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsFin3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsFin3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsFin3OUT" : "ViolonsFin3OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin3OUT = this["ViolonsFin3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsFin3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsFin3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsFin3
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsFin4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin4IN  =this["ViolonsFin4IN"];
+                  return ViolonsFin4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsFin4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsFin4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsFin4OUT" : "ViolonsFin4OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin4OUT = this["ViolonsFin4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsFin4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsFin4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsFin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsFin4
+  ,
+        hh.SEQUENCE( // Debut sequence pour ViolonsFin5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin5IN  =this["ViolonsFin5IN"];
+                  return ViolonsFin5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ViolonsFin5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ViolonsFin5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ViolonsFin5OUT" : "ViolonsFin5OUT",
+              "apply":function (){
+                return ((() => {
+                  const ViolonsFin5OUT = this["ViolonsFin5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ViolonsFin5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ViolonsFin5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ViolonsFin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ViolonsFin5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ViolonsFin5
+      ), // Fin fork de make await avec en premiere position:ViolonsIntro1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -1496,126 +3238,297 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T6OUT":"T6OUT",
+          "ViolonsIntro1OUT":"ViolonsIntro1OUT",
           "apply":function (){
             return ((() => {
-              const T6 = this["T6OUT"];
+              const ViolonsIntro1 = this["ViolonsIntro1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T6OUT",
+          "signame":"ViolonsIntro1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T6OUT false,
+    ), // Fin emit ViolonsIntro1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T82OUT":"T82OUT",
+          "ViolonsIntro2OUT":"ViolonsIntro2OUT",
           "apply":function (){
             return ((() => {
-              const T82 = this["T82OUT"];
+              const ViolonsIntro2 = this["ViolonsIntro2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T82OUT",
+          "signame":"ViolonsIntro2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T82OUT false,
+    ), // Fin emit ViolonsIntro2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T39OUT":"T39OUT",
+          "ViolonsIntro3OUT":"ViolonsIntro3OUT",
           "apply":function (){
             return ((() => {
-              const T39 = this["T39OUT"];
+              const ViolonsIntro3 = this["ViolonsIntro3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T39OUT",
+          "signame":"ViolonsIntro3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T39OUT false,
+    ), // Fin emit ViolonsIntro3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T73OUT":"T73OUT",
+          "ViolonsIntro4OUT":"ViolonsIntro4OUT",
           "apply":function (){
             return ((() => {
-              const T73 = this["T73OUT"];
+              const ViolonsIntro4 = this["ViolonsIntro4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T73OUT",
+          "signame":"ViolonsIntro4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T73OUT false,
+    ), // Fin emit ViolonsIntro4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T3OUT":"T3OUT",
+          "ViolonsIntro5OUT":"ViolonsIntro5OUT",
           "apply":function (){
             return ((() => {
-              const T3 = this["T3OUT"];
+              const ViolonsIntro5 = this["ViolonsIntro5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T3OUT",
+          "signame":"ViolonsIntro5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T3OUT false,
+    ), // Fin emit ViolonsIntro5OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T45OUT":"T45OUT",
+          "ViolonsIntro6OUT":"ViolonsIntro6OUT",
           "apply":function (){
             return ((() => {
-              const T45 = this["T45OUT"];
+              const ViolonsIntro6 = this["ViolonsIntro6OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T45OUT",
+          "signame":"ViolonsIntro6OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T45OUT false
+    ), // Fin emit ViolonsIntro6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsMilieu1OUT":"ViolonsMilieu1OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsMilieu1 = this["ViolonsMilieu1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsMilieu1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsMilieu1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsMilieu2OUT":"ViolonsMilieu2OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsMilieu2 = this["ViolonsMilieu2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsMilieu2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsMilieu2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsMilieu3OUT":"ViolonsMilieu3OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsMilieu3 = this["ViolonsMilieu3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsMilieu3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsMilieu3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsMilieu4OUT":"ViolonsMilieu4OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsMilieu4 = this["ViolonsMilieu4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsMilieu4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsMilieu4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsFin1OUT":"ViolonsFin1OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsFin1 = this["ViolonsFin1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsFin1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsFin1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsFin2OUT":"ViolonsFin2OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsFin2 = this["ViolonsFin2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsFin2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsFin2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsFin3OUT":"ViolonsFin3OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsFin3 = this["ViolonsFin3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsFin3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsFin3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsFin4OUT":"ViolonsFin4OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsFin4 = this["ViolonsFin4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsFin4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsFin4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ViolonsFin5OUT":"ViolonsFin5OUT",
+          "apply":function (){
+            return ((() => {
+              const ViolonsFin5 = this["ViolonsFin5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ViolonsFin5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ViolonsFin5OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T6", false);
-            console.log("--- FIN RESERVOIR:", "T6");
+            gcs.informSelecteurOnMenuChange(255 , "ViolonsIntro1", false);
+            console.log("--- FIN RESERVOIR:", "ViolonsIntro1");
             var msg = {
             type: 'killTank',
-            value:  "T6"
+            value:  "ViolonsIntro1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -1623,20 +3536,26 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type2 + T59
-    type2 = hh.MODULE({"id":"type2","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T59IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T42IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T54IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T16IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T28IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T62IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T59OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T42OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T54OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T16OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T28OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T62OUT"}),
+    // Module tank Trompette + Trompette1
+    Trompette = hh.MODULE({"id":"Trompette","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette8IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Trompette9IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette7OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette8OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Trompette9OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -1665,10 +3584,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T59" );
+                console.log("-- MAKE RESERVOIR:", "Trompette1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T59"
+                  value:  "Trompette1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -1678,28 +3597,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T59OUT":"T59OUT",
+                "Trompette1OUT":"Trompette1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T59 = this["T59OUT"];
+                    const Trompette1 = this["Trompette1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T59OUT",
+                "signame":"Trompette1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T59OUT true
+          ), // Fin emit Trompette1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T59OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T59OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette1OUT", true);
               }
             }
         ),
@@ -1707,28 +3626,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T42OUT":"T42OUT",
+                "Trompette2OUT":"Trompette2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T42 = this["T42OUT"];
+                    const Trompette2 = this["Trompette2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T42OUT",
+                "signame":"Trompette2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T42OUT true
+          ), // Fin emit Trompette2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T42OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T42OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette2OUT", true);
               }
             }
         ),
@@ -1736,28 +3655,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T54OUT":"T54OUT",
+                "Trompette3OUT":"Trompette3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T54 = this["T54OUT"];
+                    const Trompette3 = this["Trompette3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T54OUT",
+                "signame":"Trompette3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T54OUT true
+          ), // Fin emit Trompette3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T54OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T54OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette3OUT", true);
               }
             }
         ),
@@ -1765,28 +3684,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T16OUT":"T16OUT",
+                "Trompette4OUT":"Trompette4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T16 = this["T16OUT"];
+                    const Trompette4 = this["Trompette4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T16OUT",
+                "signame":"Trompette4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T16OUT true
+          ), // Fin emit Trompette4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T16OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T16OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette4OUT", true);
               }
             }
         ),
@@ -1794,28 +3713,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T28OUT":"T28OUT",
+                "Trompette5OUT":"Trompette5OUT",
                 "apply":function (){
                   return ((() => {
-                    const T28 = this["T28OUT"];
+                    const Trompette5 = this["Trompette5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T28OUT",
+                "signame":"Trompette5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T28OUT true
+          ), // Fin emit Trompette5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T28OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T28OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette5OUT", true);
               }
             }
         ),
@@ -1823,38 +3742,125 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T62OUT":"T62OUT",
+                "Trompette6OUT":"Trompette6OUT",
                 "apply":function (){
                   return ((() => {
-                    const T62 = this["T62OUT"];
+                    const Trompette6 = this["Trompette6OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T62OUT",
+                "signame":"Trompette6OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T62OUT true
+          ), // Fin emit Trompette6OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T62OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T62OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Trompette6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette6OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T59
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Trompette7OUT":"Trompette7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Trompette7 = this["Trompette7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Trompette7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Trompette7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Trompette7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette7OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Trompette8OUT":"Trompette8OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Trompette8 = this["Trompette8OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Trompette8OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Trompette8OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Trompette8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette8OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Trompette9OUT":"Trompette9OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Trompette9 = this["Trompette9OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Trompette9OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Trompette9OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Trompette9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette9OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:Trompette1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T59
+        hh.SEQUENCE( // Debut sequence pour Trompette1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1866,47 +3872,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T59IN  =this["T59IN"];
-                  return T59IN.now;
+                  const Trompette1IN  =this["Trompette1IN"];
+                  return Trompette1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T59IN",
+            hh.SIGACCESS({"signame":"Trompette1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T59IN
+          ), // Fin await Trompette1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T59OUT" : "T59OUT",
+              "Trompette1OUT" : "Trompette1OUT",
               "apply":function (){
                 return ((() => {
-                  const T59OUT = this["T59OUT"];
+                  const Trompette1OUT = this["Trompette1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T59OUT",
+              "signame":"Trompette1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T59OUT true
+          ), // Fin emit Trompette1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T59OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T59OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T59
+        ) // Fin sequence pour Trompette1
   ,
-        hh.SEQUENCE( // Debut sequence pour T42
+        hh.SEQUENCE( // Debut sequence pour Trompette2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1918,47 +3924,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T42IN  =this["T42IN"];
-                  return T42IN.now;
+                  const Trompette2IN  =this["Trompette2IN"];
+                  return Trompette2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T42IN",
+            hh.SIGACCESS({"signame":"Trompette2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T42IN
+          ), // Fin await Trompette2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T42OUT" : "T42OUT",
+              "Trompette2OUT" : "Trompette2OUT",
               "apply":function (){
                 return ((() => {
-                  const T42OUT = this["T42OUT"];
+                  const Trompette2OUT = this["Trompette2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T42OUT",
+              "signame":"Trompette2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T42OUT true
+          ), // Fin emit Trompette2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T42OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T42OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T42
+        ) // Fin sequence pour Trompette2
   ,
-        hh.SEQUENCE( // Debut sequence pour T54
+        hh.SEQUENCE( // Debut sequence pour Trompette3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1970,47 +3976,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T54IN  =this["T54IN"];
-                  return T54IN.now;
+                  const Trompette3IN  =this["Trompette3IN"];
+                  return Trompette3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T54IN",
+            hh.SIGACCESS({"signame":"Trompette3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T54IN
+          ), // Fin await Trompette3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T54OUT" : "T54OUT",
+              "Trompette3OUT" : "Trompette3OUT",
               "apply":function (){
                 return ((() => {
-                  const T54OUT = this["T54OUT"];
+                  const Trompette3OUT = this["Trompette3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T54OUT",
+              "signame":"Trompette3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T54OUT true
+          ), // Fin emit Trompette3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T54OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T54OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T54
+        ) // Fin sequence pour Trompette3
   ,
-        hh.SEQUENCE( // Debut sequence pour T16
+        hh.SEQUENCE( // Debut sequence pour Trompette4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2022,47 +4028,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T16IN  =this["T16IN"];
-                  return T16IN.now;
+                  const Trompette4IN  =this["Trompette4IN"];
+                  return Trompette4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T16IN",
+            hh.SIGACCESS({"signame":"Trompette4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T16IN
+          ), // Fin await Trompette4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T16OUT" : "T16OUT",
+              "Trompette4OUT" : "Trompette4OUT",
               "apply":function (){
                 return ((() => {
-                  const T16OUT = this["T16OUT"];
+                  const Trompette4OUT = this["Trompette4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T16OUT",
+              "signame":"Trompette4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T16OUT true
+          ), // Fin emit Trompette4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T16OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T16OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T16
+        ) // Fin sequence pour Trompette4
   ,
-        hh.SEQUENCE( // Debut sequence pour T28
+        hh.SEQUENCE( // Debut sequence pour Trompette5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2074,47 +4080,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T28IN  =this["T28IN"];
-                  return T28IN.now;
+                  const Trompette5IN  =this["Trompette5IN"];
+                  return Trompette5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T28IN",
+            hh.SIGACCESS({"signame":"Trompette5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T28IN
+          ), // Fin await Trompette5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T28OUT" : "T28OUT",
+              "Trompette5OUT" : "Trompette5OUT",
               "apply":function (){
                 return ((() => {
-                  const T28OUT = this["T28OUT"];
+                  const Trompette5OUT = this["Trompette5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T28OUT",
+              "signame":"Trompette5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T28OUT true
+          ), // Fin emit Trompette5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T28OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T28OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T28
+        ) // Fin sequence pour Trompette5
   ,
-        hh.SEQUENCE( // Debut sequence pour T62
+        hh.SEQUENCE( // Debut sequence pour Trompette6
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2126,46 +4132,202 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T62IN  =this["T62IN"];
-                  return T62IN.now;
+                  const Trompette6IN  =this["Trompette6IN"];
+                  return Trompette6IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T62IN",
+            hh.SIGACCESS({"signame":"Trompette6IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T62IN
+          ), // Fin await Trompette6IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T62OUT" : "T62OUT",
+              "Trompette6OUT" : "Trompette6OUT",
               "apply":function (){
                 return ((() => {
-                  const T62OUT = this["T62OUT"];
+                  const Trompette6OUT = this["Trompette6OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T62OUT",
+              "signame":"Trompette6OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T62OUT true
+          ), // Fin emit Trompette6OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T62OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T62OUT", false);
+                //console.log("--! makeAwait:  atom:", "Trompette6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette6OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T62
-      ), // Fin fork de make await avec en premiere position:T59
+        ) // Fin sequence pour Trompette6
+  ,
+        hh.SEQUENCE( // Debut sequence pour Trompette7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Trompette7IN  =this["Trompette7IN"];
+                  return Trompette7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Trompette7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Trompette7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Trompette7OUT" : "Trompette7OUT",
+              "apply":function (){
+                return ((() => {
+                  const Trompette7OUT = this["Trompette7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Trompette7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Trompette7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Trompette7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Trompette7
+  ,
+        hh.SEQUENCE( // Debut sequence pour Trompette8
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Trompette8IN  =this["Trompette8IN"];
+                  return Trompette8IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Trompette8IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Trompette8IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Trompette8OUT" : "Trompette8OUT",
+              "apply":function (){
+                return ((() => {
+                  const Trompette8OUT = this["Trompette8OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Trompette8OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Trompette8OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Trompette8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette8OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Trompette8
+  ,
+        hh.SEQUENCE( // Debut sequence pour Trompette9
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Trompette9IN  =this["Trompette9IN"];
+                  return Trompette9IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Trompette9IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Trompette9IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Trompette9OUT" : "Trompette9OUT",
+              "apply":function (){
+                return ((() => {
+                  const Trompette9OUT = this["Trompette9OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Trompette9OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Trompette9OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Trompette9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Trompette9OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Trompette9
+      ), // Fin fork de make await avec en premiere position:Trompette1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -2186,126 +4348,183 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T59OUT":"T59OUT",
+          "Trompette1OUT":"Trompette1OUT",
           "apply":function (){
             return ((() => {
-              const T59 = this["T59OUT"];
+              const Trompette1 = this["Trompette1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T59OUT",
+          "signame":"Trompette1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T59OUT false,
+    ), // Fin emit Trompette1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T42OUT":"T42OUT",
+          "Trompette2OUT":"Trompette2OUT",
           "apply":function (){
             return ((() => {
-              const T42 = this["T42OUT"];
+              const Trompette2 = this["Trompette2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T42OUT",
+          "signame":"Trompette2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T42OUT false,
+    ), // Fin emit Trompette2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T54OUT":"T54OUT",
+          "Trompette3OUT":"Trompette3OUT",
           "apply":function (){
             return ((() => {
-              const T54 = this["T54OUT"];
+              const Trompette3 = this["Trompette3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T54OUT",
+          "signame":"Trompette3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T54OUT false,
+    ), // Fin emit Trompette3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T16OUT":"T16OUT",
+          "Trompette4OUT":"Trompette4OUT",
           "apply":function (){
             return ((() => {
-              const T16 = this["T16OUT"];
+              const Trompette4 = this["Trompette4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T16OUT",
+          "signame":"Trompette4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T16OUT false,
+    ), // Fin emit Trompette4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T28OUT":"T28OUT",
+          "Trompette5OUT":"Trompette5OUT",
           "apply":function (){
             return ((() => {
-              const T28 = this["T28OUT"];
+              const Trompette5 = this["Trompette5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T28OUT",
+          "signame":"Trompette5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T28OUT false,
+    ), // Fin emit Trompette5OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T62OUT":"T62OUT",
+          "Trompette6OUT":"Trompette6OUT",
           "apply":function (){
             return ((() => {
-              const T62 = this["T62OUT"];
+              const Trompette6 = this["Trompette6OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T62OUT",
+          "signame":"Trompette6OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T62OUT false
+    ), // Fin emit Trompette6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Trompette7OUT":"Trompette7OUT",
+          "apply":function (){
+            return ((() => {
+              const Trompette7 = this["Trompette7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Trompette7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Trompette7OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Trompette8OUT":"Trompette8OUT",
+          "apply":function (){
+            return ((() => {
+              const Trompette8 = this["Trompette8OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Trompette8OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Trompette8OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Trompette9OUT":"Trompette9OUT",
+          "apply":function (){
+            return ((() => {
+              const Trompette9 = this["Trompette9OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Trompette9OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Trompette9OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T59", false);
-            console.log("--- FIN RESERVOIR:", "T59");
+            gcs.informSelecteurOnMenuChange(255 , "Trompette1", false);
+            console.log("--- FIN RESERVOIR:", "Trompette1");
             var msg = {
             type: 'killTank',
-            value:  "T59"
+            value:  "Trompette1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -2313,20 +4532,16 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type3 + T25
-    type3 = hh.MODULE({"id":"type3","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T25IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T74IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T1IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T68IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T53IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T38IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T25OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T74OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T1OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T68OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T53OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T38OUT"}),
+    // Module tank Cors + Cors1
+    Cors = hh.MODULE({"id":"Cors","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Cors1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Cors2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Cors3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Cors4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Cors1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Cors2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Cors3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Cors4OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -2355,10 +4570,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T25" );
+                console.log("-- MAKE RESERVOIR:", "Cors1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T25"
+                  value:  "Cors1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -2368,28 +4583,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T25OUT":"T25OUT",
+                "Cors1OUT":"Cors1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T25 = this["T25OUT"];
+                    const Cors1 = this["Cors1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T25OUT",
+                "signame":"Cors1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T25OUT true
+          ), // Fin emit Cors1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T25OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T25OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Cors1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors1OUT", true);
               }
             }
         ),
@@ -2397,28 +4612,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T74OUT":"T74OUT",
+                "Cors2OUT":"Cors2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T74 = this["T74OUT"];
+                    const Cors2 = this["Cors2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T74OUT",
+                "signame":"Cors2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T74OUT true
+          ), // Fin emit Cors2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T74OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T74OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Cors2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors2OUT", true);
               }
             }
         ),
@@ -2426,28 +4641,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T1OUT":"T1OUT",
+                "Cors3OUT":"Cors3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T1 = this["T1OUT"];
+                    const Cors3 = this["Cors3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T1OUT",
+                "signame":"Cors3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T1OUT true
+          ), // Fin emit Cors3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T1OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Cors3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors3OUT", true);
               }
             }
         ),
@@ -2455,96 +4670,38 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T68OUT":"T68OUT",
+                "Cors4OUT":"Cors4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T68 = this["T68OUT"];
+                    const Cors4 = this["Cors4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T68OUT",
+                "signame":"Cors4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T68OUT true
+          ), // Fin emit Cors4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T68OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T68OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Cors4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors4OUT", true);
               }
             }
         ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T53OUT":"T53OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T53 = this["T53OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T53OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T53OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T53OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T53OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T38OUT":"T38OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T38 = this["T38OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T38OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T38OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T38OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T38OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T25
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:Cors1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T25
+        hh.SEQUENCE( // Debut sequence pour Cors1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2556,47 +4713,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T25IN  =this["T25IN"];
-                  return T25IN.now;
+                  const Cors1IN  =this["Cors1IN"];
+                  return Cors1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T25IN",
+            hh.SIGACCESS({"signame":"Cors1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T25IN
+          ), // Fin await Cors1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T25OUT" : "T25OUT",
+              "Cors1OUT" : "Cors1OUT",
               "apply":function (){
                 return ((() => {
-                  const T25OUT = this["T25OUT"];
+                  const Cors1OUT = this["Cors1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T25OUT",
+              "signame":"Cors1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T25OUT true
+          ), // Fin emit Cors1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T25OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T25OUT", false);
+                //console.log("--! makeAwait:  atom:", "Cors1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T25
+        ) // Fin sequence pour Cors1
   ,
-        hh.SEQUENCE( // Debut sequence pour T74
+        hh.SEQUENCE( // Debut sequence pour Cors2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2608,47 +4765,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T74IN  =this["T74IN"];
-                  return T74IN.now;
+                  const Cors2IN  =this["Cors2IN"];
+                  return Cors2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T74IN",
+            hh.SIGACCESS({"signame":"Cors2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T74IN
+          ), // Fin await Cors2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T74OUT" : "T74OUT",
+              "Cors2OUT" : "Cors2OUT",
               "apply":function (){
                 return ((() => {
-                  const T74OUT = this["T74OUT"];
+                  const Cors2OUT = this["Cors2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T74OUT",
+              "signame":"Cors2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T74OUT true
+          ), // Fin emit Cors2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T74OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T74OUT", false);
+                //console.log("--! makeAwait:  atom:", "Cors2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T74
+        ) // Fin sequence pour Cors2
   ,
-        hh.SEQUENCE( // Debut sequence pour T1
+        hh.SEQUENCE( // Debut sequence pour Cors3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2660,47 +4817,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T1IN  =this["T1IN"];
-                  return T1IN.now;
+                  const Cors3IN  =this["Cors3IN"];
+                  return Cors3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T1IN",
+            hh.SIGACCESS({"signame":"Cors3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T1IN
+          ), // Fin await Cors3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T1OUT" : "T1OUT",
+              "Cors3OUT" : "Cors3OUT",
               "apply":function (){
                 return ((() => {
-                  const T1OUT = this["T1OUT"];
+                  const Cors3OUT = this["Cors3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T1OUT",
+              "signame":"Cors3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T1OUT true
+          ), // Fin emit Cors3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T1OUT", false);
+                //console.log("--! makeAwait:  atom:", "Cors3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T1
+        ) // Fin sequence pour Cors3
   ,
-        hh.SEQUENCE( // Debut sequence pour T68
+        hh.SEQUENCE( // Debut sequence pour Cors4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -2712,150 +4869,46 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T68IN  =this["T68IN"];
-                  return T68IN.now;
+                  const Cors4IN  =this["Cors4IN"];
+                  return Cors4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T68IN",
+            hh.SIGACCESS({"signame":"Cors4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T68IN
+          ), // Fin await Cors4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T68OUT" : "T68OUT",
+              "Cors4OUT" : "Cors4OUT",
               "apply":function (){
                 return ((() => {
-                  const T68OUT = this["T68OUT"];
+                  const Cors4OUT = this["Cors4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T68OUT",
+              "signame":"Cors4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T68OUT true
+          ), // Fin emit Cors4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T68OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T68OUT", false);
+                //console.log("--! makeAwait:  atom:", "Cors4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Cors4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T68
-  ,
-        hh.SEQUENCE( // Debut sequence pour T53
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T53IN  =this["T53IN"];
-                  return T53IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T53IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T53IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T53OUT" : "T53OUT",
-              "apply":function (){
-                return ((() => {
-                  const T53OUT = this["T53OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T53OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T53OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T53OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T53OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T53
-  ,
-        hh.SEQUENCE( // Debut sequence pour T38
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T38IN  =this["T38IN"];
-                  return T38IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T38IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T38IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T38OUT" : "T38OUT",
-              "apply":function (){
-                return ((() => {
-                  const T38OUT = this["T38OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T38OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T38OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T38OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T38OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T38
-      ), // Fin fork de make await avec en premiere position:T25
+        ) // Fin sequence pour Cors4
+      ), // Fin fork de make await avec en premiere position:Cors1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -2876,126 +4929,88 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T25OUT":"T25OUT",
+          "Cors1OUT":"Cors1OUT",
           "apply":function (){
             return ((() => {
-              const T25 = this["T25OUT"];
+              const Cors1 = this["Cors1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T25OUT",
+          "signame":"Cors1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T25OUT false,
+    ), // Fin emit Cors1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T74OUT":"T74OUT",
+          "Cors2OUT":"Cors2OUT",
           "apply":function (){
             return ((() => {
-              const T74 = this["T74OUT"];
+              const Cors2 = this["Cors2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T74OUT",
+          "signame":"Cors2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T74OUT false,
+    ), // Fin emit Cors2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T1OUT":"T1OUT",
+          "Cors3OUT":"Cors3OUT",
           "apply":function (){
             return ((() => {
-              const T1 = this["T1OUT"];
+              const Cors3 = this["Cors3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T1OUT",
+          "signame":"Cors3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T1OUT false,
+    ), // Fin emit Cors3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T68OUT":"T68OUT",
+          "Cors4OUT":"Cors4OUT",
           "apply":function (){
             return ((() => {
-              const T68 = this["T68OUT"];
+              const Cors4 = this["Cors4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T68OUT",
+          "signame":"Cors4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T68OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T53OUT":"T53OUT",
-          "apply":function (){
-            return ((() => {
-              const T53 = this["T53OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T53OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T53OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T38OUT":"T38OUT",
-          "apply":function (){
-            return ((() => {
-              const T38 = this["T38OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T38OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T38OUT false
+    ), // Fin emit Cors4OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T25", false);
-            console.log("--- FIN RESERVOIR:", "T25");
+            gcs.informSelecteurOnMenuChange(255 , "Cors1", false);
+            console.log("--- FIN RESERVOIR:", "Cors1");
             var msg = {
             type: 'killTank',
-            value:  "T25"
+            value:  "Cors1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -3003,20 +5018,40 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type4 + T81
-    type4 = hh.MODULE({"id":"type4","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T81IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T14IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T65IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T29IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T37IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T4IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T81OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T14OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T65OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T29OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T37OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T4OUT"}),
+    // Module tank Flute + FluteDebut1
+    Flute = hh.MODULE({"id":"Flute","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteDebut1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteDebut2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteDebut3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteDebut4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteMilieu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteMilieu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteMilieu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFin6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteNeutre1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteNeutre2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteNeutre3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteDebut1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteDebut2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteDebut3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteDebut4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteMilieu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteMilieu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteMilieu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFin6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteNeutre1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteNeutre2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteNeutre3OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -3045,10 +5080,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T81" );
+                console.log("-- MAKE RESERVOIR:", "FluteDebut1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T81"
+                  value:  "FluteDebut1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -3058,28 +5093,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T81OUT":"T81OUT",
+                "FluteDebut1OUT":"FluteDebut1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T81 = this["T81OUT"];
+                    const FluteDebut1 = this["FluteDebut1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T81OUT",
+                "signame":"FluteDebut1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T81OUT true
+          ), // Fin emit FluteDebut1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T81OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T81OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut1OUT", true);
               }
             }
         ),
@@ -3087,28 +5122,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T14OUT":"T14OUT",
+                "FluteDebut2OUT":"FluteDebut2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T14 = this["T14OUT"];
+                    const FluteDebut2 = this["FluteDebut2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T14OUT",
+                "signame":"FluteDebut2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T14OUT true
+          ), // Fin emit FluteDebut2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T14OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T14OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut2OUT", true);
               }
             }
         ),
@@ -3116,28 +5151,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T65OUT":"T65OUT",
+                "FluteDebut3OUT":"FluteDebut3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T65 = this["T65OUT"];
+                    const FluteDebut3 = this["FluteDebut3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T65OUT",
+                "signame":"FluteDebut3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T65OUT true
+          ), // Fin emit FluteDebut3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T65OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T65OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut3OUT", true);
               }
             }
         ),
@@ -3145,28 +5180,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T29OUT":"T29OUT",
+                "FluteDebut4OUT":"FluteDebut4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T29 = this["T29OUT"];
+                    const FluteDebut4 = this["FluteDebut4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T29OUT",
+                "signame":"FluteDebut4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T29OUT true
+          ), // Fin emit FluteDebut4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T29OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T29OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteDebut4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut4OUT", true);
               }
             }
         ),
@@ -3174,28 +5209,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T37OUT":"T37OUT",
+                "FluteMilieu1OUT":"FluteMilieu1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T37 = this["T37OUT"];
+                    const FluteMilieu1 = this["FluteMilieu1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T37OUT",
+                "signame":"FluteMilieu1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T37OUT true
+          ), // Fin emit FluteMilieu1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T37OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T37OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu1OUT", true);
               }
             }
         ),
@@ -3203,38 +5238,328 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T4OUT":"T4OUT",
+                "FluteMilieu2OUT":"FluteMilieu2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T4 = this["T4OUT"];
+                    const FluteMilieu2 = this["FluteMilieu2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T4OUT",
+                "signame":"FluteMilieu2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T4OUT true
+          ), // Fin emit FluteMilieu2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T4OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu2OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T81
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteMilieu3OUT":"FluteMilieu3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteMilieu3 = this["FluteMilieu3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteMilieu3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteMilieu3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin1OUT":"FluteFin1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin1 = this["FluteFin1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin2OUT":"FluteFin2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin2 = this["FluteFin2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin3OUT":"FluteFin3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin3 = this["FluteFin3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin4OUT":"FluteFin4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin4 = this["FluteFin4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin5OUT":"FluteFin5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin5 = this["FluteFin5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin5OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFin6OUT":"FluteFin6OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFin6 = this["FluteFin6OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFin6OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFin6OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFin6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin6OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteNeutre1OUT":"FluteNeutre1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteNeutre1 = this["FluteNeutre1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteNeutre1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteNeutre1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteNeutre1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteNeutre2OUT":"FluteNeutre2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteNeutre2 = this["FluteNeutre2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteNeutre2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteNeutre2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteNeutre2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteNeutre3OUT":"FluteNeutre3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteNeutre3 = this["FluteNeutre3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteNeutre3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteNeutre3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteNeutre3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre3OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:FluteDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T81
+        hh.SEQUENCE( // Debut sequence pour FluteDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3246,47 +5571,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T81IN  =this["T81IN"];
-                  return T81IN.now;
+                  const FluteDebut1IN  =this["FluteDebut1IN"];
+                  return FluteDebut1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T81IN",
+            hh.SIGACCESS({"signame":"FluteDebut1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T81IN
+          ), // Fin await FluteDebut1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T81OUT" : "T81OUT",
+              "FluteDebut1OUT" : "FluteDebut1OUT",
               "apply":function (){
                 return ((() => {
-                  const T81OUT = this["T81OUT"];
+                  const FluteDebut1OUT = this["FluteDebut1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T81OUT",
+              "signame":"FluteDebut1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T81OUT true
+          ), // Fin emit FluteDebut1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T81OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T81OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T81
+        ) // Fin sequence pour FluteDebut1
   ,
-        hh.SEQUENCE( // Debut sequence pour T14
+        hh.SEQUENCE( // Debut sequence pour FluteDebut2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3298,47 +5623,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T14IN  =this["T14IN"];
-                  return T14IN.now;
+                  const FluteDebut2IN  =this["FluteDebut2IN"];
+                  return FluteDebut2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T14IN",
+            hh.SIGACCESS({"signame":"FluteDebut2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T14IN
+          ), // Fin await FluteDebut2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T14OUT" : "T14OUT",
+              "FluteDebut2OUT" : "FluteDebut2OUT",
               "apply":function (){
                 return ((() => {
-                  const T14OUT = this["T14OUT"];
+                  const FluteDebut2OUT = this["FluteDebut2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T14OUT",
+              "signame":"FluteDebut2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T14OUT true
+          ), // Fin emit FluteDebut2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T14OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T14OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T14
+        ) // Fin sequence pour FluteDebut2
   ,
-        hh.SEQUENCE( // Debut sequence pour T65
+        hh.SEQUENCE( // Debut sequence pour FluteDebut3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3350,47 +5675,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T65IN  =this["T65IN"];
-                  return T65IN.now;
+                  const FluteDebut3IN  =this["FluteDebut3IN"];
+                  return FluteDebut3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T65IN",
+            hh.SIGACCESS({"signame":"FluteDebut3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T65IN
+          ), // Fin await FluteDebut3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T65OUT" : "T65OUT",
+              "FluteDebut3OUT" : "FluteDebut3OUT",
               "apply":function (){
                 return ((() => {
-                  const T65OUT = this["T65OUT"];
+                  const FluteDebut3OUT = this["FluteDebut3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T65OUT",
+              "signame":"FluteDebut3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T65OUT true
+          ), // Fin emit FluteDebut3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T65OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T65OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T65
+        ) // Fin sequence pour FluteDebut3
   ,
-        hh.SEQUENCE( // Debut sequence pour T29
+        hh.SEQUENCE( // Debut sequence pour FluteDebut4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3402,47 +5727,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T29IN  =this["T29IN"];
-                  return T29IN.now;
+                  const FluteDebut4IN  =this["FluteDebut4IN"];
+                  return FluteDebut4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T29IN",
+            hh.SIGACCESS({"signame":"FluteDebut4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T29IN
+          ), // Fin await FluteDebut4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T29OUT" : "T29OUT",
+              "FluteDebut4OUT" : "FluteDebut4OUT",
               "apply":function (){
                 return ((() => {
-                  const T29OUT = this["T29OUT"];
+                  const FluteDebut4OUT = this["FluteDebut4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T29OUT",
+              "signame":"FluteDebut4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T29OUT true
+          ), // Fin emit FluteDebut4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T29OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T29OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteDebut4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteDebut4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T29
+        ) // Fin sequence pour FluteDebut4
   ,
-        hh.SEQUENCE( // Debut sequence pour T37
+        hh.SEQUENCE( // Debut sequence pour FluteMilieu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3454,47 +5779,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T37IN  =this["T37IN"];
-                  return T37IN.now;
+                  const FluteMilieu1IN  =this["FluteMilieu1IN"];
+                  return FluteMilieu1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T37IN",
+            hh.SIGACCESS({"signame":"FluteMilieu1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T37IN
+          ), // Fin await FluteMilieu1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T37OUT" : "T37OUT",
+              "FluteMilieu1OUT" : "FluteMilieu1OUT",
               "apply":function (){
                 return ((() => {
-                  const T37OUT = this["T37OUT"];
+                  const FluteMilieu1OUT = this["FluteMilieu1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T37OUT",
+              "signame":"FluteMilieu1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T37OUT true
+          ), // Fin emit FluteMilieu1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T37OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T37OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T37
+        ) // Fin sequence pour FluteMilieu1
   ,
-        hh.SEQUENCE( // Debut sequence pour T4
+        hh.SEQUENCE( // Debut sequence pour FluteMilieu2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3506,46 +5831,566 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T4IN  =this["T4IN"];
-                  return T4IN.now;
+                  const FluteMilieu2IN  =this["FluteMilieu2IN"];
+                  return FluteMilieu2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T4IN",
+            hh.SIGACCESS({"signame":"FluteMilieu2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T4IN
+          ), // Fin await FluteMilieu2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T4OUT" : "T4OUT",
+              "FluteMilieu2OUT" : "FluteMilieu2OUT",
               "apply":function (){
                 return ((() => {
-                  const T4OUT = this["T4OUT"];
+                  const FluteMilieu2OUT = this["FluteMilieu2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T4OUT",
+              "signame":"FluteMilieu2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T4OUT true
+          ), // Fin emit FluteMilieu2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T4OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T4
-      ), // Fin fork de make await avec en premiere position:T81
+        ) // Fin sequence pour FluteMilieu2
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteMilieu3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteMilieu3IN  =this["FluteMilieu3IN"];
+                  return FluteMilieu3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteMilieu3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteMilieu3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteMilieu3OUT" : "FluteMilieu3OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteMilieu3OUT = this["FluteMilieu3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteMilieu3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteMilieu3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteMilieu3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteMilieu3
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin1IN  =this["FluteFin1IN"];
+                  return FluteFin1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin1OUT" : "FluteFin1OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin1OUT = this["FluteFin1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin1
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin2IN  =this["FluteFin2IN"];
+                  return FluteFin2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin2OUT" : "FluteFin2OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin2OUT = this["FluteFin2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin2
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin3IN  =this["FluteFin3IN"];
+                  return FluteFin3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin3OUT" : "FluteFin3OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin3OUT = this["FluteFin3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin3
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin4IN  =this["FluteFin4IN"];
+                  return FluteFin4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin4OUT" : "FluteFin4OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin4OUT = this["FluteFin4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin4
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin5IN  =this["FluteFin5IN"];
+                  return FluteFin5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin5OUT" : "FluteFin5OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin5OUT = this["FluteFin5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin5
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFin6
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFin6IN  =this["FluteFin6IN"];
+                  return FluteFin6IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFin6IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFin6IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFin6OUT" : "FluteFin6OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFin6OUT = this["FluteFin6OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFin6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFin6OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFin6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFin6OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFin6
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteNeutre1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre1IN  =this["FluteNeutre1IN"];
+                  return FluteNeutre1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteNeutre1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteNeutre1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteNeutre1OUT" : "FluteNeutre1OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre1OUT = this["FluteNeutre1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteNeutre1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteNeutre1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteNeutre1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteNeutre1
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteNeutre2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre2IN  =this["FluteNeutre2IN"];
+                  return FluteNeutre2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteNeutre2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteNeutre2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteNeutre2OUT" : "FluteNeutre2OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre2OUT = this["FluteNeutre2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteNeutre2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteNeutre2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteNeutre2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteNeutre2
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteNeutre3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre3IN  =this["FluteNeutre3IN"];
+                  return FluteNeutre3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteNeutre3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteNeutre3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteNeutre3OUT" : "FluteNeutre3OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteNeutre3OUT = this["FluteNeutre3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteNeutre3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteNeutre3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteNeutre3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteNeutre3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteNeutre3
+      ), // Fin fork de make await avec en premiere position:FluteDebut1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -3566,126 +6411,316 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T81OUT":"T81OUT",
+          "FluteDebut1OUT":"FluteDebut1OUT",
           "apply":function (){
             return ((() => {
-              const T81 = this["T81OUT"];
+              const FluteDebut1 = this["FluteDebut1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T81OUT",
+          "signame":"FluteDebut1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T81OUT false,
+    ), // Fin emit FluteDebut1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T14OUT":"T14OUT",
+          "FluteDebut2OUT":"FluteDebut2OUT",
           "apply":function (){
             return ((() => {
-              const T14 = this["T14OUT"];
+              const FluteDebut2 = this["FluteDebut2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T14OUT",
+          "signame":"FluteDebut2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T14OUT false,
+    ), // Fin emit FluteDebut2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T65OUT":"T65OUT",
+          "FluteDebut3OUT":"FluteDebut3OUT",
           "apply":function (){
             return ((() => {
-              const T65 = this["T65OUT"];
+              const FluteDebut3 = this["FluteDebut3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T65OUT",
+          "signame":"FluteDebut3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T65OUT false,
+    ), // Fin emit FluteDebut3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T29OUT":"T29OUT",
+          "FluteDebut4OUT":"FluteDebut4OUT",
           "apply":function (){
             return ((() => {
-              const T29 = this["T29OUT"];
+              const FluteDebut4 = this["FluteDebut4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T29OUT",
+          "signame":"FluteDebut4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T29OUT false,
+    ), // Fin emit FluteDebut4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T37OUT":"T37OUT",
+          "FluteMilieu1OUT":"FluteMilieu1OUT",
           "apply":function (){
             return ((() => {
-              const T37 = this["T37OUT"];
+              const FluteMilieu1 = this["FluteMilieu1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T37OUT",
+          "signame":"FluteMilieu1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T37OUT false,
+    ), // Fin emit FluteMilieu1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T4OUT":"T4OUT",
+          "FluteMilieu2OUT":"FluteMilieu2OUT",
           "apply":function (){
             return ((() => {
-              const T4 = this["T4OUT"];
+              const FluteMilieu2 = this["FluteMilieu2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T4OUT",
+          "signame":"FluteMilieu2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T4OUT false
+    ), // Fin emit FluteMilieu2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteMilieu3OUT":"FluteMilieu3OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteMilieu3 = this["FluteMilieu3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteMilieu3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteMilieu3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin1OUT":"FluteFin1OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin1 = this["FluteFin1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin2OUT":"FluteFin2OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin2 = this["FluteFin2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin3OUT":"FluteFin3OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin3 = this["FluteFin3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin4OUT":"FluteFin4OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin4 = this["FluteFin4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin5OUT":"FluteFin5OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin5 = this["FluteFin5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFin6OUT":"FluteFin6OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFin6 = this["FluteFin6OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFin6OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFin6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteNeutre1OUT":"FluteNeutre1OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteNeutre1 = this["FluteNeutre1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteNeutre1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteNeutre1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteNeutre2OUT":"FluteNeutre2OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteNeutre2 = this["FluteNeutre2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteNeutre2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteNeutre2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteNeutre3OUT":"FluteNeutre3OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteNeutre3 = this["FluteNeutre3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteNeutre3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteNeutre3OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T81", false);
-            console.log("--- FIN RESERVOIR:", "T81");
+            gcs.informSelecteurOnMenuChange(255 , "FluteDebut1", false);
+            console.log("--- FIN RESERVOIR:", "FluteDebut1");
             var msg = {
             type: 'killTank',
-            value:  "T81"
+            value:  "FluteDebut1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -3693,20 +6728,30 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type5 + T41
-    type5 = hh.MODULE({"id":"type5","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T41IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T7IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T43IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T55IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T17IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T27IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T41OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T7OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T43OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T55OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T17OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T27OUT"}),
+    // Module tank Bassons + BassonDebut1
+    Bassons = hh.MODULE({"id":"Bassons","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonDebut1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonDebut2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonDebut3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonDebut4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonMilieu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonMilieu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonMilieu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonMilieu4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonMilieu5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonNeutre1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"BassonNeutre2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonDebut1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonDebut2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonDebut3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonDebut4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonMilieu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonMilieu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonMilieu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonMilieu4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonMilieu5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonNeutre1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"BassonNeutre2OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -3735,10 +6780,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T41" );
+                console.log("-- MAKE RESERVOIR:", "BassonDebut1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T41"
+                  value:  "BassonDebut1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -3748,28 +6793,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T41OUT":"T41OUT",
+                "BassonDebut1OUT":"BassonDebut1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T41 = this["T41OUT"];
+                    const BassonDebut1 = this["BassonDebut1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T41OUT",
+                "signame":"BassonDebut1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T41OUT true
+          ), // Fin emit BassonDebut1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T41OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T41OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut1OUT", true);
               }
             }
         ),
@@ -3777,28 +6822,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T7OUT":"T7OUT",
+                "BassonDebut2OUT":"BassonDebut2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T7 = this["T7OUT"];
+                    const BassonDebut2 = this["BassonDebut2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T7OUT",
+                "signame":"BassonDebut2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T7OUT true
+          ), // Fin emit BassonDebut2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T7OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut2OUT", true);
               }
             }
         ),
@@ -3806,28 +6851,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T43OUT":"T43OUT",
+                "BassonDebut3OUT":"BassonDebut3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T43 = this["T43OUT"];
+                    const BassonDebut3 = this["BassonDebut3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T43OUT",
+                "signame":"BassonDebut3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T43OUT true
+          ), // Fin emit BassonDebut3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T43OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T43OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut3OUT", true);
               }
             }
         ),
@@ -3835,28 +6880,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T55OUT":"T55OUT",
+                "BassonDebut4OUT":"BassonDebut4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T55 = this["T55OUT"];
+                    const BassonDebut4 = this["BassonDebut4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T55OUT",
+                "signame":"BassonDebut4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T55OUT true
+          ), // Fin emit BassonDebut4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T55OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T55OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonDebut4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut4OUT", true);
               }
             }
         ),
@@ -3864,28 +6909,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T17OUT":"T17OUT",
+                "BassonMilieu1OUT":"BassonMilieu1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T17 = this["T17OUT"];
+                    const BassonMilieu1 = this["BassonMilieu1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T17OUT",
+                "signame":"BassonMilieu1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T17OUT true
+          ), // Fin emit BassonMilieu1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T17OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T17OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu1OUT", true);
               }
             }
         ),
@@ -3893,38 +6938,183 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T27OUT":"T27OUT",
+                "BassonMilieu2OUT":"BassonMilieu2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T27 = this["T27OUT"];
+                    const BassonMilieu2 = this["BassonMilieu2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T27OUT",
+                "signame":"BassonMilieu2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T27OUT true
+          ), // Fin emit BassonMilieu2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T27OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T27OUT", true);
+                //console.log("-- makeReservoir:  atom:", "BassonMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu2OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T41
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "BassonMilieu3OUT":"BassonMilieu3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const BassonMilieu3 = this["BassonMilieu3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"BassonMilieu3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit BassonMilieu3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "BassonMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu3OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "BassonMilieu4OUT":"BassonMilieu4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const BassonMilieu4 = this["BassonMilieu4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"BassonMilieu4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit BassonMilieu4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "BassonMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "BassonMilieu5OUT":"BassonMilieu5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const BassonMilieu5 = this["BassonMilieu5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"BassonMilieu5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit BassonMilieu5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "BassonMilieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu5OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "BassonNeutre1OUT":"BassonNeutre1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const BassonNeutre1 = this["BassonNeutre1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"BassonNeutre1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit BassonNeutre1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "BassonNeutre1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonNeutre1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "BassonNeutre2OUT":"BassonNeutre2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const BassonNeutre2 = this["BassonNeutre2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"BassonNeutre2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit BassonNeutre2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "BassonNeutre2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonNeutre2OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:BassonDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T41
+        hh.SEQUENCE( // Debut sequence pour BassonDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3936,47 +7126,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T41IN  =this["T41IN"];
-                  return T41IN.now;
+                  const BassonDebut1IN  =this["BassonDebut1IN"];
+                  return BassonDebut1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T41IN",
+            hh.SIGACCESS({"signame":"BassonDebut1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T41IN
+          ), // Fin await BassonDebut1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T41OUT" : "T41OUT",
+              "BassonDebut1OUT" : "BassonDebut1OUT",
               "apply":function (){
                 return ((() => {
-                  const T41OUT = this["T41OUT"];
+                  const BassonDebut1OUT = this["BassonDebut1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T41OUT",
+              "signame":"BassonDebut1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T41OUT true
+          ), // Fin emit BassonDebut1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T41OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T41OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T41
+        ) // Fin sequence pour BassonDebut1
   ,
-        hh.SEQUENCE( // Debut sequence pour T7
+        hh.SEQUENCE( // Debut sequence pour BassonDebut2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -3988,47 +7178,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T7IN  =this["T7IN"];
-                  return T7IN.now;
+                  const BassonDebut2IN  =this["BassonDebut2IN"];
+                  return BassonDebut2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T7IN",
+            hh.SIGACCESS({"signame":"BassonDebut2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T7IN
+          ), // Fin await BassonDebut2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T7OUT" : "T7OUT",
+              "BassonDebut2OUT" : "BassonDebut2OUT",
               "apply":function (){
                 return ((() => {
-                  const T7OUT = this["T7OUT"];
+                  const BassonDebut2OUT = this["BassonDebut2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T7OUT",
+              "signame":"BassonDebut2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T7OUT true
+          ), // Fin emit BassonDebut2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T7OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T7OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T7
+        ) // Fin sequence pour BassonDebut2
   ,
-        hh.SEQUENCE( // Debut sequence pour T43
+        hh.SEQUENCE( // Debut sequence pour BassonDebut3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4040,47 +7230,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T43IN  =this["T43IN"];
-                  return T43IN.now;
+                  const BassonDebut3IN  =this["BassonDebut3IN"];
+                  return BassonDebut3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T43IN",
+            hh.SIGACCESS({"signame":"BassonDebut3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T43IN
+          ), // Fin await BassonDebut3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T43OUT" : "T43OUT",
+              "BassonDebut3OUT" : "BassonDebut3OUT",
               "apply":function (){
                 return ((() => {
-                  const T43OUT = this["T43OUT"];
+                  const BassonDebut3OUT = this["BassonDebut3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T43OUT",
+              "signame":"BassonDebut3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T43OUT true
+          ), // Fin emit BassonDebut3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T43OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T43OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T43
+        ) // Fin sequence pour BassonDebut3
   ,
-        hh.SEQUENCE( // Debut sequence pour T55
+        hh.SEQUENCE( // Debut sequence pour BassonDebut4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4092,47 +7282,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T55IN  =this["T55IN"];
-                  return T55IN.now;
+                  const BassonDebut4IN  =this["BassonDebut4IN"];
+                  return BassonDebut4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T55IN",
+            hh.SIGACCESS({"signame":"BassonDebut4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T55IN
+          ), // Fin await BassonDebut4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T55OUT" : "T55OUT",
+              "BassonDebut4OUT" : "BassonDebut4OUT",
               "apply":function (){
                 return ((() => {
-                  const T55OUT = this["T55OUT"];
+                  const BassonDebut4OUT = this["BassonDebut4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T55OUT",
+              "signame":"BassonDebut4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T55OUT true
+          ), // Fin emit BassonDebut4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T55OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T55OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonDebut4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonDebut4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T55
+        ) // Fin sequence pour BassonDebut4
   ,
-        hh.SEQUENCE( // Debut sequence pour T17
+        hh.SEQUENCE( // Debut sequence pour BassonMilieu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4144,47 +7334,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T17IN  =this["T17IN"];
-                  return T17IN.now;
+                  const BassonMilieu1IN  =this["BassonMilieu1IN"];
+                  return BassonMilieu1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T17IN",
+            hh.SIGACCESS({"signame":"BassonMilieu1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T17IN
+          ), // Fin await BassonMilieu1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T17OUT" : "T17OUT",
+              "BassonMilieu1OUT" : "BassonMilieu1OUT",
               "apply":function (){
                 return ((() => {
-                  const T17OUT = this["T17OUT"];
+                  const BassonMilieu1OUT = this["BassonMilieu1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T17OUT",
+              "signame":"BassonMilieu1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T17OUT true
+          ), // Fin emit BassonMilieu1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T17OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T17OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T17
+        ) // Fin sequence pour BassonMilieu1
   ,
-        hh.SEQUENCE( // Debut sequence pour T27
+        hh.SEQUENCE( // Debut sequence pour BassonMilieu2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4196,46 +7386,306 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T27IN  =this["T27IN"];
-                  return T27IN.now;
+                  const BassonMilieu2IN  =this["BassonMilieu2IN"];
+                  return BassonMilieu2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T27IN",
+            hh.SIGACCESS({"signame":"BassonMilieu2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T27IN
+          ), // Fin await BassonMilieu2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T27OUT" : "T27OUT",
+              "BassonMilieu2OUT" : "BassonMilieu2OUT",
               "apply":function (){
                 return ((() => {
-                  const T27OUT = this["T27OUT"];
+                  const BassonMilieu2OUT = this["BassonMilieu2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T27OUT",
+              "signame":"BassonMilieu2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T27OUT true
+          ), // Fin emit BassonMilieu2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T27OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T27OUT", false);
+                //console.log("--! makeAwait:  atom:", "BassonMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T27
-      ), // Fin fork de make await avec en premiere position:T41
+        ) // Fin sequence pour BassonMilieu2
+  ,
+        hh.SEQUENCE( // Debut sequence pour BassonMilieu3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu3IN  =this["BassonMilieu3IN"];
+                  return BassonMilieu3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"BassonMilieu3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await BassonMilieu3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "BassonMilieu3OUT" : "BassonMilieu3OUT",
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu3OUT = this["BassonMilieu3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"BassonMilieu3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit BassonMilieu3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "BassonMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour BassonMilieu3
+  ,
+        hh.SEQUENCE( // Debut sequence pour BassonMilieu4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu4IN  =this["BassonMilieu4IN"];
+                  return BassonMilieu4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"BassonMilieu4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await BassonMilieu4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "BassonMilieu4OUT" : "BassonMilieu4OUT",
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu4OUT = this["BassonMilieu4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"BassonMilieu4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit BassonMilieu4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "BassonMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour BassonMilieu4
+  ,
+        hh.SEQUENCE( // Debut sequence pour BassonMilieu5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu5IN  =this["BassonMilieu5IN"];
+                  return BassonMilieu5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"BassonMilieu5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await BassonMilieu5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "BassonMilieu5OUT" : "BassonMilieu5OUT",
+              "apply":function (){
+                return ((() => {
+                  const BassonMilieu5OUT = this["BassonMilieu5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"BassonMilieu5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit BassonMilieu5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "BassonMilieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonMilieu5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour BassonMilieu5
+  ,
+        hh.SEQUENCE( // Debut sequence pour BassonNeutre1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const BassonNeutre1IN  =this["BassonNeutre1IN"];
+                  return BassonNeutre1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"BassonNeutre1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await BassonNeutre1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "BassonNeutre1OUT" : "BassonNeutre1OUT",
+              "apply":function (){
+                return ((() => {
+                  const BassonNeutre1OUT = this["BassonNeutre1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"BassonNeutre1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit BassonNeutre1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "BassonNeutre1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonNeutre1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour BassonNeutre1
+  ,
+        hh.SEQUENCE( // Debut sequence pour BassonNeutre2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const BassonNeutre2IN  =this["BassonNeutre2IN"];
+                  return BassonNeutre2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"BassonNeutre2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await BassonNeutre2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "BassonNeutre2OUT" : "BassonNeutre2OUT",
+              "apply":function (){
+                return ((() => {
+                  const BassonNeutre2OUT = this["BassonNeutre2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"BassonNeutre2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit BassonNeutre2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "BassonNeutre2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "BassonNeutre2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour BassonNeutre2
+      ), // Fin fork de make await avec en premiere position:BassonDebut1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -4256,126 +7706,221 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T41OUT":"T41OUT",
+          "BassonDebut1OUT":"BassonDebut1OUT",
           "apply":function (){
             return ((() => {
-              const T41 = this["T41OUT"];
+              const BassonDebut1 = this["BassonDebut1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T41OUT",
+          "signame":"BassonDebut1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T41OUT false,
+    ), // Fin emit BassonDebut1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T7OUT":"T7OUT",
+          "BassonDebut2OUT":"BassonDebut2OUT",
           "apply":function (){
             return ((() => {
-              const T7 = this["T7OUT"];
+              const BassonDebut2 = this["BassonDebut2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T7OUT",
+          "signame":"BassonDebut2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T7OUT false,
+    ), // Fin emit BassonDebut2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T43OUT":"T43OUT",
+          "BassonDebut3OUT":"BassonDebut3OUT",
           "apply":function (){
             return ((() => {
-              const T43 = this["T43OUT"];
+              const BassonDebut3 = this["BassonDebut3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T43OUT",
+          "signame":"BassonDebut3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T43OUT false,
+    ), // Fin emit BassonDebut3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T55OUT":"T55OUT",
+          "BassonDebut4OUT":"BassonDebut4OUT",
           "apply":function (){
             return ((() => {
-              const T55 = this["T55OUT"];
+              const BassonDebut4 = this["BassonDebut4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T55OUT",
+          "signame":"BassonDebut4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T55OUT false,
+    ), // Fin emit BassonDebut4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T17OUT":"T17OUT",
+          "BassonMilieu1OUT":"BassonMilieu1OUT",
           "apply":function (){
             return ((() => {
-              const T17 = this["T17OUT"];
+              const BassonMilieu1 = this["BassonMilieu1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T17OUT",
+          "signame":"BassonMilieu1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T17OUT false,
+    ), // Fin emit BassonMilieu1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T27OUT":"T27OUT",
+          "BassonMilieu2OUT":"BassonMilieu2OUT",
           "apply":function (){
             return ((() => {
-              const T27 = this["T27OUT"];
+              const BassonMilieu2 = this["BassonMilieu2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T27OUT",
+          "signame":"BassonMilieu2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T27OUT false
+    ), // Fin emit BassonMilieu2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "BassonMilieu3OUT":"BassonMilieu3OUT",
+          "apply":function (){
+            return ((() => {
+              const BassonMilieu3 = this["BassonMilieu3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"BassonMilieu3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit BassonMilieu3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "BassonMilieu4OUT":"BassonMilieu4OUT",
+          "apply":function (){
+            return ((() => {
+              const BassonMilieu4 = this["BassonMilieu4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"BassonMilieu4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit BassonMilieu4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "BassonMilieu5OUT":"BassonMilieu5OUT",
+          "apply":function (){
+            return ((() => {
+              const BassonMilieu5 = this["BassonMilieu5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"BassonMilieu5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit BassonMilieu5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "BassonNeutre1OUT":"BassonNeutre1OUT",
+          "apply":function (){
+            return ((() => {
+              const BassonNeutre1 = this["BassonNeutre1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"BassonNeutre1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit BassonNeutre1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "BassonNeutre2OUT":"BassonNeutre2OUT",
+          "apply":function (){
+            return ((() => {
+              const BassonNeutre2 = this["BassonNeutre2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"BassonNeutre2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit BassonNeutre2OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T41", false);
-            console.log("--- FIN RESERVOIR:", "T41");
+            gcs.informSelecteurOnMenuChange(255 , "BassonDebut1", false);
+            console.log("--- FIN RESERVOIR:", "BassonDebut1");
             var msg = {
             type: 'killTank',
-            value:  "T41"
+            value:  "BassonDebut1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -4383,20 +7928,22 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type6 + T89
-    type6 = hh.MODULE({"id":"type6","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T89IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T26IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T15IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T2IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T44IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T52IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T89OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T26OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T15OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T2OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T44OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T52OUT"}),
+    // Module tank Percu + Percu1
+    Percu = hh.MODULE({"id":"Percu","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"Percu7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"Percu7OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -4425,10 +7972,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T89" );
+                console.log("-- MAKE RESERVOIR:", "Percu1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T89"
+                  value:  "Percu1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -4438,28 +7985,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T89OUT":"T89OUT",
+                "Percu1OUT":"Percu1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T89 = this["T89OUT"];
+                    const Percu1 = this["Percu1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T89OUT",
+                "signame":"Percu1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T89OUT true
+          ), // Fin emit Percu1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T89OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T89OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu1OUT", true);
               }
             }
         ),
@@ -4467,28 +8014,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T26OUT":"T26OUT",
+                "Percu2OUT":"Percu2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T26 = this["T26OUT"];
+                    const Percu2 = this["Percu2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T26OUT",
+                "signame":"Percu2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T26OUT true
+          ), // Fin emit Percu2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T26OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T26OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu2OUT", true);
               }
             }
         ),
@@ -4496,28 +8043,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T15OUT":"T15OUT",
+                "Percu3OUT":"Percu3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T15 = this["T15OUT"];
+                    const Percu3 = this["Percu3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T15OUT",
+                "signame":"Percu3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T15OUT true
+          ), // Fin emit Percu3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T15OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T15OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu3OUT", true);
               }
             }
         ),
@@ -4525,28 +8072,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T2OUT":"T2OUT",
+                "Percu4OUT":"Percu4OUT",
                 "apply":function (){
                   return ((() => {
-                    const T2 = this["T2OUT"];
+                    const Percu4 = this["Percu4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T2OUT",
+                "signame":"Percu4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T2OUT true
+          ), // Fin emit Percu4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T2OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu4OUT", true);
               }
             }
         ),
@@ -4554,28 +8101,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T44OUT":"T44OUT",
+                "Percu5OUT":"Percu5OUT",
                 "apply":function (){
                   return ((() => {
-                    const T44 = this["T44OUT"];
+                    const Percu5 = this["Percu5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T44OUT",
+                "signame":"Percu5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T44OUT true
+          ), // Fin emit Percu5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T44OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T44OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu5OUT", true);
               }
             }
         ),
@@ -4583,38 +8130,67 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T52OUT":"T52OUT",
+                "Percu6OUT":"Percu6OUT",
                 "apply":function (){
                   return ((() => {
-                    const T52 = this["T52OUT"];
+                    const Percu6 = this["Percu6OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T52OUT",
+                "signame":"Percu6OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T52OUT true
+          ), // Fin emit Percu6OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T52OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T52OUT", true);
+                //console.log("-- makeReservoir:  atom:", "Percu6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu6OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T89
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "Percu7OUT":"Percu7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const Percu7 = this["Percu7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"Percu7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit Percu7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "Percu7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu7OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:Percu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T89
+        hh.SEQUENCE( // Debut sequence pour Percu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4626,47 +8202,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T89IN  =this["T89IN"];
-                  return T89IN.now;
+                  const Percu1IN  =this["Percu1IN"];
+                  return Percu1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T89IN",
+            hh.SIGACCESS({"signame":"Percu1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T89IN
+          ), // Fin await Percu1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T89OUT" : "T89OUT",
+              "Percu1OUT" : "Percu1OUT",
               "apply":function (){
                 return ((() => {
-                  const T89OUT = this["T89OUT"];
+                  const Percu1OUT = this["Percu1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T89OUT",
+              "signame":"Percu1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T89OUT true
+          ), // Fin emit Percu1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T89OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T89OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T89
+        ) // Fin sequence pour Percu1
   ,
-        hh.SEQUENCE( // Debut sequence pour T26
+        hh.SEQUENCE( // Debut sequence pour Percu2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4678,47 +8254,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T26IN  =this["T26IN"];
-                  return T26IN.now;
+                  const Percu2IN  =this["Percu2IN"];
+                  return Percu2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T26IN",
+            hh.SIGACCESS({"signame":"Percu2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T26IN
+          ), // Fin await Percu2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T26OUT" : "T26OUT",
+              "Percu2OUT" : "Percu2OUT",
               "apply":function (){
                 return ((() => {
-                  const T26OUT = this["T26OUT"];
+                  const Percu2OUT = this["Percu2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T26OUT",
+              "signame":"Percu2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T26OUT true
+          ), // Fin emit Percu2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T26OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T26OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T26
+        ) // Fin sequence pour Percu2
   ,
-        hh.SEQUENCE( // Debut sequence pour T15
+        hh.SEQUENCE( // Debut sequence pour Percu3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4730,47 +8306,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T15IN  =this["T15IN"];
-                  return T15IN.now;
+                  const Percu3IN  =this["Percu3IN"];
+                  return Percu3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T15IN",
+            hh.SIGACCESS({"signame":"Percu3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T15IN
+          ), // Fin await Percu3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T15OUT" : "T15OUT",
+              "Percu3OUT" : "Percu3OUT",
               "apply":function (){
                 return ((() => {
-                  const T15OUT = this["T15OUT"];
+                  const Percu3OUT = this["Percu3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T15OUT",
+              "signame":"Percu3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T15OUT true
+          ), // Fin emit Percu3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T15OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T15OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T15
+        ) // Fin sequence pour Percu3
   ,
-        hh.SEQUENCE( // Debut sequence pour T2
+        hh.SEQUENCE( // Debut sequence pour Percu4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4782,47 +8358,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T2IN  =this["T2IN"];
-                  return T2IN.now;
+                  const Percu4IN  =this["Percu4IN"];
+                  return Percu4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T2IN",
+            hh.SIGACCESS({"signame":"Percu4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T2IN
+          ), // Fin await Percu4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T2OUT" : "T2OUT",
+              "Percu4OUT" : "Percu4OUT",
               "apply":function (){
                 return ((() => {
-                  const T2OUT = this["T2OUT"];
+                  const Percu4OUT = this["Percu4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T2OUT",
+              "signame":"Percu4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T2OUT true
+          ), // Fin emit Percu4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T2OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T2
+        ) // Fin sequence pour Percu4
   ,
-        hh.SEQUENCE( // Debut sequence pour T44
+        hh.SEQUENCE( // Debut sequence pour Percu5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4834,47 +8410,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T44IN  =this["T44IN"];
-                  return T44IN.now;
+                  const Percu5IN  =this["Percu5IN"];
+                  return Percu5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T44IN",
+            hh.SIGACCESS({"signame":"Percu5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T44IN
+          ), // Fin await Percu5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T44OUT" : "T44OUT",
+              "Percu5OUT" : "Percu5OUT",
               "apply":function (){
                 return ((() => {
-                  const T44OUT = this["T44OUT"];
+                  const Percu5OUT = this["Percu5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T44OUT",
+              "signame":"Percu5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T44OUT true
+          ), // Fin emit Percu5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T44OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T44OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T44
+        ) // Fin sequence pour Percu5
   ,
-        hh.SEQUENCE( // Debut sequence pour T52
+        hh.SEQUENCE( // Debut sequence pour Percu6
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -4886,46 +8462,98 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T52IN  =this["T52IN"];
-                  return T52IN.now;
+                  const Percu6IN  =this["Percu6IN"];
+                  return Percu6IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T52IN",
+            hh.SIGACCESS({"signame":"Percu6IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T52IN
+          ), // Fin await Percu6IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T52OUT" : "T52OUT",
+              "Percu6OUT" : "Percu6OUT",
               "apply":function (){
                 return ((() => {
-                  const T52OUT = this["T52OUT"];
+                  const Percu6OUT = this["Percu6OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T52OUT",
+              "signame":"Percu6OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T52OUT true
+          ), // Fin emit Percu6OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T52OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T52OUT", false);
+                //console.log("--! makeAwait:  atom:", "Percu6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu6OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T52
-      ), // Fin fork de make await avec en premiere position:T89
+        ) // Fin sequence pour Percu6
+  ,
+        hh.SEQUENCE( // Debut sequence pour Percu7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const Percu7IN  =this["Percu7IN"];
+                  return Percu7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"Percu7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await Percu7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "Percu7OUT" : "Percu7OUT",
+              "apply":function (){
+                return ((() => {
+                  const Percu7OUT = this["Percu7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Percu7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit Percu7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "Percu7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "Percu7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour Percu7
+      ), // Fin fork de make await avec en premiere position:Percu1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -4946,126 +8574,145 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T89OUT":"T89OUT",
+          "Percu1OUT":"Percu1OUT",
           "apply":function (){
             return ((() => {
-              const T89 = this["T89OUT"];
+              const Percu1 = this["Percu1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T89OUT",
+          "signame":"Percu1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T89OUT false,
+    ), // Fin emit Percu1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T26OUT":"T26OUT",
+          "Percu2OUT":"Percu2OUT",
           "apply":function (){
             return ((() => {
-              const T26 = this["T26OUT"];
+              const Percu2 = this["Percu2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T26OUT",
+          "signame":"Percu2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T26OUT false,
+    ), // Fin emit Percu2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T15OUT":"T15OUT",
+          "Percu3OUT":"Percu3OUT",
           "apply":function (){
             return ((() => {
-              const T15 = this["T15OUT"];
+              const Percu3 = this["Percu3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T15OUT",
+          "signame":"Percu3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T15OUT false,
+    ), // Fin emit Percu3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T2OUT":"T2OUT",
+          "Percu4OUT":"Percu4OUT",
           "apply":function (){
             return ((() => {
-              const T2 = this["T2OUT"];
+              const Percu4 = this["Percu4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T2OUT",
+          "signame":"Percu4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T2OUT false,
+    ), // Fin emit Percu4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T44OUT":"T44OUT",
+          "Percu5OUT":"Percu5OUT",
           "apply":function (){
             return ((() => {
-              const T44 = this["T44OUT"];
+              const Percu5 = this["Percu5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T44OUT",
+          "signame":"Percu5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T44OUT false,
+    ), // Fin emit Percu5OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T52OUT":"T52OUT",
+          "Percu6OUT":"Percu6OUT",
           "apply":function (){
             return ((() => {
-              const T52 = this["T52OUT"];
+              const Percu6 = this["Percu6OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T52OUT",
+          "signame":"Percu6OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T52OUT false
+    ), // Fin emit Percu6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "Percu7OUT":"Percu7OUT",
+          "apply":function (){
+            return ((() => {
+              const Percu7 = this["Percu7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"Percu7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit Percu7OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T89", false);
-            console.log("--- FIN RESERVOIR:", "T89");
+            gcs.informSelecteurOnMenuChange(255 , "Percu1", false);
+            console.log("--- FIN RESERVOIR:", "Percu1");
             var msg = {
             type: 'killTank',
-            value:  "T89"
+            value:  "Percu1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -5073,20 +8720,30 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank type7 + T13
-    type7 = hh.MODULE({"id":"type7","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T13IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T71IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T80IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T61IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T70IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T94IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T13OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T71OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T80OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T61OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T70OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T94OUT"}),
+    // Module tank Clarinette + ClarinetteDebut1
+    Clarinette = hh.MODULE({"id":"Clarinette","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteDebut1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteDebut2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteDebut3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteMilieu1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteMilieu2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteMilieu3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteMilieu4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteMilieu5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteFin1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteFin2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"ClarinetteFin3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteDebut1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteDebut2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteDebut3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteMilieu1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteMilieu2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteMilieu3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteMilieu4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteMilieu5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteFin1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteFin2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"ClarinetteFin3OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -5115,10 +8772,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T13" );
+                console.log("-- MAKE RESERVOIR:", "ClarinetteDebut1" );
                 var msg = {
                   type: 'startTank',
-                  value:  "T13"
+                  value:  "ClarinetteDebut1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -5128,28 +8785,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T13OUT":"T13OUT",
+                "ClarinetteDebut1OUT":"ClarinetteDebut1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T13 = this["T13OUT"];
+                    const ClarinetteDebut1 = this["ClarinetteDebut1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T13OUT",
+                "signame":"ClarinetteDebut1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T13OUT true
+          ), // Fin emit ClarinetteDebut1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T13OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T13OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut1OUT", true);
               }
             }
         ),
@@ -5157,28 +8814,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T71OUT":"T71OUT",
+                "ClarinetteDebut2OUT":"ClarinetteDebut2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T71 = this["T71OUT"];
+                    const ClarinetteDebut2 = this["ClarinetteDebut2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T71OUT",
+                "signame":"ClarinetteDebut2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T71OUT true
+          ), // Fin emit ClarinetteDebut2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T71OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T71OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut2OUT", true);
               }
             }
         ),
@@ -5186,28 +8843,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T80OUT":"T80OUT",
+                "ClarinetteDebut3OUT":"ClarinetteDebut3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T80 = this["T80OUT"];
+                    const ClarinetteDebut3 = this["ClarinetteDebut3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T80OUT",
+                "signame":"ClarinetteDebut3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T80OUT true
+          ), // Fin emit ClarinetteDebut3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T80OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T80OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut3OUT", true);
               }
             }
         ),
@@ -5215,28 +8872,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T61OUT":"T61OUT",
+                "ClarinetteMilieu1OUT":"ClarinetteMilieu1OUT",
                 "apply":function (){
                   return ((() => {
-                    const T61 = this["T61OUT"];
+                    const ClarinetteMilieu1 = this["ClarinetteMilieu1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T61OUT",
+                "signame":"ClarinetteMilieu1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T61OUT true
+          ), // Fin emit ClarinetteMilieu1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T61OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T61OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu1OUT", true);
               }
             }
         ),
@@ -5244,28 +8901,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T70OUT":"T70OUT",
+                "ClarinetteMilieu2OUT":"ClarinetteMilieu2OUT",
                 "apply":function (){
                   return ((() => {
-                    const T70 = this["T70OUT"];
+                    const ClarinetteMilieu2 = this["ClarinetteMilieu2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T70OUT",
+                "signame":"ClarinetteMilieu2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T70OUT true
+          ), // Fin emit ClarinetteMilieu2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T70OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T70OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu2OUT", true);
               }
             }
         ),
@@ -5273,38 +8930,183 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "T94OUT":"T94OUT",
+                "ClarinetteMilieu3OUT":"ClarinetteMilieu3OUT",
                 "apply":function (){
                   return ((() => {
-                    const T94 = this["T94OUT"];
+                    const ClarinetteMilieu3 = this["ClarinetteMilieu3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"T94OUT",
+                "signame":"ClarinetteMilieu3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit T94OUT true
+          ), // Fin emit ClarinetteMilieu3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T94OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T94OUT", true);
+                //console.log("-- makeReservoir:  atom:", "ClarinetteMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu3OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T13
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ClarinetteMilieu4OUT":"ClarinetteMilieu4OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ClarinetteMilieu4 = this["ClarinetteMilieu4OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ClarinetteMilieu4OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ClarinetteMilieu4OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ClarinetteMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu4OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ClarinetteMilieu5OUT":"ClarinetteMilieu5OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ClarinetteMilieu5 = this["ClarinetteMilieu5OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ClarinetteMilieu5OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ClarinetteMilieu5OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ClarinetteMilieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu5OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ClarinetteFin1OUT":"ClarinetteFin1OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ClarinetteFin1 = this["ClarinetteFin1OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ClarinetteFin1OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ClarinetteFin1OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ClarinetteFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin1OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ClarinetteFin2OUT":"ClarinetteFin2OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ClarinetteFin2 = this["ClarinetteFin2OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ClarinetteFin2OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ClarinetteFin2OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ClarinetteFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin2OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "ClarinetteFin3OUT":"ClarinetteFin3OUT",
+                "apply":function (){
+                  return ((() => {
+                    const ClarinetteFin3 = this["ClarinetteFin3OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"ClarinetteFin3OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit ClarinetteFin3OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "ClarinetteFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin3OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:ClarinetteDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour T13
+        hh.SEQUENCE( // Debut sequence pour ClarinetteDebut1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5316,47 +9118,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T13IN  =this["T13IN"];
-                  return T13IN.now;
+                  const ClarinetteDebut1IN  =this["ClarinetteDebut1IN"];
+                  return ClarinetteDebut1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T13IN",
+            hh.SIGACCESS({"signame":"ClarinetteDebut1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T13IN
+          ), // Fin await ClarinetteDebut1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T13OUT" : "T13OUT",
+              "ClarinetteDebut1OUT" : "ClarinetteDebut1OUT",
               "apply":function (){
                 return ((() => {
-                  const T13OUT = this["T13OUT"];
+                  const ClarinetteDebut1OUT = this["ClarinetteDebut1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T13OUT",
+              "signame":"ClarinetteDebut1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T13OUT true
+          ), // Fin emit ClarinetteDebut1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T13OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T13OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteDebut1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T13
+        ) // Fin sequence pour ClarinetteDebut1
   ,
-        hh.SEQUENCE( // Debut sequence pour T71
+        hh.SEQUENCE( // Debut sequence pour ClarinetteDebut2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5368,47 +9170,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T71IN  =this["T71IN"];
-                  return T71IN.now;
+                  const ClarinetteDebut2IN  =this["ClarinetteDebut2IN"];
+                  return ClarinetteDebut2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T71IN",
+            hh.SIGACCESS({"signame":"ClarinetteDebut2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T71IN
+          ), // Fin await ClarinetteDebut2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T71OUT" : "T71OUT",
+              "ClarinetteDebut2OUT" : "ClarinetteDebut2OUT",
               "apply":function (){
                 return ((() => {
-                  const T71OUT = this["T71OUT"];
+                  const ClarinetteDebut2OUT = this["ClarinetteDebut2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T71OUT",
+              "signame":"ClarinetteDebut2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T71OUT true
+          ), // Fin emit ClarinetteDebut2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T71OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T71OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteDebut2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T71
+        ) // Fin sequence pour ClarinetteDebut2
   ,
-        hh.SEQUENCE( // Debut sequence pour T80
+        hh.SEQUENCE( // Debut sequence pour ClarinetteDebut3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5420,47 +9222,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T80IN  =this["T80IN"];
-                  return T80IN.now;
+                  const ClarinetteDebut3IN  =this["ClarinetteDebut3IN"];
+                  return ClarinetteDebut3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T80IN",
+            hh.SIGACCESS({"signame":"ClarinetteDebut3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T80IN
+          ), // Fin await ClarinetteDebut3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T80OUT" : "T80OUT",
+              "ClarinetteDebut3OUT" : "ClarinetteDebut3OUT",
               "apply":function (){
                 return ((() => {
-                  const T80OUT = this["T80OUT"];
+                  const ClarinetteDebut3OUT = this["ClarinetteDebut3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T80OUT",
+              "signame":"ClarinetteDebut3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T80OUT true
+          ), // Fin emit ClarinetteDebut3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T80OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T80OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteDebut3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T80
+        ) // Fin sequence pour ClarinetteDebut3
   ,
-        hh.SEQUENCE( // Debut sequence pour T61
+        hh.SEQUENCE( // Debut sequence pour ClarinetteMilieu1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5472,47 +9274,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T61IN  =this["T61IN"];
-                  return T61IN.now;
+                  const ClarinetteMilieu1IN  =this["ClarinetteMilieu1IN"];
+                  return ClarinetteMilieu1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T61IN",
+            hh.SIGACCESS({"signame":"ClarinetteMilieu1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T61IN
+          ), // Fin await ClarinetteMilieu1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T61OUT" : "T61OUT",
+              "ClarinetteMilieu1OUT" : "ClarinetteMilieu1OUT",
               "apply":function (){
                 return ((() => {
-                  const T61OUT = this["T61OUT"];
+                  const ClarinetteMilieu1OUT = this["ClarinetteMilieu1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T61OUT",
+              "signame":"ClarinetteMilieu1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T61OUT true
+          ), // Fin emit ClarinetteMilieu1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T61OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T61OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteMilieu1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T61
+        ) // Fin sequence pour ClarinetteMilieu1
   ,
-        hh.SEQUENCE( // Debut sequence pour T70
+        hh.SEQUENCE( // Debut sequence pour ClarinetteMilieu2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5524,47 +9326,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T70IN  =this["T70IN"];
-                  return T70IN.now;
+                  const ClarinetteMilieu2IN  =this["ClarinetteMilieu2IN"];
+                  return ClarinetteMilieu2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T70IN",
+            hh.SIGACCESS({"signame":"ClarinetteMilieu2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T70IN
+          ), // Fin await ClarinetteMilieu2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T70OUT" : "T70OUT",
+              "ClarinetteMilieu2OUT" : "ClarinetteMilieu2OUT",
               "apply":function (){
                 return ((() => {
-                  const T70OUT = this["T70OUT"];
+                  const ClarinetteMilieu2OUT = this["ClarinetteMilieu2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T70OUT",
+              "signame":"ClarinetteMilieu2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T70OUT true
+          ), // Fin emit ClarinetteMilieu2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T70OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T70OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteMilieu2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T70
+        ) // Fin sequence pour ClarinetteMilieu2
   ,
-        hh.SEQUENCE( // Debut sequence pour T94
+        hh.SEQUENCE( // Debut sequence pour ClarinetteMilieu3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -5576,46 +9378,306 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const T94IN  =this["T94IN"];
-                  return T94IN.now;
+                  const ClarinetteMilieu3IN  =this["ClarinetteMilieu3IN"];
+                  return ClarinetteMilieu3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"T94IN",
+            hh.SIGACCESS({"signame":"ClarinetteMilieu3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await T94IN
+          ), // Fin await ClarinetteMilieu3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "T94OUT" : "T94OUT",
+              "ClarinetteMilieu3OUT" : "ClarinetteMilieu3OUT",
               "apply":function (){
                 return ((() => {
-                  const T94OUT = this["T94OUT"];
+                  const ClarinetteMilieu3OUT = this["ClarinetteMilieu3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"T94OUT",
+              "signame":"ClarinetteMilieu3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit T94OUT true
+          ), // Fin emit ClarinetteMilieu3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T94OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T94OUT", false);
+                //console.log("--! makeAwait:  atom:", "ClarinetteMilieu3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour T94
-      ), // Fin fork de make await avec en premiere position:T13
+        ) // Fin sequence pour ClarinetteMilieu3
+  ,
+        hh.SEQUENCE( // Debut sequence pour ClarinetteMilieu4
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteMilieu4IN  =this["ClarinetteMilieu4IN"];
+                  return ClarinetteMilieu4IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ClarinetteMilieu4IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ClarinetteMilieu4IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ClarinetteMilieu4OUT" : "ClarinetteMilieu4OUT",
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteMilieu4OUT = this["ClarinetteMilieu4OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ClarinetteMilieu4OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ClarinetteMilieu4OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ClarinetteMilieu4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu4OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ClarinetteMilieu4
+  ,
+        hh.SEQUENCE( // Debut sequence pour ClarinetteMilieu5
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteMilieu5IN  =this["ClarinetteMilieu5IN"];
+                  return ClarinetteMilieu5IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ClarinetteMilieu5IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ClarinetteMilieu5IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ClarinetteMilieu5OUT" : "ClarinetteMilieu5OUT",
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteMilieu5OUT = this["ClarinetteMilieu5OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ClarinetteMilieu5OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ClarinetteMilieu5OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ClarinetteMilieu5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteMilieu5OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ClarinetteMilieu5
+  ,
+        hh.SEQUENCE( // Debut sequence pour ClarinetteFin1
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin1IN  =this["ClarinetteFin1IN"];
+                  return ClarinetteFin1IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ClarinetteFin1IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ClarinetteFin1IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ClarinetteFin1OUT" : "ClarinetteFin1OUT",
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin1OUT = this["ClarinetteFin1OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ClarinetteFin1OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ClarinetteFin1OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ClarinetteFin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin1OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ClarinetteFin1
+  ,
+        hh.SEQUENCE( // Debut sequence pour ClarinetteFin2
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin2IN  =this["ClarinetteFin2IN"];
+                  return ClarinetteFin2IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ClarinetteFin2IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ClarinetteFin2IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ClarinetteFin2OUT" : "ClarinetteFin2OUT",
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin2OUT = this["ClarinetteFin2OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ClarinetteFin2OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ClarinetteFin2OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ClarinetteFin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin2OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ClarinetteFin2
+  ,
+        hh.SEQUENCE( // Debut sequence pour ClarinetteFin3
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin3IN  =this["ClarinetteFin3IN"];
+                  return ClarinetteFin3IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"ClarinetteFin3IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await ClarinetteFin3IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "ClarinetteFin3OUT" : "ClarinetteFin3OUT",
+              "apply":function (){
+                return ((() => {
+                  const ClarinetteFin3OUT = this["ClarinetteFin3OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"ClarinetteFin3OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit ClarinetteFin3OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "ClarinetteFin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "ClarinetteFin3OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour ClarinetteFin3
+      ), // Fin fork de make await avec en premiere position:ClarinetteDebut1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -5636,5895 +9698,227 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "T13OUT":"T13OUT",
+          "ClarinetteDebut1OUT":"ClarinetteDebut1OUT",
           "apply":function (){
             return ((() => {
-              const T13 = this["T13OUT"];
+              const ClarinetteDebut1 = this["ClarinetteDebut1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T13OUT",
+          "signame":"ClarinetteDebut1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T13OUT false,
+    ), // Fin emit ClarinetteDebut1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T71OUT":"T71OUT",
+          "ClarinetteDebut2OUT":"ClarinetteDebut2OUT",
           "apply":function (){
             return ((() => {
-              const T71 = this["T71OUT"];
+              const ClarinetteDebut2 = this["ClarinetteDebut2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T71OUT",
+          "signame":"ClarinetteDebut2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T71OUT false,
+    ), // Fin emit ClarinetteDebut2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T80OUT":"T80OUT",
+          "ClarinetteDebut3OUT":"ClarinetteDebut3OUT",
           "apply":function (){
             return ((() => {
-              const T80 = this["T80OUT"];
+              const ClarinetteDebut3 = this["ClarinetteDebut3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T80OUT",
+          "signame":"ClarinetteDebut3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T80OUT false,
+    ), // Fin emit ClarinetteDebut3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T61OUT":"T61OUT",
+          "ClarinetteMilieu1OUT":"ClarinetteMilieu1OUT",
           "apply":function (){
             return ((() => {
-              const T61 = this["T61OUT"];
+              const ClarinetteMilieu1 = this["ClarinetteMilieu1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T61OUT",
+          "signame":"ClarinetteMilieu1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T61OUT false,
+    ), // Fin emit ClarinetteMilieu1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T70OUT":"T70OUT",
+          "ClarinetteMilieu2OUT":"ClarinetteMilieu2OUT",
           "apply":function (){
             return ((() => {
-              const T70 = this["T70OUT"];
+              const ClarinetteMilieu2 = this["ClarinetteMilieu2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T70OUT",
+          "signame":"ClarinetteMilieu2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T70OUT false,
+    ), // Fin emit ClarinetteMilieu2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "T94OUT":"T94OUT",
+          "ClarinetteMilieu3OUT":"ClarinetteMilieu3OUT",
           "apply":function (){
             return ((() => {
-              const T94 = this["T94OUT"];
+              const ClarinetteMilieu3 = this["ClarinetteMilieu3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"T94OUT",
+          "signame":"ClarinetteMilieu3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit T94OUT false
+    ), // Fin emit ClarinetteMilieu3OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ClarinetteMilieu4OUT":"ClarinetteMilieu4OUT",
+          "apply":function (){
+            return ((() => {
+              const ClarinetteMilieu4 = this["ClarinetteMilieu4OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ClarinetteMilieu4OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ClarinetteMilieu4OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ClarinetteMilieu5OUT":"ClarinetteMilieu5OUT",
+          "apply":function (){
+            return ((() => {
+              const ClarinetteMilieu5 = this["ClarinetteMilieu5OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ClarinetteMilieu5OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ClarinetteMilieu5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ClarinetteFin1OUT":"ClarinetteFin1OUT",
+          "apply":function (){
+            return ((() => {
+              const ClarinetteFin1 = this["ClarinetteFin1OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ClarinetteFin1OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ClarinetteFin1OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ClarinetteFin2OUT":"ClarinetteFin2OUT",
+          "apply":function (){
+            return ((() => {
+              const ClarinetteFin2 = this["ClarinetteFin2OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ClarinetteFin2OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ClarinetteFin2OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "ClarinetteFin3OUT":"ClarinetteFin3OUT",
+          "apply":function (){
+            return ((() => {
+              const ClarinetteFin3 = this["ClarinetteFin3OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"ClarinetteFin3OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit ClarinetteFin3OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T13", false);
-            console.log("--- FIN RESERVOIR:", "T13");
+            gcs.informSelecteurOnMenuChange(255 , "ClarinetteDebut1", false);
+            console.log("--- FIN RESERVOIR:", "ClarinetteDebut1");
             var msg = {
             type: 'killTank',
-            value:  "T13"
+            value:  "ClarinetteDebut1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
         }
     ) // Fin atom,
   ); // Fin module
-
-    // Module tank type8 + T36
-    type8 = hh.MODULE({"id":"type8","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T36IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T76IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T9IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T22IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T63IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T11IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T36OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T76OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T9OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T22OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T63OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T11OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T36" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T36"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T36OUT":"T36OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T36 = this["T36OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T36OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T36OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T36OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T36OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T76OUT":"T76OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T76 = this["T76OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T76OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T76OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T76OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T76OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T9OUT":"T9OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T9 = this["T9OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T9OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T9OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T9OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T9OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T22OUT":"T22OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T22 = this["T22OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T22OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T22OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T22OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T22OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T63OUT":"T63OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T63 = this["T63OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T63OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T63OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T63OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T63OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T11OUT":"T11OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T11 = this["T11OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T11OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T11OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T11OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T11OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T36
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T36
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T36IN  =this["T36IN"];
-                  return T36IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T36IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T36IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T36OUT" : "T36OUT",
-              "apply":function (){
-                return ((() => {
-                  const T36OUT = this["T36OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T36OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T36OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T36OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T36OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T36
-  ,
-        hh.SEQUENCE( // Debut sequence pour T76
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T76IN  =this["T76IN"];
-                  return T76IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T76IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T76IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T76OUT" : "T76OUT",
-              "apply":function (){
-                return ((() => {
-                  const T76OUT = this["T76OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T76OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T76OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T76OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T76OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T76
-  ,
-        hh.SEQUENCE( // Debut sequence pour T9
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T9IN  =this["T9IN"];
-                  return T9IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T9IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T9IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T9OUT" : "T9OUT",
-              "apply":function (){
-                return ((() => {
-                  const T9OUT = this["T9OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T9OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T9OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T9OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T9OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T9
-  ,
-        hh.SEQUENCE( // Debut sequence pour T22
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T22IN  =this["T22IN"];
-                  return T22IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T22IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T22IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T22OUT" : "T22OUT",
-              "apply":function (){
-                return ((() => {
-                  const T22OUT = this["T22OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T22OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T22OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T22OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T22OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T22
-  ,
-        hh.SEQUENCE( // Debut sequence pour T63
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T63IN  =this["T63IN"];
-                  return T63IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T63IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T63IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T63OUT" : "T63OUT",
-              "apply":function (){
-                return ((() => {
-                  const T63OUT = this["T63OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T63OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T63OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T63OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T63OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T63
-  ,
-        hh.SEQUENCE( // Debut sequence pour T11
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T11IN  =this["T11IN"];
-                  return T11IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T11IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T11IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T11OUT" : "T11OUT",
-              "apply":function (){
-                return ((() => {
-                  const T11OUT = this["T11OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T11OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T11OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T11OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T11OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T11
-      ), // Fin fork de make await avec en premiere position:T36
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T36OUT":"T36OUT",
-          "apply":function (){
-            return ((() => {
-              const T36 = this["T36OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T36OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T36OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T76OUT":"T76OUT",
-          "apply":function (){
-            return ((() => {
-              const T76 = this["T76OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T76OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T76OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T9OUT":"T9OUT",
-          "apply":function (){
-            return ((() => {
-              const T9 = this["T9OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T9OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T9OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T22OUT":"T22OUT",
-          "apply":function (){
-            return ((() => {
-              const T22 = this["T22OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T22OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T22OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T63OUT":"T63OUT",
-          "apply":function (){
-            return ((() => {
-              const T63 = this["T63OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T63OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T63OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T11OUT":"T11OUT",
-          "apply":function (){
-            return ((() => {
-              const T11 = this["T11OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T11OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T11OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T36", false);
-            console.log("--- FIN RESERVOIR:", "T36");
-            var msg = {
-            type: 'killTank',
-            value:  "T36"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type9 + T5
-    type9 = hh.MODULE({"id":"type9","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T5IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T20IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T34IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T67IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T85IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T92IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T5OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T20OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T34OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T67OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T85OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T92OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T5" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T5"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T5OUT":"T5OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T5 = this["T5OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T5OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T5OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T5OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T20OUT":"T20OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T20 = this["T20OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T20OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T20OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T20OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T20OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T34OUT":"T34OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T34 = this["T34OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T34OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T34OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T34OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T34OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T67OUT":"T67OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T67 = this["T67OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T67OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T67OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T67OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T67OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T85OUT":"T85OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T85 = this["T85OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T85OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T85OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T85OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T85OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T92OUT":"T92OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T92 = this["T92OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T92OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T92OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T92OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T92OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T5
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T5
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T5IN  =this["T5IN"];
-                  return T5IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T5IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T5IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T5OUT" : "T5OUT",
-              "apply":function (){
-                return ((() => {
-                  const T5OUT = this["T5OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T5OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T5OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T5OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T5
-  ,
-        hh.SEQUENCE( // Debut sequence pour T20
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T20IN  =this["T20IN"];
-                  return T20IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T20IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T20IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T20OUT" : "T20OUT",
-              "apply":function (){
-                return ((() => {
-                  const T20OUT = this["T20OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T20OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T20OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T20OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T20OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T20
-  ,
-        hh.SEQUENCE( // Debut sequence pour T34
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T34IN  =this["T34IN"];
-                  return T34IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T34IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T34IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T34OUT" : "T34OUT",
-              "apply":function (){
-                return ((() => {
-                  const T34OUT = this["T34OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T34OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T34OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T34OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T34OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T34
-  ,
-        hh.SEQUENCE( // Debut sequence pour T67
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T67IN  =this["T67IN"];
-                  return T67IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T67IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T67IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T67OUT" : "T67OUT",
-              "apply":function (){
-                return ((() => {
-                  const T67OUT = this["T67OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T67OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T67OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T67OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T67OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T67
-  ,
-        hh.SEQUENCE( // Debut sequence pour T85
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T85IN  =this["T85IN"];
-                  return T85IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T85IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T85IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T85OUT" : "T85OUT",
-              "apply":function (){
-                return ((() => {
-                  const T85OUT = this["T85OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T85OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T85OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T85OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T85OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T85
-  ,
-        hh.SEQUENCE( // Debut sequence pour T92
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T92IN  =this["T92IN"];
-                  return T92IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T92IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T92IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T92OUT" : "T92OUT",
-              "apply":function (){
-                return ((() => {
-                  const T92OUT = this["T92OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T92OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T92OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T92OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T92OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T92
-      ), // Fin fork de make await avec en premiere position:T5
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T5OUT":"T5OUT",
-          "apply":function (){
-            return ((() => {
-              const T5 = this["T5OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T5OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T5OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T20OUT":"T20OUT",
-          "apply":function (){
-            return ((() => {
-              const T20 = this["T20OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T20OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T20OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T34OUT":"T34OUT",
-          "apply":function (){
-            return ((() => {
-              const T34 = this["T34OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T34OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T34OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T67OUT":"T67OUT",
-          "apply":function (){
-            return ((() => {
-              const T67 = this["T67OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T67OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T67OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T85OUT":"T85OUT",
-          "apply":function (){
-            return ((() => {
-              const T85 = this["T85OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T85OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T85OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T92OUT":"T92OUT",
-          "apply":function (){
-            return ((() => {
-              const T92 = this["T92OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T92OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T92OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T5", false);
-            console.log("--- FIN RESERVOIR:", "T5");
-            var msg = {
-            type: 'killTank',
-            value:  "T5"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type10 + T46
-    type10 = hh.MODULE({"id":"type10","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T46IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T64IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T93IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T49IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T32IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T24IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T46OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T64OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T93OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T49OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T32OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T24OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T46" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T46"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T46OUT":"T46OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T46 = this["T46OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T46OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T46OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T46OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T46OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T64OUT":"T64OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T64 = this["T64OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T64OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T64OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T64OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T64OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T93OUT":"T93OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T93 = this["T93OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T93OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T93OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T93OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T93OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T49OUT":"T49OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T49 = this["T49OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T49OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T49OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T49OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T49OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T32OUT":"T32OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T32 = this["T32OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T32OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T32OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T32OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T32OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T24OUT":"T24OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T24 = this["T24OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T24OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T24OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T24OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T24OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T46
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T46
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T46IN  =this["T46IN"];
-                  return T46IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T46IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T46IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T46OUT" : "T46OUT",
-              "apply":function (){
-                return ((() => {
-                  const T46OUT = this["T46OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T46OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T46OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T46OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T46OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T46
-  ,
-        hh.SEQUENCE( // Debut sequence pour T64
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T64IN  =this["T64IN"];
-                  return T64IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T64IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T64IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T64OUT" : "T64OUT",
-              "apply":function (){
-                return ((() => {
-                  const T64OUT = this["T64OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T64OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T64OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T64OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T64OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T64
-  ,
-        hh.SEQUENCE( // Debut sequence pour T93
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T93IN  =this["T93IN"];
-                  return T93IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T93IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T93IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T93OUT" : "T93OUT",
-              "apply":function (){
-                return ((() => {
-                  const T93OUT = this["T93OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T93OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T93OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T93OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T93OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T93
-  ,
-        hh.SEQUENCE( // Debut sequence pour T49
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T49IN  =this["T49IN"];
-                  return T49IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T49IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T49IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T49OUT" : "T49OUT",
-              "apply":function (){
-                return ((() => {
-                  const T49OUT = this["T49OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T49OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T49OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T49OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T49OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T49
-  ,
-        hh.SEQUENCE( // Debut sequence pour T32
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T32IN  =this["T32IN"];
-                  return T32IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T32IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T32IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T32OUT" : "T32OUT",
-              "apply":function (){
-                return ((() => {
-                  const T32OUT = this["T32OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T32OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T32OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T32OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T32OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T32
-  ,
-        hh.SEQUENCE( // Debut sequence pour T24
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T24IN  =this["T24IN"];
-                  return T24IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T24IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T24IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T24OUT" : "T24OUT",
-              "apply":function (){
-                return ((() => {
-                  const T24OUT = this["T24OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T24OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T24OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T24OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T24OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T24
-      ), // Fin fork de make await avec en premiere position:T46
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T46OUT":"T46OUT",
-          "apply":function (){
-            return ((() => {
-              const T46 = this["T46OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T46OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T46OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T64OUT":"T64OUT",
-          "apply":function (){
-            return ((() => {
-              const T64 = this["T64OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T64OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T64OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T93OUT":"T93OUT",
-          "apply":function (){
-            return ((() => {
-              const T93 = this["T93OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T93OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T93OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T49OUT":"T49OUT",
-          "apply":function (){
-            return ((() => {
-              const T49 = this["T49OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T49OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T49OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T32OUT":"T32OUT",
-          "apply":function (){
-            return ((() => {
-              const T32 = this["T32OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T32OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T32OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T24OUT":"T24OUT",
-          "apply":function (){
-            return ((() => {
-              const T24 = this["T24OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T24OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T24OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T46", false);
-            console.log("--- FIN RESERVOIR:", "T46");
-            var msg = {
-            type: 'killTank',
-            value:  "T46"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type11 + T79
-    type11 = hh.MODULE({"id":"type11","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T79IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T84IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T48IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T77IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T96IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T86IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T79OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T84OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T48OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T77OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T96OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T86OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T79" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T79"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T79OUT":"T79OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T79 = this["T79OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T79OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T79OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T79OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T79OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T84OUT":"T84OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T84 = this["T84OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T84OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T84OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T84OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T84OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T48OUT":"T48OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T48 = this["T48OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T48OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T48OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T48OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T48OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T77OUT":"T77OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T77 = this["T77OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T77OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T77OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T77OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T77OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T96OUT":"T96OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T96 = this["T96OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T96OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T96OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T96OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T96OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T86OUT":"T86OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T86 = this["T86OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T86OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T86OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T86OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T86OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T79
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T79
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T79IN  =this["T79IN"];
-                  return T79IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T79IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T79IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T79OUT" : "T79OUT",
-              "apply":function (){
-                return ((() => {
-                  const T79OUT = this["T79OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T79OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T79OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T79OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T79OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T79
-  ,
-        hh.SEQUENCE( // Debut sequence pour T84
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T84IN  =this["T84IN"];
-                  return T84IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T84IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T84IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T84OUT" : "T84OUT",
-              "apply":function (){
-                return ((() => {
-                  const T84OUT = this["T84OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T84OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T84OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T84OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T84OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T84
-  ,
-        hh.SEQUENCE( // Debut sequence pour T48
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T48IN  =this["T48IN"];
-                  return T48IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T48IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T48IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T48OUT" : "T48OUT",
-              "apply":function (){
-                return ((() => {
-                  const T48OUT = this["T48OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T48OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T48OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T48OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T48OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T48
-  ,
-        hh.SEQUENCE( // Debut sequence pour T77
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T77IN  =this["T77IN"];
-                  return T77IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T77IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T77IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T77OUT" : "T77OUT",
-              "apply":function (){
-                return ((() => {
-                  const T77OUT = this["T77OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T77OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T77OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T77OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T77OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T77
-  ,
-        hh.SEQUENCE( // Debut sequence pour T96
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T96IN  =this["T96IN"];
-                  return T96IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T96IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T96IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T96OUT" : "T96OUT",
-              "apply":function (){
-                return ((() => {
-                  const T96OUT = this["T96OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T96OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T96OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T96OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T96OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T96
-  ,
-        hh.SEQUENCE( // Debut sequence pour T86
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T86IN  =this["T86IN"];
-                  return T86IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T86IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T86IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T86OUT" : "T86OUT",
-              "apply":function (){
-                return ((() => {
-                  const T86OUT = this["T86OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T86OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T86OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T86OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T86OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T86
-      ), // Fin fork de make await avec en premiere position:T79
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T79OUT":"T79OUT",
-          "apply":function (){
-            return ((() => {
-              const T79 = this["T79OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T79OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T79OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T84OUT":"T84OUT",
-          "apply":function (){
-            return ((() => {
-              const T84 = this["T84OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T84OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T84OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T48OUT":"T48OUT",
-          "apply":function (){
-            return ((() => {
-              const T48 = this["T48OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T48OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T48OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T77OUT":"T77OUT",
-          "apply":function (){
-            return ((() => {
-              const T77 = this["T77OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T77OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T77OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T96OUT":"T96OUT",
-          "apply":function (){
-            return ((() => {
-              const T96 = this["T96OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T96OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T96OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T86OUT":"T86OUT",
-          "apply":function (){
-            return ((() => {
-              const T86 = this["T86OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T86OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T86OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T79", false);
-            console.log("--- FIN RESERVOIR:", "T79");
-            var msg = {
-            type: 'killTank',
-            value:  "T79"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type12 + T30
-    type12 = hh.MODULE({"id":"type12","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T30IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T8IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T69IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T57IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T12IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T51IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T30OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T8OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T69OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T57OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T12OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T51OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T30" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T30"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T30OUT":"T30OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T30 = this["T30OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T30OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T30OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T30OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T30OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T8OUT":"T8OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T8 = this["T8OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T8OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T8OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T8OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T8OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T69OUT":"T69OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T69 = this["T69OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T69OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T69OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T69OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T69OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T57OUT":"T57OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T57 = this["T57OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T57OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T57OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T57OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T57OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T12OUT":"T12OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T12 = this["T12OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T12OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T12OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T12OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T12OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T51OUT":"T51OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T51 = this["T51OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T51OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T51OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T51OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T51OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T30
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T30
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T30IN  =this["T30IN"];
-                  return T30IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T30IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T30IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T30OUT" : "T30OUT",
-              "apply":function (){
-                return ((() => {
-                  const T30OUT = this["T30OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T30OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T30OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T30OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T30OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T30
-  ,
-        hh.SEQUENCE( // Debut sequence pour T8
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T8IN  =this["T8IN"];
-                  return T8IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T8IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T8IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T8OUT" : "T8OUT",
-              "apply":function (){
-                return ((() => {
-                  const T8OUT = this["T8OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T8OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T8OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T8OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T8OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T8
-  ,
-        hh.SEQUENCE( // Debut sequence pour T69
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T69IN  =this["T69IN"];
-                  return T69IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T69IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T69IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T69OUT" : "T69OUT",
-              "apply":function (){
-                return ((() => {
-                  const T69OUT = this["T69OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T69OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T69OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T69OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T69OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T69
-  ,
-        hh.SEQUENCE( // Debut sequence pour T57
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T57IN  =this["T57IN"];
-                  return T57IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T57IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T57IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T57OUT" : "T57OUT",
-              "apply":function (){
-                return ((() => {
-                  const T57OUT = this["T57OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T57OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T57OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T57OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T57OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T57
-  ,
-        hh.SEQUENCE( // Debut sequence pour T12
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T12IN  =this["T12IN"];
-                  return T12IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T12IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T12IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T12OUT" : "T12OUT",
-              "apply":function (){
-                return ((() => {
-                  const T12OUT = this["T12OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T12OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T12OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T12OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T12OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T12
-  ,
-        hh.SEQUENCE( // Debut sequence pour T51
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T51IN  =this["T51IN"];
-                  return T51IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T51IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T51IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T51OUT" : "T51OUT",
-              "apply":function (){
-                return ((() => {
-                  const T51OUT = this["T51OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T51OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T51OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T51OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T51OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T51
-      ), // Fin fork de make await avec en premiere position:T30
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T30OUT":"T30OUT",
-          "apply":function (){
-            return ((() => {
-              const T30 = this["T30OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T30OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T30OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T8OUT":"T8OUT",
-          "apply":function (){
-            return ((() => {
-              const T8 = this["T8OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T8OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T8OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T69OUT":"T69OUT",
-          "apply":function (){
-            return ((() => {
-              const T69 = this["T69OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T69OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T69OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T57OUT":"T57OUT",
-          "apply":function (){
-            return ((() => {
-              const T57 = this["T57OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T57OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T57OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T12OUT":"T12OUT",
-          "apply":function (){
-            return ((() => {
-              const T12 = this["T12OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T12OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T12OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T51OUT":"T51OUT",
-          "apply":function (){
-            return ((() => {
-              const T51 = this["T51OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T51OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T51OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T30", false);
-            console.log("--- FIN RESERVOIR:", "T30");
-            var msg = {
-            type: 'killTank',
-            value:  "T30"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type13 + T95
-    type13 = hh.MODULE({"id":"type13","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T95IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T35IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T58IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T87IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T23IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T60IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T95OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T35OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T58OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T87OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T23OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T60OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T95" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T95"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T95OUT":"T95OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T95 = this["T95OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T95OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T95OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T95OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T95OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T35OUT":"T35OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T35 = this["T35OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T35OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T35OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T35OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T35OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T58OUT":"T58OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T58 = this["T58OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T58OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T58OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T58OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T58OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T87OUT":"T87OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T87 = this["T87OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T87OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T87OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T87OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T87OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T23OUT":"T23OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T23 = this["T23OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T23OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T23OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T23OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T23OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T60OUT":"T60OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T60 = this["T60OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T60OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T60OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T60OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T60OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T95
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T95
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T95IN  =this["T95IN"];
-                  return T95IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T95IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T95IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T95OUT" : "T95OUT",
-              "apply":function (){
-                return ((() => {
-                  const T95OUT = this["T95OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T95OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T95OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T95OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T95OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T95
-  ,
-        hh.SEQUENCE( // Debut sequence pour T35
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T35IN  =this["T35IN"];
-                  return T35IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T35IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T35IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T35OUT" : "T35OUT",
-              "apply":function (){
-                return ((() => {
-                  const T35OUT = this["T35OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T35OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T35OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T35OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T35OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T35
-  ,
-        hh.SEQUENCE( // Debut sequence pour T58
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T58IN  =this["T58IN"];
-                  return T58IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T58IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T58IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T58OUT" : "T58OUT",
-              "apply":function (){
-                return ((() => {
-                  const T58OUT = this["T58OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T58OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T58OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T58OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T58OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T58
-  ,
-        hh.SEQUENCE( // Debut sequence pour T87
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T87IN  =this["T87IN"];
-                  return T87IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T87IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T87IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T87OUT" : "T87OUT",
-              "apply":function (){
-                return ((() => {
-                  const T87OUT = this["T87OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T87OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T87OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T87OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T87OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T87
-  ,
-        hh.SEQUENCE( // Debut sequence pour T23
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T23IN  =this["T23IN"];
-                  return T23IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T23IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T23IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T23OUT" : "T23OUT",
-              "apply":function (){
-                return ((() => {
-                  const T23OUT = this["T23OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T23OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T23OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T23OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T23OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T23
-  ,
-        hh.SEQUENCE( // Debut sequence pour T60
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T60IN  =this["T60IN"];
-                  return T60IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T60IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T60IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T60OUT" : "T60OUT",
-              "apply":function (){
-                return ((() => {
-                  const T60OUT = this["T60OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T60OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T60OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T60OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T60OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T60
-      ), // Fin fork de make await avec en premiere position:T95
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T95OUT":"T95OUT",
-          "apply":function (){
-            return ((() => {
-              const T95 = this["T95OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T95OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T95OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T35OUT":"T35OUT",
-          "apply":function (){
-            return ((() => {
-              const T35 = this["T35OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T35OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T35OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T58OUT":"T58OUT",
-          "apply":function (){
-            return ((() => {
-              const T58 = this["T58OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T58OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T58OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T87OUT":"T87OUT",
-          "apply":function (){
-            return ((() => {
-              const T87 = this["T87OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T87OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T87OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T23OUT":"T23OUT",
-          "apply":function (){
-            return ((() => {
-              const T23 = this["T23OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T23OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T23OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T60OUT":"T60OUT",
-          "apply":function (){
-            return ((() => {
-              const T60 = this["T60OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T60OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T60OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T95", false);
-            console.log("--- FIN RESERVOIR:", "T95");
-            var msg = {
-            type: 'killTank',
-            value:  "T95"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type14 + T19
-    type14 = hh.MODULE({"id":"type14","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T19IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T47IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T90IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T33IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T50IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T78IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T19OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T47OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T90OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T33OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T50OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T78OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T19" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T19"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T19OUT":"T19OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T19 = this["T19OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T19OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T19OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T19OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T19OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T47OUT":"T47OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T47 = this["T47OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T47OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T47OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T47OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T47OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T90OUT":"T90OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T90 = this["T90OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T90OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T90OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T90OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T90OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T33OUT":"T33OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T33 = this["T33OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T33OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T33OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T33OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T33OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T50OUT":"T50OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T50 = this["T50OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T50OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T50OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T50OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T50OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T78OUT":"T78OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T78 = this["T78OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T78OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T78OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T78OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T78OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T19
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T19
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T19IN  =this["T19IN"];
-                  return T19IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T19IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T19IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T19OUT" : "T19OUT",
-              "apply":function (){
-                return ((() => {
-                  const T19OUT = this["T19OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T19OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T19OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T19OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T19OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T19
-  ,
-        hh.SEQUENCE( // Debut sequence pour T47
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T47IN  =this["T47IN"];
-                  return T47IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T47IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T47IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T47OUT" : "T47OUT",
-              "apply":function (){
-                return ((() => {
-                  const T47OUT = this["T47OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T47OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T47OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T47OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T47OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T47
-  ,
-        hh.SEQUENCE( // Debut sequence pour T90
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T90IN  =this["T90IN"];
-                  return T90IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T90IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T90IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T90OUT" : "T90OUT",
-              "apply":function (){
-                return ((() => {
-                  const T90OUT = this["T90OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T90OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T90OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T90OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T90OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T90
-  ,
-        hh.SEQUENCE( // Debut sequence pour T33
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T33IN  =this["T33IN"];
-                  return T33IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T33IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T33IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T33OUT" : "T33OUT",
-              "apply":function (){
-                return ((() => {
-                  const T33OUT = this["T33OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T33OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T33OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T33OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T33OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T33
-  ,
-        hh.SEQUENCE( // Debut sequence pour T50
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T50IN  =this["T50IN"];
-                  return T50IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T50IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T50IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T50OUT" : "T50OUT",
-              "apply":function (){
-                return ((() => {
-                  const T50OUT = this["T50OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T50OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T50OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T50OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T50OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T50
-  ,
-        hh.SEQUENCE( // Debut sequence pour T78
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T78IN  =this["T78IN"];
-                  return T78IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T78IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T78IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T78OUT" : "T78OUT",
-              "apply":function (){
-                return ((() => {
-                  const T78OUT = this["T78OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T78OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T78OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T78OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T78OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T78
-      ), // Fin fork de make await avec en premiere position:T19
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T19OUT":"T19OUT",
-          "apply":function (){
-            return ((() => {
-              const T19 = this["T19OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T19OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T19OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T47OUT":"T47OUT",
-          "apply":function (){
-            return ((() => {
-              const T47 = this["T47OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T47OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T47OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T90OUT":"T90OUT",
-          "apply":function (){
-            return ((() => {
-              const T90 = this["T90OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T90OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T90OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T33OUT":"T33OUT",
-          "apply":function (){
-            return ((() => {
-              const T33 = this["T33OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T33OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T33OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T50OUT":"T50OUT",
-          "apply":function (){
-            return ((() => {
-              const T50 = this["T50OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T50OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T50OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T78OUT":"T78OUT",
-          "apply":function (){
-            return ((() => {
-              const T78 = this["T78OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T78OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T78OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T19", false);
-            console.log("--- FIN RESERVOIR:", "T19");
-            var msg = {
-            type: 'killTank',
-            value:  "T19"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank type15 + T66
-    type15 = hh.MODULE({"id":"type15","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T66IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T88IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T21IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T10IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T91IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"T31IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T66OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T88OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T21OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T10OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T91OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"T31OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "T66" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "T66"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T66OUT":"T66OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T66 = this["T66OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T66OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T66OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T66OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T66OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T88OUT":"T88OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T88 = this["T88OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T88OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T88OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T88OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T88OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T21OUT":"T21OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T21 = this["T21OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T21OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T21OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T21OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T21OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T10OUT":"T10OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T10 = this["T10OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T10OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T10OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T10OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T10OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T91OUT":"T91OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T91 = this["T91OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T91OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T91OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T91OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T91OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "T31OUT":"T31OUT",
-                "apply":function (){
-                  return ((() => {
-                    const T31 = this["T31OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"T31OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit T31OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "T31OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T31OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:T66
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour T66
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T66IN  =this["T66IN"];
-                  return T66IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T66IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T66IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T66OUT" : "T66OUT",
-              "apply":function (){
-                return ((() => {
-                  const T66OUT = this["T66OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T66OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T66OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T66OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T66OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T66
-  ,
-        hh.SEQUENCE( // Debut sequence pour T88
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T88IN  =this["T88IN"];
-                  return T88IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T88IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T88IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T88OUT" : "T88OUT",
-              "apply":function (){
-                return ((() => {
-                  const T88OUT = this["T88OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T88OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T88OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T88OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T88OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T88
-  ,
-        hh.SEQUENCE( // Debut sequence pour T21
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T21IN  =this["T21IN"];
-                  return T21IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T21IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T21IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T21OUT" : "T21OUT",
-              "apply":function (){
-                return ((() => {
-                  const T21OUT = this["T21OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T21OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T21OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T21OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T21OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T21
-  ,
-        hh.SEQUENCE( // Debut sequence pour T10
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T10IN  =this["T10IN"];
-                  return T10IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T10IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T10IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T10OUT" : "T10OUT",
-              "apply":function (){
-                return ((() => {
-                  const T10OUT = this["T10OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T10OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T10OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T10OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T10OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T10
-  ,
-        hh.SEQUENCE( // Debut sequence pour T91
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T91IN  =this["T91IN"];
-                  return T91IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T91IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T91IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T91OUT" : "T91OUT",
-              "apply":function (){
-                return ((() => {
-                  const T91OUT = this["T91OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T91OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T91OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T91OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T91OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T91
-  ,
-        hh.SEQUENCE( // Debut sequence pour T31
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const T31IN  =this["T31IN"];
-                  return T31IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"T31IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await T31IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "T31OUT" : "T31OUT",
-              "apply":function (){
-                return ((() => {
-                  const T31OUT = this["T31OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"T31OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit T31OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "T31OUT");
-                gcs.informSelecteurOnMenuChange(255 , "T31OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour T31
-      ), // Fin fork de make await avec en premiere position:T66
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T66OUT":"T66OUT",
-          "apply":function (){
-            return ((() => {
-              const T66 = this["T66OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T66OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T66OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T88OUT":"T88OUT",
-          "apply":function (){
-            return ((() => {
-              const T88 = this["T88OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T88OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T88OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T21OUT":"T21OUT",
-          "apply":function (){
-            return ((() => {
-              const T21 = this["T21OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T21OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T21OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T10OUT":"T10OUT",
-          "apply":function (){
-            return ((() => {
-              const T10 = this["T10OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T10OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T10OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T91OUT":"T91OUT",
-          "apply":function (){
-            return ((() => {
-              const T91 = this["T91OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T91OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T91OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "T31OUT":"T31OUT",
-          "apply":function (){
-            return ((() => {
-              const T31 = this["T31OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"T31OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit T31OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "T66", false);
-            console.log("--- FIN RESERVOIR:", "T66");
-            var msg = {
-            type: 'killTank',
-            value:  "T66"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-  // La transposition si fait dans Ableton Live. D'où les
-  // ratios dans l'initialisation de la pièce pour cadrer
-  // avec le paramètre MIDI des CC. (min -36, max +36).
-  // 64 -> 0
-  // 67 -> +2 ...
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-
-  transposeClavier = hh.MODULE({"id":"transposeClavier","%location":{},"%tag":"module"},
-
-      hh.SIGNAL({
-        "%location":{},
-        "direction":"INOUT",
-        "name":"tick",
-        "combine_func":(x, y) => x + y
-      }),
-
-
-    hh.LOOP(
-        {
-          "%location":{loop: 1},
-          "%tag":"loop"
-        },
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
-            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-          }
-        }
-      ),
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 12;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            transposeValue = -2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
-            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-          }
-        }
-      ),
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 12;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
-            console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-            oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-          }
-        }
-      ),
-
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 12;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-      ),
-
-  );
 
 
   var orchestration = hh.MODULE(
@@ -11556,13 +9950,6 @@ export function setSignals(param) {
       hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
       hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
 
-
-    hh.SIGNAL({
-      "%location":{},
-      "direction":"INOUT",
-      "name":"StartTransSaxo",
-      "combine_func":(x, y) => x + y
-    }),
 
     hh.LOOP(
       {
@@ -11612,6 +9999,26 @@ export function setSignals(param) {
           hh.SEQUENCE(
           {"%location":{},"%tag":"fork"},
 
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        gcs.setTimerDivision(1);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(80);
+      }
+    }
+  ),
+
     hh.ATOM(
         {
         "%location":{},
@@ -11639,7 +10046,7 @@ export function setSignals(param) {
         "apply":function () {
           var msg = {
             type: 'alertInfoScoreON',
-            value:'Wurfelspiel'
+            value:'Opus5'
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -11650,7 +10057,41 @@ export function setSignals(param) {
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('Wurfelspiel');}
+      "apply":function () {console.log('Opus5 avec session Ableton Live');}
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        transposeValue = 0;
+        oscMidiLocal.sendControlChange(par.busMidiDAW,1,61,64);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        transposeValue = 0;
+        oscMidiLocal.sendControlChange(par.busMidiDAW,1,68,64);
+      }
+    }
+  ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        ratioTranspose = 1.763;
+        offsetTranspose = 63.5;
+        if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
+      }
     }
   ),
 
@@ -11661,17 +10102,406 @@ export function setSignals(param) {
             },
 
 
-        hh.ATOM(
+      hh.ATOM(
           {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () {
-              var msg = {
-                type: 'setListeDesTypes',
-              }
-              serveur.broadcast(JSON.stringify(msg));
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'Avec piano'
+            }
+            serveur.broadcast(JSON.stringify(msg));
             }
           }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCelloOUT": "NappeCelloOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCelloOUT = this["NappeCelloOUT"];
+                return [true,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCelloOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCelloOUT",true); }
+          }
+     	),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeViolonsOUT": "NappeViolonsOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeViolonsOUT = this["NappeViolonsOUT"];
+                return [true,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeViolonsOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeViolonsOUT",true); }
+          }
+     	),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCTBOUT": "NappeCTBOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCTBOUT = this["NappeCTBOUT"];
+                return [true,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCTBOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBOUT",true); }
+          }
+     	),
+
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 10;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
+
+      hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'alertInfoScoreOFF',
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
+          }
+      ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,61);
+          oscMidiLocal.sendControlChange(par.busMidiDAW,1,61, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+        }
+      }
+    ),
+
+    hh.AWAIT(
+      {
+        "%location":{},
+        "%tag":"await",
+        "immediate":false,
+        "apply":function () {
+          return ((() => {
+            const tick=this["tick"];
+            return tick.now;
+          })());
+        },
+        "countapply":function (){ return 10;}
+      },
+      hh.SIGACCESS({
+        "signame":"tick",
+        "pre":false,
+        "val":false,
+        "cnt":false
+      })
+    ),
+
+    hh.ATOM(
+      {
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,61);
+          oscMidiLocal.sendControlChange(par.busMidiDAW,1,61, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+        }
+      }
+    ),
+
+    hh.LOCAL(
+      {
+        "%location":{},
+        "%tag":"signal"
+      },
+      hh.SIGNAL({
+        "name":"stop768616"
+      }),
+
+        hh.TRAP(
+          {
+            "trap768616":"trap768616",
+            "%location":{},
+            "%tag":"trap768616"
+          },
+          hh.FORK(
+            {
+              "%location":{},
+              "%tag":"fork"
+            },
+            hh.SEQUENCE( // sequence 1
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE(
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.RUN(
+                    {
+                      "%location":{"filename":"","pos":1},
+                      "%tag":"run",
+                      "module": Piano, //{"filename":"","pos":2},
+                      "autocomplete":true,
+                      "stopReservoir":"stop768616"
+                    }
+                  ),
+                ),
+
+            )
+          ),
+          hh.SEQUENCE(
+            {
+              "%location":{},
+              "%tag":"seq"
+            },
+            hh.AWAIT(
+                {
+                  "%location":{},
+                  "%tag":"await",
+                  "immediate":false,
+                  "apply":function (){return ((() => {
+                    const tick =this["tick"];
+                    return tick.now;})());},
+                  "countapply":function (){return 20;}
+              },
+              hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+            ),
+            hh.EMIT(
+              {
+                "%location":{},
+                "%tag":"emit",
+                //"stopReservoir":"stopReservoir",
+                "stop768616" : "stop768616",
+                "apply":function (){
+                  return ((() => {
+                    //const stopReservoir = this["stopReservoir"];
+                    const stop768616 = this["stop768616"];
+                    return 0;
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                //"signame":"stopReservoir",
+                "signame":"stop768616",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+            ), // Fin emit
+
+            hh.PAUSE(
+              {
+                "%location":{},
+                "%tag":"yield"
+              }
+            ),
+
+            hh.EXIT(
+            {
+              "trap768616":"trap768616",
+              "%location":{},
+              "%tag":"break"
+            }), // Exit
+          ) // sequence
+        ), // fork
+      ), // trap
+
+      hh.PAUSE(
+        {
+          "%location":{},
+          "%tag":"yield"
+        }
+      )
+    ),
+
+          hh.SEQUENCE(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                "%tag":"seq"
+              },
+
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeAltoOUT": "NappeAltoOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeAltoOUT = this["NappeAltoOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeAltoOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeAltoOUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeCelloOUT": "NappeCelloOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeCelloOUT = this["NappeCelloOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeCelloOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCelloOUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeViolonsOUT": "NappeViolonsOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeViolonsOUT = this["NappeViolonsOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeViolonsOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeViolonsOUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeCTBOUT": "NappeCTBOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeCTBOUT = this["NappeCTBOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeCTBOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBOUT",false); }
+            }
         ),
 
       hh.ATOM(
@@ -11679,13 +10509,23 @@ export function setSignals(param) {
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            var msg = {
-              type: 'listeDesTypes',
-              text:'0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15'
-            }
-            serveur.broadcast(JSON.stringify(msg));
+            transposeValue = 0;
+            oscMidiLocal.sendControlChange(par.busMidiDAW,1,61,64);
           }
         }
+      ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueues();
+                gcs.cleanChoiceList(255);
+              }
+            }
+          ),
+
       ),
 
     ),
@@ -11697,58 +10537,327 @@ export function setSignals(param) {
             },
 
 
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          setTempo(50);
+          hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+
+
+        hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              var msg = {
+                type: 'alertInfoScoreON',
+                value:'Avec violon'
+              }
+              serveur.broadcast(JSON.stringify(msg));
+              }
+            }
+        ),
+
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            setTempo(100);
+          }
         }
-      }
-    ),
+      ),
 
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          gcs.setTimerDivision(1);
-        }
-      }
-    ),
 
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          ratioTranspose = 1.763;
-          offsetTranspose = 63.5;
-          if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
-        }
-      }
-    ),
+      hh.ABORT(
+        {
+          "%location":{abort: tick},
+          "%tag":"abort",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const tick=this["tick"];
+              return tick.now;
+          })());},
+          "countapply":function (){ return 20;}
+        },
+        hh.SIGACCESS({
+          "signame":"tick",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
 
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          transposeValue = 0; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-          oscMidiLocal.sendControlChange(par.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-        }
-      }
-    ),
+        hh.ABORT(
+          {
+            "%location":{abort:stopMoveTempo},
+            "%tag":"abort",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                const stopMoveTempo =this["stopMoveTempo"];
+                return stopMoveTempo.now;
+            })());},
+          },
+          hh.SIGACCESS({
+            "signame":"stopMoveTempo",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          }),
+          hh.EVERY(
+            {
+              "%location":{every: tick},
+              "%tag":"do/every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                  const tick=this["tick"];
+                  return tick.now;
+              })());},
+              "countapply":function (){ return  2;}
+            },
+            hh.SIGACCESS({
+              "signame":"tick",
+              "pre":false,
+              "val":false,
+              "cnt":false
+            }),
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  moveTempo(1, 4);
+                }
+              }
+            )
+          )
+        ),
 
-    ),
 
-        hh.FORK(
+      ),
+
+          hh.EMIT(
             {
               "%location":{},
-              "%tag":"fork"
+              "%tag":"emit",
+              "S1ActionOUT": "S1ActionOUT",
+              "apply":function (){
+                return ((() => {
+                  const S1ActionOUT = this["S1ActionOUT"];
+                  return [true,255];
+                })());
+              }
             },
+            hh.SIGACCESS({
+              "signame": "S1ActionOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "S1ActionOUT",true); }
+            }
+       	),
 
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeCTBRythmeOUT": "NappeCTBRythmeOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeCTBRythmeOUT = this["NappeCTBRythmeOUT"];
+                  return [true,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeCTBRythmeOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBRythmeOUT",true); }
+            }
+       	),
+
+            hh.SEQUENCE(
+                {
+                  "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                  "%tag":"seq"
+                },
+
+
+        hh.AWAIT(
+          {
+            "%location":{},
+            "%tag":"await",
+            "immediate":false,
+            "apply":function () {
+              return ((() => {
+                const tick=this["tick"];
+                return tick.now;
+              })());
+            },
+            "countapply":function (){ return 10;}
+          },
+          hh.SIGACCESS({
+            "signame":"tick",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          })
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreOFF',
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+        hh.ATOM(
+          {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () {
+              transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+              console.log("hiphop block transpose: transposeValue:", transposeValue ,1,61);
+              oscMidiLocal.sendControlChange(par.busMidiDAW,1,61, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+            }
+          }
+        ),
+
+        ),
+
+      hh.LOCAL(
+        {
+          "%location":{},
+          "%tag":"signal"
+        },
+        hh.SIGNAL({
+          "name":"stop326057"
+        }),
+
+          hh.TRAP(
+            {
+              "trap326057":"trap326057",
+              "%location":{},
+              "%tag":"trap326057"
+            },
+            hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+              hh.SEQUENCE( // sequence 1
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.FORK(
+                  {
+                    "%location":{},
+                    "%tag":"fork"
+                  },
+                  hh.SEQUENCE(
+                    {
+                      "%location":{},
+                      "%tag":"seq"
+                    },
+                    hh.RUN(
+                      {
+                        "%location":{"filename":"","pos":1},
+                        "%tag":"run",
+                        "module": Violons, //{"filename":"","pos":2},
+                        "autocomplete":true,
+                        "stopReservoir":"stop326057"
+                      }
+                    ),
+                  ),
+
+              )
+            ),
+            hh.SEQUENCE(
+              {
+                "%location":{},
+                "%tag":"seq"
+              },
+              hh.AWAIT(
+                  {
+                    "%location":{},
+                    "%tag":"await",
+                    "immediate":false,
+                    "apply":function (){return ((() => {
+                      const tick =this["tick"];
+                      return tick.now;})());},
+                    "countapply":function (){return 20;}
+                },
+                hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+              ),
+              hh.EMIT(
+                {
+                  "%location":{},
+                  "%tag":"emit",
+                  //"stopReservoir":"stopReservoir",
+                  "stop326057" : "stop326057",
+                  "apply":function (){
+                    return ((() => {
+                      //const stopReservoir = this["stopReservoir"];
+                      const stop326057 = this["stop326057"];
+                      return 0;
+                    })());
+                  }
+                },
+                hh.SIGACCESS({
+                  //"signame":"stopReservoir",
+                  "signame":"stop326057",
+                  "pre":true,
+                  "val":true,
+                  "cnt":false
+                })
+              ), // Fin emit
+
+              hh.PAUSE(
+                {
+                  "%location":{},
+                  "%tag":"yield"
+                }
+              ),
+
+              hh.EXIT(
+              {
+                "trap326057":"trap326057",
+                "%location":{},
+                "%tag":"break"
+              }), // Exit
+            ) // sequence
+          ), // fork
+        ), // trap
+
+        hh.PAUSE(
+          {
+            "%location":{},
+            "%tag":"yield"
+          }
+        )
+      ),
+
+      ),
 
           hh.SEQUENCE(
               {
@@ -11757,213 +10866,1314 @@ export function setSignals(param) {
               },
 
 
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "NappeCTBRythmeOUT": "NappeCTBRythmeOUT",
+              "apply":function (){
+                return ((() => {
+                  const NappeCTBRythmeOUT = this["NappeCTBRythmeOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "NappeCTBRythmeOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBRythmeOUT",false); }
+            }
+        ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "S1ActionOUT": "S1ActionOUT",
+              "apply":function (){
+                return ((() => {
+                  const S1ActionOUT = this["S1ActionOUT"];
+                  return [false,255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame": "S1ActionOUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ),
+          hh.ATOM(
+            {
+            "%location":{},
+            "%tag":"node",
+            "apply":function () { gcs.informSelecteurOnMenuChange(255 , "S1ActionOUT",false); }
+            }
+        ),
+
+          hh.ATOM(
+            {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                DAW.cleanQueues();
+                gcs.cleanChoiceList(255);
+              }
+            }
+          ),
+
+      ),
+
+    ),
+
+        hh.SEQUENCE(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+              "%tag":"seq"
+            },
+
+
       hh.ATOM(
-        {
+          {
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            DAW.pauseQueues();
+            var msg = {
+              type: 'alertInfoScoreON',
+              value:'Cuivre, bois et percu'
+            }
+            serveur.broadcast(JSON.stringify(msg));
+            }
           }
-        }
       ),
 
-      hh.AWAIT(
-        {
-          "%location":{},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function () {
-            return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-            })());
-          },
-          "countapply":function (){ return 10;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.resumeQueues();
-          }
-        }
-      ),
-      hh.RUN({
-        "%location":{},
-        "%tag":"run",
-        "module": transposeClavier,
-        "tick":"",
-
-      }),
-
-      ),
-
-    hh.ABORT(
+    hh.ATOM(
       {
-        "%location":{abort:stopMoveTempo},
-        "%tag":"abort",
-        "immediate":false,
-        "apply": function (){return ((() => {
-            const stopMoveTempo =this["stopMoveTempo"];
-            return stopMoveTempo.now;
-        })());},
-      },
-      hh.SIGACCESS({
-        "signame":"stopMoveTempo",
-        "pre":false,
-        "val":false,
-        "cnt":false
-      }),
-      hh.EVERY(
-        {
-          "%location":{every: tick},
-          "%tag":"do/every",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const tick=this["tick"];
-              return tick.now;
-          })());},
-          "countapply":function (){ return  4;}
-        },
-        hh.SIGACCESS({
-          "signame":"tick",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
+        "%location":{},
+        "%tag":"node",
+        "apply":function () {
+          setTempo(90);
+        }
+      }
+    ),
+
+          hh.FORK(
+              {
+                "%location":{},
+                "%tag":"fork"
+              },
+
+
+            hh.SEQUENCE(
+                {
+                  "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                  "%tag":"seq"
+                },
+
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop78036"
+          }),
+
+            hh.TRAP(
+              {
+                "trap78036":"trap78036",
+                "%location":{},
+                "%tag":"trap78036"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Percu, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop78036"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 20;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop78036" : "stop78036",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop78036 = this["stop78036"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop78036",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap78036":"trap78036",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+          hh.ATOM(
+              {
+              "%location":{},
+              "%tag":"node",
+              "apply":function () {
+                var msg = {
+                  type: 'alertInfoScoreOFF',
+                }
+                serveur.broadcast(JSON.stringify(msg));
+                }
+              }
+          ),
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop293367"
+          }),
+
+            hh.TRAP(
+              {
+                "trap293367":"trap293367",
+                "%location":{},
+                "%tag":"trap293367"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Bassons, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop293367"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 20;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop293367" : "stop293367",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop293367 = this["stop293367"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop293367",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap293367":"trap293367",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  DAW.cleanQueue(13);
+                }
+              }
+            ),
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop883530"
+          }),
+
+            hh.TRAP(
+              {
+                "trap883530":"trap883530",
+                "%location":{},
+                "%tag":"trap883530"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Flute, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop883530"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 20;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop883530" : "stop883530",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop883530 = this["stop883530"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop883530",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap883530":"trap883530",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  DAW.cleanQueue(12);
+                }
+              }
+            ),
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop229820"
+          }),
+
+            hh.TRAP(
+              {
+                "trap229820":"trap229820",
+                "%location":{},
+                "%tag":"trap229820"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Trompette, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop229820"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 20;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop229820" : "stop229820",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop229820 = this["stop229820"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop229820",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap229820":"trap229820",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  DAW.cleanQueue(10);
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  DAW.cleanQueue(8);
+                }
+              }
+            ),
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop314554"
+          }),
+
+            hh.TRAP(
+              {
+                "trap314554":"trap314554",
+                "%location":{},
+                "%tag":"trap314554"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Cors, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop314554"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 10;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop314554" : "stop314554",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop314554 = this["stop314554"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop314554",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap314554":"trap314554",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+        hh.LOCAL(
+          {
+            "%location":{},
+            "%tag":"signal"
+          },
+          hh.SIGNAL({
+            "name":"stop42038"
+          }),
+
+            hh.TRAP(
+              {
+                "trap42038":"trap42038",
+                "%location":{},
+                "%tag":"trap42038"
+              },
+              hh.FORK(
+                {
+                  "%location":{},
+                  "%tag":"fork"
+                },
+                hh.SEQUENCE( // sequence 1
+                  {
+                    "%location":{},
+                    "%tag":"seq"
+                  },
+                  hh.FORK(
+                    {
+                      "%location":{},
+                      "%tag":"fork"
+                    },
+                    hh.SEQUENCE(
+                      {
+                        "%location":{},
+                        "%tag":"seq"
+                      },
+                      hh.RUN(
+                        {
+                          "%location":{"filename":"","pos":1},
+                          "%tag":"run",
+                          "module": Clarinette, //{"filename":"","pos":2},
+                          "autocomplete":true,
+                          "stopReservoir":"stop42038"
+                        }
+                      ),
+                    ),
+
+                )
+              ),
+              hh.SEQUENCE(
+                {
+                  "%location":{},
+                  "%tag":"seq"
+                },
+                hh.AWAIT(
+                    {
+                      "%location":{},
+                      "%tag":"await",
+                      "immediate":false,
+                      "apply":function (){return ((() => {
+                        const tick =this["tick"];
+                        return tick.now;})());},
+                      "countapply":function (){return 20;}
+                  },
+                  hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
+                ),
+                hh.EMIT(
+                  {
+                    "%location":{},
+                    "%tag":"emit",
+                    //"stopReservoir":"stopReservoir",
+                    "stop42038" : "stop42038",
+                    "apply":function (){
+                      return ((() => {
+                        //const stopReservoir = this["stopReservoir"];
+                        const stop42038 = this["stop42038"];
+                        return 0;
+                      })());
+                    }
+                  },
+                  hh.SIGACCESS({
+                    //"signame":"stopReservoir",
+                    "signame":"stop42038",
+                    "pre":true,
+                    "val":true,
+                    "cnt":false
+                  })
+                ), // Fin emit
+
+                hh.PAUSE(
+                  {
+                    "%location":{},
+                    "%tag":"yield"
+                  }
+                ),
+
+                hh.EXIT(
+                {
+                  "trap42038":"trap42038",
+                  "%location":{},
+                  "%tag":"break"
+                }), // Exit
+              ) // sequence
+            ), // fork
+          ), // trap
+
+          hh.PAUSE(
+            {
+              "%location":{},
+              "%tag":"yield"
+            }
+          )
+        ),
+
+        ),
+
+            hh.SEQUENCE(
+                {
+                  "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+                  "%tag":"seq"
+                },
+
+
+
+        hh.ABORT(
+          {
+            "%location":{abort: tick},
+            "%tag":"abort",
+            "immediate":false,
+            "apply": function (){return ((() => {
+                const tick=this["tick"];
+                return tick.now;
+            })());},
+            "countapply":function (){ return 60;}
+          },
+          hh.SIGACCESS({
+            "signame":"tick",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          }),
+
+          hh.LOOP(
+              {
+                "%location":{loop: 1},
+                "%tag":"loop"
+              },
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 5;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,65);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,65, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,66);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,66, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,67);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,67, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,68);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,68, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,70);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,70, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 1; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,71);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,71, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.AWAIT(
+              {
+                "%location":{},
+                "%tag":"await",
+                "immediate":false,
+                "apply":function () {
+                  return ((() => {
+                    const tick=this["tick"];
+                    return tick.now;
+                  })());
+                },
+                "countapply":function (){ return 5;}
+              },
+              hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+              })
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,65);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,65, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,66);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,66, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,67);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,67, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,68);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,68, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,70);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,70, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            hh.ATOM(
+              {
+                "%location":{},
+                "%tag":"node",
+                "apply":function () {
+                  transposeValue = 2; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
+                  console.log("hiphop block transpose: transposeValue:", transposeValue ,1,71);
+                  oscMidiLocal.sendControlChange(par.busMidiDAW,1,71, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+                }
+              }
+            ),
+
+            ),
+
+        ),
+
+        ),
+
+      ),
+
+    ),
+
+        hh.SEQUENCE(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+              "%tag":"seq"
+            },
+
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeAltoOUT": "NappeAltoOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeAltoOUT = this["NappeAltoOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeAltoOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeAltoOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCelloOUT": "NappeCelloOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCelloOUT = this["NappeCelloOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCelloOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCelloOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeViolonsOUT": "NappeViolonsOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeViolonsOUT = this["NappeViolonsOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeViolonsOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeViolonsOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCelloRythmeOUT": "NappeCelloRythmeOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCelloRythmeOUT = this["NappeCelloRythmeOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCelloRythmeOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCelloRythmeOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCTBOUT": "NappeCTBOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCTBOUT = this["NappeCTBOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCTBOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "NappeCTBRythmeOUT": "NappeCTBRythmeOUT",
+            "apply":function (){
+              return ((() => {
+                const NappeCTBRythmeOUT = this["NappeCTBRythmeOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "NappeCTBRythmeOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "NappeCTBRythmeOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "S1ActionOUT": "S1ActionOUT",
+            "apply":function (){
+              return ((() => {
+                const S1ActionOUT = this["S1ActionOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "S1ActionOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "S1ActionOUT",false); }
+          }
+      ),
+
+        hh.EMIT(
+          {
+            "%location":{},
+            "%tag":"emit",
+            "S2ActionOUT": "S2ActionOUT",
+            "apply":function (){
+              return ((() => {
+                const S2ActionOUT = this["S2ActionOUT"];
+                return [false,255];
+              })());
+            }
+          },
+          hh.SIGACCESS({
+            "signame": "S2ActionOUT",
+            "pre":true,
+            "val":true,
+            "cnt":false
+          })
+        ),
+        hh.ATOM(
+          {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () { gcs.informSelecteurOnMenuChange(255 , "S2ActionOUT",false); }
+          }
+      ),
+
         hh.ATOM(
           {
             "%location":{},
             "%tag":"node",
             "apply":function () {
-              moveTempo(2, 8);
+              DAW.cleanQueues();
+              gcs.cleanChoiceList(255);
             }
           }
-        )
-      )
-    ),
-
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type0,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type1,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type2,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type3,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type4,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type5,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type6,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type7,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type8,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type9,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type10,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type11,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type12,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type13,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type14,
-        "autocomplete":true
-      }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":type15,
-        "autocomplete":true
-      }),
+        ),
 
     ),
 
@@ -11973,7 +12183,8 @@ export function setSignals(param) {
         "%tag":"node",
         "apply":function () {
           var msg = {
-            type: 'alertInfoScoreOFF',
+            type: 'alertInfoScoreON',
+            value:'Fin Opus5'
           }
           serveur.broadcast(JSON.stringify(msg));
           }
