@@ -194,7 +194,7 @@ function removePattern(list, patternName) {
 }
 
 function removePatternInTypes(types, patternName) {
-  for (var i = 0; i < types.length; i++) {
+  for (let i = 0; i < types.length; i++) {
     for (var j = 0; j < types[i].length; j++) {
       if (types[j] === patternName) {
         if (debug) console.log("Simulateur: removePatternInTypes: ", patternName);
@@ -206,7 +206,7 @@ function removePatternInTypes(types, patternName) {
 
 function getPattern(list, patternName) {
   if (debug) console.log("Simulateur: getPattern :", list, patternName, listOfTypes);
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i][3] === patternName) {
       return list[i];
     }

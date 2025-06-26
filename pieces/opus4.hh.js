@@ -183,11 +183,8 @@ function makeReservoir(groupeClient, instrument) {
         host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
         host {
           console.log("--- ABORT RESERVOIR:", instrument[0]);
-          var msg = {
-            type: 'killTank',
-            value: instrument[0]
-          }
-          serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
+          // Pour les gestions des tanks dans l'affichage de la partition "score"
+          serveur.broadcast(JSON.stringify({ type: 'killTank', value: instrument[0] }));
         }
       }
     }
@@ -280,7 +277,6 @@ const resevoirPercu = hiphop module ()
  * 
  */
 export function setSignals(param) {
-  var i = 0;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
   const IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
@@ -483,7 +479,7 @@ export function setSignals(param) {
                 setTempo(tempoGlobal, param);
               }
             }
-            }
+          }
         }
       }
     }

@@ -69,7 +69,7 @@ export function setSignals(param) {
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
 
-  var IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0",
+  const IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0",
     "INTERFACEZ_RC1", "INTERFACEZ_RC2",
     "INTERFACEZ_RC3", "INTERFACEZ_RC4",
     "INTERFACEZ_RC5", "INTERFACEZ_RC6",
@@ -77,7 +77,7 @@ export function setSignals(param) {
     "INTERFACEZ_RC9", "INTERFACEZ_RC10",
     "INTERFACEZ_RC11"];
 
-  var ESP32signals = ["ESP32_motion", "ESP32_shock", 
+  const ESP32signals = ["ESP32_motion", "ESP32_shock", 
     "ESP32_touch", "ESP32_light", 
     "ESP32_gyro", "ESP32_sensor1", 
     "ESP32_accel", "ESP32_capa","ESP32_heartbeat"];

@@ -368,15 +368,14 @@ export function setpatternListLength(param) {
 
   function sendMessage(nbePatternsListes) {
     if (debug) console.log("groupecliensSons.js: patternListLength:", nbePatternsListes);
-    var msg = {
+    serv.broadcast(JSON.stringify({
       type: 'nombreDePatternsPossible',
       value: nbePatternsListes
-    }
-    serv.broadcast(JSON.stringify(msg));
+    }));
   }
 
   // Mise à jour du suivi des longueurs de listes
-  for (var i = 0; i < nombreDePatternsPossibleEnListe.length; i++) {
+  for (let i = 0; i < nombreDePatternsPossibleEnListe.length; i++) {
     if (nombreDePatternsPossibleEnListe[i][1] === param[1]) {
       nombreDePatternsPossibleEnListe[i][0] = param[0];
       sendMessage(nombreDePatternsPossibleEnListe);
@@ -510,7 +509,7 @@ export function setTickOnControler(tick) {
 }
 
 /**
- * To get thelength of the list on the web client using lists of patterns
+ * To get the length of the list on the web client using lists of patterns
  * (memorySortable)
  * @returns {number} list length
  */

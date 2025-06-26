@@ -6,9 +6,9 @@
  * Les clips sont appelés de façon aléatoire selon la liste disponible.
  * Ceci correspond à une audience qui fait n'importe quoi sur les clips
  * disponibles.
- * @version 1.0
+ * @version 1.1
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2025 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -25,25 +25,19 @@
  */
 'use strict'
 
-var par = require('../../serveur/skiniParametres');
-var ipConfig = require('../../serveur/ipConfig');
+const par = require('../../serveur/skiniParametres');
+const ipConfig = require('../../serveur/ipConfig');
 const WebSocket = require('ws');
-var debug = false;
-var debug1 = true;
+const debug = false;
+const debug1 = true;
 
-var tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
-var derniersPatternsJoues = [];
-var derniersInstrumentsJoue = [-1, -1, -1];
-var nbeInstruments = 100; // Attention c'est en dur...
+let tempoMax, tempoMin, limiteDureeAttente, dureeAttente = 10;
+let derniersPatternsJoues = [];
+let derniersInstrumentsJoue = [-1, -1, -1];
+const nbeInstruments = 100; // Attention c'est en dur...
 
-function setTableDerniersPatterns() {
-  var tablederniersPatterns = [];
-  var tableVide = [-1, -1, -1];
-
-  for (var i = 0; i < nbeInstruments; i++) {
-    tablederniersPatterns.push(tableVide);
-  }
-  return tablederniersPatterns;
+function setTableDerniersPatterns(nbeInstr) {
+  return Array(nbeInstr).fill().map(() => [-1, -1, -1]);
 }
 
 function initTempi() {
@@ -69,7 +63,7 @@ function initTempi() {
     console.log("tempoMin par défaut")
   }
 
-  derniersPatternsJoues = setTableDerniersPatterns();
+  derniersPatternsJoues = setTableDerniersPatterns(nbeInstruments);
   if (debug) console.log("derniersPatternsJoues: ", derniersPatternsJoues);
 
   console.log("Paramètres tempo: Min=", tempoMin, " Max=", tempoMax, " limiteDureeAttente=", limiteDureeAttente);
@@ -86,16 +80,16 @@ if (ipConfig.websocketServeurPort !== undefined) {
 console.log("----------------------------------------------\n");
 console.log("serveur:", ipConfig.serverIPAddress, " port:", ipConfig.websocketServeurPort);
 
-var ws;
-var id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
-var monGroupe = -1; // non initialisé
-var DAWON = 0;
-var pseudo = "sim" + id;
+let ws;
+let id = Math.floor((Math.random() * 1000000) + 1); // Pour identifier le client
+let monGroupe = -1; // non initialisé
+let DAWON = 0;
+let pseudo = "sim" + id;
 
-var listClips; // Devient une array avec toutes les infos sur les clips selectionnes
-var nombreDePatternsPossible = 1;
+let listClips; // Devient une array avec toutes les infos sur les clips selectionnes
+let nombreDePatternsPossible = 1;
 
-var numClip;
+let numClip;
 var msg = { // On met des valeurs pas defaut
   type: "configuration",
   text: "ECRAN_NOIR",
@@ -103,12 +97,12 @@ var msg = { // On met des valeurs pas defaut
   value: 0,
 };
 
-var myArgs = process.argv.slice(2);
+let myArgs = process.argv.slice(2);
 //console.log('myArgs: ', myArgs);
 
 // Décodage du paramètre pour une simulation indépendante de l'audience
-var jeSuisUneAudience = true;
-for (var i = 0; i < myArgs.length; i++) {
+let jeSuisUneAudience = true;
+for (let i = 0; i < myArgs.length; i++) {
   if (myArgs[i] === "-sim") {
     jeSuisUneAudience = false;
   }
@@ -122,17 +116,14 @@ for (var i = 0; i < myArgs.length; i++) {
  *******************************************************************/
 // Table of positions for the types in listOfPatterns
 // The index correpond to the type.
-var types = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-var processTypes = true;
-var listOfTypes = [[]];
+let types = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+let processTypes = false;
+let listOfTypes = [[]];
 
+// Ou version plus explicite :
 function resetListOfTypes() {
-  listOfTypes = [[]];
-  for (i = 0; i < types.length; i++) {
-    listOfTypes.push([]);
-  }
-
-  if(debug) console.log("resetListOfTypes:",listOfTypes );
+  listOfTypes = Array(types.length + 1).fill(null).map(() => []);
+  if (debug) console.log("resetListOfTypes:", listOfTypes);
 }
 
 resetListOfTypes();
@@ -146,9 +137,9 @@ function setListOfTypes(list) {
   // A remettre à 0 avant de faire des push.
   resetListOfTypes();
 
-  if(debug) console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
+  if (debug) console.log("setListOfTypes", list, "\nlistOfTypes :", listOfTypes);
 
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     listOfTypes[list[i][7]].push(list[i][3]);
   }
   if (debug) console.log("simulateur: setListOfTypes:", listOfTypes);
@@ -165,8 +156,8 @@ function getRandomInt(max) {
  * @returns {*} an element of the list
  */
 function selectOnePattern(list) {
-  var randomIndex;
-  var selected;
+  let randomIndex;
+  let selected;
   randomIndex = getRandomInt(list.length);
   selected = list[randomIndex];
   list.splice(randomIndex, 1);
@@ -174,17 +165,24 @@ function selectOnePattern(list) {
   return selected;
 }
 
+
 function removePattern(list, patternName) {
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i][3] === patternName) {
       list.splice(i, 1);
     }
   }
 }
 
+/**
+ * To remove a pattern from the list which is an array of arrays
+ * where the index is the type
+ * @param {Array} list of pattern by types
+ * @param patternName
+ */
 function removePatternInTypes(types, patternName) {
-  for (var i = 0; i < types.length; i++) {
-    for (var j = 0; j < types[i].length; j++) {
+  for (let i = 0; i < types.length; i++) {
+    for (let j = 0; j < types[i].length; j++) {
       if (types[j] === patternName) {
         if (debug) console.log("Simulateur: removePatternInTypes: ", patternName);
         types[j].splice(j, 1);
@@ -193,9 +191,16 @@ function removePatternInTypes(types, patternName) {
   }
 }
 
+/**
+ * To get the complete pattern description
+ * according to a name
+ * @param {Array} list of pattern
+ * @param patternName
+ * @returns {*} a pattern descriptor
+ */
 function getPattern(list, patternName) {
   if (debug) console.log("Simulateur: getPattern :", list, patternName, listOfTypes);
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i][3] === patternName) {
       return list[i];
     }
@@ -205,21 +210,21 @@ function getPattern(list, patternName) {
 /**
  * Create a list of "selected patterns" according to 
  * a sequence described in types.
- * @param {Array} list of present types
- * @param {Array} types 
+ * @param {Array} list of patterns indexed by present types
+ * @param {Array} list of types types availaible
  * @param {Array} listOfPatterns
  * @returns {Array} selected list of Skini notes
  */
 function getListOfPatternsSelected(list, types, listOfPatterns) {
-  var selected = [];
-  var indexTypes;
-  var patternSelected;
-  var numClips = [];
-  var gotAPattern;
+  let selected = [];
+  let indexTypes;
+  let patternSelected;
+  let numClips = [];
+  let gotAPattern;
 
   if (debug) {
-    var testList = [];
-    for (var i = 0; i < list.length; i++) {
+    let testList = [];
+    for (let i = 0; i < list.length; i++) {
       if (list[i] !== undefined) {
         testList.push(list[i][0]);
       }
@@ -227,23 +232,15 @@ function getListOfPatternsSelected(list, types, listOfPatterns) {
     console.log("** simulateur: getListOfPatternsSelected: listOfTypes:", testList);
   }
 
-  if (debug) {
-    var testList = [];
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] !== undefined) {
-        testList.push(list[i][0]);
-      }
-    }
-    console.log("** simulateur: getListOfPatternsSelected: listOfTypes:", testList);
-  }
-
-  for (var i = 0; i < types.length; i++) {
+  // For each type we select a pattern
+  for (let i = 0; i < types.length; i++) {
     indexTypes = types[i];
+    // Process the list of pattern with a specific type which is indexTypes
     if (list[indexTypes] !== undefined) {
       if (list[indexTypes].length !== 0) {
         patternSelected = selectOnePattern(list[indexTypes]);
         gotAPattern = getPattern(listOfPatterns, patternSelected);
-        selected.push(gotAPattern);
+        selected.push(gotAPattern); // Add the pattern to the selected list
         removePattern(listOfPatterns, patternSelected);
         removePatternInTypes(list, patternSelected);
       }
@@ -251,8 +248,8 @@ function getListOfPatternsSelected(list, types, listOfPatterns) {
   }
 
   if (debug) {
-    testList = [];
-    for (var i = 0; i < selected.length; i++) {
+    let testList = [];
+    for (let i = 0; i < selected.length; i++) {
       if (selected[i] !== undefined) {
         testList.push([selected[i][0], selected[i][7]]);
       }
@@ -263,7 +260,7 @@ function getListOfPatternsSelected(list, types, listOfPatterns) {
   if (debug) console.log("simulateur: getListOfPatternsSelected: selected", selected);
 
   // A ce niveau on a une liste des patterns, il nous faut juste la liste des notes
-  for (var i = 0; i < selected.length; i++) {
+  for (let i = 0; i < selected.length; i++) {
     if (selected[i] !== undefined) {
       numClips.push(selected[i][0]);
     }
@@ -280,17 +277,15 @@ Table des commandes donnée par les listes de patterns
 **********************************************************************/
 
 function isInList(element, list) {
-  for (var i = 0; i < list.length; i++) {
-    if (list[i] === element) return true;
-  }
-  return false;
+  return list.includes(element);
 }
 
 function sendPseudo(texte) {
-  if (debug) console.log("sendPseudo: ", texte);
-  msg.type = "clientPseudo";
-  msg.pseudo = texte;
-  ws.send(JSON.stringify(msg));
+  if (debug) console.log("sendPseudo:", texte);
+  ws.send(JSON.stringify({
+    type: "clientPseudo",
+    pseudo: texte
+  }));
 }
 
 /* --------------------------------------------------------------------
@@ -300,65 +295,32 @@ function sendPseudo(texte) {
  * retourne un élément de la liste.
  * --------------------------------------------------------------------*/
 function selectRandomInList(memoire, liste) {
-  var selection;
-  var index;
+   if (!memoire || !liste?.length) return undefined;
+  if (liste.length === 1) return liste[0];
 
-  if (liste === undefined) {
-    console.log("INFO: simuateurFork: selectRandomInList: liste undefined");
-    return undefined;
-  }
+  const isInMemory = (item) => liste.length <= memoire.length 
+    ? item === memoire[memoire.length - 1]  // Évite juste le dernier
+    : memoire.includes(item);               // Évite tout ce qui est en mémoire
 
-  if (memoire === undefined) {
-    console.log("INFO: simuateurFork: selectRandomInList: memoire undefined");
-    return undefined;
-  }
+  let selection, attempts = 0;
+  do {
+    selection = liste[Math.floor(Math.random() * liste.length)];
+  } while (isInMemory(selection) && ++attempts < liste.length * 10);
 
-  if (debug) console.log("*** selectRandomInList:memoire:", memoire, "liste:", liste);
-
-  if (liste.length === 0) {
-    return undefined;
-  } else if (liste.length < 2) {
-    // Quand on a un seul élément pas la peine de se fatiguer.
-    return liste[0];
-  } else if (liste.length <= memoire.length) {
-    while (true) {
-      index = Math.floor(Math.random() * liste.length);
-      selection = liste[index];
-      if (selection === memoire[memoire.length - 1]) {
-        if (debug) console.log("reselecte A:", selection, index);
-        continue; // On refait un tour pour éviter une répétition immédiate
-      } else {
-        memoire.shift(selection); // Décale la mémoire
-        memoire.push(selection); // Mémorise le choix
-        return selection;
-      }
-    }
-  } else {
-    while (true) {
-      index = Math.floor(Math.random() * liste.length);
-      selection = liste[index];
-      if (!isInList(selection, memoire)) { // La selection n'est pas dans la mémoire
-        memoire.shift(selection); // Décale la mémoire
-        memoire.push(selection); // Mémorise le choix
-        if (debug) console.log("reselecte fin: ", selection, index);
-        return selection;
-      } else {	// La sélection est dans la mémoire
-        if (debug) console.log("reselecte B:", selection, index);
-        continue; // On refait un tour
-      }
-    }
-  }
+  memoire.shift();
+  memoire.push(selection);
+  return selection;
 }
 
 // Retourne la note MIDI (Skini) d'un pattern choisi au hasard
 function selectNextClip() {
-  var selectionClip;
-  var listeSelectionClip = [];
-  var listeInstruments = [];
-  var instrument;
+  let selectionClip;
+  let listeSelectionClip = [];
+  let listeInstruments = [];
+  let instrument;
 
   //Mettre à jour le nombre d'instruments donnés par la liste
-  for (var i = 0; i < listClips.length; i++) {
+  for (let i = 0; i < listClips.length; i++) {
     if (!isInList(listClips[i][5], listeInstruments)) {
       listeInstruments.push(listClips[i][5]);
     }
@@ -374,11 +336,9 @@ function selectNextClip() {
   }
 
   //Choisir les commandes MIDI des patterns pour l'instrument sélectioné
-  for (var i = 0; i < listClips.length; i++) {
-    if (listClips[i][5] === instrument) {
-      listeSelectionClip.push(listClips[i][0]);
-    }
-  }
+  listeSelectionClip = listClips
+  .filter(clip => clip[5] === instrument)
+  .map(clip => clip[0]);
   if (debug) console.log("*** selectNextClip:listeSelectionClip:", listeSelectionClip);
 
   //Choisir un pattern pour l'instrument sélectionné
@@ -390,6 +350,22 @@ function selectNextClip() {
   if (debug) console.log("*** selectNextClip:selectionClip:", selectionClip);
 
   return selectionClip;
+}
+
+/**
+ * To get the number of pattern the simulator can send
+ * @param {Array} list of pattern posible by type
+ * @param  {number} my goup
+ * @returns {number} a number of pattern
+ */
+function getnombreDePatternsPossible(listOfLengthPerType, myGroup) {
+  // Cherche d'abord le groupe spécifique
+  const specificGroup = listOfLengthPerType.find(item => item[1] === myGroup);
+  if (specificGroup) return specificGroup[0];
+  
+  // Sinon cherche le groupe broadcast (255)
+  const broadcastGroup = listOfLengthPerType.find(item => item[1] === 255);
+  return broadcastGroup?.[0];
 }
 
 /*********************************************
@@ -404,7 +380,7 @@ function initWSSocket(port) {
   ws = new WebSocket("ws://" + ipConfig.serverIPAddress + ":" + ipConfig.websocketServeurPort); // NODE JS
 
   // Par défaut je suis hors audience
-  var monIdentite = "simulateur";
+  let monIdentite = "simulateur";
   if (jeSuisUneAudience) monIdentite = "sim";
 
   ws.onopen = function (event) {
@@ -424,7 +400,7 @@ function initWSSocket(port) {
 
   //Traitement de la Réception sur le client
   ws.onmessage = function (event) {
-    var msgRecu = JSON.parse(event.data);
+    let msgRecu = JSON.parse(event.data);
     //console.log( "Client: received [%s]", event.data );
     switch (msgRecu.type) {
 
@@ -524,7 +500,7 @@ function initWSSocket(port) {
           sequenceLocale = getListOfPatternsSelected(listOfTypes, types, listClips);
           if (debug1) console.log("Simulateur: sequence selon les types:", sequenceLocale);
         } else {
-          for (var i = 0; i < nombreDePatternsPossible; i++) {
+          for (let i = 0; i < nombreDePatternsPossible; i++) {
             //Version qui évite trop de répétitions
             numClip = selectNextClip();
             sequenceLocale[i] = numClip;
@@ -557,7 +533,7 @@ function initWSSocket(port) {
 
       case "listeDesTypes":
         types = msgRecu.text.split(',');
-        for (var i = 0; i < types.length; i++) {
+        for (let i = 0; i < types.length; i++) {
           types[i] = parseInt(types[i]);
         }
         if (debug1) console.log("Simulator: List of Types:", types);
@@ -567,33 +543,18 @@ function initWSSocket(port) {
         if (debug) console.log(msgRecu.text);
         break;
 
-      case "nombreDePatternsPossibleEnListe":
-        if (debug1) console.log("socket : nombreDePatternsPossibleEnListe: msgRecu: ", msgRecu.nombreDePatternsPossible);
-        var nombreDePatternsPossibleEnListe = msgRecu.nombreDePatternsPossible;
-        var flagFin = false;
+      case "nombreDePatternsPossible":
+        nombreDePatternsPossible = getnombreDePatternsPossible(msgRecu.value, monGroupe);
+        if (debug1) console.log("Simulator: nombreDePatternsPossible:", nombreDePatternsPossible);
+        break;
 
-        // Mise à jour du suivi des longueurs de listes d'abord / au groupe
-        for (var i = 0; i < nombreDePatternsPossibleEnListe.length; i++) {
-          if (nombreDePatternsPossibleEnListe[i][1] === monGroupe) {
-            nombreDePatternsPossible = nombreDePatternsPossibleEnListe[i][0];
-            flagFin = true;
-            break;
-          }
-        }
-        if (!flagFin) {
-          // Sinon en fonction du broadcast 255
-          for (var i = 0; i < nombreDePatternsPossibleEnListe.length; i++) {
-            if (nombreDePatternsPossibleEnListe[i][1] === 255) {
-              nombreDePatternsPossible = nombreDePatternsPossibleEnListe[i][0];
-              break;
-            }
-          }
-        }
-        if (debug1) console.log("Reçu socket : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
+      case "nombreDePatternsPossibleEnListe":
+        nombreDePatternsPossible = getnombreDePatternsPossible(msgRecu.nombreDePatternsPossible, monGroupe);
+        if (debug1) console.log("Simulator : nombreDePatternsPossible:nombreSonsPossibleInit ", nombreDePatternsPossible);
         break;
 
       case "patternSequenceAck":
-        if (debug1) console.log("Reçu socket : patternSequenceAck: score ", msgRecu.score);
+        if (debug1) console.log("Simulator : patternSequenceAck: score ", msgRecu.score);
         break;
 
       case "setListeDesTypes":
@@ -635,15 +596,12 @@ function initWSSocket(port) {
 // onload, Modif DAW, Modif sur groupe de sons, reconnexion, rechargement de la page.
 
 function initialisation() {
-  //var index = monGroupe;
-  //msg.pseudo = pseudo;
   if (debug) console.log("simulateur.js:initialisation: PSEUDO ", pseudo);
   sendPseudo(pseudo);
 }
 exports.initialisation = initialisation;
 
 function init(port) {
-  //listenMachine = makeListenMachine();
   initWSSocket(port);
 }
 exports.init = init;

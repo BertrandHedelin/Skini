@@ -1373,12 +1373,11 @@ maybe an hiphop compile Error`);
           break;
 
         case "getNombreDePatternsPossibleEnListe": // Pour l'initialisation de memorySortable
-          var nombreDePatternsPossible = groupesClientSon.getNombreDePatternsPossibleEnListe();
-          var mesReponse = {
+          let nombreDePatternsPossible = groupesClientSon.getNombreDePatternsPossibleEnListe();
+          ws.send(JSON.stringify({
             type: "nombreDePatternsPossibleEnListe",
             nombreDePatternsPossible: nombreDePatternsPossible
-          }
-          ws.send(JSON.stringify(mesReponse));
+          }));
           break;
 
         case "getPatternGroups":
