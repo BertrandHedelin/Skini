@@ -191,6 +191,7 @@ export function setSignals(param) {
               host{ console.log("Reçu RC0"); }
               run sensorIZ("RC0") {
                       zone1OUT, zone2OUT, zone3OUT, zone4OUT, 
+                      zone6OUT, zone7OUT, zone8OUT, zone9OUT, zone10OUT,
                       INTERFACEZ_RC0 as sensorIZ, tick as tick
               };
             }

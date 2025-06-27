@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict"
 "use hopscript"
 
@@ -32,7 +33,7 @@ let offsetTranspose = 635 / 10;
 let debug = false;
 let debug1 = true;
 
-const Instruments = [ "sensor2", "sensor3", "sensor4" ];
+
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug1) console.log("hh_ORCHESTRATION: setServ");
@@ -43,7 +44,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   midimix = mix;
 }
 
-/*
+
 function makeAwait(instruments, groupeClient) {
   return hiphop fork ${ instruments.map(val => hiphop {
      await (this[`${val}IN`].now);
@@ -93,22 +94,28 @@ function makeReservoir(groupeClient, instrument, serv) {
   }
 }
 
-var reservoirSensor = hiphop module () { // Pourquoi faut-il avoir ces signaux en paramètres ??
+const Instruments = ["sensor0","sensor1","sensor2","sensor3","sensor4"];
+
+const reservoirSensor = hiphop module () { // Pourquoi faut-il avoir ces signaux en paramètres ??
   in tick, stopReservoir;
   in ... ${ Instruments.map(i => `${i}IN`) };
   out ... ${ Instruments.map(i => `${i}OUT`) };
   ${makeReservoir(1, Instruments, serveur)}
 }
-*/
 
 export function setSignals(param) {
   var i = 0;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
-  var IZsignals = ["INTERFACEZ_RC","INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
-  "INTERFACEZ_RC3", "INTERFACEZ_RC4","INTERFACEZ_RC5","INTERFACEZ_RC6",
-  "INTERFACEZ_RC7","INTERFACEZ_RC8","INTERFACEZ_RC9", "INTERFACEZ_RC10","INTERFACEZ_RC11"];
+  const IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0",
+    "INTERFACEZ_RC1", "INTERFACEZ_RC2",
+    "INTERFACEZ_RC3", "INTERFACEZ_RC4",
+    "INTERFACEZ_RC5", "INTERFACEZ_RC6",
+    "INTERFACEZ_RC7", "INTERFACEZ_RC8",
+    "INTERFACEZ_RC9", "INTERFACEZ_RC10",
+    "INTERFACEZ_RC11"];
   
+  console.log("\n******* Je suis dans helloSkiniIZPB 2\n");
   console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
   const Program = hiphop module() {
@@ -119,20 +126,21 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
-    /*
-    await(tick.now);
     await(start.now);
+
     host{utilsSkini.addSceneScore(1, serveur);}
     host{utilsSkini.alertInfoScoreON("Skini HH", serveur);}
 
     emit sensor0OUT([true, 0]);
+    await  count (5,tick.now);
     host{ DAW.putPatternInQueue("sensor0-1");}
+    host{utilsSkini.alertInfoScoreON("Début", serveur);}
 
     fork {
       abort(halt.now){
         every(tick.now){
           host{
-            //console.log("tick from HH", i++);
+            console.log("tick from HH", i++);
             gcs.setTickOnControler(i);
           }
         }
@@ -142,8 +150,9 @@ export function setSignals(param) {
       host{utilsSkini.alertInfoScoreOFF(serveur);}
     } par {
       every(INTERFACEZ_RC0.now) {
-        //host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
-        //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
+        host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
+        host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
+        
         if( INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur);}
           emit sensor2IN();
@@ -151,7 +160,7 @@ export function setSignals(param) {
         }
         if( INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
           host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur);}
-          //emit sensor3IN();
+          emit sensor3IN();
           emit stopReservoir();
         }
         else if( INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
@@ -166,8 +175,6 @@ export function setSignals(param) {
       yield;
       //run ${reservoirSensor}() {*}
     }
-
-    */
   }
 
   const prg = new ReactiveMachine(Program, "orchestration");

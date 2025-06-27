@@ -660,7 +660,7 @@ function getGroupeSons(signal) {
 
   if (debug) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
-  for (var i = 0; i < nbeDeGroupesSons; i++) {
+  for (let i = 0; i < nbeDeGroupesSons; i++) {
     if (groupesSon[i][0] === undefined) {
       console.log("ERR: getGroupeSons: groupesSon[", i, "i][0]: undefined, table groupesSon pas encore à jour");
       return -1;

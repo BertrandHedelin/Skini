@@ -1207,7 +1207,8 @@ maybe an hiphop compile Error`);
             ":", piecePath + HipHopSrc, ":", targetHH);
 
           try {
-            const fragment = compile(piecePath + HipHopSrc, {});
+            // Compilation vers targetHH, problemes d'asynchronisme ?
+            let fragment = compile(piecePath + HipHopSrc, {});
             await fragment.output(targetHH);
             await fragment.sourcemap(targetHH);
           } catch (err) {
