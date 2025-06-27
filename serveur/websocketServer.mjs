@@ -17,6 +17,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
+ * avec capteurIZTest.csv et TestCapteurIZ.als
+ * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.4
  */
@@ -32,35 +34,35 @@ import * as gameOSC from './gameOSC.mjs';
 import * as oscMidiLocal from './OSCandMidi.mjs';
 import * as saveParam from './saveParam.mjs';
 
-var ipConfig = require('./ipConfig.json');
-var midiConfig = require("./midiConfig.json");
+const ipConfig = require('./ipConfig.json');
+const midiConfig = require("./midiConfig.json");
 
 const decache = require('decache');
 const { stringify } = require('querystring');
 import { Worker } from 'worker_threads';
 import { fork } from "child_process";
 
-var defaultOrchestrationName = "orchestrationHH.mjs";
-var par;
-var DAW;
-var midimix;
-var sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
-var parametersFile;
-var parametersFileGlobal;
-let origine = "./serveur/defaultSkiniParametres.js";
-let defaultSession = "./serveur/defaultSession.csv";
-var HipHopSrc; // Fichier HipHop éditer en texte et à compiler
+const defaultOrchestrationName = "orchestrationHH.mjs";
+let par;
+let DAW;
+let midimix;
+let sessionFile; // Pour le chemin complet de la session en cours (descripteur en ".csv")
+let parametersFile;
+let parametersFileGlobal;
+const origine = "./serveur/defaultSkiniParametres.js";
+const defaultSession = "./serveur/defaultSession.csv";
+let HipHopSrc; // Fichier HipHop éditer en texte et à compiler
 let decacheParameters;
-var childSimulator;
+let childSimulator;
 const targetHH = "./myReact/orchestrationHH.mjs"; // Redondant à revoir
 // Attention en dur car le chemin est utilisé ailleurs, dans groupClientsSons.js
 // pour orchestrationHH.js
-var generatedDir = "./myReact/";
+const generatedDir = "./myReact/";
 
 // Declarations to move from CJS to ES6
-var _getBroadCastServer, _sendSignalFromDAW, _sendSignalFromMIDI, _sendSignalStopFromMIDI;
-var _sendSignalStartFromMIDI, _sendSignalFromMidiMix, _sendOSCTick, _getAutomatePossible;
-var _setPatternListLength;
+let _getBroadCastServer, _sendSignalFromDAW, _sendSignalFromMIDI, _sendSignalStopFromMIDI;
+let _sendSignalStartFromMIDI, _sendSignalFromMidiMix, _sendOSCTick, _getAutomatePossible;
+let _setPatternListLength;
 
 export {
   _getBroadCastServer as getBroadCastServer,
@@ -82,8 +84,8 @@ export {
 // Bug de principe (21/06/2022): On ne peut pas changer ces paramètres dans le fichier .js
 // puisque ces paramètres sont fixés avant tous choix de pièces ....
 // Il devrait s'agir de paramètres globaux et non liés aux fichiers de config de chaque pièce.
-var sessionPath = ipConfig.sessionPath; //"./pieces/";
-var piecePath = ipConfig.piecePath; //"./pieces/";
+const sessionPath = ipConfig.sessionPath; //"./pieces/";
+const piecePath = ipConfig.piecePath; //"./pieces/";
 
 import * as groupesClientSon from './groupeClientsSons.mjs';
 
@@ -108,7 +110,7 @@ export async function setParameters(midimixage) {
 function updateSimulatorParameters(param) {
 
   if (childSimulator !== undefined) {
-    var message = {
+    let message = {
       type: "PARAMETERS",
       data: param
     }
@@ -135,11 +137,11 @@ function reloadParameters(param) {
 
   // Typage pour les antécédents dans Score. En rechargeant depuis le client
   // de parametrage on a une chaine de caractères et pas un tableau.
-  for (var i = 0; i < param.groupesDesSons.length; i++) {
+  for (let i = 0; i < param.groupesDesSons.length; i++) {
     if (typeof param.groupesDesSons[i][7] === 'string' || param.groupesDesSons[i][7] instanceof String) {
       par.groupesDesSons[i][7] = param.groupesDesSons[i][7].split(',');
     }
-    for (var j = 0; j < par.groupesDesSons[i][7].length; j++) {
+    for (let j = 0; j < par.groupesDesSons[i][7].length; j++) {
       par.groupesDesSons[i][7][j] = parseInt(par.groupesDesSons[i][7][j]);
     }
   }
@@ -177,47 +179,47 @@ const blancheR = 48;
 const rondeTR = 64;
 const rondeR = 96;
 
-var tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
-var divisionMesure = noireR; 	// Partie basse de la mesure
-var nbeDeMesures = 1;
-var tempo = 60; 				// à la minute
-var canalMidi = 1;
-var dureeDuTick = ((60 / tempo) / divisionMesure) * 1000; // Exprimé ici en millisecondes
+let tempsMesure = 4;    		// Partie haute de la mesure, nombre de temps dans la mesure
+let divisionMesure = noireR; 	// Partie basse de la mesure
+let nbeDeMesures = 1;
+let tempo = 60; 				// à la minute
+let canalMidi = 1;
+let dureeDuTick = ((60 / tempo) / divisionMesure) * 1000; // Exprimé ici en millisecondes
 
-var previousTime = 0;
-var currentTime = 0;
-var timeToPlay = 0;
-var previousTimeToPlay = 0;
-var defautDeLatence;
+let previousTime = 0;
+let currentTime = 0;
+let timeToPlay = 0;
+let previousTimeToPlay = 0;
+let defautDeLatence;
 
-var debug = false;
-var debug1 = true;
-var warnings = true;
-var timerSynchro;
+const debug = false;
+const debug1 = true;
+const warnings = true;
+let timerSynchro;
 
 // Automate des possibles
-var DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
-var setTimer;
-var timerDivision = 1; // Default value for the number of pulses for a tick, can evolve during an orchestration
-var offsetDivision = 0;
-var compteurDivisionMesure = 0;
-var nbeDeGroupesSons = 0;
-var socketControleur;
-var groupeName = "";
-var automatePossibleMachine;
+let DAWStatus = 0; // 0 inactif, sinon actif (originellement pour distinguer des orchestrations, distinction pas utile à présent)
+let setTimer;
+let timerDivision = 1; // Default value for the number of pulses for a tick, can evolve during an orchestration
+let offsetDivision = 0;
+let compteurDivisionMesure = 0;
+let nbeDeGroupesSons = 0;
+let socketControleur;
+let groupeName = "";
+let automatePossibleMachine;
 
 // Scoring pour les jeux
-var computeScorePolicy = 0;
-var computeScoreClass = 0;
+let computeScorePolicy = 0;
+let computeScoreClass = 0;
 
 // CONTROLEUR
-var DAWTableReady = false; // Pour pouvoir vérifier que la pièce a bien été chargée.
+let DAWTableReady = false; // Pour pouvoir vérifier que la pièce a bien été chargée.
 
-var clientsEnCours = [];
-var groupeEncours = 0;
+let clientsEnCours = [];
+let groupeEncours = 0;
 
-var currentTimePrevMidi = 0;
-var currentTimeMidi = 0;
+let currentTimePrevMidi = 0;
+let currentTimeMidi = 0;
 
 /*************************************************
    INITIALISATION DU PORT MIDI OUT (si paramétré)
@@ -233,7 +235,7 @@ function initMidiPort() {
   }
 
   if (par !== undefined) {
-    var directMidi = false;
+    let directMidi = false;
     if (par.directMidiON !== undefined) {
       directMidi = par.directMidiON;
     }
@@ -455,7 +457,6 @@ function startWebSocketServer() {
         } catch (err) {
           console.log("ERR: websocketserver.js: broadcast", err);
           throw err;
-          return;
         }
       }
     });
@@ -579,12 +580,11 @@ function startWebSocketServer() {
   function sendOSCTick() {
     if (debug1) {
       //console.log("websocketserver: sendOSCTick");
-      var msg = {
+      serv.broadcast(JSON.stringify({
         type: "synchroSkini",
         text: ""
-      }
-      serv.broadcast(JSON.stringify(msg));
-    }
+      }));
+          }
     receivedTickFromSynchro();
   }
   _sendOSCTick = sendOSCTick;
@@ -691,11 +691,10 @@ function startWebSocketServer() {
         automatePossibleMachine.input(signal);
       } catch (err) {
         console.log("ERROR: webSocketServer.js: inputAutomatePossible: Error on react:", signal, err.toString());
-        var msg = {
+        serv.broadcast(JSON.stringify({
           type: "alertBlocklySkini",
           text: err.toString()
-        }
-        serv.broadcast(JSON.stringify(msg));
+        }));
         return false;
       }
       return true;
@@ -732,7 +731,7 @@ function startWebSocketServer() {
     }
     groupesClientSon.createMatriceDesPossibles();
 
-    var mesReponse = {
+    let mesReponse = {
       type: "setControlerPadSize",
       nbeDeGroupesClients: par.nbeDeGroupesClients,
       nbeDeGroupesSons: nbeDeGroupesSons
@@ -783,7 +782,7 @@ function startWebSocketServer() {
   function setMonTimer(timer) {
     if (!par.synchoOnMidiClock) {
       setTimer = setInterval(function () {
-        if (debug1) { var v0 = Date.now(); }
+        if (debug1) { let v0 = Date.now(); }
         actionOnTick(timerDivision);
         if (debug1) {
           console.log("websocketserver: setMonTimer timer:", timer, "ms,Temps de réaction de l'automate:", Date.now() - v0, "ms");
@@ -810,25 +809,7 @@ function startWebSocketServer() {
   **************************************************************************************/
   serv.on('connection', function (ws) {
 
-    /*  	// Pas trés jolie... mais ça lance le mécanisme de lecture du buffer de commande midi.
-    
-        if (premiereConnexion) {
-          playerBuffer = setInterval( function() { 
-          nextEventInBuffer();
-          }, resolutionDuBuffer );
-          premiereConnexion = false;
-      }
-    */
-    // Variables locales à la session websocket
-    //var ws = event.value;
-
-    var msg = {
-      type: "message",
-      text: "Server: Connection Websocket OK",
-      value: 2,
-    };
-
-    var messageLog = {
+    let messageLog = {
       date: "",
       source: "websocketServerSkini.js",
       type: "log",
@@ -839,11 +820,10 @@ function startWebSocketServer() {
 
     // Pour informer que l'on est bien connecté
     if (debug) console.log("INFO: Web Socket Server: a connection established");
-    var msg = {
+    ws.send(JSON.stringify({
       type: "message",
       value: "Bienvenue chez Skini !"
-    }
-    ws.send(JSON.stringify(msg));
+    }));
 
     /*    // Pour dire à l'ouverture au client si on est ou pas dans une scène où DAW est actif.
         if (debug) console.log("Web Socket Server: DAWON:", par.DAWON);
@@ -857,7 +837,7 @@ function startWebSocketServer() {
       ws.send(JSON.stringify(msg));*/
 
     // DONNEES DE TEMPO pour les séquenceurs.
-    var msgTempo = {
+    ws.send(JSON.stringify({
       type: "setConfigSequenceur",
       tempsMesure: tempsMesure,
       divisionMesure: divisionMesure,
@@ -865,9 +845,7 @@ function startWebSocketServer() {
       tempo: tempo,
       canalMidi: canalMidi,
       dureeDuTick: dureeDuTick
-    }
-    ws.send(JSON.stringify(msgTempo));
-
+    }));
     ws.on('close', function () {
       if (debug) console.log("Web Socket Server: Socket closed by client.");
     });
@@ -889,23 +867,23 @@ function startWebSocketServer() {
      * @returns {number} waiting time
      */
     function pushClipDAW(clip, signal, leGroupe, pseudo, monId) {
-      var DAWNote = clip[0];
-      var DAWChannel = Math.floor(DAWNote / 127) + 1;
+      let DAWNote = clip[0];
+      let DAWChannel = Math.floor(DAWNote / 127) + 1;
       DAWNote = DAWNote % 127;
       if (DAWChannel > 15) {
         if (debug) console.log("Web Socket Server.js : pushNoteOnDAW: Nombre de canaux midi dépassé.");
         return 0;
       }
-      var nom = clip[3];
-      var DAWInstrument = clip[5];
-      var typePattern = clip[7];
-      var dureeClip = clip[10];
-      var adresseIP = clip[11];
-      var numeroBuffer = clip[12];
-      var patternLevel = clip[13];
+      let nom = clip[3];
+      let DAWInstrument = clip[5];
+      let typePattern = clip[7];
+      let dureeClip = clip[10];
+      let adresseIP = clip[11];
+      let numeroBuffer = clip[12];
+      let patternLevel = clip[13];
 
-      var signalComplet = { [signal]: clip[3] }; // on ajouté le nom du pattern au signal
-      var dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
+      let signalComplet = { [signal]: clip[3] }; // on ajouté le nom du pattern au signal
+      let dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
         DAWNote, 125, monId, pseudo, dureeClip, nom,
         signalComplet, typePattern, adresseIP, numeroBuffer, patternLevel);
 
@@ -944,7 +922,7 @@ function startWebSocketServer() {
       if (debug) console.log('Websocket serveur : playPattern: demandeDeSonParPseudo : ', unPseudo, "groupe:", groupe, "pattern:", pattern[4]);
       if (debug) console.log("-----webSocketServeur: playPattern: Pattern reçu:", pattern[0]);
 
-      var signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
+      let signal = groupesClientSon.getSignalFromGroup(pattern[9]) + "IN";
 
       if (signal === "-1IN") {
         console.log("WARN: websocketserveur: playPattern : no group declared :", groupe);
@@ -952,7 +930,7 @@ function startWebSocketServer() {
       }
       if (debug) console.log("webSocketServeur: playPattern, signal reçu:", pattern, signal);
 
-      var legroupe = groupe; // groupe d'utilisateur
+      let legroupe = groupe; // groupe d'utilisateur
 
       // Pour la gestion des messages qui ne sont pas des patterns, on utilise des patterns dont les
       // commandes MIDI sont négatives. Dans ce cas on émet des signaux sans faire appel au player de patterns
@@ -964,7 +942,7 @@ function startWebSocketServer() {
         return;
       }
 
-      var dureeAttente = pushClipDAW(pattern, signal, legroupe, unPseudo, monId);
+      let dureeAttente = pushClipDAW(pattern, signal, legroupe, unPseudo, monId);
 
       // DureeAttente est la somme des durées de la FIFO de l'instrument.
       if (dureeAttente === -1) {
@@ -975,12 +953,11 @@ function startWebSocketServer() {
       dureeAttente = Math.floor(dureeAttente * tempoTime / 1000);
       if (debug) console.log("Web Socket Serveur: abletonStartClip:dureeAttente", dureeAttente);
       // On communique au client le temps d'attente en sec. avant d'entendre.
-      var msg = {
+      ws.send(JSON.stringify({
         type: "dureeAttente",
         text: dureeAttente,
         son: pattern[3]
-      }
-      ws.send(JSON.stringify(msg));
+      }));
 
       /*
           // Informe tout le monde
@@ -1039,23 +1016,20 @@ Problem when compiling the Orchestration
 maybe an hiphop compile Error`);
         console.log("-------------------------------------------------------------");
 
-        var msg = {
+        serv.broadcast(JSON.stringify({
           type: "consoleBlocklySkini",
           text: "See your console, pb on compilation"
-        }
-        serv.broadcast(JSON.stringify(msg));
-        throw err;
+        }));
+                throw err;
         //return;
       }
 
       DAW.setAutomatePossible(automatePossibleMachine);
       console.log("INFO: websocketServer: loadDAWTable: table loaded\n");
-
-      var msg = {
+      serv.broadcast(JSON.stringify({
         type: "consoleBlocklySkini",
         text: "Orchestration loaded"
-      }
-      ws.send(JSON.stringify(msg));
+      }));
 
       // Pour l'emission des commandes OSC entre l'orchestration et un jeu ou des capteurs
       if (par.gameOSCSignals) {
@@ -1094,20 +1068,18 @@ maybe an hiphop compile Error`);
           let extension = fileName.slice(-3);
           if (extension !== ".js") {
             console.log("ERR: Not an js file:", fileName);
-            let msg = {
+            ws.send(JSON.stringify({
               type: "alertBlocklySkini",
               text: "Parameter not an JavaScript file " + fileName
-            }
-            ws.send(JSON.stringify(msg));
+            }));
             return;
           }
         } else {
           console.log("ERR: No parameter file:", fileName);
-          let msg = {
+          ws.send(JSON.stringify({
             type: "alertBlocklySkini",
             text: "The parameter file " + fileName + " is not updated, don't run the program before modifying it."
-          }
-          ws.send(JSON.stringify(msg));
+          }));
           // Initialise un fichier de parametres par défaut
           // C'est à dire en copie un dans un parametersFile temporaire
           try {
@@ -1119,11 +1091,10 @@ maybe an hiphop compile Error`);
         }
       } catch (err) {
         console.log("ERR: Pb Reading parameter file:", fileName, err);
-        let msg = {
+        ws.send(JSON.stringify({
           type: "alertBlocklySkini",
           text: "Pb Reading parameter file " + fileName
-        }
-        ws.send(JSON.stringify(msg));
+        }));
         return;
       }
 
@@ -1144,12 +1115,10 @@ maybe an hiphop compile Error`);
 
       // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
       midimix.midimix(automatePossibleMachine);
-
-      msg = {
+      ws.send(JSON.stringify({
         type: "consoleBlocklySkini",
         text: "Orchestration loaded"
-      }
-      ws.send(JSON.stringify(msg));
+      }));
     }
 
     /**
@@ -1160,10 +1129,8 @@ maybe an hiphop compile Error`);
      */
     ws.on('message', async function (message) {
       if (debug) console.log('received: %s', message);
-
       var msgRecu = JSON.parse(message);
-      var mixReaper;
-
+ 
       // Pour le Log des messages reçus
       messageLog.date = getDateTime();
       messageLog.type = msgRecu.type;
@@ -1206,11 +1173,7 @@ maybe an hiphop compile Error`);
 
         case "combienDeSpectateurs":
           var value = DAW.nbeDeSpectateursConnectes();
-          var msg = {
-            type: "nbeDeSpectateurs",
-            value: value
-          }
-          ws.send(JSON.stringify(msg));
+          ws.send(JSON.stringify({ type: "nbeDeSpectateurs", value }));
           break;
 
         case "configuration": // Message converti en signal pour l'automate central
@@ -1340,36 +1303,33 @@ maybe an hiphop compile Error`);
 
         case "getDelayInstrument":
           if (debug) console.log("Web Socket Serveur: getDelayInstrument", msgRecu.clipChoisi, " pour ID: ", ws.id);
-          var msg = {
+          let msgDelay = {
             type: "delaiInstrument"
           }
 
           if (msgRecu.clipChoisi === undefined) {
-            msg.text = -1;
-            msg.son = "pattern undefined";
-            ws.send(JSON.stringify(msg));
+            msgDelay.text = -1;
+            msgDelay.son = "pattern undefined";
+            ws.send(JSON.stringify(msgDelay));
             break;
           } else {
-            var dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
+            let dureeAttente = DAW.getDelayEventDAW(msgRecu.clipChoisi[5]);
             if (dureeAttente === -1) {
               break; // On est dans un cas de note répétée
             }
-            msg.text = dureeAttente;
+            msgDelay.text = dureeAttente;
           }
           // On communique au client le délai avant d'entendre.
-          msg.son = msgRecu.clipChoisi[3];
-          ws.send(JSON.stringify(msg));
+          msgDelay.son = msgRecu.clipChoisi[3];
+          ws.send(JSON.stringify(msgDelay));
           break;
 
         case "getGroupesClientLength":
           var longueurs = groupesClientSon.getGroupesClientLength();
 
           if (debug) console.log("websocketserver: getGroupesClientLength: ", longueurs);
-          var msg = {
-            type: "groupesClientLength",
-            longueurs: longueurs
-          }
-          ws.send(JSON.stringify(msg));
+          ws.send(JSON.stringify({ type: "groupesClientLength", longueurs }));
+
           break;
 
         case "getNombreDePatternsPossibleEnListe": // Pour l'initialisation de memorySortable
@@ -1385,11 +1345,10 @@ maybe an hiphop compile Error`);
           if (par === undefined) break;
 
           if (DAWStatus !== undefined) {
-            var msg = {
+            ws.send(JSON.stringify({
               type: "setPatternGroups",
               value: par.groupesDesSons
-            }
-            ws.send(JSON.stringify(msg));
+            }));
           } else {
             if (warnings) console.log("WARN: websocketserver: getPatternGroups: DAWStatus not yet defined");
           }
@@ -1408,29 +1367,26 @@ maybe an hiphop compile Error`);
               let extension = orchestrationFile.slice(-4);
               if (extension !== ".xml") {
                 console.log("ERR: Not an xml file:", orchestrationFile);
-                let msg = {
+                ws.send(JSON.stringify({
                   type: "consoleBlocklySkini",
                   text: "Not an XML file " + orchestrationFile
-                }
-                ws.send(JSON.stringify(msg));
+                }));
                 break;
               }
             } else {
               console.log("ERR: No orchestration file:", orchestrationFile);
-              let msg = {
+              ws.send(JSON.stringify({
                 type: "consoleBlocklySkini",
                 text: "No orchestration file " + orchestrationFile
-              }
-              ws.send(JSON.stringify(msg));
+              }));
               break;
             }
           } catch (err) {
             console.log("ERR: No orchestration file:", orchestrationFile, err);
-            let msg = {
+            ws.send(JSON.stringify({
               type: "consoleBlocklySkini",
               text: "Error reading orchestration file " + orchestrationFile
-            }
-            ws.send(JSON.stringify(msg));
+            }));
             break;
           }
 
@@ -1440,11 +1396,10 @@ maybe an hiphop compile Error`);
               return;
             }
             if (debug1) console.log("INFO: loadBlocks: orchestrationFile:", orchestrationFile);
-            var msg = {
-              type: "blocksLoaded",
-              data: data,
-            }
-            ws.send(JSON.stringify(msg));
+              ws.send(JSON.stringify({
+                type: "blocksLoaded",
+                data
+              }));
           });
 
           // Chargement des paramètres
@@ -1471,13 +1426,11 @@ maybe an hiphop compile Error`);
           let extension = HipHopSrc.slice(-6);
           if (extension !== ".hh.js") {
             console.log("ERR: Not an HipHop js file:", HipHopSrc);
-            let msg = {
+            ws.send(JSON.stringify({
               type: "alertBlocklySkini",
               text: "You try to load a not HipHop JavaScript file : " + HipHopSrc
-            }
-            ws.send(JSON.stringify(msg));
+            }));
           }
-
           try {
             compileHH();
           } catch (err) {
@@ -1510,39 +1463,35 @@ maybe an hiphop compile Error`);
               let extension = sessionFile.slice(-4);
               if (extension !== ".csv") {
                 console.log("ERR: Not an csv file:", sessionFile);
-                let msg = {
+                ws.send(JSON.stringify({
                   type: "alertBlocklySkini",
-                  text: "Descriptor not an csv file " + sessionFile
-                }
-                ws.send(JSON.stringify(msg));
+                  text: "Descriptor not a CSV file " + sessionFile
+                }));
                 break;
               }
             } else {
               console.log("ERR: No session file:", sessionFile);
-              let msg = {
+              ws.send(JSON.stringify({
                 type: "alertBlocklySkini",
                 text: "No session file " + sessionFile
-              }
-              ws.send(JSON.stringify(msg));
+              }));
               break;
             }
           } catch (err) {
             console.log("ERR: Pb Reading session file:", sessionFile, err);
-            let msg = {
+            ws.send(JSON.stringify({
               type: "alertBlocklySkini",
               text: "Pb Reading session file " + sessionPath
-            }
-            ws.send(JSON.stringify(msg));
+            }));
             break;
           }
 
           DAW.loadDAWTable(sessionPath + msgRecu.fileName);
-
-          var mesReponse = {
+          ws.send(JSON.stringify({
             type: "consoleBlocklySkini",
             text: "session loaded: " + msgRecu.fileName
-          }
-          ws.send(JSON.stringify(mesReponse));
+          }));
+
           break;
 
         case "putInMatriceDesPossibles":
@@ -1552,26 +1501,24 @@ maybe an hiphop compile Error`);
 
           if (debug) groupesClientSon.displayMatriceDesPossibles();
 
-          var msg = {
+          serv.broadcast(JSON.stringify({
             type: "groupeClientStatus",
-            groupeClient: msgRecu.clients, // Pour indentifier le groupe de clients
-            groupeName: groupeName,
+            groupeClient: msgRecu.clients, // Pour identifier le groupe de clients
+            groupeName,
             status: msgRecu.status
-          }
-          serv.broadcast(JSON.stringify(msg));
+          }));
           break;
 
         case "ResetMatriceDesPossibles":
           if (debug1) console.log("websocketserver: ResetMatriceDesPossibles");
           groupesClientSon.resetMatriceDesPossibles();
           groupeName = "";
-          var msg = {
+          serv.broadcast(JSON.stringify({
             type: "groupeClientStatus",
             groupeClient: 255,
-            groupeName: groupeName,
+            groupeName,
             status: false
-          }
-          serv.broadcast(JSON.stringify(msg));
+          }));
           break;
 
         case "saveBlocklyGeneratedFile":
@@ -1586,11 +1533,10 @@ maybe an hiphop compile Error`);
           try {
             if (!fs.existsSync(sessionPath + parametersFileGlobal)) {
               console.log("ERR: No parameter file:", parametersFileGlobal);
-              let msg = {
+              ws.send(JSON.stringify({
                 type: "alertBlocklySkini",
                 text: "The parameter file " + parametersFileGlobal + " is created, don't run the program before modifying it."
-              }
-              ws.send(JSON.stringify(msg));
+              }));
               // Initialise un fichier de parametres par défaut
               try {
                 fs.copyFileSync(origine, sessionPath + parametersFileGlobal);
@@ -1609,22 +1555,20 @@ maybe an hiphop compile Error`);
             }
           } catch (err) {
             console.log("ERR: Pb creating parameter file:", parametersFileGlobal, err.toString());
-            let msg = {
+            ws.send(JSON.stringify({
               type: "alertBlocklySkini",
               text: "Pb creating parameter file " + parametersFileGlobal
-            }
-            ws.send(JSON.stringify(msg));
+            }));
             break;
           }
 
           // Ecrit le programme HH pour compilation
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
             if (err) {
-              var msg = {
+              ws.send(JSON.stringify({
                 type: "alertBlocklySkini",
                 text: err.toString()
-              }
-              ws.send(JSON.stringify(msg));
+              }));
               return console.log(err);
             }
             if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationName, " written");
@@ -1636,12 +1580,10 @@ maybe an hiphop compile Error`);
               return console.log(err.toString());
             }
             console.log("INFO: websocketServer:", msgRecu.fileName + ".xml", " written");
-            var msg = {
+            ws.send(JSON.stringify({
               type: "consoleBlocklySkini",
               text: msgRecu.fileName + ".xml written"
-            }
-            ws.send(JSON.stringify(msg));
-
+            }));
             // Compile l'orchestration
             try {
               compileHH();
@@ -1664,11 +1606,10 @@ maybe an hiphop compile Error`);
           var listClips = DAW.getAllClips(msgRecu.groupe, groupesClientSon.matriceDesPossibles);
           if (listClips !== -1) {
             if (debug) console.log("Web Socket Serveur: selectAllClips for id:", ws.id, "groupe:", msgRecu.groupe, " premier pattern:", listClips[0]);
-            var msg = {
+            ws.send(JSON.stringify({
               type: "listClips",
-              listClips: listClips
-            }
-            ws.send(JSON.stringify(msg));
+              listClips
+            }));
           }
           break;
 
@@ -1686,27 +1627,26 @@ maybe an hiphop compile Error`);
           computeScoreClass = groupesClientSon.getComputeScoreClass();
           if (debug) console.log("websocketserver: reçu : sendPatternSequence: computeScorePolicy, computeScoreClass:", computeScorePolicy, computeScoreClass);
 
-          var maPreSequence = compScore.getPreSequence(msgRecu.pseudo, clientsEnCours); //Une liste d'index (notes Skini midi)
+          let maPreSequence = compScore.getPreSequence(msgRecu.pseudo, clientsEnCours); //Une liste d'index (notes Skini midi)
           if (debug) console.log("websocketserver: reçu : sendPatternSequence", patternSequence, msgRecu.pseudo, maPreSequence);
 
-          var monScore = compScore.evaluateSequenceOfPatterns(patternSequence, maPreSequence, computeScorePolicy, computeScoreClass);
+          let monScore = compScore.evaluateSequenceOfPatterns(patternSequence, maPreSequence, computeScorePolicy, computeScoreClass);
 
           // Met à jour la mémorisation des listes des index de pattern associée au pseudo pour
           // le calcul du score.
           compScore.setPreSequence(msgRecu.pseudo, patternSequence, clientsEnCours);
 
           //Mise à jour du score total en fonction du pseudo
-          var scoreTotal = compScore.updateScore(msgRecu.pseudo, monScore, clientsEnCours);
+          let scoreTotal = compScore.updateScore(msgRecu.pseudo, monScore, clientsEnCours);
 
-          for (var i = 0; i < patternSequence.length; i++) {
-            var pattern = DAW.getPatternFromNote(patternSequence[i]);
+          for (let i = 0; i < patternSequence.length; i++) {
+            let pattern = DAW.getPatternFromNote(patternSequence[i]);
             if (pattern === undefined) {
               if (warnings) console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
-              var msg = {
-                type: "patternSequenceAck",
-                value: false
-              }
-              ws.send(JSON.stringify(msg));
+                ws.send(JSON.stringify({
+                  type: "patternSequenceAck",
+                  value: false
+                }));
             }
             if (debug) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
             playPattern(msgRecu.pseudo, msgRecu.groupe, pattern, msgRecu.idClient);
@@ -1714,13 +1654,11 @@ maybe an hiphop compile Error`);
 
           // On a besoin d'un acknowledge car on pourrait perdre des commandes du client (?? en TCP)
           // On envoie le score pour la séquence choisie
-          var msg = {
+          ws.send(JSON.stringify({
             type: "patternSequenceAck",
             score: scoreTotal,
             value: true
-          }
-          ws.send(JSON.stringify(msg));
-
+          }));
           // On passe par groupeClientSon pour informer l'orchestration
           // Il n'y a pas de lien depuis l'orchestration vers websocketServer.js
           // (Il y en a dans l'autre sens via des react())
@@ -1731,13 +1669,12 @@ maybe an hiphop compile Error`);
           if (debug1) console.log("websocketserver: setAllMatriceDesPossibles");
           groupesClientSon.setMatriceDesPossibles();
           groupeName = "";
-          var msg = {
+          serv.broadcast(JSON.stringify({
             type: "groupeClientStatus",
             groupeClient: 255,
-            groupeName: groupeName,
+            groupeName,
             status: true
-          }
-          serv.broadcast(JSON.stringify(msg));
+          }));
           break;
 
         // DAWON est le signal d'activation ou désactivation de l'orchestration
@@ -1749,24 +1686,20 @@ maybe an hiphop compile Error`);
           DAWStatus = msgRecu.value;
           if (DAWTableReady) {
             if (debug) console.log("websocketServer:setDAWON:", DAWStatus);
-
             DAW.cleanQueues();
-
-            var msg = {
+            serv.broadcast(JSON.stringify({
               type: "DAWStatus",
               value: msgRecu.value
-            }
-            serv.broadcast(JSON.stringify(msg));
+            }));
             initMatriceDesPossibles(DAWStatus);
             // Pour être en phase avec la création du pad controleur
             groupesClientSon.resetMatriceDesPossibles();
           } else {
             if (warnings) console.log("WARNING: Table des commandes DAW pas encore chargée: ", DAWStatus);
-            var msg = {
+            ws.send(JSON.stringify({
               type: "DAWTableNotReady",
               text: "Table des commandes DAW pas encore chargée"
-            }
-            ws.send(JSON.stringify(msg));
+            }));
           }
           break;
 
@@ -1810,19 +1743,16 @@ maybe an hiphop compile Error`);
 
           // Sinon n'est envoyé qu'au onopen de la Socket
           // nécessaire pour les couleurs sur les clients
-          var msg = {
+          serv.broadcast(JSON.stringify({
             type: "setPatternGroups",
             value: par.groupesDesSons
-          }
-          serv.broadcast(JSON.stringify(msg));
-
+          }));
           // Au cas où le client serait connecté avant le début de l'orchestration.
           if (debug) console.log("Web Socket Server: startAutomate DAWON:", DAWStatus);
-          var msg = {
+          ws.send(JSON.stringify({
             type: "DAWON",
             value: DAWStatus
-          }
-          ws.send(JSON.stringify(msg));
+          }));
           break;
 
         case "startByMidiClock":
@@ -1833,12 +1763,11 @@ maybe an hiphop compile Error`);
           // On autorise la configuration des patterns même sans piece chargée
           if (msgRecu.text === "configurateur") {
             if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un configurateur connecté", msgRecu.id);
-            var mesReponse = {
+            ws.send(JSON.stringify({
               type: "skiniParametres",
               descriptors: DAW.getSession(),
               value: par
-            }
-            ws.send(JSON.stringify(mesReponse));
+            }));
           }
 
           if (par === undefined) {
@@ -1856,50 +1785,44 @@ maybe an hiphop compile Error`);
             socketControleur = ws;
             groupesClientSon.setSocketControleur(ws);
             initMatriceDesPossibles(DAWStatus);
-            var mesReponse = {
+            ws.send(JSON.stringify({
               type: "skiniParametres",
               value: par
-            }
-            ws.send(JSON.stringify(mesReponse));
+            }));
             break;
           }
 
           if (msgRecu.text === "pieceParameters") {
             if (debug1) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", msgRecu.id);
-            var mesReponse = {
+            ws.send(JSON.stringify({
               type: "skiniParametres",
               value: par
-            }
-            ws.send(JSON.stringify(mesReponse));
+            }));
           }
 
           if (msgRecu.text === "clientListe") {
             if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un clientListe connecté", msgRecu.id);
-            var mesReponse = {
+            ws.send(JSON.stringify({
               type: "skiniParametres",
               value: par
-            }
-            ws.send(JSON.stringify(mesReponse));
+            }));
           }
 
           if (msgRecu.text === "simulateur") {
             if (par.simulatorInAseperateGroup) {
               // Assignation d'un groupe au client
-              var mesReponse = {
+              ws.send(JSON.stringify({
                 type: "groupe",
                 noDeGroupe: par.nbeDeGroupesClients - 1
-              }
-              ws.send(JSON.stringify(mesReponse));
-
+              }));
               groupesClientSon.putIdInGroupClient(ws.id, par.nbeDeGroupesClients - 1);
 
               // Pour dire à l'ouverture au simulateur si on est ou pas dans une scène où DAW est actif.
               if (debug1) console.log("INFO: Web Socket Server: startSpectateur: simulateur: DAWON:", DAWStatus);
-              var msg = {
+              ws.send(JSON.stringify({
                 type: "DAWON",
                 value: DAWStatus
-              }
-              ws.send(JSON.stringify(msg));
+              }));
               break;
             }
           }
@@ -1907,12 +1830,10 @@ maybe an hiphop compile Error`);
           if (debug) console.log("websocket serveur: startSpectateur: ", ws.id, "dans groupe:", groupeEncours, msgRecu, clientsEnCours);
 
           // Assignation d'un groupe au client
-          var mesReponse = {
+          ws.send(JSON.stringify({
             type: "groupe",
             noDeGroupe: groupeEncours
-          }
-          ws.send(JSON.stringify(mesReponse));
-
+          }));
           groupesClientSon.putIdInGroupClient(ws.id, groupeEncours);
 
           if (debug) console.log("websocket serveur: startSpectateur: groupesClientSon:", groupesClientSon.getGroupesClient());
@@ -1935,20 +1856,16 @@ maybe an hiphop compile Error`);
           }
           // Pour dire à l'ouverture au client si on est ou pas dans une scène où DAW est actif.
           if (debug) console.log("Web Socket Server: startSpectateur: emission DAWStatus:", DAWStatus);
-          var msg = {
+          ws.send(JSON.stringify({
             type: "DAWStatus",
             value: DAWStatus
-          }
-          ws.send(JSON.stringify(msg));
+          }));
           break;
 
         case "startSimulator":
           if (debug) console.log("Web Socket Server: start Simulator");
           childSimulator = fork("./client/simulateurListe/simulateurFork.mjs");
-          var message = {
-            type: "START_SIMULATOR"
-          }
-          childSimulator.send(message);
+          childSimulator.send({ type: "START_SIMULATOR" });
           updateSimulatorParameters(par);
           break;
 
@@ -1957,21 +1874,16 @@ maybe an hiphop compile Error`);
             //if (setTimer !== undefined && !par.synchoOnMidiClock) clearInterval(setTimer);
             reactAutomatePossible({ halt: undefined });
             DAWStatus = 0;
-
-            var msg = {
+            serv.broadcast(JSON.stringify({
               type: "DAWStatus",
               value: false
-            }
-            serv.broadcast(JSON.stringify(msg));
+            }));
           }
           break;
 
         case "stopSimulator":
           if (debug) console.log("INFO: Web Socket Server: stop Simulator");
-          var message = {
-            type: "STOP_SIMULATOR"
-          }
-          childSimulator.send(message);
+          childSimulator.send({ type: "STOP_SIMULATOR" });
           break;
 
         case "system": // Message converti en signal pour l'automate central
@@ -1986,20 +1898,18 @@ maybe an hiphop compile Error`);
             // Ecrire le fichier
             fs.writeFile(sessionFile, arrayToCSV(msgRecu.data), function (err) {
               if (err) {
-                var msg = {
+                ws.send(JSON.stringify({
                   type: "alertBlocklySkini",
                   text: err.toString()
-                }
-                ws.send(JSON.stringify(msg));
+                }));
                 return console.log("ERR: websocketserver.js: updateSession: ", err);
               } else {
                 // Le recharger dans DAW
                 DAW.loadDAWTable(sessionFile);
-                var mesReponse = {
+                ws.send(JSON.stringify({
                   type: "consoleBlocklySkini",
                   text: "session loaded: " + sessionFile
-                }
-                ws.send(JSON.stringify(mesReponse));
+                }));
               }
             });
           } else {

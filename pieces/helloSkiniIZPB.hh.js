@@ -7,12 +7,12 @@ import { ReactiveMachine } from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
 
 //let par;
-let midimix;
-let oscMidiLocal;
-let gcs;
-let DAW;
-let serveur;
-let signals;
+var midimix;
+var oscMidiLocal;
+var gcs;
+var DAW;
+var serveur;
+var signals;
 
 // Avec des valeurs initiales
 let CCChannel = 1;
@@ -43,6 +43,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   midimix = mix;
 }
 
+/*
 function makeAwait(instruments, groupeClient) {
   return hiphop fork ${ instruments.map(val => hiphop {
      await (this[`${val}IN`].now);
@@ -98,6 +99,7 @@ var reservoirSensor = hiphop module () { // Pourquoi faut-il avoir ces signaux e
   out ... ${ Instruments.map(i => `${i}OUT`) };
   ${makeReservoir(1, Instruments, serveur)}
 }
+*/
 
 export function setSignals(param) {
   var i = 0;
@@ -112,10 +114,12 @@ export function setSignals(param) {
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
     inout stopReservoir, stopMoveTempo;
+
     in ... ${IZsignals};
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
+    /*
     await(tick.now);
     await(start.now);
     host{utilsSkini.addSceneScore(1, serveur);}
@@ -160,8 +164,10 @@ export function setSignals(param) {
       }
     } par {
       yield;
-      run ${reservoirSensor}() {*}
+      //run ${reservoirSensor}() {*}
     }
+
+    */
   }
 
   const prg = new ReactiveMachine(Program, "orchestration");

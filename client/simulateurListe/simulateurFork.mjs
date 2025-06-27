@@ -13,9 +13,9 @@
  * Le simulateur est un outil de production de musique générative selon un combinatoire
  * contrôlée.
  * 
- * @version 1.0
+ * @version 1.2
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @copyright (C) 2022 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2025 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
