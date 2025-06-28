@@ -20,7 +20,7 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-var csv = require('csv-array');
+const csv = require('csv-array');
 import * as oscMidi from './OSCandMidi.mjs'
 import * as fs from "fs";
 
@@ -33,11 +33,10 @@ import * as groupesClientSon from './groupeClientsSons.mjs'
 //var groupesClientSon = require('./autocontroleur/groupeClientsSons.mjs');
 const { Socket } = require('dgram');
 
-var debug = false;
-var debug1 = true;
+const debug = false;
+const debug1 = true;
 
 var serv;
-var nbeDeCommandes;
 var tableDesCommandes;
 
 // Il faut initialiser le tableau pour displayQueue au départ.
@@ -50,7 +49,6 @@ var filesDattenteJouables = new Array(filesDattente.length);
 var compteursDattente = [];
 
 var nbeDeFileDattentes = 0;
-var nbeDeSonsCorrespondantAuxCritres = 0;
 var nbeDeGroupesSons = 0;
 var nombreInstruments = 0;
 var automatePossibleMachine;
@@ -153,25 +151,14 @@ export function loadDAWTable(fichier) {
           if (tableDesCommandes[i][5] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][5];
         }
 
-        nbeDeGroupesSons = 0;
         var tableLength = tableDesCommandes.length;
 
         // Calcul du nombre de groupe de sons et du nombre d'instruments
-        nombreInstruments = 0;
-        nbeDeGroupesSons = 0;
-
-        for (var index = 0; index < tableLength; index++) {
-          if (tableDesCommandes[index][9] > nbeDeGroupesSons) {
-            nbeDeGroupesSons = tableDesCommandes[index][9];
-          }
-
-          if (tableDesCommandes[index][5] > nombreInstruments) {
-            nombreInstruments = tableDesCommandes[index][5];
-          }
-        }
-
-        //*****************************
+        nbeDeGroupesSons = Math.max(...par.groupesDesSons.map(groupe => groupe[1]));
+        if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: nbeDeGroupesSons: ", nbeDeGroupesSons);
+        nombreInstruments = Math.max(...tableDesCommandes.map(commande => commande[5]))
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
+       
         // On convertit l'index issu de la config des pattern en nombre de FIFO
         nombreInstruments++;
         filesDattente = new Array(nombreInstruments);
