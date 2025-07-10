@@ -297,7 +297,7 @@ function startWebSocketServer() {
       workerSync.on('error', reject);
       workerSync.on('exit', code => {
         if (code !== 0) {
-          reject(new Error(`Worker stopped with exit code:`+ code));
+          reject(new Error(`Worker stopped with exit code:` + code));
         }
       });
     });
@@ -435,7 +435,7 @@ function startWebSocketServer() {
       workerInterfaceZ.on('error', reject);
       workerInterfaceZ.on('exit', code => {
         if (code !== 0) {
-          reject(new Error(`Worker InterfaceZ stopped with exit code:`+ code));
+          reject(new Error(`Worker InterfaceZ stopped with exit code:` + code));
         }
       });
     });
@@ -584,7 +584,7 @@ function startWebSocketServer() {
         type: "synchroSkini",
         text: ""
       }));
-          }
+    }
     receivedTickFromSynchro();
   }
   _sendOSCTick = sendOSCTick;
@@ -996,7 +996,6 @@ function startWebSocketServer() {
      */
     async function compileHH() {
       DAWTableReady = false;
-      if (debug) console.log("INFO: websocketServer: loadDAWTable OK:");
       try {
         await new Promise((resolve) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
@@ -1020,7 +1019,7 @@ maybe an hiphop compile Error`);
           type: "consoleBlocklySkini",
           text: "See your console, pb on compilation"
         }));
-                throw err;
+        throw err;
         //return;
       }
 
@@ -1130,7 +1129,7 @@ maybe an hiphop compile Error`);
     ws.on('message', async function (message) {
       if (debug) console.log('received: %s', message);
       var msgRecu = JSON.parse(message);
- 
+
       // Pour le Log des messages reçus
       messageLog.date = getDateTime();
       messageLog.type = msgRecu.type;
@@ -1238,13 +1237,13 @@ maybe an hiphop compile Error`);
           } catch (err) {
             console.log("websocketServer: Pb ecriture: ", sessionFile, err);
           }
-          DAW.loadDAWTable(sessionFile);
-
-          var mesReponse = {
-            type: "consoleBlocklySkini",
-            text: "session loaded: " + sessionFile
+          try {
+            DAW.loadDAWTable(sessionFile);
+          } catch (err) {
+            console.log("websocketServer: erreur de chargement:createSession: ", sessionFile, err);
           }
-          ws.send(JSON.stringify(mesReponse));
+
+          ws.send(JSON.stringify({ type: "consoleBlocklySkini", text: "session loaded: " + sessionFile }));
           break;
 
         case "DAWPseudo":
@@ -1397,10 +1396,10 @@ maybe an hiphop compile Error`);
               return;
             }
             if (debug1) console.log("INFO: loadBlocks: orchestrationFile:", orchestrationFile);
-              ws.send(JSON.stringify({
-                type: "blocksLoaded",
-                data
-              }));
+            ws.send(JSON.stringify({
+              type: "blocksLoaded",
+              data
+            }));
           });
 
           // Chargement des paramètres
@@ -1487,12 +1486,15 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          DAW.loadDAWTable(sessionPath + msgRecu.fileName);
+          try {
+            DAW.loadDAWTable(sessionPath + msgRecu.fileName);
+          } catch (err) {
+            console.log("websocketServer: erreur de chargement:loadSession: ", sessionFile, err);
+          }
           ws.send(JSON.stringify({
             type: "consoleBlocklySkini",
             text: "session loaded: " + msgRecu.fileName
           }));
-
           break;
 
         case "putInMatriceDesPossibles":
@@ -1644,10 +1646,10 @@ maybe an hiphop compile Error`);
             let pattern = DAW.getPatternFromNote(patternSequence[i]);
             if (pattern === undefined) {
               if (warnings) console.log("WARN: websocketserver: sendPatternSequence: pattern undefined");
-                ws.send(JSON.stringify({
-                  type: "patternSequenceAck",
-                  value: false
-                }));
+              ws.send(JSON.stringify({
+                type: "patternSequenceAck",
+                value: false
+              }));
             }
             if (debug) console.log("websocketserver: sendPatternSequence: pattern: ", patternSequence[i], pattern);
             playPattern(msgRecu.pseudo, msgRecu.groupe, pattern, msgRecu.idClient);
@@ -1906,7 +1908,11 @@ maybe an hiphop compile Error`);
                 return console.log("ERR: websocketserver.js: updateSession: ", err);
               } else {
                 // Le recharger dans DAW
-                DAW.loadDAWTable(sessionFile);
+                try {
+                  DAW.loadDAWTable(sessionFile);
+                } catch (err) {
+                  console.log("websocketServer: erreur de chargement:createSession: ", sessionFile, err);
+                }
                 ws.send(JSON.stringify({
                   type: "consoleBlocklySkini",
                   text: "session loaded: " + sessionFile

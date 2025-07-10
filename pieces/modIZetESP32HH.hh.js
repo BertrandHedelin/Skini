@@ -267,6 +267,7 @@ export function setSignals(param) {
         }
       }
       host{ console.log("Reçu Halt"); }
+      
       run stopAll() { zone1OUT, zone2OUT, zone3OUT, 
                       zone4OUT, zone6OUT, zone7OUT,
                       zone8OUT, zone9OUT, zone10OUT};

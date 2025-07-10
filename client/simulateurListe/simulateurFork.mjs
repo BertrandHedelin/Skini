@@ -306,13 +306,13 @@ function selectRandomInList(memoire, liste) {
 
 // Retourne laSelectionClip note MIDI (Skini) d'un pattern choisi au hasard
 function selectNextClip() {
-  var selectionClip;
-  var listeSelectionClip = [];
-  var listeInstruments = [];
-  var instrument;
+  let selectionClip;
+  let listeSelectionClip = [];
+  let listeInstruments = [];
+  let instrument;
 
   //Mettre à jour le nombre d'instruments donnés par la liste
-  for (var i = 0; i < listClips.length; i++) {
+  for (let i = 0; i < listClips.length; i++) {
     if (!isInList(listClips[i][5], listeInstruments)) {
       listeInstruments.push(listClips[i][5]);
     }
@@ -328,9 +328,9 @@ function selectNextClip() {
   }
 
   //Choisir les commandes MIDI des patterns pour l'instrument sélectioné
-listeSelectionClip = listClips
-  .filter(clip => clip[5] === instrument)
-  .map(clip => clip[0]);
+  listeSelectionClip = listClips
+    .filter(clip => clip[5] === instrument)
+    .map(clip => clip[0]);
   if (debug) console.log("*** selectNextClip:listeSelectionClip:", listeSelectionClip);
 
   // Choisir un pattern pour l'instrument sélectionné
@@ -471,8 +471,8 @@ function initWSSocket(port) {
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
           if (tempoMax === tempoMin) {
-            console.log("WARN: tempoMin and tempoMax must no be equal");
-            tempoInstantListClip = 10;
+            console.log("WARN: tempoMin and tempoMax are equal");
+            tempoInstantListClip = tempoMax;
           }
           else {
             tempoInstantListClip = Math.floor(parseInt(tempoMin) + parseInt((Math.random() * (tempoMax - tempoMin))));
