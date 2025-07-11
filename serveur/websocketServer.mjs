@@ -881,11 +881,13 @@ function startWebSocketServer() {
       let adresseIP = clip[11];
       let numeroBuffer = clip[12];
       let patternLevel = clip[13];
+      let typeVertPattern = clip[8];
 
       let signalComplet = { [signal]: clip[3] }; // on ajouté le nom du pattern au signal
-      let dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
-        DAWNote, 125, monId, pseudo, dureeClip, nom,
-        signalComplet, typePattern, adresseIP, numeroBuffer, patternLevel);
+      let dureeAttente = DAW.pushEventDAW(par.busMidiDAW, DAWChannel,
+        DAWInstrument, DAWNote, 125, monId, pseudo, dureeClip, nom,
+        signalComplet, typePattern, adresseIP,
+        numeroBuffer, patternLevel, typeVertPattern);
 
       // Envoi du signal vers l'automate au moment de la demande si reactOnPlay n'existe pas ou est false.
       // Il y a un autre scénario dans controleAbleton.js où on envoie le signal au moment ou la commande Midi part

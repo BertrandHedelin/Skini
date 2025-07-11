@@ -334,6 +334,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
   if (debug) console.log("controleDAW.mjs: pushEventDAW ", bus, channel,
     instrument, note, velocity, wsid, pseudo, nom, signal, typePattern,
     adresseIP, numeroBuffer, patternLevel, typeVertPattern);
+  if (debug) console.log("controleDAW.mjs: pushEventDAW ", nom, signal);
 
   let longeurDeLafile = filesDattente[instrument].length;
 
@@ -348,7 +349,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
     // Le serveur nomme le pattern "void" quand il s'agit d'un pattern qu'on ne doit pas jouer.
     // et qui sert à permettre au musicien de se préparer.
     // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
-    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void", "void"]);
+    filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void", "void", "void"]);
   }
 
   if (par.algoGestionFifo === 1) {
@@ -356,11 +357,21 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
     ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity,
       wsid, pseudo, dureeClip, nom, signal, typePattern,
       adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
+  }
+  else if (par.algoGestionFifo === 2) {
+    ordonneVerticalFIFO(filesDattente, instrument,
+      [bus, channel, note, velocity,
+        wsid, pseudo, dureeClip, nom, signal, typePattern,
+        adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
+        
+    if (debug) printInstruments(filesDattente);
+
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
     filesDattente[instrument].push([bus, channel, note, velocity,
       wsid, pseudo, dureeClip, nom, signal, '',
       adresseIP, numeroBuffer, patternLevel, typeVertPattern]); // Push à la fin du tableau
+    if (debug) printInstruments(filesDattente);
   }
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
@@ -936,4 +947,156 @@ function ordonneFifo(fifo, pattern) {
 
     default: if (debug1) console.log("---- ordonneFifo:Pattern de type inconnu");
   }
+}
+
+
+/**
+ * Algorithms for reorganizing the FIFO according to the vertical types.
+ * (Vertical type === 0) => no constraint
+ * 
+ */
+
+const EMPTY_CLIP = [0, 0, 0, 0, 0, "", 4 , "", "", 0, "", "", "", 0];
+
+function isEmptyClip(clip) {
+  // Un clip est vide seulement si NOTE_ID est 0 ET qu'il n'y a pas de contenu significatif
+  // Un clip avec TYPE_V_ID = 0 n'est PAS considéré comme vide car c'est un type valide
+  return clip[CD_NOTE_ID] === 0 && 
+         clip[CD_PSEUDO_ID] === "" && 
+         clip[CD_NOM_ID] === "" && 
+         clip[CD_SIG_ID] === "";
+}
+
+function areTypesCompatible(typeA, typeB) {
+  return typeA === 0 || typeB === 0 || typeA === typeB;
+}
+
+function ensureLength(arr, length) {
+  while (arr.length < length) {
+    arr.push([...EMPTY_CLIP]);
+  }
+}
+
+function cleanupInstruments(instruments) {
+  for (const instrument of instruments) {
+    // Supprime les EMPTY_CLIP à la fin
+    while (instrument.length > 0 && isEmptyClip(instrument[instrument.length - 1])) {
+      instrument.pop();
+    }
+  }
+}
+
+function getHighestOccupiedIndex(instruments) {
+  let highest = -1;
+  for (const instrument of instruments) {
+    for (let i = instrument.length - 1; i >= 0; i--) {
+      const clip = instrument[i];
+      if (clip && !isEmptyClip(clip)) {
+        highest = Math.max(highest, i);
+        break;
+      }
+    }
+  }
+  return highest;
+}
+
+function findSafeFallbackIndex(instruments, newType) {
+  const maxLen = Math.max(...instruments.map(inst => inst.length));
+  for (let i = 0; i <= maxLen; i++) {
+    let isFree = instruments.every(inst => isEmptyClip(inst[i] || EMPTY_CLIP));
+    if (isFree) return i;
+  }
+  return maxLen;
+}
+
+// === AJOUT DE CLIP AVEC RÈGLES ===
+function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
+  const newId = newClip[CD_NOTE_ID];
+  const newType = newClip[CD_TYPE_V_ID];
+
+  // Longueur de FIFO max parmi tous les instruments
+  const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
+  console.log("maxLength: ", maxLength);
+
+  // Étape 1 : Recherche d'association (type présent ailleurs)
+  for (let i = 0; i < Math.max(maxLength, 1); i++) {
+    let foundCompatibleType = false;
+    
+    // Vérifier si ce type existe déjà à cet index dans d'autres instruments
+    for (let j = 0; j < instruments.length; j++) {
+      if (j === targetInstrumentIndex) continue;
+      const clip = instruments[j][i];
+      if (clip && !isEmptyClip(clip) && areTypesCompatible(clip[CD_TYPE_V_ID], newType)) {
+        foundCompatibleType = true;
+        break;
+      }
+    }
+
+    if (foundCompatibleType) {
+      const targetInst = instruments[targetInstrumentIndex];
+      ensureLength(targetInst, i + 1);
+      const existingClip = targetInst[i];
+
+      // Vérifier la compatibilité avec tous les autres instruments à cet index
+      const isIndexCompatible = instruments.every((inst, idx) => {
+        if (idx === targetInstrumentIndex) return true;
+        const otherClip = inst[i] || EMPTY_CLIP;
+        return areTypesCompatible(otherClip[CD_TYPE_V_ID], newType) || isEmptyClip(otherClip);
+      });
+
+      if (isEmptyClip(existingClip) && isIndexCompatible) {
+        targetInst[i] = [...newClip];
+        console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${i} de l'instrument ${targetInstrumentIndex} (association)`);
+        return;
+      }
+    }
+  }
+
+  // Étape 2 : Pas d'association possible → fallback
+  console.log("Fallback --------------------");
+  const fallbackIndex = findSafeFallbackIndex(instruments, newType);
+  const targetInst = instruments[targetInstrumentIndex];
+  ensureLength(targetInst, fallbackIndex + 1);
+  targetInst[fallbackIndex] = [...newClip];
+  console.log(`➕ Clip [${newId}:${newType}] ajouté à l'index ${fallbackIndex} (fallback) de l'instrument ${targetInstrumentIndex}`);
+}
+
+// === AFFICHAGE LISIBLE ===
+function printInstruments(instruments) {
+  const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
+  const header = ['Index'].concat(instruments.map((_, i) => `Instr.${i}`));
+  const table = [];
+
+  for (let i = 0; i < maxLength; i++) {
+    const row = [i];
+    for (let j = 0; j < instruments.length; j++) {
+      const clip = instruments[j][i];
+      let str;
+      if (!clip) {
+        str = '   *';  // Pas de clip du tout
+      } else if (isEmptyClip(clip)) {
+        str = '    [ ]';  // Clip vide
+      } else {
+        str = `[${clip[CD_NOTE_ID]}:${clip[CD_TYPE_V_ID]}]`;  // Clip avec contenu
+      }
+      row.push(str);
+    }
+    table.push(row);
+  }
+
+  // Affichage formaté
+  const colWidths = header.map((_, i) =>
+    Math.max(...table.map(row => String(row[i]).length), header[i].length)
+  );
+
+  const formatRow = row =>
+    row.map((cell, i) => String(cell).padEnd(colWidths[i])).join(' | ');
+
+  console.log('\n🎼 État des instruments :');
+  console.log(formatRow(header));
+  console.log('-'.repeat(colWidths.reduce((a, b) => a + b + 3, 0)));
+  for (const row of table) {
+    console.log(formatRow(row));
+  }
+  console.log('\n');
 }
