@@ -24,7 +24,7 @@ const csv = require('csv-array');
 import * as oscMidi from './OSCandMidi.mjs'
 import * as fs from "fs";
 
-// Index de la table des commandes
+// Index de la table des commandes (des clips ou patterns).
 const NOTE_ID = 0;
 const NOTESTOP_ID = 1;
 const FLAG_ID = 2;
@@ -33,14 +33,14 @@ const SOUND_ID = 4;
 const INSTR_ID = 5;
 const SLOT_ID = 6;
 const TYPE_ID = 7;
-const FREE_ID = 8;
+const TYPE_V_ID = 8;
 const GROUP_ID = 9;
 const DURATION_ID = 10;
 const IP_ID = 11;
 const BUF_ID = 12;
 const LEVEL_ID = 13;
 
-// Index des éléments de FIFO, commande DAW
+// Index des éléments de file d'attente, commande DAW
 const CD_BUS_ID = 0;
 const CD_CHANNEL_ID = 1;
 const CD_NOTE_ID = 2;
@@ -54,6 +54,7 @@ const CD_TYPE_ID = 9;
 const CD_IP_ID = 10;
 const CD_BUF_ID = 11;
 const CD_LEVEL_ID = 12;
+const CD_TYPE_V_ID = 13;
 
 var par;
 export function setParameters(param) {
@@ -167,11 +168,11 @@ export function loadDAWTable(fichier) {
         }
 
         // Calcul du nombre de groupe de sons et du nombre d'instruments
-        nbeDeGroupesSons = Math.max(...par.groupesDesSons.map(groupe => groupe[1]));
+        nbeDeGroupesSons = Math.max(...par.groupesDesSons.map(groupe => groupe[1])); // 1 = Index dans le tableau des paramètres
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: nbeDeGroupesSons: ", nbeDeGroupesSons);
-        nombreInstruments = Math.max(...tableDesCommandes.map(commande => commande[5]))
+        nombreInstruments = Math.max(...tableDesCommandes.map(commande => commande[INSTR_ID]))
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
-       
+
         // On convertit l'index issu de la config des pattern en nombre de FIFO
         nombreInstruments++;
         // Initialisation
@@ -182,12 +183,6 @@ export function loadDAWTable(fichier) {
         if (debug) console.log("controleDAW.mjs: loadDAWTable: Lecture une ligne de: ", fichier, tableDesCommandes[0]);
         if (debug) console.log("controleDAW.mjs: loadDAWTable: Nbe de files d'attente: ", nbeDeFileDattentes);
         if (debug) console.log("controleDAW.mjs: filesDattenteJouables: ", filesDattenteJouables);
-
-        //*****************************
-
-        // Prépare le table des locks des instruments
-        //initLockInstruments();
-
         if (debug) console.log("controleDAW.mjs: nbeDeGroupesSons:", nbeDeGroupesSons);
         resolve();
       }
@@ -257,7 +252,7 @@ export function getPatternFromNote(noteSkini) {
 
 /**
  * <BR> - Pour mettre des patterns en file d'attente sans interaction.
- * Cette fonction permet d'uitiliser Skini comme un séquenceur sans interaction.
+ * Cette fonction permet d'utiliser Skini comme un séquenceur sans interaction.
  * Le mécanisme de FIFO est utilisé, ce qui permet une combinaison avec les interactions
  * et permet tous les usages des mécanismes de lecture des FIFO.
  * Assez similaire à pushClipDAW() de websocketServer.
@@ -291,16 +286,17 @@ export function putPatternInQueue(patternName) {
     let adresseIP = commande[IP_ID];
     let numeroBuffer = commande[BUF_ID];
     let patternLevel = commande[LEVEL_ID];
+    let patternVertType = commande[TYPE_V_ID];
+    let patternType = commande[TYPE_ID];
 
     // Contient le signal et le pattern
     let signalComplet = { [signal]: nom };
 
     if (debug) console.log("controleDAW:putPatternInQueue: signalComplet:", signalComplet);
-    //if(debug1) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signal);
-    //var dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre);
+    if (debug) console.log("controleDAW:putPatternInQueue:", par.busMidiDAW, DAWChannel, DAWInstrument, DAWNote, 125, id, "Automate", dureeClip, nom);
     let dureeAttente = pushEventDAW(par.busMidiDAW, DAWChannel, DAWInstrument,
-      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, typeNeutre,
-      adresseIP, numeroBuffer, patternLevel);
+      DAWNote, 125, id, "Automate", dureeClip, nom, signalComplet, patternType,
+      adresseIP, numeroBuffer, patternLevel, patternVertType);
     return dureeAttente;
   } else {
     console.log("WARN: constroleDAW.js: Le pattern n'existe pas:", patternName);
@@ -311,7 +307,8 @@ export function putPatternInQueue(patternName) {
 // ================= Gestion des files d'attente ===========================
 /**
  * Push the patterns parameters in the queue of the instrument.
- * The queue is not as the pattern description. There are more parameters such as
+ * The queue is not as the pattern description. 
+ * There are more parameters such as
  * pseudo, signal, websocket id.
  * 
  * @param  {number} bus (0)
@@ -327,15 +324,16 @@ export function putPatternInQueue(patternName) {
  * @param  {string} IPaddress (10)
  * @param  {number} bufferNumber (11)
  * @param  {number} pattern level (12)
+ * @param  {number} vertical type (13)
  */
 export function pushEventDAW(bus, channel, instrument, note, velocity,
   wsid, pseudo, dureeClip, nom, signal, typePattern,
-  adresseIP, numeroBuffer, patternLevel) {
+  adresseIP, numeroBuffer, patternLevel, typeVertPattern) {
 
   let dureeAttente = 0;
   if (debug) console.log("controleDAW.mjs: pushEventDAW ", bus, channel,
     instrument, note, velocity, wsid, pseudo, nom, signal, typePattern,
-    adresseIP, numeroBuffer, patternLevel);
+    adresseIP, numeroBuffer, patternLevel, typeVertPattern);
 
   let longeurDeLafile = filesDattente[instrument].length;
 
@@ -353,28 +351,22 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
     filesDattente[instrument].push([0, 0, -1, 0, 0, instrument, decalageFIFOavecMusicien, "void", "void", "void", "void", "void"]);
   }
 
-  if (par.algoGestionFifo !== undefined) {
-    if (par.algoGestionFifo === 1) {
-      // Ici on prend en compte le type de pattern pour le placer dans la Fifo
-      ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity, wsid,
-        pseudo, dureeClip, nom, signal, typePattern, adresseIP, numeroBuffer, patternLevel]);
-    } else {
-      // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
-      filesDattente[instrument].push([bus, channel, note, velocity,
-        wsid, pseudo, dureeClip, nom, signal, '',
-        adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
-    }
+  if (par.algoGestionFifo === 1) {
+    // Ici on prend en compte le type de pattern pour le placer dans la Fifo
+    ordonneFifo(filesDattente[instrument], [bus, channel, note, velocity,
+      wsid, pseudo, dureeClip, nom, signal, typePattern,
+      adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
     filesDattente[instrument].push([bus, channel, note, velocity,
       wsid, pseudo, dureeClip, nom, signal, '',
-      adresseIP, numeroBuffer, patternLevel]); // Push à la fin du tableau
+      adresseIP, numeroBuffer, patternLevel, typeVertPattern]); // Push à la fin du tableau
   }
 
   //Structure de la file: par.busMidiDAW en 0, DAW channel en 1, DAWNote en 2, velocity en 3, wsid 4, pseudo en 5, durée en 6
   // Calcul de la durée d'attente en sommant les durées dans la file d'un instrument
   for (let i = 0; i < longeurDeLafile; i++) {
-    dureeAttente = dureeAttente + filesDattente[instrument][i][6];
+    dureeAttente = dureeAttente + filesDattente[instrument][i][CD_DUREE_ID];
   }
 
   // On retourne la longueur de la file d'attente pour une estimation de la durée d'attente qui sera transmise au spectateur
@@ -388,7 +380,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
  */
 export function getDelayEventDAW(instrument) {
   if (debug) console.log("controleDAW.mjs: getDelayEventDAW ", instrument);
-  return filesDattente[instrument].reduce((total, evt) => total + evt[6], 0);
+  return filesDattente[instrument].reduce((total, evt) => total + evt[CD_DUREE_ID], 0);
 }
 
 /**
@@ -410,16 +402,15 @@ export function displayQueues() {
 
       contenuDeLaFile = [];
       for (let j = 0; j < filesDattente[i].length; j++) {
-        // [bus, channel, note, velocity, wsid, pseudo, dureeClip, nom, signal]
-        contenuDeLaFile.push([filesDattente[i][j][5], filesDattente[i][j][7]]);
+        contenuDeLaFile.push([filesDattente[i][j][CD_PSEUDO_ID], filesDattente[i][j][CD_NOM_ID]]);
       }
-      //console.log(" File:", i, "--", contenuDeLaFile);
+      if (debug) console.log(" controleDAW: displayQueues: File:", i, "--", contenuDeLaFile);
       file.push([i, filesDattente[i].length, contenuDeLaFile]);
     }
   }
 
   serv.broadcast(JSON.stringify({ type: "etatDeLaFileAttente", value: file }));
-   // Pour les musiciens
+  // Pour les musiciens
   serv.broadcast(JSON.stringify({ type: "lesFilesDattente", value: filesDattente }));
 }
 
@@ -436,6 +427,15 @@ let timerDivisionLocal;
  * This function is called every pulse generated by the synchro either MIDI or 
  * worker. It means every quarter note. TimerDivision is the number of pulse used
  * to decrement the "compteurDattente" array of counters of waiting times.
+ * The principle is:
+ * - check the compteurDAttente
+ * - if it is 0 we take the next clip (take it and supress it from the list)
+ * - send the command to the DAW or Module
+ * - load the new value of compteurDattente for the clip sent
+ * - decrement all the compteurDAttente
+ * 
+ * In the FIFO we only have the clips to be played.
+ * 
  * @param {number} timerDivision 
  */
 export function playAndShiftEventDAW(timerDivision) {
@@ -462,7 +462,7 @@ export function playAndShiftEventDAW(timerDivision) {
 
     if (debug) console.log("---0 controleDAW.mjs:compteursDattente:", i, ":", compteursDattente[i]);
     // file d'attente = [bus(0), channel(1), note(2), velocity(3), wsid(4),
-    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12)]
+    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12), typeVert(13)]
     // Si la file n'est pas vide
     if (filesDattente[i] !== undefined) {
       if (filesDattente[i].length !== 0) {
@@ -523,7 +523,7 @@ export function playAndShiftEventDAW(timerDivision) {
 
           if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
             console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
-              commandeDAW[7], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
+              commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
           }
           if (debug) console.log("---2 controleDAW.mjs:sendNoteOn:", commandeDAW[CD_NOM_ID], " de durée: ", commandeDAW[CD_DUREE_ID], "avec timerDivisionLocal:", timerDivisionLocal);
 
@@ -750,8 +750,8 @@ export function getAllClips(groupeDeClients, matriceDesPossibles) {
   }
 
   // Filtrage direct des commandes avec les groupes actifs
-  return tableDesCommandes.filter(commande => 
-    commande[GROUP_ID] !== undefined && 
+  return tableDesCommandes.filter(commande =>
+    commande[GROUP_ID] !== undefined &&
     groupesActifs.includes(commande[GROUP_ID])
   );
 }
@@ -812,17 +812,17 @@ export function getListClips(niv) {
  */
 function putPatternBetween(fifo, avant, apres, pattern) {
   // Recherche de la position où insérer le pattern
-  const insertIndex = fifo.findIndex((item, i) => 
-    i > 0 && 
-    item[CD_TYPE_ID] === apres && 
+  const insertIndex = fifo.findIndex((item, i) =>
+    i > 0 &&
+    item[CD_TYPE_ID] === apres &&
     fifo[i - 1][CD_TYPE_ID] === avant
   );
-  
+
   // Si une position valide est trouvée, insérer le pattern
   if (insertIndex !== -1) {
     if (debug) {
-      console.log("---- putPatternBetween: On met le pattern:", pattern[CD_NOM_ID], 
-        "de type:", pattern[CD_TYPE_ID], "en", insertIndex, 
+      console.log("---- putPatternBetween: On met le pattern:", pattern[CD_NOM_ID],
+        "de type:", pattern[CD_TYPE_ID], "en", insertIndex,
         " (entre types", apres, " et ", avant, ")");
     }
     fifo.splice(insertIndex, 0, pattern);
@@ -842,7 +842,7 @@ function putPatternBefore(fifo, apres, pattern) {
   for (let i = fifo.length - 1; i >= 0; i--) {
     if (fifo[i][CD_TYPE_ID] === apres) {
       if (debug1) {
-        console.log("---- putPatternBefore: On met le pattern:", pattern[CD_NOM_ID], 
+        console.log("---- putPatternBefore: On met le pattern:", pattern[CD_NOM_ID],
           "de type:", pattern[CD_TYPE_ID], "en", i, " (avant: ", apres, ")");
       }
       fifo.splice(i, 0, pattern);
@@ -853,9 +853,11 @@ function putPatternBefore(fifo, apres, pattern) {
 }
 
 /**
- * Reorder a queue according to the pattern types DMFN.
- * The simulator offer the possibility to do that in a more
+ * Reorder a queue according to the pattern types DMFN. (Début, Milieu, Fin, Neutre)
+ * 
+ * Note : The simulator offer the possibility to do that in a more
  * powerfull way with the list of types.
+ * 
  * @param  {Array} fifo - of the "queue" or "instrument"
  * @param  {Array} pattern
  */
@@ -877,7 +879,7 @@ function ordonneFifo(fifo, pattern) {
     return;
   }
 
-  switch (pattern[9]) {
+  switch (pattern[CD_TYPE_ID]) {
     case typeDebut:
       if (fifo.length > 1) { // Au moins 2 elements
         if (putPatternBetween(fifo, typeFin, typeFin, pattern)) { return; }

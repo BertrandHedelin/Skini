@@ -138,7 +138,7 @@ function initWSSocket(host) {
             { type: 'text', width: 80, title: 'Instrument' },
             { type: 'text', width: 80, title: 'Slot' },
             { type: 'text', width: 80, title: 'Type' },
-            { type: 'text', width: 80, title: 'Free' },
+            { type: 'text', width: 80, title: 'Vert. type' },
             { type: 'text', width: 90, title: 'Group Index' },
             { type: 'text', width: 80, title: 'Duration' },
             { type: 'text', width: 100, title: 'IP address' },

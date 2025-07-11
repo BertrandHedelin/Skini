@@ -82,6 +82,9 @@ var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano
 //
 //
 //
+//
+//
+//
 
 "use strict";
 
@@ -9944,6 +9947,9 @@ export function setSignals(param) {
   //
   //
   //
+  //
+  //
+  //
 
   TransPianoEtNappe = hh.MODULE({"id":"TransPianoEtNappe","%location":{},"%tag":"module"},
 
@@ -10068,6 +10074,9 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
   //
   //
   //
@@ -10336,6 +10345,9 @@ export function setSignals(param) {
   //
   //
   //
+  //
+  //
+  //
 
   TransPianoEtNappe3 = hh.MODULE({"id":"TransPianoEtNappe3","%location":{},"%tag":"module"},
 
@@ -10526,6 +10538,9 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
   //
   //
   //
@@ -11034,14 +11049,14 @@ export function setSignals(param) {
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop657075"
+          "name":"stop59784"
         }),
 
           hh.TRAP(
             {
-              "trap657075":"trap657075",
+              "trap59784":"trap59784",
               "%location":{},
-              "%tag":"trap657075"
+              "%tag":"trap59784"
             },
             hh.FORK(
               {
@@ -11069,7 +11084,7 @@ export function setSignals(param) {
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop657075"
+                        "stopReservoir":"stop59784"
                       }
                     ),
                   ),
@@ -11098,18 +11113,18 @@ export function setSignals(param) {
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop657075" : "stop657075",
+                  "stop59784" : "stop59784",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop657075 = this["stop657075"];
+                      const stop59784 = this["stop59784"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop657075",
+                  "signame":"stop59784",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -11125,7 +11140,7 @@ export function setSignals(param) {
 
               hh.EXIT(
               {
-                "trap657075":"trap657075",
+                "trap59784":"trap59784",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -11143,9 +11158,9 @@ export function setSignals(param) {
 
           hh.TRAP(
             {
-              "trap549162":"trap549162",
+              "trap748130":"trap748130",
               "%location":{},
-              "%tag":"trap549162"
+              "%tag":"trap748130"
             },
             hh.FORK(
               {
@@ -11241,7 +11256,7 @@ export function setSignals(param) {
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap549162":"trap549162",
+      		          "trap748130":"trap748130",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -11369,14 +11384,14 @@ export function setSignals(param) {
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop335434"
+          "name":"stop292204"
         }),
 
           hh.TRAP(
             {
-              "trap335434":"trap335434",
+              "trap292204":"trap292204",
               "%location":{},
-              "%tag":"trap335434"
+              "%tag":"trap292204"
             },
             hh.FORK(
               {
@@ -11404,7 +11419,7 @@ export function setSignals(param) {
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop335434"
+                        "stopReservoir":"stop292204"
                       }
                     ),
                   ),
@@ -11433,18 +11448,18 @@ export function setSignals(param) {
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop335434" : "stop335434",
+                  "stop292204" : "stop292204",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop335434 = this["stop335434"];
+                      const stop292204 = this["stop292204"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop335434",
+                  "signame":"stop292204",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -11460,7 +11475,7 @@ export function setSignals(param) {
 
               hh.EXIT(
               {
-                "trap335434":"trap335434",
+                "trap292204":"trap292204",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -11478,9 +11493,9 @@ export function setSignals(param) {
 
           hh.TRAP(
             {
-              "trap414480":"trap414480",
+              "trap432161":"trap432161",
               "%location":{},
-              "%tag":"trap414480"
+              "%tag":"trap432161"
             },
             hh.FORK(
               {
@@ -11576,7 +11591,7 @@ export function setSignals(param) {
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap414480":"trap414480",
+      		          "trap432161":"trap432161",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -11704,14 +11719,14 @@ export function setSignals(param) {
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop539336"
+          "name":"stop434016"
         }),
 
           hh.TRAP(
             {
-              "trap539336":"trap539336",
+              "trap434016":"trap434016",
               "%location":{},
-              "%tag":"trap539336"
+              "%tag":"trap434016"
             },
             hh.FORK(
               {
@@ -11739,7 +11754,7 @@ export function setSignals(param) {
                         "%tag":"run",
                         "module": Piano, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop539336"
+                        "stopReservoir":"stop434016"
                       }
                     ),
                   ),
@@ -11768,18 +11783,18 @@ export function setSignals(param) {
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop539336" : "stop539336",
+                  "stop434016" : "stop434016",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop539336 = this["stop539336"];
+                      const stop434016 = this["stop434016"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop539336",
+                  "signame":"stop434016",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -11795,7 +11810,7 @@ export function setSignals(param) {
 
               hh.EXIT(
               {
-                "trap539336":"trap539336",
+                "trap434016":"trap434016",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -11813,9 +11828,9 @@ export function setSignals(param) {
 
           hh.TRAP(
             {
-              "trap637775":"trap637775",
+              "trap703354":"trap703354",
               "%location":{},
-              "%tag":"trap637775"
+              "%tag":"trap703354"
             },
             hh.FORK(
               {
@@ -11911,7 +11926,7 @@ export function setSignals(param) {
       	        ),
       	        hh.EXIT(
       		        {
-      		          "trap637775":"trap637775",
+      		          "trap703354":"trap703354",
       		          "%location":{},
       		          "%tag":"break"
       		        }
@@ -12087,14 +12102,14 @@ export function setSignals(param) {
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop858518"
+      "name":"stop724809"
     }),
 
       hh.TRAP(
         {
-          "trap858518":"trap858518",
+          "trap724809":"trap724809",
           "%location":{},
-          "%tag":"trap858518"
+          "%tag":"trap724809"
         },
         hh.FORK(
           {
@@ -12122,7 +12137,7 @@ export function setSignals(param) {
                     "%tag":"run",
                     "module": Percu, //{"filename":"","pos":2},
                     "autocomplete":true,
-                    "stopReservoir":"stop858518"
+                    "stopReservoir":"stop724809"
                   }
                 ),
               ),
@@ -12151,18 +12166,18 @@ export function setSignals(param) {
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop858518" : "stop858518",
+              "stop724809" : "stop724809",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop858518 = this["stop858518"];
+                  const stop724809 = this["stop724809"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop858518",
+              "signame":"stop724809",
               "pre":true,
               "val":true,
               "cnt":false
@@ -12178,7 +12193,7 @@ export function setSignals(param) {
 
           hh.EXIT(
           {
-            "trap858518":"trap858518",
+            "trap724809":"trap724809",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -12257,14 +12272,14 @@ export function setSignals(param) {
           "%tag":"signal"
         },
         hh.SIGNAL({
-          "name":"stop356412"
+          "name":"stop689514"
         }),
 
           hh.TRAP(
             {
-              "trap356412":"trap356412",
+              "trap689514":"trap689514",
               "%location":{},
-              "%tag":"trap356412"
+              "%tag":"trap689514"
             },
             hh.FORK(
               {
@@ -12292,7 +12307,7 @@ export function setSignals(param) {
                         "%tag":"run",
                         "module": Saxo, //{"filename":"","pos":2},
                         "autocomplete":true,
-                        "stopReservoir":"stop356412"
+                        "stopReservoir":"stop689514"
                       }
                     ),
                   ),
@@ -12321,18 +12336,18 @@ export function setSignals(param) {
                   "%location":{},
                   "%tag":"emit",
                   //"stopReservoir":"stopReservoir",
-                  "stop356412" : "stop356412",
+                  "stop689514" : "stop689514",
                   "apply":function (){
                     return ((() => {
                       //const stopReservoir = this["stopReservoir"];
-                      const stop356412 = this["stop356412"];
+                      const stop689514 = this["stop689514"];
                       return 0;
                     })());
                   }
                 },
                 hh.SIGACCESS({
                   //"signame":"stopReservoir",
-                  "signame":"stop356412",
+                  "signame":"stop689514",
                   "pre":true,
                   "val":true,
                   "cnt":false
@@ -12348,7 +12363,7 @@ export function setSignals(param) {
 
               hh.EXIT(
               {
-                "trap356412":"trap356412",
+                "trap689514":"trap689514",
                 "%location":{},
                 "%tag":"break"
               }), // Exit
@@ -12414,14 +12429,14 @@ export function setSignals(param) {
       "%tag":"signal"
     },
     hh.SIGNAL({
-      "name":"stop234373"
+      "name":"stop794147"
     }),
 
       hh.TRAP(
         {
-          "trap234373":"trap234373",
+          "trap794147":"trap794147",
           "%location":{},
-          "%tag":"trap234373"
+          "%tag":"trap794147"
         },
         hh.FORK(
           {
@@ -12449,7 +12464,7 @@ export function setSignals(param) {
                     "%tag":"run",
                     "module": Percu, //{"filename":"","pos":2},
                     "autocomplete":true,
-                    "stopReservoir":"stop234373"
+                    "stopReservoir":"stop794147"
                   }
                 ),
               ),
@@ -12478,18 +12493,18 @@ export function setSignals(param) {
               "%location":{},
               "%tag":"emit",
               //"stopReservoir":"stopReservoir",
-              "stop234373" : "stop234373",
+              "stop794147" : "stop794147",
               "apply":function (){
                 return ((() => {
                   //const stopReservoir = this["stopReservoir"];
-                  const stop234373 = this["stop234373"];
+                  const stop794147 = this["stop794147"];
                   return 0;
                 })());
               }
             },
             hh.SIGACCESS({
               //"signame":"stopReservoir",
-              "signame":"stop234373",
+              "signame":"stop794147",
               "pre":true,
               "val":true,
               "cnt":false
@@ -12505,7 +12520,7 @@ export function setSignals(param) {
 
           hh.EXIT(
           {
-            "trap234373":"trap234373",
+            "trap794147":"trap794147",
             "%location":{},
             "%tag":"break"
           }), // Exit
@@ -12544,14 +12559,14 @@ export function setSignals(param) {
         "%tag":"signal"
       },
       hh.SIGNAL({
-        "name":"stop865077"
+        "name":"stop523649"
       }),
 
         hh.TRAP(
           {
-            "trap865077":"trap865077",
+            "trap523649":"trap523649",
             "%location":{},
-            "%tag":"trap865077"
+            "%tag":"trap523649"
           },
           hh.FORK(
             {
@@ -12579,7 +12594,7 @@ export function setSignals(param) {
                       "%tag":"run",
                       "module": Flute, //{"filename":"","pos":2},
                       "autocomplete":true,
-                      "stopReservoir":"stop865077"
+                      "stopReservoir":"stop523649"
                     }
                   ),
                 ),
@@ -12608,18 +12623,18 @@ export function setSignals(param) {
                 "%location":{},
                 "%tag":"emit",
                 //"stopReservoir":"stopReservoir",
-                "stop865077" : "stop865077",
+                "stop523649" : "stop523649",
                 "apply":function (){
                   return ((() => {
                     //const stopReservoir = this["stopReservoir"];
-                    const stop865077 = this["stop865077"];
+                    const stop523649 = this["stop523649"];
                     return 0;
                   })());
                 }
               },
               hh.SIGACCESS({
                 //"signame":"stopReservoir",
-                "signame":"stop865077",
+                "signame":"stop523649",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -12635,7 +12650,7 @@ export function setSignals(param) {
 
             hh.EXIT(
             {
-              "trap865077":"trap865077",
+              "trap523649":"trap523649",
               "%location":{},
               "%tag":"break"
             }), // Exit
