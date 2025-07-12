@@ -125,15 +125,26 @@ function updateSimulatorParameters(param) {
 }
 
 /**
- * In order to reload new parametrers in the different modules during a Skini session.
+ * Convert data in the good format 
+ * and reload new parametrers in the different 
+ * modules during a Skini session.
  * @param {object} param 
  */
 function reloadParameters(param) {
-  par = param;
+  let par = param; // C'est seulement pour la lecture car on a le même objet
 
   // Le transfert des parametre passe tout en chaine de caractère qui ne
   // sont pas traduite en int.
-  par.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients);
+  par.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients, 10);
+  par.algoGestionFifo = parseInt(param.algoGestionFifo, 10);
+  par.tempoMax = parseInt(param.tempoMax, 10);
+  par.tempoMin = parseInt(param.tempoMin, 10);
+  par.limiteDureeAttente = parseInt(param.limiteDureeAttente, 10);
+
+  // Pas vraiment utile pour les booléens ?
+  par.shufflePatterns = param.shufflePatterns;
+  par.avecMusicien = param.avecMusicien;
+  par.reactOnPlay = param.reactOnPlay;
 
   // Typage pour les antécédents dans Score. En rechargeant depuis le client
   // de parametrage on a une chaine de caractères et pas un tableau.
@@ -146,11 +157,11 @@ function reloadParameters(param) {
     }
   }
 
-  oscMidiLocal.setParameters(param);
-  DAW.setParameters(param);
-  groupesClientSon.setParameters(param);
-  midimix.setParameters(param);
-  updateSimulatorParameters(param);
+  oscMidiLocal.setParameters(par);
+  DAW.setParameters(par);
+  groupesClientSon.setParameters(par);
+  midimix.setParameters(par);
+  updateSimulatorParameters(par);
 
   initMidiPort();
 }
@@ -1106,14 +1117,6 @@ maybe an hiphop compile Error`);
       if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
       reloadParameters(par);
 
-      // On crée le fichier pour son utilisation par l'orchestration.
-      // let destination = "./serveur/skiniParametres.js";
-      // try {
-      //   fs.copyFileSync(fileName, destination);
-      // } catch (err) {
-      //   console.log("Pb ecriture", destination, err);
-      // }
-
       // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
       midimix.midimix(automatePossibleMachine);
       ws.send(JSON.stringify({
@@ -1252,14 +1255,13 @@ maybe an hiphop compile Error`);
           break;
 
         case "DAWSelectListClips":
-          var listClips = new Array(); // Devient alors utilisable pour les controles dans DAW
-          listClips = DAW.getListClips(msgRecu.niveaux);
+          let listAllClips = new Array(); // Devient alors utilisable pour les controles dans DAW
+          listAllClips = DAW.getListClips(msgRecu.niveaux);
           //if (debug) console.log("Web Socket Serveur: niveaux pour recherche ", msgRecu.niveaux, listClips);   
-          var msg = {
+          ws.send(JSON.stringify({
             type: "listClips",
-            listClips: listClips
-          }
-          ws.send(JSON.stringify(msg));
+            listAllClips
+          }));
           break;
 
         /*	    case "DAWStartClip":
@@ -1936,7 +1938,7 @@ maybe an hiphop compile Error`);
             if (debug1) console.log("INFO: websocketServer: updateParameters", parametersFileGlobal + ".back written");
           });
 
-          if (debug1) console.log("INFO: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
+          if (debug1) console.log("INFO: websocketserveur: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
             reloadParameters(msgRecu.data);

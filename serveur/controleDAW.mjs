@@ -364,7 +364,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
         wsid, pseudo, dureeClip, nom, signal, typePattern,
         adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
         
-    if (debug) printInstruments(filesDattente);
+    if (debug1) printInstruments(filesDattente);
 
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
@@ -956,7 +956,7 @@ function ordonneFifo(fifo, pattern) {
  * 
  */
 
-const EMPTY_CLIP = [0, 0, 0, 0, 0, "", 4 , "", "", 0, "", "", "", 0];
+let EMPTY_CLIP = [0, 0, 0, 0, 0, "", 4 , "", "", 0, "", "", "", 0];
 
 function isEmptyClip(clip) {
   // Un clip est vide seulement si NOTE_ID est 0 ET qu'il n'y a pas de contenu significatif
@@ -977,29 +977,6 @@ function ensureLength(arr, length) {
   }
 }
 
-function cleanupInstruments(instruments) {
-  for (const instrument of instruments) {
-    // Supprime les EMPTY_CLIP à la fin
-    while (instrument.length > 0 && isEmptyClip(instrument[instrument.length - 1])) {
-      instrument.pop();
-    }
-  }
-}
-
-function getHighestOccupiedIndex(instruments) {
-  let highest = -1;
-  for (const instrument of instruments) {
-    for (let i = instrument.length - 1; i >= 0; i--) {
-      const clip = instrument[i];
-      if (clip && !isEmptyClip(clip)) {
-        highest = Math.max(highest, i);
-        break;
-      }
-    }
-  }
-  return highest;
-}
-
 function findSafeFallbackIndex(instruments, newType) {
   const maxLen = Math.max(...instruments.map(inst => inst.length));
   for (let i = 0; i <= maxLen; i++) {
@@ -1011,6 +988,12 @@ function findSafeFallbackIndex(instruments, newType) {
 
 // === AJOUT DE CLIP AVEC RÈGLES ===
 function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
+
+  // On définit la durée des clips vide en foonction de clip à ajouer
+  // Dans le scénario actuel, on considère que tous les clips on la même durée.
+  // Mais il faut bien la fixéer quelque part.
+  EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
+
   const newId = newClip[CD_NOTE_ID];
   const newType = newClip[CD_TYPE_V_ID];
 
