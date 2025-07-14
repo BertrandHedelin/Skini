@@ -33,78 +33,88 @@
                     <next>
                       <block type="alertInfoScoreOFF" id="jrQxF1/yw~wq=d674ckZ">
                         <next>
-                          <block type="set_group_during_ticks" id="-xWWO}f)F,g8!oe+ZXw%">
-                            <field name="user_group">255</field>
-                            <field name="number_of_ticks">10</field>
-                            <value name="GROUPS">
-                              <block type="variables_get" id="imx,2ye_Ect#F#@h^8%7">
-                                <field name="VAR" id="9m?zXXwFNLXKtB#eY(H3">Canon5</field>
-                              </block>
-                            </value>
+                          <block type="activateTypeList" id="k_*G*q=-*.;]d3N3^fPn" disabled="true">
                             <next>
-                              <block type="cleanOneQueue" id="YPznST~q]-itQNwo+600" disabled="true">
-                                <field name="number">0</field>
-                                <comment pinned="false" h="80" w="160">Semble ne pas fonctionner</comment>
+                              <block type="setTypeList" id="*o6tHQH8Je5AYK4l^9NQ" disabled="true">
+                                <value name="message">
+                                  <block type="text" id="+U_R6S8ImDz[LX4mw|z4">
+                                    <field name="TEXT">0,1,2,3,4</field>
+                                  </block>
+                                </value>
                                 <next>
-                                  <block type="cleanqueues" id="7uJQ6xa*C$o4PIA5CEZ3">
-                                    <next>
-                                      <block type="set_group_during_ticks" id="OC57V7@vykZ?!*$z)`y!">
+                                  <block type="hh_sequence" id=",fXa)4M$_^WR^I6H=hDp" disabled="true">
+                                    <statement name="BODY">
+                                      <block type="set_group_during_ticks" id="-xWWO}f)F,g8!oe+ZXw%">
                                         <field name="user_group">255</field>
-                                        <field name="number_of_ticks">10</field>
+                                        <field name="number_of_ticks">1</field>
                                         <value name="GROUPS">
-                                          <block type="variables_get" id="dBsOJ@FQJNfK_OG,#1dU">
-                                            <field name="VAR" id="{jltw|aWF6*pgSGJ6!J#">Canon6</field>
+                                          <block type="variables_get" id="imx,2ye_Ect#F#@h^8%7">
+                                            <field name="VAR" id="9m?zXXwFNLXKtB#eY(H3">Canon5</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="cleanOneQueue" id="#Cvwxk;@5+O#=z?z7.pV" disabled="true">
-                                            <field name="number">1</field>
+                                          <block type="cleanOneQueue" id="YPznST~q]-itQNwo+600">
+                                            <field name="number">0</field>
                                             <next>
-                                              <block type="cleanqueues" id="2;cuJpn(Ok1,8f5i7Crr">
+                                              <block type="set_group_during_ticks" id="OC57V7@vykZ?!*$z)`y!">
+                                                <field name="user_group">255</field>
+                                                <field name="number_of_ticks">2</field>
+                                                <value name="GROUPS">
+                                                  <block type="variables_get" id="dBsOJ@FQJNfK_OG,#1dU">
+                                                    <field name="VAR" id="{jltw|aWF6*pgSGJ6!J#">Canon6</field>
+                                                  </block>
+                                                </value>
                                                 <next>
-                                                  <block type="set_group_during_ticks" id="T4YTY%e}KgI5G@^jjRnv">
-                                                    <field name="user_group">255</field>
-                                                    <field name="number_of_ticks">10</field>
-                                                    <value name="GROUPS">
-                                                      <block type="variables_get" id="`5w2MBo{zhhOY9B]WTTd">
-                                                        <field name="VAR" id="fHC3Xkjvu=+qjFYNBajL">Canon7</field>
-                                                      </block>
-                                                    </value>
+                                                  <block type="cleanOneQueue" id="#Cvwxk;@5+O#=z?z7.pV">
+                                                    <field name="number">1</field>
                                                     <next>
-                                                      <block type="cleanqueues" id="Esxh:4@%r_-InH*yyM5P">
+                                                      <block type="set_group_during_ticks" id="T4YTY%e}KgI5G@^jjRnv">
+                                                        <field name="user_group">255</field>
+                                                        <field name="number_of_ticks">3</field>
+                                                        <value name="GROUPS">
+                                                          <block type="variables_get" id="`5w2MBo{zhhOY9B]WTTd">
+                                                            <field name="VAR" id="fHC3Xkjvu=+qjFYNBajL">Canon7</field>
+                                                          </block>
+                                                        </value>
                                                         <next>
-                                                          <block type="set_group_during_ticks" id="X[`Mou{%pA{GY(CQx5X7">
-                                                            <field name="user_group">255</field>
-                                                            <field name="number_of_ticks">10</field>
-                                                            <value name="GROUPS">
-                                                              <block type="variables_get" id="js.~80{lYS4q~/fWk*l(">
-                                                                <field name="VAR" id="t@-b@;H)jd-KfN)VMlb=">Canon8</field>
-                                                              </block>
-                                                            </value>
+                                                          <block type="cleanOneQueue" id="4Z*z@R~]vY:)t^1[s;%W">
+                                                            <field name="number">2</field>
                                                             <next>
-                                                              <block type="cleanqueues" id="~-k.)S*^PH$qX$:vAzG=">
+                                                              <block type="set_group_during_ticks" id="X[`Mou{%pA{GY(CQx5X7">
+                                                                <field name="user_group">255</field>
+                                                                <field name="number_of_ticks">4</field>
+                                                                <value name="GROUPS">
+                                                                  <block type="variables_get" id="js.~80{lYS4q~/fWk*l(">
+                                                                    <field name="VAR" id="t@-b@;H)jd-KfN)VMlb=">Canon8</field>
+                                                                  </block>
+                                                                </value>
                                                                 <next>
-                                                                  <block type="set_group_during_ticks" id="~$wNv.Xb4[pWx,rBIa@b">
-                                                                    <field name="user_group">255</field>
-                                                                    <field name="number_of_ticks">10</field>
-                                                                    <value name="GROUPS">
-                                                                      <block type="variables_get" id="b0EI/{^EIV$XIS?Z|ioA">
-                                                                        <field name="VAR" id="8U5Nl)wiC=[8f8]Y_TYo">Canon9</field>
-                                                                      </block>
-                                                                    </value>
+                                                                  <block type="cleanOneQueue" id="^3:Pl,h_GzeoZfSgK+Z*">
+                                                                    <field name="number">3</field>
                                                                     <next>
-                                                                      <block type="cleanqueues" id="(amZ$:367z0wz/nKKi%m">
+                                                                      <block type="set_group_during_ticks" id="~$wNv.Xb4[pWx,rBIa@b">
+                                                                        <field name="user_group">255</field>
+                                                                        <field name="number_of_ticks">5</field>
+                                                                        <value name="GROUPS">
+                                                                          <block type="variables_get" id="b0EI/{^EIV$XIS?Z|ioA">
+                                                                            <field name="VAR" id="8U5Nl)wiC=[8f8]Y_TYo">Canon9</field>
+                                                                          </block>
+                                                                        </value>
                                                                         <next>
-                                                                          <block type="set_group_during_ticks" id="#@c*hl!3go9P^pvt]rFJ">
-                                                                            <field name="user_group">255</field>
-                                                                            <field name="number_of_ticks">10</field>
-                                                                            <value name="GROUPS">
-                                                                              <block type="variables_get" id="7ob1A3Y7ELY-*FPb+uuQ">
-                                                                                <field name="VAR" id="@I?fsI%fbhp!L:SH2G*W">Canon14</field>
-                                                                              </block>
-                                                                            </value>
+                                                                          <block type="cleanqueues" id="(amZ$:367z0wz/nKKi%m">
                                                                             <next>
-                                                                              <block type="cleanqueues" id="}3T#%N+aj?d.2W:hsQm?"></block>
+                                                                              <block type="set_group_during_ticks" id="#@c*hl!3go9P^pvt]rFJ">
+                                                                                <field name="user_group">255</field>
+                                                                                <field name="number_of_ticks">6</field>
+                                                                                <value name="GROUPS">
+                                                                                  <block type="variables_get" id="7ob1A3Y7ELY-*FPb+uuQ">
+                                                                                    <field name="VAR" id="@I?fsI%fbhp!L:SH2G*W">Canon14</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="cleanqueues" id="}3T#%N+aj?d.2W:hsQm?"></block>
+                                                                                </next>
+                                                                              </block>
                                                                             </next>
                                                                           </block>
                                                                         </next>
@@ -113,6 +123,90 @@
                                                                   </block>
                                                                 </next>
                                                               </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="set_group_during_ticks" id="iHY(d!F!E#QdxGNy9B#$">
+                                        <field name="user_group">255</field>
+                                        <field name="number_of_ticks">5</field>
+                                        <value name="GROUPS">
+                                          <block type="lists_create_with" id="Ai`m!]|RV!VHP3in!l[r">
+                                            <mutation items="4"></mutation>
+                                            <value name="ADD0">
+                                              <block type="variables_get" id="yYEvilXbe`uwcfmE,:,%">
+                                                <field name="VAR" id="9m?zXXwFNLXKtB#eY(H3">Canon5</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD1">
+                                              <block type="variables_get" id="ELc.O$2;)UX^944}A@4a">
+                                                <field name="VAR" id="{jltw|aWF6*pgSGJ6!J#">Canon6</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD2">
+                                              <block type="variables_get" id="SyX^b5[0UO~GNDZ8uvQL">
+                                                <field name="VAR" id="fHC3Xkjvu=+qjFYNBajL">Canon7</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD3">
+                                              <block type="variables_get" id="egOknK$?br?rEE-tvJ^M">
+                                                <field name="VAR" id="t@-b@;H)jd-KfN)VMlb=">Canon8</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="set_group" id="T0Q:8N#[u~vp?~WsR]LP" disabled="true">
+                                            <field name="groupe">255</field>
+                                            <value name="GROUPS">
+                                              <block type="variables_get" id="b:@9RYCRD`:h}VQ5Qw_F">
+                                                <field name="VAR" id="9m?zXXwFNLXKtB#eY(H3">Canon5</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="set_group" id=".+M-WlC[9hFV|Ch)|LK_" disabled="true">
+                                                <field name="groupe">255</field>
+                                                <value name="GROUPS">
+                                                  <block type="variables_get" id="tYx{Xp]lumBN|m1U_`}w">
+                                                    <field name="VAR" id="{jltw|aWF6*pgSGJ6!J#">Canon6</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="set_group" id="GvsQwa6_N3LwVyHr{*q2" disabled="true">
+                                                    <field name="groupe">255</field>
+                                                    <value name="GROUPS">
+                                                      <block type="variables_get" id="O,g149SY5#w{YX$ex@{F">
+                                                        <field name="VAR" id="fHC3Xkjvu=+qjFYNBajL">Canon7</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="set_group" id="Aaqx}v-v6q=K~]ux?r1i" disabled="true">
+                                                        <field name="groupe">255</field>
+                                                        <value name="GROUPS">
+                                                          <block type="variables_get" id="@BX4lk.U$]#BSv!oy/zd">
+                                                            <field name="VAR" id="t@-b@;H)jd-KfN)VMlb=">Canon8</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="hh_wait_for" id="55Q/u(*Lk*6oU(uRq;:c">
+                                                            <field name="TIMES">10</field>
+                                                            <value name="SIGNAL">
+                                                              <block type="variables_get" id="K7}J(QAMxJD`6EV=7UcF">
+                                                                <field name="VAR" id="Mc;B$FgzgSPjls^/yF{k">tick</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="cleanqueues" id="i`!A4(%*p`W0I/xEh2#!"></block>
                                                             </next>
                                                           </block>
                                                         </next>

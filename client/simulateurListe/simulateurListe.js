@@ -277,6 +277,7 @@ function selectRandomInList(memoire, liste) {
   let selection, attempts = 0;
   do {
     selection = liste[Math.floor(Math.random() * liste.length)];
+    console.log("Selection:", selection);
   } while (isInMemory(selection) && ++attempts < liste.length * 10);
 
   memoire.shift();
@@ -465,7 +466,7 @@ function initWSSocket(port) {
         }
 
         // Selection de clips dans la liste
-        if (debug) console.log("\n--- WS Recu : listClips 1ere ligne:", listClips[0][4], "Nombre clip dispo:", listClips.length);
+        if (debug1) console.log("\n--- WS Recu : listClips 1ere ligne:", listClips[0][4], "Nombre clip dispo:", listClips.length);
         var sequenceLocale = [];
 
         if (processTypes) {

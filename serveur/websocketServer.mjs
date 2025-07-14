@@ -128,9 +128,14 @@ function updateSimulatorParameters(param) {
  * Convert data in the good format 
  * and reload new parametrers in the different 
  * modules during a Skini session.
+ * 
+ * Cette fonction n'est pas bonne.
+ * Il faut regénerer complétement les paramètres et envoyer 
+ * la nouvelle version.
+ * 
  * @param {object} param 
  */
-function reloadParameters(param) {
+function reloadParametersOld(param) {
   let par = param; // C'est seulement pour la lecture car on a le même objet
 
   // Le transfert des parametre passe tout en chaine de caractère qui ne
@@ -164,6 +169,45 @@ function reloadParameters(param) {
   updateSimulatorParameters(par);
 
   initMidiPort();
+}
+
+function reloadParameters(param) {
+  // Création manuelle d'une copie
+  let parlocal = {
+    ...param, // copie superficielle : fonctions et propriétés simples sont conservées
+    groupesDesSons: param.groupesDesSons.map(group => [...group]) // copie des sous-tableaux
+  };
+
+  // Conversion des types
+  parlocal.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients, 10);
+  parlocal.algoGestionFifo = parseInt(param.algoGestionFifo, 10);
+  parlocal.tempoMax = parseInt(param.tempoMax, 10);
+  parlocal.tempoMin = parseInt(param.tempoMin, 10);
+  parlocal.limiteDureeAttente = parseInt(param.limiteDureeAttente, 10);
+
+  parlocal.shufflePatterns = param.shufflePatterns;
+  parlocal.avecMusicien = param.avecMusicien;
+  parlocal.reactOnPlay = param.reactOnPlay;
+
+  // Traitement des antécédents (index 7)
+  for (let i = 0; i < parlocal.groupesDesSons.length; i++) {
+    const entry = parlocal.groupesDesSons[i][7];
+    if (typeof entry === 'string') {
+      parlocal.groupesDesSons[i][7] = entry.split(',').map(x => parseInt(x, 10));
+    } else if (Array.isArray(entry)) {
+      parlocal.groupesDesSons[i][7] = entry.map(x => parseInt(x, 10));
+    }
+  }
+
+  // Envoi aux modules
+  oscMidiLocal.setParameters(parlocal);
+  DAW.setParameters(parlocal);
+  groupesClientSon.setParameters(parlocal);
+  midimix.setParameters(parlocal);
+  updateSimulatorParameters(parlocal);
+
+  initMidiPort();
+  
 }
 
 /**

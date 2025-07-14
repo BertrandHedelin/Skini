@@ -661,6 +661,9 @@ export function cleanQueue(instrument) {
 
   filesDattente[instrument] = [];
   compteursDattente[instrument] = 0;
+  
+  if(debug) console.log("controleDAW: cleanqueue: instr,file,compteur:", 
+    instrument, filesDattente[instrument], compteursDattente[instrument]);
 
   messageLog.source = "controleDAW.js";
   messageLog.type = "VIDAGE FILE ATTENTE " + instrument;
