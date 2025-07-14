@@ -205,7 +205,7 @@ let defautDeLatence;
 
 const debug = false;
 const debug1 = true;
-const warnings = true;
+const warnings = false;
 let timerSynchro;
 
 // Automate des possibles

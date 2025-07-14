@@ -166,11 +166,21 @@ export function loadDAWTable(fichier) {
           // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
           if (tableDesCommandes[i][INSTR_ID] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][INSTR_ID];
         }
+        if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'nbeDeFileDattentes: ", nbeDeFileDattentes);
 
-        // Calcul du nombre de groupe de sons et du nombre d'instruments
-        nbeDeGroupesSons = Math.max(...par.groupesDesSons.map(groupe => groupe[1])); // 1 = Index dans le tableau des paramètres
+        // Calcul du nombre de groupe de sons à partir des paramètres, mais il n'est pas certain
+        // que ceux-ci soient à jour avant de charger les patterns. D'où le test qui suit.
+        nbeDeGroupesSons = Math.max(...par.groupesDesSons.map(groupe => parseInt(groupe[1], 10))); // 1 = Index dans le tableau des paramètres
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: nbeDeGroupesSons: ", nbeDeGroupesSons);
-        nombreInstruments = Math.max(...tableDesCommandes.map(commande => commande[INSTR_ID]))
+
+        if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: avant test:", nombreInstruments);
+        // Cas d'une incohérence entre les paramètres et les patterns
+        // Le problème peut apparaitre quand on passe d'une pièce à une autre.
+        if (nombreInstruments < nbeDeFileDattentes) {
+          nombreInstruments = nbeDeFileDattentes;
+        }
+        
+        //nombreInstruments = Math.max(...tableDesCommandes.map(commande => parseInt(commande[INSTR_ID]), 10));
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
 
         // On convertit l'index issu de la config des pattern en nombre de FIFO
@@ -363,7 +373,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
       [bus, channel, note, velocity,
         wsid, pseudo, dureeClip, nom, signal, typePattern,
         adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
-        
+
     if (debug1) printInstruments(filesDattente);
 
   } else {
@@ -956,15 +966,15 @@ function ordonneFifo(fifo, pattern) {
  * 
  */
 
-let EMPTY_CLIP = [0, 0, 0, 0, 0, "", 4 , "", "", 0, "", "", "", 0];
+let EMPTY_CLIP = [0, 0, 0, 0, 0, "", 4, "", "", 0, "", "", "", 0];
 
 function isEmptyClip(clip) {
   // Un clip est vide seulement si NOTE_ID est 0 ET qu'il n'y a pas de contenu significatif
   // Un clip avec TYPE_V_ID = 0 n'est PAS considéré comme vide car c'est un type valide
-  return clip[CD_NOTE_ID] === 0 && 
-         clip[CD_PSEUDO_ID] === "" && 
-         clip[CD_NOM_ID] === "" && 
-         clip[CD_SIG_ID] === "";
+  return clip[CD_NOTE_ID] === 0 &&
+    clip[CD_PSEUDO_ID] === "" &&
+    clip[CD_NOM_ID] === "" &&
+    clip[CD_SIG_ID] === "";
 }
 
 function areTypesCompatible(typeA, typeB) {
@@ -1004,7 +1014,7 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
   // Étape 1 : Recherche d'association (type présent ailleurs)
   for (let i = 0; i < Math.max(maxLength, 1); i++) {
     let foundCompatibleType = false;
-    
+
     // Vérifier si ce type existe déjà à cet index dans d'autres instruments
     for (let j = 0; j < instruments.length; j++) {
       if (j === targetInstrumentIndex) continue;
