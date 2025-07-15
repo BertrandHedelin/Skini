@@ -53,7 +53,7 @@ var par;
  */
 export function setParameters(param) {
   par = param;
-  if(debug) console.log("groupeClientsSOns.mjs: setParameters:", param);
+  if (debug) console.log("groupeClientsSOns.mjs: setParameters:", param);
   initGroupeClientsSons();
 }
 
@@ -534,7 +534,7 @@ Gestion des Groupes de clients
  */
 export function putIdInGroupClient(id, groupe) {
   if (debug) console.log("groupecliensSons:", id, groupe);
-  
+
   if (groupesClient[groupe] !== undefined) {
     groupesClient[groupe].push(id);
   } else {
@@ -749,11 +749,15 @@ des liens entre groupes de clients et groupes de sons (patterns)
 
 **************************/
 /**
- * Create the matrix giging the status of the orchestration.
+ * Create the matrix giving the status of the orchestration.
  */
 export function createMatriceDesPossibles() {
   for (var i = 0; i < matriceDesPossibles.length; i++) {
-    matriceDesPossibles[i] = new Array(nbeDeGroupesSons);
+    if (nbeDeGroupesSons > 0) { // Protection
+      matriceDesPossibles[i] = new Array(nbeDeGroupesSons);
+    } else {
+      matriceDesPossibles[i] = [];
+    }
   }
   // Info pour les scrutateurs
   var msg = {

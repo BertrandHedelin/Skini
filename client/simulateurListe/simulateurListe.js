@@ -277,7 +277,7 @@ function selectRandomInList(memoire, liste) {
   let selection, attempts = 0;
   do {
     selection = liste[Math.floor(Math.random() * liste.length)];
-    console.log("Selection:", selection);
+    if(debug) console.log("Selection:", selection);
   } while (isInMemory(selection) && ++attempts < liste.length * 10);
 
   memoire.shift();
@@ -457,7 +457,7 @@ function initWSSocket(port) {
           else {
             tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
           }
-          if (debug) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+          if (debug1) console.log("Tempo avant prochaine demande 2:", tempoInstantListClip);
           if (DAWON) setTimeout(function () {
             selectListClips();
           },
@@ -499,7 +499,7 @@ function initWSSocket(port) {
         }
 
         tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
-        if (debug1) console.log("TEMPO INSTANT LIST CLIP:", tempoInstantListClip);
+        if (debug1) console.log("Tempo avant prochaine demande 1:", tempoInstantListClip);
         if (DAWON) setTimeout(function () {
           selectListClips();
         },

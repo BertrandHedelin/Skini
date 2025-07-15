@@ -1406,6 +1406,9 @@ maybe an hiphop compile Error`);
           break;
 
         case "loadBlocks":
+          //
+          // Il manque ici un ménage de ce qui peut se trouver déjà chargé !!!
+          //
           if (msgRecu.fileName === '') {
             console.log("WARN: No orchestration");
             break;
@@ -1500,7 +1503,7 @@ maybe an hiphop compile Error`);
           loadParameters(parametersFile);
           break;
 
-        case "loadSession":
+        case "loadSession": // Pour les descripteurs de clips
           if (msgRecu.fileName === '') {
             console.log("WARN: No descriptor selected");
             break;

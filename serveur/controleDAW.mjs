@@ -138,8 +138,8 @@ function getDateTime() {
  */
 export function loadDAWTable(fichier) {
   return new Promise(function (resolve, reject) {
-    if (fichier == undefined) {
-      reject("controleDAW: initDAWTable: pas de fichier à lire");
+    if (fichier === undefined) {
+      reject("controleDAW: loadDAWTable: pas de fichier à lire");
     }
 
     nbeDeFileDattentes = 0;
@@ -194,6 +194,7 @@ export function loadDAWTable(fichier) {
         if (debug) console.log("controleDAW.mjs: loadDAWTable: Nbe de files d'attente: ", nbeDeFileDattentes);
         if (debug) console.log("controleDAW.mjs: filesDattenteJouables: ", filesDattenteJouables);
         if (debug) console.log("controleDAW.mjs: nbeDeGroupesSons:", nbeDeGroupesSons);
+
         resolve();
       }
       catch (e) {
