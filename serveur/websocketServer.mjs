@@ -206,8 +206,11 @@ function reloadParameters(param) {
   midimix.setParameters(parlocal);
   updateSimulatorParameters(parlocal);
 
+  // Il faut remettre à jour les paramètre de 
+  // la variable global de websocketServer
+  par = parlocal;
+
   initMidiPort();
-  
 }
 
 /**
