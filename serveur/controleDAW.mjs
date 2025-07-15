@@ -179,7 +179,7 @@ export function loadDAWTable(fichier) {
         if (nombreInstruments < nbeDeFileDattentes) {
           nombreInstruments = nbeDeFileDattentes;
         }
-        
+
         //nombreInstruments = Math.max(...tableDesCommandes.map(commande => parseInt(commande[INSTR_ID]), 10));
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: ", nombreInstruments);
 
@@ -661,8 +661,8 @@ export function cleanQueue(instrument) {
 
   filesDattente[instrument] = [];
   compteursDattente[instrument] = 0;
-  
-  if(debug) console.log("controleDAW: cleanqueue: instr,file,compteur:", 
+
+  if (debug) console.log("controleDAW: cleanqueue: instr,file,compteur:",
     instrument, filesDattente[instrument], compteursDattente[instrument]);
 
   messageLog.source = "controleDAW.js";
@@ -993,8 +993,11 @@ function ensureLength(arr, length) {
 function findSafeFallbackIndex(instruments, newType) {
   const maxLen = Math.max(...instruments.map(inst => inst.length));
   for (let i = 0; i <= maxLen; i++) {
-    let isFree = instruments.every(inst => isEmptyClip(inst[i] || EMPTY_CLIP));
-    if (isFree) return i;
+    const isCompatible = instruments.every(inst => {
+      const clip = inst[i] || EMPTY_CLIP;
+      return isEmptyClip(clip) || areTypesCompatible(clip[CD_TYPE_V_ID], newType);
+    });
+    if (isCompatible) return i;
   }
   return maxLen;
 }
@@ -1004,13 +1007,13 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
 
   // On définit la durée des clips vide en foonction de clip à ajouer
   // Dans le scénario actuel, on considère que tous les clips on la même durée.
-  // Mais il faut bien la fixéer quelque part.
+  // Mais il faut bien la fixer quelque part.
   EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
 
   const newId = newClip[CD_NOTE_ID];
   const newType = newClip[CD_TYPE_V_ID];
 
-  // Longueur de FIFO max parmi tous les instruments
+  // Longueur de FIFO max parmi tous les instruments, soit l'index le plus élevé
   const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
   console.log("maxLength: ", maxLength);
 
@@ -1020,26 +1023,33 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
 
     // Vérifier si ce type existe déjà à cet index dans d'autres instruments
     for (let j = 0; j < instruments.length; j++) {
-      if (j === targetInstrumentIndex) continue;
-      const clip = instruments[j][i];
+      if (j === targetInstrumentIndex) continue; // Si l'on est sur le bon instrument, on passe à la suite
+      const clip = instruments[j][i];            // On n'est pas sur le bon instrument, on prend le clip de l'instrument j avec l'index i
       if (clip && !isEmptyClip(clip) && areTypesCompatible(clip[CD_TYPE_V_ID], newType)) {
-        foundCompatibleType = true;
+        foundCompatibleType = true; // On estime que le clip est compatible : car soit il est vide
+        // soit il y a déjà un clip du même type à ce niveau. On peut arrêter la boucle.
         break;
       }
     }
 
+    // A présent i donne la position d'un "niveau" avec des clips compatibles ou vides
+    // ou il est au bout de MaxLength.
     if (foundCompatibleType) {
       const targetInst = instruments[targetInstrumentIndex];
-      ensureLength(targetInst, i + 1);
-      const existingClip = targetInst[i];
 
-      // Vérifier la compatibilité avec tous les autres instruments à cet index
+      // Remplit l'instrument de vide jusqu'à i compris, si i dépasse la longueur de la fifo.
+      // Si i est inférieur à la longueur de la fifo, ça ne fait rien.
+      ensureLength(targetInst, i + 1);
+      const existingClip = targetInst[i];  // Prend le clip de l'instrument cible en position i.
+
+      // Fonction pour vérifier la compatibilité avec tous les autres instruments à cet index.
       const isIndexCompatible = instruments.every((inst, idx) => {
         if (idx === targetInstrumentIndex) return true;
         const otherClip = inst[i] || EMPTY_CLIP;
         return areTypesCompatible(otherClip[CD_TYPE_V_ID], newType) || isEmptyClip(otherClip);
       });
 
+      // Si le clip en i est vide et qu'il n'y a pas de pb de compatibilité on met le clip.
       if (isEmptyClip(existingClip) && isIndexCompatible) {
         targetInst[i] = [...newClip];
         console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${i} de l'instrument ${targetInstrumentIndex} (association)`);
@@ -1053,7 +1063,7 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
   const fallbackIndex = findSafeFallbackIndex(instruments, newType);
   const targetInst = instruments[targetInstrumentIndex];
   ensureLength(targetInst, fallbackIndex + 1);
-  targetInst[fallbackIndex] = [...newClip];
+  targetInst[fallbackIndex] = [...newClip]; // Crée une copie indépendante de newClip
   console.log(`➕ Clip [${newId}:${newType}] ajouté à l'index ${fallbackIndex} (fallback) de l'instrument ${targetInstrumentIndex}`);
 }
 

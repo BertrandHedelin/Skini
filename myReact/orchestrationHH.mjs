@@ -274,9 +274,9 @@ export function setSignals(param) {
 
       hh.TRAP(
         {
-          "trap26884":"trap26884",
+          "trap28169":"trap28169",
           "%location":{},
-          "%tag":"trap26884"
+          "%tag":"trap28169"
         },
         hh.FORK(
           {
@@ -404,6 +404,64 @@ export function setSignals(param) {
   		      }
   		 	  ),
 
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "Canon9OUT":"Canon9OUT",
+              "apply":function (){
+                return ((() => {
+                  const Canon9OUT = this["Canon9OUT"];
+                  return [true, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Canon9OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+  		    hh.ATOM(
+  		      {
+  		      "%location":{},
+  		      "%tag":"node",
+  		      "apply":function () {
+                gcs.informSelecteurOnMenuChange(255," Canon9", true);
+              }
+  		      }
+  		 	  ),
+
+          hh.EMIT(
+            {
+              "%location":{},
+              "%tag":"emit",
+              "Canon14OUT":"Canon14OUT",
+              "apply":function (){
+                return ((() => {
+                  const Canon14OUT = this["Canon14OUT"];
+                  return [true, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"Canon14OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            })
+          ), // Fin emit
+  		    hh.ATOM(
+  		      {
+  		      "%location":{},
+  		      "%tag":"node",
+  		      "apply":function () {
+                gcs.informSelecteurOnMenuChange(255," Canon14", true);
+              }
+  		      }
+  		 	  ),
+
         	), // fin sequence 1
       	hh.SEQUENCE(
   	        {
@@ -418,7 +476,7 @@ export function setSignals(param) {
   	              "apply":function (){return ((() => {
   	                const tick =this["tick"];
   	                return tick.now;})());},
-  	              "countapply":function (){return 5;}
+  	              "countapply":function (){return 20;}
   	          },
   	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
   	        ),
@@ -532,6 +590,60 @@ export function setSignals(param) {
   		      }
   		 	),
 
+  	        hh.EMIT(
+  	          {
+  	            "%location":{},
+  	            "%tag":"emit",
+  	            "Canon9OUT":"Canon9OUT",
+  	            "apply":function (){
+  	              return ((() => {
+  	                const Canon9OUT = this["Canon9OUT"];
+  	                return [false, 255];
+  	              })());
+  	            }
+  	          },
+  	          hh.SIGACCESS({
+  	            "signame":"Canon9OUT",
+  	            "pre":true,
+  	            "val":true,
+  	            "cnt":false
+  	          })
+  	        ), // Fin emit
+  		    hh.ATOM(
+  		      {
+  		      "%location":{},
+  		      "%tag":"node",
+  		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Canon9", false); }
+  		      }
+  		 	),
+
+  	        hh.EMIT(
+  	          {
+  	            "%location":{},
+  	            "%tag":"emit",
+  	            "Canon14OUT":"Canon14OUT",
+  	            "apply":function (){
+  	              return ((() => {
+  	                const Canon14OUT = this["Canon14OUT"];
+  	                return [false, 255];
+  	              })());
+  	            }
+  	          },
+  	          hh.SIGACCESS({
+  	            "signame":"Canon14OUT",
+  	            "pre":true,
+  	            "val":true,
+  	            "cnt":false
+  	          })
+  	        ), // Fin emit
+  		    hh.ATOM(
+  		      {
+  		      "%location":{},
+  		      "%tag":"node",
+  		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Canon14", false); }
+  		      }
+  		 	),
+
   	        hh.PAUSE(
   	          {
   	            "%location":{},
@@ -540,7 +652,7 @@ export function setSignals(param) {
   	        ),
   	        hh.EXIT(
   		        {
-  		          "trap26884":"trap26884",
+  		          "trap28169":"trap28169",
   		          "%location":{},
   		          "%tag":"break"
   		        }
@@ -554,38 +666,6 @@ export function setSignals(param) {
   	      "%tag":"yield"
   	    }
   	),
-
-  hh.AWAIT(
-    {
-      "%location":{},
-      "%tag":"await",
-      "immediate":false,
-      "apply":function () {
-        return ((() => {
-          const tick=this["tick"];
-          return tick.now;
-        })());
-      },
-      "countapply":function (){ return 10;}
-    },
-    hh.SIGACCESS({
-      "signame":"tick",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    })
-  ),
-
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
-          }
-        }
-      ),
 
           ),
           hh.SEQUENCE(
