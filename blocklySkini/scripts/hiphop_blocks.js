@@ -1,6 +1,7 @@
 
 var english = true;
 var debug1 = true;
+var debug = false;
 
 /**************************************
 
@@ -595,7 +596,7 @@ function makeReservoir(name, instrument, groupe) {
           "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
           "%tag":"node",
           "apply":function () {
-              console.log("-- MAKE RESERVOIR:", "` + instrument[0] + `" );
+              console.log("-- MAKE RESERVOIR:", "` + instrument + `" );
               var msg = {
                 type: 'startTank',
                 value:  "` + instrument[0] + `"

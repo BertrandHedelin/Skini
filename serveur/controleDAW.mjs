@@ -137,6 +137,7 @@ function getDateTime() {
  * @param  {string} fichier - file name of csv patterns description
  */
 export function loadDAWTable(fichier) {
+  let ajustement = false;
   return new Promise(function (resolve, reject) {
     if (fichier === undefined) {
       reject("controleDAW: loadDAWTable: pas de fichier à lire");
@@ -163,9 +164,14 @@ export function loadDAWTable(fichier) {
           if (data[i][LEVEL_ID] !== undefined) data[i][LEVEL_ID] = parseInt(data[i][LEVEL_ID], 10);
 
           tableDesCommandes.push(data[i]); // ajoute la ligne au tableau
-          // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de config
+
+          // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de des descripteurs
+          // Il y a danger quand les instruments sont comptés à partir de 0, il va en en manquer 1.
+          if(tableDesCommandes[i][INSTR_ID] === 0 ) ajustement = true;
           if (tableDesCommandes[i][INSTR_ID] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][INSTR_ID];
         }
+        if(ajustement) nbeDeFileDattentes++;
+
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'nbeDeFileDattentes: ", nbeDeFileDattentes);
 
         // Calcul du nombre de groupe de sons à partir des paramètres, mais il n'est pas certain
@@ -174,6 +180,7 @@ export function loadDAWTable(fichier) {
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: nbeDeGroupesSons: ", nbeDeGroupesSons);
 
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: avant test:", nombreInstruments);
+        
         // Cas d'une incohérence entre les paramètres et les patterns
         // Le problème peut apparaitre quand on passe d'une pièce à une autre.
         if (nombreInstruments < nbeDeFileDattentes) {
@@ -185,6 +192,7 @@ export function loadDAWTable(fichier) {
 
         // On convertit l'index issu de la config des pattern en nombre de FIFO
         nombreInstruments++;
+
         // Initialisation
         filesDattente = new Array(nombreInstruments).fill().map(() => []);
         compteursDattente = new Array(nombreInstruments).fill(0);
@@ -503,7 +511,7 @@ export function playAndShiftEventDAW(timerDivision) {
           if (debug) console.log("---1 controleDAW.mjs:commande:", commandeDAW[CD_NOM_ID], "compteursDattente[i]:", compteursDattente[i]);
 
           // On peut envoyer l'évènement à DAW
-          if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW);
+          if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW[CD_NOM_ID]);
 
           // Log pour analyse a posteriori
           messageLog.source = "controleDAW.mjs";
@@ -536,13 +544,13 @@ export function playAndShiftEventDAW(timerDivision) {
               } else {
                 oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
                   commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+                if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
               }
             } else {
-              // On est dans le cas sans Raspberry
               oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+              if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE 2:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
             }
           }
-
           if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
             console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
               commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);

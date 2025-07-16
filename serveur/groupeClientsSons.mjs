@@ -760,11 +760,8 @@ export function createMatriceDesPossibles() {
     }
   }
   // Info pour les scrutateurs
-  var msg = {
-    type: "createMatriceDesPossibles",
-    matrice: matriceDesPossibles
-  }
-  serv.broadcast(JSON.stringify(msg));
+  serv.broadcast(JSON.stringify({ type: "createMatriceDesPossibles",
+    matrice: matriceDesPossibles }));
 }
 
 /**
