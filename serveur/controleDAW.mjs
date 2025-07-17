@@ -989,92 +989,167 @@ function isEmptyClip(clip) {
     clip[CD_SIG_ID] === "";
 }
 
-function areTypesCompatible(typeA, typeB) {
-  return typeA === 0 || typeB === 0 || typeA === typeB;
-}
-
 function ensureLength(arr, length) {
   while (arr.length < length) {
     arr.push([...EMPTY_CLIP]);
   }
 }
 
-function findSafeFallbackIndex(instruments, newType) {
-  const maxLen = Math.max(...instruments.map(inst => inst.length));
-  for (let i = 0; i <= maxLen; i++) {
-    const isCompatible = instruments.every(inst => {
-      const clip = inst[i] || EMPTY_CLIP;
-      return isEmptyClip(clip) || areTypesCompatible(clip[CD_TYPE_V_ID], newType);
-    });
-    if (isCompatible) return i;
-  }
-  return maxLen;
-}
-
-// === AJOUT DE CLIP AVEC RÈGLES ===
+/************************************************************************************* */
+/**
+ * Improved version of ordonneVerticalFIFO that strictly enforces compatibility rules.
+ * A clip can only be added at an index level if:
+ * 1. It has the same type as clips at the same index on other FIFOs, OR
+ * 2. It has type 0 (compatible with all), OR  
+ * 3. There are only empty clips at the same index on other FIFOs, OR
+ * 4. There are no clips at that index in other FIFOs
+ */
 function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
-
-  // On définit la durée des clips vide en foonction de clip à ajouer
-  // Dans le scénario actuel, on considère que tous les clips on la même durée.
-  // Mais il faut bien la fixer quelque part.
+  if (debug1) console.log("controleDAW: ordonneVerticalFIFO:", newClip[CD_NOTE_ID], newClip[CD_NOM_ID]);
+  
+  // Set duration for empty clips based on the new clip
   EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
 
   const newId = newClip[CD_NOTE_ID];
   const newType = newClip[CD_TYPE_V_ID];
+  const targetInst = instruments[targetInstrumentIndex];
 
-  // Longueur de FIFO max parmi tous les instruments, soit l'index le plus élevé
+  // Special case: type 0 is compatible with everything, add at the end
+  if (newType === 0) {
+    targetInst.push([...newClip]);
+    console.log(`✅ Clip [${newId}:${newType}] ajouté à la fin (type 0 - compatible avec tout)`);
+    return;
+  }
+
+  // Find the maximum length across all instruments
   const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
-  console.log("maxLength: ", maxLength);
 
-  // Étape 1 : Recherche d'association (type présent ailleurs)
-  for (let i = 0; i < Math.max(maxLength, 1); i++) {
-    let foundCompatibleType = false;
+  // Try to find a compatible index level
+  for (let index = 0; index <= maxLength; index++) {
+    let canInsertAtThisIndex = true;
+    let hasCompatibleClip = false;
 
-    // Vérifier si ce type existe déjà à cet index dans d'autres instruments
-    for (let j = 0; j < instruments.length; j++) {
-      if (j === targetInstrumentIndex) continue; // Si l'on est sur le bon instrument, on passe à la suite
-      const clip = instruments[j][i];            // On n'est pas sur le bon instrument, on prend le clip de l'instrument j avec l'index i
-      if (clip && !isEmptyClip(clip) && areTypesCompatible(clip[CD_TYPE_V_ID], newType)) {
-        foundCompatibleType = true; // On estime que le clip est compatible : car soit il est vide
-        // soit il y a déjà un clip du même type à ce niveau. On peut arrêter la boucle.
-        break;
+    // Check compatibility with all other instruments at this index
+    for (let instIdx = 0; instIdx < instruments.length; instIdx++) {
+      if (instIdx === targetInstrumentIndex) continue;
+
+      const otherInst = instruments[instIdx];
+      const otherClip = otherInst[index];
+
+      if (!otherClip) {
+        // No clip at this index in this instrument - compatible
+        continue;
       }
+
+      if (isEmptyClip(otherClip)) {
+        // Empty clip at this index - compatible
+        continue;
+      }
+
+      const otherType = otherClip[CD_TYPE_V_ID];
+
+      if (otherType === 0) {
+        // Other clip has type 0 - compatible with everything
+        hasCompatibleClip = true;
+        continue;
+      }
+
+      if (otherType === newType) {
+        // Same type - compatible
+        hasCompatibleClip = true;
+        continue;
+      }
+
+      // Different non-zero types - not compatible
+      canInsertAtThisIndex = false;
+      break;
     }
 
-    // A présent i donne la position d'un "niveau" avec des clips compatibles ou vides
-    // ou il est au bout de MaxLength.
-    if (foundCompatibleType) {
-      const targetInst = instruments[targetInstrumentIndex];
+    if (canInsertAtThisIndex) {
+      // Ensure target instrument has enough length
+      ensureLength(targetInst, index + 1);
 
-      // Remplit l'instrument de vide jusqu'à i compris, si i dépasse la longueur de la fifo.
-      // Si i est inférieur à la longueur de la fifo, ça ne fait rien.
-      ensureLength(targetInst, i + 1);
-      const existingClip = targetInst[i];  // Prend le clip de l'instrument cible en position i.
-
-      // Fonction pour vérifier la compatibilité avec tous les autres instruments à cet index.
-      const isIndexCompatible = instruments.every((inst, idx) => {
-        if (idx === targetInstrumentIndex) return true;
-        const otherClip = inst[i] || EMPTY_CLIP;
-        return areTypesCompatible(otherClip[CD_TYPE_V_ID], newType) || isEmptyClip(otherClip);
-      });
-
-      // Si le clip en i est vide et qu'il n'y a pas de pb de compatibilité on met le clip.
-      if (isEmptyClip(existingClip) && isIndexCompatible) {
-        targetInst[i] = [...newClip];
-        console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${i} de l'instrument ${targetInstrumentIndex} (association)`);
+      // Check if the target position is available (empty or doesn't exist)
+      const targetClip = targetInst[index];
+      if (!targetClip || isEmptyClip(targetClip)) {
+        targetInst[index] = [...newClip];
+        console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${index} de l'instrument ${targetInstrumentIndex}`);
         return;
       }
     }
   }
 
-  // Étape 2 : Pas d'association possible → fallback
-  console.log("Fallback --------------------");
-  const fallbackIndex = findSafeFallbackIndex(instruments, newType);
-  const targetInst = instruments[targetInstrumentIndex];
-  ensureLength(targetInst, fallbackIndex + 1);
-  targetInst[fallbackIndex] = [...newClip]; // Crée une copie indépendante de newClip
-  console.log(`➕ Clip [${newId}:${newType}] ajouté à l'index ${fallbackIndex} (fallback) de l'instrument ${targetInstrumentIndex}`);
+  // If no compatible index found, add at the end (fallback)
+  // This should rarely happen with the current logic
+  targetInst.push([...newClip]);
+  console.log(`➕ Clip [${newId}:${newType}] ajouté à la fin (fallback) de l'instrument ${targetInstrumentIndex}`);
 }
+
+/**
+ * Alternative version that's more strict - only allows insertion if there's 
+ * an explicit compatible clip or all positions are empty/non-existent
+ */
+function ordonneVerticalFIFOStrict(instruments, targetInstrumentIndex, newClip) {
+  if (debug1) console.log("controleDAW: ordonneVerticalFIFOStrict:", newClip[CD_NOTE_ID], newClip[CD_NOM_ID]);
+  
+  EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
+
+  const newId = newClip[CD_NOTE_ID];
+  const newType = newClip[CD_TYPE_V_ID];
+  const targetInst = instruments[targetInstrumentIndex];
+
+  // Type 0 can go anywhere
+  if (newType === 0) {
+    targetInst.push([...newClip]);
+    console.log(`✅ Clip [${newId}:${newType}] ajouté à la fin (type 0)`);
+    return;
+  }
+
+  const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
+
+  // Look for an index where there's already a compatible clip
+  for (let index = 0; index < maxLength; index++) {
+    let hasCompatibleClip = false;
+    let hasIncompatibleClip = false;
+
+    // Check all other instruments at this index
+    for (let instIdx = 0; instIdx < instruments.length; instIdx++) {
+      if (instIdx === targetInstrumentIndex) continue;
+
+      const otherClip = instruments[instIdx][index];
+      
+      if (!otherClip || isEmptyClip(otherClip)) {
+        continue; // Empty or non-existent - neutral
+      }
+
+      const otherType = otherClip[CD_TYPE_V_ID];
+      
+      if (otherType === 0 || otherType === newType) {
+        hasCompatibleClip = true;
+      } else {
+        hasIncompatibleClip = true;
+        break; // Incompatible clip found
+      }
+    }
+
+    // Only insert if we found a compatible clip and no incompatible ones
+    if (hasCompatibleClip && !hasIncompatibleClip) {
+      ensureLength(targetInst, index + 1);
+      
+      const targetClip = targetInst[index];
+      if (!targetClip || isEmptyClip(targetClip)) {
+        targetInst[index] = [...newClip];
+        console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${index} (compatible trouvé)`);
+        return;
+      }
+    }
+  }
+
+  // If no compatible position found, add at the end
+  targetInst.push([...newClip]);
+  console.log(`➕ Clip [${newId}:${newType}] ajouté à la fin (aucune position compatible)`);
+}
+
 
 // === AFFICHAGE LISIBLE ===
 function printInstruments(instruments) {

@@ -74,10 +74,11 @@
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="alertInfoScoreON" id="@G46*jC^78kR-m/|D$xK">
-                                                    <value name="message">
-                                                      <block type="text" id="@$tBqyYP?VPkZ14re/u~">
-                                                        <field name="TEXT">Fin Etude Harmonie 3</field>
+                                                  <block type="hh_wait_for" id="8{Db)t|(]4hMN4O6U.Zu">
+                                                    <field name="TIMES">50</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="{Nk(gLh$6U0+jNu.~KO!">
+                                                        <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
                                                       </block>
                                                     </value>
                                                   </block>

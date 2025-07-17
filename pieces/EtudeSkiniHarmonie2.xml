@@ -30,7 +30,7 @@
     <variable id=")h{.j~0nS~wAC0k_u:R7">PianoD</variable>
     <variable id="7~us#_b_8|IK4#_9[0rA">PianoE</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="432" y="88">
+  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="151" y="83">
     <statement name="MODULES">
       <block type="tank" id="-c*`m;(F|+hCxzJ$1l[g" collapsed="true">
         <field name="groupeClient">255</field>
@@ -192,8 +192,8 @@
           <block type="set_timer_division" id="NYdI}FA{a!xFms@1KtRn">
             <field name="timer">1</field>
             <next>
-              <block type="patternListLength" id="4fpNUL$LA|P(PfpaBL17">
-                <field name="valeur">2</field>
+              <block type="patternListLength" id="4fpNUL$LA|P(PfpaBL17" disabled="true">
+                <field name="valeur">5</field>
                 <field name="groupe">255</field>
                 <next>
                   <block type="set_tempo" id="2q,@V}q(:._LVhz}RL-M">
@@ -209,52 +209,75 @@
                               </block>
                             </value>
                             <next>
-                              <block type="hh_print_serveur" id="0`s5y(wSS)Geh4K`D7f6">
-                                <value name="TEXT">
-                                  <block type="text" id="Pg|,6I5Dy)6bH$,_6eEw">
-                                    <field name="TEXT">Etude Harmonie 2</field>
+                              <block type="hh_wait_for" id="z7WMbn+[o?D+aV5ESL+(">
+                                <field name="TIMES">2</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="QUc,gf!t(~C55!3EC/P~">
+                                    <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="set_group" id="vJFHh%-KSf6vY@#-Rrwh">
-                                    <field name="groupe">255</field>
-                                    <value name="GROUPS">
-                                      <block type="variables_get" id="{vIJC_*A`g-p5^q(yY{D">
-                                        <field name="VAR" id=")h{.j~0nS~wAC0k_u:R7">PianoD</field>
-                                      </block>
-                                    </value>
+                                  <block type="alertInfoScoreOFF" id="[f/4;aefERR$*K~%{o=Q">
                                     <next>
-                                      <block type="set_group" id="W),6Z4L%3ta*VFV4,4.j">
-                                        <field name="groupe">255</field>
-                                        <value name="GROUPS">
-                                          <block type="variables_get" id="9m9?3Tv_=`;8b$2GV:V(">
-                                            <field name="VAR" id="7~us#_b_8|IK4#_9[0rA">PianoE</field>
+                                      <block type="hh_print_serveur" id="0`s5y(wSS)Geh4K`D7f6">
+                                        <value name="TEXT">
+                                          <block type="text" id="Pg|,6I5Dy)6bH$,_6eEw">
+                                            <field name="TEXT">Etude Harmonie 2</field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="run_tank" id="@1^yOz[IyobWP?Qo:t|Z">
-                                            <value name="TANKS">
-                                              <block type="lists_create_with" id="si}D9OYcV70[Cs;mbq6_">
-                                                <mutation items="2"></mutation>
-                                                <value name="ADD0">
-                                                  <block type="variables_get" id="Kc4}XNt~Wf/xV.oMENf?">
-                                                    <field name="VAR" id="(8DTf(w-{K!h?lYF8(%%">FluteE</field>
+                                          <block type="hh_fork" id="d@l1e6gLR1S.1/uN8w7L">
+                                            <statement name="BODY">
+                                              <block type="set_group_during_ticks" id="Rgh/0{vcN:KW}tm;FoY8">
+                                                <field name="user_group">255</field>
+                                                <field name="number_of_ticks">30</field>
+                                                <value name="GROUPS">
+                                                  <block type="variables_get" id="363bSG.+wLf#?=^9u@|a">
+                                                    <field name="VAR" id=")h{.j~0nS~wAC0k_u:R7">PianoD</field>
                                                   </block>
                                                 </value>
-                                                <value name="ADD1">
-                                                  <block type="variables_get" id="j|z*jF{r*@YmF(H$4mBp">
-                                                    <field name="VAR" id="!J%ZLg1LT^U:3e_BaP2U">FluteD</field>
+                                                <next>
+                                                  <block type="set_group_during_ticks" id="7?P!FSaa}%o!Y[u)I|r5">
+                                                    <field name="user_group">255</field>
+                                                    <field name="number_of_ticks">30</field>
+                                                    <value name="GROUPS">
+                                                      <block type="variables_get" id="32,Hi-@tS{1i}XZ_f:Xu">
+                                                        <field name="VAR" id="7~us#_b_8|IK4#_9[0rA">PianoE</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="run_tank" id="y}?:nf+YB0)SFq.as!z_">
+                                                        <value name="TANKS">
+                                                          <block type="variables_get" id="Kc4}XNt~Wf/xV.oMENf?">
+                                                            <field name="VAR" id="(8DTf(w-{K!h?lYF8(%%">FluteE</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="run_tank" id="O0,VXIyqSIgMawSD?LuB">
+                                                            <value name="TANKS">
+                                                              <block type="variables_get" id="j|z*jF{r*@YmF(H$4mBp">
+                                                                <field name="VAR" id="!J%ZLg1LT^U:3e_BaP2U">FluteD</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
                                                   </block>
-                                                </value>
+                                                </next>
                                               </block>
-                                            </value>
+                                            </statement>
                                             <next>
-                                              <block type="alertInfoScoreON" id="@G46*jC^78kR-m/|D$xK">
-                                                <value name="message">
-                                                  <block type="text" id="@$tBqyYP?VPkZ14re/u~">
-                                                    <field name="TEXT">Fin Etude Harmonie 2</field>
+                                              <block type="cleanqueues" id="f0QxDtgI!FEYPKOJgKi[">
+                                                <next>
+                                                  <block type="alertInfoScoreON" id="@G46*jC^78kR-m/|D$xK">
+                                                    <value name="message">
+                                                      <block type="text" id="@$tBqyYP?VPkZ14re/u~">
+                                                        <field name="TEXT">Fin Etude Harmonie 2</field>
+                                                      </block>
+                                                    </value>
                                                   </block>
-                                                </value>
+                                                </next>
                                               </block>
                                             </next>
                                           </block>
