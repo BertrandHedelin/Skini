@@ -27,10 +27,14 @@
     <variable id="q1b(7iUae0!SfeXVOjEV">FluteE10</variable>
     <variable id="=vK[KKztve_l+}wdEEyN">FluteE11</variable>
     <variable id=".7re?x~_nQ0BSyC:+HO9">FluteE12</variable>
+    <variable id="UVh-.=M`RXXp5CX2?yCJ">Percu</variable>
     <variable id=")h{.j~0nS~wAC0k_u:R7">PianoD</variable>
     <variable id="7~us#_b_8|IK4#_9[0rA">PianoE</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="151" y="83">
+    <comment pinned="true" h="83" w="467.5">Fonctionne avec EtudeSkiniHarmonie2.als de Live.
+Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comportement.
+    </comment>
     <statement name="MODULES">
       <block type="tank" id="-c*`m;(F|+hCxzJ$1l[g" collapsed="true">
         <field name="groupeClient">255</field>
@@ -192,8 +196,8 @@
           <block type="set_timer_division" id="NYdI}FA{a!xFms@1KtRn">
             <field name="timer">1</field>
             <next>
-              <block type="patternListLength" id="4fpNUL$LA|P(PfpaBL17" disabled="true">
-                <field name="valeur">5</field>
+              <block type="patternListLength" id="4fpNUL$LA|P(PfpaBL17">
+                <field name="valeur">3</field>
                 <field name="groupe">255</field>
                 <next>
                   <block type="set_tempo" id="2q,@V}q(:._LVhz}RL-M">
@@ -228,37 +232,60 @@
                                         <next>
                                           <block type="hh_fork" id="d@l1e6gLR1S.1/uN8w7L">
                                             <statement name="BODY">
-                                              <block type="set_group_during_ticks" id="Rgh/0{vcN:KW}tm;FoY8">
+                                              <block type="set_group_during_ticks" id="t/9/5_6CfyS6s3`6L)oZ" disabled="true">
                                                 <field name="user_group">255</field>
                                                 <field name="number_of_ticks">30</field>
                                                 <value name="GROUPS">
-                                                  <block type="variables_get" id="363bSG.+wLf#?=^9u@|a">
-                                                    <field name="VAR" id=")h{.j~0nS~wAC0k_u:R7">PianoD</field>
+                                                  <block type="variables_get" id="0(:_y$D6=VK*Sm=EgtkI">
+                                                    <field name="VAR" id="UVh-.=M`RXXp5CX2?yCJ">Percu</field>
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="set_group_during_ticks" id="7?P!FSaa}%o!Y[u)I|r5">
+                                                  <block type="set_group_during_ticks" id="Rgh/0{vcN:KW}tm;FoY8">
                                                     <field name="user_group">255</field>
-                                                    <field name="number_of_ticks">30</field>
+                                                    <field name="number_of_ticks">110</field>
                                                     <value name="GROUPS">
-                                                      <block type="variables_get" id="32,Hi-@tS{1i}XZ_f:Xu">
-                                                        <field name="VAR" id="7~us#_b_8|IK4#_9[0rA">PianoE</field>
+                                                      <block type="variables_get" id="363bSG.+wLf#?=^9u@|a">
+                                                        <field name="VAR" id=")h{.j~0nS~wAC0k_u:R7">PianoD</field>
                                                       </block>
                                                     </value>
                                                     <next>
-                                                      <block type="run_tank" id="y}?:nf+YB0)SFq.as!z_">
-                                                        <value name="TANKS">
-                                                          <block type="variables_get" id="Kc4}XNt~Wf/xV.oMENf?">
-                                                            <field name="VAR" id="(8DTf(w-{K!h?lYF8(%%">FluteE</field>
+                                                      <block type="set_group_during_ticks" id="7?P!FSaa}%o!Y[u)I|r5">
+                                                        <field name="user_group">255</field>
+                                                        <field name="number_of_ticks">110</field>
+                                                        <value name="GROUPS">
+                                                          <block type="variables_get" id="32,Hi-@tS{1i}XZ_f:Xu">
+                                                            <field name="VAR" id="7~us#_b_8|IK4#_9[0rA">PianoE</field>
                                                           </block>
                                                         </value>
                                                         <next>
-                                                          <block type="run_tank" id="O0,VXIyqSIgMawSD?LuB">
+                                                          <block type="run_tank" id="y}?:nf+YB0)SFq.as!z_">
                                                             <value name="TANKS">
-                                                              <block type="variables_get" id="j|z*jF{r*@YmF(H$4mBp">
-                                                                <field name="VAR" id="!J%ZLg1LT^U:3e_BaP2U">FluteD</field>
+                                                              <block type="variables_get" id="Kc4}XNt~Wf/xV.oMENf?">
+                                                                <field name="VAR" id="(8DTf(w-{K!h?lYF8(%%">FluteE</field>
                                                               </block>
                                                             </value>
+                                                            <next>
+                                                              <block type="run_tank" id="O0,VXIyqSIgMawSD?LuB">
+                                                                <value name="TANKS">
+                                                                  <block type="variables_get" id="j|z*jF{r*@YmF(H$4mBp">
+                                                                    <field name="VAR" id="!J%ZLg1LT^U:3e_BaP2U">FluteD</field>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="move_tempo" id="LJP6cu{lli/=/v[X(iv=">
+                                                                    <field name="VALUE">1</field>
+                                                                    <field name="LIMIT">3</field>
+                                                                    <field name="EVERY">4</field>
+                                                                    <value name="SIGNAL">
+                                                                      <block type="variables_get" id="^BFishD|yKx^LY*wPn0`">
+                                                                        <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
                                                           </block>
                                                         </next>
                                                       </block>

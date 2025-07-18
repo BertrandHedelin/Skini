@@ -167,10 +167,10 @@ export function loadDAWTable(fichier) {
 
           // Met à jour le nombre de files d'attente selon le numéro max des synthé dans le fichier de des descripteurs
           // Il y a danger quand les instruments sont comptés à partir de 0, il va en en manquer 1.
-          if(tableDesCommandes[i][INSTR_ID] === 0 ) ajustement = true;
+          if (tableDesCommandes[i][INSTR_ID] === 0) ajustement = true;
           if (tableDesCommandes[i][INSTR_ID] > nbeDeFileDattentes) nbeDeFileDattentes = tableDesCommandes[i][INSTR_ID];
         }
-        if(ajustement) nbeDeFileDattentes++;
+        if (ajustement) nbeDeFileDattentes++;
 
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'nbeDeFileDattentes: ", nbeDeFileDattentes);
 
@@ -180,7 +180,7 @@ export function loadDAWTable(fichier) {
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: nbeDeGroupesSons: ", nbeDeGroupesSons);
 
         if (debug1) console.log("INFO: controleDAW.mjs: loadDAWTable: Nbe d'instruments: avant test:", nombreInstruments);
-        
+
         // Cas d'une incohérence entre les paramètres et les patterns
         // Le problème peut apparaitre quand on passe d'une pièce à une autre.
         if (nombreInstruments < nbeDeFileDattentes) {
@@ -468,165 +468,118 @@ let timerDivisionLocal;
  * 
  * @param {number} timerDivision 
  */
+/**
+ * Version améliorée de playAndShiftEventDAW qui gère mieux la synchronisation
+ */
 export function playAndShiftEventDAW(timerDivision) {
   let commandeDAW;
   let messageLog = { date: "" };
 
-  // Contournement d'un pb de timerDivision parfois undefined sans raison apparente
+  // Contournement d'un pb de timerDivision parfois undefined
   if (timerDivision !== undefined) {
     timerDivisionLocal = timerDivision;
   }
 
   if (debug) console.log(" controleDAW : playAndShiftEventDAW: timerDivisionLocal: ", timerDivisionLocal);
-  if (debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if (filesDattente === undefined) return; // Protection
 
-  for (let i = 0; i < filesDattente.length; i++) {  // Pour chaque file d'attente
+  for (let i = 0; i < filesDattente.length; i++) {
     // Mécanisme de pause d'une file d'attente
-    if (filesDattenteJouables[i] !== undefined) {
-      if (filesDattenteJouables[i] === false) {
-        continue;
-      }
+    if (filesDattenteJouables[i] !== undefined && filesDattenteJouables[i] === false) {
+      continue;
     }
+
     if (debug) console.log("--- controleDAW.mjs:FIFO", i, " length:", filesDattente[i].length);
-
     if (debug) console.log("---0 controleDAW.mjs:compteursDattente:", i, ":", compteursDattente[i]);
-    // file d'attente = [bus(0), channel(1), note(2), velocity(3), wsid(4),
-    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12), typeVert(13)]
-    // Si la file n'est pas vide
-    if (filesDattente[i] !== undefined) {
-      if (filesDattente[i].length !== 0) {
-        if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i][0][CD_NOM_ID]);
-        if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i]);
-        if (debug) console.log("\n---0 controleDAW.mjs:FIFO:", i, " Durée d'attente du clip:", compteursDattente[i], " timer:", timerDivision);
 
-        // Si l'attente est à 0 on joue le clip suivant
-        if (compteursDattente[i] === 0) {
+    if (filesDattente[i] !== undefined && filesDattente[i].length !== 0) {
+      if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i][0][CD_NOM_ID]);
 
-          //Passe au clip suivant
-          commandeDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
+      // Si l'attente est à 0 on joue le clip suivant
+      if (compteursDattente[i] === 0) {
+        // Passer au clip suivant
+        commandeDAW = filesDattente[i].shift();
 
-          if (commandeDAW === undefined) continue;
+        if (commandeDAW === undefined) continue;
 
-          if (debug) console.log("---1 controleDAW.mjs:commande:", commandeDAW[CD_NOM_ID], "compteursDattente[i]:", compteursDattente[i]);
+        if (debug) console.log("---1 controleDAW.mjs:commande:", commandeDAW[CD_NOM_ID], "compteursDattente[i]:", compteursDattente[i]);
 
-          // On peut envoyer l'évènement à DAW
-          if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW[CD_NOM_ID]);
+        // Log pour analyse
+        messageLog.source = "controleDAW.mjs";
+        messageLog.type = "COMMANDE DAW ENVOYEE";
+        messageLog.note = commandeDAW[CD_NOTE_ID];
+        messageLog.instrumentNo = i;
+        messageLog.pseudo = commandeDAW[CD_PSEUDO_ID];
+        messageLog.id = commandeDAW[CD_WS_ID];
+        messageLog.nomSon = commandeDAW[CD_NOM_ID];
+        logInfoDAW(messageLog);
 
-          // Log pour analyse a posteriori
-          messageLog.source = "controleDAW.mjs";
-          messageLog.type = "COMMANDE DAW ENVOYEE";
-          messageLog.note = commandeDAW[CD_NOTE_ID];
-          messageLog.instrumentNo = i;
-          messageLog.pseudo = commandeDAW[CD_PSEUDO_ID];
-          messageLog.id = commandeDAW[CD_WS_ID];
-          messageLog.nomSon = commandeDAW[CD_NOM_ID];
-          logInfoDAW(messageLog);
+        compteurTest++;
 
-          compteurTest++;
-
-          // Joue le clip, mais pas si la note n'est pas négative et que l'on est avec des musiciens.
-          // si Note < 0 on est dans le cas d'un pattern d'info pour les musiciens.
-          // On fait rien pour la DAW.
-          // !! à vérifier.
-          if (commandeDAW[CD_NOTE_ID] >= 0) {
-
-            // Pour jouer les buffers sur Raspberries
-            if (par.useRaspberries !== undefined) {
-              // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level, durée)
-              if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", par.playBufferMessage,
-                commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID], commandeDAW[CD_LEVEL_ID]);
-
-              if (par.useRaspberries && !isNaN(commandeDAW[CD_BUF_ID])) {
-                oscMidi.playOSCRasp(par.playBufferMessage,
-                  commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID],
-                  commandeDAW[CD_LEVEL_ID], commandeDAW[CD_DUREE_ID]);
-              } else {
-                oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
-                  commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
-                if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
-              }
+        // Jouer le clip seulement si ce n'est pas un clip vide (note >= 0 et nom non vide)
+        if (commandeDAW[CD_NOTE_ID] > 0 && commandeDAW[CD_NOM_ID] !== "") {
+          // Pour jouer les buffers sur Raspberries
+          if (par.useRaspberries !== undefined) {
+            if (par.useRaspberries && !isNaN(commandeDAW[CD_BUF_ID])) {
+              oscMidi.playOSCRasp(par.playBufferMessage,
+                commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID],
+                commandeDAW[CD_LEVEL_ID], commandeDAW[CD_DUREE_ID]);
             } else {
-              oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
-              if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE 2:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
+              oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
+                commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+              if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
             }
+          } else {
+            oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+            if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE 2:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
           }
-          if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
-            console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
-              commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
-          }
-          if (debug) console.log("---2 controleDAW.mjs:sendNoteOn:", commandeDAW[CD_NOM_ID], " de durée: ", commandeDAW[CD_DUREE_ID], "avec timerDivisionLocal:", timerDivisionLocal);
 
-          // Via OSC on perd les accents, donc on passe pas une WebSocket
-          if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[CD_NOM_ID], ":", commandeDAW[CD_PSEUDO_ID]);
-
-          // Pour affichage avec un programme Processing
-          // oscMidi.sendProcessingDisplayNames( "demandeDeSonParPseudo", commandeDAW[7] );
-
-          // La ligne automatePossibleMachine.react(commandeDAW[8]) est activé selon reactOnPlay
-          // Si reactOnPlay existe à true on envoie le signal, qui correspond au lancement d'un pattern, au moment de le jouer
-          // Au niveau timing cela signifie que l'on prend en compte une activation au moment où elle est jouée
-          // et pas au moment où elle est demandée.
-          // L'autre scénario est dans websocketserver où on envoie le signal au moment de la demande
-          // Ce sont deux scénarios différents. Celui-ci peut poser des pb de performance si les react s'enchainent
-          // quand on joue la file d'attente.
-
-          // Pour associer le nom du pattern au signal de groupe
+          // Gestion des signaux et broadcast seulement pour les vrais clips
           laClef = Object.keys(commandeDAW[CD_SIG_ID]);
           leSignal = JSON.parse('{"' + laClef[0] + '":"' + commandeDAW[CD_NOM_ID] + '"}');
 
-          if (debug) console.log("controleDAW:playAndShiftEventDAW: laclef:", laClef, ", leSignal: ", leSignal, commandeDAW[CD_SIG_ID]);
-
-          if (par.reactOnPlay !== undefined) {
-            if (par.reactOnPlay) {
-              if (debug) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
-              automatePossibleMachine.react(leSignal);
-            }
+          if (par.reactOnPlay !== undefined && par.reactOnPlay) {
+            if (debug) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
+            automatePossibleMachine.react(leSignal);
           }
 
-          // Pour avertir le browser du demandeur du son et les musiciens s'il y en a.
           serv.broadcast(JSON.stringify({ type: "infoPlayDAW", value: commandeDAW }));
           if (debug) console.log("controleDAW:playAndShiftEventDAW: broadcast commandeDAW", commandeDAW);
-
-          //Met à jour l'attente quand on a joué le pattern.
-          compteursDattente[i] = commandeDAW[CD_DUREE_ID]; // On recharge le compteur d'attente pour le pattern en cours, en comptant le tick en cours
-
-          //Gestion d'une erreur possible dans la programmation de l'orchestration
-          //si des patterns ont des durées < timeDivision, donc inférieures au tick.
-          // Ce cas n'est plus traité à cause de la ligne 508, mais le pb reste
-          if (compteursDattente[i] < 0) {
-            console.log("WARN: Problème sur Pattern", commandeDAW[CD_NOM_ID], ", sa durée est inférieure au timerDivision");
-            compteursDattente[i] = 0;
-          }
-          if (debug) console.log("---3 controleDAW.mjs:compteursDattente:", i, ":", compteursDattente[i]);
-
         } else {
-          if (compteursDattente[i] > 0) {
-            if (debug) console.log("---4 controleDAW.mjs:compteursDattente:", compteursDattente[i]);
-          }
+          if (debug) console.log("--- controleDAW.mjs : Clip vide ignoré:", commandeDAW[CD_NOM_ID]);
         }
-      } else {
-        emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
-        if (automatePossibleMachine !== undefined) {
-          automatePossibleMachine.react(emptyQueueSignal);
-          if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", emptyQueueSignal);
+
+        // Validation de la durée
+        if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
+          console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
+            commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
+        }
+
+        // Mettre à jour l'attente
+        compteursDattente[i] = commandeDAW[CD_DUREE_ID];
+
+        if (compteursDattente[i] < 0) {
+          console.log("WARN: Problème sur Pattern", commandeDAW[CD_NOM_ID], ", sa durée est inférieure au timerDivision");
+          compteursDattente[i] = 0;
         }
       }
+    } else {
+      // File vide - envoyer signal de file vide
+      emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
+      if (automatePossibleMachine !== undefined) {
+        automatePossibleMachine.react(emptyQueueSignal);
+        if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", emptyQueueSignal);
+      }
     }
-  } // Fin du for
+  }
 
-  // -- Mettre à jour les attentes
-  // On décrémente les compteurs d'attente de la durée du tick
-  // Dans la file d'attente la durée du pattern devient le temps d'attente en fonction de la durée du tick.
-  // C'est une façon de gérer des patterns plus longs que le tick.
+  // Décrémenter tous les compteurs d'attente
   for (let i = 0; i < compteursDattente.length; i++) {
-    if (avecMusicien && decalageFIFOavecMusicien < timerDivisionLocal) {
-      console.log("ERR: Le décalage pour musicien doit être un multiple de timerDivision !");
-    }
     if (compteursDattente[i] >= timerDivisionLocal) {
       compteursDattente[i] -= timerDivisionLocal;
     }
   }
+
   if (debug) console.log("--- controleDAW.mjs:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivisionLocal);
   return;
 }
@@ -1006,30 +959,27 @@ function ensureLength(arr, length) {
  */
 function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
   if (debug1) console.log("controleDAW: ordonneVerticalFIFO:", newClip[CD_NOTE_ID], newClip[CD_NOM_ID]);
-  
-  // Set duration for empty clips based on the new clip
-  EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
 
   const newId = newClip[CD_NOTE_ID];
   const newType = newClip[CD_TYPE_V_ID];
   const targetInst = instruments[targetInstrumentIndex];
 
-  // Special case: type 0 is compatible with everything, add at the end
+  // Type 0 est compatible avec tout, ajouter à la fin
   if (newType === 0) {
     targetInst.push([...newClip]);
     console.log(`✅ Clip [${newId}:${newType}] ajouté à la fin (type 0 - compatible avec tout)`);
     return;
   }
 
-  // Find the maximum length across all instruments
+  // Trouver la longueur maximale actuelle
   const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
 
-  // Try to find a compatible index level
+  // Chercher un index compatible
   for (let index = 0; index <= maxLength; index++) {
     let canInsertAtThisIndex = true;
     let hasCompatibleClip = false;
 
-    // Check compatibility with all other instruments at this index
+    // Vérifier la compatibilité avec tous les autres instruments à cet index
     for (let instIdx = 0; instIdx < instruments.length; instIdx++) {
       if (instIdx === targetInstrumentIndex) continue;
 
@@ -1037,39 +987,35 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
       const otherClip = otherInst[index];
 
       if (!otherClip) {
-        // No clip at this index in this instrument - compatible
-        continue;
+        continue; // Pas de clip à cet index - compatible
       }
 
       if (isEmptyClip(otherClip)) {
-        // Empty clip at this index - compatible
-        continue;
+        continue; // Clip vide - compatible
       }
 
       const otherType = otherClip[CD_TYPE_V_ID];
 
       if (otherType === 0) {
-        // Other clip has type 0 - compatible with everything
         hasCompatibleClip = true;
-        continue;
+        continue; // Type 0 - compatible avec tout
       }
 
       if (otherType === newType) {
-        // Same type - compatible
         hasCompatibleClip = true;
-        continue;
+        continue; // Même type - compatible
       }
 
-      // Different non-zero types - not compatible
+      // Types différents non-zéro - incompatible
       canInsertAtThisIndex = false;
       break;
     }
 
     if (canInsertAtThisIndex) {
-      // Ensure target instrument has enough length
-      ensureLength(targetInst, index + 1);
+      // S'assurer que toutes les files ont la même longueur jusqu'à cet index
+      synchronizeAllQueuesLength(instruments, index + 1, newClip[CD_DUREE_ID]);
 
-      // Check if the target position is available (empty or doesn't exist)
+      // Vérifier si la position cible est disponible
       const targetClip = targetInst[index];
       if (!targetClip || isEmptyClip(targetClip)) {
         targetInst[index] = [...newClip];
@@ -1079,77 +1025,40 @@ function ordonneVerticalFIFO(instruments, targetInstrumentIndex, newClip) {
     }
   }
 
-  // If no compatible index found, add at the end (fallback)
-  // This should rarely happen with the current logic
+  // Si aucun index compatible trouvé, ajouter à la fin
   targetInst.push([...newClip]);
   console.log(`➕ Clip [${newId}:${newType}] ajouté à la fin (fallback) de l'instrument ${targetInstrumentIndex}`);
 }
 
 /**
- * Alternative version that's more strict - only allows insertion if there's 
- * an explicit compatible clip or all positions are empty/non-existent
+ * Synchronise la longueur de toutes les files d'attente en ajoutant des clips vides
+ * avec une durée cohérente
  */
-function ordonneVerticalFIFOStrict(instruments, targetInstrumentIndex, newClip) {
-  if (debug1) console.log("controleDAW: ordonneVerticalFIFOStrict:", newClip[CD_NOTE_ID], newClip[CD_NOM_ID]);
-  
-  EMPTY_CLIP[CD_DUREE_ID] = newClip[CD_DUREE_ID];
-
-  const newId = newClip[CD_NOTE_ID];
-  const newType = newClip[CD_TYPE_V_ID];
-  const targetInst = instruments[targetInstrumentIndex];
-
-  // Type 0 can go anywhere
-  if (newType === 0) {
-    targetInst.push([...newClip]);
-    console.log(`✅ Clip [${newId}:${newType}] ajouté à la fin (type 0)`);
-    return;
-  }
-
-  const maxLength = Math.max(...instruments.map(inst => inst.length), 0);
-
-  // Look for an index where there's already a compatible clip
-  for (let index = 0; index < maxLength; index++) {
-    let hasCompatibleClip = false;
-    let hasIncompatibleClip = false;
-
-    // Check all other instruments at this index
-    for (let instIdx = 0; instIdx < instruments.length; instIdx++) {
-      if (instIdx === targetInstrumentIndex) continue;
-
-      const otherClip = instruments[instIdx][index];
-      
-      if (!otherClip || isEmptyClip(otherClip)) {
-        continue; // Empty or non-existent - neutral
-      }
-
-      const otherType = otherClip[CD_TYPE_V_ID];
-      
-      if (otherType === 0 || otherType === newType) {
-        hasCompatibleClip = true;
-      } else {
-        hasIncompatibleClip = true;
-        break; // Incompatible clip found
-      }
-    }
-
-    // Only insert if we found a compatible clip and no incompatible ones
-    if (hasCompatibleClip && !hasIncompatibleClip) {
-      ensureLength(targetInst, index + 1);
-      
-      const targetClip = targetInst[index];
-      if (!targetClip || isEmptyClip(targetClip)) {
-        targetInst[index] = [...newClip];
-        console.log(`✅ Clip [${newId}:${newType}] inséré à l'index ${index} (compatible trouvé)`);
-        return;
-      }
+function synchronizeAllQueuesLength(instruments, targetLength, clipDuration) {
+  for (let i = 0; i < instruments.length; i++) {
+    const inst = instruments[i];
+    while (inst.length < targetLength) {
+      // Créer un clip vide avec la durée appropriée
+      const emptyClip = [
+        0,           // CD_BUS_ID
+        0,           // CD_CHANNEL_ID  
+        0,           // CD_NOTE_ID (0 = clip vide)
+        0,           // CD_VEL_ID
+        0,           // CD_WS_ID
+        "",          // CD_PSEUDO_ID
+        clipDuration, // CD_DUREE_ID - durée cohérente
+        "",          // CD_NOM_ID
+        "",          // CD_SIG_ID
+        0,           // CD_TYPE_ID
+        "",          // CD_IP_ID
+        0,           // CD_BUF_ID
+        0,           // CD_LEVEL_ID
+        0            // CD_TYPE_V_ID
+      ];
+      inst.push(emptyClip);
     }
   }
-
-  // If no compatible position found, add at the end
-  targetInst.push([...newClip]);
-  console.log(`➕ Clip [${newId}:${newType}] ajouté à la fin (aucune position compatible)`);
 }
-
 
 // === AFFICHAGE LISIBLE ===
 function printInstruments(instruments) {

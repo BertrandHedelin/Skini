@@ -230,6 +230,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
     
     
     
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="~SL]~QaRcC=t#TX;6OLU" collapsed="true">
@@ -874,6 +876,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                            
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -957,6 +961,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                                
+                                
                                 
                                 
                                 
@@ -1279,6 +1285,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                     
                                     
                                     
+                                    
+                                    
                                     </comment>
                                     <value name="NAME">
                                       <block type="variables_get" id="zC/p_t^mzd0}LkXR$#}+">
@@ -1396,6 +1404,8 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                                 
+                                        
+                                        
                                         
                                         
                                         
