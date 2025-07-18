@@ -475,111 +475,161 @@ export function playAndShiftEventDAW(timerDivision) {
   let commandeDAW;
   let messageLog = { date: "" };
 
-  // Contournement d'un pb de timerDivision parfois undefined
+  // Contournement d'un pb de timerDivision parfois undefined sans raison apparente
   if (timerDivision !== undefined) {
     timerDivisionLocal = timerDivision;
   }
 
   if (debug) console.log(" controleDAW : playAndShiftEventDAW: timerDivisionLocal: ", timerDivisionLocal);
+  if (debug) console.log(" controleDAW : playAndShiftEventDAW: filesDattente: ", filesDattente);
   if (filesDattente === undefined) return; // Protection
 
-  for (let i = 0; i < filesDattente.length; i++) {
+  for (let i = 0; i < filesDattente.length; i++) {  // Pour chaque file d'attente
     // Mécanisme de pause d'une file d'attente
-    if (filesDattenteJouables[i] !== undefined && filesDattenteJouables[i] === false) {
-      continue;
+    if (filesDattenteJouables[i] !== undefined) {
+      if (filesDattenteJouables[i] === false) {
+        continue;
+      }
     }
-
     if (debug) console.log("--- controleDAW.mjs:FIFO", i, " length:", filesDattente[i].length);
+
     if (debug) console.log("---0 controleDAW.mjs:compteursDattente:", i, ":", compteursDattente[i]);
+    // file d'attente = [bus(0), channel(1), note(2), velocity(3), wsid(4),
+    // pseudo(5), dureeClip(6), nom(7), signal(8), type(9), IP(10), bufnum(11), level(12), typeVert(13)]
+    // Si la file n'est pas vide
+    if (filesDattente[i] !== undefined) {
+      if (filesDattente[i].length !== 0) {
+        if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i][0][CD_NOM_ID]);
+        if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i]);
+        if (debug) console.log("\n---0 controleDAW.mjs:FIFO:", i, " Durée d'attente du clip:", compteursDattente[i], " timer:", timerDivision);
 
-    if (filesDattente[i] !== undefined && filesDattente[i].length !== 0) {
-      if (debug) console.log("--- controleDAW.mjs:FIFO:", i, ":", filesDattente[i][0][CD_NOM_ID]);
+        // Si l'attente est à 0 on joue le clip suivant
+        if (compteursDattente[i] === 0) {
 
-      // Si l'attente est à 0 on joue le clip suivant
-      if (compteursDattente[i] === 0) {
-        // Passer au clip suivant
-        commandeDAW = filesDattente[i].shift();
+          //Passe au clip suivant
+          commandeDAW = filesDattente[i].shift();  // On prend l'évenement en tête de la file "i"
 
-        if (commandeDAW === undefined) continue;
+          if (commandeDAW === undefined) continue;
 
-        if (debug) console.log("---1 controleDAW.mjs:commande:", commandeDAW[CD_NOM_ID], "compteursDattente[i]:", compteursDattente[i]);
+          if (debug) console.log("---1 controleDAW.mjs:commande:", commandeDAW[CD_NOM_ID], "compteursDattente[i]:", compteursDattente[i]);
 
-        // Log pour analyse
-        messageLog.source = "controleDAW.mjs";
-        messageLog.type = "COMMANDE DAW ENVOYEE";
-        messageLog.note = commandeDAW[CD_NOTE_ID];
-        messageLog.instrumentNo = i;
-        messageLog.pseudo = commandeDAW[CD_PSEUDO_ID];
-        messageLog.id = commandeDAW[CD_WS_ID];
-        messageLog.nomSon = commandeDAW[CD_NOM_ID];
-        logInfoDAW(messageLog);
+          // On peut envoyer l'évènement à DAW
+          if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE DAW A JOUER:", commandeDAW[CD_NOM_ID]);
 
-        compteurTest++;
+          // Log pour analyse a posteriori
+          messageLog.source = "controleDAW.mjs";
+          messageLog.type = "COMMANDE DAW ENVOYEE";
+          messageLog.note = commandeDAW[CD_NOTE_ID];
+          messageLog.instrumentNo = i;
+          messageLog.pseudo = commandeDAW[CD_PSEUDO_ID];
+          messageLog.id = commandeDAW[CD_WS_ID];
+          messageLog.nomSon = commandeDAW[CD_NOM_ID];
+          logInfoDAW(messageLog);
 
-        // Jouer le clip seulement si ce n'est pas un clip vide (note >= 0 et nom non vide)
-        if (commandeDAW[CD_NOTE_ID] > 0 && commandeDAW[CD_NOM_ID] !== "") {
-          // Pour jouer les buffers sur Raspberries
-          if (par.useRaspberries !== undefined) {
-            if (par.useRaspberries && !isNaN(commandeDAW[CD_BUF_ID])) {
-              oscMidi.playOSCRasp(par.playBufferMessage,
-                commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID],
-                commandeDAW[CD_LEVEL_ID], commandeDAW[CD_DUREE_ID]);
+          compteurTest++;
+
+          // Joue le clip, mais pas si la note n'est pas négative et que l'on est avec des musiciens.
+          // si Note < 0 on est dans le cas d'un pattern d'info pour les musiciens.
+          // On fait rien pour la DAW.
+          // !! à vérifier.
+          if (commandeDAW[CD_NOTE_ID] >= 0) {
+
+            // Pour jouer les buffers sur Raspberries
+            if (par.useRaspberries !== undefined) {
+              // On teste chaque pattern avant playOSCRasp(message, value, port, IPaddress, level, durée)
+              if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", par.playBufferMessage,
+                commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID], commandeDAW[CD_LEVEL_ID]);
+
+              if (par.useRaspberries && !isNaN(commandeDAW[CD_BUF_ID])) {
+                oscMidi.playOSCRasp(par.playBufferMessage,
+                  commandeDAW[CD_BUF_ID], par.raspOSCPort, commandeDAW[CD_IP_ID],
+                  commandeDAW[CD_LEVEL_ID], commandeDAW[CD_DUREE_ID]);
+              } else {
+                oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
+                  commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+                if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
+              }
             } else {
-              oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
-                commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
-              if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
+              oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
+              if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE 2:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
             }
-          } else {
-            oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
-            if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE 2:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
           }
+          if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
+            console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
+              commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
+          }
+          if (debug) console.log("---2 controleDAW.mjs:sendNoteOn:", commandeDAW[CD_NOM_ID], " de durée: ", commandeDAW[CD_DUREE_ID], "avec timerDivisionLocal:", timerDivisionLocal);
 
-          // Gestion des signaux et broadcast seulement pour les vrais clips
+          // Via OSC on perd les accents, donc on passe pas une WebSocket
+          if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[CD_NOM_ID], ":", commandeDAW[CD_PSEUDO_ID]);
+
+          // Pour affichage avec un programme Processing
+          // oscMidi.sendProcessingDisplayNames( "demandeDeSonParPseudo", commandeDAW[7] );
+
+          // La ligne automatePossibleMachine.react(commandeDAW[8]) est activé selon reactOnPlay
+          // Si reactOnPlay existe à true on envoie le signal, qui correspond au lancement d'un pattern, au moment de le jouer
+          // Au niveau timing cela signifie que l'on prend en compte une activation au moment où elle est jouée
+          // et pas au moment où elle est demandée.
+          // L'autre scénario est dans websocketserver où on envoie le signal au moment de la demande
+          // Ce sont deux scénarios différents. Celui-ci peut poser des pb de performance si les react s'enchainent
+          // quand on joue la file d'attente.
+
+          // Pour associer le nom du pattern au signal de groupe
           laClef = Object.keys(commandeDAW[CD_SIG_ID]);
           leSignal = JSON.parse('{"' + laClef[0] + '":"' + commandeDAW[CD_NOM_ID] + '"}');
 
-          if (par.reactOnPlay !== undefined && par.reactOnPlay) {
-            if (debug) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
-            automatePossibleMachine.react(leSignal);
+          if (debug) console.log("controleDAW:playAndShiftEventDAW: laclef:", laClef, ", leSignal: ", leSignal, commandeDAW[CD_SIG_ID]);
+
+          if (par.reactOnPlay !== undefined) {
+            if (par.reactOnPlay) {
+              if (debug) console.log("controleDAW: playAndShiftEventDAW: reactOnPlay: ", par.reactOnPlay, leSignal);
+              automatePossibleMachine.react(leSignal);
+            }
           }
 
+          // Pour avertir le browser du demandeur du son et les musiciens s'il y en a.
           serv.broadcast(JSON.stringify({ type: "infoPlayDAW", value: commandeDAW }));
           if (debug) console.log("controleDAW:playAndShiftEventDAW: broadcast commandeDAW", commandeDAW);
+
+          //Met à jour l'attente quand on a joué le pattern.
+          compteursDattente[i] = commandeDAW[CD_DUREE_ID]; // On recharge le compteur d'attente pour le pattern en cours, en comptant le tick en cours
+
+          //Gestion d'une erreur possible dans la programmation de l'orchestration
+          //si des patterns ont des durées < timeDivision, donc inférieures au tick.
+          // Ce cas n'est plus traité à cause de la ligne 508, mais le pb reste
+          if (compteursDattente[i] < 0) {
+            console.log("WARN: Problème sur Pattern", commandeDAW[CD_NOM_ID], ", sa durée est inférieure au timerDivision");
+            compteursDattente[i] = 0;
+          }
+          if (debug) console.log("---3 controleDAW.mjs:compteursDattente:", i, ":", compteursDattente[i]);
+
         } else {
-          if (debug) console.log("--- controleDAW.mjs : Clip vide ignoré:", commandeDAW[CD_NOM_ID]);
+          if (compteursDattente[i] > 0) {
+            if (debug) console.log("---4 controleDAW.mjs:compteursDattente:", compteursDattente[i]);
+          }
         }
-
-        // Validation de la durée
-        if (commandeDAW[CD_DUREE_ID] % timerDivisionLocal !== 0) {
-          console.log("WARN: controleDAW.mjs: playAndShiftEventDAW: pattern",
-            commandeDAW[CD_NOM_ID], " a une durée: ", commandeDAW[CD_DUREE_ID], "non multiple de timer division:", timerDivisionLocal);
+      } else {
+        emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
+        if (automatePossibleMachine !== undefined) {
+          automatePossibleMachine.react(emptyQueueSignal);
+          if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", emptyQueueSignal);
         }
-
-        // Mettre à jour l'attente
-        compteursDattente[i] = commandeDAW[CD_DUREE_ID];
-
-        if (compteursDattente[i] < 0) {
-          console.log("WARN: Problème sur Pattern", commandeDAW[CD_NOM_ID], ", sa durée est inférieure au timerDivision");
-          compteursDattente[i] = 0;
-        }
-      }
-    } else {
-      // File vide - envoyer signal de file vide
-      emptyQueueSignal = JSON.parse('{"emptyQueueSignal":"' + i + '"}');
-      if (automatePossibleMachine !== undefined) {
-        automatePossibleMachine.react(emptyQueueSignal);
-        if (debug) console.log("controleDAW.mjs: playAndShiftEventDAW:", emptyQueueSignal);
       }
     }
-  }
+  } // Fin du for
 
-  // Décrémenter tous les compteurs d'attente
+  // -- Mettre à jour les attentes
+  // On décrémente les compteurs d'attente de la durée du tick
+  // Dans la file d'attente la durée du pattern devient le temps d'attente en fonction de la durée du tick.
+  // C'est une façon de gérer des patterns plus longs que le tick.
   for (let i = 0; i < compteursDattente.length; i++) {
+    if (avecMusicien && decalageFIFOavecMusicien < timerDivisionLocal) {
+      console.log("ERR: Le décalage pour musicien doit être un multiple de timerDivision !");
+    }
     if (compteursDattente[i] >= timerDivisionLocal) {
       compteursDattente[i] -= timerDivisionLocal;
     }
   }
-
   if (debug) console.log("--- controleDAW.mjs:FIFO:Durée d'attente des clips:", compteursDattente, " timer:", timerDivisionLocal);
   return;
 }
