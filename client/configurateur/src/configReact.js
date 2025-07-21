@@ -135,7 +135,7 @@ function initWSSocket(host) {
             { type: 'text', width: 80, title: 'Flag' },
             { type: 'text', width: 120, title: 'Text' },
             { type: 'text', width: 120, title: 'Sound file' },
-            { type: 'text', width: 80, title: 'Instrument' },
+            { type: 'text', width: 80, title: 'Fifo' },
             { type: 'text', width: 80, title: 'Slot' },
             { type: 'text', width: 80, title: 'Type' },
             { type: 'text', width: 80, title: 'Vert. type' },

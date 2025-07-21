@@ -16,6 +16,7 @@ var PianoC, tick, PianoEb, PianoC1, PianoC2, PianoC3, PianoC4, PianoC5, PianoGb,
 //
 //
 //
+//
 
 "use strict";
 
@@ -2717,9 +2718,9 @@ export function setSignals(param) {
 
         hh.TRAP(
           {
-            "trap627274":"trap627274",
+            "trap39678":"trap39678",
             "%location":{},
-            "%tag":"trap627274"
+            "%tag":"trap39678"
           },
           hh.FORK(
             {
@@ -3655,7 +3656,7 @@ export function setSignals(param) {
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap627274":"trap627274",
+    		          "trap39678":"trap39678",
     		          "%location":{},
     		          "%tag":"break"
     		        }
