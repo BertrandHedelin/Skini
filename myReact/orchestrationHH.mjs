@@ -1,19 +1,10 @@
-var PianoC, tick, PianoEb, PianoC1, PianoC2, PianoC3, PianoC4, PianoC5, PianoGb, PianoEb1, PianoEb2, PianoEb3, PianoEb4, PianoEb5, PianoA, PianoGb1, PianoGb2, PianoGb3, PianoGb4, PianoGb5, PianoA1, PianoA2, PianoA3, PianoA4, PianoA5, Viol1C, Viol2C, AltoC, CelloC, Viol1Eb, Viol2Eb, AltoEb, CelloEb, Viol1Gb, Viol2Gb, AltoGb, CelloGb, Viol1A, Viol2A, AltoA, CelloA;
+var FluteC, FluteEb, FluteC1, FluteC2, FluteC3, FluteC4, FluteC5, FluteC6, FluteC7, FluteC8, FluteC9, FluteC10, FluteC11, FluteC12, FluteC13, FluteC14, FluteC15, FluteFmin, tick, FluteEb1, FluteEb2, FluteEb3, FluteEb4, FluteEb5, FluteEb6, FluteEb7, FluteEb8, FluteEb9, FluteEb10, FluteEb11, FluteEb12, FluteEb13, FluteEb14, FluteEb15, FluteFmin1, FluteFmin2, FluteFmin3, FluteFmin4, FluteFmin5, FluteFmin6, FluteFmin7, FluteFmin8, FluteFmin9, FluteFmin10, FluteFmin11, FluteFmin12, FluteFmin13, FluteFmin14, FluteFmin15, PianoC, PianoEb, PianoFmin;
 
 
-// Fonctionne avec EtudeSkiniHarmonie4.als de Live.
-// Pour les tests, j'aime bien utiliser le
-// simulateurListe pour suivre son comportement.
+// Fonctionne avec EtudeHarmonie5.als.
+// 2 simulateurs : 0 et 1.
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// Type Horizontaux et verticaux, et reservoirs
 //
 //
 //
@@ -131,18 +122,38 @@ export function setSignals(param) {
   }
 
 
-    // Module tank PianoC + PianoC1
-    PianoC = hh.MODULE({"id":"PianoC","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoC1IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoC2IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoC3IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoC4IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoC5IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoC1OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoC2OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoC3OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoC4OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoC5OUT"}),
+    // Module tank FluteC + FluteC1
+    FluteC = hh.MODULE({"id":"FluteC","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC8IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC9IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC10IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC11IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC12IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC13IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC14IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteC15IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC7OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC8OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC9OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC10OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC11OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC12OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC13OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC14OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteC15OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -171,10 +182,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "PianoC1,PianoC2,PianoC3,PianoC4,PianoC5" );
+                console.log("-- MAKE RESERVOIR:", "FluteC1,FluteC2,FluteC3,FluteC4,FluteC5,FluteC6,FluteC7,FluteC8,FluteC9,FluteC10,FluteC11,FluteC12,FluteC13,FluteC14,FluteC15" );
                 var msg = {
                   type: 'startTank',
-                  value:  "PianoC1"
+                  value:  "FluteC1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -184,28 +195,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoC1OUT":"PianoC1OUT",
+                "FluteC1OUT":"FluteC1OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoC1 = this["PianoC1OUT"];
+                    const FluteC1 = this["FluteC1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoC1OUT",
+                "signame":"FluteC1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoC1OUT true
+          ), // Fin emit FluteC1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoC1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC1OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteC1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC1OUT", true);
               }
             }
         ),
@@ -213,28 +224,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoC2OUT":"PianoC2OUT",
+                "FluteC2OUT":"FluteC2OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoC2 = this["PianoC2OUT"];
+                    const FluteC2 = this["FluteC2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoC2OUT",
+                "signame":"FluteC2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoC2OUT true
+          ), // Fin emit FluteC2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoC2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC2OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteC2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC2OUT", true);
               }
             }
         ),
@@ -242,28 +253,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoC3OUT":"PianoC3OUT",
+                "FluteC3OUT":"FluteC3OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoC3 = this["PianoC3OUT"];
+                    const FluteC3 = this["FluteC3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoC3OUT",
+                "signame":"FluteC3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoC3OUT true
+          ), // Fin emit FluteC3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoC3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC3OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteC3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC3OUT", true);
               }
             }
         ),
@@ -271,28 +282,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoC4OUT":"PianoC4OUT",
+                "FluteC4OUT":"FluteC4OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoC4 = this["PianoC4OUT"];
+                    const FluteC4 = this["FluteC4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoC4OUT",
+                "signame":"FluteC4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoC4OUT true
+          ), // Fin emit FluteC4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoC4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC4OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteC4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC4OUT", true);
               }
             }
         ),
@@ -300,38 +311,328 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoC5OUT":"PianoC5OUT",
+                "FluteC5OUT":"FluteC5OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoC5 = this["PianoC5OUT"];
+                    const FluteC5 = this["FluteC5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoC5OUT",
+                "signame":"FluteC5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoC5OUT true
+          ), // Fin emit FluteC5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoC5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC5OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteC5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC5OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:PianoC1
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC6OUT":"FluteC6OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC6 = this["FluteC6OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC6OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC6OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC6OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC7OUT":"FluteC7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC7 = this["FluteC7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC7OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC8OUT":"FluteC8OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC8 = this["FluteC8OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC8OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC8OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC8OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC9OUT":"FluteC9OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC9 = this["FluteC9OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC9OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC9OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC9OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC10OUT":"FluteC10OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC10 = this["FluteC10OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC10OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC10OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC10OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC11OUT":"FluteC11OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC11 = this["FluteC11OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC11OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC11OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC11OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC12OUT":"FluteC12OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC12 = this["FluteC12OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC12OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC12OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC12OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC13OUT":"FluteC13OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC13 = this["FluteC13OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC13OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC13OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC13OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC14OUT":"FluteC14OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC14 = this["FluteC14OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC14OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC14OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC14OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteC15OUT":"FluteC15OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteC15 = this["FluteC15OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteC15OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteC15OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteC15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC15OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:FluteC1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour PianoC1
+        hh.SEQUENCE( // Debut sequence pour FluteC1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -343,47 +644,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoC1IN  =this["PianoC1IN"];
-                  return PianoC1IN.now;
+                  const FluteC1IN  =this["FluteC1IN"];
+                  return FluteC1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoC1IN",
+            hh.SIGACCESS({"signame":"FluteC1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoC1IN
+          ), // Fin await FluteC1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoC1OUT" : "PianoC1OUT",
+              "FluteC1OUT" : "FluteC1OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoC1OUT = this["PianoC1OUT"];
+                  const FluteC1OUT = this["FluteC1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoC1OUT",
+              "signame":"FluteC1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoC1OUT true
+          ), // Fin emit FluteC1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoC1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC1OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteC1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoC1
+        ) // Fin sequence pour FluteC1
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoC2
+        hh.SEQUENCE( // Debut sequence pour FluteC2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -395,47 +696,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoC2IN  =this["PianoC2IN"];
-                  return PianoC2IN.now;
+                  const FluteC2IN  =this["FluteC2IN"];
+                  return FluteC2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoC2IN",
+            hh.SIGACCESS({"signame":"FluteC2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoC2IN
+          ), // Fin await FluteC2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoC2OUT" : "PianoC2OUT",
+              "FluteC2OUT" : "FluteC2OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoC2OUT = this["PianoC2OUT"];
+                  const FluteC2OUT = this["FluteC2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoC2OUT",
+              "signame":"FluteC2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoC2OUT true
+          ), // Fin emit FluteC2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoC2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC2OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteC2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoC2
+        ) // Fin sequence pour FluteC2
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoC3
+        hh.SEQUENCE( // Debut sequence pour FluteC3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -447,47 +748,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoC3IN  =this["PianoC3IN"];
-                  return PianoC3IN.now;
+                  const FluteC3IN  =this["FluteC3IN"];
+                  return FluteC3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoC3IN",
+            hh.SIGACCESS({"signame":"FluteC3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoC3IN
+          ), // Fin await FluteC3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoC3OUT" : "PianoC3OUT",
+              "FluteC3OUT" : "FluteC3OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoC3OUT = this["PianoC3OUT"];
+                  const FluteC3OUT = this["FluteC3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoC3OUT",
+              "signame":"FluteC3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoC3OUT true
+          ), // Fin emit FluteC3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoC3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC3OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteC3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoC3
+        ) // Fin sequence pour FluteC3
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoC4
+        hh.SEQUENCE( // Debut sequence pour FluteC4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -499,47 +800,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoC4IN  =this["PianoC4IN"];
-                  return PianoC4IN.now;
+                  const FluteC4IN  =this["FluteC4IN"];
+                  return FluteC4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoC4IN",
+            hh.SIGACCESS({"signame":"FluteC4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoC4IN
+          ), // Fin await FluteC4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoC4OUT" : "PianoC4OUT",
+              "FluteC4OUT" : "FluteC4OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoC4OUT = this["PianoC4OUT"];
+                  const FluteC4OUT = this["FluteC4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoC4OUT",
+              "signame":"FluteC4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoC4OUT true
+          ), // Fin emit FluteC4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoC4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC4OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteC4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoC4
+        ) // Fin sequence pour FluteC4
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoC5
+        hh.SEQUENCE( // Debut sequence pour FluteC5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -551,46 +852,566 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoC5IN  =this["PianoC5IN"];
-                  return PianoC5IN.now;
+                  const FluteC5IN  =this["FluteC5IN"];
+                  return FluteC5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoC5IN",
+            hh.SIGACCESS({"signame":"FluteC5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoC5IN
+          ), // Fin await FluteC5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoC5OUT" : "PianoC5OUT",
+              "FluteC5OUT" : "FluteC5OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoC5OUT = this["PianoC5OUT"];
+                  const FluteC5OUT = this["FluteC5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoC5OUT",
+              "signame":"FluteC5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoC5OUT true
+          ), // Fin emit FluteC5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoC5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoC5OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteC5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoC5
-      ), // Fin fork de make await avec en premiere position:PianoC1
+        ) // Fin sequence pour FluteC5
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC6
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC6IN  =this["FluteC6IN"];
+                  return FluteC6IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC6IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC6IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC6OUT" : "FluteC6OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC6OUT = this["FluteC6OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC6OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC6OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC6
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC7IN  =this["FluteC7IN"];
+                  return FluteC7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC7OUT" : "FluteC7OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC7OUT = this["FluteC7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC7
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC8
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC8IN  =this["FluteC8IN"];
+                  return FluteC8IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC8IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC8IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC8OUT" : "FluteC8OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC8OUT = this["FluteC8OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC8OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC8OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC8OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC8
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC9
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC9IN  =this["FluteC9IN"];
+                  return FluteC9IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC9IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC9IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC9OUT" : "FluteC9OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC9OUT = this["FluteC9OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC9OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC9OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC9OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC9
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC10
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC10IN  =this["FluteC10IN"];
+                  return FluteC10IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC10IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC10IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC10OUT" : "FluteC10OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC10OUT = this["FluteC10OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC10OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC10OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC10OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC10
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC11
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC11IN  =this["FluteC11IN"];
+                  return FluteC11IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC11IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC11IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC11OUT" : "FluteC11OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC11OUT = this["FluteC11OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC11OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC11OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC11OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC11
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC12
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC12IN  =this["FluteC12IN"];
+                  return FluteC12IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC12IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC12IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC12OUT" : "FluteC12OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC12OUT = this["FluteC12OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC12OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC12OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC12OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC12
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC13
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC13IN  =this["FluteC13IN"];
+                  return FluteC13IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC13IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC13IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC13OUT" : "FluteC13OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC13OUT = this["FluteC13OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC13OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC13OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC13OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC13
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC14
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC14IN  =this["FluteC14IN"];
+                  return FluteC14IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC14IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC14IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC14OUT" : "FluteC14OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC14OUT = this["FluteC14OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC14OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC14OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC14OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC14
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteC15
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteC15IN  =this["FluteC15IN"];
+                  return FluteC15IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteC15IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteC15IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteC15OUT" : "FluteC15OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteC15OUT = this["FluteC15OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteC15OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteC15OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteC15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteC15OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteC15
+      ), // Fin fork de make await avec en premiere position:FluteC1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -611,107 +1432,297 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "PianoC1OUT":"PianoC1OUT",
+          "FluteC1OUT":"FluteC1OUT",
           "apply":function (){
             return ((() => {
-              const PianoC1 = this["PianoC1OUT"];
+              const FluteC1 = this["FluteC1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoC1OUT",
+          "signame":"FluteC1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoC1OUT false,
+    ), // Fin emit FluteC1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoC2OUT":"PianoC2OUT",
+          "FluteC2OUT":"FluteC2OUT",
           "apply":function (){
             return ((() => {
-              const PianoC2 = this["PianoC2OUT"];
+              const FluteC2 = this["FluteC2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoC2OUT",
+          "signame":"FluteC2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoC2OUT false,
+    ), // Fin emit FluteC2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoC3OUT":"PianoC3OUT",
+          "FluteC3OUT":"FluteC3OUT",
           "apply":function (){
             return ((() => {
-              const PianoC3 = this["PianoC3OUT"];
+              const FluteC3 = this["FluteC3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoC3OUT",
+          "signame":"FluteC3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoC3OUT false,
+    ), // Fin emit FluteC3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoC4OUT":"PianoC4OUT",
+          "FluteC4OUT":"FluteC4OUT",
           "apply":function (){
             return ((() => {
-              const PianoC4 = this["PianoC4OUT"];
+              const FluteC4 = this["FluteC4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoC4OUT",
+          "signame":"FluteC4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoC4OUT false,
+    ), // Fin emit FluteC4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoC5OUT":"PianoC5OUT",
+          "FluteC5OUT":"FluteC5OUT",
           "apply":function (){
             return ((() => {
-              const PianoC5 = this["PianoC5OUT"];
+              const FluteC5 = this["FluteC5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoC5OUT",
+          "signame":"FluteC5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoC5OUT false
+    ), // Fin emit FluteC5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC6OUT":"FluteC6OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC6 = this["FluteC6OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC6OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC7OUT":"FluteC7OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC7 = this["FluteC7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC7OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC8OUT":"FluteC8OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC8 = this["FluteC8OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC8OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC8OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC9OUT":"FluteC9OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC9 = this["FluteC9OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC9OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC9OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC10OUT":"FluteC10OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC10 = this["FluteC10OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC10OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC10OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC11OUT":"FluteC11OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC11 = this["FluteC11OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC11OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC11OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC12OUT":"FluteC12OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC12 = this["FluteC12OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC12OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC12OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC13OUT":"FluteC13OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC13 = this["FluteC13OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC13OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC13OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC14OUT":"FluteC14OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC14 = this["FluteC14OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC14OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC14OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteC15OUT":"FluteC15OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteC15 = this["FluteC15OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteC15OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteC15OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "PianoC1", false);
-            console.log("--- FIN RESERVOIR:", "PianoC1");
+            gcs.informSelecteurOnMenuChange(255 , "FluteC1", false);
+            console.log("--- FIN RESERVOIR:", "FluteC1");
             var msg = {
             type: 'killTank',
-            value:  "PianoC1"
+            value:  "FluteC1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -719,18 +1730,38 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank PianoEb + PianoEb1
-    PianoEb = hh.MODULE({"id":"PianoEb","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoEb1IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoEb2IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoEb3IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoEb4IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoEb5IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoEb1OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoEb2OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoEb3OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoEb4OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoEb5OUT"}),
+    // Module tank FluteEb + FluteEb1
+    FluteEb = hh.MODULE({"id":"FluteEb","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb8IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb9IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb10IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb11IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb12IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb13IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb14IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteEb15IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb7OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb8OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb9OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb10OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb11OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb12OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb13OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb14OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteEb15OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -759,10 +1790,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "PianoEb1,PianoEb2,PianoEb3,PianoEb4,PianoEb5" );
+                console.log("-- MAKE RESERVOIR:", "FluteEb1,FluteEb2,FluteEb3,FluteEb4,FluteEb5,FluteEb6,FluteEb7,FluteEb8,FluteEb9,FluteEb10,FluteEb11,FluteEb12,FluteEb13,FluteEb14,FluteEb15" );
                 var msg = {
                   type: 'startTank',
-                  value:  "PianoEb1"
+                  value:  "FluteEb1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -772,28 +1803,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoEb1OUT":"PianoEb1OUT",
+                "FluteEb1OUT":"FluteEb1OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoEb1 = this["PianoEb1OUT"];
+                    const FluteEb1 = this["FluteEb1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoEb1OUT",
+                "signame":"FluteEb1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoEb1OUT true
+          ), // Fin emit FluteEb1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoEb1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb1OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteEb1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb1OUT", true);
               }
             }
         ),
@@ -801,28 +1832,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoEb2OUT":"PianoEb2OUT",
+                "FluteEb2OUT":"FluteEb2OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoEb2 = this["PianoEb2OUT"];
+                    const FluteEb2 = this["FluteEb2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoEb2OUT",
+                "signame":"FluteEb2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoEb2OUT true
+          ), // Fin emit FluteEb2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoEb2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb2OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteEb2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb2OUT", true);
               }
             }
         ),
@@ -830,28 +1861,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoEb3OUT":"PianoEb3OUT",
+                "FluteEb3OUT":"FluteEb3OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoEb3 = this["PianoEb3OUT"];
+                    const FluteEb3 = this["FluteEb3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoEb3OUT",
+                "signame":"FluteEb3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoEb3OUT true
+          ), // Fin emit FluteEb3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoEb3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb3OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteEb3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb3OUT", true);
               }
             }
         ),
@@ -859,28 +1890,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoEb4OUT":"PianoEb4OUT",
+                "FluteEb4OUT":"FluteEb4OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoEb4 = this["PianoEb4OUT"];
+                    const FluteEb4 = this["FluteEb4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoEb4OUT",
+                "signame":"FluteEb4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoEb4OUT true
+          ), // Fin emit FluteEb4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoEb4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb4OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteEb4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb4OUT", true);
               }
             }
         ),
@@ -888,38 +1919,328 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoEb5OUT":"PianoEb5OUT",
+                "FluteEb5OUT":"FluteEb5OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoEb5 = this["PianoEb5OUT"];
+                    const FluteEb5 = this["FluteEb5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoEb5OUT",
+                "signame":"FluteEb5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoEb5OUT true
+          ), // Fin emit FluteEb5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoEb5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb5OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteEb5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb5OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:PianoEb1
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb6OUT":"FluteEb6OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb6 = this["FluteEb6OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb6OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb6OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb6OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb7OUT":"FluteEb7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb7 = this["FluteEb7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb7OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb8OUT":"FluteEb8OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb8 = this["FluteEb8OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb8OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb8OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb8OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb9OUT":"FluteEb9OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb9 = this["FluteEb9OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb9OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb9OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb9OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb10OUT":"FluteEb10OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb10 = this["FluteEb10OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb10OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb10OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb10OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb11OUT":"FluteEb11OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb11 = this["FluteEb11OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb11OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb11OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb11OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb12OUT":"FluteEb12OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb12 = this["FluteEb12OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb12OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb12OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb12OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb13OUT":"FluteEb13OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb13 = this["FluteEb13OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb13OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb13OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb13OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb14OUT":"FluteEb14OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb14 = this["FluteEb14OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb14OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb14OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb14OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteEb15OUT":"FluteEb15OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteEb15 = this["FluteEb15OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteEb15OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteEb15OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteEb15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb15OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:FluteEb1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour PianoEb1
+        hh.SEQUENCE( // Debut sequence pour FluteEb1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -931,47 +2252,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoEb1IN  =this["PianoEb1IN"];
-                  return PianoEb1IN.now;
+                  const FluteEb1IN  =this["FluteEb1IN"];
+                  return FluteEb1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoEb1IN",
+            hh.SIGACCESS({"signame":"FluteEb1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoEb1IN
+          ), // Fin await FluteEb1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoEb1OUT" : "PianoEb1OUT",
+              "FluteEb1OUT" : "FluteEb1OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoEb1OUT = this["PianoEb1OUT"];
+                  const FluteEb1OUT = this["FluteEb1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoEb1OUT",
+              "signame":"FluteEb1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoEb1OUT true
+          ), // Fin emit FluteEb1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoEb1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb1OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteEb1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoEb1
+        ) // Fin sequence pour FluteEb1
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoEb2
+        hh.SEQUENCE( // Debut sequence pour FluteEb2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -983,47 +2304,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoEb2IN  =this["PianoEb2IN"];
-                  return PianoEb2IN.now;
+                  const FluteEb2IN  =this["FluteEb2IN"];
+                  return FluteEb2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoEb2IN",
+            hh.SIGACCESS({"signame":"FluteEb2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoEb2IN
+          ), // Fin await FluteEb2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoEb2OUT" : "PianoEb2OUT",
+              "FluteEb2OUT" : "FluteEb2OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoEb2OUT = this["PianoEb2OUT"];
+                  const FluteEb2OUT = this["FluteEb2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoEb2OUT",
+              "signame":"FluteEb2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoEb2OUT true
+          ), // Fin emit FluteEb2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoEb2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb2OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteEb2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoEb2
+        ) // Fin sequence pour FluteEb2
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoEb3
+        hh.SEQUENCE( // Debut sequence pour FluteEb3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1035,47 +2356,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoEb3IN  =this["PianoEb3IN"];
-                  return PianoEb3IN.now;
+                  const FluteEb3IN  =this["FluteEb3IN"];
+                  return FluteEb3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoEb3IN",
+            hh.SIGACCESS({"signame":"FluteEb3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoEb3IN
+          ), // Fin await FluteEb3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoEb3OUT" : "PianoEb3OUT",
+              "FluteEb3OUT" : "FluteEb3OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoEb3OUT = this["PianoEb3OUT"];
+                  const FluteEb3OUT = this["FluteEb3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoEb3OUT",
+              "signame":"FluteEb3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoEb3OUT true
+          ), // Fin emit FluteEb3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoEb3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb3OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteEb3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoEb3
+        ) // Fin sequence pour FluteEb3
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoEb4
+        hh.SEQUENCE( // Debut sequence pour FluteEb4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1087,47 +2408,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoEb4IN  =this["PianoEb4IN"];
-                  return PianoEb4IN.now;
+                  const FluteEb4IN  =this["FluteEb4IN"];
+                  return FluteEb4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoEb4IN",
+            hh.SIGACCESS({"signame":"FluteEb4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoEb4IN
+          ), // Fin await FluteEb4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoEb4OUT" : "PianoEb4OUT",
+              "FluteEb4OUT" : "FluteEb4OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoEb4OUT = this["PianoEb4OUT"];
+                  const FluteEb4OUT = this["FluteEb4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoEb4OUT",
+              "signame":"FluteEb4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoEb4OUT true
+          ), // Fin emit FluteEb4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoEb4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb4OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteEb4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoEb4
+        ) // Fin sequence pour FluteEb4
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoEb5
+        hh.SEQUENCE( // Debut sequence pour FluteEb5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1139,46 +2460,566 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoEb5IN  =this["PianoEb5IN"];
-                  return PianoEb5IN.now;
+                  const FluteEb5IN  =this["FluteEb5IN"];
+                  return FluteEb5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoEb5IN",
+            hh.SIGACCESS({"signame":"FluteEb5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoEb5IN
+          ), // Fin await FluteEb5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoEb5OUT" : "PianoEb5OUT",
+              "FluteEb5OUT" : "FluteEb5OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoEb5OUT = this["PianoEb5OUT"];
+                  const FluteEb5OUT = this["FluteEb5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoEb5OUT",
+              "signame":"FluteEb5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoEb5OUT true
+          ), // Fin emit FluteEb5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoEb5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoEb5OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteEb5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoEb5
-      ), // Fin fork de make await avec en premiere position:PianoEb1
+        ) // Fin sequence pour FluteEb5
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb6
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb6IN  =this["FluteEb6IN"];
+                  return FluteEb6IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb6IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb6IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb6OUT" : "FluteEb6OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb6OUT = this["FluteEb6OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb6OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb6OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb6
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb7IN  =this["FluteEb7IN"];
+                  return FluteEb7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb7OUT" : "FluteEb7OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb7OUT = this["FluteEb7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb7
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb8
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb8IN  =this["FluteEb8IN"];
+                  return FluteEb8IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb8IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb8IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb8OUT" : "FluteEb8OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb8OUT = this["FluteEb8OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb8OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb8OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb8OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb8
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb9
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb9IN  =this["FluteEb9IN"];
+                  return FluteEb9IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb9IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb9IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb9OUT" : "FluteEb9OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb9OUT = this["FluteEb9OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb9OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb9OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb9OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb9
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb10
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb10IN  =this["FluteEb10IN"];
+                  return FluteEb10IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb10IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb10IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb10OUT" : "FluteEb10OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb10OUT = this["FluteEb10OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb10OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb10OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb10OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb10
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb11
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb11IN  =this["FluteEb11IN"];
+                  return FluteEb11IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb11IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb11IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb11OUT" : "FluteEb11OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb11OUT = this["FluteEb11OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb11OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb11OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb11OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb11
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb12
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb12IN  =this["FluteEb12IN"];
+                  return FluteEb12IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb12IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb12IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb12OUT" : "FluteEb12OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb12OUT = this["FluteEb12OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb12OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb12OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb12OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb12
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb13
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb13IN  =this["FluteEb13IN"];
+                  return FluteEb13IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb13IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb13IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb13OUT" : "FluteEb13OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb13OUT = this["FluteEb13OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb13OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb13OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb13OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb13
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb14
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb14IN  =this["FluteEb14IN"];
+                  return FluteEb14IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb14IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb14IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb14OUT" : "FluteEb14OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb14OUT = this["FluteEb14OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb14OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb14OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb14OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb14
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteEb15
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteEb15IN  =this["FluteEb15IN"];
+                  return FluteEb15IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteEb15IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteEb15IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteEb15OUT" : "FluteEb15OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteEb15OUT = this["FluteEb15OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteEb15OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteEb15OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteEb15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteEb15OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteEb15
+      ), // Fin fork de make await avec en premiere position:FluteEb1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -1199,107 +3040,297 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "PianoEb1OUT":"PianoEb1OUT",
+          "FluteEb1OUT":"FluteEb1OUT",
           "apply":function (){
             return ((() => {
-              const PianoEb1 = this["PianoEb1OUT"];
+              const FluteEb1 = this["FluteEb1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoEb1OUT",
+          "signame":"FluteEb1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoEb1OUT false,
+    ), // Fin emit FluteEb1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoEb2OUT":"PianoEb2OUT",
+          "FluteEb2OUT":"FluteEb2OUT",
           "apply":function (){
             return ((() => {
-              const PianoEb2 = this["PianoEb2OUT"];
+              const FluteEb2 = this["FluteEb2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoEb2OUT",
+          "signame":"FluteEb2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoEb2OUT false,
+    ), // Fin emit FluteEb2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoEb3OUT":"PianoEb3OUT",
+          "FluteEb3OUT":"FluteEb3OUT",
           "apply":function (){
             return ((() => {
-              const PianoEb3 = this["PianoEb3OUT"];
+              const FluteEb3 = this["FluteEb3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoEb3OUT",
+          "signame":"FluteEb3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoEb3OUT false,
+    ), // Fin emit FluteEb3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoEb4OUT":"PianoEb4OUT",
+          "FluteEb4OUT":"FluteEb4OUT",
           "apply":function (){
             return ((() => {
-              const PianoEb4 = this["PianoEb4OUT"];
+              const FluteEb4 = this["FluteEb4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoEb4OUT",
+          "signame":"FluteEb4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoEb4OUT false,
+    ), // Fin emit FluteEb4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoEb5OUT":"PianoEb5OUT",
+          "FluteEb5OUT":"FluteEb5OUT",
           "apply":function (){
             return ((() => {
-              const PianoEb5 = this["PianoEb5OUT"];
+              const FluteEb5 = this["FluteEb5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoEb5OUT",
+          "signame":"FluteEb5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoEb5OUT false
+    ), // Fin emit FluteEb5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb6OUT":"FluteEb6OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb6 = this["FluteEb6OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb6OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb7OUT":"FluteEb7OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb7 = this["FluteEb7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb7OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb8OUT":"FluteEb8OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb8 = this["FluteEb8OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb8OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb8OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb9OUT":"FluteEb9OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb9 = this["FluteEb9OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb9OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb9OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb10OUT":"FluteEb10OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb10 = this["FluteEb10OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb10OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb10OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb11OUT":"FluteEb11OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb11 = this["FluteEb11OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb11OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb11OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb12OUT":"FluteEb12OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb12 = this["FluteEb12OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb12OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb12OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb13OUT":"FluteEb13OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb13 = this["FluteEb13OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb13OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb13OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb14OUT":"FluteEb14OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb14 = this["FluteEb14OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb14OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb14OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteEb15OUT":"FluteEb15OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteEb15 = this["FluteEb15OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteEb15OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteEb15OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "PianoEb1", false);
-            console.log("--- FIN RESERVOIR:", "PianoEb1");
+            gcs.informSelecteurOnMenuChange(255 , "FluteEb1", false);
+            console.log("--- FIN RESERVOIR:", "FluteEb1");
             var msg = {
             type: 'killTank',
-            value:  "PianoEb1"
+            value:  "FluteEb1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -1307,18 +3338,38 @@ export function setSignals(param) {
     ) // Fin atom,
   ); // Fin module
 
-    // Module tank PianoGb + PianoGb1
-    PianoGb = hh.MODULE({"id":"PianoGb","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoGb1IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoGb2IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoGb3IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoGb4IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoGb5IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoGb1OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoGb2OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoGb3OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoGb4OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoGb5OUT"}),
+    // Module tank FluteFmin + FluteFmin1
+    FluteFmin = hh.MODULE({"id":"FluteFmin","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
+    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin1IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin2IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin3IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin4IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin5IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin6IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin7IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin8IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin9IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin10IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin11IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin12IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin13IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin14IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"FluteFmin15IN"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin1OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin2OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin3OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin4OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin5OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin6OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin7OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin8OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin9OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin10OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin11OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin12OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin13OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin14OUT"}),
+      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"FluteFmin15OUT"}),
       hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
     hh.TRAP(
     {
@@ -1347,10 +3398,10 @@ export function setSignals(param) {
             "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "PianoGb1,PianoGb2,PianoGb3,PianoGb4,PianoGb5" );
+                console.log("-- MAKE RESERVOIR:", "FluteFmin1,FluteFmin2,FluteFmin3,FluteFmin4,FluteFmin5,FluteFmin6,FluteFmin7,FluteFmin8,FluteFmin9,FluteFmin10,FluteFmin11,FluteFmin12,FluteFmin13,FluteFmin14,FluteFmin15" );
                 var msg = {
                   type: 'startTank',
-                  value:  "PianoGb1"
+                  value:  "FluteFmin1"
                 }
                 serveur.broadcast(JSON.stringify(msg));
               }
@@ -1360,28 +3411,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoGb1OUT":"PianoGb1OUT",
+                "FluteFmin1OUT":"FluteFmin1OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoGb1 = this["PianoGb1OUT"];
+                    const FluteFmin1 = this["FluteFmin1OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoGb1OUT",
+                "signame":"FluteFmin1OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoGb1OUT true
+          ), // Fin emit FluteFmin1OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoGb1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb1OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteFmin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin1OUT", true);
               }
             }
         ),
@@ -1389,28 +3440,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoGb2OUT":"PianoGb2OUT",
+                "FluteFmin2OUT":"FluteFmin2OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoGb2 = this["PianoGb2OUT"];
+                    const FluteFmin2 = this["FluteFmin2OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoGb2OUT",
+                "signame":"FluteFmin2OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoGb2OUT true
+          ), // Fin emit FluteFmin2OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoGb2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb2OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteFmin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin2OUT", true);
               }
             }
         ),
@@ -1418,28 +3469,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoGb3OUT":"PianoGb3OUT",
+                "FluteFmin3OUT":"FluteFmin3OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoGb3 = this["PianoGb3OUT"];
+                    const FluteFmin3 = this["FluteFmin3OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoGb3OUT",
+                "signame":"FluteFmin3OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoGb3OUT true
+          ), // Fin emit FluteFmin3OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoGb3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb3OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteFmin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin3OUT", true);
               }
             }
         ),
@@ -1447,28 +3498,28 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoGb4OUT":"PianoGb4OUT",
+                "FluteFmin4OUT":"FluteFmin4OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoGb4 = this["PianoGb4OUT"];
+                    const FluteFmin4 = this["FluteFmin4OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoGb4OUT",
+                "signame":"FluteFmin4OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoGb4OUT true
+          ), // Fin emit FluteFmin4OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoGb4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb4OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteFmin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin4OUT", true);
               }
             }
         ),
@@ -1476,38 +3527,328 @@ export function setSignals(param) {
               {
                 "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
                 "%tag":"emit",
-                "PianoGb5OUT":"PianoGb5OUT",
+                "FluteFmin5OUT":"FluteFmin5OUT",
                 "apply":function (){
                   return ((() => {
-                    const PianoGb5 = this["PianoGb5OUT"];
+                    const FluteFmin5 = this["FluteFmin5OUT"];
                     return [true, 255 ];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"PianoGb5OUT",
+                "signame":"FluteFmin5OUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
               })
-          ), // Fin emit PianoGb5OUT true
+          ), // Fin emit FluteFmin5OUT true
         hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
             "%tag":"node",
             "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoGb5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb5OUT", true);
+                //console.log("-- makeReservoir:  atom:", "FluteFmin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin5OUT", true);
               }
             }
         ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:PianoGb1
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin6OUT":"FluteFmin6OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin6 = this["FluteFmin6OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin6OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin6OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin6OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin7OUT":"FluteFmin7OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin7 = this["FluteFmin7OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin7OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin7OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin7OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin8OUT":"FluteFmin8OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin8 = this["FluteFmin8OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin8OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin8OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin8OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin9OUT":"FluteFmin9OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin9 = this["FluteFmin9OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin9OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin9OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin9OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin10OUT":"FluteFmin10OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin10 = this["FluteFmin10OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin10OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin10OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin10OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin11OUT":"FluteFmin11OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin11 = this["FluteFmin11OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin11OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin11OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin11OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin12OUT":"FluteFmin12OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin12 = this["FluteFmin12OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin12OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin12OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin12OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin13OUT":"FluteFmin13OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin13 = this["FluteFmin13OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin13OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin13OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin13OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin14OUT":"FluteFmin14OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin14 = this["FluteFmin14OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin14OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin14OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin14OUT", true);
+              }
+            }
+        ),
+        hh.EMIT(
+              {
+                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
+                "%tag":"emit",
+                "FluteFmin15OUT":"FluteFmin15OUT",
+                "apply":function (){
+                  return ((() => {
+                    const FluteFmin15 = this["FluteFmin15OUT"];
+                    return [true, 255 ];
+                  })());
+                }
+              },
+              hh.SIGACCESS({
+                "signame":"FluteFmin15OUT",
+                "pre":true,
+                "val":true,
+                "cnt":false
+              })
+          ), // Fin emit FluteFmin15OUT true
+        hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("-- makeReservoir:  atom:", "FluteFmin15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin15OUT", true);
+              }
+            }
+        ),
+        hh.FORK( // debut du fork de makeAwait avec en premiere position:FluteFmin1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":304},
           "%tag":"fork"
         },
 
-        hh.SEQUENCE( // Debut sequence pour PianoGb1
+        hh.SEQUENCE( // Debut sequence pour FluteFmin1
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1519,47 +3860,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoGb1IN  =this["PianoGb1IN"];
-                  return PianoGb1IN.now;
+                  const FluteFmin1IN  =this["FluteFmin1IN"];
+                  return FluteFmin1IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoGb1IN",
+            hh.SIGACCESS({"signame":"FluteFmin1IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoGb1IN
+          ), // Fin await FluteFmin1IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoGb1OUT" : "PianoGb1OUT",
+              "FluteFmin1OUT" : "FluteFmin1OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoGb1OUT = this["PianoGb1OUT"];
+                  const FluteFmin1OUT = this["FluteFmin1OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoGb1OUT",
+              "signame":"FluteFmin1OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoGb1OUT true
+          ), // Fin emit FluteFmin1OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoGb1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb1OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteFmin1OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin1OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoGb1
+        ) // Fin sequence pour FluteFmin1
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoGb2
+        hh.SEQUENCE( // Debut sequence pour FluteFmin2
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1571,47 +3912,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoGb2IN  =this["PianoGb2IN"];
-                  return PianoGb2IN.now;
+                  const FluteFmin2IN  =this["FluteFmin2IN"];
+                  return FluteFmin2IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoGb2IN",
+            hh.SIGACCESS({"signame":"FluteFmin2IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoGb2IN
+          ), // Fin await FluteFmin2IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoGb2OUT" : "PianoGb2OUT",
+              "FluteFmin2OUT" : "FluteFmin2OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoGb2OUT = this["PianoGb2OUT"];
+                  const FluteFmin2OUT = this["FluteFmin2OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoGb2OUT",
+              "signame":"FluteFmin2OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoGb2OUT true
+          ), // Fin emit FluteFmin2OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoGb2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb2OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteFmin2OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin2OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoGb2
+        ) // Fin sequence pour FluteFmin2
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoGb3
+        hh.SEQUENCE( // Debut sequence pour FluteFmin3
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1623,47 +3964,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoGb3IN  =this["PianoGb3IN"];
-                  return PianoGb3IN.now;
+                  const FluteFmin3IN  =this["FluteFmin3IN"];
+                  return FluteFmin3IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoGb3IN",
+            hh.SIGACCESS({"signame":"FluteFmin3IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoGb3IN
+          ), // Fin await FluteFmin3IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoGb3OUT" : "PianoGb3OUT",
+              "FluteFmin3OUT" : "FluteFmin3OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoGb3OUT = this["PianoGb3OUT"];
+                  const FluteFmin3OUT = this["FluteFmin3OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoGb3OUT",
+              "signame":"FluteFmin3OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoGb3OUT true
+          ), // Fin emit FluteFmin3OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoGb3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb3OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteFmin3OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin3OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoGb3
+        ) // Fin sequence pour FluteFmin3
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoGb4
+        hh.SEQUENCE( // Debut sequence pour FluteFmin4
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1675,47 +4016,47 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoGb4IN  =this["PianoGb4IN"];
-                  return PianoGb4IN.now;
+                  const FluteFmin4IN  =this["FluteFmin4IN"];
+                  return FluteFmin4IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoGb4IN",
+            hh.SIGACCESS({"signame":"FluteFmin4IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoGb4IN
+          ), // Fin await FluteFmin4IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoGb4OUT" : "PianoGb4OUT",
+              "FluteFmin4OUT" : "FluteFmin4OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoGb4OUT = this["PianoGb4OUT"];
+                  const FluteFmin4OUT = this["FluteFmin4OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoGb4OUT",
+              "signame":"FluteFmin4OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoGb4OUT true
+          ), // Fin emit FluteFmin4OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoGb4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb4OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteFmin4OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin4OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoGb4
+        ) // Fin sequence pour FluteFmin4
   ,
-        hh.SEQUENCE( // Debut sequence pour PianoGb5
+        hh.SEQUENCE( // Debut sequence pour FluteFmin5
         {
           "%location":{"filename":"hiphop_blocks.js","pos":312},
           "%tag":"seq"
@@ -1727,46 +4068,566 @@ export function setSignals(param) {
               "immediate":false,
               "apply":function (){
                 return ((() => {
-                  const PianoGb5IN  =this["PianoGb5IN"];
-                  return PianoGb5IN.now;
+                  const FluteFmin5IN  =this["FluteFmin5IN"];
+                  return FluteFmin5IN.now;
                 })());},
             },
-            hh.SIGACCESS({"signame":"PianoGb5IN",
+            hh.SIGACCESS({"signame":"FluteFmin5IN",
             "pre":false,
             "val":false,
             "cnt":false})
-          ), // Fin await PianoGb5IN
+          ), // Fin await FluteFmin5IN
           hh.EMIT(
             {
               "%location":{"filename":"hiphop_blocks.js","pos":333},
               "%tag":"emit",
-              "PianoGb5OUT" : "PianoGb5OUT",
+              "FluteFmin5OUT" : "FluteFmin5OUT",
               "apply":function (){
                 return ((() => {
-                  const PianoGb5OUT = this["PianoGb5OUT"];
+                  const FluteFmin5OUT = this["FluteFmin5OUT"];
                   return [false, 255];
                 })());
               }
             },
             hh.SIGACCESS({
-              "signame":"PianoGb5OUT",
+              "signame":"FluteFmin5OUT",
               "pre":true,
               "val":true,
               "cnt":false
             }),
-          ), // Fin emit PianoGb5OUT true
+          ), // Fin emit FluteFmin5OUT true
           hh.ATOM(
             {
             "%location":{"filename":"hiphop_blocks.js","pos":352},
             "%tag":"node",
             "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoGb5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoGb5OUT", false);
+                //console.log("--! makeAwait:  atom:", "FluteFmin5OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin5OUT", false);
               }
             }
           )
-        ) // Fin sequence pour PianoGb5
-      ), // Fin fork de make await avec en premiere position:PianoGb1
+        ) // Fin sequence pour FluteFmin5
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin6
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin6IN  =this["FluteFmin6IN"];
+                  return FluteFmin6IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin6IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin6IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin6OUT" : "FluteFmin6OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin6OUT = this["FluteFmin6OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin6OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin6OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin6OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin6OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin6
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin7
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin7IN  =this["FluteFmin7IN"];
+                  return FluteFmin7IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin7IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin7IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin7OUT" : "FluteFmin7OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin7OUT = this["FluteFmin7OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin7OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin7OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin7OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin7OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin7
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin8
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin8IN  =this["FluteFmin8IN"];
+                  return FluteFmin8IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin8IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin8IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin8OUT" : "FluteFmin8OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin8OUT = this["FluteFmin8OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin8OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin8OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin8OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin8OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin8
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin9
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin9IN  =this["FluteFmin9IN"];
+                  return FluteFmin9IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin9IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin9IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin9OUT" : "FluteFmin9OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin9OUT = this["FluteFmin9OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin9OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin9OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin9OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin9OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin9
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin10
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin10IN  =this["FluteFmin10IN"];
+                  return FluteFmin10IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin10IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin10IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin10OUT" : "FluteFmin10OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin10OUT = this["FluteFmin10OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin10OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin10OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin10OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin10OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin10
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin11
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin11IN  =this["FluteFmin11IN"];
+                  return FluteFmin11IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin11IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin11IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin11OUT" : "FluteFmin11OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin11OUT = this["FluteFmin11OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin11OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin11OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin11OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin11OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin11
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin12
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin12IN  =this["FluteFmin12IN"];
+                  return FluteFmin12IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin12IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin12IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin12OUT" : "FluteFmin12OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin12OUT = this["FluteFmin12OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin12OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin12OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin12OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin12OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin12
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin13
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin13IN  =this["FluteFmin13IN"];
+                  return FluteFmin13IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin13IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin13IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin13OUT" : "FluteFmin13OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin13OUT = this["FluteFmin13OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin13OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin13OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin13OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin13OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin13
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin14
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin14IN  =this["FluteFmin14IN"];
+                  return FluteFmin14IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin14IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin14IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin14OUT" : "FluteFmin14OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin14OUT = this["FluteFmin14OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin14OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin14OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin14OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin14OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin14
+  ,
+        hh.SEQUENCE( // Debut sequence pour FluteFmin15
+        {
+          "%location":{"filename":"hiphop_blocks.js","pos":312},
+          "%tag":"seq"
+        },
+          hh.AWAIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":317},
+              "%tag":"await",
+              "immediate":false,
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin15IN  =this["FluteFmin15IN"];
+                  return FluteFmin15IN.now;
+                })());},
+            },
+            hh.SIGACCESS({"signame":"FluteFmin15IN",
+            "pre":false,
+            "val":false,
+            "cnt":false})
+          ), // Fin await FluteFmin15IN
+          hh.EMIT(
+            {
+              "%location":{"filename":"hiphop_blocks.js","pos":333},
+              "%tag":"emit",
+              "FluteFmin15OUT" : "FluteFmin15OUT",
+              "apply":function (){
+                return ((() => {
+                  const FluteFmin15OUT = this["FluteFmin15OUT"];
+                  return [false, 255];
+                })());
+              }
+            },
+            hh.SIGACCESS({
+              "signame":"FluteFmin15OUT",
+              "pre":true,
+              "val":true,
+              "cnt":false
+            }),
+          ), // Fin emit FluteFmin15OUT true
+          hh.ATOM(
+            {
+            "%location":{"filename":"hiphop_blocks.js","pos":352},
+            "%tag":"node",
+            "apply":function () {
+                //console.log("--! makeAwait:  atom:", "FluteFmin15OUT");
+                gcs.informSelecteurOnMenuChange(255 , "FluteFmin15OUT", false);
+              }
+            }
+          )
+        ) // Fin sequence pour FluteFmin15
+      ), // Fin fork de make await avec en premiere position:FluteFmin1
       hh.EXIT(
         {
             "EXIT":"EXIT",
@@ -1787,695 +4648,297 @@ export function setSignals(param) {
         {
           "%location":{},
           "%tag":"emit",
-          "PianoGb1OUT":"PianoGb1OUT",
+          "FluteFmin1OUT":"FluteFmin1OUT",
           "apply":function (){
             return ((() => {
-              const PianoGb1 = this["PianoGb1OUT"];
+              const FluteFmin1 = this["FluteFmin1OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoGb1OUT",
+          "signame":"FluteFmin1OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoGb1OUT false,
+    ), // Fin emit FluteFmin1OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoGb2OUT":"PianoGb2OUT",
+          "FluteFmin2OUT":"FluteFmin2OUT",
           "apply":function (){
             return ((() => {
-              const PianoGb2 = this["PianoGb2OUT"];
+              const FluteFmin2 = this["FluteFmin2OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoGb2OUT",
+          "signame":"FluteFmin2OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoGb2OUT false,
+    ), // Fin emit FluteFmin2OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoGb3OUT":"PianoGb3OUT",
+          "FluteFmin3OUT":"FluteFmin3OUT",
           "apply":function (){
             return ((() => {
-              const PianoGb3 = this["PianoGb3OUT"];
+              const FluteFmin3 = this["FluteFmin3OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoGb3OUT",
+          "signame":"FluteFmin3OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoGb3OUT false,
+    ), // Fin emit FluteFmin3OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoGb4OUT":"PianoGb4OUT",
+          "FluteFmin4OUT":"FluteFmin4OUT",
           "apply":function (){
             return ((() => {
-              const PianoGb4 = this["PianoGb4OUT"];
+              const FluteFmin4 = this["FluteFmin4OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoGb4OUT",
+          "signame":"FluteFmin4OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoGb4OUT false,
+    ), // Fin emit FluteFmin4OUT false,
     hh.EMIT(
         {
           "%location":{},
           "%tag":"emit",
-          "PianoGb5OUT":"PianoGb5OUT",
+          "FluteFmin5OUT":"FluteFmin5OUT",
           "apply":function (){
             return ((() => {
-              const PianoGb5 = this["PianoGb5OUT"];
+              const FluteFmin5 = this["FluteFmin5OUT"];
               return [false, 255 ];
             })());
           }
         },
         hh.SIGACCESS({
-          "signame":"PianoGb5OUT",
+          "signame":"FluteFmin5OUT",
           "pre":true,
           "val":true,
           "cnt":false
         })
-    ), // Fin emit PianoGb5OUT false
+    ), // Fin emit FluteFmin5OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin6OUT":"FluteFmin6OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin6 = this["FluteFmin6OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin6OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin6OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin7OUT":"FluteFmin7OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin7 = this["FluteFmin7OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin7OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin7OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin8OUT":"FluteFmin8OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin8 = this["FluteFmin8OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin8OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin8OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin9OUT":"FluteFmin9OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin9 = this["FluteFmin9OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin9OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin9OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin10OUT":"FluteFmin10OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin10 = this["FluteFmin10OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin10OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin10OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin11OUT":"FluteFmin11OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin11 = this["FluteFmin11OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin11OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin11OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin12OUT":"FluteFmin12OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin12 = this["FluteFmin12OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin12OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin12OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin13OUT":"FluteFmin13OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin13 = this["FluteFmin13OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin13OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin13OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin14OUT":"FluteFmin14OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin14 = this["FluteFmin14OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin14OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin14OUT false,
+    hh.EMIT(
+        {
+          "%location":{},
+          "%tag":"emit",
+          "FluteFmin15OUT":"FluteFmin15OUT",
+          "apply":function (){
+            return ((() => {
+              const FluteFmin15 = this["FluteFmin15OUT"];
+              return [false, 255 ];
+            })());
+          }
+        },
+        hh.SIGACCESS({
+          "signame":"FluteFmin15OUT",
+          "pre":true,
+          "val":true,
+          "cnt":false
+        })
+    ), // Fin emit FluteFmin15OUT false
     hh.ATOM(
         {
         "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
         "%tag":"node",
         "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "PianoGb1", false);
-            console.log("--- FIN RESERVOIR:", "PianoGb1");
+            gcs.informSelecteurOnMenuChange(255 , "FluteFmin1", false);
+            console.log("--- FIN RESERVOIR:", "FluteFmin1");
             var msg = {
             type: 'killTank',
-            value:  "PianoGb1"
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ) // Fin atom,
-  ); // Fin module
-
-    // Module tank PianoA + PianoA1
-    PianoA = hh.MODULE({"id":"PianoA","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-    hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoA1IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoA2IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoA3IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoA4IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"PianoA5IN"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoA1OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoA2OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoA3OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoA4OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"PianoA5OUT"}),
-      hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-    hh.TRAP(
-    {
-      "EXIT":"EXIT",
-      "%location":{},
-      "%tag":"EXIT"
-    },
-      hh.ABORT({
-        "%location":{"filename":"hiphop_blocks.js","pos":394},
-        "%tag":"abort",
-        "immediate":false,
-        "apply":function (){return ((() => {
-            const stopReservoir = this["stopReservoir"];
-            return stopReservoir.now;
-          })());
-        }
-      },
-        hh.SIGACCESS({
-           "signame":"stopReservoir",
-           "pre":false,
-           "val":false,
-           "cnt":false
-        }),
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                console.log("-- MAKE RESERVOIR:", "PianoA1,PianoA2,PianoA3,PianoA4,PianoA5" );
-                var msg = {
-                  type: 'startTank',
-                  value:  "PianoA1"
-                }
-                serveur.broadcast(JSON.stringify(msg));
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "PianoA1OUT":"PianoA1OUT",
-                "apply":function (){
-                  return ((() => {
-                    const PianoA1 = this["PianoA1OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PianoA1OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit PianoA1OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoA1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA1OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "PianoA2OUT":"PianoA2OUT",
-                "apply":function (){
-                  return ((() => {
-                    const PianoA2 = this["PianoA2OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PianoA2OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit PianoA2OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoA2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA2OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "PianoA3OUT":"PianoA3OUT",
-                "apply":function (){
-                  return ((() => {
-                    const PianoA3 = this["PianoA3OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PianoA3OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit PianoA3OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoA3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA3OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "PianoA4OUT":"PianoA4OUT",
-                "apply":function (){
-                  return ((() => {
-                    const PianoA4 = this["PianoA4OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PianoA4OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit PianoA4OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoA4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA4OUT", true);
-              }
-            }
-        ),
-        hh.EMIT(
-              {
-                "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-                "%tag":"emit",
-                "PianoA5OUT":"PianoA5OUT",
-                "apply":function (){
-                  return ((() => {
-                    const PianoA5 = this["PianoA5OUT"];
-                    return [true, 255 ];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"PianoA5OUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-          ), // Fin emit PianoA5OUT true
-        hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("-- makeReservoir:  atom:", "PianoA5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA5OUT", true);
-              }
-            }
-        ),
-        hh.FORK( // debut du fork de makeAwait avec en premiere position:PianoA1
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":304},
-          "%tag":"fork"
-        },
-
-        hh.SEQUENCE( // Debut sequence pour PianoA1
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const PianoA1IN  =this["PianoA1IN"];
-                  return PianoA1IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"PianoA1IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await PianoA1IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "PianoA1OUT" : "PianoA1OUT",
-              "apply":function (){
-                return ((() => {
-                  const PianoA1OUT = this["PianoA1OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"PianoA1OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit PianoA1OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoA1OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA1OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour PianoA1
-  ,
-        hh.SEQUENCE( // Debut sequence pour PianoA2
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const PianoA2IN  =this["PianoA2IN"];
-                  return PianoA2IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"PianoA2IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await PianoA2IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "PianoA2OUT" : "PianoA2OUT",
-              "apply":function (){
-                return ((() => {
-                  const PianoA2OUT = this["PianoA2OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"PianoA2OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit PianoA2OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoA2OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA2OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour PianoA2
-  ,
-        hh.SEQUENCE( // Debut sequence pour PianoA3
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const PianoA3IN  =this["PianoA3IN"];
-                  return PianoA3IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"PianoA3IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await PianoA3IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "PianoA3OUT" : "PianoA3OUT",
-              "apply":function (){
-                return ((() => {
-                  const PianoA3OUT = this["PianoA3OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"PianoA3OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit PianoA3OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoA3OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA3OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour PianoA3
-  ,
-        hh.SEQUENCE( // Debut sequence pour PianoA4
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const PianoA4IN  =this["PianoA4IN"];
-                  return PianoA4IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"PianoA4IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await PianoA4IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "PianoA4OUT" : "PianoA4OUT",
-              "apply":function (){
-                return ((() => {
-                  const PianoA4OUT = this["PianoA4OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"PianoA4OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit PianoA4OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoA4OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA4OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour PianoA4
-  ,
-        hh.SEQUENCE( // Debut sequence pour PianoA5
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":312},
-          "%tag":"seq"
-        },
-          hh.AWAIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":317},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){
-                return ((() => {
-                  const PianoA5IN  =this["PianoA5IN"];
-                  return PianoA5IN.now;
-                })());},
-            },
-            hh.SIGACCESS({"signame":"PianoA5IN",
-            "pre":false,
-            "val":false,
-            "cnt":false})
-          ), // Fin await PianoA5IN
-          hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":333},
-              "%tag":"emit",
-              "PianoA5OUT" : "PianoA5OUT",
-              "apply":function (){
-                return ((() => {
-                  const PianoA5OUT = this["PianoA5OUT"];
-                  return [false, 255];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"PianoA5OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            }),
-          ), // Fin emit PianoA5OUT true
-          hh.ATOM(
-            {
-            "%location":{"filename":"hiphop_blocks.js","pos":352},
-            "%tag":"node",
-            "apply":function () {
-                //console.log("--! makeAwait:  atom:", "PianoA5OUT");
-                gcs.informSelecteurOnMenuChange(255 , "PianoA5OUT", false);
-              }
-            }
-          )
-        ) // Fin sequence pour PianoA5
-      ), // Fin fork de make await avec en premiere position:PianoA1
-      hh.EXIT(
-        {
-            "EXIT":"EXIT",
-            "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-            "%tag":"break"
-        })
-      ) // Fin Abort
-    ), // Fin Trap
-
-    hh.PAUSE(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-        "%tag":"yield"
-      }
-    ),
-
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "PianoA1OUT":"PianoA1OUT",
-          "apply":function (){
-            return ((() => {
-              const PianoA1 = this["PianoA1OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"PianoA1OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit PianoA1OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "PianoA2OUT":"PianoA2OUT",
-          "apply":function (){
-            return ((() => {
-              const PianoA2 = this["PianoA2OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"PianoA2OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit PianoA2OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "PianoA3OUT":"PianoA3OUT",
-          "apply":function (){
-            return ((() => {
-              const PianoA3 = this["PianoA3OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"PianoA3OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit PianoA3OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "PianoA4OUT":"PianoA4OUT",
-          "apply":function (){
-            return ((() => {
-              const PianoA4 = this["PianoA4OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"PianoA4OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit PianoA4OUT false,
-    hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit",
-          "PianoA5OUT":"PianoA5OUT",
-          "apply":function (){
-            return ((() => {
-              const PianoA5 = this["PianoA5OUT"];
-              return [false, 255 ];
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"PianoA5OUT",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-    ), // Fin emit PianoA5OUT false
-    hh.ATOM(
-        {
-        "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-        "%tag":"node",
-        "apply":function () {
-            gcs.informSelecteurOnMenuChange(255 , "PianoA1", false);
-            console.log("--- FIN RESERVOIR:", "PianoA1");
-            var msg = {
-            type: 'killTank',
-            value:  "PianoA1"
+            value:  "FluteFmin1"
           }
           serveur.broadcast(JSON.stringify(msg));
           }
@@ -2562,6 +5025,29 @@ export function setSignals(param) {
           hh.SEQUENCE(
           {"%location":{},"%tag":"fork"},
 
+      hh.ATOM(
+        {
+          "%location":{},
+          "%tag":"node",
+          "apply":function () {
+            var msg = {
+              type: 'setListeDesTypes',
+            }
+            serveur.broadcast(JSON.stringify(msg));
+          }
+        }
+      ),
+
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        setTempo(60);
+      }
+    }
+  ),
+
     hh.AWAIT(
       {
         "%location":{},
@@ -2592,26 +5078,6 @@ export function setSignals(param) {
     }
   ),
 
-      hh.ATOM(
-        {
-          "%location":{},
-          "%tag":"node",
-          "apply":function () {
-             gcs.setpatternListLength([3,255]);
-          }
-        }
-      ),
-
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        setTempo(60);
-      }
-    }
-  ),
-
     hh.ATOM(
         {
         "%location":{},
@@ -2633,25 +5099,15 @@ export function setSignals(param) {
     ),
 
     hh.ATOM(
-        {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'alertInfoScoreON',
-            value:'Etude Harmonie 4'
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ),
-
-    hh.ATOM(
       {
         "%location":{},
         "%tag":"node",
         "apply":function () {
-          DAW.putPatternInQueue('PianoC1');
+          var msg = {
+            type: 'listeDesTypes',
+            text:'0,1,2,3,4,5,6,7,8,9'
+          }
+          serveur.broadcast(JSON.stringify(msg));
         }
       }
     ),
@@ -2661,51 +5117,16 @@ export function setSignals(param) {
           "%location":{},
           "%tag":"node",
           "apply":function () {
-            DAW.cleanQueues();
-            gcs.cleanChoiceList(255);
+             gcs.setpatternListLength([10,255]);
           }
         }
       ),
-
-  hh.AWAIT(
-    {
-      "%location":{},
-      "%tag":"await",
-      "immediate":false,
-      "apply":function () {
-        return ((() => {
-          const tick=this["tick"];
-          return tick.now;
-        })());
-      },
-      "countapply":function (){ return 2;}
-    },
-    hh.SIGACCESS({
-      "signame":"tick",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    })
-  ),
-
-    hh.ATOM(
-        {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'alertInfoScoreOFF',
-          }
-          serveur.broadcast(JSON.stringify(msg));
-          }
-        }
-    ),
 
   hh.ATOM(
     {
       "%location":{},
       "%tag":"node",
-      "apply":function () {console.log('Etude Harmonie 4');}
+      "apply":function () {console.log('EtudeSkiniHarmonie5');}
     }
   ),
 
@@ -2718,9 +5139,9 @@ export function setSignals(param) {
 
         hh.TRAP(
           {
-            "trap39678":"trap39678",
+            "trap953146":"trap953146",
             "%location":{},
-            "%tag":"trap39678"
+            "%tag":"trap953146"
           },
           hh.FORK(
             {
@@ -2736,16 +5157,16 @@ export function setSignals(param) {
               {
                 "%location":{},
                 "%tag":"emit",
-                "Viol1COUT":"Viol1COUT",
+                "PianoCOUT":"PianoCOUT",
                 "apply":function (){
                   return ((() => {
-                    const Viol1COUT = this["Viol1COUT"];
+                    const PianoCOUT = this["PianoCOUT"];
                     return [true, 255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"Viol1COUT",
+                "signame":"PianoCOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -2756,7 +5177,7 @@ export function setSignals(param) {
     		      "%location":{},
     		      "%tag":"node",
     		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol1C", true);
+                  gcs.informSelecteurOnMenuChange(255," PianoC", true);
                 }
     		      }
     		 	  ),
@@ -2765,16 +5186,16 @@ export function setSignals(param) {
               {
                 "%location":{},
                 "%tag":"emit",
-                "Viol2COUT":"Viol2COUT",
+                "PianoEbOUT":"PianoEbOUT",
                 "apply":function (){
                   return ((() => {
-                    const Viol2COUT = this["Viol2COUT"];
+                    const PianoEbOUT = this["PianoEbOUT"];
                     return [true, 255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"Viol2COUT",
+                "signame":"PianoEbOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -2785,7 +5206,7 @@ export function setSignals(param) {
     		      "%location":{},
     		      "%tag":"node",
     		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol2C", true);
+                  gcs.informSelecteurOnMenuChange(255," PianoEb", true);
                 }
     		      }
     		 	  ),
@@ -2794,16 +5215,16 @@ export function setSignals(param) {
               {
                 "%location":{},
                 "%tag":"emit",
-                "AltoCOUT":"AltoCOUT",
+                "PianoFminOUT":"PianoFminOUT",
                 "apply":function (){
                   return ((() => {
-                    const AltoCOUT = this["AltoCOUT"];
+                    const PianoFminOUT = this["PianoFminOUT"];
                     return [true, 255];
                   })());
                 }
               },
               hh.SIGACCESS({
-                "signame":"AltoCOUT",
+                "signame":"PianoFminOUT",
                 "pre":true,
                 "val":true,
                 "cnt":false
@@ -2814,384 +5235,7 @@ export function setSignals(param) {
     		      "%location":{},
     		      "%tag":"node",
     		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," AltoC", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "CelloCOUT":"CelloCOUT",
-                "apply":function (){
-                  return ((() => {
-                    const CelloCOUT = this["CelloCOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"CelloCOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," CelloC", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol1EbOUT":"Viol1EbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol1EbOUT = this["Viol1EbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol1EbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol1Eb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol2EbOUT":"Viol2EbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol2EbOUT = this["Viol2EbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol2EbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol2Eb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "AltoEbOUT":"AltoEbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const AltoEbOUT = this["AltoEbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"AltoEbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," AltoEb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "CelloEbOUT":"CelloEbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const CelloEbOUT = this["CelloEbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"CelloEbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," CelloEb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol1GbOUT":"Viol1GbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol1GbOUT = this["Viol1GbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol1GbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol1Gb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol2GbOUT":"Viol2GbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol2GbOUT = this["Viol2GbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol2GbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol2Gb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "AltoGbOUT":"AltoGbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const AltoGbOUT = this["AltoGbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"AltoGbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," AltoGb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "CelloGbOUT":"CelloGbOUT",
-                "apply":function (){
-                  return ((() => {
-                    const CelloGbOUT = this["CelloGbOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"CelloGbOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," CelloGb", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol1AOUT":"Viol1AOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol1AOUT = this["Viol1AOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol1AOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol1A", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "Viol2AOUT":"Viol2AOUT",
-                "apply":function (){
-                  return ((() => {
-                    const Viol2AOUT = this["Viol2AOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"Viol2AOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," Viol2A", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "AltoAOUT":"AltoAOUT",
-                "apply":function (){
-                  return ((() => {
-                    const AltoAOUT = this["AltoAOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"AltoAOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," AltoA", true);
-                }
-    		      }
-    		 	  ),
-
-            hh.EMIT(
-              {
-                "%location":{},
-                "%tag":"emit",
-                "CelloAOUT":"CelloAOUT",
-                "apply":function (){
-                  return ((() => {
-                    const CelloAOUT = this["CelloAOUT"];
-                    return [true, 255];
-                  })());
-                }
-              },
-              hh.SIGACCESS({
-                "signame":"CelloAOUT",
-                "pre":true,
-                "val":true,
-                "cnt":false
-              })
-            ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () {
-                  gcs.informSelecteurOnMenuChange(255," CelloA", true);
+                  gcs.informSelecteurOnMenuChange(255," PianoFmin", true);
                 }
     		      }
     		 	  ),
@@ -3210,7 +5254,7 @@ export function setSignals(param) {
     	              "apply":function (){return ((() => {
     	                const tick =this["tick"];
     	                return tick.now;})());},
-    	              "countapply":function (){return 90;}
+    	              "countapply":function (){return 60;}
     	          },
     	          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
     	        ),
@@ -3220,16 +5264,16 @@ export function setSignals(param) {
     	          {
     	            "%location":{},
     	            "%tag":"emit",
-    	            "Viol1COUT":"Viol1COUT",
+    	            "PianoCOUT":"PianoCOUT",
     	            "apply":function (){
     	              return ((() => {
-    	                const Viol1COUT = this["Viol1COUT"];
+    	                const PianoCOUT = this["PianoCOUT"];
     	                return [false, 255];
     	              })());
     	            }
     	          },
     	          hh.SIGACCESS({
-    	            "signame":"Viol1COUT",
+    	            "signame":"PianoCOUT",
     	            "pre":true,
     	            "val":true,
     	            "cnt":false
@@ -3239,7 +5283,7 @@ export function setSignals(param) {
     		      {
     		      "%location":{},
     		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol1C", false); }
+    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," PianoC", false); }
     		      }
     		 	),
 
@@ -3247,16 +5291,16 @@ export function setSignals(param) {
     	          {
     	            "%location":{},
     	            "%tag":"emit",
-    	            "Viol2COUT":"Viol2COUT",
+    	            "PianoEbOUT":"PianoEbOUT",
     	            "apply":function (){
     	              return ((() => {
-    	                const Viol2COUT = this["Viol2COUT"];
+    	                const PianoEbOUT = this["PianoEbOUT"];
     	                return [false, 255];
     	              })());
     	            }
     	          },
     	          hh.SIGACCESS({
-    	            "signame":"Viol2COUT",
+    	            "signame":"PianoEbOUT",
     	            "pre":true,
     	            "val":true,
     	            "cnt":false
@@ -3266,7 +5310,7 @@ export function setSignals(param) {
     		      {
     		      "%location":{},
     		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol2C", false); }
+    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," PianoEb", false); }
     		      }
     		 	),
 
@@ -3274,16 +5318,16 @@ export function setSignals(param) {
     	          {
     	            "%location":{},
     	            "%tag":"emit",
-    	            "AltoCOUT":"AltoCOUT",
+    	            "PianoFminOUT":"PianoFminOUT",
     	            "apply":function (){
     	              return ((() => {
-    	                const AltoCOUT = this["AltoCOUT"];
+    	                const PianoFminOUT = this["PianoFminOUT"];
     	                return [false, 255];
     	              })());
     	            }
     	          },
     	          hh.SIGACCESS({
-    	            "signame":"AltoCOUT",
+    	            "signame":"PianoFminOUT",
     	            "pre":true,
     	            "val":true,
     	            "cnt":false
@@ -3293,358 +5337,7 @@ export function setSignals(param) {
     		      {
     		      "%location":{},
     		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," AltoC", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "CelloCOUT":"CelloCOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const CelloCOUT = this["CelloCOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"CelloCOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," CelloC", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol1EbOUT":"Viol1EbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol1EbOUT = this["Viol1EbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol1EbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol1Eb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol2EbOUT":"Viol2EbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol2EbOUT = this["Viol2EbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol2EbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol2Eb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "AltoEbOUT":"AltoEbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const AltoEbOUT = this["AltoEbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"AltoEbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," AltoEb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "CelloEbOUT":"CelloEbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const CelloEbOUT = this["CelloEbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"CelloEbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," CelloEb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol1GbOUT":"Viol1GbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol1GbOUT = this["Viol1GbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol1GbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol1Gb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol2GbOUT":"Viol2GbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol2GbOUT = this["Viol2GbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol2GbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol2Gb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "AltoGbOUT":"AltoGbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const AltoGbOUT = this["AltoGbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"AltoGbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," AltoGb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "CelloGbOUT":"CelloGbOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const CelloGbOUT = this["CelloGbOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"CelloGbOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," CelloGb", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol1AOUT":"Viol1AOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol1AOUT = this["Viol1AOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol1AOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol1A", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "Viol2AOUT":"Viol2AOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const Viol2AOUT = this["Viol2AOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"Viol2AOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," Viol2A", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "AltoAOUT":"AltoAOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const AltoAOUT = this["AltoAOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"AltoAOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," AltoA", false); }
-    		      }
-    		 	),
-
-    	        hh.EMIT(
-    	          {
-    	            "%location":{},
-    	            "%tag":"emit",
-    	            "CelloAOUT":"CelloAOUT",
-    	            "apply":function (){
-    	              return ((() => {
-    	                const CelloAOUT = this["CelloAOUT"];
-    	                return [false, 255];
-    	              })());
-    	            }
-    	          },
-    	          hh.SIGACCESS({
-    	            "signame":"CelloAOUT",
-    	            "pre":true,
-    	            "val":true,
-    	            "cnt":false
-    	          })
-    	        ), // Fin emit
-    		    hh.ATOM(
-    		      {
-    		      "%location":{},
-    		      "%tag":"node",
-    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," CelloA", false); }
+    		      "apply":function () { gcs.informSelecteurOnMenuChange(255," PianoFmin", false); }
     		      }
     		 	),
 
@@ -3656,7 +5349,7 @@ export function setSignals(param) {
     	        ),
     	        hh.EXIT(
     		        {
-    		          "trap39678":"trap39678",
+    		          "trap953146":"trap953146",
     		          "%location":{},
     		          "%tag":"break"
     		        }
@@ -3674,97 +5367,23 @@ export function setSignals(param) {
     hh.RUN({
         "%location":{"filename":"","pos":1},
         "%tag":"run",
-        "module":PianoC,
+        "module":FluteC,
         "autocomplete":true
       }),
 
     hh.RUN({
         "%location":{"filename":"","pos":1},
         "%tag":"run",
-        "module":PianoEb,
+        "module":FluteEb,
         "autocomplete":true
       }),
 
     hh.RUN({
         "%location":{"filename":"","pos":1},
         "%tag":"run",
-        "module":PianoGb,
+        "module":FluteFmin,
         "autocomplete":true
       }),
-
-    hh.RUN({
-        "%location":{"filename":"","pos":1},
-        "%tag":"run",
-        "module":PianoA,
-        "autocomplete":true
-      }),
-
-
-    hh.ABORT(
-      {
-        "%location":{abort: tick},
-        "%tag":"abort",
-        "immediate":false,
-        "apply": function (){return ((() => {
-            const tick=this["tick"];
-            return tick.now;
-        })());},
-        "countapply":function (){ return 90;}
-      },
-      hh.SIGACCESS({
-        "signame":"tick",
-        "pre":false,
-        "val":false,
-        "cnt":false
-      }),
-
-      hh.ABORT(
-        {
-          "%location":{abort:stopMoveTempo},
-          "%tag":"abort",
-          "immediate":false,
-          "apply": function (){return ((() => {
-              const stopMoveTempo =this["stopMoveTempo"];
-              return stopMoveTempo.now;
-          })());},
-        },
-        hh.SIGACCESS({
-          "signame":"stopMoveTempo",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        }),
-        hh.EVERY(
-          {
-            "%location":{every: tick},
-            "%tag":"do/every",
-            "immediate":false,
-            "apply": function (){return ((() => {
-                const tick=this["tick"];
-                return tick.now;
-            })());},
-            "countapply":function (){ return  4;}
-          },
-          hh.SIGACCESS({
-            "signame":"tick",
-            "pre":false,
-            "val":false,
-            "cnt":false
-          }),
-          hh.ATOM(
-            {
-              "%location":{},
-              "%tag":"node",
-              "apply":function () {
-                moveTempo(1, 3);
-              }
-            }
-          )
-        )
-      ),
-
-
-    ),
 
     ),
 
@@ -3786,7 +5405,7 @@ export function setSignals(param) {
         "apply":function () {
           var msg = {
             type: 'alertInfoScoreON',
-            value:'Fin Etude Harmonie 4'
+            value:'Fin EtudeSkiniHarmonie5'
           }
           serveur.broadcast(JSON.stringify(msg));
           }

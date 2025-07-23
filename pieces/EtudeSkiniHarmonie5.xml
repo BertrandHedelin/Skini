@@ -1,0 +1,455 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="?H)TzyYe)DyjA#WYBXn^">FluteC</variable>
+    <variable id="Ls;K.Jho6%Q9hqBeE;~X">FluteEb</variable>
+    <variable id=")hHwqMSuf/+ZmJ*y`6Fi">FluteC1</variable>
+    <variable id="0;O:-Bz%Ebdf|6Q]S^Xd">FluteC2</variable>
+    <variable id="wk~BMZ(n$LBk`Xv^t83y">FluteC3</variable>
+    <variable id="^pe(g96#-pcA=7:L6@;,">FluteC4</variable>
+    <variable id="*pJ/E7_%oVF?6E{(qB*;">FluteC5</variable>
+    <variable id="%luL*wWP*JAqdaF5JhPe">FluteC6</variable>
+    <variable id="x8x/2gyCLB?nCSM50`d)">FluteC7</variable>
+    <variable id="cF+[Q*K%@H)/MGchTu$r">FluteC8</variable>
+    <variable id="f/RWhMb*7-w8Ng$b0NAD">FluteC9</variable>
+    <variable id="S+BxFpRKi~2p~n97-7V)">FluteC10</variable>
+    <variable id="#]Y%oQ8Pd6%hT[=T7KB,">FluteC11</variable>
+    <variable id="[IsEnQtD5G:}Z^6KwI?g">FluteC12</variable>
+    <variable id="p,xza*@BAC%v/VijeM4E">FluteC13</variable>
+    <variable id="ONdZV0z?D(|`g[+d^lSi">FluteC14</variable>
+    <variable id="L~eKn*?V(bAV*#zsCk1G">FluteC15</variable>
+    <variable id="_ef`02xRLR:e8lrh+-%#">FluteFmin</variable>
+    <variable id="6D%xLzcqNa*IFdD?:C8U">tick</variable>
+    <variable id="lq%bIBA%VsY7P,T[zcu%">FluteEb1</variable>
+    <variable id="aXc43m)ld^B(uun!t3WD">FluteEb2</variable>
+    <variable id="DgW!u^)J)[!Iv1o]Xs7q">FluteEb3</variable>
+    <variable id="6,q^_3P`[vCtG+$XmCN]">FluteEb4</variable>
+    <variable id="yN#N.^WbKbYR`6+~{?x]">FluteEb5</variable>
+    <variable id=")lP0{Sz=*:I@MQ.Y(pOm">FluteEb6</variable>
+    <variable id="pm`z0{^`n[St5cfZ=1X9">FluteEb7</variable>
+    <variable id="H`ai^mFQmv..D||=CLv5">FluteEb8</variable>
+    <variable id="=*zIz:Vjp=AefhOvMDFJ">FluteEb9</variable>
+    <variable id="B,4o`4lRwyT-N:DG(#i[">FluteEb10</variable>
+    <variable id="cyiTLCU5uO]#KvGEPh-C">FluteEb11</variable>
+    <variable id="FwwHn!DET6M5/#hxdT4M">FluteEb12</variable>
+    <variable id="Q}r-Na|qF`7~4^52^3_F">FluteEb13</variable>
+    <variable id="0yCPka~yTnkEAq][(qYO">FluteEb14</variable>
+    <variable id="JK/2m;qSTgc[PdwiJ-Fk">FluteEb15</variable>
+    <variable id="!4BseuwAxpXQ{+5T=2Y6">FluteFmin1</variable>
+    <variable id="Yz9YC|Bo]F:S/hK%-K=i">FluteFmin2</variable>
+    <variable id="@$KQ|`htEs@nXD;%@dpk">FluteFmin3</variable>
+    <variable id="9]yW98#7Cm{I*PkrnEaw">FluteFmin4</variable>
+    <variable id="gOqXr.:-rMlTFA1dKVpQ">FluteFmin5</variable>
+    <variable id="@XU.!yOJNhIHO)~3;(~3">FluteFmin6</variable>
+    <variable id=";!$VVoY6asFf`VVGP5N`">FluteFmin7</variable>
+    <variable id="xH8,{BI;F6dBgNh6]ud)">FluteFmin8</variable>
+    <variable id="S%Wuf9hZ}Y4@e/riDNbh">FluteFmin9</variable>
+    <variable id="K6{)Y-(b$DG8JPgO^fD^">FluteFmin10</variable>
+    <variable id="^)ORxd^^[4-`/0mWkm:7">FluteFmin11</variable>
+    <variable id="hw(_bZ_IIKIANH~PEN_u">FluteFmin12</variable>
+    <variable id="v#vF|F)[9#x8hv;U-k?j">FluteFmin13</variable>
+    <variable id="A|?x-6RR]C/[w9UeePk]">FluteFmin14</variable>
+    <variable id="Zd+-#iL*qKvD*fkrVV(F">FluteFmin15</variable>
+    <variable id="5R?iT~{+W}z1d(HCps;;">PianoC</variable>
+    <variable id="~(0_Uc:Rz[343]kdTlF:">PianoEb</variable>
+    <variable id="6rv!*@;o^0c0208iNq~t">PianoFmin</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id=",Oc~R_|bH[=Ttz~S`lFF" x="138" y="190">
+    <comment pinned="true" h="126" w="770">Fonctionne avec EtudeHarmonie5.als.
+2 simulateurs : 0 et 1.
+
+Type Horizontaux et verticaux, et reservoirs
+
+    
+    
+    </comment>
+    <statement name="MODULES">
+      <block type="tank" id="Ra=yMeYG+A}-M!0kfIk~" collapsed="true">
+        <field name="groupeClient">255</field>
+        <statement name="SIGNAL">
+          <block type="variables_set" id="i$Z73^;NMjPpJpRFj^/U">
+            <field name="VAR" id="?H)TzyYe)DyjA#WYBXn^">FluteC</field>
+            <value name="VALUE">
+              <block type="lists_create_with" id="su]9Cth%$:o,!)]Ws6.q">
+                <mutation items="15"></mutation>
+                <value name="ADD0">
+                  <block type="variables_get" id="%*wz)I):=N~HPbCqukf~">
+                    <field name="VAR" id=")hHwqMSuf/+ZmJ*y`6Fi">FluteC1</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="variables_get" id="r)Se!(/(r:@2mL/`S}?@">
+                    <field name="VAR" id="0;O:-Bz%Ebdf|6Q]S^Xd">FluteC2</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="variables_get" id="{oqt`B4Qrf!x*@Gw//U.">
+                    <field name="VAR" id="wk~BMZ(n$LBk`Xv^t83y">FluteC3</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="variables_get" id="vC:evlHtlc(+{K,}$a~N">
+                    <field name="VAR" id="^pe(g96#-pcA=7:L6@;,">FluteC4</field>
+                  </block>
+                </value>
+                <value name="ADD4">
+                  <block type="variables_get" id="wqPYD/EDT+WCA1`qg;b6">
+                    <field name="VAR" id="*pJ/E7_%oVF?6E{(qB*;">FluteC5</field>
+                  </block>
+                </value>
+                <value name="ADD5">
+                  <block type="variables_get" id="+trd2;W@Lz[$^EOfnN0=">
+                    <field name="VAR" id="%luL*wWP*JAqdaF5JhPe">FluteC6</field>
+                  </block>
+                </value>
+                <value name="ADD6">
+                  <block type="variables_get" id="xEL6Mkd`61Gl+:_~b3wD">
+                    <field name="VAR" id="x8x/2gyCLB?nCSM50`d)">FluteC7</field>
+                  </block>
+                </value>
+                <value name="ADD7">
+                  <block type="variables_get" id=")3t_IZrm*^N}f[aGS%z2">
+                    <field name="VAR" id="cF+[Q*K%@H)/MGchTu$r">FluteC8</field>
+                  </block>
+                </value>
+                <value name="ADD8">
+                  <block type="variables_get" id="s0CDZwp5{=1{bKNLm)d^">
+                    <field name="VAR" id="f/RWhMb*7-w8Ng$b0NAD">FluteC9</field>
+                  </block>
+                </value>
+                <value name="ADD9">
+                  <block type="variables_get" id="Gd@ZZ-f.eu.-Qi!}HAO,">
+                    <field name="VAR" id="S+BxFpRKi~2p~n97-7V)">FluteC10</field>
+                  </block>
+                </value>
+                <value name="ADD10">
+                  <block type="variables_get" id="I:xk*Wh|W:0{BAS$25$w">
+                    <field name="VAR" id="#]Y%oQ8Pd6%hT[=T7KB,">FluteC11</field>
+                  </block>
+                </value>
+                <value name="ADD11">
+                  <block type="variables_get" id="~a_MSz=)*~gsM3_H_KrT">
+                    <field name="VAR" id="[IsEnQtD5G:}Z^6KwI?g">FluteC12</field>
+                  </block>
+                </value>
+                <value name="ADD12">
+                  <block type="variables_get" id="ctHdgu+-lqkBpoS6yiMu">
+                    <field name="VAR" id="p,xza*@BAC%v/VijeM4E">FluteC13</field>
+                  </block>
+                </value>
+                <value name="ADD13">
+                  <block type="variables_get" id="C49$^5R(%`8|ZEca;h$Q">
+                    <field name="VAR" id="ONdZV0z?D(|`g[+d^lSi">FluteC14</field>
+                  </block>
+                </value>
+                <value name="ADD14">
+                  <block type="variables_get" id="]FBqG/Er7Y,avztV:=?1">
+                    <field name="VAR" id="L~eKn*?V(bAV*#zsCk1G">FluteC15</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="tank" id="#O,c=2u%=OwUI3|2Vg8p" collapsed="true">
+            <field name="groupeClient">255</field>
+            <statement name="SIGNAL">
+              <block type="variables_set" id="1$uKn7b^/JzY8tgB90Eh">
+                <field name="VAR" id="Ls;K.Jho6%Q9hqBeE;~X">FluteEb</field>
+                <value name="VALUE">
+                  <block type="lists_create_with" id="QQ(/}qhN{7gA5%$5T]4Q">
+                    <mutation items="15"></mutation>
+                    <value name="ADD0">
+                      <block type="variables_get" id="_q!LZps:)TbMhygCfB99">
+                        <field name="VAR" id="lq%bIBA%VsY7P,T[zcu%">FluteEb1</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="variables_get" id=";Dai]FpJ~PW/SvQhxh:d">
+                        <field name="VAR" id="aXc43m)ld^B(uun!t3WD">FluteEb2</field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="variables_get" id="V9N]59KJR;VTspxJw[Ju">
+                        <field name="VAR" id="DgW!u^)J)[!Iv1o]Xs7q">FluteEb3</field>
+                      </block>
+                    </value>
+                    <value name="ADD3">
+                      <block type="variables_get" id="7sW*$k~ya_X0exG!ba]^">
+                        <field name="VAR" id="6,q^_3P`[vCtG+$XmCN]">FluteEb4</field>
+                      </block>
+                    </value>
+                    <value name="ADD4">
+                      <block type="variables_get" id=")ApGhVhi72!1U=-d$j1E">
+                        <field name="VAR" id="yN#N.^WbKbYR`6+~{?x]">FluteEb5</field>
+                      </block>
+                    </value>
+                    <value name="ADD5">
+                      <block type="variables_get" id="e0sP(hUGT4NRJ31g-oCm">
+                        <field name="VAR" id=")lP0{Sz=*:I@MQ.Y(pOm">FluteEb6</field>
+                      </block>
+                    </value>
+                    <value name="ADD6">
+                      <block type="variables_get" id=":.kVtTB.shMUREohwe$}">
+                        <field name="VAR" id="pm`z0{^`n[St5cfZ=1X9">FluteEb7</field>
+                      </block>
+                    </value>
+                    <value name="ADD7">
+                      <block type="variables_get" id="nDgLjj$uxdpVNw9-ycb*">
+                        <field name="VAR" id="H`ai^mFQmv..D||=CLv5">FluteEb8</field>
+                      </block>
+                    </value>
+                    <value name="ADD8">
+                      <block type="variables_get" id="CKLzj[g`Z=T@bWP_J^R~">
+                        <field name="VAR" id="=*zIz:Vjp=AefhOvMDFJ">FluteEb9</field>
+                      </block>
+                    </value>
+                    <value name="ADD9">
+                      <block type="variables_get" id="]g5A@R}qgQ=W$,q;bd6N">
+                        <field name="VAR" id="B,4o`4lRwyT-N:DG(#i[">FluteEb10</field>
+                      </block>
+                    </value>
+                    <value name="ADD10">
+                      <block type="variables_get" id="Dy~6HQy_N#9c942Apc[R">
+                        <field name="VAR" id="cyiTLCU5uO]#KvGEPh-C">FluteEb11</field>
+                      </block>
+                    </value>
+                    <value name="ADD11">
+                      <block type="variables_get" id="Rv(D8*vTF_M5m~+,,90f">
+                        <field name="VAR" id="FwwHn!DET6M5/#hxdT4M">FluteEb12</field>
+                      </block>
+                    </value>
+                    <value name="ADD12">
+                      <block type="variables_get" id="2=dVKDye(qot,75XpNf2">
+                        <field name="VAR" id="Q}r-Na|qF`7~4^52^3_F">FluteEb13</field>
+                      </block>
+                    </value>
+                    <value name="ADD13">
+                      <block type="variables_get" id="=OdE9PJB!Qcg[Qp*5Oe#">
+                        <field name="VAR" id="0yCPka~yTnkEAq][(qYO">FluteEb14</field>
+                      </block>
+                    </value>
+                    <value name="ADD14">
+                      <block type="variables_get" id="D@E#rd.3Kv~;=F@LP9dC">
+                        <field name="VAR" id="JK/2m;qSTgc[PdwiJ-Fk">FluteEb15</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="tank" id="Di1j=OvscBUJd,VV+EEo" collapsed="true">
+                <field name="groupeClient">255</field>
+                <statement name="SIGNAL">
+                  <block type="variables_set" id="L*v`QdNUXuio,lgOMUa2">
+                    <field name="VAR" id="_ef`02xRLR:e8lrh+-%#">FluteFmin</field>
+                    <value name="VALUE">
+                      <block type="lists_create_with" id="qOEBZyqTkE^@tCIt+aTA">
+                        <mutation items="15"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get" id="QoIBc/ROVK0OTlh6h1t0">
+                            <field name="VAR" id="!4BseuwAxpXQ{+5T=2Y6">FluteFmin1</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get" id="WGn`=o}YUi:o!~4,8z+x">
+                            <field name="VAR" id="Yz9YC|Bo]F:S/hK%-K=i">FluteFmin2</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="variables_get" id="#IeWK$TUxkm203_aTb}:">
+                            <field name="VAR" id="@$KQ|`htEs@nXD;%@dpk">FluteFmin3</field>
+                          </block>
+                        </value>
+                        <value name="ADD3">
+                          <block type="variables_get" id="dLR!bP8^FxBbe%-njq$7">
+                            <field name="VAR" id="9]yW98#7Cm{I*PkrnEaw">FluteFmin4</field>
+                          </block>
+                        </value>
+                        <value name="ADD4">
+                          <block type="variables_get" id="`2EC~@_d[(m625i_^Y[f">
+                            <field name="VAR" id="gOqXr.:-rMlTFA1dKVpQ">FluteFmin5</field>
+                          </block>
+                        </value>
+                        <value name="ADD5">
+                          <block type="variables_get" id="g^82y2YRMcEh1YHUNJ9O">
+                            <field name="VAR" id="@XU.!yOJNhIHO)~3;(~3">FluteFmin6</field>
+                          </block>
+                        </value>
+                        <value name="ADD6">
+                          <block type="variables_get" id="1D/_I!{a4BPloIBgk{b-">
+                            <field name="VAR" id=";!$VVoY6asFf`VVGP5N`">FluteFmin7</field>
+                          </block>
+                        </value>
+                        <value name="ADD7">
+                          <block type="variables_get" id="e}$]0``@^7uSlv{B/8Y]">
+                            <field name="VAR" id="xH8,{BI;F6dBgNh6]ud)">FluteFmin8</field>
+                          </block>
+                        </value>
+                        <value name="ADD8">
+                          <block type="variables_get" id="U}|djaTe(+wS9Y[XV/)$">
+                            <field name="VAR" id="S%Wuf9hZ}Y4@e/riDNbh">FluteFmin9</field>
+                          </block>
+                        </value>
+                        <value name="ADD9">
+                          <block type="variables_get" id="|N~3*Z$/$rC(;4e$0c1I">
+                            <field name="VAR" id="K6{)Y-(b$DG8JPgO^fD^">FluteFmin10</field>
+                          </block>
+                        </value>
+                        <value name="ADD10">
+                          <block type="variables_get" id="*pCS^SNd1@s`Ott;zv/`">
+                            <field name="VAR" id="^)ORxd^^[4-`/0mWkm:7">FluteFmin11</field>
+                          </block>
+                        </value>
+                        <value name="ADD11">
+                          <block type="variables_get" id="5$4vH}dT.qbu%`@i}01+">
+                            <field name="VAR" id="hw(_bZ_IIKIANH~PEN_u">FluteFmin12</field>
+                          </block>
+                        </value>
+                        <value name="ADD12">
+                          <block type="variables_get" id="XR_?#y0[Ff5s.D/gCdtk">
+                            <field name="VAR" id="v#vF|F)[9#x8hv;U-k?j">FluteFmin13</field>
+                          </block>
+                        </value>
+                        <value name="ADD13">
+                          <block type="variables_get" id="vqZe-IP=?,X|3o!H;z0F">
+                            <field name="VAR" id="A|?x-6RR]C/[w9UeePk]">FluteFmin14</field>
+                          </block>
+                        </value>
+                        <value name="ADD14">
+                          <block type="variables_get" id="}.i@9X[N4#hj[;P5FL)]">
+                            <field name="VAR" id="Zd+-#iL*qKvD*fkrVV(F">FluteFmin15</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="activateTypeList" id="}$4P{(|men0%/hC@j!lV">
+        <next>
+          <block type="set_tempo" id="hHS|n*u4Wi],m$$4V#`p">
+            <field name="tempo">60</field>
+            <next>
+              <block type="hh_wait_for_immediate" id="Boo*=aF!$e8omaW#`pz`">
+                <value name="SIGNAL">
+                  <block type="variables_get" id="%DK9A($`N]}%L8l=_{rn">
+                    <field name="VAR" id="6D%xLzcqNa*IFdD?:C8U">tick</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="set_timer_division" id="RQ[t}pd_SZ?ul9sb`Dm/">
+                    <field name="timer">1</field>
+                    <next>
+                      <block type="addSceneScore" id="iloOHbt6!%f/GjFUpr0{">
+                        <field name="number">1</field>
+                        <next>
+                          <block type="setTypeList" id=".k/nNSo!b5gs3..#Pk]r">
+                            <value name="message">
+                              <block type="text" id="hNns.ifu%*_+{s[,HxB+">
+                                <field name="TEXT">0,1,2,3,4,5,6,7,8,9</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="patternListLength" id="7x_a8]|+zyB4iA95Dalv">
+                                <field name="valeur">10</field>
+                                <field name="groupe">255</field>
+                                <next>
+                                  <block type="hh_print_serveur" id="SWEX6HB[DXxXcsF{D*~E">
+                                    <value name="TEXT">
+                                      <block type="text" id="XHGBJY|JKxJF5Vft=[pu">
+                                        <field name="TEXT">EtudeSkiniHarmonie5</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_fork" id="c$3+6jvWO,C9J{gKPX.b">
+                                        <statement name="BODY">
+                                          <block type="set_group_during_ticks" id="AB_ddyY:g#5oH.p.(RJ?">
+                                            <field name="user_group">255</field>
+                                            <field name="number_of_ticks">60</field>
+                                            <value name="GROUPS">
+                                              <block type="lists_create_with" id="gpa}J*Os%yML^`h-Z?+y">
+                                                <mutation items="3"></mutation>
+                                                <value name="ADD0">
+                                                  <block type="variables_get" id="aI}udG)U|j=I/nf@V3Q{">
+                                                    <field name="VAR" id="5R?iT~{+W}z1d(HCps;;">PianoC</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD1">
+                                                  <block type="variables_get" id="L`n]$jl/gK4ttE;2mAz#">
+                                                    <field name="VAR" id="~(0_Uc:Rz[343]kdTlF:">PianoEb</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD2">
+                                                  <block type="variables_get" id="//+h)[_giNOC34iZ`P%S">
+                                                    <field name="VAR" id="6rv!*@;o^0c0208iNq~t">PianoFmin</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="run_tank" id="Q(2Pi%RE;uh8j#f/0w6{">
+                                                <value name="TANKS">
+                                                  <block type="lists_create_with" id="K-y[`eiu5pHg+hX,mLU$">
+                                                    <mutation items="3"></mutation>
+                                                    <value name="ADD0">
+                                                      <block type="variables_get" id="SM[gJI21(QX4,j[I{UJV">
+                                                        <field name="VAR" id="?H)TzyYe)DyjA#WYBXn^">FluteC</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD1">
+                                                      <block type="variables_get" id="^23U-*-UXlbf=$ft8hpq">
+                                                        <field name="VAR" id="Ls;K.Jho6%Q9hqBeE;~X">FluteEb</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="variables_get" id="=vGR)PY#I2#5L`0QsWbc">
+                                                        <field name="VAR" id="_ef`02xRLR:e8lrh+-%#">FluteFmin</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="cleanqueues" id=";#Ly])WTNMXffp/,X/Nq">
+                                            <next>
+                                              <block type="alertInfoScoreON" id="vABS7!?S/fV2h]W|*3Q5">
+                                                <value name="message">
+                                                  <block type="text" id="iUG;+=,rvW,|!}`y2fbr">
+                                                    <field name="TEXT">Fin EtudeSkiniHarmonie5</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
