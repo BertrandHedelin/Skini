@@ -53,12 +53,13 @@
     <variable id="~(0_Uc:Rz[343]kdTlF:">PianoEb</variable>
     <variable id="6rv!*@;o^0c0208iNq~t">PianoFmin</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id=",Oc~R_|bH[=Ttz~S`lFF" x="138" y="190">
-    <comment pinned="true" h="126" w="770">Fonctionne avec EtudeHarmonie5.als.
+  <block type="hh_ORCHESTRATION" id=",Oc~R_|bH[=Ttz~S`lFF" x="53" y="48">
+    <comment pinned="false" h="126" w="770">Fonctionne avec EtudeHarmonie5.als.
 2 simulateurs : 0 et 1.
 
 Type Horizontaux et verticaux, et reservoirs
 
+    
     
     
     </comment>
@@ -336,7 +337,7 @@ Type Horizontaux et verticaux, et reservoirs
       <block type="activateTypeList" id="}$4P{(|men0%/hC@j!lV">
         <next>
           <block type="set_tempo" id="hHS|n*u4Wi],m$$4V#`p">
-            <field name="tempo">60</field>
+            <field name="tempo">80</field>
             <next>
               <block type="hh_wait_for_immediate" id="Boo*=aF!$e8omaW#`pz`">
                 <value name="SIGNAL">
@@ -373,7 +374,7 @@ Type Horizontaux et verticaux, et reservoirs
                                         <statement name="BODY">
                                           <block type="set_group_during_ticks" id="AB_ddyY:g#5oH.p.(RJ?">
                                             <field name="user_group">255</field>
-                                            <field name="number_of_ticks">60</field>
+                                            <field name="number_of_ticks">200</field>
                                             <value name="GROUPS">
                                               <block type="lists_create_with" id="gpa}J*Os%yML^`h-Z?+y">
                                                 <mutation items="3"></mutation>
