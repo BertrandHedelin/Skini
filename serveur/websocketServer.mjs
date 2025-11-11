@@ -731,9 +731,9 @@ function startWebSocketServer() {
           type: "alertBlocklySkini",
           text: err.toString()
         }
-        throw err;
-        //serv.broadcast(JSON.stringify(msg));
-        //return false;
+        //throw err;
+        serv.broadcast(JSON.stringify(msg));
+        return false;
       }
       return true;
     } else {
@@ -783,6 +783,12 @@ function startWebSocketServer() {
       return;
     }
     nbeDeGroupesSons = DAW.getNbeDeGroupesSons();
+    if(debug1) if (!Number.isInteger(nbeDeGroupesSons) || nbeDeGroupesSons <= 0 ) 
+      {
+        console.log("websocketServer:initMatriceDesPossibles:pb nbeDeGroupesons", nbeDeGroupesSons );
+        return;
+      }
+
     groupesClientSon.setNbeDeGroupesSons(nbeDeGroupesSons);
     if (groupesClientSon.setGroupesSon(DAWState) == -1) {
       if (warnings) console.log("WARNING: websocketserveur:initMatriceDesPossibles: setGroupesSon: vide");

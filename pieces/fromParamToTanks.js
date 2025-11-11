@@ -3,9 +3,9 @@
  * de noms (index 0) pour chaque tank défini dans groupesDesSons, regroupés par numéro de tank (champ 5).
  *
  * Usage :
- *   node fromParamToTanks.js path/to/groupesDesSons.js output.js
+ *   node fromParamToTanks.js input.js output.js
  *
- * - groupesDesSons.js doit exporter un tableau nommé groupesDesSons (tableau d'arrays à 9 éléments).
+ * - input.js doit exporter un tableau nommé groupesDesSons (tableau d'arrays à 9 éléments).
  * - output.js sera généré avec un tableau par tank, chaque tableau contenant uniquement les noms (index 0).
  */
 

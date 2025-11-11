@@ -14,3 +14,5 @@ docComplementaires/**
 tests/**
 .vs/**
 .vscode/**
+build/**
+.gitignore
