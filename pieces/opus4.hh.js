@@ -168,7 +168,6 @@ function makeReservoir(groupeClient, instrument) {
             ${instrument.map(val => hiphop {
               emit ${`${val}OUT`}([true, groupeClient])})
             }
-            host { console.log("----------------- gcs = ", typeof gcs);}
             host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true);}
             ${makeAwait(instrument, groupeClient)}
             host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
@@ -445,7 +444,7 @@ export function setSignals(param) {
 
   const resetAll = hiphop module (){
     host{
-      console.log("--Reset Automate Opus4 sans jeu");
+      console.log("--Reset Automate Opus4");
       DAW.cleanQueues();
       // oscMidiLocal.convertAndActivateClipAbleton(300); // n'existe plus
     }
@@ -492,8 +491,6 @@ export function setSignals(param) {
     }
   }
 
-  
- 
   /****************************************************
    * L'orchestration qui est mise en place par la machine HH
    * 
@@ -507,9 +504,6 @@ export function setSignals(param) {
 
     // Pour basculer d'un scénario avec ou sans capteurs
     //const sensors = false;
-
-
-
     loop {
       let tickCounter = 0;
       let patternCounter = 1;
@@ -521,7 +515,7 @@ export function setSignals(param) {
         utilsSkini.removeSceneScore(1, serveur);
         utilsSkini.refreshSceneScore(serveur);
         utilsSkini.addSceneScore(1, serveur);
-        utilsSkini.alertInfoScoreON("Skini HH", serveur);
+        utilsSkini.alertInfoScoreON("Opus 4", serveur);
         transposeAll(0, param);
 
         //Manage the types for the patterns
@@ -545,13 +539,21 @@ export function setSignals(param) {
           }
         } par {
             fork{
-              //run ${ soloPiano } () {*}
-              run ${resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
+              run ${ soloPiano } () {*}
+              //run ${ resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
             } par {
-              run ${ resevoirSaxo } () {*};
+              await count(20, tick.now);
+              fork{
+                run ${saxoEtViolons} () {*};
+              } par {
+                run ${ transposeSaxoModal } () {*}
+              }
             } par {
+            } par {
+              await count(10, tick.now);
               run ${ soloFlute } () {*}; // 57 ticks
             } par {
+              await count(40, tick.now);
               run ${ brassEtPercu } () {*};
             } par {
               every (patternSignal.now) { 
@@ -563,10 +565,18 @@ export function setSignals(param) {
         }
       }
       host{ console.log("Reçu Halt"); }
+      host{ utilsSkini.alertInfoScoreON("Stop Opus 4", serveur);}
+      run ${resetAll}(){};
+      host{ gcs.resetMatrice(); }
     }
+
+    // On n'arrive jamais ici à cause des mécanismes de transposition qui continuent
+    // en parallèle.
     host{ gcs.resetMatrice(); }
     run ${resetAll}(){};
-    host{ utilsSkini.alertInfoScoreOFF(serveur); }
+    host{ utilsSkini.alertInfoScoreON("Fin Opus 4", serveur);}
+    await count(10, tick.now);
+    //host{ utilsSkini.alertInfoScoreOFF(serveur); }
 
     /*
     loop{
