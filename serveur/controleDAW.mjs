@@ -382,9 +382,7 @@ export function pushEventDAW(bus, channel, instrument, note, velocity,
       [bus, channel, note, velocity,
         wsid, pseudo, dureeClip, nom, signal, typePattern,
         adresseIP, numeroBuffer, patternLevel, typeVertPattern]);
-
     if (debug1) printInstruments(filesDattente);
-
   } else {
     // On met la demande dans la file d'attente sans traitement et sans tenir compte du type qui n'a pas de sens.
     filesDattente[instrument].push([bus, channel, note, velocity,

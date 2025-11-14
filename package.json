@@ -4,7 +4,8 @@
   "description": "Skini Tools for Interactive and Generative Music",
   "main": "skini.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "contrhh": "node scripts/contrhh-cli.mjs --port 8080"
   },
   "repository": {
     "type": "git",

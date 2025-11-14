@@ -69,7 +69,7 @@ var groupesClient;
 export var matriceDesPossibles;
 var timerDivision; // Nombre de pulses par tick, doit rester undefined si pas à jour par les automates
 var nbeDeGroupesSons = 0;
-var nombreDePatternsPossibleEnListe = [[3, 255]]; // init pour client memorySortable
+var nombreDePatternsPossibleEnListe = [[1, 255]]; // init pour client memorySortable
 
 // Pour les listes de clients memorySortable connectés et les infos sur les types de
 // patterns ainsi que les précédentes listes envoyées. Mis à jour dans websocketServeur.

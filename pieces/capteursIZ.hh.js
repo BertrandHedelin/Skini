@@ -73,39 +73,39 @@ export function setSignals(param) {
 
   hiphop module sensorIZ(name) {
     in sensorIZ, tick;
-    loop{
+    every (sensorIZ.now) {
       host{ console.log("SensorIZ", name); }
-      await (sensorIZ.now);
-        host{
-          console.log("Sensor", name, ":", sensorIZ.nowval[1] ); 
-          if( sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000 ) {
-            utilsSkini.alertInfoScoreON(name + ": Zone 1", serveur);
-            DAW.putPatternInQueue(name + "-1");
-          }
-          else if( sensorIZ.nowval[1] < 2999 && sensorIZ.nowval[1] > 2000) {
-            utilsSkini.alertInfoScoreON(name + " : Zone 2", serveur);
-            DAW.putPatternInQueue(name + "-2");
-          }
-          else if( sensorIZ.nowval[1] < 1999 && sensorIZ.nowval[1] > 1000) {
-            utilsSkini.alertInfoScoreON(name + " : Zone 3", serveur);
-            DAW.putPatternInQueue(name + "-3");
-          }
-          else if( sensorIZ.nowval[1] < 999 && sensorIZ.nowval[1] > 500) {
-            utilsSkini.alertInfoScoreON(name + ": Zone 4", serveur);
-            DAW.putPatternInQueue(name + "-4");
-          }
-          else if( sensorIZ.nowval[1] < 499 && sensorIZ.nowval[1] > 0) {
-            utilsSkini.alertInfoScoreON(name + ": Zone 5", serveur);
-            DAW.putPatternInQueue(name + "-5");
-          }
+      //await (sensorIZ.now);
+      host{
+        console.log("Sensor", name, ":", sensorIZ.nowval[1]);
+        if (sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000) {
+          utilsSkini.alertInfoScoreON(name + ": Zone 1", serveur);
+          DAW.putPatternInQueue(name + "-1");
         }
+        else if (sensorIZ.nowval[1] < 2999 && sensorIZ.nowval[1] > 2000) {
+          utilsSkini.alertInfoScoreON(name + " : Zone 2", serveur);
+          DAW.putPatternInQueue(name + "-2");
+        }
+        else if (sensorIZ.nowval[1] < 1999 && sensorIZ.nowval[1] > 1000) {
+          utilsSkini.alertInfoScoreON(name + " : Zone 3", serveur);
+          DAW.putPatternInQueue(name + "-3");
+        }
+        else if (sensorIZ.nowval[1] < 999 && sensorIZ.nowval[1] > 500) {
+          utilsSkini.alertInfoScoreON(name + ": Zone 4", serveur);
+          DAW.putPatternInQueue(name + "-4");
+        }
+        else if (sensorIZ.nowval[1] < 499 && sensorIZ.nowval[1] > 0) {
+          utilsSkini.alertInfoScoreON(name + ": Zone 5", serveur);
+          DAW.putPatternInQueue(name + "-5");
+        }
+      }
 
       //if( sensorIZ.nowval[1] < 4000 ) {
-      //if( sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000) {
+      // if( sensorIZ.nowval[1] < 4000 && sensorIZ.nowval[1] > 3000) {
       // host{ console.log(" *-*-*-*-*-*-*- Sensor RC0 2", sensorIZ.nowval[1] ); }
       //   host{utilsSkini.alertInfoScoreON(name + ": Zone 1", serveur);}
       //   host{ DAW.putPatternInQueue(name + "-1"); }
-      //}
+      // }
 
       // else if( sensorIZ.nowval[1] < 2999 && sensorIZ.nowval[1] > 2000) {
       //   host{utilsSkini.alertInfoScoreON(name + " : Zone 2", serveur);}
@@ -123,7 +123,7 @@ export function setSignals(param) {
       //   host{utilsSkini.alertInfoScoreON(name + ": Zone 5", serveur);}
       //   host{ DAW.putPatternInQueue(name + "-5"); }
       // }
-      //await  count (4,tick.now);
+      await count (4,tick.now);
     }
   }
 
@@ -142,8 +142,6 @@ export function setSignals(param) {
       host{ utilsSkini.alertInfoScoreON("Skini HH", serveur); }
       host{ console.log("Skini HH"); }
 
-      emit sensor1OUT([true, 0]);
-
       abort(halt.now){
         fork {
           every(tick.now){
@@ -152,7 +150,6 @@ export function setSignals(param) {
               gcs.setTickOnControler(i++);
             }
           }
-          emit sensor0OUT([false, 0]);
           host{ console.log("Reçu Halt"); }
           host{ utilsSkini.alertInfoScoreOFF(serveur); }
         } par {

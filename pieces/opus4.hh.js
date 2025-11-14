@@ -18,6 +18,9 @@
  * - Utilisation de capteurs (ici IZ)
  * - Ordonnancement des clips en FIFO
  * 
+ * Pour debug dans /tests:
+ * node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\opus4test.hh.js -o .\opus4test.mjs
+ * 
  * @copyright (C) 2019-2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.4
@@ -57,7 +60,6 @@ const CCTransposeHaubois = 69;
 const CCTransposeClarinettes = 70;
 const CCTransposeBassons = 71;
 const CCTransposeSaxo = 72;
-
 const CCTempo = 100;
 const tempoMax = 160;// Valeur fixée dans DAW
 const tempoMin = 40; // Valeur fixée dans DAW
@@ -143,48 +145,48 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
 
 // Création réservoir ***********************************************************
 function makeAwait(instruments, groupeClient) {
-  return hiphop fork ${
-    instruments.map(val => hiphop {
-      await(this[`${val}IN`].now);
-      emit ${`${val}OUT`}([false, groupeClient]);
-     //host{ console.log("---------------------------- makeAwait", instruments, groupeClient)}
+  return hiphop fork ${ instruments.map(val => hiphop {
+     await (this[`${val}IN`].now);
+     emit ${`${val}OUT`}([false, groupeClient]);
+     host{ console.log("makeAwait", val)}
   })}
 }
 
 function makeReservoir(groupeClient, instrument) {
-  return hiphop ${hiphop {
-      laTrappe: {
-        abort immediate(stopReservoir.now) { // To kill  the tank
+  return hiphop ${
+      hiphop { 
+        laTrappe: {
+        abort immediate (stopReservoir.now) { // To kill  the tank
             host {
-              console.log("--- MAKE RESERVOIR:", instrument[0], ", groupeClient: ", groupeClient);
+              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
               var msg = {
                 type: 'startTank',
-                value: instrument[0]
+                value:instrument[0]
               }
               serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
             }
-            ${
-                instrument.map(val => hiphop {
-                emit ${`${val}OUT`} ([true, groupeClient])
-                })
+            ${instrument.map(val => hiphop {
+              emit ${`${val}OUT`}([true, groupeClient])})
             }
-            host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true); }
-            ${ makeAwait(instrument, groupeClient) }
+            host { console.log("----------------- gcs = ", typeof gcs);}
+            host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true);}
+            ${makeAwait(instrument, groupeClient)}
             host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
             break  laTrappe;
         }
 
-        host { console.log("--- FIN FORCEE DU RESERVOIR:", instrument[0]); }
-        ${
-          instrument.map(val => hiphop {
-          emit ${`${val}OUT`} ([false, groupeClient])})
+        ${instrument.map(val => hiphop {
+          emit ${`${val}OUT`}([false, groupeClient])})
         }
 
         host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
-        host {
+        host { 
           console.log("--- ABORT RESERVOIR:", instrument[0]);
-          // Pour les gestions des tanks dans l'affichage de la partition "score"
-          serveur.broadcast(JSON.stringify({ type: 'killTank', value: instrument[0] }));
+          var msg = {
+            type: 'killTank',
+            value:instrument[0]
+          }
+          serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
         }
       }
     }
@@ -195,19 +197,18 @@ function makeReservoir(groupeClient, instrument) {
  * Les modules HH pour les réservoirs
  * 
  */
-const piano = [
-  "Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
+
+const piano = ["Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
   "Piano1Intro6", "Piano1Intro7", "Piano1Milieu1", "Piano1Milieu2", "Piano1Milieu3",
   "Piano1Milieu4", "Piano1Milieu5", "Piano1Milieu6", "Piano1Milieu7",
   "Piano1Fin1", "Piano1Fin2", "Piano1Fin3", "Piano1Fin4", "Piano1Fin5",
-  "Piano1Fin6", "Piano1Fin7"
-]
+  "Piano1Fin6", "Piano1Fin7"];
 
 const resevoirPiano1 = hiphop module () {
   in stopReservoir;
   in ... ${ piano.map(i => `${i}IN`) };
   out ... ${ piano.map(i => `${i}OUT`) };
-	${ makeReservoir(255, piano) };
+  ${makeReservoir(255, piano)}
 }
 
 const saxo = [
@@ -218,8 +219,7 @@ const saxo = [
   "SaxFin6", "SaxFin7"
 ];
 
-const resevoirSaxo = hiphop module () 
-{
+const resevoirSaxo = hiphop module () {
   in stopReservoir;
   in ... ${ saxo.map(i => `${i}IN`) };
   out ... ${ saxo.map(i => `${i}OUT`) };
@@ -234,8 +234,7 @@ const brass = [
   "BrassFin6", "BrassFin7"
 ];
 
-const resevoirBrass = hiphop module () 
-{
+const resevoirBrass = hiphop module () {
   in stopReservoir;
   in ... ${ brass.map(i => `${i}IN`) };
   out ... ${ brass.map(i => `${i}OUT`) };
@@ -250,8 +249,7 @@ const flute = [
   "FluteFin6", "FluteFin7"
 ];
 
-const resevoirFlute = hiphop module () 
-{
+const resevoirFlute = hiphop module () {
   in stopReservoir;
   in ... ${ flute.map(i => `${i}IN`) };
   out ... ${ flute.map(i => `${i}OUT`) };
@@ -263,8 +261,7 @@ const percu = [
   "Percu6", "Percu7"
 ];
 
-const resevoirPercu = hiphop module () 
-{
+const resevoirPercu = hiphop module () {
   in stopReservoir;
   in ... ${ percu.map(i => `${i}IN`) };
   out ... ${ percu.map(i => `${i}OUT`) };
@@ -286,6 +283,7 @@ export function setSignals(param) {
   //console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
   //************************************* LES SESSIONS *************************
+ 
   const soloFlute = hiphop module () {
     out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
     in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
@@ -494,6 +492,8 @@ export function setSignals(param) {
     }
   }
 
+  
+ 
   /****************************************************
    * L'orchestration qui est mise en place par la machine HH
    * 
@@ -506,8 +506,69 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
     // Pour basculer d'un scénario avec ou sans capteurs
-    const sensors = false;
+    //const sensors = false;
 
+
+
+    loop {
+      let tickCounter = 0;
+      let patternCounter = 1;
+      await(tick.now);
+      await(start.now);
+
+      host{ 
+        gcs.setpatternListLength([ 1, 255]);
+        utilsSkini.removeSceneScore(1, serveur);
+        utilsSkini.refreshSceneScore(serveur);
+        utilsSkini.addSceneScore(1, serveur);
+        utilsSkini.alertInfoScoreON("Skini HH", serveur);
+        transposeAll(0, param);
+
+        //Manage the types for the patterns
+        utilsSkini.setListeDesTypes(serveur);
+        utilsSkini.setTypeList("1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11",serveur);
+        utilsSkini.setpatternListLength(12, 255, gcs);
+
+        gcs.setTimerDivision(1);
+      }
+      host{
+        setTempo(60, param);
+        tempoGlobal = 60;
+      }
+      abort(halt.now){
+        fork{
+          every(tick.now){
+            host{
+              //console.log("tick from HH", tickCounter++);
+              gcs.setTickOnControler(tickCounter++);
+            }
+          }
+        } par {
+            fork{
+              //run ${ soloPiano } () {*}
+              run ${resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
+            } par {
+              run ${ resevoirSaxo } () {*};
+            } par {
+              run ${ soloFlute } () {*}; // 57 ticks
+            } par {
+              run ${ brassEtPercu } () {*};
+            } par {
+              every (patternSignal.now) { 
+                host{console.log("Pattern counter:", patternCounter++);}
+              }
+          } par {
+            run ${ bougeTempo } () {*}
+          }
+        }
+      }
+      host{ console.log("Reçu Halt"); }
+    }
+    host{ gcs.resetMatrice(); }
+    run ${resetAll}(){};
+    host{ utilsSkini.alertInfoScoreOFF(serveur); }
+
+    /*
     loop{
       let tickCounter = 0;
       let patternCounter = 1;
@@ -520,11 +581,11 @@ export function setSignals(param) {
         transposeAll(0, param);
 
         // Manage the types for the patterns
-        utilsSkini.setListeDesTypes(serveur);
-        utilsSkini.setTypeList("1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11",serveur);
-        utilsSkini.setpatternListLength(12, 255, gcs);
+        //utilsSkini.setListeDesTypes(serveur);
+        //utilsSkini.setTypeList("1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11",serveur);
+        //utilsSkini.setpatternListLength(12, 255, gcs);
 
-        gcs.setTimerDivision(1);
+        // gcs.setTimerDivision(1);
        }
        host{
         setTempo(60, param);
@@ -535,26 +596,28 @@ export function setSignals(param) {
         fork {
           every(tick.now){
             host{gcs.setTickOnControler(tickCounter++);}
+            //host{console.log("tick from HH", tickCounter);}
           }
         } par {
+          run ${resevoirPiano1}() {*};
           if(sensors){
             //every(INTERFACEZ_RC0.now) {
               //host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
               //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
-              fork{
-                every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
-                  host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur); }
-                  hop{ DAW.cleanQueue(1);} // piano
-                  run ${ soloPiano } () {*};
-                }
-              }par{
-                every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
-                  host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur); }
-                  hop{ DAW.cleanQueue(2);} // Saxo
-                  hop{ DAW.cleanQueue(3);} // Violon
-                  run ${saxoEtViolons} () {*};
-                }
-              }
+              // fork{
+              //   every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
+              //     host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur); }
+              //     hop{ DAW.cleanQueue(1);} // piano
+              //     run ${ soloPiano } () {*};
+              //   }
+              // }par{
+              //   every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
+              //     host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur); }
+              //     hop{ DAW.cleanQueue(2);} // Saxo
+              //     hop{ DAW.cleanQueue(3);} // Violon
+              //     run ${saxoEtViolons} () {*};
+              //   }
+              // }
               // else if (INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
               //   host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 3", serveur); }
               //   run ${soloFlute} () {*};
@@ -578,24 +641,29 @@ export function setSignals(param) {
               //run ${ resevoirSaxo } () {*}
               //run ${ resevoirBrass } () {*}
               
-              fork {
-                run ${ soloPiano } () {*}  // 57 ticks
-              } par {
-                run ${ soloFlute } () {*}; // 57 ticks
-              } par {
-                await count(57, tick.now);
-              }
-              run ${ saxoEtViolons } () {*} // 84 ticks
+              // fork {
+              //run ${ soloPiano } () {*}  // 57 ticks
+              run ${resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
 
-            } par {
-              run ${ transposeSaxoModal } () {*}
-            } par {
+              //run ${resevoirPiano1}() {*};
+
+              // } par {
+              //   run ${ soloFlute } () {*}; // 57 ticks
+              // } par {
+              //   await count(57, tick.now);
+              // }
+
+              //run ${ saxoEtViolons } () {*} // 84 ticks
+
+            // } par {
+            //   run ${ transposeSaxoModal } () {*}
+            // } par {
             //  run ${ soloPiano } () {*}
             //  run ${ brassEtPercu } () {*}
             // } par {
             //   run ${ resevoirPercu } () {*}
-            } par {
-              run ${ bougeTempo } () {*}
+            // } par {
+            //   run ${ bougeTempo } () {*}
             } par {
               every (patternSignal.now) {
                 host{ console.log("Pattern counter:", patternCounter++)}
@@ -610,8 +678,10 @@ export function setSignals(param) {
       //run ${resetAll}(){}
     }
   }
-
+*/
+  }
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 }
+
 

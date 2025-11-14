@@ -1069,7 +1069,8 @@ function startWebSocketServer() {
             resolve("resolve done!");
           });
         });
-        //automatePossibleMachine = groupesClientSon.getMachine();
+
+        automatePossibleMachine = groupesClientSon.getMachine();
         if (automatePossibleMachine === undefined) {
           console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
         }
@@ -1264,15 +1265,19 @@ maybe an hiphop compile Error`);
             ":", piecePath + HipHopSrc, ":", targetHH);
 
           try {
-            // Compilation vers targetHH, problemes d'asynchronisme ?
+            // Etape de parsing vers targetHH 
             let fragment = compile(piecePath + HipHopSrc, {});
             await fragment.output(targetHH);
             await fragment.sourcemap(targetHH);
           } catch (err) {
+            console.log("ERR: Erreur dans la compilation du programme hiphop")
             console.log("websocketServerSkini:compileHHEditionFile:fragment:", err);
-            throw err;
+            break;
+            //throw err;
           }
 
+          // Compilation du programme généré en dur dans targetHH.
+          // On utilise le même procédé que pour les programmes générés par Blockly 
           try {
             compileHH();
           } catch (err) {

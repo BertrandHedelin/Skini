@@ -32,8 +32,9 @@
     <variable id="7~us#_b_8|IK4#_9[0rA">PianoE</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="151" y="83">
-    <comment pinned="true" h="83" w="467.5">Fonctionne avec EtudeSkiniHarmonie2.als de Live.
+    <comment pinned="true" h="83" w="467">Fonctionne avec EtudeSkiniHarmonie2.als de Live.
 Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comportement.
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="-c*`m;(F|+hCxzJ$1l[g" collapsed="true">

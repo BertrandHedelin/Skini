@@ -457,7 +457,7 @@ function initWSSocket(port) {
           else {
             tempoInstantListClip = Math.floor((Math.random() * (tempoMax - tempoMin)) + tempoMin);
           }
-          if (debug1) console.log("Tempo avant prochaine demande 2:", tempoInstantListClip);
+          if (debug) console.log("Tempo avant prochaine demande 2:", tempoInstantListClip);
           if (DAWON) setTimeout(function () {
             selectListClips();
           },
