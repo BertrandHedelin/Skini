@@ -1066,6 +1066,7 @@ function startWebSocketServer() {
         await new Promise((resolve) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
             automatePossibleMachine = machine;
+            if(debug1) console.log("INFO: Compilation OK")
             resolve("resolve done!");
           });
         });
@@ -1087,7 +1088,6 @@ maybe an hiphop compile Error`);
           text: "See your console, pb on compilation"
         }));
         throw err;
-        //return;
       }
 
       DAW.setAutomatePossible(automatePossibleMachine);
@@ -1496,11 +1496,12 @@ maybe an hiphop compile Error`);
               text: "You try to load a not HipHop JavaScript file : " + HipHopSrc
             }));
           }
-          try {
-            compileHH();
-          } catch (err) {
-            console.log("websocketServerSkini:loadHHFile:catch:", err);
-          }
+          
+          // try {
+          //   compileHH();
+          // } catch (err) {
+          //   console.log("websocketServerSkini:loadHHFile:catch:", err);
+          // }
 
           // Chargement des paramètres
           // à partir du fichier de config de la pièce

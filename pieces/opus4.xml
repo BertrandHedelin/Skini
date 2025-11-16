@@ -107,140 +107,142 @@
     <variable id="lnIdAmS%X`6DFJ9Z*xz9">Massive</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="+wcZk9H$_gf1|BP2k;Z/" x="177" y="-355">
-    <comment pinned="false" h="158" w="657">Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
+    <comment pinned="true" h="158" w="657">Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
 On a donc un contrôle sur la construction des phrases musicales.
 Le simulateur a des contraintes sur les timers : 3000 min et 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel aux tanks en contrôlant/limitant les répétitions de patterns. 
 Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été dévalidé sur le serveur, surtout quand le paramètre reactOnPlay est actif.
+Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ Pour cette pièce, il y a un groupe 0. Attention au simulateur.
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -910,6 +912,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -993,6 +996,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                             
+                                
                                 
                                 
                                 
@@ -1351,6 +1355,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                                     
                                     
                                     
+                                    
                                     </comment>
                                     <value name="NAME">
                                       <block type="variables_get" id="zC/p_t^mzd0}LkXR$#}+">
@@ -1468,6 +1473,7 @@ Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été
                             
                             
                                 
+                                        
                                         
                                         
                                         

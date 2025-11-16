@@ -539,7 +539,7 @@ export function setSignals(param) {
           }
         } par {
           fork{
-            await(tick.now); // Sans ce tick ça plante
+            await(tick.now); // Sans ce tick ça plante/boucle
             if (sensors) {
               fork {
                 every(INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000) {
@@ -592,82 +592,6 @@ export function setSignals(param) {
     host{ utilsSkini.alertInfoScoreON("Fin Opus 4", serveur); }
     await count(10, tick.now);
     //host{ utilsSkini.alertInfoScoreOFF(serveur); }
-
-    /*
-        } par {
-          run ${resevoirPiano1}() {*};
-          if(sensors){
-            //every(INTERFACEZ_RC0.now) {
-              //host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
-              //host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
-              // fork{
-              //   every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
-              //     host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur); }
-              //     hop{ DAW.cleanQueue(1);} // piano
-              //     run ${ soloPiano } () {*};
-              //   }
-              // }par{
-              //   every (INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 2999 && INTERFACEZ_RC0.nowval[1] > 2000) {
-              //     host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 2", serveur); }
-              //     hop{ DAW.cleanQueue(2);} // Saxo
-              //     hop{ DAW.cleanQueue(3);} // Violon
-              //     run ${saxoEtViolons} () {*};
-              //   }
-              // }
-              // else if (INTERFACEZ_RC0.nowval[1] < 1999 && INTERFACEZ_RC0.nowval[1] > 1000) {
-              //   host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 3", serveur); }
-              //   run ${soloFlute} () {*};
-              // }
-              // else if (INTERFACEZ_RC0.nowval[1] < 999 && INTERFACEZ_RC0.nowval[1] > 500) {
-              //   host{ utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 4", serveur); }
-              //   run ${ brassEtPercu } () {*};
-              // }
-            //}
-          }
-          if(!sensors){
-            fork{
-              //run ${brassEtPercu} () {*};
-              //run ${saxoEtViolons} () {*};
-              //run ${soloPiano} () {*};
-              //run ${resevoirFlute} () {*}
-              
-              //run ${soloFlute} () {*};
-
-              //run ${ resevoirPiano1 } () {*}
-              //run ${ resevoirSaxo } () {*}
-              //run ${ resevoirBrass } () {*}
-              
-              // fork {
-              //run ${ soloPiano } () {*}  // 57 ticks
-              run ${resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
-
-              //run ${resevoirPiano1}() {*};
-
-              // } par {
-              //   run ${ soloFlute } () {*}; // 57 ticks
-              // } par {
-              //   await count(57, tick.now);
-              // }
-
-              //run ${ saxoEtViolons } () {*} // 84 ticks
-
-            // } par {
-            //   run ${ transposeSaxoModal } () {*}
-            // } par {
-            //  run ${ soloPiano } () {*}
-            //  run ${ brassEtPercu } () {*}
-            // } par {
-            //   run ${ resevoirPercu } () {*}
-            // } par {
-            //   run ${ bougeTempo } () {*}
-            } par {
-              every (patternSignal.now) {
-                host{ console.log("Pattern counter:", patternCounter++)}
-              }
-            }
-          }
-        }
-*/
   }
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;

@@ -42,9 +42,13 @@
     <variable id="W7s9GHc#x,tvUq#)B3lJ">AltoA</variable>
     <variable id="Ouo{FC;23b/Q`hp@_aTf">CelloA</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="164" y="58">
+  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="-16" y="43">
     <comment pinned="false" h="83" w="467">Fonctionne avec EtudeSkiniHarmonie4.als de Live.
 Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comportement.
+    
+    
+    
+    
     
     
     
@@ -242,7 +246,7 @@ Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comporte
                 <field name="groupe">255</field>
                 <next>
                   <block type="set_tempo" id="2q,@V}q(:._LVhz}RL-M">
-                    <field name="tempo">60</field>
+                    <field name="tempo">70</field>
                     <next>
                       <block type="addSceneScore" id="uNPOy~.sBo4n$xF]:{h!">
                         <field name="number">1</field>
@@ -264,7 +268,7 @@ Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comporte
                                   <block type="cleanqueues" id="`01JkjPu,#0GdE@6Mom=">
                                     <next>
                                       <block type="hh_wait_for" id="z7WMbn+[o?D+aV5ESL+(">
-                                        <field name="TIMES">2</field>
+                                        <field name="TIMES">1</field>
                                         <value name="SIGNAL">
                                           <block type="variables_get" id="QUc,gf!t(~C55!3EC/P~">
                                             <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
@@ -331,7 +335,7 @@ Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comporte
                                                         <statement name="BODY">
                                                           <block type="set_group_during_ticks" id=",/JxBZrAwD.~6Q8JpsXJ">
                                                             <field name="user_group">255</field>
-                                                            <field name="number_of_ticks">60</field>
+                                                            <field name="number_of_ticks">30</field>
                                                             <value name="GROUPS">
                                                               <block type="lists_create_with" id="{p,8*^m`o25Et;{uI28f">
                                                                 <mutation items="16"></mutation>
@@ -446,8 +450,8 @@ Pour les tests, j'aime bien utiliser le simulateurListe pour suivre son comporte
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="hh_abort" id="Bare0c/6n-2eC?4W)uhG">
-                                                                                <field name="TIMES">50</field>
+                                                                              <block type="hh_abort" id="Bare0c/6n-2eC?4W)uhG" disabled="true">
+                                                                                <field name="TIMES">30</field>
                                                                                 <value name="SIGNAL">
                                                                                   <block type="variables_get" id="2sM2]?hQ+s8R34FeN(TF">
                                                                                     <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>

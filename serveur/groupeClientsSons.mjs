@@ -874,7 +874,7 @@ export function getMachine() {
 var tempIndex = 0;
 export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", par.groupesDesSons);
-  // Recharge l'orchestration depuis le fichier généré par Blockly,
+  // Recharge l'orchestration depuis le fichier généré par Blockly ou en HipHop.
   // fichier éventuellement mis à jour à la main pour test.
   await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {
     tempIndex++;
@@ -889,7 +889,7 @@ export async function makeOneAutomatePossibleMachine() {
       throw err;
     }
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
-  }).catch(err => console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine err:", err));;
+  }).catch(err => console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine err:", err));
   // Si on met le return dans le then de l'import on ne récupère par la machine.
   // Je ne comprends pas pourquoi car setsignals et makeSignalsListeners sont synchrones.
   // C'est comme si le return se faisait avant ces deux fonctions, donc de façon asynchrone.

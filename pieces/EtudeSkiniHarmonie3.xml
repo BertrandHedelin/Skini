@@ -6,7 +6,7 @@
     <variable id="!J%ZLg1LT^U:3e_BaP2U">FluteD</variable>
     <variable id="(8DTf(w-{K!h?lYF8(%%">FluteE</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="432" y="88">
+  <block type="hh_ORCHESTRATION" id="wJonUpwTmf.mr#D1Q=v3" x="146" y="119">
     <statement name="BODY">
       <block type="hh_wait_for_immediate" id="=vlEmsnqO5?cBCcljAah">
         <value name="SIGNAL">
@@ -23,7 +23,7 @@
                 <field name="groupe">255</field>
                 <next>
                   <block type="set_tempo" id="2q,@V}q(:._LVhz}RL-M">
-                    <field name="tempo">60</field>
+                    <field name="tempo">50</field>
                     <next>
                       <block type="addSceneScore" id="uNPOy~.sBo4n$xF]:{h!">
                         <field name="number">1</field>
@@ -38,7 +38,7 @@
                               <block type="hh_print_serveur" id="0`s5y(wSS)Geh4K`D7f6">
                                 <value name="TEXT">
                                   <block type="text" id="Pg|,6I5Dy)6bH$,_6eEw">
-                                    <field name="TEXT">Etude Harmonie 2</field>
+                                    <field name="TEXT">Etude Harmonie 3</field>
                                   </block>
                                 </value>
                                 <next>
@@ -75,12 +75,45 @@
                                                 </value>
                                                 <next>
                                                   <block type="hh_wait_for" id="8{Db)t|(]4hMN4O6U.Zu">
-                                                    <field name="TIMES">50</field>
+                                                    <field name="TIMES">20</field>
                                                     <value name="SIGNAL">
                                                       <block type="variables_get" id="{Nk(gLh$6U0+jNu.~KO!">
                                                         <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
                                                       </block>
                                                     </value>
+                                                    <next>
+                                                      <block type="unset_group" id=")ylqDsyBaBsA$?XWNu]B">
+                                                        <field name="groupe">255</field>
+                                                        <value name="GROUPS">
+                                                          <block type="lists_create_with" id=";lPZmUF,4Wu?G#-CCKCd">
+                                                            <mutation items="4"></mutation>
+                                                            <value name="ADD0">
+                                                              <block type="variables_get" id="W:dZkbUhQsgN;GdC+WIc">
+                                                                <field name="VAR" id=")h{.j~0nS~wAC0k_u:R7">PianoD</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD1">
+                                                              <block type="variables_get" id="R@0P[RFN!i=Zg}N*1b3f">
+                                                                <field name="VAR" id="7~us#_b_8|IK4#_9[0rA">PianoE</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD2">
+                                                              <block type="variables_get" id="vTCG5Kr.YVm6vcuS3pK=">
+                                                                <field name="VAR" id="!J%ZLg1LT^U:3e_BaP2U">FluteD</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD3">
+                                                              <block type="variables_get" id="Q?*LgJK+Pjs5pUB{n.T_">
+                                                                <field name="VAR" id="(8DTf(w-{K!h?lYF8(%%">FluteE</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="cleanqueues" id="006|@Iw$N10:ul#Ij@-j"></block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
                                                   </block>
                                                 </next>
                                               </block>
