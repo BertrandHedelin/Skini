@@ -33,7 +33,7 @@
 
 import { ReactiveMachine } from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
-import * as tank from "../pieces/util/makeReservoir.mjs";
+//import * as tank from "../pieces/util/makeReservoir.mjs";
 
 let midimix;
 let oscMidiLocal;
@@ -136,8 +136,9 @@ function setTonalite(CCtonalite, value, par) {
  * contrôle.
  * 
  */
+
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
-  if (debug) console.log("hh_ORCHESTRATION: setServ");
+  if (debug1) console.log("hh_ORCHESTRATION: setServ OPUS4V3");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -494,6 +495,7 @@ export function setSignals(param) {
    * L'orchestration qui est mise en place par la machine HH
    * 
    */
+
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
     inout stopReservoir, stopMoveTempo, stopSolo;
@@ -502,7 +504,7 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
     // Pour basculer d'un scénario avec ou sans capteurs
-    const sensors = true;
+    const sensors = false;
 
     loop {
       let tickCounter = 0;
@@ -524,6 +526,7 @@ export function setSignals(param) {
         utilsSkini.setpatternListLength(12, 255, gcs);
 
         gcs.setTimerDivision(1);
+        console.log("-- OPUS4V2 --")
       }
       host{
         setTempo(80, param);
@@ -539,7 +542,7 @@ export function setSignals(param) {
           }
         } par {
           fork{
-            await(tick.now); // Sans ce tick ça plante/boucle
+            //await(tick.now); // Sans ce tick ça plante/boucle
             if (sensors) {
               fork {
                 every(INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000) {

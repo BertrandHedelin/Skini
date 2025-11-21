@@ -1066,7 +1066,6 @@ function startWebSocketServer() {
         await new Promise((resolve) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
             automatePossibleMachine = machine;
-            if(debug1) console.log("INFO: Compilation OK")
             resolve("resolve done!");
           });
         });
