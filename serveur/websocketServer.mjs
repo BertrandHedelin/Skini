@@ -1063,16 +1063,21 @@ function startWebSocketServer() {
     async function compileHH() {
       DAWTableReady = false;
       try {
-        await new Promise((resolve) => {
+        await new Promise((resolve, reject) => {
           groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
             automatePossibleMachine = machine;
             resolve("resolve done!");
-          });
+          }).catch(reject);
         });
 
         automatePossibleMachine = groupesClientSon.getMachine();
         if (automatePossibleMachine === undefined) {
           console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
+          serv.broadcast(JSON.stringify({
+            type: "consoleBlocklySkini",
+            text: "See your console, pb on compilation"
+          }));
+          return;
         }
       } catch (err) {
         //console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
@@ -1086,7 +1091,7 @@ maybe an hiphop compile Error`);
           type: "consoleBlocklySkini",
           text: "See your console, pb on compilation"
         }));
-        throw err;
+        return;
       }
 
       DAW.setAutomatePossible(automatePossibleMachine);
@@ -1259,7 +1264,6 @@ maybe an hiphop compile Error`);
           break;
 
         case "compileHHEditionFile":
-
           if (debug1) console.log("websocketServer: compileHHEditionFile:", msgRecu,
             ":", piecePath + HipHopSrc, ":", targetHH);
 
@@ -1271,8 +1275,7 @@ maybe an hiphop compile Error`);
           } catch (err) {
             console.log("ERR: Erreur dans la compilation du programme hiphop")
             console.log("websocketServerSkini:compileHHEditionFile:fragment:", err);
-            break;
-            //throw err;
+            break; // Pas la peine d'aller plus loin dans la compilation
           }
 
           // Compilation du programme généré en dur dans targetHH.
@@ -1281,7 +1284,6 @@ maybe an hiphop compile Error`);
             compileHH();
           } catch (err) {
             console.log("websocketServerSkini:compileHHEditionFile:compileHH:", err);
-            throw err;
           }
           break;
 

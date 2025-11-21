@@ -138,7 +138,7 @@ function setTonalite(CCtonalite, value, par) {
  */
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
-  if (debug1) console.log("hh_ORCHESTRATION: setServ OPUS4V3");
+  if (debug) console.log("hh_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -495,7 +495,6 @@ export function setSignals(param) {
    * L'orchestration qui est mise en place par la machine HH
    * 
    */
-
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
     inout stopReservoir, stopMoveTempo, stopSolo;
@@ -526,7 +525,7 @@ export function setSignals(param) {
         utilsSkini.setpatternListLength(12, 255, gcs);
 
         gcs.setTimerDivision(1);
-        console.log("-- OPUS4V2 --")
+        console.log("-- OPUS4V4 --")
       }
       host{
         setTempo(80, param);

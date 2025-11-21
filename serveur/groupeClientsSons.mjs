@@ -868,37 +868,32 @@ export function getMachine() {
 }
 
 /**
- * Create and compile the hipHop.js orchestration from the blocky generated code.
- * update machine
+ * Create and compile the hipHop.js orchestration from the blocky generated code 
+ * or HH file
  */
 var tempIndex = 0;
+
 export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", par.groupesDesSons);
-  // Recharge l'orchestration depuis le fichier généré par Blockly ou en HipHop.
-  // fichier éventuellement mis à jour à la main pour test.
-  await import(myReactOrchestration + '?foo=bar' + tempIndex).then((orchestration) => {
+  
+  try {
+    const orchestration = await import(myReactOrchestration + '?foo=bar' + tempIndex);
     tempIndex++;
-    // Pour permettre les broadcasts et autres depuis l'orchestration
+    
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
-    // C'est là que se fait la machine HipHop.js
-    try {
-      machine = orchestration.setSignals(par);
-      makeSignalsListeners(machine);
-    } catch (err) {
-      console.log("ERR: groupecliensSons: makeAutomatePossibleMachine: makeSignalsListeners", err.toString());
-      machine = undefined;
-      throw err;
-    }
+    
+    machine = orchestration.setSignals(par);
+    makeSignalsListeners(machine);
+    
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
-  }).catch(err => {
-    console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine err:", err);
-    return undefined;
-  });
-  // Si on met le return dans le then de l'import on ne récupère par la machine.
-  // Je ne comprends pas pourquoi car setsignals et makeSignalsListeners sont synchrones.
-  // C'est comme si le return se faisait avant ces deux fonctions, donc de façon asynchrone.
-  return machine;
-};
+    
+    return machine;
+    
+  } catch (err) {
+    console.log("ERR: groupeClientsSons: makeOneAutomatePossibleMachine:", err.toString());
+    throw err; // Propage l'erreur pour que compileHH() la capture
+  }
+}
 
 let messageLog = {
   date: "",
