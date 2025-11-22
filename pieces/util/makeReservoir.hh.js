@@ -3,7 +3,7 @@
 "use hopscript"
 
 // node ..\..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\makeReservoir.hh.js -o .\makeReservoir.mjs
-function makeAwait(instruments, groupeClient) {
+export function makeAwait(instruments, groupeClient) {
   return hiphop fork ${
     instruments.map(val => hiphop {
     await(this[`${val}IN`].now);
@@ -12,12 +12,12 @@ function makeAwait(instruments, groupeClient) {
   })}
 }
 
-function makeReservoir(groupeClient, instrument, gcs, serveur) {
+export function makeReservoir(groupeClient, instrument, gcs, serveur) {
     return hiphop ${hiphop {
         laTrappe: {
         abort immediate(stopReservoir.now) { // To kill  the tank
           host {
-            console.log("--- MAKE RESERVOIR V2:", instrument[0], ", groupeClient: ", groupeClient, serveur);
+            console.log("--- MAKE RESERVOIR V1:", instrument[0], ", groupeClient: ", groupeClient, serveur);
             serveur.broadcast(JSON.stringify({
               type: 'startTank',
               value: instrument[0]
@@ -50,4 +50,3 @@ function makeReservoir(groupeClient, instrument, gcs, serveur) {
     }
   }
 }
-

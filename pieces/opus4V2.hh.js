@@ -33,7 +33,7 @@
 
 import { ReactiveMachine } from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
-//import * as tank from "../pieces/util/makeReservoir.mjs";
+import * as tank from "../pieces/util/makeReservoir.mjs";
 
 let midimix;
 let oscMidiLocal;
@@ -138,7 +138,7 @@ function setTonalite(CCtonalite, value, par) {
  */
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
-  if (debug) console.log("hh_ORCHESTRATION: setServ");
+  if (debug) console.log("-- HH_ORCHESTRATION: setServ");
   DAW = daw;
   serveur = ser;
   gcs = groupeCS;
@@ -196,7 +196,6 @@ function makeReservoir(groupeClient, instrument) {
  * Les modules HH pour les réservoirs
  * 
  */
-
 const piano = ["Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
   "Piano1Intro6", "Piano1Intro7", "Piano1Milieu1", "Piano1Milieu2", "Piano1Milieu3",
   "Piano1Milieu4", "Piano1Milieu5", "Piano1Milieu6", "Piano1Milieu7",
@@ -208,7 +207,8 @@ const resevoirPiano1 = hiphop module () {
   in ... ${ piano.map(i => `${i}IN`) };
   out ... ${ piano.map(i => `${i}OUT`) };
   ${ makeReservoir(255, piano) }
-  //${ tank.makeReservoir(255, piano, gcs, serveur) }
+  //${ (console.log(tank.makeReservoir), tank.makeReservoir(255, piano, gcs, serveur)) }
+  //${ tank.makeReservoir(255, piano, gcs, serveur) } // serveur ne passe pas ?? il est undefined dans la fonction exportée.
 }
 
 const saxo = [
@@ -328,7 +328,7 @@ export function setSignals(param) {
         break solo;
       }par{
         every(patternSignal.now &&
-          (patternSignal.nowval[1] === "Piano1Fin1"
+              (patternSignal.nowval[1] === "Piano1Fin1"
             || patternSignal.nowval[1] === "Piano1Fin2"
             || patternSignal.nowval[1] === "Piano1Fin3"
             || patternSignal.nowval[1] === "Piano1Fin4"
@@ -414,72 +414,77 @@ export function setSignals(param) {
   var transposeSaxoModal = hiphop module (){
     out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
     in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
-    in tick;
+    in tick, stopTransposition;
 
-    loop{
-      host{
-        transposition = 0;
-        transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-
-        degre2mineursaxo(false, param); // ajustement du mode
-
-        tonalite = (tonalite + 2) % 6;
-        setTonalite(CCtonalite, tonalite, param); // Tonalité globale
+    weakabort(stopTransposition.now) {
+      loop{
+        host{
+          transposition = 0;
+          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
+          degre2mineursaxo(false, param); // ajustement du mode
+          tonalite = (tonalite + 2) % 6;
+          setTonalite(CCtonalite, tonalite, param); // Tonalité globale
+        }
+        await count(8, tick.now);
+        host{
+          transposition = -5;
+          degre2mineursaxo(true, param); // ajustement du mode
+          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
+        }
+        await count(8, tick.now);
+        host{
+          transposition = 2;
+          degre2mineursaxo(true, param); // ajustement du mode
+          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
+        }
+        await count(8, tick.now);
       }
-      await count(8, tick.now);
-      host{
-        transposition = -5;
-        degre2mineursaxo(true, param); // ajustement du mode
-        transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-      }
-      await count(8, tick.now);
-      host{
-        transposition = 2;
-        degre2mineursaxo(true, param); // ajustement du mode
-        transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-      }
-      await count(8, tick.now);
     }
+    // Ne s'affiche pas quand le run global est tué en cours de route
+    host { console.log("-- Stop transpositions")}
   }
 
   const resetAll = hiphop module (){
     host{
-      console.log("--Reset Automate Opus4");
+      console.log("-- Reset Automate Opus4");
       DAW.cleanQueues();
       // oscMidiLocal.convertAndActivateClipAbleton(300); // n'existe plus
     }
   }
 
   const bougeTempo = hiphop module () {
-    in tick;
+    in tick, stopMoveTempo;
     signal inverseTempo;
-
-    loop{
-      fork {
-        every count(10, tick.now) {
-            emit inverseTempo();
-        }
-      }par{
-        loop{
-          abort(inverseTempo.now){
-              every count(2, tick.now) {
-                host{
-                tempoGlobal += 2;
-                setTempo(tempoGlobal, param);
+    host {console.log("-- Start move tempo")}
+    abort immediate(stopMoveTempo.now){
+      loop{
+        fork {
+          every count(10, tick.now) {
+              emit inverseTempo();
+          }
+        }par{
+          loop{
+            abort(inverseTempo.now){
+                every count(2, tick.now) {
+                  host{
+                  tempoGlobal += 2;
+                  setTempo(tempoGlobal, param);
+                }
               }
             }
-          }
-          abort(inverseTempo.now){
-            every count(2, tick.now) {
-              host{
-                tempoGlobal -= 2;
-                setTempo(tempoGlobal, param);
+            abort(inverseTempo.now){
+              every count(2, tick.now) {
+                host{
+                  tempoGlobal -= 2;
+                  setTempo(tempoGlobal, param);
+                }
               }
             }
           }
         }
       }
     }
+    host {console.log("-- Stop move tempo")}
   }
 
   const setAleas = hiphop module (){
@@ -497,7 +502,7 @@ export function setSignals(param) {
    */
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
-    inout stopReservoir, stopMoveTempo, stopSolo;
+    inout stopReservoir, stopMoveTempo, stopSolo, stopTransposition;
     in ... ${ IZsignals };
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
@@ -510,7 +515,6 @@ export function setSignals(param) {
       let patternCounter = 1;
       await(tick.now);
       await(start.now);
-
       host{
         gcs.setpatternListLength([1, 255]);
         utilsSkini.removeSceneScore(1, serveur);
@@ -525,7 +529,7 @@ export function setSignals(param) {
         utilsSkini.setpatternListLength(12, 255, gcs);
 
         gcs.setTimerDivision(1);
-        console.log("-- OPUS4V4 --")
+        console.log("-- OPUS4V1 --")
       }
       host{
         setTempo(80, param);
@@ -541,59 +545,52 @@ export function setSignals(param) {
           }
         } par {
           fork{
-            //await(tick.now); // Sans ce tick ça plante/boucle
             if (sensors) {
-              fork {
-                every(INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000) {
-                  hop{ DAW.cleanQueue(1);} // piano
-                  host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
-                  host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
-                  run ${ soloPiano } () {*};
-                }
-              }par{
-                // run ${ soloPiano } () {*};
-                // host{ console.log(" *-*-*-*-*-*-*- SOLO PIANO 1 FINI"); }
-                // run ${ soloPiano } () {*};
-                // host{ console.log(" *-*-*-*-*-*-*- SOLO PIANO 2 FINI"); }
+              every(INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000) {
+                hop{ DAW.cleanQueue(1);} // piano
+                host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
+                host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
+                run ${ soloPiano } () {*};
               }
             } else {
               run ${ soloPiano } () {*};
             }
           } par {
-            await count(20, tick.now);
-              fork{
+            await count(10, tick.now);
+            fork{
                 run ${ saxoEtViolons } () {*};
             } par {
                 run ${ transposeSaxoModal } () {*}
             }
           } par {
-            await count(10, tick.now);
-              run ${ soloFlute } () {*}; // 57 ticks
+            //await count(13, tick.now);
+            //Ces signaux activent bien les abort des modules qui
+            //continuent leur exécution après les abort.
+            //emit stopMoveTempo(); 
+            //emit stopTransposition();
+
+            run ${ soloFlute } () {*}; // 57 ticks
           } par {
             await count(40, tick.now);
-              run ${ brassEtPercu } () {*};
+            run ${ brassEtPercu } () {*};
           } par {
             every(patternSignal.now) { 
-              host{ console.log("Pattern counter:", patternCounter++); }
+              host{ console.log("-- Pattern counter:", patternCounter++); }
             }
           } par {
-              run ${ bougeTempo } () {*}
+            run ${ bougeTempo } () {*}
           }
         }
       }
-      host{ console.log("Reçu Halt"); }
+      //Ces signaux activent bien les abort des modules qui
+      //ne réalisent pas leur exécution après les abort.
+      emit stopTransposition();
+      emit stopMoveTempo();
+      host{ console.log("-- Reçu Halt"); }
       host{ utilsSkini.alertInfoScoreON("Stop Opus 4", serveur); }
       run ${ resetAll } (){ };
       host{ gcs.resetMatrice(); }
     }
-
-    // On n'arrive jamais ici à cause des mécanismes de transposition qui continuent
-    // en parallèle.
-    host{ gcs.resetMatrice(); }
-    run ${ resetAll } (){ };
-    host{ utilsSkini.alertInfoScoreON("Fin Opus 4", serveur); }
-    await count(10, tick.now);
-    //host{ utilsSkini.alertInfoScoreOFF(serveur); }
   }
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;

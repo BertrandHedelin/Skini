@@ -1063,22 +1063,7 @@ function startWebSocketServer() {
     async function compileHH() {
       DAWTableReady = false;
       try {
-        await new Promise((resolve, reject) => {
-          groupesClientSon.makeOneAutomatePossibleMachine().then((machine) => {
-            automatePossibleMachine = machine;
-            resolve("resolve done!");
-          }).catch(reject);
-        });
-
-        automatePossibleMachine = groupesClientSon.getMachine();
-        if (automatePossibleMachine === undefined) {
-          console.log("websocketserver: compileHH: pb de compilation:", automatePossibleMachine);
-          serv.broadcast(JSON.stringify({
-            type: "consoleBlocklySkini",
-            text: "See your console, pb on compilation"
-          }));
-          return;
-        }
+        automatePossibleMachine = await groupesClientSon.makeOneAutomatePossibleMachine();
       } catch (err) {
         //console.log("ERR: websocketserver.js: pb makeOneAutomatePossibleMachine", err);
         console.log("\n-------------------------------------------------------------");

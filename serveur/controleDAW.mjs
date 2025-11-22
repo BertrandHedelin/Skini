@@ -545,7 +545,7 @@ export function playAndShiftEventDAW(timerDivision) {
               } else {
                 oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID],
                   commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
-                if (debug1) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
+                if (debug) console.log("--- controleDAW.mjs : playAndShiftEventDAW : COMMANDE ENVOYEE:", commandeDAW[CD_NOM_ID], commandeDAW[CD_NOTE_ID]);
               }
             } else {
               oscMidi.sendNoteOn(commandeDAW[CD_BUS_ID], commandeDAW[CD_CHANNEL_ID], commandeDAW[CD_NOTE_ID], commandeDAW[CD_VEL_ID]);
