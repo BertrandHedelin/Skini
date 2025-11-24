@@ -107,7 +107,7 @@
     <variable id="lnIdAmS%X`6DFJ9Z*xz9">Massive</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="+wcZk9H$_gf1|BP2k;Z/" x="177" y="-355">
-    <comment pinned="true" h="158" w="657">Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
+    <comment pinned="false" h="158" w="657">Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
 On a donc un contrôle sur la construction des phrases musicales.
 Le simulateur a des contraintes sur les timers : 3000 min et 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel aux tanks en contrôlant/limitant les répétitions de patterns. 
 Si le simulateur va trop vite, il peut rappeler un pattern avant qu'il ait été dévalidé sur le serveur, surtout quand le paramètre reactOnPlay est actif.
@@ -243,6 +243,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
     
  Pour cette pièce, il y a un groupe 0. Attention au simulateur.
 
+    
     
     
     
@@ -917,6 +918,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -1000,6 +1002,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                                
                                 
                                 
                                 
@@ -1232,6 +1235,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                                    
                                     
                                     
                                     
@@ -1613,6 +1617,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                                         
                                         
                                         
+                                        
                                         </comment>
                                         <value name="NAME">
                                           <block type="variables_get" id="IVSRH`$2*-tGx8wreegM">
@@ -1779,7 +1784,7 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
       <block type="hh_print_serveur" id="jZh4%$.p+:aHdRk`s;@V">
         <value name="TEXT">
           <block type="text" id="]a[fA4:uTD?AJ-juWO-~">
-            <field name="TEXT">Opus4</field>
+            <field name="TEXT">-- Opus4 Blockly</field>
           </block>
         </value>
         <next>
@@ -1812,23 +1817,31 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
             <next>
               <block type="hh_sequence" id="2U#.-IM~JzK0BxI7^vAC">
                 <statement name="BODY">
-                  <block type="set_tempo" id="1Ewe(R#XnzXfa//Og8,h">
-                    <field name="tempo">70</field>
+                  <block type="tempo_parameters" id="logtH%2Hf;z6j~WGCp4P">
+                    <field name="channelTempo">1</field>
+                    <field name="CCTempo">100</field>
+                    <field name="MaxTempo">160</field>
+                    <field name="MinTempo">40</field>
                     <next>
-                      <block type="set_timer_division" id="?q~N#!)7]M;4y11zzj4[">
-                        <field name="timer">1</field>
+                      <block type="set_tempo" id="1Ewe(R#XnzXfa//Og8,h">
+                        <field name="tempo">60</field>
                         <next>
-                          <block type="addSceneScore" id="}L)3am[Qe4?%R*1OKuG$">
-                            <field name="number">1</field>
+                          <block type="set_timer_division" id="?q~N#!)7]M;4y11zzj4[">
+                            <field name="timer">1</field>
                             <next>
-                              <block type="transpose_parameters" id="H9/R_$ji3r(-,S+9pHU@">
-                                <field name="ratio">1.763</field>
-                                <field name="offset">63.5</field>
+                              <block type="addSceneScore" id="}L)3am[Qe4?%R*1OKuG$">
+                                <field name="number">1</field>
                                 <next>
-                                  <block type="transpose" id="2HMf/*ZP`e/BpJwRe6gt">
-                                    <field name="channelMidi">1</field>
-                                    <field name="CCInstr">74</field>
-                                    <field name="valeur">0</field>
+                                  <block type="transpose_parameters" id="H9/R_$ji3r(-,S+9pHU@">
+                                    <field name="ratio">1.763</field>
+                                    <field name="offset">63.5</field>
+                                    <next>
+                                      <block type="transpose" id="2HMf/*ZP`e/BpJwRe6gt">
+                                        <field name="channelMidi">1</field>
+                                        <field name="CCInstr">74</field>
+                                        <field name="valeur">0</field>
+                                      </block>
+                                    </next>
                                   </block>
                                 </next>
                               </block>

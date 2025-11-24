@@ -1,0 +1,16 @@
+Points à traiter:
+- Problème de passage de paramètres à des modules HH externalisés (22/11/2025)
+le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
+les autres paramètres sont OK.
+
+- Voir le comportement d'un run dans un abort quand abort se déclenche. Dans quel état est le contenu du run() ? (22/11/2025)
+
+- Pour des pièces dans des sous répertoire (24/11/2025):
+On peut changer le répertoire dans ipConfig.json mais
+updareParameters remet midiconfig dans le répertoire ../serveur/ dans le fichier des paramètres sans tenir compte du niveau du répetoire des pièces.
+
+- SetTempo (24/11/2025)
+dans Opus4V2.hh.js est OK avec les commandes MIDI, mais ne passe pas (toujours) avec midimix.setTempoLink(value).
+
+
+- skiniParameteres.js n'est plus utilisé ? J'ai désactivé la recopie dans websoketSetver.mjs. A surveiller (24/11/2025)

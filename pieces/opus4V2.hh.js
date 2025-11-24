@@ -90,6 +90,13 @@ let troisiemeAlea = 0;
  * 
  */
 function setTempo(value, par) {
+
+  // if(midimix.getAbletonLinkStatus()) {
+  //     if(debug1) console.log("ORCHESTRATION: set tempo Link:", value);
+  //     midimix.setTempoLink(value);
+  //   return;
+  // }
+
   if (value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
     return;
@@ -532,8 +539,8 @@ export function setSignals(param) {
         console.log("-- OPUS4V1 --")
       }
       host{
-        setTempo(80, param);
-        tempoGlobal = 80;
+        setTempo(60, param);
+        tempoGlobal = 60;
       }
       abort(halt.now){
         fork{

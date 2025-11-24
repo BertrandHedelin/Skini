@@ -1732,10 +1732,11 @@ maybe an hiphop compile Error`);
           }));
           break;
 
-        // DAWON est le signal d'activation ou désactivation de l'orchestration
-        // DAWStatus est une variable qui permet de savoir quelle était l'orchestration choisie
-        // danc cette version on n'utilise qu'une seule orchestration. DAWStatus pouvait avoir des valeur de 1 à 3.
-        // Il y a redondance entre les deux puisque DAWStatus = 0 signifie pas d'orchestration en cours.
+        // DAWON est le SIGNAL d'activation ou désactivation de l'orchestration
+        // DAWStatus est une VARIABLE qui permet de savoir quelle est l'orchestration choisie
+        // (Dans cette version on n'utilise qu'une seule orchestration
+        // mais dans une première version DAWStatus pouvait avoir des valeurs de 1 à 3.)
+        // DAWStatus = 0 signifie pas d'orchestration en cours.
         case "setDAWON":
           // msgRecu.value > 0 => DAW Active
           DAWStatus = msgRecu.value;
@@ -1994,12 +1995,12 @@ maybe an hiphop compile Error`);
 
           // On recrée le fichier pour son utilisation par l'orchestration
           // avant recompilation.
-          let destinationUpdate = "./serveur/skiniParametres.js";
-          try {
-            fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
-          } catch (err) {
-            console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
-          }
+          // let destinationUpdate = "./serveur/skiniParametres.js";
+          // try {
+          //   fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
+          // } catch (err) {
+          //   console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
+          // }
 
           // Recompile the orchestration pour intégrer les modifications
           // des paramétres de groupes et tanks.
