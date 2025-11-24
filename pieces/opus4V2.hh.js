@@ -91,8 +91,9 @@ let troisiemeAlea = 0;
  */
 function setTempo(value, par) {
 
+  // Assez instable sur mon PC.
   // if(midimix.getAbletonLinkStatus()) {
-  //     if(debug1) console.log("ORCHESTRATION: set tempo Link:", value);
+  //     if(debug) console.log("Opus4 : set tempo Link:", value);
   //     midimix.setTempoLink(value);
   //   return;
   // }
@@ -113,7 +114,7 @@ function transpose(CCinstrument, value, par) {
 
   CCTransposeValue = Math.round(1763 / 1000 * value + 635 / 10);
   oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCinstrument, CCTransposeValue);
-  if (debug1) console.log("-- Transposition instrument:", CCinstrument, "->", value, "demi-tons");
+  if (debug) console.log("-- Transposition instrument:", CCinstrument, "->", value, "demi-tons");
 }
 
 function transposeAll(value, par) {
@@ -582,7 +583,10 @@ export function setSignals(param) {
             run ${ brassEtPercu } () {*};
           } par {
             every(patternSignal.now) { 
-              host{ console.log("-- Pattern counter:", patternCounter++); }
+              host{ 
+                // console.log("-- Pattern counter:", patternCounter++);
+                console.log("-- Pattern :", patternSignal.nowval);
+               }
             }
           } par {
             run ${ bougeTempo } () {*}

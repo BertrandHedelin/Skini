@@ -1,6 +1,6 @@
 {
   "name": "nodeskini",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Skini Tools for Interactive and Generative Music",
   "main": "skini.mjs",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://srv-indes/user/berpetit/home/nodeskini.git"
+    "url": "https://github.com/BertrandHedelin/Skini.git"
   },
   "author": "Bertrand Petit-Hédelin",
   "license": "GNU3.0",
@@ -27,11 +27,18 @@
     "midi": "^2.0.0",
     "node-wav-player": "^0.2.0",
     "osc-min": "^1.1.2",
-    "ws": "^7.4.5"
-  },
-  "devDependencies": {
+    "ws": "^7.4.5",
     "decache": "^4.6.0"
   },
+  "devDependencies": {
+  },
+  "files": [
+    "skini.mjs",
+    "serveur/",
+    "client/",
+    "myReact/",
+    "blocklySkini/"
+  ],
   "directories": {
     "doc": "doc",
     "test": "tests"

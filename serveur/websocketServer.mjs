@@ -553,7 +553,7 @@ function startWebSocketServer() {
   function sendSignalFromDAW(noteSkini) {
     if (debug) console.log("websocketserver.js: sendSignalFromDAW:", noteSkini);
     var patternName = DAW.getPatternNameFromNote(noteSkini);
-    if (debug1) console.log("INFO: websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
+    if (debug) console.log("INFO: websocketserver.js: sendSignalFromDAW:", noteSkini, patternName);
     if (patternName !== undefined) {
       reactAutomatePossible({ patternSignal: [noteSkini, patternName] });
     } else {

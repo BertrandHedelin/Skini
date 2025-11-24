@@ -10,7 +10,12 @@ On peut changer le répertoire dans ipConfig.json mais
 updareParameters remet midiconfig dans le répertoire ../serveur/ dans le fichier des paramètres sans tenir compte du niveau du répetoire des pièces.
 
 - SetTempo (24/11/2025)
-dans Opus4V2.hh.js est OK avec les commandes MIDI, mais ne passe pas (toujours) avec midimix.setTempoLink(value).
-
+Dans Opus4V2.hh.js est OK avec les commandes MIDI,
+mais ne passe pas toujours avec midimix.setTempoLink(value).
+Ceci semble plutôt une instabilité de link sur Win10 !!
 
 - skiniParameteres.js n'est plus utilisé ? J'ai désactivé la recopie dans websoketSetver.mjs. A surveiller (24/11/2025)
+
+- Définir des tests de régression de Skini. Opus4 est un bon exemple mais complexe.
+
+
