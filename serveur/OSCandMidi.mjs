@@ -137,7 +137,7 @@ function startOSCandMIDI() {
 export function sendProcessing(message, value) {
   var buf;
 
-  if (debug) console.log("OSCandMidi: sends osc to processing :" + message + " " + value + " to " + outportProcessing);
+  if (debug1) console.log("OSCandMidi: sends osc to processing :" + message + " " + value + " to " + outportProcessing);
   buf = osc.toBuffer({ address: message, args: [value] });
   return udp.send(buf, 0, buf.length, outportProcessing, remoteIPAddressImage);
 };

@@ -559,10 +559,10 @@ export function playAndShiftEventDAW(timerDivision) {
           if (debug) console.log("---2 controleDAW.mjs:sendNoteOn:", commandeDAW[CD_NOM_ID], " de durée: ", commandeDAW[CD_DUREE_ID], "avec timerDivisionLocal:", timerDivisionLocal);
 
           // Via OSC on perd les accents, donc on passe pas une WebSocket
-          if (debug) console.log("playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[CD_NOM_ID], ":", commandeDAW[CD_PSEUDO_ID]);
+          if (debug) console.log("controlDAW: playAndShiftEventDAW: ", compteurTest, ": ", commandeDAW[CD_NOM_ID], ":", commandeDAW[CD_PSEUDO_ID]);
 
           // Pour affichage avec un programme Processing
-          // oscMidi.sendProcessingDisplayNames( "demandeDeSonParPseudo", commandeDAW[7] );
+          //oscMidi.sendOSCProcessing( "demandeDeSonParPseudo", commandeDAW[TEXT_ID], commandeDAW[7] );
 
           // La ligne automatePossibleMachine.react(commandeDAW[8]) est activé selon reactOnPlay
           // Si reactOnPlay existe à true on envoie le signal, qui correspond au lancement d'un pattern, au moment de le jouer

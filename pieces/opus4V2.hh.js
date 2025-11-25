@@ -144,7 +144,6 @@ function setTonalite(CCtonalite, value, par) {
  * contrôle.
  * 
  */
-
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug) console.log("-- HH_ORCHESTRATION: setServ");
   DAW = daw;
@@ -152,52 +151,9 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   gcs = groupeCS;
   oscMidiLocal = oscMidi;
   midimix = mix;
-}
-
-// Création réservoir ***********************************************************
-function makeAwait(instruments, groupeClient) {
-  return hiphop fork ${
-    instruments.map(val => hiphop {
-      await(this[`${val}IN`].now);
-      emit ${`${val}OUT`}([false, groupeClient]);
-      //host{ console.log("makeAwait", val)}
-  })}
-}
-
-function makeReservoir(groupeClient, instrument) {
-  return hiphop ${hiphop {
-      laTrappe: {
-        abort immediate(stopReservoir.now) { // To kill  the tank
-          host {
-            console.log("--- MAKE RESERVOIR:", instrument[0], ", groupeClient: ", groupeClient);
-            var msg = {
-              type: 'startTank',
-              value: instrument[0]
-            }
-            serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
-          }
-          ${instrument.map(val => hiphop {
-          emit ${`${val}OUT`} ([true, groupeClient])})}
-          host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true); }
-          ${ makeAwait(instrument, groupeClient) }
-          host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
-          break  laTrappe;
-        }
-
-        ${instrument.map(val => hiphop {emit ${`${val}OUT`} ([false, groupeClient])})}
-
-        host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
-        host {
-          console.log("--- ABORT RESERVOIR:", instrument[0]);
-          var msg = {
-            type: 'killTank',
-            value: instrument[0]
-          }
-          serveur.broadcast(JSON.stringify(msg)); // Pour les gestions des tanks dans l'affichage de la partition "score"
-        }
-      }
-    }
-  }
+  //Les objets gcs et serveur ne passent pas en paramètres de makereservoir !!??
+  //On initialise tank.
+  tank.initMakeReservoir(gcs, serveur);
 }
 
 /***************************************************************************
@@ -214,9 +170,7 @@ const resevoirPiano1 = hiphop module () {
   in stopReservoir;
   in ... ${ piano.map(i => `${i}IN`) };
   out ... ${ piano.map(i => `${i}OUT`) };
-  ${ makeReservoir(255, piano) }
-  //${ (console.log(tank.makeReservoir), tank.makeReservoir(255, piano, gcs, serveur)) }
-  //${ tank.makeReservoir(255, piano, gcs, serveur) } // serveur ne passe pas ?? il est undefined dans la fonction exportée.
+  ${ tank.makeReservoir(255, piano) }
 }
 
 const saxo = [
@@ -231,7 +185,7 @@ const resevoirSaxo = hiphop module () {
   in stopReservoir;
   in ... ${ saxo.map(i => `${i}IN`) };
   out ... ${ saxo.map(i => `${i}OUT`) };
-	${ makeReservoir(255, saxo) };
+	${ tank.makeReservoir(255, saxo) };
 }
 
 const brass = [
@@ -246,7 +200,7 @@ const resevoirBrass = hiphop module () {
   in stopReservoir;
   in ... ${ brass.map(i => `${i}IN`) };
   out ... ${ brass.map(i => `${i}OUT`) };
-	${ makeReservoir(255, brass) };
+	${ tank.makeReservoir(255, brass) };
 }
 
 const flute = [
@@ -261,7 +215,7 @@ const resevoirFlute = hiphop module () {
   in stopReservoir;
   in ... ${ flute.map(i => `${i}IN`) };
   out ... ${ flute.map(i => `${i}OUT`) };
-	${ makeReservoir(255, flute) };
+	${ tank.makeReservoir(255, flute) };
 }
 
 const percu = [
@@ -273,7 +227,7 @@ const resevoirPercu = hiphop module () {
   in stopReservoir;
   in ... ${ percu.map(i => `${i}IN`) };
   out ... ${ percu.map(i => `${i}OUT`) };
-	${ makeReservoir(255, percu) };
+	${ tank.makeReservoir(255, percu) };
 }
 
 /***************************************************************************
@@ -523,6 +477,8 @@ export function setSignals(param) {
       let patternCounter = 1;
       await(tick.now);
       await(start.now);
+
+      //Initialisation en JS
       host{
         gcs.setpatternListLength([1, 255]);
         utilsSkini.removeSceneScore(1, serveur);
@@ -537,7 +493,7 @@ export function setSignals(param) {
         utilsSkini.setpatternListLength(12, 255, gcs);
 
         gcs.setTimerDivision(1);
-        console.log("-- OPUS4V1 --")
+        console.log("-- OPUS4V2 --")
       }
       host{
         setTempo(60, param);
