@@ -6,7 +6,7 @@
     <variable id="GgT[r)}l-tjNLIr|Ai03">OSCNOTEOF</variable>
     <variable id="A2!$5fxHs5F8D0kKD#HW">xy</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="127" y="53">
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="91" y="-89">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
         <field name="TYPE">INOUT</field>

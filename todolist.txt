@@ -3,9 +3,7 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-- Pour des pièces dans des sous répertoire (24/11/2025):
-On peut changer le répertoire dans ipConfig.json mais
-updateParameters remet midiconfig dans le répertoire ../serveur/, dans le fichier des paramètres sans tenir compte du niveau du répetoire des pièces.
+
 
 - skiniParameteres.js n'est plus utilisé ? J'ai désactivé la recopie dans websoketSetver.mjs. A surveiller (24/11/2025)
 
@@ -18,20 +16,31 @@ Pas prioritaire:
 - nettoyer le code par ecma script
 - enlever myreact du client standard
 
-Fait:
+Fait ------------------------------------------------------------------
 - 2 façons d'installer, par git clone ou npm.
 - premier test du package npm (25/11/2025)
+
 - pièce interactive avec affichage (revu le 25/11/2025):
 Revue de processing avec OSC, mais c'est assez sommaire.
+
 - Edition des fichiers hh dans VSC ok 27/11/2025
+
 - Voir le comportement d'un run dans un abort quand abort se déclenche. Dans quel état est le contenu du run() ? (22/11/2025)
 Le run est tué en cours de route (25/11/2025)
+
 - SetTempo (24/11/2025)
 Dans Opus4V2.hh.js est OK avec les commandes MIDI,
 mais ne passe pas toujours avec midimix.setTempoLink(value).
 Ceci semble une instabilité de link sur Win10.
 
-Commandes utiles:
+- Pour des pièces dans des sous répertoire (24/11/2025):
+On peut changer le répertoire dans ipConfig.json mais
+updateParameters remet midiconfig dans le répertoire ../serveur/, 
+dans le fichier des paramètres sans tenir compte du niveau du répetoire des pièces.
+(28/11/2015) mise en dur dans les fichiers paramètre de busMidiDAW qui n'est pas utilisé
+quand il n'y a pas de passerelle Processing, qui est un cas d'usage très rare maintenant.
+
+Commandes utiles -----------------------------------------------------
 Mise à jour HH:
 install https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-unstable.tgz
 
