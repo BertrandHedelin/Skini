@@ -264,7 +264,7 @@ export function setSignals(param) {
         await count(57, tick.now);
           emit stopReservoirFlute();
           // Si on ne vide pas la FIFO ça continue à jouer, c'est un choix musical possible.
-          hop{ DAW.cleanQueue(6); }
+          host{ DAW.cleanQueue(6); }
         break solo;
       }
     }
@@ -286,7 +286,7 @@ export function setSignals(param) {
         // cf. plus faut
         await count(58, tick.now);
         emit stopReservoirPiano();
-        hop{ DAW.cleanQueue(1); }
+        host{ DAW.cleanQueue(1); }
         break solo;
       }par{
         every(patternSignal.now &&
@@ -305,7 +305,7 @@ export function setSignals(param) {
       }par{
         every immediate(stopSolo.now){
           emit stopReservoirPiano();
-          hop{ DAW.cleanQueue(1); }
+          host{ DAW.cleanQueue(1); }
           host{ console.log("--- SoloPiano: Tuer par stopSolo") }
           break solo;
         }
@@ -334,8 +334,8 @@ export function setSignals(param) {
       emit stopReservoirSax();
       emit nappeViolonsOUT([false, 255]);
       host{ gcs.informSelecteurOnMenuChange(255, "Nappe", false); }
-      hop{ DAW.cleanQueue(3); } // Nappe
-      hop{ DAW.cleanQueue(2); } // Saxo
+      host{ DAW.cleanQueue(3); } // Nappe
+      host{ DAW.cleanQueue(2); } // Saxo
     }
   }
 
@@ -511,7 +511,7 @@ export function setSignals(param) {
           fork{
             if (sensors) {
               every(INTERFACEZ_RC0.now && INTERFACEZ_RC0.nowval[1] < 4000) {
-                hop{ DAW.cleanQueue(1);} // piano
+                host{ DAW.cleanQueue(1);} // piano
                 host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
                 host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
                 run ${ soloPiano } () {*};
@@ -529,8 +529,8 @@ export function setSignals(param) {
           } par {
             //await count(13, tick.now);
             //Ces signaux activent bien les abort des modules qui
-            //continuent leur exécution après les abort.
-            //emit stopMoveTempo(); 
+            //continuent sinon leurs exécutions après les abort.
+            //emit stopMoveTempo();
             //emit stopTransposition();
 
             run ${ soloFlute } () {*}; // 57 ticks
@@ -550,9 +550,10 @@ export function setSignals(param) {
         }
       }
       //Ces signaux activent bien les abort des modules qui
-      //ne réalisent pas leur exécution après les abort.
+      //pour qu'ils ne continuent pas leurs déroulement après le halt.
       emit stopTransposition();
       emit stopMoveTempo();
+      emit stopReservoir();
       host{ console.log("-- Reçu Halt"); }
       host{ utilsSkini.alertInfoScoreON("Stop Opus 4", serveur); }
       run ${ resetAll } (){ };

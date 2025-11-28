@@ -33,12 +33,12 @@
                       </block>
                     </value>
                     <next>
-                      <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13">
-                        <field name="JScode">bar = 1;&amp;#10;for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
+                      <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13" disabled="true">
+                        <field name="JScode">let bar = 1;&amp;#10;for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
                         <next>
                           <block type="hh_pause" id="Y[xi`UZQ)r,[_y}k3fPu">
                             <next>
-                              <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L">
+                              <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L" disabled="true">
                                 <value name="SIGNAL">
                                   <block type="variables_get" id="hmN3s#D9_q(rK;*SREkb">
                                     <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -62,7 +62,7 @@
                                         <next>
                                           <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
                                             <next>
-                                              <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI">
+                                              <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI" disabled="true">
                                                 <field name="JScode">console.log("BAR", bar)</field>
                                                 <next>
                                                   <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">

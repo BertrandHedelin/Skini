@@ -1,3 +1,4 @@
+# Exclude backup and build files
 backup/
 build/
 log.txt
@@ -24,5 +25,3 @@ pieces/
 *.mjs.html
 *.js.back
 *.mjs.back
-
-# blocklySkini/ doit être inclus dans le package

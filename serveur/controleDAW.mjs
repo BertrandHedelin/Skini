@@ -246,6 +246,7 @@ export function initBroadCastServer(serveur) {
  * @returns {number} - number of groups
  */
 export function getNbeDeGroupesSons() {
+  if(nbeDeGroupesSons < 0) return 0; // Protection
   return nbeDeGroupesSons;
 }
 

@@ -91,7 +91,7 @@ function initGroupeClientsSons() {
   // Tableau des clients actifs par groupe,
   // Devient un tableau de tableau. Le premier tableau a des index correspondant au groupe.
   // Les tableaux en deuxième position contiennent les id des clients générés à la connexion.
-  if (debug1) console.log("groupeClientsSins.js: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
+  if (debug1) console.log("INFO: groupeClientsSons.mjs: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
   groupesClient = new Array(par.nbeDeGroupesClients);
   for (var i = 0; i < groupesClient.length; i++) {
     groupesClient[i] = new Array();
@@ -830,6 +830,13 @@ export function setMatriceDesPossibles() {
  * Clean the matrix.
  */
 export function resetMatriceDesPossibles() {
+  if(debug) console.log("WARN: groupeClientSons: resetMatriceDesPossibles:", matriceDesPossibles);
+
+  if(matriceDesPossibles[0] === undefined ) {
+    console.log("WARN: groupeClientSons: resetMatriceDesPossibles: matriceDesPossibles vide");
+    return;
+  }
+  
   for (var i = 0; i < matriceDesPossibles.length; i++) {
     for (var j = 0; j < matriceDesPossibles[i].length; j++) {
       matriceDesPossibles[i][j] = false;

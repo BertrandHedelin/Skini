@@ -15,7 +15,6 @@ export function makeAwait(instruments, groupeClient) {
     instruments.map(val => hiphop {
     await(this[`${val}IN`].now);
     emit ${`${val}OUT`}([false, groupeClient]);
-    //host{ console.log("makeAwait", val)}
   })}
 }
 
@@ -36,7 +35,7 @@ export function makeReservoir(groupeClient, instrument) {
           }
           host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], true); }
           ${ makeAwait(instrument, groupeClient) }
-          host { console.log("--- FIN NATURELLE RESERVOIR V2:", instrument[0]); }
+          host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
           break  laTrappe;
         } 
 

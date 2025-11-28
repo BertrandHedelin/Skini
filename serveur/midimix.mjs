@@ -102,7 +102,7 @@ export function midimix(machineServeur) {
   }
 
   if (synchroLink && !socketOpen) {
-    console.log("INFO: Synchro Ableton Link");
+    console.log("INFO: midimix.mjs :Synchro Ableton Link");
     const abletonlink = require('abletonlink');
     link = new abletonlink();
     let localBeat = 0;
@@ -116,7 +116,7 @@ export function midimix(machineServeur) {
       // On envoie un tick à chaque changement de beat.
       // Ce serait peut-être mieux d'utiliser la phase ?
       if (localBeat !== instantBeat) {
-        if (debug) console.log("midimix.js: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
+        if (debug) console.log("midimix.mjs: Synchro Link ", Math.round(beat), Math.round(phase), Math.round(bpm));
 
         // On a besoin de la phase pour synchroniser les départs.
         // On commence à envoyer des Tick après avoir reçu la phase 1.
@@ -124,7 +124,7 @@ export function midimix(machineServeur) {
         if(!linkReadyTostart){
           if(instantPhase === 100){
             linkReadyTostart = true;
-            if(debug1) console.log("INFO: midimix: link ready");
+            if(debug1) console.log("INFO: midimix.mjs: link ready");
           }
           return;
         }
@@ -144,7 +144,7 @@ export function midimix(machineServeur) {
   function setTempoLink(tempo) {
     if (link !== undefined) {
       link.bpm = tempo;
-      if(debug) console.log("INFO: midimix.js: setTempolink:", tempo);
+      if(debug) console.log("INFO: midimix.mjs: setTempolink:", tempo);
     }
   }
   _setTempoLink = setTempoLink;
@@ -233,7 +233,7 @@ export function midimix(machineServeur) {
       for (var i = 0; i < controlers.length; i++) {
         controlerIndex = getControlerIndex(controlers[i].name);
         if (controlerIndex === -1) {
-          console.log("WARN: controler :", controlers[i].name, " does not exist");
+          console.log("WARN: midimix.mjs : controler :", controlers[i].name, " does not exist");
           continue;
         }
         controlers[i].input.openPort(controlerIndex);
@@ -242,7 +242,7 @@ export function midimix(machineServeur) {
           controlers[i].input.getPortName(controlerIndex));
 
         controlers[i].input.on('message', function (deltaTime, message) {
-          if (debug1) console.log('midimix.js: Input received : ' + message + ' d:' + deltaTime);
+          if (debug1) console.log('midimix.mjs: Input received : ' + message + ' d:' + deltaTime);
 
           // Ici les actions sur commande MIDI
           // On ne distingue pas les controleurs.
@@ -329,7 +329,7 @@ export function midimix(machineServeur) {
       midiInput.on('message', function (deltaTime, message) {
         // On ne traite que les noteON, de 1001 0000 (144) à 1001 1111 (159)
         if (message[0] >= 144 && message[0] <= 159) {
-          if (debug) console.log('midimix.js: initMidiIN: Input recieved :' + message + ' d:' + deltaTime);
+          if (debug) console.log('midimix.mjs: initMidiIN: Input recieved :' + message + ' d:' + deltaTime);
           note = message[1];
           canal = message[0] - 144;
           //timeStamp = deltaTime; 
@@ -343,18 +343,18 @@ export function midimix(machineServeur) {
           // Le timestamp est proche de la micro-seconde.
           if (isInPreviousNotes(noteSkini) && Math.round(deltaTime) === 0) {
             //if (isInPreviousNotes(noteSkini) && previousTimeStamp === Math.round(timeStamp)){ // à peu près une seconde
-            if (debug) console.log("midimix.js: REPETITION : ", noteSkini, timeStamp, previousTimeStamp);
+            if (debug) console.log("midimix.mjs: REPETITION : ", noteSkini, timeStamp, previousTimeStamp);
           } else {
             //previousTimeStamp = Math.round(timeStamp); 
 
-            if (debug) console.log("midimix.js: noteSkini: ", noteSkini, note, canal);
-            if (debug) console.log("midimix.js: isInPreviousNotes:", isInPreviousNotes(noteSkini));
+            if (debug) console.log("midimix.mjs: noteSkini: ", noteSkini, note, canal);
+            if (debug) console.log("midimix.mjs: isInPreviousNotes:", isInPreviousNotes(noteSkini));
 
             // Avec PUSH branché, Ableton Live envoie des notes négatives...
             // dont je ne connais pas la signification
             if (noteSkini > 0) {
               insertInPreviousNotes(noteSkini);
-              if (debug) console.log("midimix.js: Note de pattern reçue d'Ableton:", noteSkini);
+              if (debug) console.log("midimix.mjs: Note de pattern reçue d'Ableton:", noteSkini);
               websocketServer.sendSignalFromDAW(noteSkini);
             }
           }
@@ -367,7 +367,7 @@ export function midimix(machineServeur) {
         tempoTickDuration++;
         if (message[0] === 248) {
           if (tempoTickDuration > 23) {
-            if (debug) console.log("midimix.js: midiSync.on:", Date.now() - v0, "ms");
+            if (debug) console.log("midimix.mjs: midiSync.on:", Date.now() - v0, "ms");
             //console.log('Sync recieved :' + message + ' d:' + deltaTime);
             if (debug) console.log("midimix 1 : Tick", message[0]);
             // Test pour éviter une "double synchro en OSC est en MIDI"
@@ -436,7 +436,7 @@ export function midimix(machineServeur) {
       //msgloc.value1 =  message.args[0].value; // C'est compliqué le parsing OSC
       //ws.send(JSON.stringify(msgloc));        // Pas utile pour le moment
       if (debug) {
-        console.log("midimix.js: socket reçoit OSC: [", message.address + " : " + message.args[0].value, "]");
+        console.log("midimix.mjs: socket reçoit OSC: [", message.address + " : " + message.args[0].value, "]");
       }
       switch (message.address) {
 

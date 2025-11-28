@@ -88,9 +88,10 @@ function startOSCandMIDI() {
         if (midiConfig[i].spec === "clipToDAW") {
           for (var j = 0; j < midiOutput.getPortCount(); ++j) {
             if (midiOutput.getPortName(j) === midiConfig[i].name) {
-              if (debug1) console.log("INFO: OSCandMIDI: getMidiPortForClipToDAW: Midi" +
-                midiConfig[i].type + ", usage:" + midiConfig[i].spec +
-                ", bus: " + midiOutput.getPortName(j) + ", " + midiConfig[i].comment);
+              if (debug1) console.log("INFO: OSCandMIDI: getMidiPortForClipToDAW:"
+                + " port number: " + j
+                + ", Midi" + midiConfig[i].type + ", usage:" + midiConfig[i].spec
+                + ", Bus: " + midiOutput.getPortName(j) + ", " + midiConfig[i].comment);
               return j;
             }
           }
@@ -118,7 +119,8 @@ function startOSCandMIDI() {
     }
 
     midiOutput.openPort(midiPortClipToDAW);
-    if (debug1) console.log("INFO: OSCandMidi.js: initMidiOUT: midiPortClipToDAW ", midiPortClipToDAW, midiOutput.getPortName(midiPortClipToDAW));
+    if (debug) console.log("INFO: OSCandMidi.js: initMidiOUT: port:", midiPortClipToDAW,
+      ", midiPortClipToDAW :", midiOutput.getPortName(midiPortClipToDAW));
   }
   _initMidiOUT = initMidiOUT;
 

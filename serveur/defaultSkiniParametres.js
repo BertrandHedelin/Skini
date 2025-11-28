@@ -2,19 +2,22 @@
 
 // Default parameter file
 
-// Indexation des bus Midi dans OSCmidi de processing, pas utile avec Bitwig
+// Indexation des bus Midi pour OSCmidi
 // Il s'agit de l'index correspondant à l'élément du tableau midiConfig.json
 // qui crée le bus midi pour ces commandes.
-var midiConfig = require("../serveur/midiConfig.json");
-var countBusOUT = 0;
-for (var i = 0; i < midiConfig.length; i++) {
-  if (midiConfig[i].type === "OUT") {
-    if (midiConfig[i].spec === "clipToDAW") {
-      exports.busMidiDAW = countBusOUT;
-    }
-    countBusOUT++;
-  }
-}
+// var midiConfig = require("../serveur/midiConfig.json");
+// var countBusOUT = 0;
+// for (var i = 0; i < midiConfig.length; i++) {
+//   if (midiConfig[i].type === "OUT") {
+//     if (midiConfig[i].spec === "clipToDAW") {
+//       exports.busMidiDAW = countBusOUT;
+//     }
+//     countBusOUT++;
+//   }
+// }
+
+// A utiliser si Processing en passerelle
+exports.busMidiDAW = 1;
 
 // Piece Bitwig en OSC si la paramètre est false
 // Sinon Skini parle MIDI
