@@ -31,7 +31,7 @@
                           <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
                             <field name="number">1</field>
                             <next>
-                              <block type="hh_fork" id="Wr%O^qMFj658=+k,=CEf" disabled="true">
+                              <block type="hh_fork" id="Wr%O^qMFj658=+k,=CEf">
                                 <statement name="BODY">
                                   <block type="set_group_during_ticks" id="$mvYs`e@|mLA+VtzYEzW">
                                     <field name="user_group">255</field>

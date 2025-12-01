@@ -3,8 +3,6 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-
-
 - skiniParameteres.js n'est plus utilisé ? J'ai désactivé la recopie dans websoketSetver.mjs. A surveiller (24/11/2025)
 
 - Définir des tests de régression de Skini. Opus4 est un bon exemple mais complexe.
@@ -13,7 +11,7 @@ les autres paramètres sont OK.
 
 Pas prioritaire:
 - revoir score avec une autre bibliothèque que Processing ou mettre à jour
-- nettoyer le code par ecma script
+- nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
 
 Fait ------------------------------------------------------------------

@@ -93,7 +93,7 @@ exports.timer = 500;
 exports.gameOSCSignals = false;
 
 exports.sensorOSC = true;
-exports.tempoSensorsInit = [10,10,10,10,10,10,10,10,10,10,10,100];
+exports.tempoSensorsInit = [10,10,10,10,10,10,10,10,10,10,10,20];
 exports.sensorsSensibilities = [100,200,200,200,200,100,100,500,100,100,100,100];
 
 const groupesDesSons = [
