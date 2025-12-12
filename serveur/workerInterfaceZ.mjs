@@ -29,9 +29,6 @@ var sockData; // = dgram.createSocket('udp4');
 var sockMidi; // = dgram.createSocket('udp4');
 var sockMiniWI;
 
-var debug = true;
-var debug1 = true;
-
 var dataPort = 3005;
 var midiPort = 3006;
 var miniWiPort = 8888;
@@ -42,7 +39,7 @@ var interfaceZAddress = "192.168.1.250";
 var interfaceZMidiPort = 1000;
 
 var debug = false;
-var debug1 = false;
+var debug1 = true;
 var tempoSensorsInit = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,];
 var tempoSensors = tempoSensorsInit.slice();
 var previousSensorsValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -52,6 +49,7 @@ var sensorsRunning = false;
 console.log("INFO: workerInterfaceZ: Start Interface Z worker");
 
 function displaySignal(sensor, value) {
+  if(debug) console.log("worker IZ : ");
   process.stdout.write(sensor.toString() + ': ');
   for (var i = 0; i < value/100; i++) {
     process.stdout.write("*");
@@ -62,7 +60,6 @@ function displaySignal(sensor, value) {
 function displaySignalMiniWi(value) {
   var val;
   for (var j = 0; j < 4; j++) {
-
     val = value[j] / 100;
     if (val !== 0) {
       process.stdout.write(j + 8 + ': ');
@@ -162,7 +159,7 @@ function initWorker() {
               if (
                 message.args[i].value < previousSensorsValues[i] - sensorsSensibilities[i] ||
                 message.args[i].value > previousSensorsValues[i] + sensorsSensibilities[i]) {
-                if (debug1) displaySignal(i, Math.round(message.args[i].value));
+                if (debug) displaySignal(i, Math.round(message.args[i].value));
 
                 messageToSend = {
                   type: "INTERFACEZ_RC" + i,
@@ -288,7 +285,7 @@ function initWorker() {
               tempoSensors[i]--;
             }
           }
-          displaySignalMiniWi(messMiniWi);
+          if(debug) displaySignalMiniWi(messMiniWi);
           break;
 
         default:

@@ -14,23 +14,19 @@ return [false,groupeClient];
 }}));
 }));
 };const makeReservoir = function (groupeClient,instrument) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':567},'%tag':'dollar'},$$hiphop.TRAP({'laTrappe':'laTrappe','%location':{'filename':'.\makeReservoir.hh.js','pos':586},'%tag':'TRAP'},$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':596},'%tag':'sequence'},$$hiphop.ABORT({'%location':{'filename':'.\makeReservoir.hh.js','pos':606},'%tag':'ABORT','immediate':true,'apply':function () {
-return ((() => {
-const stopReservoir=this.stopReservoir;return stopReservoir.now;
-})());
-}},$$hiphop.SIGACCESS({'signame':'stopReservoir','pre':false,'val':false,'cnt':false}),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':674},'%tag':'pragma','apply':function () {
-console.log('--- MAKE RESERVOIR:',instrument[0]);serveur.broadcast(JSON.stringify({'type':'startTank','value':instrument[0]}));}}),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':970},'%tag':'dollar'},instrument.map((val) => {
-return $$hiphop.EMIT({'%location':{'filename':'.\makeReservoir.hh.js','pos':1033},'%tag':'EMIT','signame':`${val}OUT`,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':524},'%tag':'dollar'},$$hiphop.TRAP({'laTrappe':'laTrappe','%location':{'filename':'.\makeReservoir.hh.js','pos':543},'%tag':'TRAP'},$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':553},'%tag':'sequence'},$$hiphop.ABORT({'%location':{'filename':'.\makeReservoir.hh.js','pos':563},'%tag':'ABORT','immediate':true,'apply':new $$hiphop.DelaySig('stopReservoir','now')},$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':603},'%tag':'pragma','apply':function () {
+console.log('--- MAKE RESERVOIR:',instrument[0]);serveur.broadcast(JSON.stringify({'type':'startTank','value':instrument[0]}));}}),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':899},'%tag':'dollar'},instrument.map((val) => {
+return $$hiphop.EMIT({'%location':{'filename':'.\makeReservoir.hh.js','pos':962},'%tag':'EMIT','signame':`${val}OUT`,'apply':function () {
 return [true,groupeClient];
 }});
-})),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1095},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(groupeClient,instrument[0],true);}}),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':1182},'%tag':'dollar'},makeAwait(instrument,groupeClient)),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1233},'%tag':'pragma','apply':function () {
-console.log('--- FIN NATURELLE RESERVOIR V2:',instrument[0]);}}),$$hiphop.EXIT({'laTrappe':'laTrappe','%location':{'filename':'.\makeReservoir.hh.js','pos':1322},'%tag':'EXIT'})),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':1352},'%tag':'dollar'},instrument.map((val) => {
-return $$hiphop.EMIT({'%location':{'filename':'.\makeReservoir.hh.js','pos':1413},'%tag':'EMIT','signame':`${val}OUT`,'apply':function () {
+})),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1024},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(groupeClient,instrument[0],true);}}),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':1111},'%tag':'dollar'},makeAwait(instrument,groupeClient)),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1162},'%tag':'pragma','apply':function () {
+console.log('--- FIN NATURELLE RESERVOIR:',instrument[0]);}}),$$hiphop.EXIT({'laTrappe':'laTrappe','%location':{'filename':'.\makeReservoir.hh.js','pos':1248},'%tag':'EXIT'})),$$hiphop.SEQUENCE({'%location':{'filename':'.\makeReservoir.hh.js','pos':1313},'%tag':'dollar'},instrument.map((val) => {
+return $$hiphop.EMIT({'%location':{'filename':'.\makeReservoir.hh.js','pos':1374},'%tag':'EMIT','signame':`${val}OUT`,'apply':function () {
 return [false,groupeClient];
 }});
-})),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1473},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(groupeClient,instrument[0],false);}}),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1559},'%tag':'pragma','apply':function () {
+})),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1434},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(groupeClient,instrument[0],false);}}),$$hiphop.ATOM({'%location':{'filename':'.\makeReservoir.hh.js','pos':1520},'%tag':'pragma','apply':function () {
 console.log('--- ABORT RESERVOIR:',instrument[0]);serveur.broadcast(JSON.stringify({'type':'killTank','value':instrument[0]}));}}))));
 };export { initMakeReservoir };export { makeAwait };export { makeReservoir };
 //# sourceMappingURL=.\makeReservoir.mjs.map

@@ -21,7 +21,7 @@ export function makeAwait(instruments, groupeClient) {
 export function makeReservoir(groupeClient, instrument) {
     return hiphop ${hiphop {
         laTrappe: {
-        abort immediate(stopReservoir.now) { // To kill  the tank
+        abort { // To kill  the tank
           host {
             console.log("--- MAKE RESERVOIR:", instrument[0]);
             serveur.broadcast(JSON.stringify({
@@ -37,7 +37,7 @@ export function makeReservoir(groupeClient, instrument) {
           ${ makeAwait(instrument, groupeClient) }
           host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
           break  laTrappe;
-        } 
+        } when immediate (stopReservoir.now);
 
         ${
           instrument.map(val => hiphop {

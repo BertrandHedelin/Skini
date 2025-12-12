@@ -89,7 +89,7 @@ if (myArgs.includes("-sim")) {
 }
 
 /*******************************************************************
- * GESTION DES TYPES
+ * GESTION DES TYPES HORIZONTAUX
  * Traitement des listes reçues pour s'adapter à une séquence de types.
  * En utilisant les types avec des tanks on n'a pas besoin de gérer 
  * la mémoires des patterns sélectionnés, ni de revoir les FIFOs.
@@ -109,7 +109,7 @@ function resetListOfTypes() {
 resetListOfTypes();
 
 /**
- * Initialize the list of patterns according to their types 
+ * Initialize the list of patterns according to their horizontal types 
  * The index correponds to the type.
  * @param {Array} list of patterns
  */
@@ -451,7 +451,7 @@ function initWSSocket(port) {
         if (listClips.length === 0) {
           if (debug) console.log("WS Recu : listClips vide");
           if (tempoMax === tempoMin) {
-            console.log("WARN: tempoMin and tempoMax are equal");
+            console.log("WARN: tempoMin and tempoMax are equal", tempoMin, tempoMax);
             tempoInstantListClip = tempoMax;
           }
           else {

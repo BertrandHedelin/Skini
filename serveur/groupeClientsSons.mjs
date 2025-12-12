@@ -886,16 +886,14 @@ export async function makeOneAutomatePossibleMachine() {
   try {
     const orchestration = await import(myReactOrchestration + '?foo=bar' + tempIndex);
     tempIndex++;
-    
-    orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);
-    
+    orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);   
     machine = orchestration.setSignals(par);
+
     makeSignalsListeners(machine);
     
     if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
     
     return machine;
-    
   } catch (err) {
     console.log("ERR: groupeClientsSons: makeOneAutomatePossibleMachine:", err.toString());
     throw err; // Propage l'erreur pour que compileHH() la capture

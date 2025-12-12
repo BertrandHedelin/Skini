@@ -102,9 +102,8 @@ exports.tempoSensorsInit = [0,0,0,0,0,0,0,0,0,0,0,0];
 exports.sensorsSensibilities = [5,5,5,5,5,5,5,5,5,5,5,5];
 
 const groupesDesSons = [
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
-  [ "",, "",,,,"",[], ],
+  [ "toto",1, "group",100,100,3,"",[],1 ],
+  [ "titi",2, "group",200,200,3,"",[],1 ],
+  [ "tutu",2, "group",300,300,3,"",[],1 ],
   ];
 exports.groupesDesSons = groupesDesSons;

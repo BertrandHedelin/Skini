@@ -19,6 +19,6 @@
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./pieces/magasin/",
-  "piecePath" : "./pieces/magasin/"
+  "sessionPath": "./pieces/opus/",
+  "piecePath" : "./pieces/opus/"
 }

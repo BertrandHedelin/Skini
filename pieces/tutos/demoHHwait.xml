@@ -1,0 +1,175 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</variable>
+    <variable id="e~?Hofi|/CqL68B=.2=m">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="+TVwrSF`WXyYjVSGfJ$c" x="121" y="-70">
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="1L#G~YyJ^|f:f33_Dd0D">
+        <field name="TYPE">INOUT</field>
+        <value name="signal">
+          <block type="variables_get" id="D=6!_Z[WaSrf$zTE-$K5">
+            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="addSceneScore" id="GH_3|{bK_U$I.rENsL.R">
+        <field name="number">1</field>
+        <next>
+          <block type="alertInfoScoreON" id="5H,RhqkJWqd+BZ~zTKSD">
+            <value name="message">
+              <block type="text" id="FBKiOcP$lB9)cDImHUp.">
+                <field name="TEXT">Start demo wait in HH</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_print_serveur" id="$[Zbp?-WM)%iOH!ikDYL">
+                <value name="TEXT">
+                  <block type="text" id="Ic~K)7g`4]:sRtWk2@;2">
+                    <field name="TEXT">Start demo HH</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_wait_for" id="J=@0DfxqTV!.pxrBz/`[" disabled="true">
+                    <field name="TIMES">1</field>
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="3]%QflD0p,|4}LLSK5+t">
+                        <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_pause" id="Sf3@-,mR~EX~Cm$Zph-!" disabled="true">
+                        <next>
+                          <block type="hh_fork" id="_c*ou~pd9o3uzEPQbrYh">
+                            <statement name="BODY">
+                              <block type="hh_sequence" id="WS@X:RMuJu^]kt^%5`=p">
+                                <statement name="BODY">
+                                  <block type="hh_wait_for" id="}Daqn9z#HEz/`efH4I%G">
+                                    <field name="TIMES">2</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="uHRKPC`fQV`+U!FvkPiT">
+                                        <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_emit_value" id="`NZl0_m0hioAVRas1@@G">
+                                        <field name="Signal_Value">1</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="4N-X?`uThgo?zC/PHHyq">
+                                            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="hh_wait_for" id=";A6]NI9hHe--tc//yqQr">
+                                            <field name="TIMES">2</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="tBNheNa*[$VL+q4ysZ1C">
+                                                <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="hh_emit_value" id="y-_?wMk9=^*.=^jVJi~a">
+                                                <field name="Signal_Value">2</field>
+                                                <value name="SIGNAL">
+                                                  <block type="variables_get" id="1Q=CbBF~HY.vL`!rmC;M">
+                                                    <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="hh_wait_for" id="7:`%H[q[vXQzv!zD-qT:">
+                                                    <field name="TIMES">2</field>
+                                                    <value name="SIGNAL">
+                                                      <block type="variables_get" id="][?NQ:ktjTF;1#}b_pP}">
+                                                        <field name="VAR" id="e~?Hofi|/CqL68B=.2=m">tick</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_emit_value" id=".z{7p/;^SeC]Sf?(uiGr">
+                                                        <field name="Signal_Value">2</field>
+                                                        <value name="SIGNAL">
+                                                          <block type="variables_get" id="$j(h9Lkz{mhL=-H=q6dM">
+                                                            <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="hh_fork" id="Z#tO_6H|Ko~x|7tMu!2a">
+                                    <statement name="BODY">
+                                      <block type="hh_sequence" id="3z2fQTQMNa$@qgft?q9,">
+                                        <statement name="BODY">
+                                          <block type="hh_await_signal_value" id="s(y:%IVW/1BYuWdv;yp/">
+                                            <field name="TIMES">2</field>
+                                            <field name="Signal_Value">2</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="YBJz.O9xoKU:~5cuf/|b">
+                                                <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="alertInfoScoreON" id="+8wPnFA`jFQ1=BR{@0R_">
+                                                <value name="message">
+                                                  <block type="text" id=":dF:O$~$%aNMbG%/AE%7">
+                                                    <field name="TEXT">Stop Trap avec 2</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="hh_sequence" id="O}C.cV-Q)dk1_d]!`c9g">
+                                            <statement name="BODY">
+                                              <block type="hh_await_signal_value" id="{k|H*BjcF-A?$K*vm`f[">
+                                                <field name="TIMES">1</field>
+                                                <field name="Signal_Value">1</field>
+                                                <value name="SIGNAL">
+                                                  <block type="variables_get" id="5S6%NQ!]034*)Tl^8z_u">
+                                                    <field name="VAR" id="]s;$eP#9]qT`dvKz*kf.">StopTrap1</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="alertInfoScoreON" id="b38~g7_`h4buFc1zfziA">
+                                                    <value name="message">
+                                                      <block type="text" id="5KJ5fs;Xtwnh#ox=;TAc">
+                                                        <field name="TEXT">Stop Trap avec 1</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1056,6 +1056,9 @@ function startWebSocketServer() {
 
     /**
      * Build the HipHop Programm.
+     * compile is not the good terminology.
+     * It should be buildMachine, or makeMachine...
+     * 
      * @memberof Websocketserver
      * @function
      * @inner
@@ -1263,7 +1266,7 @@ maybe an hiphop compile Error`);
             break; // Pas la peine d'aller plus loin dans la compilation
           }
 
-          // Compilation du programme généré en dur dans targetHH.
+          // Fabrique la machine à partir du programme généré en dur dans targetHH.
           // On utilise le même procédé que pour les programmes générés par Blockly 
           try {
             compileHH();
@@ -1617,7 +1620,8 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          // Ecrit le programme HH pour compilation
+          // Ecrit le programme JS/HH pour création de la machine.
+          // Le programme créé par blockly est dans msgRecu.text
           fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
             if (err) {
               ws.send(JSON.stringify({
@@ -1993,16 +1997,15 @@ maybe an hiphop compile Error`);
             reloadParameters(msgRecu.data);
           }
 
-          // On recrée le fichier pour son utilisation par l'orchestration
-          // avant recompilation.
-          // let destinationUpdate = "./serveur/skiniParametres.js";
-          // try {
-          //   fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
-          // } catch (err) {
-          //   console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
-          // }
+          // On recrée le fichier pour son utilisation par le simulateurListe.js
+          let destinationUpdate = "./serveur/skiniParametres.js";
+          try {
+            fs.copyFileSync(sessionPath + parametersFileGlobal, destinationUpdate);
+          } catch (err) {
+            console.log("ERR: websocketserver: destinationUpdate : Pb ecriture", destinationUpdate, err);
+          }
 
-          // Recompile the orchestration pour intégrer les modifications
+          // Recréé la machine d'orchestration pour intégrer les modifications
           // des paramétres de groupes et tanks.
           try {
             compileHH();

@@ -101,7 +101,7 @@ for (var i = 0; i < myArgs.length; i++) {
 }
 
 /*******************************************************************
- * GESTION DES TYPES
+ * GESTION DES TYPES HORIZONTAUX
  * Traitement des listes reçues pour s'adapter à une séquence de types.
  * En utilisant les types avec des tanks on n'a pas besoin de gérer 
  * la mémoires des patterns sélectionnés, ni de revoir les FIFOs.

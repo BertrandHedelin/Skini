@@ -54,7 +54,7 @@ function makeReservoir(groupeClient, instrument) {
   return hiphop ${
       hiphop { 
         laTrappe: {
-        abort immediate (stopReservoir.now) { // To kill  the tank
+        abort { // To kill  the tank
             host {
               console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
               var msg = {
@@ -71,7 +71,7 @@ function makeReservoir(groupeClient, instrument) {
             ${makeAwait(instrument, groupeClient)}
             host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
             break  laTrappe;
-        }
+        } when (stopReservoir.now);
 
         ${instrument.map(val => hiphop {
           emit ${`${val}OUT`}([false, groupeClient])})
@@ -137,14 +137,14 @@ export function setSignals(param) {
     //host{utilsSkini.alertInfoScoreON("Début", serveur);}
 
     fork {
-      abort(halt.now){
+      abort{
         every(tick.now){
           host{
-            //console.log("tick from HH", i++);
+            console.log("tick from HH", i++);
             gcs.setTickOnControler(i);
           }
         }
-      }
+      } when (halt.now);
       emit sensor0OUT([false, 255]);
 
       host{ console.log("Reçu Halt"); }
