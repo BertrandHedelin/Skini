@@ -68,7 +68,7 @@ Si autre ... à créer...
 ATTENTION: NE JAMAIS UTILISER EN SITUATION D'INTERACTION SI L'ALGORITHME
 PEUT SUPPRIMER DES PATTERNS DES FIFOs
 *****************************************/
-exports.algoGestionFifo = 1;
+exports.algoGestionFifo = 0;
 exports.shufflePatterns = false;
 /*****************************************************************************
 

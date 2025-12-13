@@ -1,31 +1,15 @@
 /**
- * @fileOverview Opus4. Reprise de la version créée avec Hop en 2019.
- * Fonctionne avec Ableton, opus4V3.als.
- * Il s'agit d'un forme de pièce orchestrale. Ici on se donne la possibilité
- * de contrôler le déroulement avec des capteurs Interface Z.
- * Cette pièce possédait une version en interaction avec une démo UnrealEngine.
- * Il s'agit d'un exemple de contrôle d'Ableton avec une utilisation
- * systématique des réservoirs.
- * 
- * Il y a quasiment tout ce que l'on peut faire avec Skini:
- * - Groupes
- * - Réservoirs
- * - Controles Midi, CC, transpositions...
- * - Controle de tempo
- * - Affichage
- * - Scénarios aléatoires
- * - Test des patterns joués par Live
- * - Utilisation de capteurs (ici IZ)
- * - Ordonnancement des clips en FIFO
+ * @fileOverview Opus5 Reprise de la version blockly.
+ * Fonctionne avec Ableton, opus5.als.
  * 
  * Pour debug dans /tests:
- * node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\opus4test.hh.js -o .\opus4test.mjs
+ * node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\opus5.hh.js -o .\opus5.mjs
  *
- * Fonctionne avec Opus4V3.als dans Ableton 10
- * 
+ * Prévu pour fonctionner avec des types DMFN avec algo Fifo Management = 1
+ *
  * @copyright (C) 2019-2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.4
+ * @version 1.1
  */
 // @ts-nocheck
 "use strict"
@@ -70,6 +54,16 @@ const tempoMin = 40; // Valeur fixée dans DAW
 const CCdegre2Mineursaxo = 73;
 const CCtonalite = 74;
 
+// Les instruments
+const pianoNb = 1;
+const violonNb = 2;
+const corsNb = 9;
+const fluteNb = 10;
+const clarinetteNb = 11;
+const bassonsNb = 12;
+const percuNb = 14;
+const trompetteNb = 8;
+
 // Pour des transpositions par patterns
 let compteurTransInit = 407;
 let compteurTrans = compteurTransInit;
@@ -92,11 +86,11 @@ let troisiemeAlea = 0;
 function setTempo(value, par) {
 
   // Assez instable sur mon PC.
-  // if(midimix.getAbletonLinkStatus()) {
-  //     if(debug) console.log("Opus4 : set tempo Link:", value);
-  //     midimix.setTempoLink(value);
-  //   return;
-  // }
+  if(midimix.getAbletonLinkStatus()) {
+      if(debug) console.log("Opus4 : set tempo Link:", value);
+      midimix.setTempoLink(value);
+    return;
+  }
 
   if (value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
@@ -280,64 +274,6 @@ export function setSignals(param) {
 
   //************************************* LES SESSIONS *************************
 
-  const soloFlute = hiphop module () {
-    out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
-    in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
-    in tick;
-
-    signal stopReservoirFlute;
-    host{ console.log("-- DEBUT FLUTE SOLO --"); }
-    solo: {
-      fork{
-        run ${ reservoirFlute } () {*, stopReservoirFlute as stopReservoir };
-      }par{
-        // Dans le cas de reaction à la selection:Pour attendre effectivement la fin du 
-        // reservoir qui occupe 55 ticks + 4 ticks de transitions.
-        // Dans le cas de séléction à l'exécution, c'est une durée max. Mais les répétitions seront possibles
-        // dans le réservoir.
-        await count(57, tick.now);
-          emit stopReservoirFlute();
-          // Si on ne vide pas la FIFO ça continue à jouer, c'est un choix musical possible.
-          host{ DAW.cleanQueue(6); }
-        break solo;
-      }
-    }
-    host{ console.log("-- FIN FLUTE SOLO --"); }
-  }
-
-   var transposeSaxoModal = hiphop module (){
-    out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
-    in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
-    in tick, stopTransposition;
-
-    weakabort {
-      loop{
-        host{
-          transposition = 0;
-          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-          degre2mineursaxo(false, param); // ajustement du mode
-          tonalite = (tonalite + 2) % 6;
-          setTonalite(CCtonalite, tonalite, param); // Tonalité globale
-        }
-        await count(8, tick.now);
-        host{
-          transposition = -5;
-          degre2mineursaxo(true, param); // ajustement du mode
-          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-        }
-        await count(8, tick.now);
-        host{
-          transposition = 2;
-          degre2mineursaxo(true, param); // ajustement du mode
-          transpose(CCTransposeSaxo, transposition, param); // Changement de degré
-        }
-        await count(8, tick.now);
-      }
-    } when (stopTransposition.now);
-    // Ne s'affiche pas quand le run global est tué en cours de route
-    host { console.log("-- Stop transpositions")}
-  }
-
   const resetAll = hiphop module (){
     host{
       console.log("-- Reset Automate Opus4");
@@ -392,8 +328,10 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
-    // Pour basculer d'un scénario avec ou sans capteurs
-    const sensors = false;
+    const debut = true;
+    const avecPiano = false;
+    const avecViolon = false;
+    const cuiveBoisPercu = true;
 
     loop {
       let tickCounter = 0;
@@ -426,19 +364,26 @@ export function setSignals(param) {
                 }
             }
         } par {
-            host{ utilsSkini.alertInfoScoreON("Opus 5", serveur); }
-            emit NappeViolonsOUT([true, 255]);
-            emit NappeAltoOUT([true, 255]);
-            emit NappeCelloOUT([true, 255]);
-            emit NappeCTBOUT([true, 255]);
+          host{ utilsSkini.alertInfoScoreON("Opus 5", serveur); }
+          emit NappeViolonsOUT([true, 255]);
+          emit NappeAltoOUT([true, 255]);
+          emit NappeCelloOUT([true, 255]);
+          emit NappeCTBOUT([true, 255]);
 
-            await count(10, tick.now);
-            host{ utilsSkini.alertInfoScoreOFF(serveur); }
-            host{ 
-                    transposition = 0;
-                    transpose(CCTransposeStrings, 2, param );
-                }
-            run ${ reservoirPiano } () {*};
+          await count(10, tick.now);
+          host{ utilsSkini.alertInfoScoreOFF(serveur); }
+          host{ 
+            transposition = 0;
+            transpose(CCTransposeStrings, 2, param );
+          }
+
+          if(avecPiano){
+            fork{
+              run ${ reservoirPiano } () {*};
+            } par {
+              await count(25, tick.now);
+              //emit stopReservoir();
+            }
 
             emit NappeViolonsOUT([false, 255]);
             emit NappeAltoOUT([false, 255]);
@@ -446,44 +391,155 @@ export function setSignals(param) {
             emit NappeCTBOUT([false, 255]);
 
             host{ 
-                    transposition = 0;
-                    transpose(CCTransposeStrings, 0, param );
-                }
+              transposition = 0;
+              transpose(CCTransposeStrings, 0, param );
+            }
 
             host{ DAW.cleanQueues(); }
+          }
+          yield;
 
+          if(avecViolon){
             fork {
-                host{ utilsSkini.alertInfoScoreON("Avec Violon", serveur); }
-                host{
-                    setTempo(100, param);
-                    tempoGlobal = 100;
-                }
+              host{ utilsSkini.alertInfoScoreON("Avec Violon", serveur); }
+              host{
+                setTempo(100, param);
+                tempoGlobal = 100;
+              }
             } par {
-                abort {
-                    run ${ bougeTempo } () {*}
-                } when count(10, tick.now);
+              abort {
+                run ${ bougeTempo } () {*}
+              } when count(10, tick.now);
+                host{ utilsSkini.alertInfoScoreOFF(serveur); }
+            } par {
+              emit S1ActionOUT([true, 255]);
+              emit NappeCTBRythmeOUT([true, 255]);
+              await count(10, tick.now);
+              emit S1ActionOUT([false, 255]);
+              emit NappeCTBRythmeOUT([false, 255]);
+              host{ DAW.cleanQueues(); }
+            } par {
+              fork{
+                run ${ reservoirViolon } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+                host{ DAW.cleanQueue(violonNb); }
+              }
             }
-            emit S1ActionOUT([true, 255]);
-            emit NappeCTBRythmeOUT([true, 255]);
-            await count(10, tick.now);
-            run ${ reservoirViolon } () {*};
-
+          
             emit S1ActionOUT([false, 255]);
             emit NappeCTBRythmeOUT([false, 255]);
-            host{ DAW.cleanQueues(); }
+          }
+          yield;
 
-        } par {
-            every(patternSignal.now) { 
-              host{ 
-                // console.log("-- Pattern counter:", patternCounter++);
-                console.log("-- Pattern :", patternSignal.nowval);
-               }
+          if(cuiveBoisPercu) {
+            host{ utilsSkini.alertInfoScoreON("Cuivre Bois Percu", serveur); }
+            host{
+              setTempo(90, param);
+              tempoGlobal = 90;
             }
-        } par {
-            run ${ bougeTempo } () {*}
+
+            await count(2, tick.now);
+
+            fork {
+              fork{
+                run ${ reservoirPercu } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+              }
+
+              host{ utilsSkini.alertInfoScoreOFF(serveur); }
+              await count(2, tick.now);
+
+              fork{
+                run ${ reservoirBasson } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+              }
+              
+              await count(2, tick.now);
+
+              fork{
+                run ${ reservoirFlute } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+              }
+
+              await count(2, tick.now);
+
+              fork{
+                run ${ reservoirTrompette } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+              }
+
+              host{ DAW.cleanQueue(fluteNb); }
+              host{ DAW.cleanQueue(trompetteNb); }
+
+              await count(2, tick.now);
+
+              fork{
+                run ${ reservoirCors } () {*}
+              } par {
+                await count(10, tick.now);
+                emit stopReservoir();
+              }
+
+              await count(2, tick.now);
+
+              fork{
+                run ${ reservoirClarinette } () {*}
+              } par {
+                await count(20, tick.now);
+                emit stopReservoir();
+              }
+            
+              emit stopTransposition();
+
+            }par{
+              abort{
+                loop {
+                  await count(5, tick.now);
+                  host{ 
+                    transpose(CCTransposeTrompettes, 1, param);
+                    transpose(CCTransposeCors, 1, param);
+                    transpose(CCTransposeTrombones, 1, param);
+                    transpose(CCTransposeFlutes, 1, param);
+                    transpose(CCTransposeClarinettes, 1, param);
+                    transpose(CCTransposeBassons, 1, param);
+                  }
+                  await count(5, tick.now);
+                  host{ 
+                    transpose(CCTransposeTrompettes, 2, param);
+                    transpose(CCTransposeCors, 2, param);
+                    transpose(CCTransposeTrombones, 2, param);
+                    transpose(CCTransposeFlutes, 2, param);
+                    transpose(CCTransposeClarinettes, 2, param);
+                    transpose(CCTransposeBassons, 2, param);
+                  }
+                }   
+              } when (stopTransposition.now);
+            }
+          }
+          emit NappeViolonsOUT([false, 255]);
+          emit NappeAltoOUT([false, 255]);
+          emit NappeCelloOUT([false, 255]);
+          emit NappeCTBOUT([false, 255]);
+          emit S1ActionOUT([false, 255]);
+          emit NappeCTBRythmeOUT([false, 255]);
+
+          host{ DAW.cleanQueues(); }
+          host{ utilsSkini.alertInfoScoreON("Fin Opus5", serveur); }
         }
-    } when (halt.now);
-      //Ces signaux activent bien les abort des modules qui
+      } when (halt.now);
+
+      yield;
+      //Ces signaux activent bien les abort des modules
       //pour qu'ils ne continuent pas leurs déroulement après le halt.
       emit stopTransposition();
       emit stopMoveTempo();
