@@ -515,151 +515,24 @@ function makeAwait(instrument, groupe) {
 
 function makeReservoir(name, instrument, groupe) {
   name = name.replace(/ /g, "");
-
-  var codeTotal = ` 
-  // Module tank `+ name + ` + ` + instrument[0] + `
-  `+ name + ` = hh.MODULE({"id":"` + name + `","%location":{"filename":"hiphop_blocks.js","pos":1, "block":"makeReservoir"},"%tag":"module"},
-  `;
+  codeTotal = `
+  const `+name+` = hiphop module () {
+  in stopReservoir;
+  `
   for (var i = 0; i < instrument.length; i++) {
-    codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":2, "block":"makeReservoir"},"direction":"IN", "name":"` + instrument[i] + `IN"}),
+    codeTotal += `in `+ instrument[i] + `IN;
     `
   }
-
+  ``
   for (var i = 0; i < instrument.length; i++) {
-    codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":3, "block":"makeReservoir"},"direction":"OUT", "name":"` + instrument[i] + `OUT"}),
+    codeTotal += `out ` + instrument[i] + `OUT;
     `
   }
-
-  codeTotal += `hh.SIGNAL({"%location":{"filename":"hiphop_blocks.js","pos":4, "block":"makeReservoir"},"direction":"IN", "name":"stopReservoir"}),
-  hh.TRAP(
-  {
-    "EXIT":"EXIT",
-    "%location":{},
-    "%tag":"EXIT"
-  },
-    hh.ABORT({
-      "%location":{"filename":"hiphop_blocks.js","pos":394},
-      "%tag":"abort",
-      "immediate":false,
-      "apply":function (){return ((() => {
-          const stopReservoir = this["stopReservoir"];
-          return stopReservoir.now;
-        })());
-      }
-    },
-      hh.SIGACCESS({
-         "signame":"stopReservoir",
-         "pre":false,
-         "val":false,
-         "cnt":false
-      }),
-      hh.ATOM(
-          {
-          "%location":{"filename":"hiphop_blocks.js","pos":5, "block":"makeReservoir"},
-          "%tag":"node",
-          "apply":function () {
-              console.log("-- MAKE RESERVOIR:", "` + instrument + `" );
-              var msg = {
-                type: 'startTank',
-                value:  "` + instrument[0] + `"
-              }
-              serveur.broadcast(JSON.stringify(msg));
-            }
-          }
-      ),` +
-    instrument.map(function (val) {
-      var code = `
-      hh.EMIT(
-            {
-              "%location":{"filename":"hiphop_blocks.js","pos":6, "block":"makeReservoir"},
-              "%tag":"emit",
-              "` + val + `OUT":"` + val + `OUT",
-              "apply":function (){
-                return ((() => {
-                  const ` + val + ` = this["` + val + `OUT"];
-                  return [true, ` + groupe + ` ];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"` + val + `OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-        ), // Fin emit ` + val + `OUT true
-      hh.ATOM(
-          {
-          "%location":{"filename":"hiphop_blocks.js","pos":7, "block":"makeReservoir"},
-          "%tag":"node",
-          "apply":function () {
-              //console.log("-- makeReservoir:  atom:", "` + val + `OUT");
-              gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + val + `OUT", true);
-            }
-          }
-      )`;
-      return code;
-    })
-    + `,`
-    +
-    makeAwait(instrument, groupe)
-    + `
-    hh.EXIT(
-      {
-          "EXIT":"EXIT",
-          "%location":{"filename":"hiphop_blocks.js","pos":8, "block":"makeReservoir"},
-          "%tag":"break"
-      })
-    ) // Fin Abort 
-  ), // Fin Trap
-
-  hh.PAUSE(
-    {
-      "%location":{"filename":"hiphop_blocks.js","pos":9, "block":"makeReservoir"},
-      "%tag":"yield"
-    }
-  ),
-    ` +
-    instrument.map(function (val) {
-      var code = `
-  hh.EMIT(
-      {
-        "%location":{},
-        "%tag":"emit",
-        "` + val + `OUT":"` + val + `OUT",
-        "apply":function (){
-          return ((() => {
-            const ` + val + ` = this["` + val + `OUT"];
-            return [false, ` + groupe + ` ];
-          })());
-        }
-      },
-      hh.SIGACCESS({
-        "signame":"` + val + `OUT",
-        "pre":true,
-        "val":true,
-        "cnt":false
-      })
-  ), // Fin emit ` + val + `OUT false`
-      return code;
-    })
-    + `
-  hh.ATOM(
-      {
-      "%location":{"filename":"hiphop_blocks.js","pos":10, "block":"makeReservoir"},
-      "%tag":"node",
-      "apply":function () {
-          gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + instrument[0] + `", false);
-          console.log("--- FIN RESERVOIR:", "` + instrument[0] + `");
-          var msg = {
-          type: 'killTank',
-          value:  "` + instrument[0] + `"
-        }
-        serveur.broadcast(JSON.stringify(msg));
-        }
-      }
-  ) // Fin atom,
-); // Fin module
+    // Sérialiser correctement la liste des instruments en littéral de tableau JS
+  const __instArrayLiteral = '[' + instrument.map(i => '"' + i + '"').join(',') + ']';
+  codeTotal += `
+	\${ tank.makeReservoir(`+groupe+`, `+__instArrayLiteral+`) };
+}
 `;
   return codeTotal;
 }
@@ -730,14 +603,9 @@ Blockly.JavaScript['run_tank'] = function (block) {
   for (var i = 0; i < listTanks.length; i++) {
     var theTank = listTanks[i].replace(/ /g, "");
     code +=
-      ` 
-hh.RUN({
-    "%location":{"filename":"","pos":1},
-    "%tag":"run",
-    "module":`+ listTanks[i] + `,
-    "autocomplete":true
-  }),
-  `;
+    ` 
+      run \${ `+ listTanks[i] + `} () {*};
+    `;
   }
   return code;
 };
@@ -1545,15 +1413,9 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['cleanOneQueue'] = function (block) {
   var number = block.getFieldValue('number');
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          DAW.cleanQueue(` + number + `);
-        }
-      }
-    ),
+  host{
+    DAW.cleanQueue(` + number + `);
+  }
 `
   return code;
 };
@@ -1573,15 +1435,9 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['pauseQueues'] = function (block) {
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () { 
-      DAW.pauseQueues();
-    }
+  host{
+    DAW.pauseQueues();
   }
-),
 `
   return code;
 };
@@ -2276,18 +2132,12 @@ Blockly.JavaScript['tempo_parameters'] = function (block) {
   var number_Max = block.getFieldValue('MaxTempo');
   var number_Min = block.getFieldValue('MinTempo');
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      CCChannel= ` + number_channel + `;
-      CCTempo  = ` + number_CC + `;
-      tempoMax = ` + number_Max + `;
-      tempoMin = ` + number_Min + `;
-    }
+  host{
+    CCChannel= ` + number_channel + `;
+    CCTempo  = ` + number_CC + `;
+    tempoMax = ` + number_Max + `;
+    tempoMin = ` + number_Min + `;
   }
-),
 `;
   return code;
 };
@@ -2400,7 +2250,7 @@ hh.ATOM(
   "%location":{},
   "%tag":"node",
   "apply":function () {
-    oscMidiLocal.sendControlChange( par.busMidiDAW,
+    oscMidiLocal.sendControlChange( param.busMidiDAW,
     `+ number_channel + `,
     `+ number_CC + `,
     `+ number_value + `);
@@ -2463,7 +2313,7 @@ hh.ATOM(
   "%location":{},
   "%tag":"node",
   "apply":function () {
-    oscMidiLocal.sendNoteOn( par.busMidiDAW,
+    oscMidiLocal.sendNoteOn( param.busMidiDAW,
     `+ number_channel + `,
     `+ number_Command + `,
     `+ number_value + `);
@@ -2653,17 +2503,11 @@ Blockly.JavaScript['transpose_parameters'] = function (block) {
   var number_ratio = block.getFieldValue('ratio');
   var number_offset = block.getFieldValue('offset');
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      ratioTranspose = ` + number_ratio + `;
-      offsetTranspose = ` + number_offset + `;
-      if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
-    }
+  host{
+    ratioTranspose = ` + number_ratio + `;
+    offsetTranspose = ` + number_offset + `;
+    if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
   }
-),
 `;
   return code;
 };
@@ -2707,17 +2551,11 @@ Blockly.JavaScript['transpose'] = function (block) {
   var number_valeur = block.getFieldValue('valeur');
 
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      transposeValue = ` + number_valeur + `; // !! Ne dvrait pas être une variable commune si on veut incrémenter.
-      console.log("hiphop block transpose: transposeValue:", transposeValue ,` + number_channel + `,` + number_CC + `);
-      oscMidiLocal.sendControlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-    }
+  host{
+    transposeValue = ` + number_valeur + `; // !! Ne devrait pas être une variable commune si on veut incrémenter.
+    console.log("hiphop block transpose: transposeValue:", transposeValue ,` + number_channel + `,` + number_CC + `);
+    oscMidiLocal.sendControlChange(param.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
   }
-),
 `;
   return code;
 };
@@ -2754,16 +2592,10 @@ Blockly.JavaScript['reset_transpose'] = function (block) {
   var number_CC = block.getFieldValue('CCInstr');
 
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      transposeValue = 0;
-      oscMidiLocal.sendControlChange(par.busMidiDAW,` + number_channel + `,` + number_CC + `,64);
-    }
+  host{
+    transposeValue = 0;
+    oscMidiLocal.sendControlChange(param.busMidiDAW,` + number_channel + `,` + number_CC + `,64);
   }
-),
 `;
   return code;
 };
@@ -2799,15 +2631,9 @@ Blockly.JavaScript['patternListLength'] = function (block) {
   var number_valeur = block.getFieldValue('valeur');
   var number_groupe = block.getFieldValue('groupe');
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-           gcs.setpatternListLength([` + number_valeur + `,` + number_groupe + `]);
-        }
-      }
-    ),
+  host{
+    gcs.setpatternListLength([` + number_valeur + `,` + number_groupe + `]);
+  }
 `
   return code;
 };
@@ -2835,19 +2661,12 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['setTypeList'] = function (block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
-  hh.ATOM(
-    {
-      "%location":{},
-      "%tag":"node",
-      "apply":function () {
-        var msg = {
+  host{
+    serveur.broadcast(JSON.stringify({
           type: 'listeDesTypes',
           text:` + value + `
-        }
-        serveur.broadcast(JSON.stringify(msg));
-      }
-    }
-  ),
+        }));
+  }
   `
   return code;
 };
@@ -2867,18 +2686,11 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['activateTypeList'] = function (block) {
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'setListeDesTypes',
-          }
-          serveur.broadcast(JSON.stringify(msg));
-        }
-      }
-    ),
+    host{
+      serveur.broadcast(JSON.stringify({
+        type: 'setListeDesTypes',
+      }));
+    }
 `
   return code;
 };
@@ -2898,18 +2710,11 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['deactivateTypeList'] = function (block) {
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          var msg = {
-            type: 'unsetListeDesTypes',
-          }
-          serveur.broadcast(JSON.stringify(msg));
-        }
-      }
-    ),
+    host{
+      serveur.broadcast(JSON.stringify({
+        type: 'unsetListeDesTypes',
+      }));
+    }
 `
   return code;
 };
@@ -2938,15 +2743,9 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['cleanChoiceList'] = function (block) {
   var number_groupe = block.getFieldValue('groupe');
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          gcs.cleanChoiceList(` + number_groupe + `);
-        }
-      }
-    ),
+    host{
+      gcs.cleanChoiceList(` + number_groupe + `);
+    }
 `
   return code;
 };
@@ -3426,135 +3225,23 @@ Blockly.JavaScript['open_tank'] = function (block) {
   let statements_name = Blockly.JavaScript.valueToCode(block, 'TANKS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
   let value = statements_name.replace(/;\n/g, "");
   let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
-
   let times = block.getFieldValue('TIMES');
-  //let signal = Blockly.JavaScript.valueToCode(block, 'SIGNAL', Blockly.JavaScript.ORDER_ATOMIC);
 
-  var varRandom = Math.floor((Math.random() * 1000000) + 1);
   var code = `
-hh.LOCAL(
-  {
-    "%location":{},
-    "%tag":"signal"
-  },
-  hh.SIGNAL({
-    "name":"stop` + varRandom + `"
-  }),
-`;
-
-  code += `
-    hh.TRAP(
-      {
-        "trap`+ varRandom + `":"trap` + varRandom + `",
-        "%location":{},
-        "%tag":"trap`+ varRandom + `"
-      },
-      hh.FORK(
-        {
-          "%location":{},
-          "%tag":"fork"
-        },
-        hh.SEQUENCE( // sequence 1
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },`;
-
+  abort{`
   for (var i = 0; i < listTanks.length; i++) {
-    var theTank = listTanks[i].replace(/ /g, "");
+    let theTank = listTanks[i].replace(/ /g, "");
     code +=
-      ` 
-            hh.SEQUENCE(
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-              hh.RUN(
-                {
-                  "%location":{"filename":"","pos":1},
-                  "%tag":"run",
-                  "module": `+ listTanks[i] +`, //{"filename":"","pos":2},
-                  "autocomplete":true,
-                  "stopReservoir":"stop` + varRandom + `"
-                }
-              ),
-            ),
-            `;
-  }
-  code +=
     ` 
-        )
-      ),
-      hh.SEQUENCE(
-        {
-          "%location":{},
-          "%tag":"seq"
-        },
-        hh.AWAIT(
-            {
-              "%location":{},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){return ((() => {
-                const tick =this["tick"];
-                return tick.now;})());},
-              "countapply":function (){return `+ times + `;}
-          },
-          hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-        ),
-        hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            //"stopReservoir":"stopReservoir",
-            "stop` + varRandom + `" : "stop` + varRandom + `",
-            "apply":function (){
-              return ((() => {
-                //const stopReservoir = this["stopReservoir"];
-                const stop` + varRandom + ` = this["stop` + varRandom + `"];
-                return 0;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            //"signame":"stopReservoir",
-            "signame":"stop` + varRandom + `",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          })
-        ), // Fin emit
-
-        hh.PAUSE(
-          {
-            "%location":{},
-            "%tag":"yield"
-          }
-        ),
-
-        hh.EXIT(
-        {
-          "trap` + varRandom + `":"trap` + varRandom + `",
-          "%location":{},
-          "%tag":"break"
-        }), // Exit
-      ) // sequence
-    ), // fork
-  ), // trap
-
-  hh.PAUSE(
-    {
-      "%location":{},
-      "%tag":"yield"
-    }
-  )
-),
-`;
+      run \${ `+ theTank + `} () {*};
+    `
+  }
+  code += `
+  yield;
+  } when count(`+times+`, tick.now);
+  emit stopReservoir();
+  yield;
+  `;
   return code;
 };
 
@@ -4092,6 +3779,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
   gcs = groupeCS;
   oscMidiLocal = oscMidi;
   midimix = mix;
+  tank.initMakeReservoir(gcs, serveur);
 }
 
 function setTempo(value){
@@ -4108,9 +3796,9 @@ function setTempo(value){
   }
   var tempo = Math.round(127/(tempoMax - tempoMin) * (value - tempoMin));
   if (debug) {
-    console.log("Set tempo blockly:", value, par.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW() );
+    console.log("Set tempo blockly:", value, param.busMidiDAW, CCChannel, CCTempo, tempo, oscMidiLocal.getMidiPortClipToDAW() );
   }
-  oscMidiLocal.sendControlChange(par.busMidiDAW, CCChannel, CCTempo, tempo);
+  oscMidiLocal.sendControlChange(param.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
 var tempoValue = 0;
@@ -4144,6 +3832,7 @@ var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 export function setSignals(param) {
+  par = param;
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
 
