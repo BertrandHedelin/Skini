@@ -4,8 +4,8 @@
   </variables>
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
     <statement name="SIGNALS">
-      <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|" disabled="true">
-        <field name="TYPE">INOUT</field>
+      <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -23,7 +23,7 @@
               </block>
             </value>
             <next>
-              <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff" disabled="true">
+              <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
                 <field name="Signal_Value">0</field>
                 <value name="SIGNAL">
                   <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
@@ -31,7 +31,7 @@
                   </block>
                 </value>
                 <next>
-                  <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy" disabled="true">
+                  <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
                     <value name="SIGNAL">
                       <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
                         <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -41,7 +41,7 @@
                       <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
                         <value name="TEXT">
                           <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                            <field name="TEXT">foo</field>
+                            <field name="TEXT">foo 2</field>
                           </block>
                         </value>
                         <next>

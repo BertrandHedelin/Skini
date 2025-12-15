@@ -2014,7 +2014,15 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['putPatternInQueue'] = function (block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
-  host { DAW.putPatternInQueue(` + value + `);}
+  hh.ATOM(
+    {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        DAW.putPatternInQueue(` + value + `);
+      }
+    }
+  ),
   `
   return code;
 };
@@ -2332,13 +2340,25 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['addSceneScore'] = function (block) {
   var number = block.getFieldValue('number');
   var code = `
-  host{ 
-    serveur.broadcast(JSON.stringify({
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
           type: 'addSceneScore',
           value:` + number + `
-        }));
-  }
-  yield;
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
+  hh.PAUSE(
+    {
+      "%location":{"filename":"hiphop_blocks.js","pos":2, "block":"addSceneScore"},
+      "%tag":"yield"
+    }
+  ),
 `;
   return code;
 };
@@ -2358,12 +2378,18 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['refreshSceneScore'] = function (block) {
   var code = `
-    host{ 
-    serveur.broadcast(JSON.stringify({
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
           type: 'refreshSceneScore',
-        }));
-  }
-  yield;
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
 `;
   return code;
 };
@@ -2391,12 +2417,19 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['alertInfoScoreON'] = function (block) {
   var value = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
-    host{ 
-    serveur.broadcast(JSON.stringify({
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
           type: 'alertInfoScoreON',
           value:` + value + `
-        }));
-  }
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
 `;
   return code;
 };
@@ -2416,11 +2449,18 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['alertInfoScoreOFF'] = function (block) {
   var code = `
-  host{ 
-    serveur.broadcast(JSON.stringify({
-          type: 'alertInfoScoreOFF'
-        }));
-  }
+  hh.ATOM(
+      {
+      "%location":{},
+      "%tag":"node",
+      "apply":function () {
+        var msg = {
+          type: 'alertInfoScoreOFF',
+        }
+        serveur.broadcast(JSON.stringify(msg));
+        }
+      }
+  ),
 `;
   return code;
 };
@@ -4408,9 +4448,6 @@ Blockly.JavaScript['hh_ORCHESTRATION'] = function (block) {
 "use strict";
 
 import * as hh from "@hop/hiphop";
-import * as utilsSkini from "../serveur/utilsSkini.mjs";
-import * as tank from "../pieces/util/makeReservoir.mjs";
-
 var par;
 var debug = false;
 var debug1 = true;
@@ -4486,45 +4523,161 @@ var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
 var tickCounter = 0;
 
 export function setSignals(param) {
-  let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
-  let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
+  par = param;
 
-  const IZsignals = ["INTERFACEZ_RC", "INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
-    "INTERFACEZ_RC3", "INTERFACEZ_RC4", "INTERFACEZ_RC5", "INTERFACEZ_RC6",
-    "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
+  for (var i=0; i < param.groupesDesSons.length; i++) {
+    if(param.groupesDesSons[i][0] !== "") {
+      var signame = param.groupesDesSons[i][0] + "OUT";
+      
+      if(debug) console.log("Signal Orchestration:", signame);
 
-  ` + statements_modules + `
-
-  const Program = hiphop module() {
-    in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
-    inout stopReservoir, stopMoveTempo, stopSolo, stopTransposition;
-    in ... \${ IZsignals };
-    out ... \${ interTextOUT };
-    in ... \${ interTextIN };
-
-  ` + statements_signals + `
-
-    loop{
-      await(start.now);
-      abort{
-        fork {
-          every(tick.now){
-            host{
-              //console.log("tick from HH", tickCounter++);
-              gcs.setTickOnControler(tickCounter++);
-            }
-          }
-        }par{
-    ` + statements_body + `
-        }
-      } when (halt.now);
+      var signal = hh.SIGNAL({
+        "%location":{},
+        "direction":"OUT",
+        "name":signame,
+        "init_func":function (){return [false, -1];}
+      });
+      signals.push(signal);
     }
   }
-  if(debug) console.log("orchestrationHH.mjs: setSignals", param.groupesDesSons);
-  var machine = new hh.ReactiveMachine( Program, {sweep:true, tracePropagation: false, traceReactDuration: false});
-  console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
-  return machine;
-}
+
+  // Création des signaux IN de sélection de patterns
+  for (var i=0; i < param.groupesDesSons.length; i++) {
+    if(param.groupesDesSons[i][0] !== "") {
+      var signame = param.groupesDesSons[i][0] + "IN";
+      
+      if(debug) console.log("Signal Orchestration:", signame);
+      
+      var signal = hh.SIGNAL({
+        "%location":{},
+        "direction":"IN",
+        "name":signame
+      });
+      signals.push(signal);
+    }
+  }
+
+    ` + statements_modules + `
+
+  var orchestration = hh.MODULE(
+      {"id":"Orchestration","%location":{},"%tag":"module"},
+      signals,
+
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"start"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"halt"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"tick"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"DAWON"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"patternSignal"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"controlFromVideo"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"pulsation"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"midiSignal"}),   
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"emptyQueueSignal"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC0"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC1"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC2"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC3"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC4"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC5"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC6"}), 
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC7"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC8"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC9"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC10"}),
+      hh.SIGNAL({"%location":{},"direction":"IN","name":"INTERFACEZ_RC11"}),
+      hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopReservoir"}),
+      hh.SIGNAL({"%location":{},"direction":"INOUT","name":"stopMoveTempo"}),
+
+    ` + statements_signals + `
+    hh.LOOP(
+      {
+      "%location":{loop: 1},
+        "%tag":"loop"
+      },
+      hh.ABORT(
+        {
+          "%location":{abort: halt},
+          "%tag":"abort",
+          "immediate":false,
+          "apply": function (){return ((() => {
+              const halt=this["halt"];
+              return halt.now;
+          })());},
+          "countapply":function (){ return 1;}
+        },
+        hh.SIGACCESS({
+          "signame":"halt",
+          "pre":false,
+          "val":false,
+          "cnt":false
+        }),
+
+        hh.AWAIT(
+          {
+            "%location":{},
+            "%tag":"await",
+            "immediate":true,
+            "apply":function () {
+              return ((() => {
+                const start=this["start"];
+                return start.now;
+              })());
+            },
+          },
+          hh.SIGACCESS({
+            "signame":"start",
+            "pre":false,
+            "val":false,
+            "cnt":false
+          })
+        ),
+
+        hh.FORK(
+          {"%location":{},"%tag":"fork"},
+          hh.SEQUENCE(
+          {"%location":{},"%tag":"fork"},
+          ` + statements_body + `
+          ),
+          hh.SEQUENCE(
+          {"%location":{},"%tag":"fork"},
+          hh.EVERY(
+            {
+              "%location":{},
+              "%tag":"every",
+              "immediate":false,
+              "apply": function (){return ((() => {
+                    const tick = this["tick"];
+                    return tick.now;
+              })());},
+            },
+            hh.SIGACCESS({
+                "signame":"tick",
+                "pre":false,
+                "val":false,
+                "cnt":false
+            }),
+              hh.ATOM(
+                {
+                  "%location":{},
+                  "%tag":"node",
+                  "apply":function () {
+                    gcs.setTickOnControler(tickCounter);
+                    tickCounter++;
+                  }
+                }
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+
+    if(debug) console.log("orchestrationHH.mjs: setSignals", param.groupesDesSons);
+    var machine = new hh.ReactiveMachine( orchestration, {sweep:true, tracePropagation: false, traceReactDuration: false});
+    console.log("INFO: setSignals: Number of nets in Orchestration:",machine.nets.length);
+    return machine;
+  }
 `;
   return code;
 };
@@ -4567,10 +4720,10 @@ Blockly.JavaScript['hh_module'] = function (block) {
   if (statements_body === '') return '';
 
   var code = `
-  const ` + name + ` = hiphop module() {
+` + name + ` = hh.MODULE({"id":"` + name + `","%location":{},"%tag":"module"},
   ` + statements_signals + `
   ` + statements_body + `
-  }
+);
 `;
   return code;
 };
@@ -4608,9 +4761,21 @@ Blockly.JavaScript['hh_run'] = function (block) {
   let listGroupes = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
   var code = `
-  run \${ `+ modulehh + `} () {*};
+hh.RUN({
+  "%location":{},
+  "%tag":"run",
+  "module": ` + modulehh + `,
+  `
+  for (var i = 0; i < listGroupes.length; i++) {
+    code += `"` + listGroupes[i] + `":"",
+  `
+  }
+
+  code += ` 
+}),
 `;
- return code;
+
+  return code;
 };
 
 // NodeSkini
@@ -4624,16 +4789,16 @@ Blockly.defineBlocksWithJsonArray([
         "name": "TYPE",
         "options": [
           [
-            "inout",
-            "inout",
+            "INOUT",
+            "INOUT",
           ],
           [
-            "in",
-            "in"
+            "IN",
+            "IN"
           ],
           [
-            "out",
-            "out"
+            "OUT",
+            "OUT"
           ]
         ]
       },
@@ -4658,7 +4823,12 @@ Blockly.JavaScript['hh_declare_signal'] = function (block) {
   var dropdown_type = block.getFieldValue('TYPE');
 
   var code = `
-  ` + dropdown_type + ` ` + value + `;
+  hh.SIGNAL({
+    "%location":{},
+    "direction":"` + dropdown_type + `",
+    "name":"` + value + `",
+    "combine_func":(x, y) => x + y
+  }),
 `;
   return code;
 };
@@ -4695,10 +4865,29 @@ Blockly.JavaScript['hh_emit_value'] = function (block) {
   let value = value_signal.replace(/\'|\(|\)/g, "");
 
   var code = `
-    emit ` + value + `(`+ number_signal_value + `);
+    hh.EMIT(
+      {
+        "%location":{},
+        "%tag":"emit", 
+        "`+ value + `":"` + value + `",
+        "apply":function (){
+          return ((() => {
+            //const `+ value + `=this["` + value + `"];
+            return `+ number_signal_value + `;
+          })());
+        }
+      },
+      hh.SIGACCESS({
+        "signame":"`+ value + `",
+        "pre":true,
+        "val":true,
+        "cnt":false
+      })
+    ),
     `;
   return code;
 };
+
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -4837,7 +5026,25 @@ Blockly.JavaScript['hh_wait_for_immediate'] = function (block) {
   let value = value_signal.replace(/\'/g, "");
 
   var code = `
-  await immediate (`+ value +`.now);
+  hh.AWAIT(
+    {
+      "%location":{},
+      "%tag":"await",
+      "immediate":true,
+      "apply":function () {
+        return ((() => {
+          const ` + value + `=this["` + value + `"];
+          return ` + value + `.now;
+        })());
+      }
+    },
+    hh.SIGACCESS({
+      "signame":"` + value + `",
+      "pre":false,
+      "val":false,
+      "cnt":false
+    })
+  ),
   `;
   return code;
 };
@@ -4874,7 +5081,26 @@ Blockly.JavaScript['hh_wait_for'] = function (block) {
   let times = block.getFieldValue('TIMES');
 
   var code = `
-  await count(`+ times +`,`+ value +`.now);
+hh.AWAIT(
+  {
+    "%location":{},
+    "%tag":"await",
+    "immediate":false,
+    "apply":function () {
+      return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+      })());
+    },
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  })
+),
 `;
   return code;
 };
@@ -4961,7 +5187,13 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['hh_print_serveur'] = function (block) {
   var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
   var code = `
-    host {console.log(` + value_text + `);}
+hh.ATOM(
+  {
+    "%location":{},
+    "%tag":"node",
+    "apply":function () {console.log(` + value_text + `);}
+  }
+),
 `;
   return code;
 };
@@ -4981,7 +5213,12 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_pause'] = function (block) {
   var code = `
-  yield;
+hh.PAUSE(
+  {
+    "%location":{},
+    "%tag":"yield"
+  }
+),
   `;
   return code;
 };
@@ -5012,9 +5249,14 @@ Blockly.JavaScript['hh_sequence'] = function (block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   if (statements_body === '') return '';
   var code = `
-    {  
+      hh.SEQUENCE(
+          {
+            "%location":{"filename":"hiphop_blocks.js","pos":1, "block":"hh_sequence"},
+            "%tag":"seq"
+          },
+  
   `+ statements_body + `
-    }
+  ),
   `;
   return code;
 };
@@ -5023,7 +5265,7 @@ Blockly.JavaScript['hh_sequence'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_fork",
-    "message0": "fork %1 %2",
+    "message0": "par %1 %2",
     "args0": [
       {
         "type": "input_dummy"
@@ -5045,46 +5287,17 @@ Blockly.JavaScript['hh_fork'] = function (block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   if (statements_body === '') return '';
   var code = `
-  fork {
-    `+ statements_body + `
-  }
+      hh.FORK(
+          {
+            "%location":{},
+            "%tag":"fork"
+          },
+  
+  `+ statements_body + `
+  ),
   `;
   return code;
 };
-
-// NodeSkini
-Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "hh_par",
-    "message0": "par %1 %2",
-    "args0": [
-      {
-        "type": "input_dummy"
-      },
-      {
-        "type": "input_statement",
-        "name": "BODY"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 180,
-    "tooltip": "seq",
-    "helpUrl": ""
-  }
-]);
-
-Blockly.JavaScript['hh_par'] = function (block) {
-  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  if (statements_body === '') return '';
-  var code = `
-  par {
-    `+ statements_body + `
-  }
-  `;
-  return code;
-};
-
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -5109,9 +5322,13 @@ Blockly.JavaScript['hh_loop'] = function (block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
   if (statements_body === '') return '';
   var code = `
-  loop{
-  `+ statements_body + `
-  }
+hh.LOOP(
+    {
+      "%location":{loop: 1},
+      "%tag":"loop"
+    },
+    `+ statements_body + `
+  ),
   `;
   return code;
 };
@@ -5154,9 +5371,26 @@ Blockly.JavaScript['hh_loopeach'] = function (block) {
   let times = block.getFieldValue('TIMES');
 
   var code = `
-  do{
-    `+ statements_body + `
-  } every count(` + times + `, ` + value + `.now);
+
+hh.LOOPEACH(
+  {
+    "%location":{loopeach: ` + value + `},
+    "%tag":"do/every",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body + `
+),
 `;
   return code;
 };
@@ -5199,12 +5433,28 @@ Blockly.JavaScript['hh_every'] = function (block) {
   let times = block.getFieldValue('TIMES');
 
   var code = `
-  every count(` + times + `, ` + value + `.now) {
-    `+ statements_body + `
-  }
-  `;
+hh.EVERY(
+  {
+    "%location":{every: ` + value + `},
+    "%tag":"do/every",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body + `
+),
+`;
   return code;
-}
+};
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -5306,12 +5556,30 @@ Blockly.JavaScript['hh_abort'] = function (block) {
   let times = block.getFieldValue('TIMES');
 
   var code = `
-  abort{
-    `+ statements_body + `
-  } when count(`+ times +`, `+ value +`.now);
+
+hh.ABORT(
+  {
+    "%location":{abort: ` + value + `},
+    "%tag":"abort",
+    "immediate":false,
+    "apply": function (){return ((() => {
+        const ` + value + `=this["` + value + `"];
+        return ` + value + `.now;
+    })());},
+    "countapply":function (){ return ` + times + `;}
+  },
+  hh.SIGACCESS({
+    "signame":"` + value + `",
+    "pre":false,
+    "val":false,
+    "cnt":false
+  }),
+  `+ statements_body + `
+),
 `;
   return code;
 };
+
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -5344,10 +5612,15 @@ Blockly.JavaScript['hh_trap'] = function (block) {
   let value = value_trap.replace(/\'/g, "");
 
   var code = `
-  `+ value + `: {
-    `+ statements_body + `
-  }
- `;
+  hh.TRAP(
+  {
+    "`+ value + `":"` + value + `",
+    "%location":{},
+    "%tag":"`+ value + `"
+  },
+  `+ statements_body + `
+),
+`;
   return code;
 };
 
@@ -5376,8 +5649,13 @@ Blockly.JavaScript['hh_break'] = function (block) {
   let value = value_trap.replace(/\'/g, "");
 
   var code = `
-  break ` + value + `;
-  `;
+  hh.EXIT(
+  {
+    "` + value + `":"` + value + `",
+    "%location":{},
+    "%tag":"break"
+  }),
+`;
   return code;
 };
 

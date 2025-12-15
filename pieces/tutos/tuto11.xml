@@ -6,7 +6,7 @@
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="130" y="112">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="CjErFt(^VI@K2HDe!=Is">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="VwL}`8W([o+E`^9iZ9C1">
             <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
@@ -14,7 +14,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id=")ZJ/R2WEsW4@$b0dTo{b">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id=";E[L7^*7o5ff;$t8ykmM">
                 <field name="VAR" id="?!ju!`Bu;OM5eg+9Y%f]">bar</field>
@@ -60,7 +60,11 @@
                     </next>
                   </block>
                 </statement>
-                <next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_par" id="lKO|+R$wP/@tcU*^zp#,">
+                <statement name="BODY">
                   <block type="hh_sequence" id="O8VYiPN06ZB/Eb8G6W!r">
                     <statement name="BODY">
                       <block type="hh_loopeach" id="sJz-w;6llkRAb,Q7^c4n">
@@ -81,7 +85,11 @@
                         </statement>
                       </block>
                     </statement>
-                    <next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="hh_par" id="T]h=E.aja#x~IYb#y{.D">
+                    <statement name="BODY">
                       <block type="hh_sequence" id=";VKypg59kZJ8ijFcl`w+">
                         <statement name="BODY">
                           <block type="hh_loopeach" id="TGHV:[pQGCjKLx.d[7Y_">
@@ -103,11 +111,11 @@
                           </block>
                         </statement>
                       </block>
-                    </next>
+                    </statement>
                   </block>
                 </next>
               </block>
-            </statement>
+            </next>
           </block>
         </next>
       </block>

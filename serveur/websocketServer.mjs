@@ -43,6 +43,8 @@ import { Worker } from 'worker_threads';
 import { fork } from "child_process";
 
 const defaultOrchestrationName = "orchestrationHH.mjs";
+const defaultOrchestrationNameHH = "orchestrationHH.hh.js";
+
 let par;
 let DAW;
 let midimix;
@@ -1256,7 +1258,7 @@ maybe an hiphop compile Error`);
             ":", piecePath + HipHopSrc, ":", targetHH);
 
           try {
-            // Etape de parsing vers targetHH 
+            // Etape de compilation vers targetHH 
             let fragment = compile(piecePath + HipHopSrc, {});
             await fragment.output(targetHH);
             await fragment.sourcemap(targetHH);
@@ -1622,7 +1624,7 @@ maybe an hiphop compile Error`);
 
           // Ecrit le programme JS/HH pour création de la machine.
           // Le programme créé par blockly est dans msgRecu.text
-          fs.writeFile(generatedDir + defaultOrchestrationName, msgRecu.text, function (err) {
+          fs.writeFile(generatedDir + defaultOrchestrationNameHH, msgRecu.text, function (err) {
             if (err) {
               ws.send(JSON.stringify({
                 type: "alertBlocklySkini",
@@ -1630,11 +1632,11 @@ maybe an hiphop compile Error`);
               }));
               return console.log(err);
             }
-            if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationName, " written");
+            if (debug1) console.log("INFO: websocketServer:", generatedDir + defaultOrchestrationNameHH, " written");
           });
 
           // Ecrit le fichier XML Blockly
-          fs.writeFile(piecePath + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, function (err) {
+          fs.writeFile(piecePath + msgRecu.fileName + ".xml", msgRecu.xmlBlockly, async function (err) {
             if (err) {
               return console.log(err.toString());
             }
@@ -1643,7 +1645,23 @@ maybe an hiphop compile Error`);
               type: "consoleBlocklySkini",
               text: msgRecu.fileName + ".xml written"
             }));
-            // Compile l'orchestration
+
+            // Pour développement
+            if(debug) console.log("websocketServerSkini:saveBlocklyGeneratedFile:", msgRecu.text);
+              
+            try {
+              // Etape de compilation vers targetHH, même principe que 
+              // pour "compileHHEditionFile"
+              let fragmentBlocky = compile(generatedDir + defaultOrchestrationNameHH, {});
+              await fragmentBlocky.output(targetHH);
+              await fragmentBlocky.sourcemap(targetHH);
+            } catch (err) {
+              console.log("ERR: Erreur dans la compilation du programme hiphop")
+              console.log("websocketServerSkini:saveBlocklyGeneratedFile:fragment:", err);
+              return; // Pas la peine d'aller plus loin dans la compilation
+            }
+            
+            // Création de la machine HH de l'orchestration
             try {
               compileHH();
             } catch (err) {

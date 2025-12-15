@@ -682,6 +682,10 @@ function init(host) {
             "kind": "block",
             "type": "hh_fork"
           },
+                    {
+            "kind": "block",
+            "type": "hh_par"
+          },
           {
             "kind": "block",
             "type": "hh_loop"

@@ -14,7 +14,7 @@
         </value>
         <statement name="SIGNALS">
           <block type="hh_declare_signal" id=")K/(h*S}$t#=$;=?k)%;">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="3}I`Z,1Odn7qoiN7+t%3">
                 <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
@@ -44,7 +44,7 @@
     </statement>
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id=")ZJ/R2WEsW4@$b0dTo{b">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id=";E[L7^*7o5ff;$t8ykmM">
             <field name="VAR" id="#}3K=pkBW|;;f(^-*]WW">foo</field>
