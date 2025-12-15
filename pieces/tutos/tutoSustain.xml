@@ -7,7 +7,7 @@
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -15,7 +15,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id=",xLY0)^Y^;wL9PF|H$8?">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="!J,wX;Z`yYuRy+A5LXPd">
                 <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
@@ -45,7 +45,11 @@
                 </value>
               </block>
             </statement>
-            <next>
+          </block>
+        </statement>
+        <next>
+          <block type="hh_par" id="R90n7i%v{ce_B|$Arn:e">
+            <statement name="BODY">
               <block type="hh_every" id="BF#N:zK*C70xK~;oF`|g">
                 <field name="TIMES">5</field>
                 <value name="SIGNAL">
@@ -72,7 +76,11 @@
                     </next>
                   </block>
                 </statement>
-                <next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_par" id="j_lw8(cvU%_?Q^dmS^Td">
+                <statement name="BODY">
                   <block type="hh_every" id="l=/?+|*5ej:%Y}N0#Y0;">
                     <field name="TIMES">1</field>
                     <value name="SIGNAL">
@@ -90,11 +98,11 @@
                       </block>
                     </statement>
                   </block>
-                </next>
+                </statement>
               </block>
             </next>
           </block>
-        </statement>
+        </next>
       </block>
     </statement>
   </block>

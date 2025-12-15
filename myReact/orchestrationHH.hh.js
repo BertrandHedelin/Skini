@@ -1,8 +1,11 @@
-var foo, bar;
+var foo, OSCNOTEON, groupe0, OSCNOTEOF, xy;
 
 
 
 "use strict";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const ipConfig = require('../serveur/ipConfig.json');
 
 import * as hh from "@hop/hiphop";
 import * as utilsSkini from "../serveur/utilsSkini.mjs";
@@ -102,7 +105,11 @@ export function setSignals(param) {
 
     inout foo;
 
-    inout bar;
+    inout OSCNOTEON;
+
+    inout OSCNOTEOF;
+
+    inout xy;
 
 
     loop{
@@ -117,7 +124,24 @@ export function setSignals(param) {
           }
         }par{
 
-      emit bar(0);
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'addSceneScore',
+            value:1
+          }));
+    }
+    yield;
+
+      emit groupe0OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+      host {
+        oscMidiLocal.sendOSCGame(
+        'TOTO',
+        10,
+        ipConfig.portOSCToGame,
+        ipConfig.remoteIPAddressGame);
+    }
 
     fork {
 
@@ -125,39 +149,53 @@ export function setSignals(param) {
 
           emit foo(0);
 
+        await immediate (foo.now);
+
         yield;
 
-          emit bar(0);
+          emit foo(11);
+
+        yield;
+
+          host {console.log('foo');}
 
         }
-
-    }
-
-    par {
 
         {
 
-        do{
+          await (foo.now  && foo.nowval === 11);
 
-            host {console.log('Foo');}
-
-        } every count(1, foo.now);
+          host {console.log('foo 11');}
 
         }
 
-    }
+      do{
 
-    par {
+          host {console.log('OSC NOTE ON');}
 
-        {
-
-        do{
-
-            host {console.log('Bar');}
-
-        } every count(1, bar.now);
-
+          host {
+            oscMidiLocal.sendOSCGame(
+            'TOTO/TITI',
+            10,
+            ipConfig.portOSCToGame,
+            ipConfig.remoteIPAddressGame);
         }
+
+      } every count(1, OSCNOTEON.now);
+
+      do{
+
+          host {console.log('xy');}
+
+          host {
+            oscMidiLocal.sendOSCGame(
+            'TOTO/TITI',
+            10,
+            ipConfig.portOSCToGame,
+            ipConfig.remoteIPAddressGame);
+        }
+
+      } every count(1, xy.now);
 
     }
 

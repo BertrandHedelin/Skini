@@ -7,7 +7,7 @@
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -15,7 +15,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id=",xLY0)^Y^;wL9PF|H$8?">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="!J,wX;Z`yYuRy+A5LXPd">
                 <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
@@ -28,47 +28,43 @@
     <statement name="BODY">
       <block type="hh_fork" id="fZy9JnYZ?uSbK|;q`R^^">
         <statement name="BODY">
-          <block type="hh_sequence" id="-eiK=eYLJnSc.Qppr-co">
-            <statement name="BODY">
-              <block type="hh_print_serveur" id="^kprJHdcjiy-tKTrqJ{|">
-                <value name="TEXT">
-                  <block type="text" id="kh{xL+Q%W18xhrSw+bos">
-                    <field name="TEXT">foo depart</field>
+          <block type="hh_print_serveur" id="^kprJHdcjiy-tKTrqJ{|">
+            <value name="TEXT">
+              <block type="text" id="kh{xL+Q%W18xhrSw+bos">
+                <field name="TEXT">foo depart</field>
+              </block>
+            </value>
+            <next>
+              <block type="hh_wait_for" id="7UQnJv_/[*ZH6KWR0O93">
+                <field name="TIMES">5</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id="wdGbs*{!dgplR5W:UOM*">
+                    <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
                   </block>
                 </value>
                 <next>
-                  <block type="hh_wait_for" id="7UQnJv_/[*ZH6KWR0O93">
-                    <field name="TIMES">5</field>
-                    <value name="SIGNAL">
-                      <block type="variables_get" id="wdGbs*{!dgplR5W:UOM*">
-                        <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
+                  <block type="hh_print_serveur" id="H!W7F]0$g6^e3tOeLPp)">
+                    <value name="TEXT">
+                      <block type="text" id="*N1p|kX/o,``fT{k[O#~">
+                        <field name="TEXT">foo stop</field>
                       </block>
                     </value>
                     <next>
-                      <block type="hh_print_serveur" id="H!W7F]0$g6^e3tOeLPp)">
-                        <value name="TEXT">
-                          <block type="text" id="*N1p|kX/o,``fT{k[O#~">
-                            <field name="TEXT">foo stop</field>
+                      <block type="hh_emit_value" id="2!Kyt0B0x1=v|P_rV05A">
+                        <field name="Signal_Value">0</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="9a%7L46+%l8Z($1l{0C%">
+                            <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
                           </block>
                         </value>
                         <next>
-                          <block type="hh_emit_value" id="2!Kyt0B0x1=v|P_rV05A">
+                          <block type="hh_sustain_value" id="Dp{)r/*#K?{35dB%Wmz7">
                             <field name="Signal_Value">0</field>
                             <value name="SIGNAL">
-                              <block type="variables_get" id="9a%7L46+%l8Z($1l{0C%">
-                                <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
+                              <block type="variables_get" id="VA1-t,lgXWw4Ogc-V*y1">
+                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                               </block>
                             </value>
-                            <next>
-                              <block type="hh_sustain_value" id="Dp{)r/*#K?{35dB%Wmz7">
-                                <field name="Signal_Value">0</field>
-                                <value name="SIGNAL">
-                                  <block type="variables_get" id="VA1-t,lgXWw4Ogc-V*y1">
-                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </next>
                           </block>
                         </next>
                       </block>
@@ -76,54 +72,54 @@
                   </block>
                 </next>
               </block>
-            </statement>
-            <next>
-              <block type="hh_sequence" id="p)Zs9IA=|8ubr*w?.kC`">
-                <statement name="BODY">
-                  <block type="hh_wait_for" id="SdG0V@ap!!a0O%H%mI-6">
-                    <field name="TIMES">1</field>
-                    <value name="SIGNAL">
-                      <block type="variables_get" id=")F{h%b8/cY2i%f7$Zo2S">
-                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                      </block>
-                    </value>
-                    <next>
-                      <block type="hh_if_signal" id="!riRNuD_Bi^f!z:l]Kpg">
-                        <value name="SIGNAL">
-                          <block type="variables_get" id="]/fJBkTt`3S-06xfcIK6">
-                            <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
-                          </block>
-                        </value>
-                        <statement name="BODY">
-                          <block type="hh_wait_for" id=",h*Vk]zg;nx](6Cy*Gc{">
-                            <field name="TIMES">1</field>
-                            <value name="SIGNAL">
-                              <block type="variables_get" id="BkUD+-XN!z{#9BR1u}28">
-                                <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="hh_print_serveur" id="_P4C`|-IqzpyX(aM$ji1">
-                                <value name="TEXT">
-                                  <block type="text" id="JOw|zwmV6c~f]fUch#i2">
-                                    <field name="TEXT">If foo</field>
-                                  </block>
-                                </value>
-                                <next>
-                                  <block type="hh_pause" id="1xW6Ogp}Hh+9VP#Gt]FG"></block>
-                                </next>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
-                      </block>
-                    </next>
-                  </block>
-                </statement>
-              </block>
             </next>
           </block>
         </statement>
+        <next>
+          <block type="hh_par" id="hlHa];Z`8??E[^1BY3q|">
+            <statement name="BODY">
+              <block type="hh_wait_for" id="SdG0V@ap!!a0O%H%mI-6">
+                <field name="TIMES">1</field>
+                <value name="SIGNAL">
+                  <block type="variables_get" id=")F{h%b8/cY2i%f7$Zo2S">
+                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_if_signal" id="!riRNuD_Bi^f!z:l]Kpg">
+                    <value name="SIGNAL">
+                      <block type="variables_get" id="]/fJBkTt`3S-06xfcIK6">
+                        <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
+                      </block>
+                    </value>
+                    <statement name="BODY">
+                      <block type="hh_wait_for" id=",h*Vk]zg;nx](6Cy*Gc{">
+                        <field name="TIMES">1</field>
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="BkUD+-XN!z{#9BR1u}28">
+                            <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_print_serveur" id="_P4C`|-IqzpyX(aM$ji1">
+                            <value name="TEXT">
+                              <block type="text" id="JOw|zwmV6c~f]fUch#i2">
+                                <field name="TEXT">If foo</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_pause" id="1xW6Ogp}Hh+9VP#Gt]FG"></block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
       </block>
     </statement>
   </block>

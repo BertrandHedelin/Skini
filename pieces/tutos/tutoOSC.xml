@@ -9,7 +9,7 @@
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="91" y="-89">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -17,7 +17,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id="/7Ko/9R_%%5dGYZn.J7Z">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="K5Bi_]k,]d(),.1JxnQ7">
                 <field name="VAR" id="{|gNmoIsXkh[G44u]`WE">OSCNOTEON</field>
@@ -25,7 +25,7 @@
             </value>
             <next>
               <block type="hh_declare_signal" id="MKAwO}5-Dlsx3=Udlv)J">
-                <field name="TYPE">INOUT</field>
+                <field name="TYPE">inout</field>
                 <value name="signal">
                   <block type="variables_get" id="N(UCm#N%Nus}A=UT+DNA">
                     <field name="VAR" id="GgT[r)}l-tjNLIr|Ai03">OSCNOTEOF</field>
@@ -33,7 +33,7 @@
                 </value>
                 <next>
                   <block type="hh_declare_signal" id="_,4tde0L*$Z}$@,:=z9x">
-                    <field name="TYPE">INOUT</field>
+                    <field name="TYPE">inout</field>
                     <value name="signal">
                       <block type="variables_get" id="uQ/$+cgHUu(Ijo79`u!G">
                         <field name="VAR" id="A2!$5fxHs5F8D0kKD#HW">xy</field>
