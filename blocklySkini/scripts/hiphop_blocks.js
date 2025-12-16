@@ -5,7 +5,7 @@ var debug = false;
 
 /**************************************
 
-Avril 2021
+Décembre 2025
 
 Sur Node.js
 
@@ -13,7 +13,7 @@ Dans ce fichier HipHop.js est décrit commme
 une extension de JavaScript. Il ne s'agit donc
 pas d'un générateur indépendant de JavaScript.
 
-© Copyright 2019-2021, B. Petit-Heidelein
+© Copyright 2019-2025, B. Petit-Heidelein
 
 ****************************************/
 
@@ -442,76 +442,31 @@ Blockly.JavaScript['random_block'] = function (block) {
   return code;
 };
 
+
 // Tank HH node ===========================================================
-
-function makeAwait(instrument, groupe) {
-  var codeTotal = `
-      hh.FORK( // debut du fork de makeAwait avec en premiere position:` + instrument[0] + `
+Blockly.defineBlocksWithJsonArray([
+  {
+    "type": "tank",
+    "message0": "tank on group %1 %2",
+    "args0": [
       {
-        "%location":{"filename":"hiphop_blocks.js","pos":304},
-        "%tag":"fork"
+        "type": "field_number",
+        "name": "groupeClient",
+        "value": 255,
+        "check": "Number"
       },
-          ` +
-    instrument.map(function (val) {
-      var code = `
-      hh.SEQUENCE( // Debut sequence pour ` + val + `
       {
-        "%location":{"filename":"hiphop_blocks.js","pos":312},
-        "%tag":"seq"
-      },
-        hh.AWAIT(
-          {
-            "%location":{"filename":"hiphop_blocks.js","pos":317},
-            "%tag":"await",
-            "immediate":false,
-            "apply":function (){
-              return ((() => {
-                const ` + val + `IN  =this["` + val + `IN"];
-                return ` + val + `IN.now;
-              })());},
-          },
-          hh.SIGACCESS({"signame":"` + val + `IN",
-          "pre":false,
-          "val":false,
-          "cnt":false})
-        ), // Fin await ` + val + `IN
-        hh.EMIT(
-          {
-            "%location":{"filename":"hiphop_blocks.js","pos":333},
-            "%tag":"emit",
-            "` + val + `OUT" : "` + val + `OUT",
-            "apply":function (){
-              return ((() => {
-                const ` + val + `OUT = this["` + val + `OUT"];
-                return [false, ` + groupe + `];
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"` + val + `OUT",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          }),
-        ), // Fin emit ` + val + `OUT true
-        hh.ATOM(
-          {
-          "%location":{"filename":"hiphop_blocks.js","pos":352},
-          "%tag":"node",
-          "apply":function () {
-              //console.log("--! makeAwait:  atom:", "` + val + `OUT");
-              gcs.informSelecteurOnMenuChange(` + groupe + ` , "` + val + `OUT", false);
-            }
-          }
-        )
-      ) // Fin sequence pour `+ val + `
-`
-      return code;
-    });
-
-  codeTotal += `    ), // Fin fork de make await avec en premiere position:` + instrument[0];
-  return codeTotal;
-}
+        "type": "input_statement",
+        "name": "SIGNAL",
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 300,
+    "tooltip": "module",
+    "helpUrl": ""
+  }
+]);
 
 function makeReservoir(name, instrument, groupe) {
   name = name.replace(/ /g, "");
@@ -536,30 +491,6 @@ function makeReservoir(name, instrument, groupe) {
 `;
   return codeTotal;
 }
-
-Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "tank",
-    "message0": "tank on group %1 %2",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "groupeClient",
-        "value": 255,
-        "check": "Number"
-      },
-      {
-        "type": "input_statement",
-        "name": "SIGNAL",
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 300,
-    "tooltip": "module",
-    "helpUrl": ""
-  }
-]);
 
 Blockly.JavaScript['tank'] = function (block) {
   let number_groupeClient = block.getFieldValue('groupeClient');
@@ -1319,18 +1250,9 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['reset_orchestration'] = function (block) {
-
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () { 
-      gcs.resetMatrice();
-    }
-  }
-),
-`
+  host{gcs.resetMatrice();}
+  `
   return code;
 };
 
@@ -1373,20 +1295,8 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['stopTanks'] = function (block) {
   var code = `
-hh.EMIT(
-  {
-    "%location":{},
-    "%tag":"emit",
-    "stopReservoir":"stopReservoir",
-    "apply":function (){
-      return ((() => {
-        const stopReservoir = this["stopReservoir"];
-        return 0;
-      })());
-    }
-  },
-),
-`;
+  emit stopReservoir();
+  `;
   return code;
 };
 
@@ -1467,16 +1377,8 @@ Blockly.JavaScript['pauseOneQueue'] = function (block) {
   var number = block.getFieldValue('number');
 
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          DAW.pauseQueue(` + number + `);
-        }
-      }
-    ),
-`
+    host{DAW.pauseQueue(` + number + `);}
+  `
   return code;
 };
 
@@ -1495,15 +1397,8 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['resumeQueues'] = function (block) {
   var code = `
-hh.ATOM(
-  {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () { 
-      DAW.resumeQueues();
-    }
-  }
-),`
+  host{DAW.resumeQueues();}
+  `
   return code;
 };
 
@@ -1530,16 +1425,8 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['resumeOneQueue'] = function (block) {
   var number = block.getFieldValue('number');
   var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          DAW.resumeQueue(` + number + `);
-        }
-      }
-    ),
-`
+    host{DAW.resumeQueue(` + number + `);}
+  `
   return code;
 };
 
@@ -2052,7 +1939,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['set_tempo'] = function (block) {
   var number_tempo = block.getFieldValue('tempo');
   var code = `
-  host{setTempo(` + number_tempo + `);}
+  host{setTempo(` + number_tempo + `, param);}
 `
   return code;
 };
@@ -2553,7 +2440,7 @@ Blockly.JavaScript['transpose'] = function (block) {
   var code = `
   host{
     transposeValue = ` + number_valeur + `; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-    console.log("hiphop block transpose: transposeValue:", transposeValue ,` + number_channel + `,` + number_CC + `);
+    //console.log("hiphop block transpose: transposeValue:", transposeValue ,` + number_channel + `,` + number_CC + `);
     oscMidiLocal.sendControlChange(param.busMidiDAW,` + number_channel + `,` + number_CC + `, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
   }
 `;
@@ -3226,21 +3113,25 @@ Blockly.JavaScript['open_tank'] = function (block) {
   let value = statements_name.replace(/;\n/g, "");
   let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
   let times = block.getFieldValue('TIMES');
+  let varRandom = Math.floor((Math.random() * 1000000) + 1);
+  varRandom = "M" + varRandom;
 
   var code = `
-  abort{`
-  for (var i = 0; i < listTanks.length; i++) {
+  `+varRandom+` : {
+  fork{ ` 
+    for (var i = 0; i < listTanks.length; i++) {
     let theTank = listTanks[i].replace(/ /g, "");
-    code +=
-    ` 
+    code += `
       run \${ `+ theTank + `} () {*};
     `
-  }
+    }
   code += `
-  yield;
-  } when count(`+times+`, tick.now);
-  emit stopReservoir();
-  yield;
+    }par{
+      await count(`+times+`, tick.now);
+      emit stopReservoir();
+      break `+varRandom+`;
+    }
+  }
   `;
   return code;
 };
@@ -3620,52 +3511,38 @@ Blockly.JavaScript['move_tempo'] = function (block) {
   let limit = block.getFieldValue('LIMIT');
 
   let code = `
-hh.ABORT(
-  {
-    "%location":{abort:stopMoveTempo},
-    "%tag":"abort",
-    "immediate":false,
-    "apply": function (){return ((() => {
-        const stopMoveTempo =this["stopMoveTempo"];
-        return stopMoveTempo.now;
-    })());},
-  },
-  hh.SIGACCESS({
-    "signame":"stopMoveTempo",
-    "pre":false,
-    "val":false,
-    "cnt":false
-  }),
-  hh.EVERY(
-    {
-      "%location":{every: ` + signal + `},
-      "%tag":"do/every",
-      "immediate":false,
-      "apply": function (){return ((() => {
-          const ` + signal + `=this["` + signal + `"];
-          return ` + signal + `.now;
-      })());},
-      "countapply":function (){ return  `+ every + `;}
-    },
-    hh.SIGACCESS({
-      "signame":"` + signal + `",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    }),
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () {
-          moveTempo(`+ value + `, ` + limit + `);
+    signal inverseTempo;
+    host {console.log("-- Start move tempo")}
+    abort {
+      loop{
+        fork {
+          every count( ` + limit + `, ` + signal + `.now) {
+            emit inverseTempo();
+          }
+        }par{
+          loop{
+            abort{
+                every count(`+ every + `, ` + signal + `.now) {
+                  host{
+                  tempoGlobal += `+ value + `;
+                  setTempo(tempoGlobal, param);
+                }
+              }
+            } when (inverseTempo.now);
+            abort {
+              every count(`+ every + `, ` + signal + `.now) {
+                host{
+                  tempoGlobal -= `+ value + `;
+                  setTempo(tempoGlobal, param);
+                }
+              }
+            } when (inverseTempo.now);
+          }
         }
       }
-    )
-  )
-),
-
-`;
+    } when immediate(stopMoveTempo.now);
+    host {console.log("-- Stop move tempo")}
+  `;
   return code;
 };
 
@@ -3689,20 +3566,8 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['abort_move_tempo'] = function (block) {
   var code = `
-    hh.EMIT(
-      {
-        "%location":{},
-        "%tag":"emit", 
-        "stopMoveTempo":"stopMoveTempo"
-      },
-      hh.SIGACCESS({
-        "signame":"stopMoveTempo",
-        "pre":true,
-        "val":true,
-        "cnt":false
-      })
-    ),
-    `;
+    emit stopMoveTempo();
+  `;
   return code;
 };
 
@@ -3782,14 +3647,15 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
   tank.initMakeReservoir(gcs, serveur);
 }
 
-function setTempo(value){
+function setTempo(value, param){
   tempoGlobal = value;
 
-  if(midimix.getAbletonLinkStatus()) {
-    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
-    midimix.setTempoLink(value);
-    return;
-  }
+  // if(midimix.getAbletonLinkStatus()) {
+  //   if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
+  //   midimix.setTempoLink(value);
+  //   return;
+  // }
+
   if ( value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
     return;
@@ -3808,22 +3674,6 @@ var tempoIncrease = true;
 var transposeValue = 0;
 var ratioTranspose = 1.763;
 var offsetTranspose = 63.5;
-
-function moveTempo(value, limit){
-  if(tempoLimit >= limit){
-    tempoLimit = 0;
-    tempoIncrease = !tempoIncrease;
-  }
-
-  if(tempoIncrease){
-    tempoGlobal += value;
-  }else{
-    tempoGlobal -= value;
-  }
-  if(debug) console.log("moveTempo:", tempoGlobal);
-  setTempo(tempoGlobal);
-  tempoLimit++;
-}
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
@@ -4657,7 +4507,7 @@ Blockly.JavaScript['hh_trap'] = function (block) {
   let value = value_trap.replace(/\'/g, "");
 
   var code = `
-  `+ value + `: {
+  `+ value + ` : {
     `+ statements_body + `
   }
  `;

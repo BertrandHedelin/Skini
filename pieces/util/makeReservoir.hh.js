@@ -1,7 +1,7 @@
 
 "use strict"
 "use hopscript"
-// node ..\..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\makeReservoir.hh.js -o .\makeReservoir.mjs
+// node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\makeReservoir.hh.js -o .\makeReservoir.mjs
 
 let serveur;
 let gcs;
@@ -37,7 +37,7 @@ export function makeReservoir(groupeClient, instrument) {
           ${ makeAwait(instrument, groupeClient) }
           host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
           break  laTrappe;
-        } when immediate (stopReservoir.now);
+        } when (stopReservoir.now);
 
         ${
           instrument.map(val => hiphop {

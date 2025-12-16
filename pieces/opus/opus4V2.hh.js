@@ -472,7 +472,7 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
     // Pour basculer d'un scénario avec ou sans capteurs
-    const sensors = true;
+    const sensors = false;
 
     loop {
       let tickCounter = 0;

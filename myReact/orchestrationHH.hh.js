@@ -1,4 +1,4 @@
-var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, Percu, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, tick, TransPianoEtNappe2, TransPianoEtNappe3, TransSaxo, nappeViolons, Flesh, Massive;
+var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano1Intro4, Piano1Intro5, Piano1Intro6, Piano1Intro7, Piano1Milieu1, Piano1Milieu2, Piano1Milieu3, Piano1Milieu4, Piano1Milieu5, Piano1Milieu6, Piano1Milieu7, Piano1Fin1, Piano1Fin2, Piano1Fin3, Piano1Fin4, Piano1Fin5, Piano1Fin6, Piano1Fin7, Brass, SaxIntro1, SaxIntro2, SaxIntro3, SaxIntro4, SaxIntro5, SaxIntro6, SaxIntro7, SaxMilieu1, SaxMilieu2, SaxMilieu3, SaxMilieu4, SaxMilieu5, SaxMilieu6, SaxMilieu7, SaxFin1, SaxFin2, SaxFin3, SaxFin4, SaxFin5, SaxFin6, SaxFin7, Flute, Percu, BrassIntro1, BrassIntro2, BrassIntro3, BrassIntro4, BrassIntro5, BrassIntro6, BrassIntro7, BrassMilieu1, BrassMilieu2, BrassMilieu3, BrassMilieu4, BrassMilieu5, BrassMilieu6, BrassMilieu7, BrassFin1, BrassFin2, BrassFin3, BrassFin4, BrassFin5, BrassFin6, BrassFin7, tick, FluteIntro1, FluteIntro2, FluteIntro3, FluteIntro4, FluteIntro5, FluteIntro6, FluteIntro7, FluteMilieu1, FluteMilieu2, FluteMilieu3, FluteMilieu4, FluteMilieu5, FluteMilieu6, FluteMilieu7, FluteFin1, FluteFin2, FluteFin3, FluteFin4, FluteFin5, FluteFin6, FluteFin7, TransPianoEtNappe, Percu1, Percu2, Percu3, Percu4, Percu5, Percu6, Percu7, TransPianoEtNappe2, TransPianoEtNappe3, TransSaxo, nappeViolons, Flesh, Massive;
 
 
 // Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
@@ -177,6 +177,28 @@ var Piano, StartTransSaxo, Saxo, Piano1Intro1, Piano1Intro2, Piano1Intro3, Piano
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 "use strict";
 import { createRequire } from 'module';
@@ -213,14 +235,15 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
   tank.initMakeReservoir(gcs, serveur);
 }
 
-function setTempo(value){
+function setTempo(value, param){
   tempoGlobal = value;
 
-  if(midimix.getAbletonLinkStatus()) {
-    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
-    midimix.setTempoLink(value);
-    return;
-  }
+  // if(midimix.getAbletonLinkStatus()) {
+  //   if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
+  //   midimix.setTempoLink(value);
+  //   return;
+  // }
+
   if ( value > tempoMax || value < tempoMin) {
     console.log("ERR: Tempo set out of range:", value, "Should be between:", tempoMin, "and", tempoMax);
     return;
@@ -239,22 +262,6 @@ var tempoIncrease = true;
 var transposeValue = 0;
 var ratioTranspose = 1.763;
 var offsetTranspose = 63.5;
-
-function moveTempo(value, limit){
-  if(tempoLimit >= limit){
-    tempoLimit = 0;
-    tempoIncrease = !tempoIncrease;
-  }
-
-  if(tempoIncrease){
-    tempoGlobal += value;
-  }else{
-    tempoGlobal -= value;
-  }
-  if(debug) console.log("moveTempo:", tempoGlobal);
-  setTempo(tempoGlobal);
-  tempoLimit++;
-}
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
@@ -654,6 +661,28 @@ export function setSignals(param) {
   //
   //
   //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
     const TransPianoEtNappe = hiphop module() {
 
@@ -664,7 +693,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -672,7 +701,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -680,7 +709,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -694,6 +723,28 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -870,7 +921,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -878,7 +929,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -886,7 +937,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -900,6 +951,28 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -1076,7 +1149,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1084,7 +1157,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1092,7 +1165,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1100,7 +1173,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -1; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1108,7 +1181,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 1; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1122,6 +1195,28 @@ export function setSignals(param) {
   // avec le paramètre MIDI des CC. (min -36, max +36).
   // 64 -> 0
   // 67 -> +2 ...
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -1304,7 +1399,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1312,7 +1407,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -5; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1320,7 +1415,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -7; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1330,7 +1425,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1338,7 +1433,7 @@ export function setSignals(param) {
 
         host{
           transposeValue = -1; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
+          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,72);
           oscMidiLocal.sendControlChange(param.busMidiDAW,1,72, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
         }
 
@@ -1402,7 +1497,7 @@ export function setSignals(param) {
         tempoMin = 40;
       }
 
-      host{setTempo(60);}
+      host{setTempo(62, param);}
 
       host{gcs.setTimerDivision(1);}
 
@@ -1422,19 +1517,22 @@ export function setSignals(param) {
 
       host{
         transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-        console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
+        //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
         oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
       }
 
       }
 
-    abort{
+    M6574 : {
+    fork{
         run ${ Percu} () {*};
 
-    yield;
-    } when count(5, tick.now);
-    emit stopReservoir();
-    yield;
+      }par{
+        await count(5, tick.now);
+        emit stopReservoir();
+        break M6574;
+      }
+    }
 
     host{
       DAW.cleanQueues();
@@ -1456,13 +1554,16 @@ export function setSignals(param) {
 
       fork {
 
-        abort{
+        M906917 : {
+        fork{
             run ${ Piano} () {*};
 
-        yield;
-        } when count(30, tick.now);
-        emit stopReservoir();
-        yield;
+          }par{
+            await count(5, tick.now);
+            emit stopReservoir();
+            break M906917;
+          }
+        }
 
       }
 
@@ -1478,8 +1579,37 @@ export function setSignals(param) {
 
           par {
 
-              emit FleshOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Flesh", true) }
+              signal inverseTempo;
+              host {console.log("-- Start move tempo")}
+              abort {
+                loop{
+                  fork {
+                    every count( 8, tick.now) {
+                      emit inverseTempo();
+                    }
+                  }par{
+                    loop{
+                      abort{
+                          every count(1, tick.now) {
+                            host{
+                            tempoGlobal += 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                      abort {
+                        every count(1, tick.now) {
+                          host{
+                            tempoGlobal -= 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                    }
+                  }
+                }
+              } when immediate(stopMoveTempo.now);
+              host {console.log("-- Stop move tempo")}
 
           }
 
@@ -1513,13 +1643,16 @@ export function setSignals(param) {
 
       fork {
 
-        abort{
+        M916349 : {
+        fork{
             run ${ Piano} () {*};
 
-        yield;
-        } when count(30, tick.now);
-        emit stopReservoir();
-        yield;
+          }par{
+            await count(30, tick.now);
+            emit stopReservoir();
+            break M916349;
+          }
+        }
 
       }
 
@@ -1545,6 +1678,42 @@ export function setSignals(param) {
 
           }
 
+          par {
+
+              signal inverseTempo;
+              host {console.log("-- Start move tempo")}
+              abort {
+                loop{
+                  fork {
+                    every count( 8, tick.now) {
+                      emit inverseTempo();
+                    }
+                  }par{
+                    loop{
+                      abort{
+                          every count(1, tick.now) {
+                            host{
+                            tempoGlobal += 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                      abort {
+                        every count(1, tick.now) {
+                          host{
+                            tempoGlobal -= 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                    }
+                  }
+                }
+              } when immediate(stopMoveTempo.now);
+              host {console.log("-- Stop move tempo")}
+
+          }
+
         } when count(30, tick.now);
 
       }
@@ -1563,13 +1732,16 @@ export function setSignals(param) {
 
       fork {
 
-        abort{
+        M412277 : {
+        fork{
             run ${ Piano} () {*};
 
-        yield;
-        } when count(30, tick.now);
-        emit stopReservoir();
-        yield;
+          }par{
+            await count(30, tick.now);
+            emit stopReservoir();
+            break M412277;
+          }
+        }
 
       }
 
@@ -1595,6 +1767,42 @@ export function setSignals(param) {
 
           }
 
+          par {
+
+              signal inverseTempo;
+              host {console.log("-- Start move tempo")}
+              abort {
+                loop{
+                  fork {
+                    every count( 8, tick.now) {
+                      emit inverseTempo();
+                    }
+                  }par{
+                    loop{
+                      abort{
+                          every count(1, tick.now) {
+                            host{
+                            tempoGlobal += 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                      abort {
+                        every count(1, tick.now) {
+                          host{
+                            tempoGlobal -= 5;
+                            setTempo(tempoGlobal, param);
+                          }
+                        }
+                      } when (inverseTempo.now);
+                    }
+                  }
+                }
+              } when immediate(stopMoveTempo.now);
+              host {console.log("-- Stop move tempo")}
+
+          }
+
         } when count(30, tick.now);
 
       }
@@ -1616,15 +1824,7 @@ export function setSignals(param) {
 
       }
 
-    host{setTempo(70);}
-
-    abort{
-        run ${ Percu} () {*};
-
-    yield;
-    } when count(5, tick.now);
-    emit stopReservoir();
-    yield;
+    host{setTempo(70, param);}
 
     host{
       serveur.broadcast(JSON.stringify({
@@ -1636,21 +1836,31 @@ export function setSignals(param) {
       DAW.cleanQueue(5);
     }
 
+      host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Clarinette (Saxo)'
+          }));
+    }
+
+      emit StartTransSaxo(0);
+
     fork {
 
-        {
+      M487220 : {
+      fork{
+          run ${ Saxo} () {*};
 
-          emit StartTransSaxo(0);
-
-        abort{
-            run ${ Saxo} () {*};
-
-        yield;
-        } when count(50, tick.now);
-        emit stopReservoir();
-        yield;
-
+        }par{
+          await count(50, tick.now);
+          emit stopReservoir();
+          break M487220;
         }
+      }
+
+    }
+
+    par {
 
       abort{
 
@@ -1664,31 +1874,84 @@ export function setSignals(param) {
       DAW.cleanQueue(2);
     }
 
+      host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Brass Percu'
+          }));
+    }
+
         run ${ Brass} () {*};
 
         run ${ Percu} () {*};
-
-    abort{
-        run ${ Percu} () {*};
-
-    yield;
-    } when count(5, tick.now);
-    emit stopReservoir();
-    yield;
 
     host{
       DAW.cleanQueue(5);
     }
 
+      host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Flute'
+          }));
+    }
+
     fork {
 
-      abort{
+      M280379 : {
+      fork{
           run ${ Flute} () {*};
 
-      yield;
+        }par{
+          await count(40, tick.now);
+          emit stopReservoir();
+          break M280379;
+        }
+      }
+
+    }
+
+    par {
+
+      abort{
+
+          signal inverseTempo;
+          host {console.log("-- Start move tempo")}
+          abort {
+            loop{
+              fork {
+                every count( 5, tick.now) {
+                  emit inverseTempo();
+                }
+              }par{
+                loop{
+                  abort{
+                      every count(1, tick.now) {
+                        host{
+                        tempoGlobal += 2;
+                        setTempo(tempoGlobal, param);
+                      }
+                    }
+                  } when (inverseTempo.now);
+                  abort {
+                    every count(1, tick.now) {
+                      host{
+                        tempoGlobal -= 2;
+                        setTempo(tempoGlobal, param);
+                      }
+                    }
+                  } when (inverseTempo.now);
+                }
+              }
+            }
+          } when immediate(stopMoveTempo.now);
+          host {console.log("-- Stop move tempo")}
+
       } when count(40, tick.now);
-      emit stopReservoir();
-      yield;
+
+    }
+
+    par {
 
             emit MassiveOUT([true,255]);
             host{gcs.informSelecteurOnMenuChange(255," Massive", true) }
@@ -1702,12 +1965,16 @@ export function setSignals(param) {
 
     host { DAW.putPatternInQueue('Percu4');}
 
-    host{
-      DAW.cleanQueue(6);
+      host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'FIN'
+          }));
     }
 
     host{
-      DAW.cleanQueue(8);
+      DAW.cleanQueues();
+      gcs.cleanChoiceList(255);
     }
 
         }
