@@ -6,7 +6,7 @@
  * Cette pièce possédait une version en interaction avec une démo UnrealEngine.
  * Il s'agit d'un exemple de contrôle d'Ableton avec une utilisation
  * systématique des réservoirs.
- * 
+ *
  * Il y a quasiment tout ce que l'on peut faire avec Skini:
  * - Groupes
  * - Réservoirs
@@ -17,12 +17,12 @@
  * - Test des patterns joués par Live
  * - Utilisation de capteurs (ici IZ)
  * - Ordonnancement des clips en FIFO
- * 
+ *
  * Pour debug dans /tests:
  * node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\opus4test.hh.js -o .\opus4test.mjs
  *
  * Fonctionne avec Opus4V3.als dans Ableton 10
- * 
+ *
  * @copyright (C) 2019-2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.4
@@ -87,7 +87,7 @@ let troisiemeAlea = 0;
 
 /*************************************************************************
  * Les fonctions JavaScript
- * 
+ *
  */
 function setTempo(value, par) {
   if (value > tempoMax || value < tempoMin) {
@@ -134,7 +134,7 @@ function setTonalite(CCtonalite, value, par) {
 /****************************************************************************
  * Appelé par Skini pour mettre en place tous les accès aux fonctions de
  * contrôle.
- * 
+ *
  */
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug) console.log("hh_ORCHESTRATION: setServ");
@@ -193,7 +193,7 @@ function makeReservoir(groupeClient, instrument) {
 
 /***************************************************************************
  * Les modules HH pour les réservoirs
- * 
+ *
  */
 
 const piano = ["Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
@@ -222,7 +222,7 @@ const resevoirSaxo = hiphop module () {
   in stopReservoir;
   in ... ${ saxo.map(i => `${i}IN`) };
   out ... ${ saxo.map(i => `${i}OUT`) };
-	${ makeReservoir(255, saxo) };
+  ${ makeReservoir(255, saxo) };
 }
 
 const brass = [
@@ -237,7 +237,7 @@ const resevoirBrass = hiphop module () {
   in stopReservoir;
   in ... ${ brass.map(i => `${i}IN`) };
   out ... ${ brass.map(i => `${i}OUT`) };
-	${ makeReservoir(255, brass) };
+  ${ makeReservoir(255, brass) };
 }
 
 const flute = [
@@ -252,7 +252,7 @@ const resevoirFlute = hiphop module () {
   in stopReservoir;
   in ... ${ flute.map(i => `${i}IN`) };
   out ... ${ flute.map(i => `${i}OUT`) };
-	${ makeReservoir(255, flute) };
+  ${ makeReservoir(255, flute) };
 }
 
 const percu = [
@@ -264,13 +264,13 @@ const resevoirPercu = hiphop module () {
   in stopReservoir;
   in ... ${ percu.map(i => `${i}IN`) };
   out ... ${ percu.map(i => `${i}OUT`) };
-	${ makeReservoir(255, percu) };
+  ${ makeReservoir(255, percu) };
 }
 
 /***************************************************************************
  * L'ensemble des modules HH pour l'orchestration
  * Tout est évalué avec l'appel à setSignals
- * 
+ *
  */
 export function setSignals(param) {
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
@@ -294,7 +294,7 @@ export function setSignals(param) {
       fork{
         run ${ resevoirFlute } () {*, stopReservoirFlute as stopReservoir };
       }par{
-        // Dans le cas de reaction à la selection:Pour attendre effectivement la fin du 
+        // Dans le cas de reaction à la selection:Pour attendre effectivement la fin du
         // reservoir qui occupe 55 ticks + 4 ticks de transitions.
         // Dans le cas de séléction à l'exécution, c'est une durée max. Mais les répétitions seront possibles
         // dans le réservoir.
@@ -367,7 +367,7 @@ export function setSignals(param) {
       // Pour attendre effectivement la fin du reservoir
       // dans le cas de séléction à l'exécution
       // mais aussi pour arrêter la nappe au bon moment
-      await count(20, tick.now); 
+      await count(20, tick.now);
       emit stopReservoirSax();
       emit nappeViolonsOUT([false, 255]);
       host{ gcs.informSelecteurOnMenuChange(255, "Nappe", false); }
@@ -492,7 +492,7 @@ export function setSignals(param) {
 
   /****************************************************
    * L'orchestration qui est mise en place par la machine HH
-   * 
+   *
    */
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -571,7 +571,7 @@ export function setSignals(param) {
             await count(40, tick.now);
               run ${ brassEtPercu } () {*};
           } par {
-            every(patternSignal.now) { 
+            every(patternSignal.now) {
               host{ console.log("Pattern counter:", patternCounter++); }
             }
           } par {
@@ -630,13 +630,13 @@ export function setSignals(param) {
               //run ${saxoEtViolons} () {*};
               //run ${soloPiano} () {*};
               //run ${resevoirFlute} () {*}
-              
+
               //run ${soloFlute} () {*};
 
               //run ${ resevoirPiano1 } () {*}
               //run ${ resevoirSaxo } () {*}
               //run ${ resevoirBrass } () {*}
-              
+
               // fork {
               //run ${ soloPiano } () {*}  // 57 ticks
               run ${resevoirPiano1}() {*, stopReservoirPiano as stopReservoir};
@@ -672,5 +672,4 @@ export function setSignals(param) {
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 }
-
 

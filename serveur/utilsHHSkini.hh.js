@@ -1,8 +1,8 @@
 /**
  * @fileOverview Utilitaires en hiphop.js pour Skini
- * 
+ *
  *  node ../node_modules/@hop/hiphop/bin/hhc.mjs utilsHHSkini.hh.js -o utilsHHSkini.mjs
- * 
+ *
  * @copyright (C) 2019-2025 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0

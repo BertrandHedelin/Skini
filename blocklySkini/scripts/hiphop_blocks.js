@@ -903,149 +903,39 @@ Blockly.JavaScript['set_groups_during_patterns'] = function (block) {
   let in_value = in_groups.replace(/;\n/g, "");
   let in_listGroups = in_value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  var varRandom = Math.floor((Math.random() * 1000000) + 1);
+  let varRandom = Math.floor((Math.random() * 1000000) + 1);
+  varRandom = "RG" + varRandom;
 
   var code = `
-    hh.TRAP(
-      {
-        "trap`+ varRandom + `":"trap` + varRandom + `",
-        "%location":{},
-        "%tag":"trap`+ varRandom + `"
-      },
-      hh.FORK(
-        {
-          "%location":{},
-          "%tag":"fork"
-        },
-        hh.SEQUENCE( // sequence 1
-          {
-            "%location":{},
-            "%tag":"seq"
-          },`;
-
-  for (var i = 0; i < listGroups.length; i++) {
-    var theGroup = listGroups[i].replace(/ /g, "");
-    code +=
-      ` 
-	        hh.EMIT(
-	          {
-	            "%location":{},
-	            "%tag":"emit",
-	            "`+ theGroup + `OUT":"` + theGroup + `OUT",
-	            "apply":function (){
-	              return ((() => {
-	                const `+ theGroup + `OUT = this["` + theGroup + `OUT"];
-	                return [true, ` + user_group + `];
-	              })());
-	            }
-	          },
-	          hh.SIGACCESS({
-	            "signame":"`+ theGroup + `OUT",
-	            "pre":true,
-	            "val":true,
-	            "cnt":false
-	          })
-	        ), // Fin emit
-		    hh.ATOM(
-		      {
-		      "%location":{},
-		      "%tag":"node",
-		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true); }
-		      }
-		 	),
-		`;
+    `+ varRandom + ` : {
+      fork{
+      `
+  for (let i = 0; i < listGroups.length; i++) {
+    let theGroup = listGroups[i].replace(/ /g, "");
+    code += ` 
+      emit `+ theGroup + `OUT([true,` + user_group + `]);
+      host{gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true) }
+		`
   }
-  code += ` 
-		), // fin sequence 1
-    	hh.SEQUENCE(
-	        {
-	          "%location":{},
-	          "%tag":"seq"
-	        },
-	        hh.AWAIT(
-	            {
-	              "%location":{},
-	              "%tag":"await",
-	              "immediate":false,
-	              "apply":function (){return ((() => {
-`
-  for (var i = 0; i < in_listGroups.length; i++) {
-    code += `                   const ` + in_listGroups[i] + `IN =this["` + in_listGroups[i] + `IN"];
-`
-  };
-
-  code += `                 return ` + in_listGroups[0] + `IN.now`;
-  for (var i = 1; i < in_listGroups.length; i++) {
-    code += ` || ` + in_listGroups[i] + `IN.now`;
-  };
-
-  code += `;
-                })());},
-              "countapply":function (){return `+ number_of_patterns + `;}
-          },
-`
-  for (var i = 0; i < in_listGroups.length; i++) {
-    code += `             hh.SIGACCESS({"signame":"` + in_listGroups[i] + `IN","pre":false,"val":false,"cnt":false}),
-`
-  };
-  code +=
-    ` 	),`;
-
-  for (var i = 0; i < listGroups.length; i++) {
-    var theGroup = listGroups[i].replace(/ /g, "");
-    code +=
-      `   hh.EMIT(
-	          {
-	            "%location":{},
-	            "%tag":"emit",
-	            "`+ theGroup + `OUT":"` + theGroup + `OUT",
-	            "apply":function (){
-	              return ((() => {
-	                const `+ theGroup + `OUT = this["` + theGroup + `OUT"];
-	                return [false, ` + user_group + `];
-	              })());
-	            }
-	          },
-	          hh.SIGACCESS({
-	            "signame":"`+ theGroup + `OUT",
-	            "pre":true,
-	            "val":true,
-	            "cnt":false
-	          })
-	        ), // Fin emit
-		    hh.ATOM(
-		      {
-		      "%location":{},
-		      "%tag":"node",
-		      "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false); }
-		      }
-		 	),
-		`;
+  code += `}
+     `
+  for (let i = 0; i < listGroups.length; i++) {
+    let theGroup = listGroups[i].replace(/ /g, "");
+    code += `par{
+      await count(`+ number_of_patterns + `, `+ theGroup + `IN.now);
+      break `+ varRandom + `;
+    }`
   }
   code += `
-	        hh.PAUSE(
-	          {
-	            "%location":{},
-	            "%tag":"yield"
-	          }
-	        ),
-	        hh.EXIT(
-		        {
-		          "trap` + varRandom + `":"trap` + varRandom + `",
-		          "%location":{},
-		          "%tag":"break"
-		        }
-	        ), // Exit
-	      ) // sequence
-    	) // fork
-  	), // trap
-	hh.PAUSE(
-	    {
-	      "%location":{},
-	      "%tag":"yield"
-	    }
-	),
-`;
+  }`; // fin trap
+  for (let i = 0; i < listGroups.length; i++) {
+    var theGroup = listGroups[i].replace(/ /g, "");
+      code += ` 
+    emit `+ theGroup + `OUT([false,` + user_group + `]);
+    host{gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false) }
+    `;
+  }
+  code += `yield;`;
   return code;
 };
 
@@ -1080,9 +970,6 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['set_groups_waiting_for_patterns'] = function (block) {
   let user_group = block.getFieldValue('user_group');
-  let number_of_patterns = block.getFieldValue('number_of_patterns');
-  //let statements_name = Blockly.JavaScript.statementToCode(block, 'SIGNAL');
-
   let groups = Blockly.JavaScript.valueToCode(block, 'GROUPS', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
   let value = groups.replace(/;\n/g, "");
   // Parsing nécessaire pour pouvoir utiliser des variables dans la liste
@@ -1093,146 +980,39 @@ Blockly.JavaScript['set_groups_waiting_for_patterns'] = function (block) {
   let in_value = in_patterns_list.replace(/;\n/g, "");
   in_patterns_list = in_value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  var varRandom = Math.floor((Math.random() * 1000000) + 1);
+  let varRandom = Math.floor((Math.random() * 1000000) + 1);
+  varRandom = "RG" + varRandom;
 
-  var code = `
-    hh.TRAP(
-      {
-        "trap`+ varRandom + `":"trap` + varRandom + `",
-        "%location":{},
-        "%tag":"trap`+ varRandom + `"
-      },
-      hh.FORK(
-        {
-          "%location":{},
-          "%tag":"fork"
-        },
-        hh.SEQUENCE( // sequence 1
-          {
-            "%location":{},
-            "%tag":"seq"
-          }, // dans sequence1 : listGroups[0]: `+ listGroups[0];
-
-  for (var i = 0; i < listGroups.length; i++) {
-    var theGroup = listGroups[i].replace(/ /g, "");
-    code +=
-      ` 
-          hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "`+ theGroup + `OUT":"` + theGroup + `OUT",
-              "apply":function (){
-                return ((() => {
-                  const `+ theGroup + `OUT = this["` + theGroup + `OUT"];
-                  return [true, ` + user_group + `];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"`+ theGroup + `OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true); }
-            }
-          ),
-    `;
+var code = `
+    `+ varRandom + ` : {
+      fork{
+      `
+  for (let i = 0; i < listGroups.length; i++) {
+    let theGroup = listGroups[i].replace(/ /g, "");
+    code += ` 
+      emit `+ theGroup + `OUT([true,` + user_group + `]);
+      host{gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", true) }
+		`
   }
-  code += ` 
-    ), // fin sequence 1
-    hh.SEQUENCE(
-        {
-          "%location":{},
-          "%tag":"seq"
-        },
-
-        hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-`;
-  for (var i = 0; i < in_patterns_list.length; i++) {
-    code += `
-            hh.AWAIT(
-              {"%location":{},
-              "%tag":"await","immediate":false,
-              "apply":function (){
-                  return ((() => {
-                    const patternSignal=this["patternSignal"];
-                    return patternSignal.now && (patternSignal.nowval[1] === ` + in_patterns_list[i] + `);
-                  })());
-                }
-              },
-              hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
-            ), // Fin await`;
-  }
-  code +=
-    `
-          ), // fin fork
-        `
-  for (var i = 0; i < listGroups.length; i++) {
-    var theGroup = listGroups[i].replace(/ /g, "");
-    code +=
-      ` hh.EMIT(
-            {
-              "%location":{},
-              "%tag":"emit",
-              "`+ theGroup + `OUT":"` + theGroup + `OUT",
-              "apply":function (){
-                return ((() => {
-                  const `+ theGroup + `OUT = this["` + theGroup + `OUT"];
-                  return [false, ` + user_group + `];
-                })());
-              }
-            },
-            hh.SIGACCESS({
-              "signame":"`+ theGroup + `OUT",
-              "pre":true,
-              "val":true,
-              "cnt":false
-            })
-          ), // Fin emit
-          hh.ATOM(
-            {
-            "%location":{},
-            "%tag":"node",
-            "apply":function () { gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false); }
-            }
-          ),
-    `;
+  code += `}
+     `
+  for (let i = 0; i < in_patterns_list.length; i++) {
+    let theGroup = listGroups[i].replace(/ /g, "");
+    code += `par{
+      await immediate (patternSignal.now && (patternSignal.nowval[1] === ` + in_patterns_list[i] + `));
+      break `+ varRandom + `;
+    }`
   }
   code += `
-          hh.PAUSE(
-            {
-              "%location":{},
-              "%tag":"yield"
-            }
-          ),
-          hh.EXIT(
-            {
-              "trap` + varRandom + `":"trap` + varRandom + `",
-              "%location":{},
-              "%tag":"break"
-            }
-          ), // Exit
-        ) // sequence
-      ) // fork
-    ), // trap
-  hh.PAUSE(
-      {
-        "%location":{},
-        "%tag":"yield"
-      }
-  ),
-`;
+  }`; // fin trap
+  for (let i = 0; i < listGroups.length; i++) {
+    var theGroup = listGroups[i].replace(/ /g, "");
+      code += ` 
+    emit `+ theGroup + `OUT([false,` + user_group + `]);
+    host{gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false) }
+    `;
+  }
+  code += `yield;`;
   return code;
 };
 

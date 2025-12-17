@@ -57,10 +57,10 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
 }
 
 /**
- * Defines and creates the hiphop programm. This function is called by the Skini 
- * platform. 
+ * Defines and creates the hiphop programm. This function is called by the Skini
+ * platform.
  * @function
- * @param  {Object} parameters for the piece, 
+ * @param  {Object} parameters for the piece,
  * set in the web interface with the "parameter" button.
  */
 export function setSignals(param) {
@@ -77,9 +77,9 @@ export function setSignals(param) {
     "INTERFACEZ_RC9", "INTERFACEZ_RC10",
     "INTERFACEZ_RC11"];
 
-  const ESP32signals = ["ESP32_motion", "ESP32_shock", 
-    "ESP32_touch", "ESP32_light", 
-    "ESP32_gyro", "ESP32_sensor1", 
+  const ESP32signals = ["ESP32_motion", "ESP32_shock",
+    "ESP32_touch", "ESP32_light",
+    "ESP32_gyro", "ESP32_sensor1",
     "ESP32_accel", "ESP32_capa","ESP32_heartbeat"];
 
   console.log("inter:", interTextIN, interTextOUT, IZsignals, ESP32signals);
@@ -95,7 +95,7 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
 
       host{ console.log(" *-*-*-*-*-*-*- Sensor ", name, sensorIZ.nowval ); }
-      
+
       if ( sensorIZ.nowval == undefined) {
         host{ console.log("Capteur sans valeur : ", sensorIZ.nowval); }
       }
@@ -117,7 +117,7 @@ export function setSignals(param) {
         host{ utilsSkini.alertInfoScoreON(name + ":" + sensorIZ.nowval[1], serveur); }
       }
       await  count (16,tick.now);
-      run stopAll() { zone1OUT, zone2OUT, zone3OUT, 
+      run stopAll() { zone1OUT, zone2OUT, zone3OUT,
         zone4OUT, zone6OUT, zone7OUT,
         zone8OUT, zone9OUT, zone10OUT};
       host {
@@ -166,7 +166,7 @@ export function setSignals(param) {
     loop{
       await(tick.now);
       host{ utilsSkini.addSceneScore(1, serveur); }
-      host{ 
+      host{
         utilsSkini.alertInfoScoreON("Appuyer sur le bouton", serveur);
         console.log("Appuyer sur le bouton");
        }
@@ -186,11 +186,11 @@ export function setSignals(param) {
         } par { // L'orchestration commence ici
           host{ utilsSkini.alertInfoScoreOFF(serveur); }
           fork {
-            // Set groups zones 1, 2, 3, 4, according to the distance to the IZ sensor 0 
+            // Set groups zones 1, 2, 3, 4, according to the distance to the IZ sensor 0
             every(INTERFACEZ_RC0.now) {
               host{ console.log("Reçu RC0"); }
               run sensorIZ("RC0") {
-                      zone1OUT, zone2OUT, zone3OUT, zone4OUT, 
+                      zone1OUT, zone2OUT, zone3OUT, zone4OUT,
                       zone6OUT, zone7OUT, zone8OUT, zone9OUT, zone10OUT,
                       INTERFACEZ_RC0 as sensorIZ, tick as tick
               };
@@ -229,7 +229,7 @@ export function setSignals(param) {
                 await (ESP32_capa.now);
                 break Sensors123;
               }
-            }  
+            }
           } par {
             every(ESP32_touch.now) {
               host{ console.log("Reçu ESP32 touch"); }
@@ -254,21 +254,21 @@ export function setSignals(param) {
             every(ESP32_capa.now) {
               host{ console.log("Reçu ESP32 capa", ESP32_capa.nowval ); }
               host{ utilsSkini.alertInfoScoreON("Pour la fin", serveur); }
-              run stopAll() { zone1OUT, zone2OUT, zone3OUT, 
+              run stopAll() { zone1OUT, zone2OUT, zone3OUT,
                               zone4OUT, zone6OUT, zone7OUT,
                               zone8OUT, zone9OUT, zone10OUT};
               //emit zone6OUT([true, 0]); // Morceau de fin par FIFO
               host { // vide les FIFO et Morceau de fin par MIDI
                 DAW.cleanQueues();
                 oscMidiLocal.sendNoteOn(param.busMidiDAW, 1, 101, 100);
-              } 
+              }
             }
           }
         }
       } when (halt.now || ESP32_shock.now)
       host{ console.log("Reçu Halt"); }
-      
-      run stopAll() { zone1OUT, zone2OUT, zone3OUT, 
+
+      run stopAll() { zone1OUT, zone2OUT, zone3OUT,
                       zone4OUT, zone6OUT, zone7OUT,
                       zone8OUT, zone9OUT, zone10OUT};
 

@@ -1,7 +1,7 @@
 /**
  * @fileOverview Opus5 Reprise de la version blockly.
  * Fonctionne avec Ableton, opus5.als.
- * 
+ *
  * Pour debug dans /tests:
  * node ..\..\node_modules\@hop\hiphop\bin\hhc.mjs .\opus5.hh.js -o .\opus5.mjs
  *
@@ -81,7 +81,7 @@ let troisiemeAlea = 0;
 
 /*************************************************************************
  * Les fonctions JavaScript
- * 
+ *
  */
 function setTempo(value, par) {
 
@@ -136,7 +136,7 @@ function setTonalite(CCtonalite, value, par) {
 /****************************************************************************
  * Appelé par Skini pour mettre en place tous les accès aux fonctions de
  * contrôle.
- * 
+ *
  */
 export function setServ(ser, daw, groupeCS, oscMidi, mix) {
   if (debug) console.log("-- HH_ORCHESTRATION: setServ");
@@ -152,7 +152,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix) {
 
 /***************************************************************************
  * Les modules HH pour les réservoirs
- * 
+ *
  */
 const piano = [
   "Piano1Intro1", "Piano1Intro2", "Piano1Intro3", "Piano1Intro4", "Piano1Intro5",
@@ -259,7 +259,7 @@ const reservoirPercu = hiphop module () {
 /***************************************************************************
  * L'ensemble des modules HH pour l'orchestration
  * Tout est évalué avec l'appel à setSignals
- * 
+ *
  */
 export function setSignals(param) {
   let interTextOUT = utilsSkini.creationInterfacesOUT(param.groupesDesSons);
@@ -319,7 +319,7 @@ export function setSignals(param) {
 
   /****************************************************
    * L'orchestration qui est mise en place par la machine HH
-   * 
+   *
    */
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -372,7 +372,7 @@ export function setSignals(param) {
 
           await count(10, tick.now);
           host{ utilsSkini.alertInfoScoreOFF(serveur); }
-          host{ 
+          host{
             transposition = 0;
             transpose(CCTransposeStrings, 2, param );
           }
@@ -390,7 +390,7 @@ export function setSignals(param) {
             emit NappeCelloOUT([false, 255]);
             emit NappeCTBOUT([false, 255]);
 
-            host{ 
+            host{
               transposition = 0;
               transpose(CCTransposeStrings, 0, param );
             }
@@ -427,7 +427,7 @@ export function setSignals(param) {
                 host{ DAW.cleanQueue(violonNb); }
               }
             }
-          
+
             emit S1ActionOUT([false, 255]);
             emit NappeCTBRythmeOUT([false, 255]);
           }
@@ -459,7 +459,7 @@ export function setSignals(param) {
                 await count(20, tick.now);
                 emit stopReservoir();
               }
-              
+
               await count(2, tick.now);
 
               fork{
@@ -498,14 +498,14 @@ export function setSignals(param) {
                 await count(20, tick.now);
                 emit stopReservoir();
               }
-            
+
               emit stopTransposition();
 
             }par{
               abort{
                 loop {
                   await count(5, tick.now);
-                  host{ 
+                  host{
                     transpose(CCTransposeTrompettes, 1, param);
                     transpose(CCTransposeCors, 1, param);
                     transpose(CCTransposeTrombones, 1, param);
@@ -514,7 +514,7 @@ export function setSignals(param) {
                     transpose(CCTransposeBassons, 1, param);
                   }
                   await count(5, tick.now);
-                  host{ 
+                  host{
                     transpose(CCTransposeTrompettes, 2, param);
                     transpose(CCTransposeCors, 2, param);
                     transpose(CCTransposeTrombones, 2, param);
@@ -522,7 +522,7 @@ export function setSignals(param) {
                     transpose(CCTransposeClarinettes, 2, param);
                     transpose(CCTransposeBassons, 2, param);
                   }
-                }   
+                }
               } when (stopTransposition.now);
             }
           }
@@ -553,5 +553,4 @@ export function setSignals(param) {
   const prg = new ReactiveMachine(Program, "orchestration");
   return prg;
 }
-
 

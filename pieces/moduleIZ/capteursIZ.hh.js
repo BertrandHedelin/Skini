@@ -3,7 +3,7 @@
  * @copyright (C) 2024 Bertrand Petit-Hédelin
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
- * 
+ *
  * Pièce dans C:\Users\berpetit\Documents\Ableton\Orchestre16SkiniIZ Project
  */
 // @ts-nocheck
@@ -110,7 +110,7 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
-    loop{ 
+    loop{
       await(tick.now);
       await(start.now);
       host{ utilsSkini.addSceneScore(1, serveur); }
@@ -124,8 +124,8 @@ export function setSignals(param) {
               //console.log("tick from HH", i++);
               gcs.setTickOnControler(i++);
             }
-          } 
-          
+          }
+
         } par {
           run sensorIZ("sensor0") {INTERFACEZ_RC0 as sensorIZ, tick as tick};
         } par {
@@ -138,7 +138,7 @@ export function setSignals(param) {
           run sensorIZ("sensor4") {INTERFACEZ_RC4 as sensorIZ, tick as tick};
         } par {
           run sensorIZ("sensor5") {INTERFACEZ_RC5 as sensorIZ, tick as tick};
-        } 
+        }
         // A partir de RC6 c'est MiniWI
         // par {
         //   run sensorIZ("sensor6") {INTERFACEZ_RC6 as sensorIZ, tick as tick};

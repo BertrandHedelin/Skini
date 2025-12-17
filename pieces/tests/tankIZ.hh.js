@@ -58,11 +58,11 @@ function makeAwait(instruments, groupeClient) {
 
 function makeReservoir(groupeClient, instrument) {
   return hiphop ${
-      hiphop { 
+      hiphop {
         laTrappe: {
         abort { // To kill  the tank
             host {
-              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
+              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient);
               var msg = {
                 type: 'startTank',
                 value:instrument[0]
@@ -81,10 +81,10 @@ function makeReservoir(groupeClient, instrument) {
 
         ${instrument.map(val => hiphop {
           emit ${`${val}OUT`}([false, groupeClient])})
-        } 
+        }
 
         host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
-        host { 
+        host {
           console.log("--- ABORT RESERVOIR:", instrument[0]);
           var msg = {
             type: 'killTank',
@@ -111,7 +111,7 @@ export function setSignals(param) {
   var IZsignals = ["INTERFACEZ_RC","INTERFACEZ_RC0", "INTERFACEZ_RC1", "INTERFACEZ_RC2",
   "INTERFACEZ_RC3", "INTERFACEZ_RC4","INTERFACEZ_RC5","INTERFACEZ_RC6",
   "INTERFACEZ_RC7","INTERFACEZ_RC8","INTERFACEZ_RC9", "INTERFACEZ_RC10","INTERFACEZ_RC11"];
-  
+
   console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
   const Program = hiphop module() {

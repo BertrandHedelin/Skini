@@ -52,11 +52,11 @@ function makeAwait(instruments, groupeClient) {
 
 function makeReservoir(groupeClient, instrument) {
   return hiphop ${
-      hiphop { 
+      hiphop {
         laTrappe: {
         abort { // To kill  the tank
             host {
-              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient); 
+              console.log("--- MAKE RESERVOIR:",  instrument[0], ", groupeClient: ", groupeClient);
               var msg = {
                 type: 'startTank',
                 value:instrument[0]
@@ -78,7 +78,7 @@ function makeReservoir(groupeClient, instrument) {
         }
 
         host { gcs.informSelecteurOnMenuChange(groupeClient, instrument[0], false); }
-        host { 
+        host {
           console.log("--- ABORT RESERVOIR:", instrument[0]);
           var msg = {
             type: 'killTank',
@@ -111,7 +111,7 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8",
     "INTERFACEZ_RC9", "INTERFACEZ_RC10",
     "INTERFACEZ_RC11"];
-  
+
   console.log("\n******* Je suis dans helloSkini\n");
   console.log("inter:", interTextIN, interTextOUT, IZsignals);
 
@@ -153,7 +153,7 @@ export function setSignals(param) {
     //   every(INTERFACEZ_RC0.now) {
     //     host{ console.log(" *-*-*-*-*-*-*- Sensor RC0", INTERFACEZ_RC0.nowval ); }
     //     host{utilsSkini.alertInfoScoreON("Sensor RC0 : " + INTERFACEZ_RC0.nowval[1], serveur);}
-        
+
     //     if( INTERFACEZ_RC0.nowval[1] < 4000 && INTERFACEZ_RC0.nowval[1] > 3000) {
     //       host{utilsSkini.alertInfoScoreON("Sensor RC0 : Zone 1", serveur);}
     //       emit sensor2IN();

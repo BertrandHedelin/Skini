@@ -5,11 +5,9 @@ les autres paramètres sont OK.
 
 - Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
 
-- Ecrire Opus5 en HH.
-
 - Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig. Laisser des exemples à modifier.
 
-- Revoir Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
+- Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
 
 - Mise en forme HH dans VSC.
 
@@ -43,6 +41,8 @@ dans le fichier des paramètres sans tenir compte du niveau du répetoire des pi
 (28/11/2015) mise en dur dans les fichiers paramètre de busMidiDAW qui n'est pas utilisé
 quand il n'y a pas de passerelle Processing, qui est un cas d'usage très rare maintenant.
 
+- Ecrire Opus5 en HH. (13/12/2025)
+
 Commandes utiles -----------------------------------------------------
 Mise à jour HH:
 install https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-unstable.tgz
@@ -50,3 +50,7 @@ install https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-uns
 Packaging npm Skini:
 Modifier le numéro de version dans package.json, puis:
 npm publish nodeskini@1.0.4
+
+Formatage des fichiers hh.js:
+npm run format:hh
+
