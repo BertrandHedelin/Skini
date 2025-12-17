@@ -186,7 +186,7 @@ function initWSSocket(host) {
         par = msgRecu.value;
         var options = {
           data: par.groupesDesSons,
-          minDimensions: [9, 5],
+          minDimensions: [9, 1],
           columns: [{ type: 'text', width: 80, title: 'Groupe' }, { type: 'text', width: 80, title: 'Index' }, { type: 'text', width: 80, title: 'Type' }, { type: 'text', width: 80, title: 'X' }, { type: 'text', width: 80, title: 'Y' }, { type: 'text', width: 140, title: 'Nb of El. or Tank nb' }, { type: 'text', width: 80, title: 'Color' }, { type: 'text', width: 80, title: 'Previous' }, { type: 'text', width: 80, title: 'Scene' }]
         };
         ReactDOM.render(React.createElement(Jspreadsheet, { options: options }), document.getElementById('spreadsheet'));
@@ -477,7 +477,7 @@ module.exports={
   "remoteIPAddressImage": "192.168.1.251",
   "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "192.168.1.251",
+  "remoteIPAddressGame": "192.168.1.223",
   "interfaceZIPaddress": "192.168.1.250",
   "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
@@ -488,13 +488,14 @@ module.exports={
   "portOSCFromGame": 3010,
   "portOSCFromInterfaceZData": 3005,
   "portOSCFromInterfaceZMidi": 3006,
+  "portOSCFromInterfaceZMiniWi": 8888,
   "portOSCToInterfaceZ": 1000,
-  "distribSequencerPort": 8888,
+  "distribSequencerPort": 8899,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./pieces/",
-  "piecePath" : "./pieces/"
+  "sessionPath": "./pieces/tutos/",
+  "piecePath" : "./pieces/tutos/"
 }
 
 },{}]},{},[1]);

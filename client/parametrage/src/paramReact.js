@@ -175,7 +175,7 @@ function initWSSocket(host) {
         par = msgRecu.value;
         var options = {
           data: par.groupesDesSons,
-          minDimensions: [9, 5],
+          minDimensions: [9, 1],
           columns: [
             { type: 'text', width: 80, title: 'Groupe' },
             { type: 'text', width: 80, title: 'Index' },

@@ -1,4 +1,4 @@
-var tick, groupe4, groupe0, groupe1, groupe2, groupe3;
+var tick, groupe0;
 
 
 
@@ -118,9 +118,11 @@ export function setSignals(param) {
       host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',
-            value:'Tuto group 3'
+            value:'Tuto pattern in group'
           }));
     }
+
+      host {console.log('Tuto pattern in group');}
 
     await count(3,tick.now);
 
@@ -130,84 +132,19 @@ export function setSignals(param) {
           }));
     }
 
-      RG649225 : {
-        fork{
+      emit groupe0OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
 
-        emit groupe0OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+      await count(1, groupe0IN.now);
 
-        emit groupe1OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
-
-        emit groupe2OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe2", true) }
-
-        emit groupe3OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe3", true) }
-
-        emit groupe4OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe4", true) }
-  		}
-       par{
-        await count(4, groupe0IN.now);
-        break RG649225;
-      }par{
-        await count(4, groupe1IN.now);
-        break RG649225;
-      }par{
-        await count(4, groupe2IN.now);
-        break RG649225;
-      }par{
-        await count(4, groupe3IN.now);
-        break RG649225;
-      }par{
-        await count(4, groupe4IN.now);
-        break RG649225;
-      }
-    }
-      emit groupe0OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
-
-      emit groupe1OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
-
-      emit groupe2OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe2", false) }
-
-      emit groupe3OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe3", false) }
-
-      emit groupe4OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe4", false) }
-      yield;
       host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',
-            value:'Fin  1er set group'
+            value:'Fin'
           }));
     }
-  // Fonctionne si Ableton tourne pour envoyer les signaux
 
-      RG764716 : {
-        fork{
-
-        emit groupe4OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe4", true) }
-  		}
-       par{
-        await immediate (patternSignal.now && (patternSignal.nowval[1] === 'Loop3'));
-        break RG764716;
-      }
-    }
-      emit groupe4OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe4", false) }
-      yield;
-      host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Fin Tuto group 3'
-          }));
-    }
+      host {console.log('Fin');}
 
     host{
       DAW.cleanQueues();

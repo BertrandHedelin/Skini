@@ -106,19 +106,8 @@ Blockly.JavaScript['wait_for_signal_in_group'] = function (block) {
   let value = value_signal.replace(/\'/g, "");
   let times = block.getFieldValue('TIMES');
   var code = `
-  hh.AWAIT(
-      {
-        "%location":{"filename":"hiphop_blocks.js","pos":110},
-        "%tag":"await",
-        "immediate":false,
-        "apply":function (){return ((() => {
-          const `+ value + `IN =this["` + value + `IN"];
-          return `+ value + `IN.now;})());},
-        "countapply":function (){return `+ times + `;}
-    },
-    hh.SIGACCESS({"signame":"`+ value + `IN","pre":false,"val":false,"cnt":false})
-  ),
-`
+    await count(`+ times + `, ` + value + `IN.now);
+  `
   return code;
 };
 

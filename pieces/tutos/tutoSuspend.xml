@@ -4,7 +4,7 @@
     <variable id="$FMJ]Fc^$N=ZL$NSL+;r">bar</variable>
     <variable id="x8|omDav4DL{,3uj4qt(">tick</variable>
   </variables>
-  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="109" y="-251">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
         <field name="TYPE">inout</field>

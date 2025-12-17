@@ -1,0 +1,96 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="-aR6/v=)]dKS0SM0G;z5">tick</variable>
+    <variable id="~v-U?0Aw-~LO~K(l}_OK">groupe0</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="168" y="32">
+    <statement name="BODY">
+      <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+        <field name="timer">1</field>
+        <next>
+          <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+            <field name="tempo">110</field>
+            <next>
+              <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                <field name="number">1</field>
+                <next>
+                  <block type="alertInfoScoreON" id="VzC-LpAcvG[y/_ZQ$KeS">
+                    <value name="message">
+                      <block type="text" id="@v8p3}b1Z|z5uDBxeSz0">
+                        <field name="TEXT">Tuto pattern in group</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hh_print_serveur" id="`{=h/}Ac,`EEmHi;48([">
+                        <value name="TEXT">
+                          <block type="text" id="+coP8v%-i4Q.ti{AD_JC">
+                            <field name="TEXT">Tuto pattern in group</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_wait_for" id="*n58ZvJoG9.}_AnW*GkJ">
+                            <field name="TIMES">3</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="jw}z$XQ8p9^UZx};/`DB">
+                                <field name="VAR" id="-aR6/v=)]dKS0SM0G;z5">tick</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="alertInfoScoreOFF" id="@K1|HI.V7V6rqb1gBE7m">
+                                <next>
+                                  <block type="set_group" id="zNb$+dI)cPq,hR065$hJ">
+                                    <field name="groupe">255</field>
+                                    <value name="GROUPS">
+                                      <block type="variables_get" id="_):(NoTg8}*,mwkZdX_G">
+                                        <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="wait_for_signal_in_group" id="[$cQ@-SXqcKwHo]]KaLq">
+                                        <field name="TIMES">1</field>
+                                        <value name="SIGNAL">
+                                          <block type="variables_get" id="bi_cm:zB8y8M1|]8e=bc">
+                                            <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
+                                            <value name="message">
+                                              <block type="text" id="8@914pyNxRN!N)P;:Hxf">
+                                                <field name="TEXT">Fin</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="hh_print_serveur" id="E8a^#yL0:u.RpMdBg]ZL">
+                                                <value name="TEXT">
+                                                  <block type="text" id="x3OeHM.F.$xLVbz*bJQg">
+                                                    <field name="TEXT">Fin</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB"></block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
