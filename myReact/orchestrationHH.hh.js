@@ -1,4 +1,4 @@
-var tick, groupe0;
+var foo, tick;
 
 
 
@@ -90,6 +90,8 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
 
+    inout foo;
+
 
     loop{
       await(start.now);
@@ -103,53 +105,32 @@ export function setSignals(param) {
           }
         }par{
 
-    host{gcs.setTimerDivision(1);}
-
-    host{setTempo(110, param);}
-
     host{
-      serveur.broadcast(JSON.stringify({
-            type: 'addSceneScore',
-            value:1
-          }));
-    }
-    yield;
-
-      host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Tuto pattern in group'
-          }));
+      oscMidiLocal.sendNoteOn(param.busMidiDAW,
+      1,
+      90,
+      127);
     }
 
-      host {console.log('Tuto pattern in group');}
+      {
 
-    await count(3,tick.now);
+        host {console.log('foo');}
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreOFF'
-          }));
-    }
+        emit foo(0);
 
-      emit groupe0OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+      await immediate (foo.now);
 
-      await count(1, groupe0IN.now);
+        host {console.log('foo 2');}
 
-      host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Fin'
-          }));
-    }
+      host { DAW.putPatternInQueue('test8');}
 
-      host {console.log('Fin');}
+      every count(1, tick.now) {
 
-    host{
-      DAW.cleanQueues();
-      gcs.cleanChoiceList(255);
-    }
+          host {console.log('TICK');}
+
+      }
+
+      }
 
         }
       } when (halt.now);

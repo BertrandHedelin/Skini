@@ -1,6 +1,7 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
+    <variable id="^dC[~;#*kY}VbC/J7C{Z">tick</variable>
   </variables>
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
     <statement name="SIGNALS">
@@ -14,43 +15,69 @@
       </block>
     </statement>
     <statement name="BODY">
-      <block type="hh_sequence" id="L#cBk9=@;vxU_2P~s?kq">
-        <statement name="BODY">
-          <block type="hh_print_serveur" id="+we:cXW+)a4f|lShwn$]">
-            <value name="TEXT">
-              <block type="text" id="Zli5U5CEZBpT=xYsiYI6">
-                <field name="TEXT">foo</field>
-              </block>
-            </value>
-            <next>
-              <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
-                <field name="Signal_Value">0</field>
-                <value name="SIGNAL">
-                  <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
-                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+      <block type="send_midi_command" id="GuveICud]|U%:hb2p/5q">
+        <field name="channelMidi">1</field>
+        <field name="CommandMidi">90</field>
+        <field name="valueMidi">127</field>
+        <next>
+          <block type="hh_sequence" id="L#cBk9=@;vxU_2P~s?kq">
+            <statement name="BODY">
+              <block type="hh_print_serveur" id="+we:cXW+)a4f|lShwn$]">
+                <value name="TEXT">
+                  <block type="text" id="Zli5U5CEZBpT=xYsiYI6">
+                    <field name="TEXT">foo</field>
                   </block>
                 </value>
                 <next>
-                  <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
+                  <block type="hh_emit_value" id="S39Zv%x?T:AhOBCHtFff">
+                    <field name="Signal_Value">0</field>
                     <value name="SIGNAL">
-                      <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
+                      <block type="variables_get" id="lgu`K:nu91yP+3bAD]F}">
                         <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                       </block>
                     </value>
                     <next>
-                      <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
-                        <value name="TEXT">
-                          <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                            <field name="TEXT">foo 2</field>
+                      <block type="hh_wait_for_immediate" id="QqNud_Jw:Mkteq;Y;Fwy">
+                        <value name="SIGNAL">
+                          <block type="variables_get" id="j]B!$5)G1knA*Ac?[,]w">
+                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
                           </block>
                         </value>
                         <next>
-                          <block type="putPatternInQueue" id="@N0f||38~PgQ51^P%yIm">
-                            <value name="message">
-                              <block type="text" id="3;KbWgH105%{GvG8)AW^">
-                                <field name="TEXT">test8</field>
+                          <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
+                            <value name="TEXT">
+                              <block type="text" id="|(t~Z}|D8y8),mF(um?p">
+                                <field name="TEXT">foo 2</field>
                               </block>
                             </value>
+                            <next>
+                              <block type="putPatternInQueue" id="@N0f||38~PgQ51^P%yIm">
+                                <value name="message">
+                                  <block type="text" id="3;KbWgH105%{GvG8)AW^">
+                                    <field name="TEXT">test8</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="hh_every" id="[rP,h$)AnFpZsxaV8%[k">
+                                    <field name="TIMES">1</field>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="7,FBdXpfcv9R}*LetkLB">
+                                        <field name="VAR" id="^dC[~;#*kY}VbC/J7C{Z">tick</field>
+                                      </block>
+                                    </value>
+                                    <statement name="BODY">
+                                      <block type="hh_print_serveur" id="Tg6dgbso69{}[W1JRnbw">
+                                        <value name="TEXT">
+                                          <block type="text" id="5YFE2?LHEuH2r%+b{k}7">
+                                            <field name="TEXT">TICK</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
                           </block>
                         </next>
                       </block>
@@ -58,9 +85,9 @@
                   </block>
                 </next>
               </block>
-            </next>
+            </statement>
           </block>
-        </statement>
+        </next>
       </block>
     </statement>
   </block>

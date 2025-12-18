@@ -2,7 +2,7 @@
  * @fileOverview Parametrage in React.js
  * To compile JSX to js, launch this in the terminal, in ./client/parametrage
  * npx babel --watch src --out-dir . --presets react-app/prod
- * Do also : browserify paramReact.js -o paramReactbundle.js in 
+ * Do also : browserify paramReact.js -o paramReactbundle.js
  * 
  * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
  * @version 1.0
@@ -175,7 +175,7 @@ function initWSSocket(host) {
         par = msgRecu.value;
         var options = {
           data: par.groupesDesSons,
-          minDimensions: [9, 1],
+          minDimensions: [9,1],
           columns: [
             { type: 'text', width: 80, title: 'Groupe' },
             { type: 'text', width: 80, title: 'Index' },

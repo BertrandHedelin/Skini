@@ -34,7 +34,7 @@ exports.english = true;
   sont dans le simulateur qui sont utilisées
 ************************************/
 exports.tempoMax = 500; // En ms
-exports.tempoMin = 500; // En ms
+exports.tempoMin = 400; // En ms
 exports.limiteDureeAttente = 33; // En pulsations
 
 /********************************************************

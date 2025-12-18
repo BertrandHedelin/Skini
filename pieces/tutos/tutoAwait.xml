@@ -1,0 +1,171 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
+    <variable id="$FMJ]Fc^$N=ZL$NSL+;r">bar</variable>
+    <variable id="-wovtd|3i+qZb$B+)J*`">groupe4</variable>
+    <variable id="x8|omDav4DL{,3uj4qt(">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <comment pinned="true" h="80" w="160">avec demoAbleton.als dans Live</comment>
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
+        <field name="TYPE">inout</field>
+        <value name="signal">
+          <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
+            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_declare_signal" id=",xLY0)^Y^;wL9PF|H$8?">
+            <field name="TYPE">inout</field>
+            <value name="signal">
+              <block type="variables_get" id="!J,wX;Z`yYuRy+A5LXPd">
+                <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="addSceneScore" id="0v.GvC^qK/hRqEAKF+_|">
+        <field name="number">1</field>
+        <next>
+          <block type="hh_sequence" id="UDYo0:}@qC0KBDcyVLAC" disabled="true">
+            <statement name="BODY">
+              <block type="set_group" id="TOXyS(+-rfiMkq1tXd%1">
+                <field name="groupe">255</field>
+                <value name="GROUPS">
+                  <block type="variables_get" id="[*{I(=*(Uu.n6n`vgo=t">
+                    <field name="VAR" id="-wovtd|3i+qZb$B+)J*`">groupe4</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="await_pattern" id="H5?b#FXm/q`-9;.l_;)T">
+                    <value name="message">
+                      <block type="text" id="Jd:@c1SVMA878`t~0)/%">
+                        <field name="TEXT">Loop3</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="alertInfoScoreON" id="}Jv?{Lx2W[94~V;/Ctvh">
+                        <value name="message">
+                          <block type="text" id="kii07qpB1SQIvKu;7VFc">
+                            <field name="TEXT">Loop3</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_wait_for" id="FYb5C3vEK}|wU9Lo[vST">
+                            <field name="TIMES">5</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="~`kJAe)A7]/e~jVJ]rdY">
+                                <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="alertInfoScoreOFF" id="jwarLRi8PW+3K].p)1SW">
+                                <next>
+                                  <block type="unset_group" id="`d?Pt1Xo5mA712T4Gul?">
+                                    <field name="groupe">255</field>
+                                    <value name="GROUPS">
+                                      <block type="variables_get" id="iJ;#rGwK;a=_[S-u[MY]">
+                                        <field name="VAR" id="-wovtd|3i+qZb$B+)J*`">groupe4</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_sequence" id="*mj?/XO0#JdmE7;p)p1P">
+                <statement name="BODY">
+                  <block type="hh_fork" id="C/7Dkf?B=,NH/+lz/qI/">
+                    <statement name="BODY">
+                      <block type="alertInfoScoreON" id="SJSQ5BicWmdkfYb_P/^O">
+                        <value name="message">
+                          <block type="text" id="yoLGI2RyR2hVZe*~oVl{">
+                            <field name="TEXT">Debut</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_wait_for" id="(3BgYcq;u%TpbdJaA%jP">
+                            <field name="TIMES">5</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="0]ss,/MQ,T+,xro3BT*f">
+                                <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_emit_value" id="8$^5)X4qrN*nQ)Q8jT@5">
+                                <field name="Signal_Value">0</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="2UKhVt9bXR;mIx,ko+cb">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="hh_par" id="fir5/n-M}oRM08L*:W96">
+                        <statement name="BODY">
+                          <block type="hh_wait_for" id="p9amAaIO2?1b:tAtdd+P">
+                            <field name="TIMES">1</field>
+                            <value name="SIGNAL">
+                              <block type="variables_get" id="IBh#g^BiW}nYPCY==9C4">
+                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hh_if_signal_value" id="RQ%@H}Jd#ezT//~MDEB,">
+                                <field name="Signal_Value">0</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="a`Y@dyI]e`.@d6,kNXQb">
+                                    <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                  </block>
+                                </value>
+                                <statement name="BODY">
+                                  <block type="alertInfoScoreON" id="v#xvUSn@UJZxKVWq,(Ex">
+                                    <value name="message">
+                                      <block type="text" id="*VDZDAnMl1Fztl)G+wix">
+                                        <field name="TEXT">FOO</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_print_serveur" id=":?v(!}YENF)n/%`ZrRv)">
+                                        <value name="TEXT">
+                                          <block type="text" id="lOz49pcMjz`@@uKK.cTA">
+                                            <field name="TEXT">FOO</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

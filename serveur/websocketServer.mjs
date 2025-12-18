@@ -174,45 +174,46 @@ function reloadParametersOld(param) {
 }
 
 function reloadParameters(param) {
-  // Création manuelle d'une copie
-  let parlocal = {
-    ...param, // copie superficielle : fonctions et propriétés simples sont conservées
-    groupesDesSons: param.groupesDesSons.map(group => [...group]) // copie des sous-tableaux
-  };
+  // Clone profond pour éviter les références partagées
+  let parlocal = JSON.parse(JSON.stringify(param));
 
-  // Conversion des types
-  parlocal.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients, 10);
-  parlocal.algoGestionFifo = parseInt(param.algoGestionFifo, 10);
-  parlocal.tempoMax = parseInt(param.tempoMax, 10);
-  parlocal.tempoMin = parseInt(param.tempoMin, 10);
-  parlocal.limiteDureeAttente = parseInt(param.limiteDureeAttente, 10);
+  // Conversions numériques
+  parlocal.nbeDeGroupesClients = parseInt(parlocal.nbeDeGroupesClients, 10);
+  parlocal.algoGestionFifo = parseInt(parlocal.algoGestionFifo, 10);
+  parlocal.tempoMax = parseInt(parlocal.tempoMax, 10);
+  parlocal.tempoMin = parseInt(parlocal.tempoMin, 10);
+  parlocal.limiteDureeAttente = parseInt(parlocal.limiteDureeAttente, 10);
 
-  parlocal.shufflePatterns = param.shufflePatterns;
-  parlocal.avecMusicien = param.avecMusicien;
-  parlocal.reactOnPlay = param.reactOnPlay;
+  // Conversions booléennes explicites
+  parlocal.shufflePatterns = !!parlocal.shufflePatterns;
+  parlocal.avecMusicien = !!parlocal.avecMusicien;
+  parlocal.reactOnPlay = !!parlocal.reactOnPlay;
 
   // Traitement des antécédents (index 7)
-  for (let i = 0; i < parlocal.groupesDesSons.length; i++) {
-    const entry = parlocal.groupesDesSons[i][7];
-    if (typeof entry === 'string') {
-      parlocal.groupesDesSons[i][7] = entry.split(',').map(x => parseInt(x, 10));
-    } else if (Array.isArray(entry)) {
-      parlocal.groupesDesSons[i][7] = entry.map(x => parseInt(x, 10));
+  if (Array.isArray(parlocal.groupesDesSons)) {
+    for (let i = 0; i < parlocal.groupesDesSons.length; i++) {
+      const entry = parlocal.groupesDesSons[i][7];
+      if (typeof entry === 'string') {
+        parlocal.groupesDesSons[i][7] = entry.split(',').map(x => parseInt(x, 10));
+      } else if (Array.isArray(entry)) {
+        parlocal.groupesDesSons[i][7] = entry.map(x => parseInt(x, 10));
+      }
     }
   }
 
-  // Envoi aux modules
-  oscMidiLocal.setParameters(parlocal);
-  DAW.setParameters(parlocal);
-  groupesClientSon.setParameters(parlocal);
-  midimix.setParameters(parlocal);
-  updateSimulatorParameters(parlocal);
-
-  // Il faut remettre à jour les paramètre de 
-  // la variable global de websocketServer
+  // Mise à jour de l'état global d'abord
   par = parlocal;
 
+  // Propagation aux modules
+  oscMidiLocal.setParameters(par);
+  DAW.setParameters(par);
+  groupesClientSon.setParameters(par);
+  midimix.setParameters(par);
+  updateSimulatorParameters(par);
+
   initMidiPort();
+
+  return par;
 }
 
 /**
@@ -1163,7 +1164,7 @@ maybe an hiphop compile Error`);
       // les autres modules. Il faut faire un reload dans tous les modules.
       par = require(decacheParameters);
       if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
-      reloadParameters(par);
+      par = reloadParameters(par);
 
       // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
       midimix.midimix(automatePossibleMachine);
@@ -1605,7 +1606,7 @@ maybe an hiphop compile Error`);
                 decacheParameters = "../" + sessionPath + parametersFileGlobal;
                 decache(decacheParameters);
                 par = require(decacheParameters);
-                reloadParameters(par);
+                par = reloadParameters(par);
               } catch (err) {
                 console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
                 break;
@@ -1876,6 +1877,7 @@ maybe an hiphop compile Error`);
               type: "skiniParametres",
               value: par
             }));
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", par);
           }
 
           if (msgRecu.text === "clientListe") {
@@ -2012,7 +2014,7 @@ maybe an hiphop compile Error`);
           if (debug1) console.log("INFO: websocketserveur: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
-            reloadParameters(msgRecu.data);
+            par = reloadParameters(msgRecu.data);
           }
 
           // On recrée le fichier pour son utilisation par le simulateurListe.js

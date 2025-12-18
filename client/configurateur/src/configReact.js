@@ -128,7 +128,7 @@ function initWSSocket(host) {
         par = msgRecu.value;
         var options = {
           data: msgRecu.descriptors,
-          minDimensions: [14, 14],
+          minDimensions: [14, 1],
           columns: [
             { type: 'text', width: 80, title: 'Note' },
             { type: 'text', width: 80, title: 'Note stop' },

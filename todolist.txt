@@ -3,19 +3,27 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-- Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
-
 - Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig. Laisser des exemples à modifier.
 
 - Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
 
 - Mise en forme HH dans VSC.
 
+- Dans le client standard les patterns des tanks ne disparaissent pas.
+
+- Problème de chargements des paramètres dans l'interface WEB quand on recharge un programme. 
+On se retrouve parfois avec les paramètres par défaut.
+Après avoir chargé un fichier Blockly dans mon interface.
+ Quand je lance l'interface de paramètrage Param tout va bien. 
+ Si je modifie un paramètre et les mets à jour c'est OK. 
+ Si je recharge le même fichier blockly je me retrouve 
+ avec des mauvais paramètre dans l'interface web param. Je ne comprends pas pourquoi .
+
 Pas prioritaire:
 - revoir score avec une autre bibliothèque que Processing ou mettre à jour
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
-
+- Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
 Fait ------------------------------------------------------------------
 - 2 façons d'installer, par git clone ou npm.
 - premier test du package npm (25/11/2025)

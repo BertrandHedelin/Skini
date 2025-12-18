@@ -5,21 +5,21 @@
   </variables>
   <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="168" y="32">
     <statement name="BODY">
-      <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
-        <field name="timer">1</field>
+      <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+        <field name="number">1</field>
         <next>
-          <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
-            <field name="tempo">110</field>
+          <block type="alertInfoScoreON" id="VzC-LpAcvG[y/_ZQ$KeS">
+            <value name="message">
+              <block type="text" id="@v8p3}b1Z|z5uDBxeSz0">
+                <field name="TEXT">Tuto pattern in group</field>
+              </block>
+            </value>
             <next>
-              <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
-                <field name="number">1</field>
+              <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+                <field name="timer">1</field>
                 <next>
-                  <block type="alertInfoScoreON" id="VzC-LpAcvG[y/_ZQ$KeS">
-                    <value name="message">
-                      <block type="text" id="@v8p3}b1Z|z5uDBxeSz0">
-                        <field name="TEXT">Tuto pattern in group</field>
-                      </block>
-                    </value>
+                  <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+                    <field name="tempo">110</field>
                     <next>
                       <block type="hh_print_serveur" id="`{=h/}Ac,`EEmHi;48([">
                         <value name="TEXT">
@@ -54,21 +54,41 @@
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
-                                            <value name="message">
-                                              <block type="text" id="8@914pyNxRN!N)P;:Hxf">
-                                                <field name="TEXT">Fin</field>
+                                          <block type="hh_wait_for" id="$E_nw-{D@QdN:vzxKtdt">
+                                            <field name="TIMES">10</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="6i1C%qe$?/6OmO:=VQ(4">
+                                                <field name="VAR" id="-aR6/v=)]dKS0SM0G;z5">tick</field>
                                               </block>
                                             </value>
                                             <next>
-                                              <block type="hh_print_serveur" id="E8a^#yL0:u.RpMdBg]ZL">
-                                                <value name="TEXT">
-                                                  <block type="text" id="x3OeHM.F.$xLVbz*bJQg">
+                                              <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
+                                                <value name="message">
+                                                  <block type="text" id="8@914pyNxRN!N)P;:Hxf">
                                                     <field name="TEXT">Fin</field>
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB"></block>
+                                                  <block type="unset_group" id="4@ye#=kz;Cj5l:,HV_Nx">
+                                                    <field name="groupe">255</field>
+                                                    <value name="GROUPS">
+                                                      <block type="variables_get" id="Ik3/VfMMWybj-@@k?rfl">
+                                                        <field name="VAR" id="~v-U?0Aw-~LO~K(l}_OK">groupe0</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="hh_print_serveur" id="E8a^#yL0:u.RpMdBg]ZL">
+                                                        <value name="TEXT">
+                                                          <block type="text" id="x3OeHM.F.$xLVbz*bJQg">
+                                                            <field name="TEXT">Fin</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB"></block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
                                                 </next>
                                               </block>
                                             </next>
