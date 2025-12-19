@@ -11,19 +11,14 @@ les autres paramètres sont OK.
 
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
-- Problème de chargements des paramètres dans l'interface WEB quand on recharge un programme. 
-On se retrouve parfois avec les paramètres par défaut.
-Après avoir chargé un fichier Blockly dans mon interface.
- Quand je lance l'interface de paramètrage Param tout va bien. 
- Si je modifie un paramètre et les mets à jour c'est OK. 
- Si je recharge le même fichier blockly je me retrouve 
- avec des mauvais paramètre dans l'interface web param. Je ne comprends pas pourquoi .
 
 Pas prioritaire:
 - revoir score avec une autre bibliothèque que Processing ou mettre à jour
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
 - Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
+
+
 Fait ------------------------------------------------------------------
 - 2 façons d'installer, par git clone ou npm.
 - premier test du package npm (25/11/2025)
@@ -50,6 +45,15 @@ dans le fichier des paramètres sans tenir compte du niveau du répetoire des pi
 quand il n'y a pas de passerelle Processing, qui est un cas d'usage très rare maintenant.
 
 - Ecrire Opus5 en HH. (13/12/2025)
+
+- Problème de chargements des paramètres dans l'interface WEB quand on recharge un programme. 
+On se retrouve avec les paramètres de la session précédente.
+Après avoir chargé un fichier Blockly dans mon interface.
+ Quand je lance l'interface de paramètrage Param tout va bien. 
+ Si je modifie un paramètre et les mets à jour c'est OK. 
+ Si je recharge le même fichier blockly dans la même session je me retrouve 
+ avec les paramètres précédents dans l'interface web param.
+(solution qodo 19/12/2025)
 
 Commandes utiles -----------------------------------------------------
 Mise à jour HH:

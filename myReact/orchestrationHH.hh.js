@@ -1,6 +1,7 @@
-var foo, tick;
+var TankUn, foo, TankDeux, bar, tank0, tank1, tank2, tank3, tank4, tank5, tank6, tick;
 
 
+// avec demoAbleton.als dans Live
 
 "use strict";
 import { createRequire } from 'module';
@@ -81,6 +82,32 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
+    const TankUn = hiphop module () {
+    in stopReservoir;
+    in tank0IN;
+      in tank1IN;
+      in tank2IN;
+      in tank3IN;
+      out tank0OUT;
+      out tank1OUT;
+      out tank2OUT;
+      out tank3OUT;
+
+  	${ tank.makeReservoir(255, ["tank0","tank1","tank2","tank3"]) };
+  }
+
+    const TankDeux = hiphop module () {
+    in stopReservoir;
+    in tank4IN;
+      in tank5IN;
+      in tank6IN;
+      out tank4OUT;
+      out tank5OUT;
+      out tank6OUT;
+
+  	${ tank.makeReservoir(255, ["tank4","tank5","tank6"]) };
+  }
+
 
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -91,6 +118,8 @@ export function setSignals(param) {
 
 
     inout foo;
+
+    inout bar;
 
 
     loop{
@@ -105,32 +134,42 @@ export function setSignals(param) {
           }
         }par{
 
+    host{gcs.setTimerDivision(1);}
+
     host{
-      oscMidiLocal.sendNoteOn(param.busMidiDAW,
-      1,
-      90,
-      127);
+      serveur.broadcast(JSON.stringify({
+            type: 'addSceneScore',
+            value:1
+          }));
+    }
+    yield;
+
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Tuto tank'
+          }));
     }
 
-      {
+    signal stopM899577;
+    M899577 : {
+    fork{
+        run ${ TankUn} () {*, stopM899577 as stopReservoir};
 
-        host {console.log('foo');}
-
-        emit foo(0);
-
-      await immediate (foo.now);
-
-        host {console.log('foo 2');}
-
-      host { DAW.putPatternInQueue('test8');}
-
-      every count(1, tick.now) {
-
-          host {console.log('TICK');}
-
+      }par{
+        await count(20, tick.now);
+        emit stopM899577();
+        break M899577;
       }
+    }
+    yield;
 
-      }
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'FIN'
+          }));
+    }
 
         }
       } when (halt.now);

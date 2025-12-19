@@ -174,46 +174,45 @@ function reloadParametersOld(param) {
 }
 
 function reloadParameters(param) {
-  // Clone profond pour éviter les références partagées
-  let parlocal = JSON.parse(JSON.stringify(param));
+  // Création manuelle d'une copie
+  let parlocal = {
+    ...param, // copie superficielle : fonctions et propriétés simples sont conservées
+    groupesDesSons: param.groupesDesSons.map(group => [...group]) // copie des sous-tableaux
+  };
 
-  // Conversions numériques
-  parlocal.nbeDeGroupesClients = parseInt(parlocal.nbeDeGroupesClients, 10);
-  parlocal.algoGestionFifo = parseInt(parlocal.algoGestionFifo, 10);
-  parlocal.tempoMax = parseInt(parlocal.tempoMax, 10);
-  parlocal.tempoMin = parseInt(parlocal.tempoMin, 10);
-  parlocal.limiteDureeAttente = parseInt(parlocal.limiteDureeAttente, 10);
+  // Conversion des types
+  parlocal.nbeDeGroupesClients = parseInt(param.nbeDeGroupesClients, 10);
+  parlocal.algoGestionFifo = parseInt(param.algoGestionFifo, 10);
+  parlocal.tempoMax = parseInt(param.tempoMax, 10);
+  parlocal.tempoMin = parseInt(param.tempoMin, 10);
+  parlocal.limiteDureeAttente = parseInt(param.limiteDureeAttente, 10);
 
-  // Conversions booléennes explicites
-  parlocal.shufflePatterns = !!parlocal.shufflePatterns;
-  parlocal.avecMusicien = !!parlocal.avecMusicien;
-  parlocal.reactOnPlay = !!parlocal.reactOnPlay;
+  parlocal.shufflePatterns = param.shufflePatterns;
+  parlocal.avecMusicien = param.avecMusicien;
+  parlocal.reactOnPlay = param.reactOnPlay;
 
   // Traitement des antécédents (index 7)
-  if (Array.isArray(parlocal.groupesDesSons)) {
-    for (let i = 0; i < parlocal.groupesDesSons.length; i++) {
-      const entry = parlocal.groupesDesSons[i][7];
-      if (typeof entry === 'string') {
-        parlocal.groupesDesSons[i][7] = entry.split(',').map(x => parseInt(x, 10));
-      } else if (Array.isArray(entry)) {
-        parlocal.groupesDesSons[i][7] = entry.map(x => parseInt(x, 10));
-      }
+  for (let i = 0; i < parlocal.groupesDesSons.length; i++) {
+    const entry = parlocal.groupesDesSons[i][7];
+    if (typeof entry === 'string') {
+      parlocal.groupesDesSons[i][7] = entry.split(',').map(x => parseInt(x, 10));
+    } else if (Array.isArray(entry)) {
+      parlocal.groupesDesSons[i][7] = entry.map(x => parseInt(x, 10));
     }
   }
 
-  // Mise à jour de l'état global d'abord
+  // Envoi aux modules
+  oscMidiLocal.setParameters(parlocal);
+  DAW.setParameters(parlocal);
+  groupesClientSon.setParameters(parlocal);
+  midimix.setParameters(parlocal);
+  updateSimulatorParameters(parlocal);
+
+  // Il faut remettre à jour les paramètre de 
+  // la variable global de websocketServer
   par = parlocal;
-
-  // Propagation aux modules
-  oscMidiLocal.setParameters(par);
-  DAW.setParameters(par);
-  groupesClientSon.setParameters(par);
-  midimix.setParameters(par);
-  updateSimulatorParameters(par);
-
+  if (debug1) console.log("INFO: websocketServer: reloadParameters:tempo Max",par.tempoMax);
   initMidiPort();
-
-  return par;
 }
 
 /**
@@ -1159,12 +1158,31 @@ maybe an hiphop compile Error`);
         return;
       }
 
-      decache(decacheParameters);
-      // Le fait de faire un require ici, annule la référence de par dans 
+      // Nécessaire pour nettoyer la cache de require ? Ne suffit pas...
+      // let absPathParam = require.resolve(decacheParameters);
+      // decache(absPathParam);
+      // par = require(absPathParam);
+
+     // Le fait de faire un require ici, annule la référence de par dans 
       // les autres modules. Il faut faire un reload dans tous les modules.
-      par = require(decacheParameters);
-      if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par.groupesDesSons);
-      par = reloadParameters(par);
+
+      // Solution proposée par Qodo pour recharger proprement
+      try {
+        const absPathParam = require.resolve(decacheParameters);
+        try { delete require.cache[absPathParam]; } catch (_) {}
+        try { decache(absPathParam); } catch (_) {}
+        par = require(absPathParam);
+      } catch (e) {
+        console.log("ERR: websocketserver: loadParameters: failed to (re)load parameters:", decacheParameters, e.toString());
+        ws.send(JSON.stringify({
+          type: "alertBlocklySkini",
+          text: "Error reloading parameters " + decacheParameters
+        }));
+        return;
+      }
+  
+      if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par);
+      reloadParameters(par);
 
       // On initialise les interfaces Midi ou via OSC et Synchro quand les paramètres sont chargés.
       midimix.midimix(automatePossibleMachine);
@@ -1412,6 +1430,7 @@ maybe an hiphop compile Error`);
           //
           // Il manque ici un ménage de ce qui peut se trouver déjà chargé !!!
           //
+          if(debug1) console.log("INFO: loadBlocks: msgRecu.fileName: ", msgRecu.fileName);
           if (msgRecu.fileName === '') {
             console.log("WARN: No orchestration");
             break;
@@ -1469,6 +1488,7 @@ maybe an hiphop compile Error`);
           parametersFile = sessionPath + msgRecu.fileName;
           // Construction du nom à partir du fichier xml
           parametersFile = parametersFile.slice(0, -4) + ".js";
+          if(debug1) console.log("INFO: loadBlocks: parametersFile: ***** avant loadParameters", parametersFile);
           loadParameters(parametersFile);
           break;
 
@@ -1606,7 +1626,7 @@ maybe an hiphop compile Error`);
                 decacheParameters = "../" + sessionPath + parametersFileGlobal;
                 decache(decacheParameters);
                 par = require(decacheParameters);
-                par = reloadParameters(par);
+                reloadParameters(par);
               } catch (err) {
                 console.log("websocketServer: Pb ecriture: ", parametersFileGlobal, err.toString());
                 break;
@@ -1623,7 +1643,7 @@ maybe an hiphop compile Error`);
             break;
           }
 
-          // Ecrit le programme JS/HH pour création de la machine.
+          // Ecrit le programme HH pour création de la machine.
           // Le programme créé par blockly est dans msgRecu.text
           fs.writeFile(generatedDir + defaultOrchestrationNameHH, msgRecu.text, function (err) {
             if (err) {
@@ -1877,7 +1897,8 @@ maybe an hiphop compile Error`);
               type: "skiniParametres",
               value: par
             }));
-            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", par);
+
+            if (debug) console.log("INFO: webSocketServeur: startSpectateur: Parametre connecté", par);
           }
 
           if (msgRecu.text === "clientListe") {
@@ -2003,7 +2024,7 @@ maybe an hiphop compile Error`);
           break;
 
         case "updateParameters":
-          // Save the previous parameters
+          //Save the previous parameters
           fs.copyFile(sessionPath + parametersFileGlobal, "./backup/" + parametersFileGlobal + ".back", function (err) {
             if (err) {
               return console.log(err);
@@ -2014,7 +2035,7 @@ maybe an hiphop compile Error`);
           if (debug1) console.log("INFO: websocketserveur: Update of the piece parameters", msgRecu.data, "in", sessionPath + parametersFileGlobal);
           if (parametersFileGlobal !== undefined) {
             saveParam.saveParameters(sessionPath + parametersFileGlobal, msgRecu.data);
-            par = reloadParameters(msgRecu.data);
+            reloadParameters(msgRecu.data);
           }
 
           // On recrée le fichier pour son utilisation par le simulateurListe.js

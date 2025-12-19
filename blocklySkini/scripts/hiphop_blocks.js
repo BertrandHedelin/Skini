@@ -338,24 +338,14 @@ Blockly.JavaScript['random_body'] = function (block) {
 
   if (statements_name1 === '' || statements_name2 === '') return '';
 
-  var aleaRandomBlock281289 = Math.floor(Math.random() * Math.floor(2)) + 1;
-  var code = `
-      hh.IF(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":239},
-          "%tag":"if",
-          "apply":function (){
-            return(Math.floor(Math.random() * Math.floor(2)) + 1) === 1;
-          },
-        },
-        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
-          `+ statements_name1 + `
-        ),
-        hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":248},"%tag":"sequence"},
-          `+ statements_name2 + `
-        )
-      ),
-  `;
+   var code = "hop{ aleaRandomBlock281289 =  Math.floor(Math.random() * Math.floor(" + randomValue + ")) + 1;}"
+
+  code += `
+  if ( aleaRandomBlock281289 === 1 ){
+    ` + statements_name + `
+  }else if( aleaRandomBlock281289 === 2 ){
+    ` + statements_name2 + `
+  }`;
   return code;
 };
 
