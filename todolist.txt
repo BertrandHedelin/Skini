@@ -7,8 +7,6 @@ les autres paramètres sont OK.
 
 - Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
 
-- Mise en forme HH dans VSC.
-
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
 
@@ -17,7 +15,7 @@ Pas prioritaire:
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
 - Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
-
+- Mise en forme HH dans VSC. Première essai fait. npm run format:hh
 
 Fait ------------------------------------------------------------------
 - 2 façons d'installer, par git clone ou npm.

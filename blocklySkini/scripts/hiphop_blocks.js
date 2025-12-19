@@ -111,7 +111,6 @@ Blockly.JavaScript['wait_for_signal_in_group'] = function (block) {
   return code;
 };
 
-// Pour mémoire à passer en HH node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "await",
@@ -152,7 +151,6 @@ Blockly.JavaScript['await'] = function (block) {
   return code + '\n';
 };
 
-// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "await_pattern",
@@ -180,7 +178,6 @@ Blockly.JavaScript['await_pattern'] = function (block) {
   return code;
 };
 
-// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_await_signal_value",
@@ -223,7 +220,6 @@ Blockly.JavaScript['hh_await_signal_value'] = function (block) {
   return code;
 };
 
-// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_if_signal",
@@ -261,7 +257,6 @@ Blockly.JavaScript['hh_if_signal'] = function (block) {
   return code;
 };
 
-// Revu HH Node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_if_signal_value",
@@ -332,18 +327,17 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['random_body'] = function (block) {
-  let randomValue = block.getFieldValue('VALUE');
-  var statements_name1 = Blockly.JavaScript.statementToCode(block, 'sequence1');
-  var statements_name2 = Blockly.JavaScript.statementToCode(block, 'sequence2');
+  let statements_name1 = Blockly.JavaScript.statementToCode(block, 'sequence1');
+  let statements_name2 = Blockly.JavaScript.statementToCode(block, 'sequence2');
 
   if (statements_name1 === '' || statements_name2 === '') return '';
 
-   var code = "hop{ aleaRandomBlock281289 =  Math.floor(Math.random() * Math.floor(" + randomValue + ")) + 1;}"
-
-  code += `
-  if ( aleaRandomBlock281289 === 1 ){
-    ` + statements_name + `
-  }else if( aleaRandomBlock281289 === 2 ){
+  let code = `
+  let aleaRandomBlock281289 = Math.floor(Math.random() * 2);
+  host{console.log("--- random_body:", aleaRandomBlock281289 )}
+  if ( aleaRandomBlock281289 === 0 ){
+    ` + statements_name1+ `
+  }else if( aleaRandomBlock281289 === 1 ){
     ` + statements_name2 + `
   }`;
   return code;

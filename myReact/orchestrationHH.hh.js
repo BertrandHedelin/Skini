@@ -144,26 +144,46 @@ export function setSignals(param) {
     }
     yield;
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Tuto tank'
-          }));
-    }
+    let aleaRandomBlock281289 = Math.floor(Math.random() * 2);
+    host{console.log("--- random_body:", aleaRandomBlock281289 )}
+    if ( aleaRandomBlock281289 === 0 ){
 
-    signal stopM899577;
-    M899577 : {
-    fork{
-        run ${ TankUn} () {*, stopM899577 as stopReservoir};
-
-      }par{
-        await count(20, tick.now);
-        emit stopM899577();
-        break M899577;
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'Tuto random block 1'
+            }));
       }
-    }
-    yield;
 
+          run ${ TankUn} () {*};
+
+          run ${ TankDeux} () {*};
+
+      await count(20,tick.now);
+
+    }else if( aleaRandomBlock281289 === 1 ){
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'Tuto random block 2'
+            }));
+      }
+
+      signal stopM467067;
+      M467067 : {
+      fork{
+          run ${ TankUn} () {*, stopM467067 as stopReservoir};
+
+        }par{
+          await count(20, tick.now);
+          emit stopM467067();
+          break M467067;
+        }
+      }
+      yield;
+
+    }
     host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',

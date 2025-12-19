@@ -1158,14 +1158,6 @@ maybe an hiphop compile Error`);
         return;
       }
 
-      // Nécessaire pour nettoyer la cache de require ? Ne suffit pas...
-      // let absPathParam = require.resolve(decacheParameters);
-      // decache(absPathParam);
-      // par = require(absPathParam);
-
-     // Le fait de faire un require ici, annule la référence de par dans 
-      // les autres modules. Il faut faire un reload dans tous les modules.
-
       // Solution proposée par Qodo pour recharger proprement
       try {
         const absPathParam = require.resolve(decacheParameters);
@@ -1181,6 +1173,8 @@ maybe an hiphop compile Error`);
         return;
       }
   
+      // Le fait de faire un require ici, annule la référence de par dans 
+      // les autres modules. Il faut faire un reload dans tous les modules.
       if (debug) console.log("websocketserveur.js: loadbloaks; après require de dechacheParameters:", par);
       reloadParameters(par);
 
