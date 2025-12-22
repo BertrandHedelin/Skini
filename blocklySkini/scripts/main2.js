@@ -333,10 +333,6 @@ function init(host) {
             "kind": "block",
             "type": "random_body"
           }
-          /* {
-             "kind": "block",
-             "type": "random_block"
-           }*/
         ]
       },
       {

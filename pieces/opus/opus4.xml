@@ -295,6 +295,8 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
     
     
     
+    Avec opus4V3 dans Ableton Live et lancer deux simulateurs en groupe 0 et 1.
+    
     
     
     
@@ -1015,6 +1017,8 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                            
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -1098,6 +1102,8 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                                
+                                
                                 
                                 
                                 
@@ -1560,6 +1566,8 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                                     
                                     
                                     
+                                    
+                                    
                                     </comment>
                                     <value name="NAME">
                                       <block type="variables_get" id="zC/p_t^mzd0}LkXR$#}+">
@@ -1677,6 +1685,8 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                                 
+                                        
+                                        
                                         
                                         
                                         

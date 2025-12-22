@@ -343,48 +343,6 @@ Blockly.JavaScript['random_body'] = function (block) {
   return code;
 };
 
-Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "random_block",
-    "message0": "random block %1 %2 %3",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "VALUE",
-        "value": 3,
-        "check": "Number"
-      },
-      {
-        "type": "input_dummy"
-      },
-      {
-        "type": "input_statement",
-        "name": "NAME"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 230,
-    "tooltip": "par",
-    "helpUrl": ""
-  }
-]);
-
-Blockly.JavaScript['random_block'] = function (block) {
-  let blocValue = block.getFieldValue('VALUE');
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  console.log("statements body:\n", statements_name);
-
-  var code = "";
-  code += `
-  if ( aleaRandomBlock281289 === `+ blocValue + `){
-    ` + statements_name + `
-  }
-  `
-  return code;
-};
-
-
 // Tank HH node ===========================================================
 Blockly.defineBlocksWithJsonArray([
   {
@@ -1671,12 +1629,6 @@ Blockly.defineBlocksWithJsonArray([
     "type": "send_midi_cc",
     "message0": "sendCC ch. %1 CC %2 val. %3 ",
     "args0": [
-      /*    {
-            "type": "field_number",
-            "name": "busMidi",
-            "value": 6,
-            "check": "Number"
-          },*/
       {
         "type": "field_number",
         "name": "channelMidi",
@@ -1706,27 +1658,20 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['send_midi_cc'] = function (block) {
   //var number_bus = block.getFieldValue('busMidi');
-  var number_channel = block.getFieldValue('channelMidi');
-  var number_CC = block.getFieldValue('CCMidi');
-  var number_value = block.getFieldValue('valueMidi');
+  let number_channel = block.getFieldValue('channelMidi');
+  let number_CC = block.getFieldValue('CCMidi');
+  let number_value = block.getFieldValue('valueMidi');
 
   var code = `
-hh.ATOM(
-  {
-  "%location":{},
-  "%tag":"node",
-  "apply":function () {
-    oscMidiLocal.sendControlChange( param.busMidiDAW,
+  host{
+    oscMidiLocal.sendControlChange(param.busMidiDAW,
     `+ number_channel + `,
     `+ number_CC + `,
     `+ number_value + `);
-    }
   }
-),
-`;
+  `;
   return code;
 };
-
 
 // Revu HH node
 Blockly.defineBlocksWithJsonArray([
@@ -1734,12 +1679,6 @@ Blockly.defineBlocksWithJsonArray([
     "type": "send_midi_command",
     "message0": "sendMidi ch. %1 note %2 vel. %3 ",
     "args0": [
-      /*    {
-            "type": "field_number",
-            "name": "busMidi",
-            "value": 6,
-            "check": "Number"
-          },*/
       {
         "type": "field_number",
         "name": "channelMidi",
@@ -1769,11 +1708,11 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['send_midi_command'] = function (block) {
   //var number_bus = block.getFieldValue('busMidi');
-  var number_channel = block.getFieldValue('channelMidi');
-  var number_Command = block.getFieldValue('CommandMidi');
-  var number_value = block.getFieldValue('valueMidi');
+  let number_channel = block.getFieldValue('channelMidi');
+  let number_Command = block.getFieldValue('CommandMidi');
+  let number_value = block.getFieldValue('valueMidi');
 
-  var code = `
+  let code = `
   host{
     oscMidiLocal.sendNoteOn(param.busMidiDAW,
     `+ number_channel + `,
@@ -1815,24 +1754,18 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['send_OSC_rasp_command'] = function (block) {
-  var IpAddress = Blockly.JavaScript.valueToCode(block, 'IpAddress', Blockly.JavaScript.ORDER_ATOMIC);
-  var OSCmessage = Blockly.JavaScript.valueToCode(block, 'OSCmessage', Blockly.JavaScript.ORDER_ATOMIC);
-  var OSCValue1 = block.getFieldValue('OSCValue1');
+  let IpAddress = Blockly.JavaScript.valueToCode(block, 'IpAddress', Blockly.JavaScript.ORDER_ATOMIC);
+  let OSCmessage = Blockly.JavaScript.valueToCode(block, 'OSCmessage', Blockly.JavaScript.ORDER_ATOMIC);
+  let OSCValue1 = block.getFieldValue('OSCValue1');
 
-  var code = `
-  hh.ATOM(
-    {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      oscMidiLocal.sendOSCRasp(
+  let code = `
+  host{
+    oscMidiLocal.sendOSCRasp(
       `+ OSCmessage + `,
       `+ OSCValue1 + `,
       ipConfig.raspOSCPort,
       `+ IpAddress + `);
-      }
-    }
-  ),
+  }
   `;
   return code;
 };
@@ -1874,19 +1807,13 @@ Blockly.JavaScript['send_OSC_command'] = function (block) {
   var OSCValue1 = block.getFieldValue('OSCValue1');
 
   var code = `
-  hh.ATOM(
-    {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      oscMidiLocal.sendOSCRasp(
+  host{
+    oscMidiLocal.sendOSCRasp(
       `+ OSCmessage + `,
       `+ OSCValue1 + `,
       par.raspOSCPort,
       `+ IpAddress + `);
-      }
-    }
-  ),
+  }
   `;
   return code;
 };
@@ -2750,117 +2677,35 @@ Blockly.JavaScript['run_tank_during_patterns_in_groups'] = function (block) {
   let in_value = in_groups.replace(/;\n/g, "");
   let in_listGroups = in_value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  var varRandom = Math.floor((Math.random() * 1000000) + 1);
+  let varRandom = Math.floor((Math.random() * 1000000) + 1);
+  varRandom = "RG" + varRandom;
 
-  //var code = "";
-
-  var code = `
-hh.LOCAL(
-  {
-    "%location":{},
-    "%tag":"signal"
-  },
-  hh.SIGNAL({
-    "name":"stop` + varRandom + `"
-  }),
-`;
-
-  code += `
-      hh.FORK(
-        {
-          "%location":{},
-          "%tag":"fork"
-        },
-        hh.SEQUENCE(
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-`;
-
-  for (var i = 0; i < listTanks.length; i++) {
-    var theTank = listTanks[i].replace(/ /g, "");
+  let code = `
+    signal stop`+ varRandom + `;
+    `+ varRandom + ` : {
+        fork{
+          `
+    let theTank = listTanks[0].replace(/ /g, "");
+    code +=`
+          run \${ `+ theTank + `} () {*, stop` + varRandom + ` as stopReservoir};
+        `
+  for (let i = 1; i < listTanks.length; i++) {
+    let theTank = listTanks[i].replace(/ /g, "");
     code +=
-      ` 
-        hh.RUN(
-          {
-            "%location":{"filename":"","pos":1},
-            "%tag":"run",
-            "module": `+ listTanks[i] + `, //{"filename":"","pos":2},
-            "autocomplete":true,
-            "stopReservoir":"stop` + varRandom + `"
-          }
-        ),
-        `;
+      `
+        }par{
+          run \${ `+ theTank + `} () {*, stop` + varRandom + ` as stopReservoir};
+        }`
   }
-  code +=
-    ` 
-      ),
-      hh.SEQUENCE(
-        {
-          "%location":{},
-          "%tag":"seq"
-        },
-        hh.AWAIT(
-            {
-              "%location":{},
-              "%tag":"await",
-              "immediate":false,
-              "apply":function (){return ((() => {
-`
-  for (var i = 0; i < in_listGroups.length; i++) {
-    code += `                   const ` + in_listGroups[i] + `IN =this["` + in_listGroups[i] + `IN"];
-`
-  };
-
-  code += `                 return ` + in_listGroups[0] + `IN.now`;
-  for (var i = 1; i < in_listGroups.length; i++) {
-    code += ` || ` + in_listGroups[i] + `IN.now`;
-  };
-
-  code += `;
-                })());},
-              "countapply":function (){return `+ number_of_patterns + `;}
-          },
-`
-  for (var i = 0; i < in_listGroups.length; i++) {
-    code += `             hh.SIGACCESS({"signame":"` + in_listGroups[i] + `IN","pre":false,"val":false,"cnt":false}),
-`
-  };
-  code +=
-    `),
-        hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            //"stopReservoir":"stopReservoir",
-            "stop` + varRandom + `" : "stop` + varRandom + `",
-            "apply":function (){
-              return ((() => {
-                //const stopReservoir = this["stopReservoir"];
-                const stop` + varRandom + ` = this["stop` + varRandom + `"];
-                return 0;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            //"signame":"stopReservoir",
-            "signame":"stop` + varRandom + `",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          })
-        ), // Fin emit
-      )
-    ),
-  hh.PAUSE(
-    {
-      "%location":{},
-      "%tag":"yield"
-    }
-  )
-),
-`;
+  for (let i = 0; i < in_listGroups.length; i++) {
+    let theGroup = in_listGroups[i].replace(/ /g, "");
+    code += `par{
+        await count(`+ number_of_patterns + `, `+ theGroup + `IN.now);
+        emit stop` + varRandom + `();
+        break `+ varRandom + `;
+      }
+    }`
+  }
   return code;
 };
 
@@ -2897,143 +2742,35 @@ Blockly.JavaScript['run_tank_waiting_for_patterns'] = function (block) {
   let in_value = in_patterns_list.replace(/;\n/g, "");
   in_patterns_list = in_value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  var varRandom = Math.floor((Math.random() * 1000000) + 1);
+  let varRandom = Math.floor((Math.random() * 1000000) + 1);
+  varRandom = "RG" + varRandom;
 
-  var code = `
-hh.LOCAL(
-  {
-    "%location":{},
-    "%tag":"signal"
-  },
-  hh.SIGNAL({
-    "name":"stop` + varRandom + `"
-  }),
-`;
-
-  code += `
-    hh.TRAP(
-      {
-        "trap`+ varRandom + `":"trap` + varRandom + `",
-        "%location":{},
-        "%tag":"trap`+ varRandom + `"
-      },
-      hh.FORK(
-        {
-          "%location":{},
-          "%tag":"fork"
-        },
-        hh.SEQUENCE( // sequence 1
-          {
-            "%location":{},
-            "%tag":"seq"
-          },
-          hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },`;
-
-  for (var i = 0; i < listTanks.length; i++) {
-    var theTank = listTanks[i].replace(/ /g, "");
+  let code = `
+    signal stop`+ varRandom + `;
+    `+ varRandom + ` : {
+      fork{
+          `
+    let theTank = listTanks[0].replace(/ /g, "");
+    code +=`
+          run \${ `+ theTank + `} () {*, stop` + varRandom + ` as stopReservoir};
+        `
+  for (let i = 1; i < listTanks.length; i++) {
+    let theTank = listTanks[i].replace(/ /g, "");
     code +=
-      ` 
-            hh.SEQUENCE(
-              {
-                "%location":{},
-                "%tag":"seq"
-              },
-              hh.RUN(
-                {
-                  "%location":{"filename":"","pos":1},
-                  "%tag":"run",
-                  "module": `+ listTanks[i] + `, {"filename":"","pos":2},
-                  "autocomplete":true,
-                  "stopReservoir":"stop` + varRandom + `"
-                }
-              ),
-            ),
-            `;
+      `
+        }par{
+          run \${ `+ theTank + `} () {*, stop` + varRandom + ` as stopReservoir};
+        }`
   }
-  code +=
-    ` 
-        )
-      ),
-      hh.SEQUENCE(
-        {
-          "%location":{},
-          "%tag":"seq"
-        },
-        hh.FORK(
-            {
-              "%location":{},
-              "%tag":"fork"
-            },
-`;
-  for (var i = 0; i < in_patterns_list.length; i++) {
-    code += `
-              hh.AWAIT(
-                {"%location":{},
-                "%tag":"await","immediate":false,
-                "apply":function (){
-                    return ((() => {
-                      const patternSignal=this["patternSignal"];
-                      return patternSignal.now && (patternSignal.nowval[1] === ` + in_patterns_list[i] + `);
-                    })());
-                  }
-                },
-                hh.SIGACCESS({"signame":"patternSignal","pre":false,"val":false,"cnt":false})
-              ),`;
-  }
-  code +=
-    `
-        ), // fin fork
-        hh.EMIT(
-          {
-            "%location":{},
-            "%tag":"emit",
-            "stop` + varRandom + `" : "stop` + varRandom + `",
-            "apply":function (){
-              return ((() => {
-                const stop` + varRandom + ` = this["stop` + varRandom + `"];
-                return 0;
-              })());
-            }
-          },
-          hh.SIGACCESS({
-            "signame":"stop` + varRandom + `",
-            "pre":true,
-            "val":true,
-            "cnt":false
-          })
-        ), // Fin emit
-
-        hh.PAUSE(
-          {
-            "%location":{},
-            "%tag":"yield"
-          }
-        ),
-
-        hh.EXIT(
-        {
-          "trap` + varRandom + `":"trap` + varRandom + `",
-          "%location":{},
-          "%tag":"break"
-        }), // Exit
-      ) // sequence
-
-
-    ), // fork
-  ), // trap
-
-  hh.PAUSE(
-    {
-      "%location":{},
-      "%tag":"yield"
+    for (let i = 0; i < in_patterns_list.length; i++) {
+    code += `par{
+        await (patternSignal.now && (patternSignal.nowval[1] === \"` + in_patterns_list[i] + `\"));
+      }`
     }
-  )
-),
-`;
+  code +=`
+    emit stop` + varRandom + `();
+    break `+ varRandom + `;
+  }`
   return code;
 };
 

@@ -1,0 +1,62 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="s${ep-?H7|lVi1|X{*#W">foo</variable>
+    <variable id="$FMJ]Fc^$N=ZL$NSL+;r">bar</variable>
+    <variable id="x8|omDav4DL{,3uj4qt(">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <statement name="SIGNALS">
+      <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
+        <field name="TYPE">inout</field>
+        <value name="signal">
+          <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
+            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_declare_signal" id=",xLY0)^Y^;wL9PF|H$8?">
+            <field name="TYPE">inout</field>
+            <value name="signal">
+              <block type="variables_get" id="!J,wX;Z`yYuRy+A5LXPd">
+                <field name="VAR" id="$FMJ]Fc^$N=ZL$NSL+;r">bar</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="BODY">
+      <block type="hh_print_serveur" id="^kprJHdcjiy-tKTrqJ{|">
+        <value name="TEXT">
+          <block type="text" id="kh{xL+Q%W18xhrSw+bos">
+            <field name="TEXT">Tuto Midi</field>
+          </block>
+        </value>
+        <next>
+          <block type="hh_loopeach" id=",68p|Ms8-*]Z9mLA2E$u">
+            <field name="TIMES">5</field>
+            <value name="SIGNAL">
+              <block type="variables_get" id="^9_UjzR^8v3g}++mHYXk">
+                <field name="VAR" id="x8|omDav4DL{,3uj4qt(">tick</field>
+              </block>
+            </value>
+            <statement name="BODY">
+              <block type="send_midi_cc" id="^TVUh,k@5N_kP{{bs?V#">
+                <field name="channelMidi">1</field>
+                <field name="CCMidi">300</field>
+                <field name="valueMidi">100</field>
+                <next>
+                  <block type="send_midi_command" id="R[@H-$y.k?6EfQNAIR(E">
+                    <field name="channelMidi">1</field>
+                    <field name="CommandMidi">12</field>
+                    <field name="valueMidi">120</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

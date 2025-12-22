@@ -1,4 +1,4 @@
-var TankUn, foo, TankDeux, bar, tank0, tank1, tank2, tank3, tank4, tank5, tank6, tick;
+var TankUn, foo, TankDeux, bar, tank0, tank1, tank2, tank3, tank4, tank5, tank6, tick, groupe0, groupe0IN, piano8, piano9;
 
 
 // avec demoAbleton.als dans Live
@@ -144,46 +144,44 @@ export function setSignals(param) {
     }
     yield;
 
-    let aleaRandomBlock281289 = Math.floor(Math.random() * 2);
-    host{console.log("--- random_body:", aleaRandomBlock281289 )}
-    if ( aleaRandomBlock281289 === 0 ){
-
-      host{
-        serveur.broadcast(JSON.stringify({
-              type: 'alertInfoScoreON',
-              value:'Tuto random block 1'
-            }));
-      }
-
-          run ${ TankUn} () {*};
-
-          run ${ TankDeux} () {*};
-
-      await count(20,tick.now);
-
-    }else if( aleaRandomBlock281289 === 1 ){
-
-      host{
-        serveur.broadcast(JSON.stringify({
-              type: 'alertInfoScoreON',
-              value:'Tuto random block 2'
-            }));
-      }
-
-      signal stopM467067;
-      M467067 : {
-      fork{
-          run ${ TankUn} () {*, stopM467067 as stopReservoir};
-
-        }par{
-          await count(20, tick.now);
-          emit stopM467067();
-          break M467067;
-        }
-      }
-      yield;
-
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Tuto tank'
+          }));
     }
+
+      {
+
+        emit groupe0OUT([true,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+        signal stopRG183455;
+        RG183455 : {
+          fork{
+
+              run ${ TankUn} () {*, stopRG183455 as stopReservoir};
+
+            }par{
+              run ${ TankDeux} () {*, stopRG183455 as stopReservoir};
+            }par{
+            await (patternSignal.now && (patternSignal.nowval[1] === "piano8"));
+          }par{
+            await (patternSignal.now && (patternSignal.nowval[1] === "piano9"));
+          }
+        emit stopRG183455();
+        break RG183455;
+      }
+        emit groupe0OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
+      }
+
+      }
+
     host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',
