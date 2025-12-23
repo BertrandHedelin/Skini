@@ -5,7 +5,7 @@
   <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="129" y="85">
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="2{I~,=oR`tdBVYPno:+|">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="K{$fPb8LZ.cd)C^APoz=">
             <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -33,12 +33,12 @@
                       </block>
                     </value>
                     <next>
-                      <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13" disabled="true">
-                        <field name="JScode">let bar = 1;&amp;#10;for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
+                      <block type="exe_javascript" id="N^lS.$)|O}%2H3m4D!13">
+                        <field name="JScode">var bar = 1;&amp;#10;for(var i=0; i&lt;10; i++)  {&amp;#10;   bar++;&amp;#10;   console.log(bar);&amp;#10;}</field>
                         <next>
-                          <block type="hh_pause" id="Y[xi`UZQ)r,[_y}k3fPu">
+                          <block type="hh_pause" id="}%JkToE]Hf6YvTSp##lV">
                             <next>
-                              <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L" disabled="true">
+                              <block type="hh_emit_value_var" id="g+EHpTWkGT|:txwa*Q!L">
                                 <value name="SIGNAL">
                                   <block type="variables_get" id="hmN3s#D9_q(rK;*SREkb">
                                     <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
@@ -50,29 +50,34 @@
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="hh_pause" id="6g0#u8.lzvC;3GqV[r1e">
+                                  <block type="hh_wait_for_var" id="+-UY/;7G?~wnAvVlbCt$">
+                                    <value name="VARIABLE">
+                                      <block type="text" id="-Em)77O6C;G*W[^|ETtE">
+                                        <field name="TEXT">bar</field>
+                                      </block>
+                                    </value>
+                                    <value name="SIGNAL">
+                                      <block type="variables_get" id="97^z|NhVeE|L36n%9NV%">
+                                        <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                      </block>
+                                    </value>
                                     <next>
-                                      <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w">
-                                        <field name="Signal_Value">0</field>
-                                        <value name="SIGNAL">
-                                          <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
-                                            <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
-                                          </block>
-                                        </value>
+                                      <block type="hh_pause" id="6g0#u8.lzvC;3GqV[r1e">
                                         <next>
-                                          <block type="hh_pause" id="*HE|O(+;CaL*1#*le7m*">
+                                          <block type="hh_emit_value" id="`fJ]lj4:b7K%T*);*(0w">
+                                            <field name="Signal_Value">0</field>
+                                            <value name="SIGNAL">
+                                              <block type="variables_get" id="k8cjJlC3D=xNd={VAREh">
+                                                <field name="VAR" id="s${ep-?H7|lVi1|X{*#W">foo</field>
+                                              </block>
+                                            </value>
                                             <next>
-                                              <block type="exe_javascript" id=";tO0st1M+K]j5?K;1zMI" disabled="true">
-                                                <field name="JScode">console.log("BAR", bar)</field>
-                                                <next>
-                                                  <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
-                                                    <value name="TEXT">
-                                                      <block type="text" id="|(t~Z}|D8y8),mF(um?p">
-                                                        <field name="TEXT">foo</field>
-                                                      </block>
-                                                    </value>
+                                              <block type="hh_print_serveur" id="[,y|9`XZT5.sLVUdCE?}">
+                                                <value name="TEXT">
+                                                  <block type="text" id="|(t~Z}|D8y8),mF(um?p">
+                                                    <field name="TEXT">foo</field>
                                                   </block>
-                                                </next>
+                                                </value>
                                               </block>
                                             </next>
                                           </block>

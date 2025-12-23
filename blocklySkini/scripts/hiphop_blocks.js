@@ -3277,29 +3277,10 @@ Blockly.JavaScript['hh_emit_value_var'] = function (block) {
   signal_value = signal_value.replace(/'/g, "");
 
   var code = `
-      hh.EMIT(
-        {
-          "%location":{},
-          "%tag":"emit", 
-          "`+ value + `":"` + value + `",
-          "apply":function (){
-            return ((() => {
-              //const `+ value + `=this["` + value + `"];
-              return `+ signal_value + `;
-            })());
-          }
-        },
-        hh.SIGACCESS({
-          "signame":"`+ value + `",
-          "pre":true,
-          "val":true,
-          "cnt":false
-        })
-      ),
-      `;
+    emit `+ value + `( \"`+ signal_value + `\");
+    `;
   return code;
 };
-
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -3372,7 +3353,7 @@ Blockly.JavaScript['hh_wait_for'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "hh_wait_for_var",
-    "message0": "wait for (var) %1 signal %2",
+    "message0": "wait for (var) %1 in signal %2",
     "args0": [
       {
         "type": "input_value",
@@ -3399,33 +3380,14 @@ Blockly.JavaScript['hh_wait_for_var'] = function (block) {
   let value = value_signal.replace(/\'/g, "");
 
   var signal_value = Blockly.JavaScript.valueToCode(block, 'VARIABLE', Blockly.JavaScript.ORDER_NONE);
-  times = signal_value.replace(/'/g, "");
+  signal_value = signal_value.replace(/'/g, "");
 
   var code = `
-  hh.AWAIT(
-    {
-      "%location":{},
-      "%tag":"await",
-      "immediate":false,
-      "apply":function () {
-        return ((() => {
-          const ` + value + `=this["` + value + `"];
-          return ` + value + `.now;
-        })());
-      },
-      "countapply":function (){ return ` + times + `;}
-    },
-    hh.SIGACCESS({
-      "signame":"` + value + `",
-      "pre":false,
-      "val":false,
-      "cnt":false
-    })
-  ),
+  host { console.log(` + value + `.nowval)}
+  await immediate (` + value + `.now && ` + value + `.nowval === \"` + signal_value + `\");
   `;
   return code;
 };
-
 
 //NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -3879,16 +3841,7 @@ Blockly.JavaScript['exe_javascript'] = function (block) {
   JScode = JScode.replace(/'/g, "");
 
   var code = `
-  hh.ATOM(
-    {
-    "%location":{},
-    "%tag":"node",
-    "apply":function () {
-      // exe_javascript 
-      `+ JScode + `;
-      }
-    }
-  ),
+  host { `+ JScode + `}
   `;
   return code;
 };
@@ -3939,32 +3892,10 @@ Blockly.JavaScript['hh_await_interfaceZ_sensor'] = function (block) {
   let highValue = block.getFieldValue('highValue');
 
   var code = `
-      hh.AWAIT(
-        {
-          "%location":{"filename":"hiphop_blocks.js","pos":189},
-          "%tag":"await",
-          "immediate":false,
-          "apply":function (){
-            return ((() => {
-              const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
-              //console.log("*****", ` + sensor + `, ` + lowValue + `,` + highValue + `, INTERFACEZ_RC.nowval );
-              if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
-                return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+    await count(` + times + `, INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
                   && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
-                  && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
-              }
-            })());
-          },
-          "countapply":function (){ return ` + times + `;}
-        },
-        hh.SIGACCESS(
-          {"signame":"INTERFACEZ_RC` + sensor + `",
-          "pre":false,
-          "val":false,
-          "cnt":false
-        })
-      ),
-    `
+                  && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `));
+   `
   return code;
 };
 
@@ -4024,30 +3955,11 @@ Blockly.JavaScript['hh_loopeach_interfaceZ_sensor'] = function (block) {
   let highValue = block.getFieldValue('highValue');
 
   var code = `
-
-hh.LOOPEACH(
-  {
-    "%location":{"filename":"hiphop_blocks.js","pos":189},
-    "%tag":"do/every",
-    "immediate":false,
-    "apply": function (){return ((() => {
-        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
-        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
-          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+  do{
+    `+ statements_body + `
+  } every count ( ` + times + `, INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
             && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
-        }
-    })());},
-    "countapply":function (){ return ` + times + `;}
-  },
-  hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC` + sensor + `",
-    "pre":false,
-    "val":false,
-    "cnt":false
-  }),
-  `+ statements_body + `
-),
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `));
 `;
   return code;
 };
@@ -4100,35 +4012,14 @@ Blockly.JavaScript['hh_if_interfaceZ_sensor'] = function (block) {
   let highValue = block.getFieldValue('highValue');
 
   var code = `
-
-hh.IF(
-  {
-    "%location":{"filename":"hiphop_blocks.js","pos":189},
-    "%tag":"do/if",
-    "immediate":false,
-    "apply": function (){return ((() => {
-        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
-        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
-          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+  if (INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
             && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
-        }
-    })());},
-  },
-  hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC` + sensor + `",
-    "pre":false,
-    "val":false,
-    "cnt":false
-  }),
-  hh.SEQUENCE({"%location":{"filename":"hiphop_blocks.js","pos":245},"%tag":"sequence"},
-  `+ statements_body + `
-  )
-),
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `)) {
+            `+ statements_body + `
+  }
 `;
   return code;
 };
-
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -4186,33 +4077,14 @@ Blockly.JavaScript['hh_every_interfaceZ_sensor'] = function (block) {
   let highValue = block.getFieldValue('highValue');
 
   var code = `
-
-hh.EVERY(
-  {
-    "%location":{"filename":"hiphop_blocks.js","pos":189},
-    "%tag":"do/every",
-    "immediate":false,
-    "apply": function (){return ((() => {
-        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
-        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
-          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+  every count( ` + times + `, INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
             && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
-        }
-    })());},
-    "countapply":function (){ return ` + times + `;}
-  },
-  hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC` + sensor + `",
-    "pre":false,
-    "val":false,
-    "cnt":false
-  }),
-  `+ statements_body + `
-),
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `)) {
+    `+ statements_body + `
+  }
 `;
   return code;
-};
+}
 
 // NodeSkini
 Blockly.defineBlocksWithJsonArray([
@@ -4270,30 +4142,12 @@ Blockly.JavaScript['hh_abort_interfaceZ_sensor'] = function (block) {
   let highValue = block.getFieldValue('highValue');
 
   var code = `
-
-hh.ABORT(
-  {
-    "%location":{"filename":"hiphop_blocks.js","pos":189},
-    "%tag":"do/every",
-    "immediate":false,
-    "apply": function (){return ((() => {
-        const INTERFACEZ_RC` + sensor + ` = this["INTERFACEZ_RC` + sensor + `"];
-        if( INTERFACEZ_RC` + sensor + `.nowval !== undefined ) {
-          return INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
+  abort {
+    `+ statements_body + `
+  } when count( ` + times + `, INTERFACEZ_RC` + sensor + `.now && ( INTERFACEZ_RC` + sensor + `.nowval[0] === ` + sensor + `
             && INTERFACEZ_RC` + sensor + `.nowval[1] >` + lowValue + ` 
-            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `);
-        }
-    })());},
-    "countapply":function (){ return ` + times + `;}
-  },
-  hh.SIGACCESS({
-    "signame":"INTERFACEZ_RC` + sensor + `",
-    "pre":false,
-    "val":false,
-    "cnt":false
-  }),
-  `+ statements_body + `
-),
+            && INTERFACEZ_RC` + sensor + `.nowval[1] <` + highValue + `));
 `;
   return code;
-};
+}
+

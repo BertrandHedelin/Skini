@@ -1,0 +1,135 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="*(4%y|y]R}b,F6[a?ZUv">INTERFACEZ_RC4</variable>
+    <variable id="z.?[/s;vt1YREV-K7a~G">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="a-M{,,Z8QBPD6S|y-Hm7" x="101" y="65">
+    <statement name="BODY">
+      <block type="hh_loop" id="BVo9cUUdHufww0yaVK`J" disabled="true">
+        <statement name="BODY">
+          <block type="hh_await_interfaceZ_sensor" id="(i%J}Czmyvw`tl/B+9-q">
+            <field name="TIMES">1</field>
+            <field name="sensor">4</field>
+            <field name="lowValue">0</field>
+            <field name="highValue">5000</field>
+            <next>
+              <block type="hh_print_serveur" id="XPSNuJ2N_PoI_F^-sSct">
+                <value name="TEXT">
+                  <block type="text" id="R=E?KMd36BXZ{3#OEaA3">
+                    <field name="TEXT">sensor  4 </field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="hh_loop" id="|g/dd4nYLk$i@Zd_zj}a" disabled="true">
+            <statement name="BODY">
+              <block type="hh_wait_for_immediate" id="[D)~cQVW%|t~GaGN@m#D">
+                <value name="SIGNAL">
+                  <block type="variables_get" id="uRL!_=yE)usYl*sBg$5M">
+                    <field name="VAR" id="*(4%y|y]R}b,F6[a?ZUv">INTERFACEZ_RC4</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hh_if_interfaceZ_sensor" id="vSnT9`kz8-L7}{BiJ{6n">
+                    <field name="sensor">4</field>
+                    <field name="lowValue">0</field>
+                    <field name="highValue">5000</field>
+                    <statement name="BODY">
+                      <block type="hh_print_serveur" id="-qdoev(.V#`i6{8jdq(%">
+                        <value name="TEXT">
+                          <block type="text" id="#l^+El`GB~A/)SnL7VyQ">
+                            <field name="TEXT">sensor  4 </field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="hh_pause" id=";;MEOf/oL0b3sO`:2KUq"></block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="hh_loopeach_interfaceZ_sensor" id="_5*n;63f,H$CM2X{O58|" disabled="true">
+                <field name="TIMES">1</field>
+                <field name="sensor">4</field>
+                <field name="lowValue">0</field>
+                <field name="highValue">5000</field>
+                <statement name="BODY">
+                  <block type="hh_print_serveur" id="*tiy={*CxPwF@FFxsO6O">
+                    <value name="TEXT">
+                      <block type="text" id="![@Dx*D`?vg_|9z{3~CS">
+                        <field name="TEXT">sensor  4 </field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="hh_every_interfaceZ_sensor" id="5OUKpOON0Cfcz;eRCRYG" disabled="true">
+                    <field name="TIMES">1</field>
+                    <field name="sensor">4</field>
+                    <field name="lowValue">0</field>
+                    <field name="highValue">5000</field>
+                    <statement name="BODY">
+                      <block type="hh_print_serveur" id="cNE/]_Wk;,*uwgoWD6L^">
+                        <value name="TEXT">
+                          <block type="text" id="_yOosi:.C|rvZH#~eu*Q">
+                            <field name="TEXT">sensor  4 </field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="hh_abort_interfaceZ_sensor" id="%sa|56c;l|~@*_wxOMA/">
+                        <field name="TIMES">5</field>
+                        <field name="sensor">4</field>
+                        <field name="lowValue">0</field>
+                        <field name="highValue">5000</field>
+                        <statement name="BODY">
+                          <block type="hh_loop" id="@-=c!HFik.#%Bzs929B^">
+                            <statement name="BODY">
+                              <block type="hh_wait_for" id="?Bq0H*dEt1+C^9n:B48%">
+                                <field name="TIMES">1</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="E3k_X%NQ!|1f{P#Xw.R_">
+                                    <field name="VAR" id="z.?[/s;vt1YREV-K7a~G">tick</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="hh_print_serveur" id="97p4V~7o}Xi%$2EZYKS#">
+                                    <value name="TEXT">
+                                      <block type="text" id="d}iJ!k^~nxSSB7;*(6kF">
+                                        <field name="TEXT">sensor  4 </field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="hh_print_serveur" id="R%Q3i/@93(F[@P^`j$;[">
+                            <value name="TEXT">
+                              <block type="text" id="L4Ucv#1-Gm@Ys~`i5s`Z">
+                                <field name="TEXT">FIN</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

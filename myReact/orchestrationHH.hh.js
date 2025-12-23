@@ -1,7 +1,6 @@
-var TankUn, foo, TankDeux, bar, tank0, tank1, tank2, tank3, tank4, tank5, tank6, tick, groupe0, groupe0IN, piano8, piano9;
+var INTERFACEZ_RC4, tick;
 
 
-// avec demoAbleton.als dans Live
 
 "use strict";
 import { createRequire } from 'module';
@@ -82,32 +81,6 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
-    const TankUn = hiphop module () {
-    in stopReservoir;
-    in tank0IN;
-      in tank1IN;
-      in tank2IN;
-      in tank3IN;
-      out tank0OUT;
-      out tank1OUT;
-      out tank2OUT;
-      out tank3OUT;
-
-  	${ tank.makeReservoir(255, ["tank0","tank1","tank2","tank3"]) };
-  }
-
-    const TankDeux = hiphop module () {
-    in stopReservoir;
-    in tank4IN;
-      in tank5IN;
-      in tank6IN;
-      out tank4OUT;
-      out tank5OUT;
-      out tank6OUT;
-
-  	${ tank.makeReservoir(255, ["tank4","tank5","tank6"]) };
-  }
-
 
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -116,10 +89,6 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
-
-    inout foo;
-
-    inout bar;
 
 
     loop{
@@ -134,60 +103,21 @@ export function setSignals(param) {
           }
         }par{
 
-    host{gcs.setTimerDivision(1);}
+    abort {
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'addSceneScore',
-            value:1
-          }));
-    }
-    yield;
+      loop{
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Tuto tank'
-          }));
-    }
+        await count(1,tick.now);
 
-      {
-
-        emit groupe0OUT([true,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
-
-        signal stopRG183455;
-        RG183455 : {
-          fork{
-
-              run ${ TankUn} () {*, stopRG183455 as stopReservoir};
-
-            }par{
-              run ${ TankDeux} () {*, stopRG183455 as stopReservoir};
-            }par{
-            await (patternSignal.now && (patternSignal.nowval[1] === "piano8"));
-          }par{
-            await (patternSignal.now && (patternSignal.nowval[1] === "piano9"));
-          }
-        emit stopRG183455();
-        break RG183455;
-      }
-        emit groupe0OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
-
-      host{
-        DAW.cleanQueues();
-        gcs.cleanChoiceList(255);
-      }
+          host {console.log('sensor  4 ');}
 
       }
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'FIN'
-          }));
-    }
+    } when count( 5, INTERFACEZ_RC4.now && ( INTERFACEZ_RC4.nowval[0] === 4
+              && INTERFACEZ_RC4.nowval[1] >0
+              && INTERFACEZ_RC4.nowval[1] <5000));
+
+      host {console.log('FIN');}
 
         }
       } when (halt.now);
