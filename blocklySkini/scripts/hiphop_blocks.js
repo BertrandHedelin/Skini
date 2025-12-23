@@ -429,13 +429,17 @@ Blockly.JavaScript['run_tank'] = function (block) {
   let value = statements_name.replace(/;\n/g, ""); //.split('=');
   let listTanks = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
 
-  var code = "";
-
-  for (var i = 0; i < listTanks.length; i++) {
-    var theTank = listTanks[i].replace(/ /g, "");
+  var code =  `
+  fork {
+    run \${ `+ listTanks[0] + `} () {*};
+  }
+  `;
+  for (let i = 1; i < listTanks.length; i++) {
+    let theTank = listTanks[i].replace(/ /g, "");
     code +=
-    ` 
-      run \${ `+ listTanks[i] + `} () {*};
+    ` par{
+      run \${ `+ theTank + `} () {*};
+    }
     `;
   }
   return code;

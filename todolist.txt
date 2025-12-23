@@ -5,7 +5,6 @@ les autres paramètres sont OK.
 
 - Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig. Laisser des exemples à modifier.
 
-- Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
 
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
@@ -16,8 +15,13 @@ Pas prioritaire:
 - enlever myreact du client standard
 - Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
 - Mise en forme HH dans VSC. Première essai fait. npm run format:hh
+- Les instructions de Jeu dans Blockly
 
 Fait ------------------------------------------------------------------
+
+- Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
+Fait sauf pour les jeux (23/12/2025)
+
 - 2 façons d'installer, par git clone ou npm.
 - premier test du package npm (25/11/2025)
 

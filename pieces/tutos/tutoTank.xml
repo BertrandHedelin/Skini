@@ -118,7 +118,7 @@
                   </block>
                 </value>
                 <next>
-                  <block type="hh_sequence" id="F1,u?gIvuqo3KntE;ME]" disabled="true">
+                  <block type="hh_sequence" id="F1,u?gIvuqo3KntE;ME]">
                     <statement name="BODY">
                       <block type="run_tank" id="TeM]IH)*_V%cREk{$dm,">
                         <value name="TANKS">
@@ -241,7 +241,7 @@
                               </block>
                             </statement>
                             <next>
-                              <block type="hh_sequence" id="gYb%cB+`%BPt1CwNL.h{">
+                              <block type="hh_sequence" id="gYb%cB+`%BPt1CwNL.h{" disabled="true">
                                 <statement name="BODY">
                                   <block type="set_group" id="Mw2V31*8x4~{N[e0WPN9">
                                     <field name="groupe">255</field>
