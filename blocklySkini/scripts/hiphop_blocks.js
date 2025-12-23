@@ -3498,7 +3498,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['hh_fork'] = function (block) {
   var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  if (statements_body === '') return '';
+  //if (statements_body === '') return '';
   var code = `
   fork {
     `+ statements_body + `

@@ -151,7 +151,7 @@
     </statement>
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="hMbab~N3NYFDXs03iGXx">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="(FG16*+ZpRqc[Qol7X2[">
             <field name="VAR" id="t2na~d:?.N52mSkkb{`[">sensor0</field>
@@ -159,7 +159,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id="a+)fanKDV[?V7MUglQUX">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="fwXt8C(m6wIXk2;!e=4=">
                 <field name="VAR" id="DyiU]2sWI}N6Tf;xI`^j">sensor1</field>
@@ -167,7 +167,7 @@
             </value>
             <next>
               <block type="hh_declare_signal" id="F3D|DggeE2p(;uO_8~Nd">
-                <field name="TYPE">INOUT</field>
+                <field name="TYPE">inout</field>
                 <value name="signal">
                   <block type="variables_get" id="Wwdrd,4a1Unds+hXF0nn">
                     <field name="VAR" id="Hm3TqEGxDdsJx,)2gWxM">sensor2</field>
@@ -175,7 +175,7 @@
                 </value>
                 <next>
                   <block type="hh_declare_signal" id="|%|VVX8#7]-#65Xgj$2b">
-                    <field name="TYPE">INOUT</field>
+                    <field name="TYPE">inout</field>
                     <value name="signal">
                       <block type="variables_get" id="VMCV`gxA:F@xM.j*A,?X">
                         <field name="VAR" id="iWveW2KWKK12m`o3@QL!">sensor5</field>
@@ -183,7 +183,7 @@
                     </value>
                     <next>
                       <block type="hh_declare_signal" id="*)|QK[J.{*tJd#Xr@aXJ">
-                        <field name="TYPE">INOUT</field>
+                        <field name="TYPE">inout</field>
                         <value name="signal">
                           <block type="variables_get" id="dpc(xO:]RcnlPJ%G,q:!">
                             <field name="VAR" id="S#Iqk|zbB}f}(KQSO-2`">startSensor0</field>
@@ -191,7 +191,7 @@
                         </value>
                         <next>
                           <block type="hh_declare_signal" id="W+PXU-Mh*zi+:-Ay_eQ}">
-                            <field name="TYPE">INOUT</field>
+                            <field name="TYPE">inout</field>
                             <value name="signal">
                               <block type="variables_get" id="ifbg/6F)Y%Zhy4zA!oyl">
                                 <field name="VAR" id=":6vQ63Z(OUFVq9Q`,[dm">stopSensor0-1</field>
@@ -199,7 +199,7 @@
                             </value>
                             <next>
                               <block type="hh_declare_signal" id="N%%F0eJ]_1GX:OcmCA|{">
-                                <field name="TYPE">INOUT</field>
+                                <field name="TYPE">inout</field>
                                 <value name="signal">
                                   <block type="variables_get" id="E125.1U!Q;k9MMF6SLy]">
                                     <field name="VAR" id="YU5dpgG;{-3ddB`8}UY?">stopSensor0-2</field>
@@ -207,7 +207,7 @@
                                 </value>
                                 <next>
                                   <block type="hh_declare_signal" id="UfvyQ@{ov?BU{M^c*g$B">
-                                    <field name="TYPE">INOUT</field>
+                                    <field name="TYPE">inout</field>
                                     <value name="signal">
                                       <block type="variables_get" id="{,/sB`a9z1+y#})@8|$W">
                                         <field name="VAR" id="4KI?_l}sHzBNRX|$+ew4">stopSensor0-3</field>
@@ -215,7 +215,7 @@
                                     </value>
                                     <next>
                                       <block type="hh_declare_signal" id="(u)HVHNcCfijgjv}[y?#">
-                                        <field name="TYPE">INOUT</field>
+                                        <field name="TYPE">inout</field>
                                         <value name="signal">
                                           <block type="variables_get" id="/VI{0NpDXBWcI33**FBj">
                                             <field name="VAR" id="}*7dY3-sa,u*_]jIFPd,">stopSensor0-4</field>
@@ -223,7 +223,7 @@
                                         </value>
                                         <next>
                                           <block type="hh_declare_signal" id=")e,*NUI})DG4nL]q:A,v">
-                                            <field name="TYPE">INOUT</field>
+                                            <field name="TYPE">inout</field>
                                             <value name="signal">
                                               <block type="variables_get" id="w`ct{]Dzu:A`jxO=280;">
                                                 <field name="VAR" id="5`=ENarph0-=HNjx9/x+">stopSensor0-5</field>

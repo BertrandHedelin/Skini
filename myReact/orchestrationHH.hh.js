@@ -1,146 +1,6 @@
-var type0, StartTransSaxo, type1, T72, T56, T75, T40, T83, T18, type2, T6, T82, T39, T73, T3, T45, type3, T59, T42, T54, T16, T28, T62, type4, T25, T74, T1, T68, T53, T38, type5, T81, T14, T65, T29, T37, T4, type6, T41, T7, T43, T55, T17, T27, type7, tick, T89, T26, T15, T2, T44, T52, type8, T13, T71, T80, T61, T70, T94, type9, transposeClavier, type10, type11, type12, type13, type14, type15, T36, T76, T9, T22, T63, T11, T5, T20, T34, T67, T85, T92, T46, T64, T93, T49, T32, T24, T79, T84, T48, T77, T96, T86, T30, T8, T69, T57, T12, T51, T95, T35, T58, T87, T23, T60, T19, T47, T90, T33, T50, T78, T66, T88, T21, T10, T91, T31, TransSaxo;
+var Clean1_2_3_4, sensor0, Clean5_6_7_8, sensor2, Clean9_10_11_12, Clean13_14_15_16, tick, zone1, zone2, zone3, zone4, zone7, zone8, zone9, zone10;
 
 
-// Les patterns de cette pièce sont organisés par types et sont dans des réservoirs.
-// On a donc un contrôle sur la construction des phrases musicales.
-// Le simulateur a des contraintes sur les timers : 3000 min et
-// 3010 max avec 20 pulse max d'attente. Ceci permet de faire appel
-// aux tanks en contrôlant/limitant les répétitions de patterns.
-// Si le simulateur va trop vite, il peut rappeler un
-// pattern avant qu'il ait été dévalidé sur le serveur,
-// surtout quand le paramètre reactOnPlay est actif.
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 "use strict";
 import { createRequire } from 'module';
@@ -221,462 +81,103 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
-    const type0 = hiphop module () {
-    in stopReservoir;
-    in T72IN;
-      in T56IN;
-      in T75IN;
-      in T40IN;
-      in T83IN;
-      in T18IN;
-      out T72OUT;
-      out T56OUT;
-      out T75OUT;
-      out T40OUT;
-      out T83OUT;
-      out T18OUT;
-
-  	${ tank.makeReservoir(255, ["T72","T56","T75","T40","T83","T18"]) };
-  }
-
-    const type1 = hiphop module () {
-    in stopReservoir;
-    in T6IN;
-      in T82IN;
-      in T39IN;
-      in T73IN;
-      in T3IN;
-      in T45IN;
-      out T6OUT;
-      out T82OUT;
-      out T39OUT;
-      out T73OUT;
-      out T3OUT;
-      out T45OUT;
-
-  	${ tank.makeReservoir(255, ["T6","T82","T39","T73","T3","T45"]) };
-  }
-
-    const type2 = hiphop module () {
-    in stopReservoir;
-    in T59IN;
-      in T42IN;
-      in T54IN;
-      in T16IN;
-      in T28IN;
-      in T62IN;
-      out T59OUT;
-      out T42OUT;
-      out T54OUT;
-      out T16OUT;
-      out T28OUT;
-      out T62OUT;
-
-  	${ tank.makeReservoir(255, ["T59","T42","T54","T16","T28","T62"]) };
-  }
-
-    const type3 = hiphop module () {
-    in stopReservoir;
-    in T25IN;
-      in T74IN;
-      in T1IN;
-      in T68IN;
-      in T53IN;
-      in T38IN;
-      out T25OUT;
-      out T74OUT;
-      out T1OUT;
-      out T68OUT;
-      out T53OUT;
-      out T38OUT;
-
-  	${ tank.makeReservoir(255, ["T25","T74","T1","T68","T53","T38"]) };
-  }
-
-    const type4 = hiphop module () {
-    in stopReservoir;
-    in T81IN;
-      in T14IN;
-      in T65IN;
-      in T29IN;
-      in T37IN;
-      in T4IN;
-      out T81OUT;
-      out T14OUT;
-      out T65OUT;
-      out T29OUT;
-      out T37OUT;
-      out T4OUT;
-
-  	${ tank.makeReservoir(255, ["T81","T14","T65","T29","T37","T4"]) };
-  }
-
-    const type5 = hiphop module () {
-    in stopReservoir;
-    in T41IN;
-      in T7IN;
-      in T43IN;
-      in T55IN;
-      in T17IN;
-      in T27IN;
-      out T41OUT;
-      out T7OUT;
-      out T43OUT;
-      out T55OUT;
-      out T17OUT;
-      out T27OUT;
-
-  	${ tank.makeReservoir(255, ["T41","T7","T43","T55","T17","T27"]) };
-  }
-
-    const type6 = hiphop module () {
-    in stopReservoir;
-    in T89IN;
-      in T26IN;
-      in T15IN;
-      in T2IN;
-      in T44IN;
-      in T52IN;
-      out T89OUT;
-      out T26OUT;
-      out T15OUT;
-      out T2OUT;
-      out T44OUT;
-      out T52OUT;
-
-  	${ tank.makeReservoir(255, ["T89","T26","T15","T2","T44","T52"]) };
-  }
-
-    const type7 = hiphop module () {
-    in stopReservoir;
-    in T13IN;
-      in T71IN;
-      in T80IN;
-      in T61IN;
-      in T70IN;
-      in T94IN;
-      out T13OUT;
-      out T71OUT;
-      out T80OUT;
-      out T61OUT;
-      out T70OUT;
-      out T94OUT;
-
-  	${ tank.makeReservoir(255, ["T13","T71","T80","T61","T70","T94"]) };
-  }
-
-    const type8 = hiphop module () {
-    in stopReservoir;
-    in T36IN;
-      in T76IN;
-      in T9IN;
-      in T22IN;
-      in T63IN;
-      in T11IN;
-      out T36OUT;
-      out T76OUT;
-      out T9OUT;
-      out T22OUT;
-      out T63OUT;
-      out T11OUT;
-
-  	${ tank.makeReservoir(255, ["T36","T76","T9","T22","T63","T11"]) };
-  }
-
-    const type9 = hiphop module () {
-    in stopReservoir;
-    in T5IN;
-      in T20IN;
-      in T34IN;
-      in T67IN;
-      in T85IN;
-      in T92IN;
-      out T5OUT;
-      out T20OUT;
-      out T34OUT;
-      out T67OUT;
-      out T85OUT;
-      out T92OUT;
-
-  	${ tank.makeReservoir(255, ["T5","T20","T34","T67","T85","T92"]) };
-  }
-
-    const type10 = hiphop module () {
-    in stopReservoir;
-    in T46IN;
-      in T64IN;
-      in T93IN;
-      in T49IN;
-      in T32IN;
-      in T24IN;
-      out T46OUT;
-      out T64OUT;
-      out T93OUT;
-      out T49OUT;
-      out T32OUT;
-      out T24OUT;
-
-  	${ tank.makeReservoir(255, ["T46","T64","T93","T49","T32","T24"]) };
-  }
-
-    const type11 = hiphop module () {
-    in stopReservoir;
-    in T79IN;
-      in T84IN;
-      in T48IN;
-      in T77IN;
-      in T96IN;
-      in T86IN;
-      out T79OUT;
-      out T84OUT;
-      out T48OUT;
-      out T77OUT;
-      out T96OUT;
-      out T86OUT;
-
-  	${ tank.makeReservoir(255, ["T79","T84","T48","T77","T96","T86"]) };
-  }
-
-    const type12 = hiphop module () {
-    in stopReservoir;
-    in T30IN;
-      in T8IN;
-      in T69IN;
-      in T57IN;
-      in T12IN;
-      in T51IN;
-      out T30OUT;
-      out T8OUT;
-      out T69OUT;
-      out T57OUT;
-      out T12OUT;
-      out T51OUT;
-
-  	${ tank.makeReservoir(255, ["T30","T8","T69","T57","T12","T51"]) };
-  }
-
-    const type13 = hiphop module () {
-    in stopReservoir;
-    in T95IN;
-      in T35IN;
-      in T58IN;
-      in T87IN;
-      in T23IN;
-      in T60IN;
-      out T95OUT;
-      out T35OUT;
-      out T58OUT;
-      out T87OUT;
-      out T23OUT;
-      out T60OUT;
-
-  	${ tank.makeReservoir(255, ["T95","T35","T58","T87","T23","T60"]) };
-  }
-
-    const type14 = hiphop module () {
-    in stopReservoir;
-    in T19IN;
-      in T47IN;
-      in T90IN;
-      in T33IN;
-      in T50IN;
-      in T78IN;
-      out T19OUT;
-      out T47OUT;
-      out T90OUT;
-      out T33OUT;
-      out T50OUT;
-      out T78OUT;
-
-  	${ tank.makeReservoir(255, ["T19","T47","T90","T33","T50","T78"]) };
-  }
-
-    const type15 = hiphop module () {
-    in stopReservoir;
-    in T66IN;
-      in T88IN;
-      in T21IN;
-      in T10IN;
-      in T91IN;
-      in T31IN;
-      out T66OUT;
-      out T88OUT;
-      out T21OUT;
-      out T10OUT;
-      out T91OUT;
-      out T31OUT;
-
-  	${ tank.makeReservoir(255, ["T66","T88","T21","T10","T91","T31"]) };
-  }
-  // La transposition si fait dans Ableton Live. D'où les
-  // ratios dans l'initialisation de la pièce pour cadrer
-  // avec le paramètre MIDI des CC. (min -36, max +36).
-  // 64 -> 0
-  // 67 -> +2 ...
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-
-    const transposeClavier = hiphop module() {
-
-      inout tick;
+    const Clean1_2_3_4 = hiphop module() {
 
 
-      loop{
+        {
 
         host{
-          transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-          oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          DAW.cleanQueue(1);
         }
-
-        await count(12,tick.now);
 
         host{
-          transposeValue = -2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-          oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          DAW.cleanQueue(2);
         }
-
-        await count(12,tick.now);
 
         host{
-          transposeValue = 2; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-          //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-          oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
+          DAW.cleanQueue(3);
         }
 
-        await count(12,tick.now);
+        host{
+          DAW.cleanQueue(4);
+        }
 
-      }
+        }
+
+    }
+
+    const Clean5_6_7_8 = hiphop module() {
+
+
+        {
+
+        host{
+          DAW.cleanQueue(5);
+        }
+
+        host{
+          DAW.cleanQueue(6);
+        }
+
+        host{
+          DAW.cleanQueue(7);
+        }
+
+        host{
+          DAW.cleanQueue(8);
+        }
+
+        }
+
+    }
+
+    const Clean9_10_11_12 = hiphop module() {
+
+
+        {
+
+        host{
+          DAW.cleanQueue(9);
+        }
+
+        host{
+          DAW.cleanQueue(10);
+        }
+
+        host{
+          DAW.cleanQueue(11);
+        }
+
+        host{
+          DAW.cleanQueue(12);
+        }
+
+        }
+
+    }
+
+    const Clean13_14_15_16 = hiphop module() {
+
+
+        {
+
+        host{
+          DAW.cleanQueue(13);
+        }
+
+        host{
+          DAW.cleanQueue(14);
+        }
+
+        host{
+          DAW.cleanQueue(15);
+        }
+
+        host{
+          DAW.cleanQueue(16);
+        }
+
+        }
 
     }
 
@@ -689,7 +190,9 @@ export function setSignals(param) {
     in ... ${ interTextIN };
 
 
-    inout StartTransSaxo;
+    inout sensor0;
+
+    inout sensor2;
 
 
     loop{
@@ -704,167 +207,486 @@ export function setSignals(param) {
           }
         }par{
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'addSceneScore',
-            value:1
-          }));
-    }
-    yield;
-
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Wurfelspiel'
-          }));
-    }
-
-      host {console.log('Wurfelspiel');}
+      host {console.log('moduleIZ');}
 
       {
 
+      host{
+        gcs.setpatternListLength([5,255]);
+      }
+    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
+
+      host{
+        oscMidiLocal.sendNoteOn(param.busMidiDAW,
+        5,
+        2,
+        100);
+      }
+
+      host{gcs.setTimerDivision(1);}
+
+      host{setTempo(80, param);}
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'addSceneScore',
+              value:1
+            }));
+      }
+      yield;
+
+      }
+
+    loop{
+      // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
+
+      host{
+        oscMidiLocal.sendNoteOn(param.busMidiDAW,
+        5,
+        2,
+        100);
+      }
+
+        {
+
+          await count(1, INTERFACEZ_RC4.now && ( INTERFACEZ_RC4.nowval[0] === 4
+                        && INTERFACEZ_RC4.nowval[1] >500
+                        && INTERFACEZ_RC4.nowval[1] <5000));
+
         host{
           serveur.broadcast(JSON.stringify({
-            type: 'setListeDesTypes',
-          }));
+                type: 'alertInfoScoreON',
+                value:'Il y a quelque chose !'
+              }));
+        }
+
+        host { DAW.putPatternInQueue('Intro');}
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'Intoduction'
+              }));
+        }
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreOFF'
+              }));
+        }
+
         }
 
       host{
         serveur.broadcast(JSON.stringify({
-              type: 'listeDesTypes',
-              text:'0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15'
+              type: 'alertInfoScoreON',
+              value:'1ere séquence'
             }));
       }
 
-      }
+      abort {
 
-      {
+        abort{
 
-      host{setTempo(50, param);}
+          fork {
+              // Capteur de distance
 
-      host{gcs.setTimerDivision(1);}
+            every count( 1, INTERFACEZ_RC0.now && ( INTERFACEZ_RC0.nowval[0] === 0
+                      && INTERFACEZ_RC0.nowval[1] >1000
+                      && INTERFACEZ_RC0.nowval[1] <4000)) {
 
-      host{
-        ratioTranspose = 1.763;
-        offsetTranspose = 63.5;
-        if(debug) console.log("hiphop block transpose Parameters:", ratioTranspose, offsetTranspose);
-      }
+                host {console.log('Sensor0');}
 
-      host{
-        transposeValue = 0; // !! Ne devrait pas être une variable commune si on veut incrémenter.
-        //console.log("hiphop block transpose: transposeValue:", transposeValue ,1,74);
-        oscMidiLocal.sendControlChange(param.busMidiDAW,1,74, Math.round(ratioTranspose * transposeValue + offsetTranspose ));
-      }
-
-      }
-
-    fork {
-
-      host{
-        DAW.pauseQueues();
-      }
-
-      await count(10,tick.now);
-
-      host{DAW.resumeQueues();}
-
-      run ${ transposeClavier} () {*};
-
-    }
-
-    par {
-
-        signal inverseTempo;
-        host {console.log("-- Start move tempo")}
-        abort {
-          loop{
-            fork {
-              every count( 8, tick.now) {
-                emit inverseTempo();
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor0'
+                    }));
               }
-            }par{
-              loop{
-                abort{
-                    every count(4, tick.now) {
-                      host{
-                      tempoGlobal += 2;
-                      setTempo(tempoGlobal, param);
-                    }
-                  }
-                } when (inverseTempo.now);
-                abort {
-                  every count(4, tick.now) {
-                    host{
-                      tempoGlobal -= 2;
-                      setTempo(tempoGlobal, param);
-                    }
-                  }
-                } when (inverseTempo.now);
+
+              fork {
+
               }
+
+              par {
+
+                      emit zone7OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone7", true) }
+                  await count(4, tick.now);
+
+                      emit zone7OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
+                  yield;
+
+              }
+
+              run ${ Clean1_2_3_4} () {*};
+
             }
+
           }
-        } when immediate(stopMoveTempo.now);
-        host {console.log("-- Stop move tempo")}
 
-    }
+          par {
 
-    par {
+            every count( 1, INTERFACEZ_RC1.now && ( INTERFACEZ_RC1.nowval[0] === 1
+                      && INTERFACEZ_RC1.nowval[1] >1000
+                      && INTERFACEZ_RC1.nowval[1] <4000)) {
 
-      fork {
-        run ${ type0} () {*};
+                host {console.log('Sensor1');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor1'
+                    }));
+              }
+
+              fork {
+
+              }
+
+              par {
+
+                      emit zone8OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone8", true) }
+                  await count(4, tick.now);
+
+                      emit zone8OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
+                  yield;
+
+              }
+
+              run ${ Clean5_6_7_8} () {*};
+
+            }
+
+          }
+
+          par {
+
+            every count( 1, INTERFACEZ_RC2.now && ( INTERFACEZ_RC2.nowval[0] === 2
+                      && INTERFACEZ_RC2.nowval[1] >1000
+                      && INTERFACEZ_RC2.nowval[1] <4000)) {
+
+                host {console.log('Sensor2');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor2'
+                    }));
+              }
+
+              fork {
+
+                      emit zone3OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone3", true) }
+                  await count(4, tick.now);
+
+                      emit zone3OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
+                  yield;
+
+              }
+
+              par {
+
+                      emit zone9OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone9", true) }
+                  await count(4, tick.now);
+
+                      emit zone9OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
+                  yield;
+
+              }
+
+              run ${ Clean9_10_11_12} () {*};
+
+            }
+
+          }
+
+          par {
+
+            every count( 1, INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >1000
+                      && INTERFACEZ_RC3.nowval[1] <4000)) {
+
+                host {console.log('Sensor3');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3'
+                    }));
+              }
+
+            }
+
+          }
+
+          par {
+
+            fork {
+
+                    emit zone4OUT([true,255]);
+                    host{gcs.informSelecteurOnMenuChange(255," zone4", true) }
+                await count(4, tick.now);
+
+                    emit zone4OUT([false,255]);
+                    host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
+                yield;
+
+            }
+
+            par {
+
+                    emit zone10OUT([true,255]);
+                    host{gcs.informSelecteurOnMenuChange(255," zone10", true) }
+                await count(4, tick.now);
+
+                    emit zone10OUT([false,255]);
+                    host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
+                yield;
+
+            }
+
+            run ${ Clean13_14_15_16} () {*};
+
+          }
+
+        } when count(60, tick.now);
+
+          emit zone7OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
+
+          emit zone8OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
+
+          emit zone9OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
+
+          emit zone10OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'2eme séquence'
+              }));
+        }
+
+        abort{
+
+          fork {
+              // Capteur de distance
+
+            every count( 1, INTERFACEZ_RC0.now && ( INTERFACEZ_RC0.nowval[0] === 0
+                      && INTERFACEZ_RC0.nowval[1] >1000
+                      && INTERFACEZ_RC0.nowval[1] <4000)) {
+
+                host {console.log('Sensor0');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor0'
+                    }));
+              }
+
+              fork {
+
+                      emit zone1OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone1", true) }
+                  await count(4, tick.now);
+
+                      emit zone1OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
+                  yield;
+
+              }
+
+              run ${ Clean1_2_3_4} () {*};
+
+            }
+
+          }
+
+          par {
+
+            every count( 1, INTERFACEZ_RC1.now && ( INTERFACEZ_RC1.nowval[0] === 1
+                      && INTERFACEZ_RC1.nowval[1] >1000
+                      && INTERFACEZ_RC1.nowval[1] <4000)) {
+
+                host {console.log('Sensor1');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor1'
+                    }));
+              }
+
+              fork {
+
+                      emit zone2OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone2", true) }
+                  await count(4, tick.now);
+
+                      emit zone2OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
+                  yield;
+
+              }
+
+              run ${ Clean5_6_7_8} () {*};
+
+            }
+
+          }
+
+          par {
+
+            every count( 1, INTERFACEZ_RC2.now && ( INTERFACEZ_RC2.nowval[0] === 2
+                      && INTERFACEZ_RC2.nowval[1] >1000
+                      && INTERFACEZ_RC2.nowval[1] <4000)) {
+
+                host {console.log('Sensor2');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor2'
+                    }));
+              }
+
+              fork {
+
+                      emit zone3OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone3", true) }
+                  await count(4, tick.now);
+
+                      emit zone3OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
+                  yield;
+
+              }
+
+              run ${ Clean9_10_11_12} () {*};
+
+            }
+
+          }
+
+          par {
+
+            every count( 1, INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
+                      && INTERFACEZ_RC3.nowval[1] >1000
+                      && INTERFACEZ_RC3.nowval[1] <4000)) {
+
+                host {console.log('Sensor3');}
+
+              host{
+                serveur.broadcast(JSON.stringify({
+                      type: 'alertInfoScoreON',
+                      value:'Sensor3'
+                    }));
+              }
+
+              fork {
+
+                      emit zone4OUT([true,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone4", true) }
+                  await count(4, tick.now);
+
+                      emit zone4OUT([false,255]);
+                      host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
+                  yield;
+
+              }
+
+              run ${ Clean13_14_15_16} () {*};
+
+            }
+
+          }
+
+        } when count(60, tick.now);
+
+          emit zone1OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
+
+          emit zone2OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
+
+          emit zone3OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
+
+          emit zone4OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
+
+      } when count( 1, INTERFACEZ_RC11.now && ( INTERFACEZ_RC11.nowval[0] === 11
+                && INTERFACEZ_RC11.nowval[1] >500
+                && INTERFACEZ_RC11.nowval[1] <5000));
+
+      yield;
+
+        emit zone1OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
+
+        emit zone2OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
+
+        emit zone3OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
+
+        emit zone4OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
+
+        emit zone7OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
+
+        emit zone8OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
+
+        emit zone9OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
+
+        emit zone10OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
       }
-       par{
-          run ${ type1} () {*};
-        }
-         par{
-          run ${ type2} () {*};
-        }
-         par{
-          run ${ type3} () {*};
-        }
-         par{
-          run ${ type4} () {*};
-        }
-         par{
-          run ${ type5} () {*};
-        }
-         par{
-          run ${ type6} () {*};
-        }
-         par{
-          run ${ type7} () {*};
-        }
-         par{
-          run ${ type8} () {*};
-        }
-         par{
-          run ${ type9} () {*};
-        }
-         par{
-          run ${ type10} () {*};
-        }
-         par{
-          run ${ type11} () {*};
-        }
-         par{
-          run ${ type12} () {*};
-        }
-         par{
-          run ${ type13} () {*};
-        }
-         par{
-          run ${ type14} () {*};
-        }
-         par{
-          run ${ type15} () {*};
-        }
 
-    }
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'Morceau de fin'
+            }));
+      }
 
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreOFF'
-          }));
+      host { DAW.putPatternInQueue('Fin');}
+
+      abort {
+
+        await count(88,tick.now);
+
+      } when count( 1, INTERFACEZ_RC11.now && ( INTERFACEZ_RC11.nowval[0] === 11
+                && INTERFACEZ_RC11.nowval[1] >100
+                && INTERFACEZ_RC11.nowval[1] <5000));
+    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
+
+      host{
+        oscMidiLocal.sendNoteOn(param.busMidiDAW,
+        5,
+        2,
+        100);
+      }
+
     }
 
         }

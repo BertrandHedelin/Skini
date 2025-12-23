@@ -151,7 +151,7 @@
     </statement>
     <statement name="SIGNALS">
       <block type="hh_declare_signal" id="hMbab~N3NYFDXs03iGXx">
-        <field name="TYPE">INOUT</field>
+        <field name="TYPE">inout</field>
         <value name="signal">
           <block type="variables_get" id="(FG16*+ZpRqc[Qol7X2[">
             <field name="VAR" id="t2na~d:?.N52mSkkb{`[">sensor0</field>
@@ -159,7 +159,7 @@
         </value>
         <next>
           <block type="hh_declare_signal" id="F3D|DggeE2p(;uO_8~Nd">
-            <field name="TYPE">INOUT</field>
+            <field name="TYPE">inout</field>
             <value name="signal">
               <block type="variables_get" id="Wwdrd,4a1Unds+hXF0nn">
                 <field name="VAR" id="Hm3TqEGxDdsJx,)2gWxM">sensor2</field>
@@ -208,7 +208,7 @@
               </block>
             </statement>
             <next>
-              <block type="alertInfoScoreON" id="(z3NS#oZ|w:%~wNKb,78">
+              <block type="alertInfoScoreON" id="(z3NS#oZ|w:%~wNKb,78" disabled="true">
                 <value name="message">
                   <block type="text" id="-_3rYG]?--UrK:y?4s^-">
                     <field name="TEXT">Presser le bouton !</field>
@@ -229,7 +229,7 @@
                             <field name="valueMidi">100</field>
                             <comment pinned="false" h="56" w="413">Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton</comment>
                             <next>
-                              <block type="hh_sequence" id="irMX)A|YzT@[_4]L;GEI" disabled="true">
+                              <block type="hh_sequence" id="irMX)A|YzT@[_4]L;GEI">
                                 <statement name="BODY">
                                   <block type="hh_await_interfaceZ_sensor" id="C514agN*c+@PKU+f?nKL">
                                     <field name="TIMES">1</field>
@@ -240,7 +240,7 @@
                                       <block type="alertInfoScoreON" id="9Kf(b_=~k^7Q4K#@9O@,">
                                         <value name="message">
                                           <block type="text" id="=BOpf:.r4R@47^9%!qut">
-                                            <field name="TEXT">Il y a quelqu'un !</field>
+                                            <field name="TEXT">Il y a quelque chose !</field>
                                           </block>
                                         </value>
                                         <next>
@@ -258,7 +258,7 @@
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="hh_wait_for" id="q:k6~9*9?cO@:OI~;dL:">
+                                                  <block type="hh_wait_for" id="q:k6~9*9?cO@:OI~;dL:" disabled="true">
                                                     <field name="TIMES">50</field>
                                                     <value name="SIGNAL">
                                                       <block type="variables_get" id="t*@M:lz{ZJA*D|K:*MTc">
@@ -279,19 +279,19 @@
                                   </block>
                                 </statement>
                                 <next>
-                                  <block type="hh_abort_interfaceZ_sensor" id="-7hDNo)#tb@D%fg(xHE0">
-                                    <field name="TIMES">1</field>
-                                    <field name="sensor">11</field>
-                                    <field name="lowValue">500</field>
-                                    <field name="highValue">5000</field>
-                                    <statement name="BODY">
-                                      <block type="alertInfoScoreON" id="gFq,3wlq2SY0%Y?7Rp!*">
-                                        <value name="message">
-                                          <block type="text" id="^.t[UfB}A^GEXSEsr-Aj">
-                                            <field name="TEXT">1ere séquence</field>
-                                          </block>
-                                        </value>
-                                        <next>
+                                  <block type="alertInfoScoreON" id="gFq,3wlq2SY0%Y?7Rp!*">
+                                    <value name="message">
+                                      <block type="text" id="^.t[UfB}A^GEXSEsr-Aj">
+                                        <field name="TEXT">1ere séquence</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hh_abort_interfaceZ_sensor" id="-7hDNo)#tb@D%fg(xHE0">
+                                        <field name="TIMES">1</field>
+                                        <field name="sensor">11</field>
+                                        <field name="lowValue">500</field>
+                                        <field name="highValue">5000</field>
+                                        <statement name="BODY">
                                           <block type="hh_abort" id="+09.bUz1YTDq+MXmGC#1">
                                             <field name="TIMES">60</field>
                                             <value name="SIGNAL">
@@ -300,7 +300,7 @@
                                               </block>
                                             </value>
                                             <statement name="BODY">
-                                              <block type="hh_fork" id="FlW);HEy+JVgWqU~9F6V" collapsed="true">
+                                              <block type="hh_fork" id="FlW);HEy+JVgWqU~9F6V">
                                                 <statement name="BODY">
                                                   <block type="hh_every_interfaceZ_sensor" id="fXApO)w9mK_jJTun8:[]">
                                                     <field name="TIMES">1</field>
@@ -331,33 +331,33 @@
                                                                   </block>
                                                                 </value>
                                                                 <next>
-                                                                  <block type="hh_sequence" id="Wd[Dhnp)Eak?6ekZ`SIc">
+                                                                  <block type="hh_fork" id="[$4#t{4`vBL~g[m(EN/8">
                                                                     <statement name="BODY">
-                                                                      <block type="hh_fork" id="[$4#t{4`vBL~g[m(EN/8">
+                                                                      <block type="set_group_during_ticks" id="zsADOL(v@yS(~d[w{tY{" disabled="true">
+                                                                        <field name="user_group">255</field>
+                                                                        <field name="number_of_ticks">4</field>
+                                                                        <value name="GROUPS">
+                                                                          <block type="variables_get" id="4txHmvjcyrKJruHq1DMq">
+                                                                            <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <next>
+                                                                      <block type="hh_par" id="GgUKrSXklt6JSwa3Ra?)">
                                                                         <statement name="BODY">
-                                                                          <block type="set_group_during_ticks" id="zsADOL(v@yS(~d[w{tY{" disabled="true">
+                                                                          <block type="set_group_during_ticks" id="nFtV^v6V#B6![-^/yJ6`">
                                                                             <field name="user_group">255</field>
                                                                             <field name="number_of_ticks">4</field>
                                                                             <value name="GROUPS">
-                                                                              <block type="variables_get" id="4txHmvjcyrKJruHq1DMq">
-                                                                                <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
+                                                                              <block type="variables_get" id=";K?pgXkuI1ml;0i|5vwq">
+                                                                                <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
                                                                               </block>
                                                                             </value>
-                                                                            <next>
-                                                                              <block type="set_group_during_ticks" id="nFtV^v6V#B6![-^/yJ6`">
-                                                                                <field name="user_group">255</field>
-                                                                                <field name="number_of_ticks">4</field>
-                                                                                <value name="GROUPS">
-                                                                                  <block type="variables_get" id=";K?pgXkuI1ml;0i|5vwq">
-                                                                                    <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
-                                                                                  </block>
-                                                                                </value>
-                                                                              </block>
-                                                                            </next>
                                                                           </block>
                                                                         </statement>
                                                                         <next>
-                                                                          <block type="hh_run" id="77WCK^ct|D]AgY,^oq*[" collapsed="true">
+                                                                          <block type="hh_run" id="77WCK^ct|D]AgY,^oq*[">
                                                                             <value name="MODULE">
                                                                               <block type="variables_get" id="dN.j}h$BtML+sC4+m;eE">
                                                                                 <field name="VAR" id="~9{@3O{|?`lHw|c,cqlW">Clean1-2-3-4</field>
@@ -366,7 +366,7 @@
                                                                           </block>
                                                                         </next>
                                                                       </block>
-                                                                    </statement>
+                                                                    </next>
                                                                   </block>
                                                                 </next>
                                                               </block>
@@ -375,7 +375,11 @@
                                                         </next>
                                                       </block>
                                                     </statement>
-                                                    <next>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="hh_par" id="I,gQQs|r~rX:B3Y{*Yu8">
+                                                    <statement name="BODY">
                                                       <block type="hh_every_interfaceZ_sensor" id="mxv}}@Kq|s1oW)h[edJu">
                                                         <field name="TIMES">1</field>
                                                         <field name="sensor">1</field>
@@ -404,29 +408,29 @@
                                                                       </block>
                                                                     </value>
                                                                     <next>
-                                                                      <block type="hh_sequence" id="u?W|_AO624Co_4D](}rk">
+                                                                      <block type="hh_fork" id="^,(fQ5(;X[c2Xi_4gie;">
                                                                         <statement name="BODY">
-                                                                          <block type="hh_fork" id="^,(fQ5(;X[c2Xi_4gie;">
+                                                                          <block type="set_group_during_ticks" id="Wqv_@b8{g*{)zUIf{(lH" disabled="true">
+                                                                            <field name="user_group">255</field>
+                                                                            <field name="number_of_ticks">4</field>
+                                                                            <value name="GROUPS">
+                                                                              <block type="variables_get" id="UUU49{IZ]S}3o0X|;|+i">
+                                                                                <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="hh_par" id="I`rP4azF,G@r3:nuLXJ(">
                                                                             <statement name="BODY">
-                                                                              <block type="set_group_during_ticks" id="Wqv_@b8{g*{)zUIf{(lH" disabled="true">
+                                                                              <block type="set_group_during_ticks" id="|$[tJ~|d,xX4gj23^GHK">
                                                                                 <field name="user_group">255</field>
                                                                                 <field name="number_of_ticks">4</field>
                                                                                 <value name="GROUPS">
-                                                                                  <block type="variables_get" id="UUU49{IZ]S}3o0X|;|+i">
-                                                                                    <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
+                                                                                  <block type="variables_get" id="2H74cjqV;u*6q,GSlpXT">
+                                                                                    <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
                                                                                   </block>
                                                                                 </value>
-                                                                                <next>
-                                                                                  <block type="set_group_during_ticks" id="|$[tJ~|d,xX4gj23^GHK">
-                                                                                    <field name="user_group">255</field>
-                                                                                    <field name="number_of_ticks">4</field>
-                                                                                    <value name="GROUPS">
-                                                                                      <block type="variables_get" id="2H74cjqV;u*6q,GSlpXT">
-                                                                                        <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
-                                                                                      </block>
-                                                                                    </value>
-                                                                                  </block>
-                                                                                </next>
                                                                               </block>
                                                                             </statement>
                                                                             <next>
@@ -439,7 +443,7 @@
                                                                               </block>
                                                                             </next>
                                                                           </block>
-                                                                        </statement>
+                                                                        </next>
                                                                       </block>
                                                                     </next>
                                                                   </block>
@@ -448,7 +452,11 @@
                                                             </next>
                                                           </block>
                                                         </statement>
-                                                        <next>
+                                                      </block>
+                                                    </statement>
+                                                    <next>
+                                                      <block type="hh_par" id="e5Mwr6#/$XJ/Hl7uP,RA">
+                                                        <statement name="BODY">
                                                           <block type="hh_every_interfaceZ_sensor" id="v`qq1VZUW/-`,0rEGgO7">
                                                             <field name="TIMES">1</field>
                                                             <field name="sensor">2</field>
@@ -477,29 +485,29 @@
                                                                           </block>
                                                                         </value>
                                                                         <next>
-                                                                          <block type="hh_sequence" id="=h5oqKkEL`2j7+$NOW,=">
+                                                                          <block type="hh_fork" id="s=v%{@mZ,6EV?pnkqD|u">
                                                                             <statement name="BODY">
-                                                                              <block type="hh_fork" id="s=v%{@mZ,6EV?pnkqD|u">
+                                                                              <block type="set_group_during_ticks" id="i:seS!FA43)}8OdTT3,J">
+                                                                                <field name="user_group">255</field>
+                                                                                <field name="number_of_ticks">4</field>
+                                                                                <value name="GROUPS">
+                                                                                  <block type="variables_get" id="T+OTT*U@wS]W4Q$*8=A$">
+                                                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </statement>
+                                                                            <next>
+                                                                              <block type="hh_par" id="(?^Jj]IfU0RKopzz-h.}">
                                                                                 <statement name="BODY">
-                                                                                  <block type="set_group_during_ticks" id="i:seS!FA43)}8OdTT3,J" disabled="true">
+                                                                                  <block type="set_group_during_ticks" id="JhB[%6oaRq=Ws=-Ix/}6">
                                                                                     <field name="user_group">255</field>
                                                                                     <field name="number_of_ticks">4</field>
                                                                                     <value name="GROUPS">
-                                                                                      <block type="variables_get" id="T+OTT*U@wS]W4Q$*8=A$">
-                                                                                        <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
+                                                                                      <block type="variables_get" id="pf#V.e_^L?bM4m3xf3rg">
+                                                                                        <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
                                                                                       </block>
                                                                                     </value>
-                                                                                    <next>
-                                                                                      <block type="set_group_during_ticks" id="JhB[%6oaRq=Ws=-Ix/}6">
-                                                                                        <field name="user_group">255</field>
-                                                                                        <field name="number_of_ticks">4</field>
-                                                                                        <value name="GROUPS">
-                                                                                          <block type="variables_get" id="pf#V.e_^L?bM4m3xf3rg">
-                                                                                            <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                      </block>
-                                                                                    </next>
                                                                                   </block>
                                                                                 </statement>
                                                                                 <next>
@@ -512,7 +520,7 @@
                                                                                   </block>
                                                                                 </next>
                                                                               </block>
-                                                                            </statement>
+                                                                            </next>
                                                                           </block>
                                                                         </next>
                                                                       </block>
@@ -521,7 +529,11 @@
                                                                 </next>
                                                               </block>
                                                             </statement>
-                                                            <next>
+                                                          </block>
+                                                        </statement>
+                                                        <next>
+                                                          <block type="hh_par" id="q(t+wmXvFgP*Q1KuGU08">
+                                                            <statement name="BODY">
                                                               <block type="hh_every_interfaceZ_sensor" id="!l97u]V_oON1YfGdRY7j">
                                                                 <field name="TIMES">1</field>
                                                                 <field name="sensor">3</field>
@@ -549,45 +561,49 @@
                                                                                 <field name="VAR" id="Hm3TqEGxDdsJx,)2gWxM">sensor2</field>
                                                                               </block>
                                                                             </value>
-                                                                            <next>
-                                                                              <block type="hh_sequence" id="hF@kGWuH}#~]3w6gOIJ4">
-                                                                                <statement name="BODY">
-                                                                                  <block type="hh_fork" id="0Y9|oo7;QG~JxN}S]dk-">
-                                                                                    <statement name="BODY">
-                                                                                      <block type="set_group_during_ticks" id="kRpu]p3J+CiAOVoHAo6b" disabled="true">
-                                                                                        <field name="user_group">255</field>
-                                                                                        <field name="number_of_ticks">4</field>
-                                                                                        <value name="GROUPS">
-                                                                                          <block type="variables_get" id="1UYaY9tsbM5#]w#.XvK5">
-                                                                                            <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                        <next>
-                                                                                          <block type="set_group_during_ticks" id="WpFNR@?/{eNZjR,W8+B#">
-                                                                                            <field name="user_group">255</field>
-                                                                                            <field name="number_of_ticks">4</field>
-                                                                                            <value name="GROUPS">
-                                                                                              <block type="variables_get" id=".PGQV=}wqgd0?x11Vb{o">
-                                                                                                <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
-                                                                                              </block>
-                                                                                            </value>
-                                                                                          </block>
-                                                                                        </next>
-                                                                                      </block>
-                                                                                    </statement>
-                                                                                    <next>
-                                                                                      <block type="hh_run" id=":m@@L%b_kIF@+Gst^vZ~" collapsed="true">
-                                                                                        <value name="MODULE">
-                                                                                          <block type="variables_get" id="GG~o-Ovg+_R@AZCiJNEt">
-                                                                                            <field name="VAR" id="{i+]JgOiP[OaWTr}rFkt">Clean13-14-15-16</field>
-                                                                                          </block>
-                                                                                        </value>
-                                                                                      </block>
-                                                                                    </next>
-                                                                                  </block>
-                                                                                </statement>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </statement>
+                                                              </block>
+                                                            </statement>
+                                                            <next>
+                                                              <block type="hh_par" id="OxvlLv@ewR7oKeoP*TZV">
+                                                                <statement name="BODY">
+                                                                  <block type="hh_fork" id="+vKQ;#rC`cz6zX*tXk!7">
+                                                                    <statement name="BODY">
+                                                                      <block type="set_group_during_ticks" id="kRpu]p3J+CiAOVoHAo6b">
+                                                                        <field name="user_group">255</field>
+                                                                        <field name="number_of_ticks">4</field>
+                                                                        <value name="GROUPS">
+                                                                          <block type="variables_get" id="1UYaY9tsbM5#]w#.XvK5">
+                                                                            <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <next>
+                                                                      <block type="hh_par" id=".oM{xRT4|n}si{TIYsZV">
+                                                                        <statement name="BODY">
+                                                                          <block type="set_group_during_ticks" id="WpFNR@?/{eNZjR,W8+B#">
+                                                                            <field name="user_group">255</field>
+                                                                            <field name="number_of_ticks">4</field>
+                                                                            <value name="GROUPS">
+                                                                              <block type="variables_get" id=".PGQV=}wqgd0?x11Vb{o">
+                                                                                <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
                                                                               </block>
-                                                                            </next>
+                                                                            </value>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="hh_run" id=":m@@L%b_kIF@+Gst^vZ~">
+                                                                            <value name="MODULE">
+                                                                              <block type="variables_get" id="GG~o-Ovg+_R@AZCiJNEt">
+                                                                                <field name="VAR" id="{i+]JgOiP[OaWTr}rFkt">Clean13-14-15-16</field>
+                                                                              </block>
+                                                                            </value>
                                                                           </block>
                                                                         </next>
                                                                       </block>
@@ -595,36 +611,40 @@
                                                                   </block>
                                                                 </statement>
                                                                 <next>
-                                                                  <block type="hh_every_interfaceZ_sensor" id="de^oVGME9-jc9G{,$z-~" disabled="true">
-                                                                    <field name="TIMES">1</field>
-                                                                    <field name="sensor">5</field>
-                                                                    <field name="lowValue">1000</field>
-                                                                    <field name="highValue">4000</field>
+                                                                  <block type="hh_par" id="sz[]f%x//zN/7}rj#hGs">
                                                                     <statement name="BODY">
-                                                                      <block type="hh_print_serveur" id="j7!_]=`=KQvG#7ewFT!#">
-                                                                        <value name="TEXT">
-                                                                          <block type="text" id="A}*uc`2|Gcj6k0EO.)_t">
-                                                                            <field name="TEXT">Sensor5</field>
-                                                                          </block>
-                                                                        </value>
-                                                                        <next>
-                                                                          <block type="alertInfoScoreON" id="Oam2PoNG0o%?PqkI2M.I">
-                                                                            <value name="message">
-                                                                              <block type="text" id="I/r2/dEI{P_cNm9jX_O3">
-                                                                                <field name="TEXT">Zone5</field>
+                                                                      <block type="hh_every_interfaceZ_sensor" id="de^oVGME9-jc9G{,$z-~" disabled="true">
+                                                                        <field name="TIMES">1</field>
+                                                                        <field name="sensor">5</field>
+                                                                        <field name="lowValue">1000</field>
+                                                                        <field name="highValue">4000</field>
+                                                                        <statement name="BODY">
+                                                                          <block type="hh_print_serveur" id="j7!_]=`=KQvG#7ewFT!#">
+                                                                            <value name="TEXT">
+                                                                              <block type="text" id="A}*uc`2|Gcj6k0EO.)_t">
+                                                                                <field name="TEXT">Sensor5</field>
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="putPatternInQueue" id="e!vON).~V2MRYVO,04Yk">
+                                                                              <block type="alertInfoScoreON" id="Oam2PoNG0o%?PqkI2M.I">
                                                                                 <value name="message">
-                                                                                  <block type="text" id="u1oGWwToNAPSch510:w~">
-                                                                                    <field name="TEXT">Massive1</field>
+                                                                                  <block type="text" id="I/r2/dEI{P_cNm9jX_O3">
+                                                                                    <field name="TEXT">Zone5</field>
                                                                                   </block>
                                                                                 </value>
+                                                                                <next>
+                                                                                  <block type="putPatternInQueue" id="e!vON).~V2MRYVO,04Yk">
+                                                                                    <value name="message">
+                                                                                      <block type="text" id="u1oGWwToNAPSch510:w~">
+                                                                                        <field name="TEXT">Massive1</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </next>
                                                                               </block>
                                                                             </next>
                                                                           </block>
-                                                                        </next>
+                                                                        </statement>
                                                                       </block>
                                                                     </statement>
                                                                   </block>
@@ -636,7 +656,7 @@
                                                       </block>
                                                     </next>
                                                   </block>
-                                                </statement>
+                                                </next>
                                               </block>
                                             </statement>
                                             <next>
@@ -683,7 +703,7 @@
                                                           </block>
                                                         </value>
                                                         <statement name="BODY">
-                                                          <block type="hh_fork" id="vo^J9EXtD6LG80;96$r1" collapsed="true">
+                                                          <block type="hh_fork" id="vo^J9EXtD6LG80;96$r1">
                                                             <statement name="BODY">
                                                               <block type="hh_every_interfaceZ_sensor" id="Uedf;P2$4ApZc1agFGI*">
                                                                 <field name="TIMES">1</field>
@@ -714,29 +734,29 @@
                                                                               </block>
                                                                             </value>
                                                                             <next>
-                                                                              <block type="hh_sequence" id="bkgrk]RkL]tr;|laGeay">
+                                                                              <block type="hh_fork" id="-]2%s^[n=Fyy;0B=cuhF">
                                                                                 <statement name="BODY">
-                                                                                  <block type="hh_fork" id="-]2%s^[n=Fyy;0B=cuhF">
+                                                                                  <block type="set_group_during_ticks" id="1ONKLE[8228qgj2;l$W%">
+                                                                                    <field name="user_group">255</field>
+                                                                                    <field name="number_of_ticks">4</field>
+                                                                                    <value name="GROUPS">
+                                                                                      <block type="variables_get" id="9M`z_27E`ebq5iAqe}SL">
+                                                                                        <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </statement>
+                                                                                <next>
+                                                                                  <block type="hh_par" id="P$Wy^7:zC^-6sSK-c@o[">
                                                                                     <statement name="BODY">
-                                                                                      <block type="set_group_during_ticks" id="1ONKLE[8228qgj2;l$W%">
+                                                                                      <block type="set_group_during_ticks" id="F3Z*CDkr@zzmo@aEDA%?" disabled="true">
                                                                                         <field name="user_group">255</field>
                                                                                         <field name="number_of_ticks">4</field>
                                                                                         <value name="GROUPS">
-                                                                                          <block type="variables_get" id="9M`z_27E`ebq5iAqe}SL">
-                                                                                            <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
+                                                                                          <block type="variables_get" id="[lzo(8H]m-CK+vaWsg]k">
+                                                                                            <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
                                                                                           </block>
                                                                                         </value>
-                                                                                        <next>
-                                                                                          <block type="set_group_during_ticks" id="F3Z*CDkr@zzmo@aEDA%?" disabled="true">
-                                                                                            <field name="user_group">255</field>
-                                                                                            <field name="number_of_ticks">4</field>
-                                                                                            <value name="GROUPS">
-                                                                                              <block type="variables_get" id="[lzo(8H]m-CK+vaWsg]k">
-                                                                                                <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
-                                                                                              </block>
-                                                                                            </value>
-                                                                                          </block>
-                                                                                        </next>
                                                                                       </block>
                                                                                     </statement>
                                                                                     <next>
@@ -749,7 +769,7 @@
                                                                                       </block>
                                                                                     </next>
                                                                                   </block>
-                                                                                </statement>
+                                                                                </next>
                                                                               </block>
                                                                             </next>
                                                                           </block>
@@ -758,7 +778,11 @@
                                                                     </next>
                                                                   </block>
                                                                 </statement>
-                                                                <next>
+                                                              </block>
+                                                            </statement>
+                                                            <next>
+                                                              <block type="hh_par" id="Kb``pmfH/4}j$dGTJZ_I">
+                                                                <statement name="BODY">
                                                                   <block type="hh_every_interfaceZ_sensor" id="+ciH0fZ+I)|SDM$DkCg$">
                                                                     <field name="TIMES">1</field>
                                                                     <field name="sensor">1</field>
@@ -787,29 +811,29 @@
                                                                                   </block>
                                                                                 </value>
                                                                                 <next>
-                                                                                  <block type="hh_sequence" id="s~P0t2$;wp~M-(Lna;En">
+                                                                                  <block type="hh_fork" id="G6bNGA;bSOvy1aksXrP|">
                                                                                     <statement name="BODY">
-                                                                                      <block type="hh_fork" id="G6bNGA;bSOvy1aksXrP|">
+                                                                                      <block type="set_group_during_ticks" id="9H18Bp(6@v5:FY;U+x8:">
+                                                                                        <field name="user_group">255</field>
+                                                                                        <field name="number_of_ticks">4</field>
+                                                                                        <value name="GROUPS">
+                                                                                          <block type="variables_get" id="lPtS|U[!PQC!Ua9?QAjj">
+                                                                                            <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </statement>
+                                                                                    <next>
+                                                                                      <block type="hh_par" id="$AhCzF$L-?+ZfX89O@O=">
                                                                                         <statement name="BODY">
-                                                                                          <block type="set_group_during_ticks" id="9H18Bp(6@v5:FY;U+x8:">
+                                                                                          <block type="set_group_during_ticks" id="EaIC(#.L|MJ`/Lu`Tdd=" disabled="true">
                                                                                             <field name="user_group">255</field>
                                                                                             <field name="number_of_ticks">4</field>
                                                                                             <value name="GROUPS">
-                                                                                              <block type="variables_get" id="lPtS|U[!PQC!Ua9?QAjj">
-                                                                                                <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
+                                                                                              <block type="variables_get" id=".}P=!)#@~eo7Rf8xa%S@">
+                                                                                                <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
                                                                                               </block>
                                                                                             </value>
-                                                                                            <next>
-                                                                                              <block type="set_group_during_ticks" id="EaIC(#.L|MJ`/Lu`Tdd=" disabled="true">
-                                                                                                <field name="user_group">255</field>
-                                                                                                <field name="number_of_ticks">4</field>
-                                                                                                <value name="GROUPS">
-                                                                                                  <block type="variables_get" id=".}P=!)#@~eo7Rf8xa%S@">
-                                                                                                    <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
-                                                                                                  </block>
-                                                                                                </value>
-                                                                                              </block>
-                                                                                            </next>
                                                                                           </block>
                                                                                         </statement>
                                                                                         <next>
@@ -822,7 +846,7 @@
                                                                                           </block>
                                                                                         </next>
                                                                                       </block>
-                                                                                    </statement>
+                                                                                    </next>
                                                                                   </block>
                                                                                 </next>
                                                                               </block>
@@ -831,7 +855,11 @@
                                                                         </next>
                                                                       </block>
                                                                     </statement>
-                                                                    <next>
+                                                                  </block>
+                                                                </statement>
+                                                                <next>
+                                                                  <block type="hh_par" id="cu-r7`8jFcPJ*xP2Z~7*">
+                                                                    <statement name="BODY">
                                                                       <block type="hh_every_interfaceZ_sensor" id="z7AxrZQ3P(!w[JIBcs_I">
                                                                         <field name="TIMES">1</field>
                                                                         <field name="sensor">2</field>
@@ -860,29 +888,29 @@
                                                                                       </block>
                                                                                     </value>
                                                                                     <next>
-                                                                                      <block type="hh_sequence" id="Fm-;WkSUzkfjV=ZxL#q-">
+                                                                                      <block type="hh_fork" id=")fhZQ(e%ps`mnT~xB[_S">
                                                                                         <statement name="BODY">
-                                                                                          <block type="hh_fork" id=")fhZQ(e%ps`mnT~xB[_S">
+                                                                                          <block type="set_group_during_ticks" id="O#0KAf)ZO/$;*0W?~(:O">
+                                                                                            <field name="user_group">255</field>
+                                                                                            <field name="number_of_ticks">4</field>
+                                                                                            <value name="GROUPS">
+                                                                                              <block type="variables_get" id="qlIlCw3]8slY2I:S9Qpe">
+                                                                                                <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                        <next>
+                                                                                          <block type="hh_par" id="^[?3u;O=-8ET;#Njz3Ua">
                                                                                             <statement name="BODY">
-                                                                                              <block type="set_group_during_ticks" id="O#0KAf)ZO/$;*0W?~(:O">
+                                                                                              <block type="set_group_during_ticks" id="d$|VZ]!QP]q[8hwMFROX" disabled="true">
                                                                                                 <field name="user_group">255</field>
                                                                                                 <field name="number_of_ticks">4</field>
                                                                                                 <value name="GROUPS">
-                                                                                                  <block type="variables_get" id="qlIlCw3]8slY2I:S9Qpe">
-                                                                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
+                                                                                                  <block type="variables_get" id="2KXbzX0F[g:Wq@;8PsDk">
+                                                                                                    <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
                                                                                                   </block>
                                                                                                 </value>
-                                                                                                <next>
-                                                                                                  <block type="set_group_during_ticks" id="d$|VZ]!QP]q[8hwMFROX" disabled="true">
-                                                                                                    <field name="user_group">255</field>
-                                                                                                    <field name="number_of_ticks">4</field>
-                                                                                                    <value name="GROUPS">
-                                                                                                      <block type="variables_get" id="2KXbzX0F[g:Wq@;8PsDk">
-                                                                                                        <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
-                                                                                                      </block>
-                                                                                                    </value>
-                                                                                                  </block>
-                                                                                                </next>
                                                                                               </block>
                                                                                             </statement>
                                                                                             <next>
@@ -895,7 +923,7 @@
                                                                                               </block>
                                                                                             </next>
                                                                                           </block>
-                                                                                        </statement>
+                                                                                        </next>
                                                                                       </block>
                                                                                     </next>
                                                                                   </block>
@@ -904,7 +932,11 @@
                                                                             </next>
                                                                           </block>
                                                                         </statement>
-                                                                        <next>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <next>
+                                                                      <block type="hh_par" id="@2XyS8auquJ?3R2nSkP8">
+                                                                        <statement name="BODY">
                                                                           <block type="hh_every_interfaceZ_sensor" id="jJ]:M@7@uZO8iue`)pAG">
                                                                             <field name="TIMES">1</field>
                                                                             <field name="sensor">3</field>
@@ -933,29 +965,29 @@
                                                                                           </block>
                                                                                         </value>
                                                                                         <next>
-                                                                                          <block type="hh_sequence" id="L6rEk+1F=J|75-ML,8[P">
+                                                                                          <block type="hh_fork" id="=owH=Ty7Rq{{O;hTDN|z">
                                                                                             <statement name="BODY">
-                                                                                              <block type="hh_fork" id="=owH=Ty7Rq{{O;hTDN|z">
+                                                                                              <block type="set_group_during_ticks" id="![1(yt1`//03=)LB=v#7">
+                                                                                                <field name="user_group">255</field>
+                                                                                                <field name="number_of_ticks">4</field>
+                                                                                                <value name="GROUPS">
+                                                                                                  <block type="variables_get" id="yZZ_u)/`yC#my.{5P5-M">
+                                                                                                    <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                              </block>
+                                                                                            </statement>
+                                                                                            <next>
+                                                                                              <block type="hh_par" id="8FXb-s~=m{lnkHA!SYUm">
                                                                                                 <statement name="BODY">
-                                                                                                  <block type="set_group_during_ticks" id="![1(yt1`//03=)LB=v#7">
+                                                                                                  <block type="set_group_during_ticks" id=";4giYfG:gsi$ygzMj@n4" disabled="true">
                                                                                                     <field name="user_group">255</field>
                                                                                                     <field name="number_of_ticks">4</field>
                                                                                                     <value name="GROUPS">
-                                                                                                      <block type="variables_get" id="yZZ_u)/`yC#my.{5P5-M">
-                                                                                                        <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
+                                                                                                      <block type="variables_get" id="DsjJYBcGU*FNiNA[2auc">
+                                                                                                        <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
                                                                                                       </block>
                                                                                                     </value>
-                                                                                                    <next>
-                                                                                                      <block type="set_group_during_ticks" id=";4giYfG:gsi$ygzMj@n4" disabled="true">
-                                                                                                        <field name="user_group">255</field>
-                                                                                                        <field name="number_of_ticks">4</field>
-                                                                                                        <value name="GROUPS">
-                                                                                                          <block type="variables_get" id="DsjJYBcGU*FNiNA[2auc">
-                                                                                                            <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
-                                                                                                          </block>
-                                                                                                        </value>
-                                                                                                      </block>
-                                                                                                    </next>
                                                                                                   </block>
                                                                                                 </statement>
                                                                                                 <next>
@@ -968,7 +1000,7 @@
                                                                                                   </block>
                                                                                                 </next>
                                                                                               </block>
-                                                                                            </statement>
+                                                                                            </next>
                                                                                           </block>
                                                                                         </next>
                                                                                       </block>
@@ -977,7 +1009,11 @@
                                                                                 </next>
                                                                               </block>
                                                                             </statement>
-                                                                            <next>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="hh_par" id="ph@F+e_fT[~mT(B=7=Bl">
+                                                                            <statement name="BODY">
                                                                               <block type="hh_every_interfaceZ_sensor" id="?/i$e?^4N#5[t2,s08Fs" disabled="true">
                                                                                 <field name="TIMES">1</field>
                                                                                 <field name="sensor">5</field>
@@ -1046,7 +1082,7 @@
                                                                                   </block>
                                                                                 </next>
                                                                               </block>
-                                                                            </next>
+                                                                            </statement>
                                                                           </block>
                                                                         </next>
                                                                       </block>
@@ -1054,7 +1090,7 @@
                                                                   </block>
                                                                 </next>
                                                               </block>
-                                                            </statement>
+                                                            </next>
                                                           </block>
                                                         </statement>
                                                         <next>
@@ -1094,105 +1130,105 @@
                                               </block>
                                             </next>
                                           </block>
-                                        </next>
-                                      </block>
-                                    </statement>
-                                    <next>
-                                      <block type="hh_pause" id="/WmI#]Kda_.AI/lMd},t">
+                                        </statement>
                                         <next>
-                                          <block type="unset_group" id="=DB5jg5~Qu,cl!03-D$f" collapsed="true">
-                                            <field name="groupe">255</field>
-                                            <value name="GROUPS">
-                                              <block type="lists_create_with" id="[SCE7iT~s,W{Qn}o`A)T">
-                                                <mutation items="4"></mutation>
-                                                <value name="ADD0">
-                                                  <block type="variables_get" id="hQ!X8/X;!@V%T_xW3N%C">
-                                                    <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
-                                                  </block>
-                                                </value>
-                                                <value name="ADD1">
-                                                  <block type="variables_get" id="nta~GD3EqK*2bCzIv|i*">
-                                                    <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
-                                                  </block>
-                                                </value>
-                                                <value name="ADD2">
-                                                  <block type="variables_get" id="wpEY_N1yiTf,oA00`:do">
-                                                    <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
-                                                  </block>
-                                                </value>
-                                                <value name="ADD3">
-                                                  <block type="variables_get" id="p$z]qAJh#0e~3^$HY_U}">
-                                                    <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
-                                                  </block>
-                                                </value>
-                                              </block>
-                                            </value>
+                                          <block type="hh_pause" id="/WmI#]Kda_.AI/lMd},t">
                                             <next>
-                                              <block type="unset_group" id="{9^AD#;2Rlal?s5]t8$`" collapsed="true">
+                                              <block type="unset_group" id="=DB5jg5~Qu,cl!03-D$f" collapsed="true">
                                                 <field name="groupe">255</field>
                                                 <value name="GROUPS">
-                                                  <block type="lists_create_with" id="[,G|aBiQOOR[TOqzbHq@">
+                                                  <block type="lists_create_with" id="[SCE7iT~s,W{Qn}o`A)T">
                                                     <mutation items="4"></mutation>
                                                     <value name="ADD0">
-                                                      <block type="variables_get" id="3wa1mWJcMJK,DmT}%e`p">
-                                                        <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
+                                                      <block type="variables_get" id="hQ!X8/X;!@V%T_xW3N%C">
+                                                        <field name="VAR" id="0.#;jy#~m4aeM%YTrjE/">zone1</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD1">
-                                                      <block type="variables_get" id="-)2tmatG=ee3j:Ja5@G^">
-                                                        <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
+                                                      <block type="variables_get" id="nta~GD3EqK*2bCzIv|i*">
+                                                        <field name="VAR" id="Z7Z28k|lvvvb?ZYD(u)7">zone2</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD2">
-                                                      <block type="variables_get" id="fT%N,dSi2rHL%JBD.7zH">
-                                                        <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
+                                                      <block type="variables_get" id="wpEY_N1yiTf,oA00`:do">
+                                                        <field name="VAR" id="DeC2t4p_Aw]ss@$S(d|r">zone3</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD3">
-                                                      <block type="variables_get" id=";I$xzBWGPiUJHVv/Z$II">
-                                                        <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
+                                                      <block type="variables_get" id="p$z]qAJh#0e~3^$HY_U}">
+                                                        <field name="VAR" id="s|B!ha3jlHrz:Whrd;3+">zone4</field>
                                                       </block>
                                                     </value>
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="cleanqueues" id="h;fZQ)a07BR5/Cf)lYn1">
-                                                    <next>
-                                                      <block type="alertInfoScoreON" id="qA9:Bda$+k4PmX?J+?,r">
-                                                        <value name="message">
-                                                          <block type="text" id="G+W]?Lz3bfd?o4I-]N~s">
-                                                            <field name="TEXT">Morceau de fin</field>
+                                                  <block type="unset_group" id="{9^AD#;2Rlal?s5]t8$`" collapsed="true">
+                                                    <field name="groupe">255</field>
+                                                    <value name="GROUPS">
+                                                      <block type="lists_create_with" id="[,G|aBiQOOR[TOqzbHq@">
+                                                        <mutation items="4"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="variables_get" id="3wa1mWJcMJK,DmT}%e`p">
+                                                            <field name="VAR" id=".~p=Br.-?-cT$!I2l9YS">zone7</field>
                                                           </block>
                                                         </value>
+                                                        <value name="ADD1">
+                                                          <block type="variables_get" id="-)2tmatG=ee3j:Ja5@G^">
+                                                            <field name="VAR" id="q+vz()HAZf^FU$Kum8_`">zone8</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD2">
+                                                          <block type="variables_get" id="fT%N,dSi2rHL%JBD.7zH">
+                                                            <field name="VAR" id="$+%H0IHw+}pfiM=^D:KV">zone9</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD3">
+                                                          <block type="variables_get" id=";I$xzBWGPiUJHVv/Z$II">
+                                                            <field name="VAR" id="njL4Mj%D_:oNE4)qijU[">zone10</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="cleanqueues" id="h;fZQ)a07BR5/Cf)lYn1">
                                                         <next>
-                                                          <block type="putPatternInQueue" id="Cz}lHl_~e(*^hxmig[t]">
+                                                          <block type="alertInfoScoreON" id="qA9:Bda$+k4PmX?J+?,r">
                                                             <value name="message">
-                                                              <block type="text" id="W,k$c.X`V#+9|r49,]d#">
-                                                                <field name="TEXT">Fin</field>
+                                                              <block type="text" id="G+W]?Lz3bfd?o4I-]N~s">
+                                                                <field name="TEXT">Morceau de fin</field>
                                                               </block>
                                                             </value>
                                                             <next>
-                                                              <block type="hh_abort_interfaceZ_sensor" id="56OiMw/YT(g$6}B4vel,">
-                                                                <field name="TIMES">1</field>
-                                                                <field name="sensor">11</field>
-                                                                <field name="lowValue">100</field>
-                                                                <field name="highValue">5000</field>
-                                                                <statement name="BODY">
-                                                                  <block type="hh_wait_for" id="7Q(_D%Tr*sSyj_cXHR@d">
-                                                                    <field name="TIMES">88</field>
-                                                                    <value name="SIGNAL">
-                                                                      <block type="variables_get" id="Z4yGn|APY*~n9oWro5Lk">
-                                                                        <field name="VAR" id="76j=q3`,j2N;rg}ENxVv">tick</field>
-                                                                      </block>
-                                                                    </value>
+                                                              <block type="putPatternInQueue" id="Cz}lHl_~e(*^hxmig[t]">
+                                                                <value name="message">
+                                                                  <block type="text" id="W,k$c.X`V#+9|r49,]d#">
+                                                                    <field name="TEXT">Fin</field>
                                                                   </block>
-                                                                </statement>
+                                                                </value>
                                                                 <next>
-                                                                  <block type="send_midi_command" id="KBeC4t(MhW]J+;^3TpD{">
-                                                                    <field name="channelMidi">5</field>
-                                                                    <field name="CommandMidi">2</field>
-                                                                    <field name="valueMidi">100</field>
-                                                                    <comment pinned="false" h="56" w="413">Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton</comment>
+                                                                  <block type="hh_abort_interfaceZ_sensor" id="56OiMw/YT(g$6}B4vel,">
+                                                                    <field name="TIMES">1</field>
+                                                                    <field name="sensor">11</field>
+                                                                    <field name="lowValue">100</field>
+                                                                    <field name="highValue">5000</field>
+                                                                    <statement name="BODY">
+                                                                      <block type="hh_wait_for" id="7Q(_D%Tr*sSyj_cXHR@d">
+                                                                        <field name="TIMES">88</field>
+                                                                        <value name="SIGNAL">
+                                                                          <block type="variables_get" id="Z4yGn|APY*~n9oWro5Lk">
+                                                                            <field name="VAR" id="76j=q3`,j2N;rg}ENxVv">tick</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <next>
+                                                                      <block type="send_midi_command" id="KBeC4t(MhW]J+;^3TpD{">
+                                                                        <field name="channelMidi">5</field>
+                                                                        <field name="CommandMidi">2</field>
+                                                                        <field name="valueMidi">100</field>
+                                                                        <comment pinned="false" h="56" w="413">Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton</comment>
+                                                                      </block>
+                                                                    </next>
                                                                   </block>
                                                                 </next>
                                                               </block>
