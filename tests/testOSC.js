@@ -22,9 +22,9 @@ var osc = require('osc-min');
 var dgram = require("dgram");
 var sockData = dgram.createSocket('udp4');
 var portOSCSend = 1000;
-var portOSCReceive= 3005;
-var serverAddress = "192.168.1.120";
-var myAddress = "192.168.1.127";
+var portOSCReceive= 8888;
+var serverAddress = "192.168.1.251";
+var myAddress = "192.168.1.251";
 var debug = false;
 var debug1 = true;
 

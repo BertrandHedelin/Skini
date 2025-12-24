@@ -510,7 +510,7 @@ function init(host) {
             "type": "alertInfoScoreOFF"
           }
         ]
-      },/*
+      },
       {
         "kind": "category",
         "categorystyle": "loop_category",
@@ -549,7 +549,7 @@ function init(host) {
             "type": "set_score_class"
           }
         ]
-      },*/
+      },
       {
         "kind": "category",
         "name": "DAW",

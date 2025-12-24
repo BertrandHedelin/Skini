@@ -1,4 +1,4 @@
-var Clean1_2_3_4, sensor0, Clean5_6_7_8, sensor2, Clean9_10_11_12, Clean13_14_15_16, tick, zone1, zone2, zone3, zone4, zone7, zone8, zone9, zone10;
+var groupe0, groupe1, groupe2, groupe3, groupe4, tick;
 
 
 
@@ -21,11 +21,11 @@ var DAW;
 var serveur;
 
 // Avec des valeurs initiales
-var CCChannel = 1;
-var CCTempo = 100;
-var tempoMax = 160;
-var tempoMin = 40;
-var tempoGlobal = 60;
+let CCChannel = 1;
+let CCTempo = 100;
+let tempoMax = 160;
+let tempoMin = 40;
+let tempoGlobal = 60;
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix){
   if(debug) console.log("hh_ORCHESTRATION: setServ");
@@ -57,19 +57,19 @@ function setTempo(value, param){
   oscMidiLocal.sendControlChange(param.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
-var tempoValue = 0;
-var tempoRythme = 0;
-var tempoLimit = 0;
-var tempoIncrease = true;
-var transposeValue = 0;
-var ratioTranspose = 1.763;
-var offsetTranspose = 63.5;
+let tempoValue = 0;
+let tempoRythme = 0;
+let tempoLimit = 0;
+let tempoIncrease = true;
+let transposeValue = 0;
+let ratioTranspose = 1.763;
+let offsetTranspose = 63.5;
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
-var signals = [];
-var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
-var tickCounter = 0;
+let signals = [];
+let halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
+let tickCounter = 0;
 
 export function setSignals(param) {
   par = param;
@@ -81,106 +81,6 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
-    const Clean1_2_3_4 = hiphop module() {
-
-
-        {
-
-        host{
-          DAW.cleanQueue(1);
-        }
-
-        host{
-          DAW.cleanQueue(2);
-        }
-
-        host{
-          DAW.cleanQueue(3);
-        }
-
-        host{
-          DAW.cleanQueue(4);
-        }
-
-        }
-
-    }
-
-    const Clean5_6_7_8 = hiphop module() {
-
-
-        {
-
-        host{
-          DAW.cleanQueue(5);
-        }
-
-        host{
-          DAW.cleanQueue(6);
-        }
-
-        host{
-          DAW.cleanQueue(7);
-        }
-
-        host{
-          DAW.cleanQueue(8);
-        }
-
-        }
-
-    }
-
-    const Clean9_10_11_12 = hiphop module() {
-
-
-        {
-
-        host{
-          DAW.cleanQueue(9);
-        }
-
-        host{
-          DAW.cleanQueue(10);
-        }
-
-        host{
-          DAW.cleanQueue(11);
-        }
-
-        host{
-          DAW.cleanQueue(12);
-        }
-
-        }
-
-    }
-
-    const Clean13_14_15_16 = hiphop module() {
-
-
-        {
-
-        host{
-          DAW.cleanQueue(13);
-        }
-
-        host{
-          DAW.cleanQueue(14);
-        }
-
-        host{
-          DAW.cleanQueue(15);
-        }
-
-        host{
-          DAW.cleanQueue(16);
-        }
-
-        }
-
-    }
-
 
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -189,10 +89,6 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
-
-    inout sensor0;
-
-    inout sensor2;
 
 
     loop{
@@ -207,486 +103,69 @@ export function setSignals(param) {
           }
         }par{
 
-      host {console.log('moduleIZ');}
+      host {console.log('Demo Ableton');}
 
-      {
+    host{gcs.setTimerDivision(1);}
 
-      host{
-        gcs.setpatternListLength([5,255]);
-      }
-    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
+    host{setTempo(110, param);}
 
-      host{
-        oscMidiLocal.sendNoteOn(param.busMidiDAW,
-        5,
-        2,
-        100);
-      }
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'addSceneScore',
+            value:1
+          }));
+    }
+    yield;
 
-      host{gcs.setTimerDivision(1);}
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Demo Ableton'
+          }));
+    }
 
-      host{setTempo(80, param);}
+      emit groupe0OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
 
-      host{
-        serveur.broadcast(JSON.stringify({
-              type: 'addSceneScore',
-              value:1
-            }));
-      }
-      yield;
+      emit groupe1OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
 
-      }
+      emit groupe2OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe2", true) }
 
-    loop{
-      // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
+      emit groupe3OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe3", true) }
 
-      host{
-        oscMidiLocal.sendNoteOn(param.busMidiDAW,
-        5,
-        2,
-        100);
-      }
+      emit groupe4OUT([true,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe4", true) }
 
-        {
+    await count(10,tick.now);
 
-          await count(1, INTERFACEZ_RC4.now && ( INTERFACEZ_RC4.nowval[0] === 4
-                        && INTERFACEZ_RC4.nowval[1] >500
-                        && INTERFACEZ_RC4.nowval[1] <5000));
+      emit groupe0OUT([false,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
 
-        host{
-          serveur.broadcast(JSON.stringify({
-                type: 'alertInfoScoreON',
-                value:'Il y a quelque chose !'
-              }));
-        }
+      emit groupe1OUT([false,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
 
-        host { DAW.putPatternInQueue('Intro');}
+      emit groupe2OUT([false,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe2", false) }
 
-        host{
-          serveur.broadcast(JSON.stringify({
-                type: 'alertInfoScoreON',
-                value:'Intoduction'
-              }));
-        }
+      emit groupe3OUT([false,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe3", false) }
 
-        host{
-          serveur.broadcast(JSON.stringify({
-                type: 'alertInfoScoreOFF'
-              }));
-        }
+      emit groupe4OUT([false,255]);
+      host{gcs.informSelecteurOnMenuChange(255," groupe4", false) }
 
-        }
+    host{
+      serveur.broadcast(JSON.stringify({
+            type: 'alertInfoScoreON',
+            value:'Fin demo Ableton'
+          }));
+    }
 
-      host{
-        serveur.broadcast(JSON.stringify({
-              type: 'alertInfoScoreON',
-              value:'1ere séquence'
-            }));
-      }
-
-      abort {
-
-        abort{
-
-          fork {
-              // Capteur de distance
-
-            every count( 1, INTERFACEZ_RC0.now && ( INTERFACEZ_RC0.nowval[0] === 0
-                      && INTERFACEZ_RC0.nowval[1] >1000
-                      && INTERFACEZ_RC0.nowval[1] <4000)) {
-
-                host {console.log('Sensor0');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor0'
-                    }));
-              }
-
-              fork {
-
-              }
-
-              par {
-
-                      emit zone7OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone7", true) }
-                  await count(4, tick.now);
-
-                      emit zone7OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
-                  yield;
-
-              }
-
-              run ${ Clean1_2_3_4} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC1.now && ( INTERFACEZ_RC1.nowval[0] === 1
-                      && INTERFACEZ_RC1.nowval[1] >1000
-                      && INTERFACEZ_RC1.nowval[1] <4000)) {
-
-                host {console.log('Sensor1');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor1'
-                    }));
-              }
-
-              fork {
-
-              }
-
-              par {
-
-                      emit zone8OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone8", true) }
-                  await count(4, tick.now);
-
-                      emit zone8OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
-                  yield;
-
-              }
-
-              run ${ Clean5_6_7_8} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC2.now && ( INTERFACEZ_RC2.nowval[0] === 2
-                      && INTERFACEZ_RC2.nowval[1] >1000
-                      && INTERFACEZ_RC2.nowval[1] <4000)) {
-
-                host {console.log('Sensor2');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor2'
-                    }));
-              }
-
-              fork {
-
-                      emit zone3OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone3", true) }
-                  await count(4, tick.now);
-
-                      emit zone3OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
-                  yield;
-
-              }
-
-              par {
-
-                      emit zone9OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone9", true) }
-                  await count(4, tick.now);
-
-                      emit zone9OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
-                  yield;
-
-              }
-
-              run ${ Clean9_10_11_12} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
-                      && INTERFACEZ_RC3.nowval[1] >1000
-                      && INTERFACEZ_RC3.nowval[1] <4000)) {
-
-                host {console.log('Sensor3');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor3'
-                    }));
-              }
-
-            }
-
-          }
-
-          par {
-
-            fork {
-
-                    emit zone4OUT([true,255]);
-                    host{gcs.informSelecteurOnMenuChange(255," zone4", true) }
-                await count(4, tick.now);
-
-                    emit zone4OUT([false,255]);
-                    host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
-                yield;
-
-            }
-
-            par {
-
-                    emit zone10OUT([true,255]);
-                    host{gcs.informSelecteurOnMenuChange(255," zone10", true) }
-                await count(4, tick.now);
-
-                    emit zone10OUT([false,255]);
-                    host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
-                yield;
-
-            }
-
-            run ${ Clean13_14_15_16} () {*};
-
-          }
-
-        } when count(60, tick.now);
-
-          emit zone7OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
-
-          emit zone8OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
-
-          emit zone9OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
-
-          emit zone10OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
-
-        host{
-          serveur.broadcast(JSON.stringify({
-                type: 'alertInfoScoreON',
-                value:'2eme séquence'
-              }));
-        }
-
-        abort{
-
-          fork {
-              // Capteur de distance
-
-            every count( 1, INTERFACEZ_RC0.now && ( INTERFACEZ_RC0.nowval[0] === 0
-                      && INTERFACEZ_RC0.nowval[1] >1000
-                      && INTERFACEZ_RC0.nowval[1] <4000)) {
-
-                host {console.log('Sensor0');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor0'
-                    }));
-              }
-
-              fork {
-
-                      emit zone1OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone1", true) }
-                  await count(4, tick.now);
-
-                      emit zone1OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
-                  yield;
-
-              }
-
-              run ${ Clean1_2_3_4} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC1.now && ( INTERFACEZ_RC1.nowval[0] === 1
-                      && INTERFACEZ_RC1.nowval[1] >1000
-                      && INTERFACEZ_RC1.nowval[1] <4000)) {
-
-                host {console.log('Sensor1');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor1'
-                    }));
-              }
-
-              fork {
-
-                      emit zone2OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone2", true) }
-                  await count(4, tick.now);
-
-                      emit zone2OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
-                  yield;
-
-              }
-
-              run ${ Clean5_6_7_8} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC2.now && ( INTERFACEZ_RC2.nowval[0] === 2
-                      && INTERFACEZ_RC2.nowval[1] >1000
-                      && INTERFACEZ_RC2.nowval[1] <4000)) {
-
-                host {console.log('Sensor2');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor2'
-                    }));
-              }
-
-              fork {
-
-                      emit zone3OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone3", true) }
-                  await count(4, tick.now);
-
-                      emit zone3OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
-                  yield;
-
-              }
-
-              run ${ Clean9_10_11_12} () {*};
-
-            }
-
-          }
-
-          par {
-
-            every count( 1, INTERFACEZ_RC3.now && ( INTERFACEZ_RC3.nowval[0] === 3
-                      && INTERFACEZ_RC3.nowval[1] >1000
-                      && INTERFACEZ_RC3.nowval[1] <4000)) {
-
-                host {console.log('Sensor3');}
-
-              host{
-                serveur.broadcast(JSON.stringify({
-                      type: 'alertInfoScoreON',
-                      value:'Sensor3'
-                    }));
-              }
-
-              fork {
-
-                      emit zone4OUT([true,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone4", true) }
-                  await count(4, tick.now);
-
-                      emit zone4OUT([false,255]);
-                      host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
-                  yield;
-
-              }
-
-              run ${ Clean13_14_15_16} () {*};
-
-            }
-
-          }
-
-        } when count(60, tick.now);
-
-          emit zone1OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
-
-          emit zone2OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
-
-          emit zone3OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
-
-          emit zone4OUT([false,255]);
-          host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
-
-      } when count( 1, INTERFACEZ_RC11.now && ( INTERFACEZ_RC11.nowval[0] === 11
-                && INTERFACEZ_RC11.nowval[1] >500
-                && INTERFACEZ_RC11.nowval[1] <5000));
-
-      yield;
-
-        emit zone1OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone1", false) }
-
-        emit zone2OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone2", false) }
-
-        emit zone3OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone3", false) }
-
-        emit zone4OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone4", false) }
-
-        emit zone7OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone7", false) }
-
-        emit zone8OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone8", false) }
-
-        emit zone9OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone9", false) }
-
-        emit zone10OUT([false,255]);
-        host{gcs.informSelecteurOnMenuChange(255," zone10", false) }
-
-      host{
-        DAW.cleanQueues();
-        gcs.cleanChoiceList(255);
-      }
-
-      host{
-        serveur.broadcast(JSON.stringify({
-              type: 'alertInfoScoreON',
-              value:'Morceau de fin'
-            }));
-      }
-
-      host { DAW.putPatternInQueue('Fin');}
-
-      abort {
-
-        await count(88,tick.now);
-
-      } when count( 1, INTERFACEZ_RC11.now && ( INTERFACEZ_RC11.nowval[0] === 11
-                && INTERFACEZ_RC11.nowval[1] >100
-                && INTERFACEZ_RC11.nowval[1] <5000));
-    // Pour un arrêt général. Note D-2 sur canal 5 pour skini soit 6 pour Ableton
-
-      host{
-        oscMidiLocal.sendNoteOn(param.busMidiDAW,
-        5,
-        2,
-        100);
-      }
-
+    host{
+      DAW.cleanQueues();
+      gcs.cleanChoiceList(255);
     }
 
         }

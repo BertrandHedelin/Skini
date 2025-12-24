@@ -75,7 +75,6 @@ function createRandomListe(index, liste) {
 
 ***************************/
 
-// Revu HH node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "wait_for_signal_in_group",
@@ -300,7 +299,6 @@ Blockly.JavaScript['hh_if_signal_value'] = function (block) {
   return code;
 };
 
-// Revu HH node
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "random_body",
@@ -2133,11 +2131,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript['cleanChoiceList'] = function (block) {
   var number_groupe = block.getFieldValue('groupe');
-  var code = `
-    host{
-      gcs.cleanChoiceList(` + number_groupe + `);
-    }
-`
+  var code = `host{gcs.cleanChoiceList(` + number_groupe + `);}`
   return code;
 };
 
@@ -2166,43 +2160,17 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['bestScore'] = function (block) {
   var number_ticks = block.getFieldValue('ticks');
   var code = `
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function (){
-	    var msg = {
+  host{
+	    serveur.broadcast(JSON.stringify({
 	      type: 'alertInfoScoreON',
 	      value: " N°1 " + gcs.getWinnerPseudo(0) + " : " + gcs.getWinnerScore(0) + " "
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),
-	hh.AWAIT(
-		{
-		  "%location":{},
-		  "%tag":"await",
-		  "immediate":false,
-		  "apply":function (){return ((() => {
-		    const tick =this["tick"];
-		    return tick.now;})());},
-		  "countapply":function (){return `+ number_ticks + `;}
-		},
-		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-	),
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function () {
-	    var msg = {
-	      type: 'alertInfoScoreOFF',
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),
+	    }));
+  }
+  await count( ` + number_ticks + `, tick.now);
+  host{
+      serveur.broadcast(JSON.stringify({
+        type: 'alertInfoScoreOFF'}))
+  }
   `;
   return code;
 };
@@ -2234,61 +2202,29 @@ Blockly.JavaScript['totalGameScore'] = function (block) {
 
   if (english) {
     var code = `
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function (){
-	    var msg = {
+    host{
+	    serveur.broadcast(JSON.stringify({
 	      type: 'alertInfoScoreON',
 	      value: " Total score for all " + gcs.getTotalGameScore() + " "
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),`
+	    }));
+    }
+	`
   } else {
     var code = `
-    hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function (){
-	    var msg = {
-	      type: 'alertInfoScoreON',
-	      value: " Total des points " + gcs.getTotalGameScore() + " "
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),`
+    host{
+      serveur.broadcast(JSON.stringify({
+        type: 'alertInfoScoreON',
+        value: " Total des points " + gcs.getTotalGameScore() + " "
+      }));
+    }
+	`
   }
-  code += `
-	hh.AWAIT(
-		{
-		  "%location":{},
-		  "%tag":"await",
-		  "immediate":false,
-		  "apply":function (){return ((() => {
-		    const tick =this["tick"];
-		    return tick.now;})());},
-		  "countapply":function (){return `+ number_ticks + `;}
-		},
-		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-	),
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function () {
-	    var msg = {
-	      type: 'alertInfoScoreOFF',
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),
-  	`;
+  code += `  await count( ` + number_ticks + `, tick.now); 
+    host{
+      serveur.broadcast(JSON.stringify({
+        type: 'alertInfoScoreOFF'}))
+    }
+  `;
   return code;
 };
 
@@ -2329,78 +2265,40 @@ Blockly.JavaScript['displayScore'] = function (block) {
 
   if (value_rank < 0) {
     value_rank = 0;
-    code += ` 
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function (){
-	  	console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
-	    }
-	  }
-	),
-	`;
+    code += `
+    host{
+      console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
+    }`;
   }
   code += ` 
-	hh.ATOM(
-	{
-	"%location":{},
-	"%tag":"node",
-	"apply":function (){
-			var pseudoLoc = gcs.getWinnerPseudo(` + value_rank + `);
-			if ( pseudoLoc !== ''){`;
+  host{
+  	let pseudoLoc = gcs.getWinnerPseudo(` + value_rank + `);
+		if ( pseudoLoc !== ''){`;
   if (english) {
     code += `
-			    var msg = {
-			    type: 'alertInfoScoreON',
+	    let msg = {
+  	    type: 'alertInfoScoreON',
 			    value:  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " with " + gcs.getWinnerScore(` + value_rank + `) + " "
-			    }
-			    serveur.broadcast(JSON.stringify(msg));
+	     }
+	    serveur.broadcast(JSON.stringify(msg));
 			`
   } else {
     code += `
-			    var msg = {
-			    type: 'alertInfoScoreON',
-			    value:  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " avec " + gcs.getWinnerScore(` + value_rank + `) + " "
-			    }
-			    serveur.broadcast(JSON.stringify(msg));
-			`
+      let msg = {
+        type: 'alertInfoScoreON',
+          value:  " N° " + ` + (value_rank + 1) + ` + " " + pseudoLoc + " avec " + gcs.getWinnerScore(` + value_rank + `) + " "
+      }
+      serveur.broadcast(JSON.stringify(msg))
+		`
   }
-  code += `
-			}else{
-				console.log("WARN: hiphop_blocks.js: displayScore : no score for the rank ` + value_rank + `");
-			}
+    code += `
+		}else{
+			console.log("WARN: hiphop_blocks.js: displayScore : no score for the rank ` + value_rank + `");
 		}
-	}
-	),
-    `;
+	}`;
   code += `
-	hh.AWAIT(
-		{
-		  "%location":{},
-		  "%tag":"await",
-		  "immediate":false,
-		  "apply":function (){return ((() => {
-		    const tick =this["tick"];
-		    return tick.now;})());},
-		  "countapply":function (){return `+ number_ticks + `;}
-		},
-		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-	),
-	hh.ATOM(
-	  {
-	  "%location":{},
-	  "%tag":"node",
-	  "apply":function () {
-	    var msg = {
-	      type: 'alertInfoScoreOFF',
-	    }
-	    serveur.broadcast(JSON.stringify(msg));
-	    }
-	  }
-	),
-  	`;
-
+  await count( `+ number_ticks + `, tick.now);
+ 	`;
   return code;
 };
 
@@ -2442,72 +2340,34 @@ Blockly.JavaScript['displayScoreGroup'] = function (block) {
   if (value_rank < 0) {
     value_rank = 0;
     code += ` 
-	hh.ATOM(
-	  	{
-			"%location":{},
-			"%tag":"node",
-			"apply":function (){
-				console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
-	    	}
-		}
-	),
-	`;
+    host{
+      console.log("WARN: hiphop_blocks.js: displayScore : rank from 1, not 0");
+    }`;
   }
   code += ` 
-	hh.ATOM(
-		{
-			"%location":{},
-			"%tag":"node",
-			"apply":function (){
-`;
+    host{`;
   if (english) {
     code += `
-			    var msg = {
-				    type: 'alertInfoScoreON',
-				    value:   " Skini group N° " + ` + (value_rank + 1) + ` + " with " + gcs.getGroupScore(` + value_rank + `) + " "
-			    }
-			    serveur.broadcast(JSON.stringify(msg));
+			let msg = {
+				type: 'alertInfoScoreON',
+				value:   " Skini group N° " + ` + (value_rank + 1) + ` + " with " + gcs.getGroupScore(` + value_rank + `) + " "
+			}
+			serveur.broadcast(JSON.stringify(msg));
 			`
   } else {
     code += `
-			    var msg = {
-				    type: 'alertInfoScoreON',
-				    value:  " Groupe Skini N° " + ` + (value_rank + 1) + ` + " avec " + gcs.getGroupScore(` + value_rank + `) + " "
-			    }
-			    serveur.broadcast(JSON.stringify(msg));
+			let msg = {
+				type: 'alertInfoScoreON',
+				value:  " Groupe Skini N° " + ` + (value_rank + 1) + ` + " avec " + gcs.getGroupScore(` + value_rank + `) + " "
+			}
+			serveur.broadcast(JSON.stringify(msg));
 			`
   }
   code += `
-			}
-		}
-	),
-    `;
+		}`;
   code += `
-	hh.AWAIT(
-		{
-		  "%location":{},
-		  "%tag":"await",
-		  "immediate":false,
-		  "apply":function (){return ((() => {
-		    const tick =this["tick"];
-		    return tick.now;})());},
-		  "countapply":function (){return `+ number_ticks + `;}
-		},
-		hh.SIGACCESS({"signame":"tick","pre":false,"val":false,"cnt":false})
-	),
-	hh.ATOM(
-		{
-			"%location":{},
-			"%tag":"node",
-			"apply":function () {
-				var msg = {
-				  type: 'alertInfoScoreOFF',
-				}
-				serveur.broadcast(JSON.stringify(msg));
-			}
-	 	}
-	),
-  	`;
+    await count( `+ number_ticks + `, tick.now);
+ 	`;
   return code;
 };
 
@@ -2533,18 +2393,8 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['set_score_policy'] = function (block) {
-  var number_policy = block.getFieldValue('policy');
-  var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          gcs.setComputeScorePolicy(` + number_policy + `);
-        }
-      }
-    ),
-`
+  let number_policy = block.getFieldValue('policy');
+  let code = `host{ gcs.setComputeScorePolicy(` + number_policy + `);}`
   return code;
 };
 
@@ -2570,19 +2420,8 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['set_score_class'] = function (block) {
-  var number_class = block.getFieldValue('class');
-
-  var code = `
-    hh.ATOM(
-      {
-        "%location":{},
-        "%tag":"node",
-        "apply":function () { 
-          gcs.setComputeScoreClass(` + number_class + `);
-        }
-      }
-    ),
-`
+  let number_class = block.getFieldValue('class');
+  let code = `host{ gcs.setComputeScoreClass(` + number_class + `);}`
   return code;
 };
 
@@ -2945,11 +2784,11 @@ var DAW;
 var serveur;
 
 // Avec des valeurs initiales
-var CCChannel = 1;
-var CCTempo = 100;
-var tempoMax = 160;
-var tempoMin = 40;
-var tempoGlobal = 60;
+let CCChannel = 1;
+let CCTempo = 100;
+let tempoMax = 160;
+let tempoMin = 40;
+let tempoGlobal = 60;
 
 export function setServ(ser, daw, groupeCS, oscMidi, mix){
   if(debug) console.log("hh_ORCHESTRATION: setServ");
@@ -2981,19 +2820,19 @@ function setTempo(value, param){
   oscMidiLocal.sendControlChange(param.busMidiDAW, CCChannel, CCTempo, tempo);
 }
 
-var tempoValue = 0;
-var tempoRythme = 0;
-var tempoLimit = 0;
-var tempoIncrease = true;
-var transposeValue = 0;
-var ratioTranspose = 1.763;
-var offsetTranspose = 63.5;
+let tempoValue = 0;
+let tempoRythme = 0;
+let tempoLimit = 0;
+let tempoIncrease = true;
+let transposeValue = 0;
+let ratioTranspose = 1.763;
+let offsetTranspose = 63.5;
 
 // Création des signaux OUT de contrôle de la matrice des possibles
 // Ici et immédiatement.
-var signals = [];
-var halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
-var tickCounter = 0;
+let signals = [];
+let halt, start, emptyQueueSignal, patternSignal, stopReservoir, stopMoveTempo;
+let tickCounter = 0;
 
 export function setSignals(param) {
   par = param;

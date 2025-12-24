@@ -285,7 +285,7 @@ function initWorker() {
               tempoSensors[i]--;
             }
           }
-          if(debug) displaySignalMiniWi(messMiniWi);
+          if(debug1) displaySignalMiniWi(messMiniWi);
           break;
 
         default:

@@ -1,0 +1,109 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="$se#}vs#(H9(^h2Ldf]%">tick</variable>
+  </variables>
+  <block type="hh_ORCHESTRATION" id="M)ZKyxG8S)|LJFqE+^ty" x="113" y="-266">
+    <statement name="BODY">
+      <block type="hh_print_serveur" id="^qobTNF+:9c(gC_i|]BM">
+        <value name="TEXT">
+          <block type="text" id="0iqC2{b5bgUA~}.@3)`E">
+            <field name="TEXT">Demo Ableton</field>
+          </block>
+        </value>
+        <next>
+          <block type="set_timer_division" id="q`^q.uCd}W2Y]!1O)7{e">
+            <field name="timer">1</field>
+            <next>
+              <block type="set_tempo" id="lGMuKLb6p#H3,PV:BHn]">
+                <field name="tempo">110</field>
+                <next>
+                  <block type="addSceneScore" id="Y8d};Ic6L]3`I5Z6hbvA">
+                    <field name="number">1</field>
+                    <next>
+                      <block type="alertInfoScoreON" id="jqYf%(0q83VvIpSo.[ec">
+                        <value name="message">
+                          <block type="text" id="x|C[Rub)rFkS_2(^nec1">
+                            <field name="TEXT">Demo Ableton</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="hh_sequence" id="`H_soH]Je,/LzI-U4Vwe">
+                            <statement name="BODY">
+                              <block type="patternListLength" id="DGi}3~?.rZ=x+SNSrexy">
+                                <field name="valeur">3</field>
+                                <field name="groupe">255</field>
+                                <next>
+                                  <block type="set_score_policy" id="WV4FsKSO)XGALfu_n90g">
+                                    <field name="policy">1</field>
+                                    <next>
+                                      <block type="set_score_class" id="[XXP{lK|LLJ|.zyt@K(7">
+                                        <field name="class">1</field>
+                                        <next>
+                                          <block type="bestScore" id="*;b!x7IZ/V+)bx=J0?Oj">
+                                            <field name="ticks">2</field>
+                                            <next>
+                                              <block type="displayScore" id="h$BnJojnvGO$-1*%2CFs">
+                                                <field name="rank">1</field>
+                                                <field name="ticks">2</field>
+                                                <next>
+                                                  <block type="totalGameScore" id="3AFVx,|WXq{?5tuocmor">
+                                                    <field name="ticks">2</field>
+                                                    <next>
+                                                      <block type="displayScoreGroup" id="V2o$jqgBfN!nW$4!!]WV">
+                                                        <field name="rank">1</field>
+                                                        <field name="ticks">2</field>
+                                                        <next>
+                                                          <block type="cleanChoiceList" id="h.ML)@_jMEYqgWk-jz^7">
+                                                            <field name="groupe">255</field>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="hh_wait_for" id="@Ib%V{Ju4Zf#/vjva{wl">
+                                <field name="TIMES">10</field>
+                                <value name="SIGNAL">
+                                  <block type="variables_get" id="+Be:.qQrw^K]rO6f#Z`P">
+                                    <field name="VAR" id="$se#}vs#(H9(^h2Ldf]%">tick</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="alertInfoScoreON" id="Zt.4aYaBJ53WXV1FA4Sj">
+                                    <value name="message">
+                                      <block type="text" id="8@914pyNxRN!N)P;:Hxf">
+                                        <field name="TEXT">Fin demo Ableton</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="cleanqueues" id="Y|;wU.}jwMz[1FDo#eUB"></block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
