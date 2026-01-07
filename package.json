@@ -1,6 +1,6 @@
 {
   "name": "nodeskini",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Skini Tools for Interactive and Generative Music",
   "main": "skini.mjs",
   "scripts": {
@@ -11,6 +11,9 @@
     "format:hh:custom": "node scripts/format-hh.mjs",
     "check:hh": "prettier \"**/*.hh.js\" --check"
   },
+  "engines": {
+    "node": ">20  <=22"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/BertrandHedelin/Skini.git"
@@ -20,18 +23,16 @@
   "dependencies": {
     "@hop/hiphop": "https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-unstable.tgz",
     "abletonlink": "^0.2.0-beta.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2",
     "browserify": "^17.0.0",
     "csv-array": "^0.0.22",
     "decache": "^4.6.0",
     "express": "^4.17.1",
-    "jazz-midi": "^1.7.9",
-    "jzz": "^1.5.0",
-    "jzz-midi-smf": "^1.8.3",
+    "jquery": "^3.7.1",
+    "jsuites": "^6.0.1",
     "midi": "^2.0.0",
-    "node-wav-player": "^0.2.0",
     "osc-min": "^1.1.2",
+    "popper.js": "^1.16.1",
+    "react": "^19.2.3",
     "ws": "^7.4.5"
   },
   "devDependencies": {
@@ -42,7 +43,9 @@
     "serveur/",
     "client/",
     "myReact/",
-    "blocklySkini/"
+    "blocklySkini/",
+    "doc/",
+    "pieces/tutos/"
   ],
   "directories": {
     "doc": "doc",

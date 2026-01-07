@@ -1,12 +1,26 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-/**************************************
-  SKINI
-
-  © Copyright 2019, B. Petit-Heidelein
-
-  browserify parto1.js -o parto1bundle.js
-
-***************************************/
+/**
+ * @fileOverview Display the score of the Skini piece
+ * 
+ * browserify parto1.js -o parto1bundle.js
+ *
+ * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
+ * @version 1.0
+ * @copyright (C) 2022 Bertrand Petit-Hédelin
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 "use strict"
 
 var ipConfig = require('../../serveur/ipConfig');
@@ -64,7 +78,10 @@ var textSize = 20 * screenY / Ybase;
 
 // La version processing.min.js ne sais pas gérer les couleur en hexa.
 function hex_to_RGB(hex) {
-    var m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
+    console.log("hex_to_RGB:", typeof hex, hex);
+    if(hex == '') return [0,0,0];
+
+    let m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
     return [ parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
 }
 
@@ -1159,23 +1176,28 @@ window.initWSSocket = initWSSocket;
 
 },{"../../serveur/ipConfig":2}],2:[function(require,module,exports){
 module.exports={
-  "remoteIPAddressImage": "localhost",
-  "remoteIPAddressSound": "localhost",
+  "remoteIPAddressImage": "192.168.1.251",
+  "remoteIPAddressSound": "192.168.1.251",
   "remoteIPAddressLumiere": "localhost",
-  "remoteIPAddressGame": "localhost",
-  "serverIPAddress": "localhost",
+  "remoteIPAddressGame": "192.168.1.223",
+  "interfaceZIPaddress": "192.168.1.250",
+  "serverIPAddress": "192.168.1.251",
   "webserveurPort": 8080,
   "websocketServeurPort": 8383,
   "InPortOSCMIDIfromDAW": 13000,
   "OutPortOSCMIDItoDAW": 12000,
-  "portOSCToGame": 1000,
-  "portOSCFromGame": 3005,
-  "distribSequencerPort": 8888,
+  "portOSCToGame": 1010,
+  "portOSCFromGame": 3010,
+  "portOSCFromInterfaceZData": 3005,
+  "portOSCFromInterfaceZMidi": 3006,
+  "portOSCFromInterfaceZMiniWi": 8888,
+  "portOSCToInterfaceZ": 1000,
+  "distribSequencerPort": 8899,
   "outportProcessing": 10000,
   "outportLumiere": 7700,
   "inportLumiere": 9000,
-  "sessionPath": "./pieces/",
-  "piecePath" : "./pieces/"
+  "sessionPath": "./pieces/opus/",
+  "piecePath" : "./pieces/opus/"
 }
 
 },{}]},{},[1]);

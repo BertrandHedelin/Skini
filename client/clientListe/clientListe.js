@@ -208,6 +208,7 @@ function initWSocket(host) {
               //communicationMachine.inputAndReact("infoPlayDAW", event.value);
 
               patternsListSent.splice(i, 1); // Enlève la position
+              updateListeSent(patternsListSent);
               if (debug) console.log("Reçu Texte Broadcast demande de son par pseudo: infoPlayDAW: nouvelle liste: ", patternsListSent);
             }
           }
@@ -518,6 +519,16 @@ function makeCommunicationMachine() {
  Boutons de sélection et d'écoute
 
  ***************************************************/
+function updateListeSent(liste) {
+  var html = '';
+  for (var i = 0; i < liste.length; i++) {
+    if(liste[i].nom !== undefined) {
+      html += '<li>' + liste[i].nom + '</li>';
+    }
+  }
+  document.getElementById('patternsChoice').innerHTML = html;
+}
+
 // Ecoute en local
 function startPlayListe() {
   if (debug1) console.log("startListenClip");

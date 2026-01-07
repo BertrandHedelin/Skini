@@ -1,6 +1,7 @@
-var groupe0, groupe1, groupe2, groupe3, groupe4, tick;
+var TankUn, foo, TankDeux, bar, tank0, tank1, tank2, tank3, tank4, tank5, tank6, groupe0, tick, groupe1, piano8;
 
 
+// avec demoAbleton.als dans Live
 
 "use strict";
 import { createRequire } from 'module';
@@ -81,6 +82,32 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
+    const TankUn = hiphop module () {
+    in stopReservoir;
+    in tank0IN;
+      in tank1IN;
+      in tank2IN;
+      in tank3IN;
+      out tank0OUT;
+      out tank1OUT;
+      out tank2OUT;
+      out tank3OUT;
+
+  	${ tank.makeReservoir(255, ["tank0","tank1","tank2","tank3"]) };
+  }
+
+    const TankDeux = hiphop module () {
+    in stopReservoir;
+    in tank4IN;
+      in tank5IN;
+      in tank6IN;
+      out tank4OUT;
+      out tank5OUT;
+      out tank6OUT;
+
+  	${ tank.makeReservoir(255, ["tank4","tank5","tank6"]) };
+  }
+
 
   const Program = hiphop module() {
     in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal;
@@ -89,6 +116,10 @@ export function setSignals(param) {
     out ... ${ interTextOUT };
     in ... ${ interTextIN };
 
+
+    inout foo;
+
+    inout bar;
 
 
     loop{
@@ -102,12 +133,10 @@ export function setSignals(param) {
             }
           }
         }par{
-
-      host {console.log('Demo Ableton');}
-
-    host{gcs.setTimerDivision(1);}
-
-    host{setTempo(110, param);}
+      host{gcs.setTimerDivision(1);}
+    host{
+      gcs.setpatternListLength([3,255]);
+    }
 
     host{
       serveur.broadcast(JSON.stringify({
@@ -117,49 +146,377 @@ export function setSignals(param) {
     }
     yield;
 
+      {
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*- Run tank'
+            }));
+      }
+
+        host {console.log('-*-*- Run tank');}
+
+        {
+
+        fork {
+          run ${ TankUn} () {*};
+        }
+
+        fork {
+          run ${ TankDeux} () {*};
+        }
+
+        await count(30,tick.now);
+
+        emit stopReservoir();
+
+        }
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*- Random tanks during ticks'
+            }));
+      }
+
+        host {console.log('-*-*- Random tanks during ticks');}
+
+      yield;
+
+      signal stopM512492;
+      M512492 : {
+      fork{
+          run ${ TankUn} () {*, stopM512492 as stopReservoir};
+
+        }par{
+          await count(20, tick.now);
+          emit stopM512492();
+          break M512492;
+        }
+      }
+      yield;
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Run tanks pattern in group'
+            }));
+      }
+
+        host {console.log('-*-*-  Run tanks pattern in group');}
+
+        emit groupe0OUT([true,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+        signal stopRG150054;
+        RG150054 : {
+            fork{
+
+              run ${ TankUn} () {*, stopRG150054 as stopReservoir};
+
+            }par{
+              run ${ TankDeux} () {*, stopRG150054 as stopReservoir};
+            }par{
+            await count(4, groupe0IN.now);
+            emit stopRG150054();
+            break RG150054;
+          }
+        }
+        emit groupe0OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+      yield;
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Run tanks waiting for pattern in DAW'
+            }));
+      }
+
+        host {console.log('-*-*-  Run tanks waiting for pattern in DAW');}
+
+        {
+
+          emit groupe0OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+        abort{
+
+            signal stopRG211292;
+            RG211292 : {
+              fork{
+
+                  run ${ TankUn} () {*, stopRG211292 as stopReservoir};
+
+                }par{
+                  run ${ TankDeux} () {*, stopRG211292 as stopReservoir};
+                }par{
+                await (patternSignal.now && (patternSignal.nowval[1] === "piano8"));
+              }
+            emit stopRG211292();
+            break RG211292;
+          }
+            host {console.log('-*-*-  FIN TANK WAITING');}
+
+        } when count(20, tick.now);
+
+          emit groupe0OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+        }
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
+      }
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'FIN TANK'
+            }));
+      }
+
+        host {console.log('-*-*-  FIN TANK');}
+
+      }
+
+    yield;
+
+      {
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Set group et unset group'
+            }));
+      }
+
+        host {console.log('-*-*-  Set group et unset group');}
+
+        emit groupe0OUT([true,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+      await count(5,tick.now);
+
+        emit groupe0OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+      yield;
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Set group during ticks'
+            }));
+      }
+
+        host {console.log('-*-*-  Set group during ticks');}
+
+            emit groupe0OUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+            emit groupe1OUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
+        await count(5, tick.now);
+
+            emit groupe0OUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+            emit groupe1OUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
+        yield;
+
+      yield;
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Set group during patterns in groups'
+            }));
+      }
+
+        host {console.log('-*-*-  Set group during patterns in groups');}
+
+        RG513800 : {
+          fork{
+
+          emit groupe0OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+          emit groupe1OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
+    		}
+         par{
+          await count(2, groupe0IN.now);
+          break RG513800;
+        }par{
+          await count(2, groupe1IN.now);
+          break RG513800;
+        }
+      }
+        emit groupe0OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+        emit groupe1OUT([false,255]);
+        host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
+        yield;
+      yield;
+
+      host{
+        serveur.broadcast(JSON.stringify({
+              type: 'alertInfoScoreON',
+              value:'-*-*-  Set randomly group during ticks'
+            }));
+      }
+
+        host {console.log('-*-*-  Set randomly group during ticks');}
+
+            emit groupe0OUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+        await count(10, tick.now);
+
+            emit groupe0OUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+        yield;
+
+      yield;
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
+      }
+
+        {
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'-*-*-  wait for patterns in group'
+              }));
+        }
+
+          host {console.log('-*-*-  wait for patterns in group');}
+
+          emit groupe0OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+          emit groupe1OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
+
+        abort{
+
+          loop{
+
+              await count(1, groupe0IN.now);
+
+              host {console.log('pattern signal in group0');}
+
+            yield;
+
+          }
+
+        } when count(10, tick.now);
+
+        }
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
+      }
+
+        {
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'-*-*-  wait for patterns in DAW'
+              }));
+        }
+
+          host {console.log('-*-*-  wait for patterns in DAW');}
+
+          emit groupe0OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+          emit groupe1OUT([true,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
+
+        abort{
+
+          loop{
+
+              await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano11'));
+
+              host {console.log('pattern string piano 11');}
+
+            yield;
+
+          }
+
+        } when count(20, tick.now);
+
+        }
+
+      host{
+        DAW.cleanQueues();
+        gcs.cleanChoiceList(255);
+      }
+
+        {
+
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'-*-*-  Set group waiting for patterns in DAW'
+              }));
+        }
+
+          host {console.log('-*-*-  Set group waiting for patterns in DAW');}
+
+        yield;
+
+          RG23042 : {
+            fork{
+
+            emit groupe0OUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
+
+            emit groupe1OUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
+      		}
+           par{
+            await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano11'));
+            break RG23042;
+          }par{
+            await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano9'));
+            break RG23042;
+          }par{
+            await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano8'));
+            break RG23042;
+          }
+        }
+          emit groupe0OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
+
+          emit groupe1OUT([false,255]);
+          host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
+          yield;
+        host{
+          serveur.broadcast(JSON.stringify({
+                type: 'alertInfoScoreON',
+                value:'-*-*-  FIN GROUPE'
+              }));
+        }
+
+        }
+
+      }
+
     host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',
-            value:'Demo Ableton'
-          }));
-    }
-
-      emit groupe0OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
-
-      emit groupe1OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe1", true) }
-
-      emit groupe2OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe2", true) }
-
-      emit groupe3OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe3", true) }
-
-      emit groupe4OUT([true,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe4", true) }
-
-    await count(10,tick.now);
-
-      emit groupe0OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe0", false) }
-
-      emit groupe1OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe1", false) }
-
-      emit groupe2OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe2", false) }
-
-      emit groupe3OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe3", false) }
-
-      emit groupe4OUT([false,255]);
-      host{gcs.informSelecteurOnMenuChange(255," groupe4", false) }
-
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Fin demo Ableton'
+            value:'-*-*-  FIN GROUPE'
           }));
     }
 
@@ -167,6 +524,8 @@ export function setSignals(param) {
       DAW.cleanQueues();
       gcs.cleanChoiceList(255);
     }
+
+      host {console.log('-*-*-  FIN GROUPE');}
 
         }
       } when (halt.now);

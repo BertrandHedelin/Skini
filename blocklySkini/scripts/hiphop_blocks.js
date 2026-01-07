@@ -27,7 +27,7 @@ function entierAleatoire(min, max) {
 }
 
 function isInList(val, liste) {
-  for (var i = 0; i < liste.length; i++) {
+  for (let i = 0; i < liste.length; i++) {
     if (liste[i] === val) return true;
   }
   return false;
@@ -44,12 +44,12 @@ function createRandomListe(index, liste) {
     index = liste.length;
   }
   // Pour un entier entre 1 et index, ceci nous donne la taille de la liste à traiter
-  var premierAlea = entierAleatoire(1, index);
-  var deuxiemeAlea;
-  var listeResultat = [];
+  let premierAlea = entierAleatoire(1, index);
+  let deuxiemeAlea;
+  let listeResultat = [];
   console.log("premierAlea:", premierAlea, ": index", index);
 
-  for (var i = 0; i < premierAlea; i++) {
+  for (let i = 0; i < premierAlea; i++) {
     deuxiemeAlea = Math.floor(Math.random() * Math.floor(liste.length));
     if (listeResultat.length === 0) {
       listeResultat.push(liste[deuxiemeAlea]);
@@ -487,7 +487,7 @@ Blockly.JavaScript['random_tank'] = function (block) {
   // Parsing nécessaire pour pouvoir utiliser des variables dans la liste
   // et pas des chaines de caractère
   let listeStrings = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
-  var listTanks = createRandomListe(number_of_tanks, listeStrings);
+  let listTanks = createRandomListe(number_of_tanks, listeStrings);
   let varRandom = Math.floor((Math.random() * 1000000) + 1);
   varRandom = "M" + varRandom;
   // A part l'appel a createRandomList ci-dessus c'est presque la même chose qu'open_tank
@@ -564,8 +564,8 @@ Blockly.JavaScript['random_group'] = function (block) {
   let listeStrings = value.replace(/\[/, "").replace(/\]/, "").replace(/ /g, "").split(',');
   // Ici crée une liste à la compilation, en live il faut générer du code à la volée.
   // C'est en principe possible.
-  var listGroups = createRandomListe(number_of_groups, listeStrings);
-  var code = ``
+  let listGroups = createRandomListe(number_of_groups, listeStrings);
+  let code = ``
     for (let i = 0; i < listGroups.length; i++) {
       let theGroup = listGroups[i].replace(/ /g, "");
       code += `
@@ -575,7 +575,7 @@ Blockly.JavaScript['random_group'] = function (block) {
     code += ` 
     await count(`+ times + `, tick.now);
     `
-    for (var i = 0; i < listGroups.length; i++) {
+    for (let i = 0; i < listGroups.length; i++) {
       let theGroup = listGroups[i].replace(/ /g, "");
       code += `
         emit ` + theGroup + `OUT([false,` + user_group + `]);
@@ -637,7 +637,7 @@ Blockly.JavaScript['set_group_during_ticks'] = function (block) {
     code += ` 
     await count(`+ times + `, tick.now);
     `
-    for (var i = 0; i < listGroups.length; i++) {
+    for (let i = 0; i < listGroups.length; i++) {
       let theGroup = listGroups[i].replace(/ /g, "");
       code += `
         emit ` + theGroup + `OUT([false,` + user_group + `]);
@@ -779,7 +779,7 @@ Blockly.JavaScript['set_groups_waiting_for_patterns'] = function (block) {
   let varRandom = Math.floor((Math.random() * 1000000) + 1);
   varRandom = "RG" + varRandom;
 
-var code = `
+let code = `
     `+ varRandom + ` : {
       fork{
       `
@@ -793,7 +793,6 @@ var code = `
   code += `}
      `
   for (let i = 0; i < in_patterns_list.length; i++) {
-    let theGroup = listGroups[i].replace(/ /g, "");
     code += `par{
       await immediate (patternSignal.now && (patternSignal.nowval[1] === ` + in_patterns_list[i] + `));
       break `+ varRandom + `;
@@ -802,7 +801,7 @@ var code = `
   code += `
   }`; // fin trap
   for (let i = 0; i < listGroups.length; i++) {
-    var theGroup = listGroups[i].replace(/ /g, "");
+    let theGroup = listGroups[i].replace(/ /g, "");
       code += ` 
     emit `+ theGroup + `OUT([false,` + user_group + `]);
     host{gcs.informSelecteurOnMenuChange(` + user_group + `," ` + theGroup + `", false) }
@@ -826,7 +825,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['reset_orchestration'] = function (block) {
-  var code = `
+  let code = `
   host{gcs.resetMatrice();}
   `
   return code;
@@ -846,8 +845,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['cleanqueues'] = function (block) {
-
-  var code = `
+  let code = `
   host{
     DAW.cleanQueues();
     gcs.cleanChoiceList(255);
@@ -870,7 +868,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['stopTanks'] = function (block) {
-  var code = `
+  let code = `
   emit stopReservoir();
   `;
   return code;
@@ -897,8 +895,8 @@ Blockly.defineBlocksWithJsonArray([
   }
 ]);
 Blockly.JavaScript['cleanOneQueue'] = function (block) {
-  var number = block.getFieldValue('number');
-  var code = `
+  let number = block.getFieldValue('number');
+  let code = `
   host{
     DAW.cleanQueue(` + number + `);
   }
@@ -920,7 +918,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['pauseQueues'] = function (block) {
-  var code = `
+  let code = `
   host{
     DAW.pauseQueues();
   }
@@ -1505,11 +1503,8 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript['set_timer_division'] = function (block) {
-  var number_timer = block.getFieldValue('timer');
-
-  var code = `
-  host{gcs.setTimerDivision(` + number_timer + `);}
-`
+  let number_timer = block.getFieldValue('timer');
+  let code = `host{gcs.setTimerDivision(` + number_timer + `);}`
   return code;
 };
 

@@ -77,7 +77,10 @@ var textSize = 20 * screenY / Ybase;
 
 // La version processing.min.js ne sais pas gérer les couleur en hexa.
 function hex_to_RGB(hex) {
-    var m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
+    console.log("hex_to_RGB:", typeof hex, hex);
+    if(hex == '') return [0,0,0];
+
+    let m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
     return [ parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
 }
 

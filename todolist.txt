@@ -3,19 +3,15 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-- Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig. Laisser des exemples à modifier.
-
+- Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig.
+Laisser des exemples à modifier.
 
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
-
 Pas prioritaire:
-- revoir score avec une autre bibliothèque que Processing ou mettre à jour
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
-- Définir des tests de régression de Skini en HH. Opus4 est un bon exemple mais complexe.
 - Mise en forme HH dans VSC. Première essai fait. npm run format:hh
-- Les instructions de Jeu dans Blockly
 
 Fait ------------------------------------------------------------------
 
@@ -63,7 +59,8 @@ install https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-uns
 
 Packaging npm Skini:
 Modifier le numéro de version dans package.json, puis:
-npm publish nodeskini@1.0.4
+npm publish
+Si pb npm logout et npm login
 
 Formatage des fichiers hh.js:
 npm run format:hh

@@ -6,7 +6,10 @@ mp3/**
 **/.DS_Store
 skinilog.json
 **/*.out.js
-serveur/ipConfig.json
+serveur/ipConfig75.json
+serveur/ipConfig127.json
+serveur/ipConfigBH.json
+serveur/midiConfigBH.json
 serveur/*.old.mjs
 sounds/**
 node_modules/**

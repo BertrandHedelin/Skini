@@ -8,8 +8,12 @@ log.txt
 node_modules/
 docComplementaires/
 jsdoc/
+doc/src/
 tests/
-pieces/
+serveur/ipConfig75.json
+serveur/ipConfig127.json
+serveur/ipConfigBH.json
+client/archive/
 *.ps1
 *.sh
 *.sln
