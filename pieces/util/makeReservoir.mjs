@@ -4,6 +4,7 @@ import * as $$hiphop from '@hop/hiphop';
 
 let serveur = undefined;
 let gcs = undefined;
+
 const initMakeReservoir = function (_gcs, _serveur) {
     gcs = _gcs;
     serveur = _serveur;

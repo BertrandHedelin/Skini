@@ -158,7 +158,7 @@ function makeAwait(instruments, groupeClient) {
 function makeReservoir(groupeClient, instrument) {
   return hiphop ${hiphop {
       laTrappe: {
-        abort immediate(stopReservoir.now) { // To kill  the tank
+        abort  { // To kill  the tank
           host {
             console.log("--- MAKE RESERVOIR:", instrument[0], ", groupeClient: ", groupeClient);
             var msg = {
@@ -173,7 +173,7 @@ function makeReservoir(groupeClient, instrument) {
           ${ makeAwait(instrument, groupeClient) }
           host { console.log("--- FIN NATURELLE RESERVOIR:", instrument[0]); }
           break  laTrappe;
-        }
+        } when immediate(stopReservoir.now);
 
         ${instrument.map(val => hiphop {emit ${`${val}OUT`} ([false, groupeClient])})}
 
@@ -460,22 +460,22 @@ export function setSignals(param) {
         }
       }par{
         loop{
-          abort(inverseTempo.now){
+          abort{
               every count(2, tick.now) {
                 host{
                 tempoGlobal += 2;
                 setTempo(tempoGlobal, param);
               }
             }
-          }
-          abort(inverseTempo.now){
+          } when (inverseTempo.now);
+          abort{
             every count(2, tick.now) {
               host{
                 tempoGlobal -= 2;
                 setTempo(tempoGlobal, param);
               }
             }
-          }
+          } when (inverseTempo.now);
         }
       }
     }
@@ -529,7 +529,7 @@ export function setSignals(param) {
         setTempo(80, param);
         tempoGlobal = 80;
       }
-      abort(halt.now){
+      abort {
         fork{
           every(tick.now){
             host{
@@ -578,7 +578,7 @@ export function setSignals(param) {
               run ${ bougeTempo } () {*}
           }
         }
-      }
+      } when (halt.now);
       host{ console.log("Reçu Halt"); }
       host{ utilsSkini.alertInfoScoreON("Stop Opus 4", serveur); }
       run ${ resetAll } (){ };

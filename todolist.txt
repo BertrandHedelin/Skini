@@ -3,8 +3,7 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-- Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig.
-Laisser des exemples à modifier.
+- reprendre opus1, 2 et 3.
 
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
@@ -14,12 +13,14 @@ Pas prioritaire:
 - Mise en forme HH dans VSC. Première essai fait. npm run format:hh
 
 Fait ------------------------------------------------------------------
+- Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig.
+Laisser des exemples à modifier.(7/1/2026)
 
 - Compléter Blockly avec la nouvelle version de HH de décembre 2025 plus compatible avec le code compilé.
 Fait sauf pour les jeux (23/12/2025)
 
 - 2 façons d'installer, par git clone ou npm.
-- premier test du package npm (25/11/2025)
+- premier test du package npm (25/11/2025) mais ça place nodeskini dans node_modules, donc à éviter (7/1/2026).
 
 - pièce interactive avec affichage Processing (revu le 25/11/2025):
 Revue de processing avec OSC, mais c'est assez sommaire.

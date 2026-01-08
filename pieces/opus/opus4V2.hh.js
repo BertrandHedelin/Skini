@@ -447,7 +447,7 @@ export function setSignals(param) {
           }
         }
       }
-    } when immediate(stopMoveTempo.now);
+    } when (stopMoveTempo.now);
     host {console.log("-- Stop move tempo")}
   }
 

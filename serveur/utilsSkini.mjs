@@ -31,7 +31,7 @@ let debug1 = true;
 export function creationInterfacesOUT(groupes) {
   if (groupes !== undefined) {
     return groupes.map(function (k) {
-         return k[0] + "OUT";
+      return k[0] + "OUT";
     })
   };
 }

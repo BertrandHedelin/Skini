@@ -884,6 +884,7 @@ export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", par.groupesDesSons);
   
   try {
+    //C'est l'import qui compile le code HH en machine HipHop.js
     const orchestration = await import(myReactOrchestration + '?foo=bar' + tempIndex);
     tempIndex++;
     orchestration.setServ(serv, DAW, this, oscMidiLocal, midimix);   
@@ -891,7 +892,7 @@ export async function makeOneAutomatePossibleMachine() {
 
     makeSignalsListeners(machine);
     
-    if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:machine: ", machine);
+    if (debug) console.log("------------- groupecliensSons: makeOneAutomatePossibleMachine:par: ", par);
     
     return machine;
   } catch (err) {

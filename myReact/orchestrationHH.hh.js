@@ -184,15 +184,15 @@ export function setSignals(param) {
 
       yield;
 
-      signal stopM512492;
-      M512492 : {
+      signal stopM164030;
+      M164030 : {
       fork{
-          run ${ TankUn} () {*, stopM512492 as stopReservoir};
+          run ${ TankDeux} () {*, stopM164030 as stopReservoir};
 
         }par{
           await count(20, tick.now);
-          emit stopM512492();
-          break M512492;
+          emit stopM164030();
+          break M164030;
         }
       }
       yield;
@@ -209,18 +209,18 @@ export function setSignals(param) {
         emit groupe0OUT([true,255]);
         host{gcs.informSelecteurOnMenuChange(255," groupe0", true) }
 
-        signal stopRG150054;
-        RG150054 : {
+        signal stopRG97873;
+        RG97873 : {
             fork{
 
-              run ${ TankUn} () {*, stopRG150054 as stopReservoir};
+              run ${ TankUn} () {*, stopRG97873 as stopReservoir};
 
             }par{
-              run ${ TankDeux} () {*, stopRG150054 as stopReservoir};
+              run ${ TankDeux} () {*, stopRG97873 as stopReservoir};
             }par{
             await count(4, groupe0IN.now);
-            emit stopRG150054();
-            break RG150054;
+            emit stopRG97873();
+            break RG97873;
           }
         }
         emit groupe0OUT([false,255]);
@@ -244,19 +244,19 @@ export function setSignals(param) {
 
         abort{
 
-            signal stopRG211292;
-            RG211292 : {
+            signal stopRG731327;
+            RG731327 : {
               fork{
 
-                  run ${ TankUn} () {*, stopRG211292 as stopReservoir};
+                  run ${ TankUn} () {*, stopRG731327 as stopReservoir};
 
                 }par{
-                  run ${ TankDeux} () {*, stopRG211292 as stopReservoir};
+                  run ${ TankDeux} () {*, stopRG731327 as stopReservoir};
                 }par{
                 await (patternSignal.now && (patternSignal.nowval[1] === "piano8"));
               }
-            emit stopRG211292();
-            break RG211292;
+            emit stopRG731327();
+            break RG731327;
           }
             host {console.log('-*-*-  FIN TANK WAITING');}
 
@@ -338,7 +338,7 @@ export function setSignals(param) {
 
         host {console.log('-*-*-  Set group during patterns in groups');}
 
-        RG513800 : {
+        RG392662 : {
           fork{
 
           emit groupe0OUT([true,255]);
@@ -349,10 +349,10 @@ export function setSignals(param) {
     		}
          par{
           await count(2, groupe0IN.now);
-          break RG513800;
+          break RG392662;
         }par{
           await count(2, groupe1IN.now);
-          break RG513800;
+          break RG392662;
         }
       }
         emit groupe0OUT([false,255]);
@@ -476,7 +476,7 @@ export function setSignals(param) {
 
         yield;
 
-          RG23042 : {
+          RG321083 : {
             fork{
 
             emit groupe0OUT([true,255]);
@@ -487,13 +487,13 @@ export function setSignals(param) {
       		}
            par{
             await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano11'));
-            break RG23042;
+            break RG321083;
           }par{
             await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano9'));
-            break RG23042;
+            break RG321083;
           }par{
             await immediate (patternSignal.now && (patternSignal.nowval[1] === 'piano8'));
-            break RG23042;
+            break RG321083;
           }
         }
           emit groupe0OUT([false,255]);
