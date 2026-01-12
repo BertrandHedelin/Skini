@@ -1,15 +1,3 @@
-/*
-	Programme originellement prévu pour une interaction avec un public.
-	Fontionne avec un simulateur en musique générative avec, dans ce cas, 
-	la séléction aléatoire des chemins de l'orchestration.
-
-	Ceci pourrait être contrôlé par des capteurs en complément du simulateur
-	sans intercation "directe" via le client sur smartphone.
-
-	Bertrand Hédelin (12/01/2026)
-
-*/
-
 // @ts-nocheck
 "use strict"
 "use hopscript"
@@ -208,6 +196,7 @@ const resevoirRise = hiphop module () {
   ${ tank.makeReservoir(255, rise) }
 }
 
+
 /***************************************************************************
  * L'ensemble des modules HH pour l'orchestration
  * Tout est évalué avec l'appel à setSignals
@@ -288,7 +277,6 @@ export function setSignals(param) {
 		in tick, setTimerDivision, patternSignal;
 	
 		signal stopReservoirsEchelle, stopCuivreEchelle, tickEchelle =0;
-		let nbeDeChoix = 2;
 
 		host{setTempo(108);}
 		host{transposeAll(0, param);} // Par sécurité
@@ -315,18 +303,18 @@ export function setSignals(param) {
 				}par{
 					await count (3, tickEchelle.now);
 				}
-
 				// Proposition de choix
 				emit AltosOUT([true, 255]); // 1->
 				emit ContrebassesOUT([true, 255]); // 2->
 				emit TrompettesOUT([true, 255]); // 3 ->
 				host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
+
 				// Le premier choix qui atteint 5 votes gagne
-				host{utilsSkini.alertInfoScoreON("Alto, Contrebasse ou Trompette", serveur);}
+				host{utilsSkini.alertInfoScoreON("Le premier choisi 5 fois gagne", serveur);}
 
 				AtloCtbTromp:{
 					fork{
-						await count (nbeDeChoix, AltosIN.now); // -> 1
+						await count (5, AltosIN.now); // -> 1
 						emit AltosOUT([false, 255]);
 						emit ContrebassesOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
@@ -339,13 +327,13 @@ export function setSignals(param) {
 						emit violonsEchelleOUT([true, 255]);
 						host{ gcs.informSelecteurOnMenuChange(255,"violonsEchelle", true); }
 
-						await count (nbeDeChoix, violonsEchelleIN.now);
+						await count (5, violonsEchelleIN.now);
 						emit BassonsOUT([true, 255]); // 7 ->
 						emit TrompettesOUT([true, 255]); // 6 ->
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break AtloCtbTromp;
 					}par{
-						await count (nbeDeChoix, ContrebassesIN.now); // -> 2
+						await count (5, ContrebassesIN.now); // -> 2
 						emit AltosOUT([false, 255]);
 						emit ContrebassesOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
@@ -353,18 +341,18 @@ export function setSignals(param) {
 
 						emit ctrebassesEchelleOUT([true, 255]);
 						host{ gcs.informSelecteurOnMenuChange(255,"ctrebassesEchelle", true); }
-						await count (nbeDeChoix, ctrebassesEchelleIN.now); // On attend qq contrebasses
+						await count (5, ctrebassesEchelleIN.now); // On attend qq contrebasses
 
 						emit violonsEchelleOUT([true, 255]);
 						host{ gcs.informSelecteurOnMenuChange(255,"violonsEchelle", true); }
 
-						await count (nbeDeChoix, violonsEchelleIN.now);
+						await count (5, violonsEchelleIN.now);
 						emit BassonsOUT([true, 255]); // 7 ->
 						emit TrompettesOUT([true, 255]); // 6 ->
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break AtloCtbTromp;
 					}par{
-						await count (nbeDeChoix, TrompettesIN.now); // -> 3
+						await count (5, TrompettesIN.now); // -> 3
 						emit AltosOUT([false, 255]);
 						emit ContrebassesOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
@@ -385,10 +373,10 @@ export function setSignals(param) {
 				// soit des trompettesEchelle, 
 				
 				// Ici on a comme choix possibles: Bassons (7), Trompettes (6), Piano (8), Trombones (9)
-				host{utilsSkini.alertInfoScoreON("Bassons (7), Trompettes (6), Piano (8), Trombones (9)", serveur);}
+				host{utilsSkini.alertInfoScoreON("Les 5 premiers gagnent", serveur);}
 				BaTroPiTro:{
 					fork{
-						await count (nbeDeChoix, BassonsIN.now); // -> 7
+						await count (5, BassonsIN.now); // -> 7
 						emit BassonsOUT([false, 255]);
 						emit PianoOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
@@ -397,7 +385,7 @@ export function setSignals(param) {
 
 						emit bassonsEchelleOUT([true, 255]);
 						host{ gcs.informSelecteurOnMenuChange(255,"bassonsEchelle", true); }
-						await count (nbeDeChoix, bassonsEchelleIN.now); // On attend qq bassons
+						await count (5, bassonsEchelleIN.now); // On attend qq bassons
 
 						// Choix 
 						emit PianoOUT([true, 255]); // 10 ->
@@ -405,7 +393,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix après bassons", true); }
 						break BaTroPiTro;
 					}par{
-						await count (nbeDeChoix, TrompettesIN.now); // -> 6
+						await count (5, TrompettesIN.now); // -> 6
 						emit BassonsOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
 						emit PianoOUT([false, 255]);
@@ -421,7 +409,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix après trompette", true); }
 						break BaTroPiTro;
 					}par{
-						await count (nbeDeChoix, PianoIN.now); // -> 8
+						await count (5, PianoIN.now); // -> 8
 						emit PianoOUT([false, 255]);
 						emit BassonsOUT([false, 255]);
 						emit TrompettesOUT([false, 255]);
@@ -437,7 +425,7 @@ export function setSignals(param) {
 						host{gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break BaTroPiTro;
 					}par{
-						await count (nbeDeChoix, TrombonesIN.now); // -> 9
+						await count (5, TrombonesIN.now); // -> 9
 						emit PianoOUT([false, 255]);
 						emit BassonsOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -456,11 +444,11 @@ export function setSignals(param) {
 
 				// On a potentiellement ajouté bassons, flutes
 				// Choix possibles bleus: piano (10, 8), flutes (11, 12), trombones (9), Fin (13), hautbois (15), clarinettes (14)
-				host{utilsSkini.alertInfoScoreON("Piano (10, 8), flutes (11, 12), trombones (9), Fin (13), hautbois (15), clarinettes (14)", serveur);}
+				host{utilsSkini.alertInfoScoreON("Nouveaux choix", serveur);}
 
 				PiFluTroFi:{
 					fork{
-						await count (nbeDeChoix, PianoIN.now); // -> 10 et 8
+						await count (5, PianoIN.now); // -> 10 et 8
 						emit PianoOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -478,7 +466,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break PiFluTroFi;
 					}par{
-						await count (nbeDeChoix, FlutesIN.now); // -> 11 et 12
+						await count (5, FlutesIN.now); // -> 11 et 12
 						emit FlutesOUT([false, 255]);
 						emit PianoOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -494,7 +482,7 @@ export function setSignals(param) {
 						emit ClarinettesOUT([true, 255]); // 14 ->
 						break PiFluTroFi;
 					}par{
-						await count (nbeDeChoix, TrombonesIN.now); // -> 9
+						await count (5, TrombonesIN.now); // -> 9
 						emit PianoOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -511,7 +499,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break PiFluTroFi;
 					}par{
-						await count (nbeDeChoix, HautboisIN.now); // -> 15
+						await count (5, HautboisIN.now); // -> 15
 						emit PianoOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -524,7 +512,7 @@ export function setSignals(param) {
 						host{ console.log("-- FIN SESSION ECHELLE --"); }
 						break laTrappe;
 					}par{
-						await count (nbeDeChoix, ClarinettesIN.now); // -> 14
+						await count (5, ClarinettesIN.now); // -> 14
 						emit PianoOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -537,7 +525,7 @@ export function setSignals(param) {
 						host{ console.log("-- FIN SESSION ECHELLE --"); }
 						break laTrappe;
 					}par{
-						await count (nbeDeChoix, FinIN.now); // -> 13
+						await count (5, FinIN.now); // -> 13
 						emit PianoOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
 						emit TrombonesOUT([false, 255]);
@@ -551,12 +539,12 @@ export function setSignals(param) {
 					}
 				}
 
-				// Choix possibles: haubois (15), clarinettes (14)
-				host{utilsSkini.alertInfoScoreON("Haubois (15), clarinettes (14), flutes (12), fin (13)", serveur);}
+				// Choix possibles: haubois (15), clarinettes (14), flutes (12), fin (13)
+				host{utilsSkini.alertInfoScoreON("Faites votre choix", serveur);}
 
 				HaClaFluFi:{
 					fork{
-						await count (nbeDeChoix, HautboisIN.now); // -> 15
+						await count (5, HautboisIN.now); // -> 15
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
@@ -569,7 +557,7 @@ export function setSignals(param) {
 						host{ console.log("-- FIN SESSION ECHELLE --"); }
 						break laTrappe;
 					}par{
-						await count (nbeDeChoix, ClarinettesIN.now); // -> 14
+						await count (5, ClarinettesIN.now); // -> 14
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
@@ -582,7 +570,7 @@ export function setSignals(param) {
 						host{ console.log("-- FIN SESSION ECHELLE --"); }
 						break laTrappe;
 					}par{
-						await count (nbeDeChoix, FlutesIN.now); // -> 12
+						await count (5, FlutesIN.now); // -> 12
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
@@ -597,7 +585,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Choix", true); }
 						break HaClaFluFi;
 					}par{
-						await count (nbeDeChoix, FinIN.now); // -> 13
+						await count (5, FinIN.now); // -> 13
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						emit FlutesOUT([false, 255]);
@@ -610,10 +598,10 @@ export function setSignals(param) {
 				}
 
 				// Choix possibles : clarinettes (14), hautbois (15)
-				host{utilsSkini.alertInfoScoreON("Clarinettes (14), Hautbois (15)", serveur);}
+				host{utilsSkini.alertInfoScoreON(" Clarinettes, Haubois ou fin ", serveur);}
 				ClaHau:{
 					fork{
-						await count (nbeDeChoix, ClarinettesIN.now); // -> 14
+						await count (5, ClarinettesIN.now); // -> 14
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						host{utilsSkini.alertInfoScoreOFF(serveur);}
@@ -622,7 +610,7 @@ export function setSignals(param) {
 						host{ console.log("-- FIN SESSION ECHELLE --"); }
 						break laTrappe;
 					}par{
-						await count (nbeDeChoix, HautboisIN.now); // -> 15
+						await count (5, HautboisIN.now); // -> 15
 						emit HautboisOUT([false, 255]);
 						emit ClarinettesOUT([false, 255]);
 						host{utilsSkini.alertInfoScoreOFF(serveur);}
@@ -640,12 +628,7 @@ export function setSignals(param) {
 		emit ctrebassesEchelleOUT([false, 255]);
 		emit bassonsEchelleOUT([false, 255]);
 		host{gcs.informSelecteurOnMenuChange(255,"Fin", true); }
-
-		host{
-			DAW.cleanQueues();
-			console.log("-- FIN --");
-			utilsSkini.alertInfoScoreON("FIN", serveur);
-		}
+		host{utilsSkini.alertInfoScoreON("FIN", serveur);}
 	}
 
 	const sessionTonale = hiphop module () {
@@ -722,6 +705,74 @@ export function setSignals(param) {
 		}
 	}
 
+
+/*
+	const journey = hiphop module (tick, setTimerDivision, patternSignal) {
+		in tick, setTimerDivision, patternSignal;
+    	out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
+    	in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+
+		out ShostakovichOUT, MessiaenOUT, BrittenOUT;
+		in ShostakovichIN, MessiaenIN, BrittenIN;
+
+		signal choixHasard =0, theEnd;
+		host{ console.log("-- DEBUT JOURNEY --"); }
+		host{transposeAll(0, param);} // Par sécurité
+
+		loop {
+			host{utilsSkini.removeSceneScore(1, serveur);}
+			host{utilsSkini.removeSceneScore(2, serveur);}
+			host{utilsSkini.removeSceneScore(3, serveur);}
+
+			host{utilsSkini.refreshSceneScore(serveur);}
+			host{utilsSkini.addSceneScore(5, serveur);}
+			host{utilsSkini.alertInfoScoreON("Messiaen, Britten ou Shostakovitch", serveur);}
+
+			//emit MessiaenOUT([true, 255]);
+			emit ShostakovichIN([true, 255]);
+			//emit BrittenOUT([true, 255]);
+
+			weakabort{ // Avec abort ça ne marche pas
+				fork{
+					await (ShostakovichIN.now);
+					host{utilsSkini.alertInfoScoreOFF();}
+					host{utilsSkini.addSceneScore(2, serveur);}
+					emit ShostakovichOUT([false, 255]);
+					emit MessiaenOUT([false, 255]);
+					emit BrittenOUT([false, 255]);
+					run ${sessionChromatique} () {*};
+					//run sessionEchelle(...);
+					//run sessionTonale(...);
+					emit theEnd();
+				}par{
+					await count ( 2, MessiaenIN.now);
+					host{utilsSkini.alertInfoScoreOFF();}
+					host{utilsSkini.addSceneScore(1, serveur);}
+					emit ShostakovichOUT([false, 255]);
+					emit MessiaenOUT([false, 255]);
+					emit BrittenOUT([false, 255]);
+					//run sessionEchelle(...);
+					//run sessionChromatique(...);
+					//run sessionTonale(...);
+					emit theEnd();
+				}par{
+					await count ( 2, BrittenIN.now);
+					host{utilsSkini.alertInfoScoreOFF();}		
+					host{utilsSkini.addSceneScore(3, serveur);}
+					emit ShostakovichOUT([false, 255]);
+					emit MessiaenOUT([false, 255]);
+					emit BrittenOUT([false, 255]);
+					//run sessionTonale(...);
+					//run sessionChromatique(...);
+					//run sessionEchelle(...);
+					emit theEnd();
+				}
+			} when (theEnd.now);
+			host{console.log("-- FIN JOURNEY --");}
+			host{utilsSkini.alertInfoScoreON("FIN", serveur);}
+		}
+	}
+*/
 	const Program = hiphop module () {
 		in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal, resetMatriceDesPossibles;
     	inout stopReservoir, stopMoveTempo, stopSolo, stopTransposition;
@@ -729,11 +780,6 @@ export function setSignals(param) {
     	in ... ${ interTextIN };
 		signal temps=0, size;
 		loop {
-			host{utilsSkini.addSceneScore(1, serveur);}
-			//host{utilsSkini.addSceneScore(2, serveur);}
-			//host{utilsSkini.addSceneScore(3, serveur);}
-			host{utilsSkini.alertInfoScoreON("Opus 1", serveur);}
-			
 			abort {
 				await immediate (start.now);
 				host{  console.log("--Démarrage automate des possibles Opus 1V2");}
@@ -751,6 +797,10 @@ export function setSignals(param) {
 					}
 				}par{
 					//run ${sessionChromatique} () {*};
+					host{utilsSkini.addSceneScore(1, serveur);}
+					host{utilsSkini.addSceneScore(2, serveur);}
+					host{utilsSkini.addSceneScore(3, serveur);}
+					host{utilsSkini.alertInfoScoreON("Opus 1", serveur);}
 					//run ${sessionTonale} () {*};
 					run ${sessionEchelle} () {*};
 					//run ${journey} () {*};

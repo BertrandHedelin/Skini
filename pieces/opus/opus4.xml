@@ -308,6 +308,9 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
     
     
     
+    
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="~SL]~QaRcC=t#TX;6OLU" collapsed="true">
@@ -1029,6 +1032,9 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                            
+                            
+                            
                             </comment>
                             <value name="NAME">
                               <block type="variables_get" id="(xYSRFs!l{Q9`m4wVE,`">
@@ -1112,6 +1118,9 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                             
+                                
+                                
+                                
                                 
                                 
                                 
@@ -1588,6 +1597,9 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                                     
                                     
                                     
+                                    
+                                    
+                                    
                                     </comment>
                                     <value name="NAME">
                                       <block type="variables_get" id="zC/p_t^mzd0}LkXR$#}+">
@@ -1705,6 +1717,9 @@ Il y a deux groupes 1 et 0. Il faut utiliser simulateurListe.
                             
                             
                                 
+                                        
+                                        
+                                        
                                         
                                         
                                         

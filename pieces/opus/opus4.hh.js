@@ -515,6 +515,8 @@ export function setSignals(param) {
         utilsSkini.removeSceneScore(1, serveur);
         utilsSkini.refreshSceneScore(serveur);
         utilsSkini.addSceneScore(1, serveur);
+        utilsSkini.addSceneScore(2, serveur);
+        utilsSkini.addSceneScore(3, serveur);
         utilsSkini.alertInfoScoreON("Opus 4", serveur);
         transposeAll(0, param);
 
@@ -559,23 +561,23 @@ export function setSignals(param) {
             }
           } par {
             await count(20, tick.now);
-              fork{
-                run ${ saxoEtViolons } () {*};
+            fork{
+              run ${ saxoEtViolons } () {*};
             } par {
-                run ${ transposeSaxoModal } () {*}
+              run ${ transposeSaxoModal } () {*}
             }
           } par {
             await count(10, tick.now);
-              run ${ soloFlute } () {*}; // 57 ticks
+            run ${ soloFlute } () {*}; // 57 ticks
           } par {
             await count(40, tick.now);
-              run ${ brassEtPercu } () {*};
+            run ${ brassEtPercu } () {*};
           } par {
             every(patternSignal.now) {
               host{ console.log("Pattern counter:", patternCounter++); }
             }
           } par {
-              run ${ bougeTempo } () {*}
+            run ${ bougeTempo } () {*}
           }
         }
       } when (halt.now);

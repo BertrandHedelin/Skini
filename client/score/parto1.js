@@ -77,7 +77,7 @@ var textSize = 20 * screenY / Ybase;
 
 // La version processing.min.js ne sais pas gérer les couleur en hexa.
 function hex_to_RGB(hex) {
-    console.log("hex_to_RGB:", typeof hex, hex);
+    if (debug) console.log("hex_to_RGB:", typeof hex, hex);
     if(hex == '') return [0,0,0];
 
     let m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
@@ -608,6 +608,8 @@ function isInOngoingGraphicScene(scene){
 }
 
 function addSceneScore(scene){
+  if(debug1) console.log("addSceneScore:", scene, ongoingGraphicScene);
+
   // Déjà là
   for (var i=0; i < ongoingGraphicScene.length; i++){
     if ( ongoingGraphicScene[i] === scene){
@@ -626,17 +628,15 @@ function addSceneScore(scene){
 }
 
 function removeSceneScore(scene){
-  if( ongoingGraphicScene[ongoingGraphicScene.length - 1] === scene){
-    ongoingGraphicScene.pop();
-    return true;
-  }else{
-    for (var i=0; i < ongoingGraphicScene.length; i++){
-      if ( ongoingGraphicScene[i] === scene){
-        ongoingGraphicScene[i] = -1;
-        return true;
-      }
+  if(debug1) console.log("removeSceneScore:", scene, ongoingGraphicScene);
+  
+  for (var i = ongoingGraphicScene.length - 1; i >= 0; i--){
+    if ( ongoingGraphicScene[i] === scene){
+      ongoingGraphicScene.splice(i, 1);
+      return true;
     }
   }
+  return false;
 }
 
 /**************************
@@ -716,7 +716,7 @@ function sketchProc(processing) {
                groupsCounter++;
             }else if(patternGroups[i][2] == "tank"){
               if (debug) console.log("This one is the tank:", patternGroups[i][0]);
-              if ( i > 0){
+              if (groupsCounter > 0){
                // C'est ici que l'on gére les tanks de façon séquentielle
                // On regarde si le prédécesseur est dans le même tank.
                // Cela pose une contrainte sur le fichier de configuration graphique.

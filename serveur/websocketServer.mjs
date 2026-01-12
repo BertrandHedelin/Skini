@@ -1326,7 +1326,8 @@ maybe an hiphop compile Error`);
           }));
           break;
 
-        /*	    case "DAWStartClip":
+        /* Pas à jour dans la version node.js
+        case "DAWStartClip":
                 pseudo = msgRecu.pseudo;
                 if (msgRecu.clipChoisi === undefined ) break; // Protection si pas de selection sur le client
                     if (debug) console.log("Web Socket Serveur: DAWStartClip: clipChoisi", msgRecu.clipChoisi, " pour ID: ", msgRecu.id);
@@ -1361,8 +1362,8 @@ maybe an hiphop compile Error`);
               messageLog.pseudo = msgRecu.pseudo;
               messageLog.text = msg.text;
               logInfoSocket(messageLog);
-              break;*/
-
+              break;
+        */
         case "dureeDuTickHorlogeMidi": // Reçu de Processing chaque 24 pulses de l'horloge Midi (une noire)
           receivedTickFromSynchro();
           break;
