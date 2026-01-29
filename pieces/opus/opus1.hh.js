@@ -225,6 +225,12 @@ export function setSignals(param) {
 
     host{ setTempo(120, param); }
     host{transposeAll(0, param);}
+    host{
+      utilsSkini.removeSceneScore(1, serveur);
+      utilsSkini.removeSceneScore(3, serveur);
+      utilsSkini.addSceneScore(2, serveur);
+      utilsSkini.alertInfoScoreON("OPUS1 CHROMATIQUE", serveur);
+    }
 
     host{ console.log("-- DEBUT SESSION CHROMATIQUE --"); }
 
@@ -234,9 +240,10 @@ export function setSignals(param) {
       emit ctrebassesChromOUT([true, 255]);
       host{ gcs.informSelecteurOnMenuChange(255,"ctrebassesChrom", true); }
       fork{
-        await count (5, ctrebassesChromIN.now);
+        await count (5, ctrebassesChromIN.now); 
       }par{
         await count (3, tick.now);
+        host{utilsSkini.alertInfoScoreOFF(serveur);}
       }
 
       host{ transpose(CCTransposeViolins, 4, param);}
@@ -266,21 +273,25 @@ export function setSignals(param) {
 
     host{
       console.log("-- FIN SESSION CHROMATIQUE --");
+      utilsSkini.alertInfoScoreON("FIN Chromatique", serveur);
+      DAW.cleanQueues();
     }
   }
 
-  // Module sessionEchelle à lire avec "carto opus1.odg"
-  // Les transitions sont numérotées:
-  // -> 1 signifie en résultat de la transition 1. Ici ce sont des await sur des instruments.
-  // 7 -> signifie création de la transition 7, via un choix possible par émission
-  // d'un signal OUT sur un instrument
+/******************************************************************
+  Module sessionEchelle à lire avec "carto opus1.odg"
+  Les transitions sont numérotées:
+  -> 1 signifie en résultat de la transition 1. Ici ce sont des await sur des instruments.
+  7 -> signifie création de la transition 7, via un choix possible par émission
+  d'un signal OUT sur un instrument
 
-  // Les choix sont créés à partir des signaux définis pas des noms d'instruments.
-  // On peut les utiliser dans toutes les sessions.
-  // Les choix sont des patterns avec des commandes MIDI négatives (voir le fichier csv)
-  // Quand il y a des choix selecteurSimple n'affiche que les choix, même s'il y a des groupes actifs.
+  Les choix sont créés à partir des signaux définis pas des noms d'instruments.
+  On peut les utiliser dans toutes les sessions.
+  Les choix sont des patterns avec des commandes MIDI négatives (voir le fichier csv)
+  Quand il y a des choix selecteurSimple n'affiche que les choix, même s'il y a des groupes actifs.
 
-  // Dans ce module, les groupes de sons ne sont pas désactivés.
+  Dans ce module, les groupes de sons ne sont pas désactivés.
+*******************************************************************/
 
   const sessionEchelle = hiphop module () {
      	out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
@@ -292,6 +303,12 @@ export function setSignals(param) {
 
     host{setTempo(108);}
     host{transposeAll(0, param);} // Par sécurité
+    host{
+      utilsSkini.removeSceneScore(2, serveur);
+      utilsSkini.removeSceneScore(3, serveur);
+      utilsSkini.addSceneScore(1, serveur);
+      utilsSkini.alertInfoScoreON("OPUS1 ECHELLE", serveur);
+    }
 
     laTrappe:{
       fork{
@@ -305,7 +322,7 @@ export function setSignals(param) {
           }
         }
       }par{
-        host{ console.log("-- DEBUT SESSION ECHELLE --"); }
+        host{ console.log("-- DEBUT SESSION ECHELLE 1--"); }
         emit setTimerDivision(4);
         emit cellosEchelleOUT([true, 255]);
         host{ gcs.informSelecteurOnMenuChange(255,"cellosEchelle", true); }
@@ -314,6 +331,7 @@ export function setSignals(param) {
           await count (4, cellosEchelleIN.now);
         }par{
           await count (3, tickEchelle.now);
+          host{utilsSkini.alertInfoScoreOFF(serveur);}
         }
 
         // Proposition de choix
@@ -644,7 +662,7 @@ export function setSignals(param) {
     host{
       DAW.cleanQueues();
       console.log("-- FIN --");
-      utilsSkini.alertInfoScoreON("FIN", serveur);
+      utilsSkini.alertInfoScoreON("FIN ECHELLE", serveur);
     }
   }
 
@@ -657,24 +675,19 @@ export function setSignals(param) {
 
     host{
       console.log("-- DEBUT SESSION TONALE --");
+      utilsSkini.alertInfoScoreON("OPUS1 TONAL", serveur);
       gcs.setTimerDivision(4);
     }
     host{transposeAll(0, param);} // Par sécurité
     host{ setTempo(90); }
+    host{
+      utilsSkini.removeSceneScore(2, serveur);
+      utilsSkini.removeSceneScore(1, serveur);
+      utilsSkini.addSceneScore(3, serveur);
+    }
 
     emit  violonsTonalOUT([true, 255]);
     host{ gcs.informSelecteurOnMenuChange(255,"violonsTonal", true); }
-
-    //host{utilsSkini.alertInfoScoreOFF();}
-    //host{utilsSkini.addSceneScore(1, serveur);}
-    //host{utilsSkini.addSceneScore(2, serveur);}
-    host{
-      //utilsSkini.removeSceneScore(1, serveur);
-        	//utilsSkini.refreshSceneScore(serveur);
-    }
-
-    host{utilsSkini.alertInfoScoreON("Opus Tonal", serveur);}
-
     await count (5, violonsTonalIN.now);
     emit  cellosTonalOUT([true, 255]);
     emit  ctrebassesTonalOUT([true, 255]);
@@ -698,8 +711,13 @@ export function setSignals(param) {
       host{transposeAll(4, param);}
       emit stopReservoirTrompettesTonal();
       emit stopReservoirKinetic();
+    }par{
+      await count(5, tick.now)
+      host{utilsSkini.alertInfoScoreOFF(serveur);}
     }
     await count(5, tick.now);
+    host{utilsSkini.alertInfoScoreOFF(serveur);}
+
     host{transposeAll(3, param);}
     await count(5, tick.now);
     host{transposeAll(2, param);}
@@ -714,7 +732,9 @@ export function setSignals(param) {
     host { gcs.informSelecteurOnMenuChange(255,"Tonal", false); }
     host {
       console.log("-- FIN SESSION TONALE --");
+      utilsSkini.alertInfoScoreON("FIN TONAL", serveur);
       transposeAll(0, param);
+      DAW.cleanQueues();
       // Notes finales
       //oscMidiLocal.convertAndActivateClipAbleton(325);
       //oscMidiLocal.convertAndActivateClipAbleton(60);
@@ -729,11 +749,7 @@ export function setSignals(param) {
     	in ... ${ interTextIN };
     signal temps=0, size;
     loop {
-      host{utilsSkini.addSceneScore(1, serveur);}
-      //host{utilsSkini.addSceneScore(2, serveur);}
-      //host{utilsSkini.addSceneScore(3, serveur);}
       host{utilsSkini.alertInfoScoreON("Opus 1", serveur);}
-
       abort {
         await immediate (start.now);
         host{  console.log("--Démarrage automate des possibles Opus 1V2");}
@@ -750,10 +766,9 @@ export function setSignals(param) {
             }
           }
         }par{
-          //run ${sessionChromatique} () {*};
-          //run ${sessionTonale} () {*};
+          run ${sessionChromatique} () {*};
+          run ${sessionTonale} () {*};
           run ${sessionEchelle} () {*};
-          //run ${journey} () {*};
         }
       } when (halt.now);
       host{

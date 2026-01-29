@@ -64,5 +64,7 @@ npm publish
 Si pb npm logout et npm login
 
 Formatage des fichiers hh.js:
-npm run format:hh
+npm run format:hh  ✅ Formatage intelligent HipHop (par défaut)
+npm run format:hh:prettier # Formatage pur Prettier
+npm run check:hh 
 
