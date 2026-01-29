@@ -218,8 +218,8 @@ export function setSignals(param) {
   let interTextIN = utilsSkini.creationInterfacesIN(param.groupesDesSons);
 
   const sessionChromatique = hiphop module () {
-     	out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
-    	in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+    out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
+    in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
     in tick;
     signal stopReservoirsChrom;
 
@@ -294,8 +294,8 @@ export function setSignals(param) {
 *******************************************************************/
 
   const sessionEchelle = hiphop module () {
-     	out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
-    	in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+    out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
+    in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
     in tick, setTimerDivision, patternSignal;
 
     signal stopReservoirsEchelle, stopCuivreEchelle, tickEchelle =0;
@@ -773,7 +773,7 @@ export function setSignals(param) {
       } when (halt.now);
       host{
         console.log("--Arret Opus 1");
-        utilsSkini.alertInfoScoreON("Stop Opus 4", serveur);
+        utilsSkini.alertInfoScoreON("Stop Opus1", serveur);
         //utilsSkini.alertInfoScoreOFF(serveur);
         transposeAll(0, param);
         DAW.cleanQueues();
