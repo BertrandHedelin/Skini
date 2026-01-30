@@ -1,9 +1,13 @@
-/*
+/*********************************************************************
 Opus 2, 2019-2026
 Pièce basée sur des patterns assez long sauf pour la partie Bleue.
 4 sessions possibles: Bleue, dodécaphonique, transposition limitée en DO et SOL
 
-*/
+C'est le programme d'une orchestration complexe avec des évenemnts aléatoires.
+Ici on comprend l'intérêt d'écrire en HH.
+La question demeure de savoir qui
+sont les compositeurs capables de gérer ce type de complexité ?
+***/
 'use strict'
 "use hopscript"
 
@@ -72,17 +76,17 @@ function setTempo(value, par) {
 }
 
 // de -12 à +12 demi-tons avec transpose Chromatic Ableton
-function transpose(CCinstrument, value){
+function transpose(CCinstrument, value, par){
 	var CCTransposeValue;
 
 	CCTransposeValue = Math.round(1.763*value + 63.5);
-	oscMidiLocal.controlChange(par.busMidiAbleton, CCChannel, CCinstrument, CCTransposeValue);
+	oscMidiLocal.sendControlChange(par.busMidiAbleton, CCChannel, CCinstrument, CCTransposeValue);
 	//if (debug1) console.log("-- Transposition instrument:", CCinstrument, "->", value, "demi-tons" );
 }
 
-function transposeAll(value) {
+function transposeAll(value, par) {
 	for (var i=61; i <= 72; i++){
-		transpose(i, value);
+		transpose(i, value, par);
 	}
 }
 
@@ -267,15 +271,24 @@ export function setSignals(param) {
 	const sessionBleue = hiphop module () {
 		out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
 		in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+		in tick, setTimerDivision, patternSignal;
 		signal stopReservoir;
 
-		host{ console.log("-- DEBUT SESSION Bleue --"); }
-		host{utilsSkini.addSceneScore(3, serveur);}
+		host{ 
+			console.log("-- DEBUT SESSION Bleue --"); 
+			utilsSkini.alertInfoScoreON("SESSION Bleue", serveur);
+			utilsSkini.addSceneScore(3, serveur);
+			transposition = 0;
+			gcs.setTimerDivision(4);
+			transposeAll(0, param);
+		}
 		emit  cellosBleuOUT([true, 255]);
 		host{ gcs.informSelecteurOnMenuChange(255,"violoncelles bleus", true); }
 
 		fork{
 			await count (2, tick.now);
+			host{utilsSkini.alertInfoScoreOFF(serveur);}
+
 		}par{
 				await (cellosBleuIN.now);
 				host{ transpose(CCTransposeCellos, 1, param);}
@@ -302,106 +315,110 @@ export function setSignals(param) {
 				host{ transpose(CCTransposeCellos, 0, param);}
 		}
 
-			seq1:{
-				fork{
-					run ${resevoirPianoBleu} () {*};
-					break seq1;
-				}par{
-					every (tick.now){
-						host{
-							transposition = (transposition+1)% 6;
-							transpose(CCTransposeCellos, transposition, param);
-						}
+		seq1:{
+			fork{
+				run ${resevoirPianoBleu} () {*};
+				break seq1;
+			}par{
+				every (tick.now){
+					host{
+						transposition = (transposition+1)% 6;
+						transpose(CCTransposeCellos, transposition, param);
 					}
 				}
-			}
+			}par{
+				await count (5, cellosBleuIN.now);
+				emit stopReservoir();
+				break seq1;			}
+		}
 
-			host{ 
-				transpose(CCTransposeCellos, 0, param);
-				transposition = 0;
-			}
+		host{ 
+			transpose(CCTransposeCellos, 0, param);
+			transposition = 0;
+		}
 
 		seq2:{
 			fork{
-					emit  cellosBleuOUT([false, 255]);
-					host{ gcs.informSelecteurOnMenuChange(255,"Violoncelles bleus", false); }
-					yield;
+				emit  cellosBleuOUT([false, 255]);
+				host{ gcs.informSelecteurOnMenuChange(255,"Violoncelles bleus", false); }
+				yield;
 
-					emit  contrebassesBleuOUT([true, 255]);
-					host{ gcs.informSelecteurOnMenuChange(255,"Contrebasses bleues", true); }
-					await count (5, contrebassesBleuIN.now);
+				emit  contrebassesBleuOUT([true, 255]);
+				host{ gcs.informSelecteurOnMenuChange(255,"Contrebasses bleues", true); }
+				await count (5, contrebassesBleuIN.now);
 
-					emit  altosBleuOUT([true, 255]);
-					host{ gcs.informSelecteurOnMenuChange(255,"Altos bleues", true); }
-					await count (5, altosBleuIN.now);
+				emit  altosBleuOUT([true, 255]);
+				host{ gcs.informSelecteurOnMenuChange(255,"Altos bleues", true); }
+				await count (5, altosBleuIN.now);
 
-					emit  contrebassesBleuOUT([false, 255]);
-					host{ gcs.informSelecteurOnMenuChange(255,"Contrebasses bleues", false); }
+				emit  contrebassesBleuOUT([false, 255]);
+				host{ gcs.informSelecteurOnMenuChange(255,"Contrebasses bleues", false); }
 
-					emit  violonsBleuOUT([true, 255]);
-					host{ gcs.informSelecteurOnMenuChange(255,"Violons bleues", true); }
-					await count (5, violonsBleuIN.now);
+				emit  violonsBleuOUT([true, 255]);
+				host{ gcs.informSelecteurOnMenuChange(255,"Violons bleues", true); }
+				await count (5, violonsBleuIN.now);
 
-					break seq2;
+				emit stopReservoir();
+				break seq2;
 			}par{
-					every (tick.now){ // Transposition contrôlée par hiphop, donc au niveau du pattern complet
-						host{
-							transposition = (transposition+1)% 6;
-							transposeAll(transposition, param);
-						}
-					}
-			}
-		}
-
-			trans:{
-				fork{
-					fork{
-						run ${resevoirTrompettesBleu} () {*};
-					}par{
-						run ${resevoirCorsBleu} () {*};
-						run ${resevoirPianoBleu} () {*};
-					}
-					break trans;
-				}par{
-					every (tick.now){ 
-						
-						// Exemple de transposition à l'aide de clips de transposition dans Ableton
-						// La transposition est faite dans des pattern activé en MIDI, ces patterns 
-						// Les clip 407 à 414 dans opus2 transposent, voir dans Ableton ce qui est 
-						// effectivement en place.
-						// envoie des CC dans Ableton. Ce n'est pas une transposition par HipHop.
-						// La différence est que dans un clip on peut commander plusieurs transpositions
-						// sur la durée d'un tick. Faire ceci en hiphop nécessite de diviser le tick.
-
-	/*	    		host{
-							oscMidiLocal.convertAndActivateClipAbleton(compteurTrans); 
-							console.log("-- Trans par pattern (midi command):", compteurTrans, " --");
-							compteurTrans++;
-							if (compteurTrans > compteurTransMax){
-								compteurTrans = compteurTransInit;
-							}
-						}*/
-
-						// Transposition contrôlée par hiphop, avec donc une transposition par tick.
-						host{
-							transposition = (transposition+1)% 3;
-							transposeAll(transposition, param);
-						}
+				every (tick.now){ // Transposition contrôlée par hiphop, donc au niveau du pattern complet
+					host{
+						transposition = (transposition+1)% 6;
+						transposeAll(transposition, param);
 					}
 				}
 			}
-		host{ gcs.informSelecteurOnMenuChange(255,"Fin", true); }
-		host{
-			utilsSkini.alertInfoScoreON("FIN BLEUE", serveur);
-			utilsSkini.removeSceneScore(3, serveur);
 		}
+
+		trans:{
+			fork{
+				fork{
+					run ${resevoirTrompettesBleu} () {*};
+				}par{
+					run ${resevoirCorsBleu} () {*};
+					run ${resevoirPianoBleu} () {*};
+				}
+				break trans;
+			}par{
+				every (tick.now){ 
+					
+					// Exemple de transposition à l'aide de clips de transposition dans Ableton
+					// La transposition est faite dans des patterns activés en MIDI, ces patterns 
+					// Les clip 407 à 414 dans opus2 transposent, voir dans Ableton ce qui est 
+					// effectivement en place.
+					// envoie des CC dans Ableton. Ce n'est pas une transposition par HipHop.
+					// La différence est que dans un clip on peut commander plusieurs transpositions
+					// sur la durée d'un tick. Faire ceci en hiphop nécessite de diviser le tick.
+
+/*	    		host{
+						oscMidiLocal.convertAndActivateClipAbleton(compteurTrans); 
+						console.log("-- Trans par pattern (midi command):", compteurTrans, " --");
+						compteurTrans++;
+						if (compteurTrans > compteurTransMax){
+							compteurTrans = compteurTransInit;
+						}
+					}*/
+
+					// Transposition contrôlée par hiphop, avec donc une transposition par tick.
+					host{
+						transposition = (transposition+1)% 3;
+						transposeAll(transposition, param);
+					}
+				}
+			}
+		}
+		host{ gcs.informSelecteurOnMenuChange(255,"Fin", true); }
 		emit  violonsBleuOUT([false, 255]);
 		emit  altosBleuOUT([false, 255]);
 		emit  contrebassesBleuOUT([false, 255]);
-		//emit resetMatriceDesPossibles(); // Nécessaire pour des reservoirs tués en cours de route et qui laissent des groupes actifs
+		//emit resetMatriceDesPossibles(); 
+		// Nécessaire pour des reservoirs tués en cours de route et qui laissent des groupes actifs
 		host{ 
 			//ableton.cleanQueues();
+			utilsSkini.alertInfoScoreON("FIN SESSION Bleue", serveur);
 			console.log("-- FIN SESSION Bleue --");
+			utilsSkini.removeSceneScore(3, serveur);
+			DAW.cleanQueues();
 		}
 	}
 
@@ -412,14 +429,16 @@ export function setSignals(param) {
 	const sessionRouge = hiphop module () {
 		out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
 		in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+		in tick, setTimerDivision, patternSignal;
 		in abortSessionRouge;
 		signal stopReservoir, abortTheSession, stopEveryAbort ;
 
-		host{console.log("-- DEBUT SESSION Rouge --"); }
-		host{utilsSkini.addSceneScore(2, serveur);}
-
 		host{
-				transposition = 0;
+			console.log("-- DEBUT SESSION Rouge --");
+			utilsSkini.addSceneScore(2, serveur);
+			transposition = 0;
+			gcs.setTimerDivision(16);
+			transposeAll(0, param);
 		}
 		emit violonsRouge1OUT([true, 255]);
 		host{ gcs.informSelecteurOnMenuChange(255,"Violons Rouges", true); }
@@ -428,7 +447,7 @@ export function setSignals(param) {
 			trapPourAbort: {
 				fork {
 					every (abortSessionRouge.now){
-						host{console.log("-- SESSION Noire: abortSessionRouge --", 					abortSessionRouge.nowval); }
+						host{console.log("-- depuis SESSION Noire: abortSessionRouge --", 					abortSessionRouge.nowval); }
 						emit stopReservoir();
 						emit abortTheSession();
 
@@ -448,13 +467,12 @@ export function setSignals(param) {
 				}
 			}
 		}par{
-			weakabort immediate(abortTheSession.now){
+			weakabort {
 				fork{
 					await count (2, violonsRouge1IN.now);
 				}par{
 					await (tick.now);
 				}
-
 				trapTrans: {
 					fork{
 						trapCor:{
@@ -467,14 +485,13 @@ export function setSignals(param) {
 							}par{
 								loop{
 									await (tick.now);
-										host{
-											transposition = (transposition+3)% 9;
-											transpose(CCTransposeCors, transposition, param);
-										}
+									host{
+										transposition = (transposition+3)% 9;
+										transpose(CCTransposeCors, transposition, param);
 									}
+								}
 							}
 						}
-						//yield;
 						fork{
 							run ${resevoirBassonsRouge} () {*};
 						}par{
@@ -485,13 +502,13 @@ export function setSignals(param) {
 							run ${resevoirClarinettesRouge} () {*};
 						}par{
 							await (tick.now);
-								host{
-									transposition = (transposition+3)% 9;
-									transpose(CCTransposeClarinettes, transposition, param);
-									transpose(CCTransposeFlutes, transposition, param);
-									transpose(CCTransposeHaubois, transposition, param);
-									transpose(CCTransposeBassons, transposition, param);
-								}
+							host{
+								transposition = (transposition+3)% 9;
+								transpose(CCTransposeClarinettes, transposition, param);
+								transpose(CCTransposeFlutes, transposition, param);
+								transpose(CCTransposeHaubois, transposition, param);
+								transpose(CCTransposeBassons, transposition, param);
+							}
 						}par{
 							await count (2, tick.now);
 							emit stopReservoir();
@@ -522,16 +539,16 @@ export function setSignals(param) {
 						emit cellosRouge1OUT([true, 255]);
 						host{ gcs.informSelecteurOnMenuChange(255,"Violoncelles rouges", true); }
 						await count (2, cellosRouge1IN.now);
-							loop{
-									await (tick.now);
-								host{
-									oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0369plusStrings); 
-								}
+						loop{
+							await (tick.now);
+							host{
+								//oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0369plusStrings); 
 							}
+						}
 					}
 				}
 
-				host{ oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0Strings);}
+				//host{ oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0Strings);}
 
 				fork{
 					run ${resevoirTrompettesRouge} () {*};
@@ -545,12 +562,19 @@ export function setSignals(param) {
 				emit cellosRouge2OUT([false, 255]);
 				emit contrebassesRouge2OUT([false, 255]);
 				host{ gcs.informSelecteurOnMenuChange(255,"Fin", true); }
-				host{ utilsSkini.alertInfoScoreON("FIN", serveur);}
+				host{ 
+					utilsSkini.alertInfoScoreON("FIN SESSION Rouge", serveur);
+					DAW.cleanQueues();
+					utilsSkini.removeSceneScore(2, serveur);
+				}
 				emit stopEveryAbort();
-			}
+			} when (abortTheSession.now);
 			emit stopReservoir();
-			host{console.log("-- FIN SESSION Rouge --"); }
-			host{utilsSkini.removeSceneScore(2, serveur);}
+			host{
+				console.log("-- FIN SESSION Rouge --"); 
+				DAW.cleanQueues();
+				utilsSkini.removeSceneScore(2, serveur);
+			}
 		}
 	}
 
@@ -561,10 +585,18 @@ export function setSignals(param) {
 		out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
 		in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
 
-		in suspendSessionNoire, in abortSessionNoire, in suspendSessionNoire, inout stopReservoir;
+		in suspendSessionNoire, abortSessionNoire, suspendSessionNoire;
+		in tick, setTimerDivision, patternSignal;
+		inout stopReservoir;
 
-		host{ console.log("-- DEBUT SESSION Noire --"); }
-		host{utilsSkini.addSceneScore(1, serveur);}
+		host{ 
+			console.log("-- DEBUT SESSION Noire --");
+			utilsSkini.alertInfoScoreON("SESSION Noire", serveur);
+			utilsSkini.addSceneScore(1, serveur);
+			transposition = 0;
+			gcs.setTimerDivision(16);
+			transposeAll(0, param);
+		}
 
 		abort { // ou weakabort ?
 			suspend {
@@ -574,10 +606,10 @@ export function setSignals(param) {
 							run ${resevoirPianoNoir} () {*};
 						}par{
 							every (tick.now){
-									host{
-										transposition = (transposition+1)% 6;
-										transpose(CCTransposePianos, transposition, param);
-									}
+								host{
+									transposition = (transposition+1)% 6;
+									transpose(CCTransposePianos, transposition, param);
+								}
 							}
 						}par{
 							await count (2, tick.now);
@@ -601,10 +633,10 @@ export function setSignals(param) {
 						run ${resevoirPianoNoir} () {*};
 					}par{
 						every (tick.now){
-								host{
-									transposition = (transposition+1)% 6;
-									transposeAll(transposition, param);
-								}
+							host{
+								transposition = (transposition+1)% 6;
+								transposeAll(transposition, param);
+							}
 						}
 					}par{
 						await count (7, tick.now);
@@ -616,16 +648,19 @@ export function setSignals(param) {
 		} when immediate(abortSessionNoire.now)
 		emit stopReservoir(); // Si abort a tué les reservoirs avant, cet emit ne fait rien.
 		host{ gcs.informSelecteurOnMenuChange(255,"Fin", true); }
-		host{ console.log("-- FIN SESSION Noire --");}
-		host{ utilsSkini.removeSceneScore(1, serveur);}
+		host{ console.log("-- FIN SESSION Noire --");
+			utilsSkini.removeSceneScore(1, serveur);
+			utilsSkini.alertInfoScoreON("FIN SESSION Noire", serveur);
+		}
 	}
 
-	var aleaJaune = 0;
+	let aleaJaune = 0;
 	// TLG
 
 	const sessionJaune  = hiphop module () {
 		out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
 		in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
+		in tick, setTimerDivision, patternSignal;
 		signal stopReservoir, stopReservoirSessionNoire;
 		signal suspendSessionNoire, abortSessionNoire, abortSessionRouge, stopSustainSessionNoire;
 
@@ -636,8 +671,14 @@ export function setSignals(param) {
 		trapTrans: {
 			fork{
 				fork{
-					host{ console.log("-- DEBUT SESSION Jaune --"); }
-					host{ utilsSkini.addSceneScore(4, serveur);}
+					host{ 
+						console.log("-- DEBUT SESSION Jaune --");
+						utilsSkini.alertInfoScoreON("SESSION Jaune", serveur);
+						utilsSkini.addSceneScore(4, serveur);
+						transposition = 0;
+						gcs.setTimerDivision(16);
+						transposeAll(0, param);
+					}
 
 					if ( aleaJaune === 0 ) {
 						host{ setTempo(200, param); }
@@ -646,6 +687,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Cordes Jaunes", true); }
 
 						await count (5, tick.now);
+						host{utilsSkini.alertInfoScoreOFF(serveur);}
 
 						emit violonsJauneOUT([true, 255]);
 						emit altosJauneOUT([true, 255]);
@@ -660,6 +702,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Cordes Jaunes", true); }
 
 						await count (5, tick.now);
+						host{utilsSkini.alertInfoScoreOFF(serveur);}
 
 						emit cellosJauneOUT([true, 255]);
 						emit contrebassesJauneOUT([true, 255]);
@@ -673,6 +716,7 @@ export function setSignals(param) {
 						host{ gcs.informSelecteurOnMenuChange(255,"Cordes Jaunes", true); }
 
 						await count (2, tick.now);
+						host{utilsSkini.alertInfoScoreOFF(serveur);}
 
 						emit cellosJauneOUT([true, 255]);
 
@@ -721,11 +765,11 @@ export function setSignals(param) {
 
 					every (patternSignal.now){ // On ne reçoit jamais le signal abortSessionNoire dans le module sessionNoire
 						if (patternSignal.nowval[1] === "VioloncelleJaune1") {
-							host{console.log("Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+							host{console.log("Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 							run sessionNoire(...);  // On doit attendre la fin de sessionNoire pour passer au prochain every !!!
 						}
 						else if (patternSignal.nowval[1] === "ContrebasseJaune2") {
-							host{console.log("Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+							host{console.log("Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 							emit abortSessionNoire(1);
 						}
 					}*/
@@ -736,12 +780,12 @@ export function setSignals(param) {
 							(patternSignal.nowval[1] === "VioloncelleJaune1"
 							|| patternSignal.nowval[1] === "VioloncelleJaune3"
 							|| patternSignal.nowval[1] === "VioloncelleJaune6")) {
-						host{console.log("Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+						host{console.log("Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 						run sessionNoire(...);
 					}
 				}par{
 					every count (3, (patternSignal.now && patternSignal.nowval[1] === "ContrebasseJaune2")) {
-						host{console.log("Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+						host{console.log("Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 						emit abortSessionNoire(1);
 					}
 				}
@@ -754,7 +798,7 @@ export function setSignals(param) {
 							(patternSignal.nowval[1] === "VioloncelleJaune1"
 							|| patternSignal.nowval[1] === "VioloncelleJaune3"
 							|| patternSignal.nowval[1] === "VioloncelleJaune6"));
-						host{console.log("--- Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+						host{console.log("--- Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 						fork{
 							if (aleaJaune > 1){
 								run ${sessionRouge} () {*};
@@ -767,23 +811,22 @@ export function setSignals(param) {
 											(patternSignal.nowval[1] === "VioloncelleJaune2"
 											|| patternSignal.nowval[1] === "VioloncelleJaune4"
 											|| patternSignal.nowval[1] === "VioloncelleJaune5"));
-										host{console.log("--- Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
-										host{console.log("--- Opus2-2: session Jaune: Suspend Session Noire"); }
+										host{console.log("--- Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+										host{console.log("--- Opus2: session Jaune: Suspend Session Noire"); }
 										emit suspendSessionNoire(true);									
 									}par{
 										await count (5, (patternSignal.now && patternSignal.nowval[1] === "ContrebasseJaune1"));
-										host{console.log("--- Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
-										host{console.log("--- Opus2-2: session Jaune: FIN Suspend Session Noire"); }
+										host{console.log("--- Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+										host{console.log("--- Opus2: session Jaune: FIN Suspend Session Noire"); }
 										emit suspendSessionNoire(false);
 									}
 								}
 							}
 						}par{
 							await count (5, (patternSignal.now && patternSignal.nowval[1] === "ContrebasseJaune2"));
-							host{console.log("--- Opus2-2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
+							host{console.log("--- Opus2: session Jaune: Pattern activé:", patternSignal.nowval[1]); }
 							emit suspendSessionNoire(false);
 							emit stopReservoirSessionNoire(); // Il faut tuer les réservoirs avant abort
-							//yield;
 							emit abortSessionNoire(1);
 							emit abortSessionRouge(1);
 						}
@@ -798,13 +841,20 @@ export function setSignals(param) {
 				}
 			}
 		}
+		host{
+			utilsSkini.alertInfoScoreON("FIN SESSION Jaune", serveur);
+			utilsSkini.removeSceneScore(4, serveur);
+			DAW.cleanQueues();
+		}
 	}
 
+	let choiceRandom = 0;
 	const journey = hiphop module () {
 		out ... ${ utilsSkini.creationInterfacesOUT(param.groupesDesSons) };
 		in ... ${ utilsSkini.creationInterfacesIN(param.groupesDesSons) };
-		out setComputeScoreClass, out setComputeScorePolicy;
-
+		out setComputeScoreClass;
+		out setComputeScorePolicy;
+		in tick, setTimerDivision, patternSignal;
 		signal choixHasard =0, theEnd, stopReservoir;
 
 		// ON a besoin de ces signaux pour être cohérent avec l'utilisation de la session noire dans un autre module.
@@ -813,36 +863,33 @@ export function setSignals(param) {
 		host{ console.log("-- DEBUT JOURNEY --"); }
 
 		loop {
+			yield;
+
 			host{utilsSkini.removeSceneScore(1, serveur);}
 			host{utilsSkini.removeSceneScore(2, serveur);}
 			host{utilsSkini.removeSceneScore(3, serveur);}
 			host{utilsSkini.removeSceneScore(4, serveur);}
 			host{utilsSkini.refreshSceneScore(serveur);}
 
-			//let choiceRandom = Math.random();
-			let choiceRandom = 0.50;
+			//choiceRandom = Math.random();
+			choiceRandom = 0.75;
 
-			host{ 
-				console.log("-- Journey random:", choiceRandom);
-			}
+			host{console.log("-- Journey random:", choiceRandom);}
 
 			if (choiceRandom <= 0.25) {
 				host{utilsSkini.alertInfoScoreOFF(serveur);}
 				//host{ setTempo(100, param); }
-				emit setTimerDivision(16);
-				host{ transposeAll(0, param);}
 				
 				// Polytonalités complexes
 				fork{
-					run ${sessionNoire} () {*}; // Dodéca
+					//run ${sessionNoire} () {*}; // Dodéca
 				} par {
-					//run ${sessionJaune} () {*}; // TLG
+					run ${sessionJaune} () {*}; // TLG
 				} par {
 					//run ${sessionRouge} () {*}; // TLC
 				}
 
 			} else if (choiceRandom <= 0.50) {
-				emit setTimerDivision(16);
 				host{ setTempo(90, param); }	
 				host{utilsSkini.alertInfoScoreOFF(serveur);}
 				run ${sessionRouge} () {*}; // TLC
@@ -853,27 +900,22 @@ export function setSignals(param) {
 				host{utilsSkini.alertInfoScoreOFF(serveur);}		
 				run ${sessionBleue} () {*}; // Atonal
 			} else {
-				emit setTimerDivision(16);
-				host{ transposeAll(0, param);}			
 				host{utilsSkini.alertInfoScoreOFF(serveur);}		
-				run run ${sessionJaune} () {*}; // TLG + Dodeca ou rouge
+				run ${sessionJaune} () {*}; // TLG + Dodeca ou rouge
 			}
 			host{
 				console.log("-- FIN JOURNEY, ON RECOMMENCE--");
 				//ableton.cleanQueues();
-				oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
+				//oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
 				} 
 			host{utilsSkini.alertInfoScoreON("FIN", serveur);}
 			//yield;
 		}
 	}
 
-
-
 	const Program = hiphop module () {
-		in start, stop, tick, abletonON, setTimerDivision,
-		resetMatriceDesPossibles, in patternSignal, in midiSignal,
-		out setComputeScoreClass, out setComputeScorePolicy;
+		in start, halt, tick, DAWON, patternSignal, pulsation, midiSignal, emptyQueueSignal, resetMatriceDesPossibles;
+		out setComputeScoreClass, setComputeScorePolicy;
 		out ... ${ interTextOUT };
 		in ... ${ interTextIN };
 
@@ -882,7 +924,7 @@ export function setSignals(param) {
 		loop{
 			abort{
 				await immediate (start.now);
-				host{ console.log("--Démarrage automate des possibles Opus 2-2");}
+				host{ console.log("--Démarrage automate des possibles Opus2");}
 				fork{
 					every immediate (tick.now){
 						emit temps(temps.preval + 1);
@@ -900,17 +942,16 @@ export function setSignals(param) {
 				}par{
 					//every immediate (patternSignal.now){
 					//	if (patternSignal.nowval[1] !== undefined){
-					//		host{console.log("Opus2-2: Pattern activé:", patternSignal.nowval[1]); }
+					//		host{console.log("Opus2: Pattern activé:", patternSignal.nowval[1]); }
 					//	}
 					//}
 				}
 			host{
 				console.log("--Arret d'Automate Opus 2");
 				//ableton.cleanQueues();
-				oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
+				//oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
 			}
 			emit temps(0);
-			//yield;
 			} when (halt.now);
 		}
 	}
