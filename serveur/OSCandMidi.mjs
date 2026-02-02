@@ -159,7 +159,7 @@ export function sendOSCProcessing(message, val1, val2) {
 }
 
 /**
- * Send a note on through OSC
+ * Send a note on through OSC or MIDI
  * @param  {number} bus
  * @param  {number} channel
  * @param  {number} note
@@ -175,6 +175,30 @@ export function sendNoteOn(bus, channel, note, velocity) {
 
     return udp.send(buf, 0, buf.length, outportForMIDI, remoteIPAddressSound,
       function (err) { if (err !== null) console.log("OSCandMidi: Erreur udp send: ", err); });
+  }
+};
+
+/**
+ * Send a note on through OSC or MIDI to activate a clip
+ * @param  {number} note
+ */
+export function convertAndActivateClip(note){
+  let buf;
+
+  if (debug1) console.log("INFO: LogosOSCandMidiLocal : convertAndActivateClip: sending MIDI: " + note);
+  let channel = Math.floor(note / 127) + 1;
+  note = note % 127;
+  if (channel > 15) {
+      if (debug1) console.log("ERR: LogosOSCandMidiLocal : convertAndActivateClip: Nombre de canaux midi dépassé.");
+          return -1;
+  }
+
+  if (directMidi) {
+    midiOutput.sendMessage([144 + channel, note, 100]);
+  } else {
+  buf = osc.toBuffer({ address: "/noteOn" , args: [ par.busMidiAbleton, channel, note, 127 ]  });    
+  return udp.send(buf, 0, buf.length, par.outportForMIDI, par.remoteIPAddressSound,
+    function(err) { if (err !== null) console.log("ERR: logosOSCandMidi: convertAndActivateClip: Erreur udp send: ", err); });
   }
 };
 

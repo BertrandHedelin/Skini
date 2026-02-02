@@ -391,7 +391,7 @@ export function setSignals(param) {
 					// sur la durée d'un tick. Faire ceci en hiphop nécessite de diviser le tick.
 
 /*	    		host{
-						oscMidiLocal.convertAndActivateClipAbleton(compteurTrans); 
+						oscMidiLocal.convertAndActivateClip(compteurTrans); 
 						console.log("-- Trans par pattern (midi command):", compteurTrans, " --");
 						compteurTrans++;
 						if (compteurTrans > compteurTransMax){
@@ -414,7 +414,6 @@ export function setSignals(param) {
 		//emit resetMatriceDesPossibles(); 
 		// Nécessaire pour des reservoirs tués en cours de route et qui laissent des groupes actifs
 		host{ 
-			//ableton.cleanQueues();
 			utilsSkini.alertInfoScoreON("FIN SESSION Bleue", serveur);
 			console.log("-- FIN SESSION Bleue --");
 			utilsSkini.removeSceneScore(3, serveur);
@@ -541,14 +540,12 @@ export function setSignals(param) {
 						await count (2, cellosRouge1IN.now);
 						loop{
 							await (tick.now);
-							host{
-								//oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0369plusStrings); 
-							}
+							host{oscMidiLocal.convertAndActivateClip(MIDITrans0369plusStrings);}
 						}
 					}
 				}
 
-				//host{ oscMidiLocal.convertAndActivateClipAbleton(MIDITrans0Strings);}
+				host{ oscMidiLocal.convertAndActivateClip(MIDITrans0Strings);}
 
 				fork{
 					run ${resevoirTrompettesRouge} () {*};
@@ -745,7 +742,7 @@ export function setSignals(param) {
 
 					host{console.log("-- FIN SESSION Jaune --");}
 					host{utilsSkini.removeSceneScore(4, serveur);}
-					//host{ableton.cleanQueues();}
+					host{DAW.cleanQueues();}
 		
 					emit suspendSessionNoire(false);
 					emit stopReservoirSessionNoire();
@@ -861,7 +858,6 @@ export function setSignals(param) {
 		signal suspendSessionNoire, abortSessionNoire, abortSessionRouge;
 
 		host{ console.log("-- DEBUT JOURNEY --"); }
-
 		loop {
 			yield;
 
@@ -871,31 +867,31 @@ export function setSignals(param) {
 			host{utilsSkini.removeSceneScore(4, serveur);}
 			host{utilsSkini.refreshSceneScore(serveur);}
 
-			//choiceRandom = Math.random();
-			choiceRandom = 0.75;
+			choiceRandom = Math.random();
+			//choiceRandom = 0.1;
 
 			host{console.log("-- Journey random:", choiceRandom);}
 
 			if (choiceRandom <= 0.25) {
 				host{utilsSkini.alertInfoScoreOFF(serveur);}
-				//host{ setTempo(100, param); }
+				host{ setTempo(100, param); }
 				
 				// Polytonalités complexes
 				fork{
 					//run ${sessionNoire} () {*}; // Dodéca
 				} par {
-					run ${sessionJaune} () {*}; // TLG
+					//run ${sessionJaune} () {*}; // TLG
 				} par {
-					//run ${sessionRouge} () {*}; // TLC
+					run ${sessionRouge} () {*}; // TLC
 				}
 
 			} else if (choiceRandom <= 0.50) {
-				host{ setTempo(90, param); }	
+				host{ setTempo(50, param); }	
 				host{utilsSkini.alertInfoScoreOFF(serveur);}
 				run ${sessionRouge} () {*}; // TLC
 			}else if (choiceRandom <= 0.75) {
 				emit setTimerDivision(4); // 4 noires = 1 mesure
-				host{ setTempo(90, param); }
+				host{ setTempo(50, param); }
 				host{ transposeAll(0, param); } 
 				host{utilsSkini.alertInfoScoreOFF(serveur);}		
 				run ${sessionBleue} () {*}; // Atonal
@@ -905,8 +901,8 @@ export function setSignals(param) {
 			}
 			host{
 				console.log("-- FIN JOURNEY, ON RECOMMENCE--");
-				//ableton.cleanQueues();
-				//oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
+				DAW.cleanQueues();
+				oscMidiLocal.convertAndActivateClip(300); // Commande d'arrêt global Ableton
 				} 
 			host{utilsSkini.alertInfoScoreON("FIN", serveur);}
 			//yield;
@@ -948,11 +944,16 @@ export function setSignals(param) {
 				}
 			host{
 				console.log("--Arret d'Automate Opus 2");
-				//ableton.cleanQueues();
-				//oscMidiLocal.convertAndActivateClipAbleton(300); // Commande d'arrêt global Ableton
+				DAW.cleanQueues();
+				oscMidiLocal.convertAndActivateClip(300); // Commande d'arrêt global Ableton
 			}
 			emit temps(0);
 			} when (halt.now);
+			host{
+				console.log("-- STOP Opus 2");
+				DAW.cleanQueues();
+				oscMidiLocal.convertAndActivateClip(300); // Commande d'arrêt global Ableton
+			}
 		}
 	}
   const prg = new ReactiveMachine(Program, "orchestration");

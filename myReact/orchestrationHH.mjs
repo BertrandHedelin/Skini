@@ -301,349 +301,353 @@ return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','p
 })([]),(function (__frame) {
 return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12276},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12276},'%tag':'hop','apply':function () {
 }}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12276},'%tag':'run','autocomplete':true,'module':resevoirPianoBleu,'%frame':__frame}));
-})([]))),$$hiphop.EXIT({'trans':'trans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12325},'%tag':'EXIT'})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12345},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13274},'%tag':'pragma','apply':function () {
-transposition=(transposition + 1) % 3;transposeAll(transposition,param);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13390},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13456},'%tag':'EMIT','signame':'violonsBleuOUT','apply':function () {
+})([]))),$$hiphop.EXIT({'trans':'trans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12325},'%tag':'EXIT'})),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':12345},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13267},'%tag':'pragma','apply':function () {
+transposition=(transposition + 1) % 3;transposeAll(transposition,param);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13383},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13449},'%tag':'EMIT','signame':'violonsBleuOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13494},'%tag':'EMIT','signame':'altosBleuOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13487},'%tag':'EMIT','signame':'altosBleuOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13530},'%tag':'EMIT','signame':'contrebassesBleuOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13523},'%tag':'EMIT','signame':'contrebassesBleuOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13699},'%tag':'pragma','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':13692},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreON('FIN SESSION Bleue',serveur);console.log('-- FIN SESSION Bleue --');utilsSkini.removeSceneScore(3,serveur);DAW.cleanQueues();}})));
-const sessionRouge=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14069},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14087},'direction':'OUT','name':n});
+const sessionRouge=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14034},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14052},'direction':'OUT','name':n});
 }),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14157},'direction':'IN','name':n});
-}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14223},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14223},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14223},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14267},'direction':'IN','name':'abortSessionRouge'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14291},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14298},'name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14313},'name':'abortTheSession'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14330},'name':'stopEveryAbort'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14350},'%tag':'pragma','apply':function () {
-console.log('-- DEBUT SESSION Rouge --');utilsSkini.addSceneScore(2,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14531},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14122},'direction':'IN','name':n});
+}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14188},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14188},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14188},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14232},'direction':'IN','name':'abortSessionRouge'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14256},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14263},'name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14278},'name':'abortTheSession'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14295},'name':'stopEveryAbort'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14315},'%tag':'pragma','apply':function () {
+console.log('-- DEBUT SESSION Rouge --');utilsSkini.addSceneScore(2,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14496},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14564},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Violons Rouges',true);}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14636},'%tag':'FORK'},$$hiphop.TRAP({'trapPourAbort':'trapPourAbort','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14645},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14666},'%tag':'FORK'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14678},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('abortSessionRouge','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14715},'%tag':'pragma','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14529},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Violons Rouges',true);}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14601},'%tag':'FORK'},$$hiphop.TRAP({'trapPourAbort':'trapPourAbort','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14610},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14631},'%tag':'FORK'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14643},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('abortSessionRouge','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14680},'%tag':'pragma','apply':function () {
 const abortSessionRouge=this.abortSessionRouge;{
-console.log('-- depuis SESSION Noire: abortSessionRouge --',abortSessionRouge.nowval);}}},$$hiphop.SIGACCESS({'signame':'abortSessionRouge','pre':false,'val':true,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14826},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14854},'%tag':'EMIT','signame':'abortTheSession'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14885},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
+console.log('-- depuis SESSION Noire: abortSessionRouge --',abortSessionRouge.nowval);}}},$$hiphop.SIGACCESS({'signame':'abortSessionRouge','pre':false,'val':true,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14791},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14819},'%tag':'EMIT','signame':'abortTheSession'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14850},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14933},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14898},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14975},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14940},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15019},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':14984},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15062},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15027},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15104},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15069},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15148},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(2,serveur);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15207},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15217},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('stopEveryAbort','now')}),$$hiphop.EXIT({'trapPourAbort':'trapPourAbort','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15256},'%tag':'EXIT'})))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15285},'%tag':'par'},$$hiphop.WEAKABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15293},'%tag':'WEAKABORT','immediate':false,'apply':new $$hiphop.DelaySig('abortTheSession','now')},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15309},'%tag':'FORK'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15320},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('violonsRouge1IN','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15113},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(2,serveur);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15172},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15182},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('stopEveryAbort','now')}),$$hiphop.EXIT({'trapPourAbort':'trapPourAbort','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15221},'%tag':'EXIT'})))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15250},'%tag':'par'},$$hiphop.WEAKABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15258},'%tag':'WEAKABORT','immediate':false,'apply':new $$hiphop.DelaySig('abortTheSession','now')},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15274},'%tag':'FORK'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15285},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('violonsRouge1IN','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15373},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')})),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15401},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15419},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15419},'%tag':'SEQUENCE'},$$hiphop.TRAP({'trapCor':'trapCor','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15431},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15448},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15462},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15462},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15462},'%tag':'run','autocomplete':true,'module':resevoirCorsRouge,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15503},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15516},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15338},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')})),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15366},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15384},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15384},'%tag':'SEQUENCE'},$$hiphop.TRAP({'trapCor':'trapCor','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15396},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15413},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15427},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15427},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15427},'%tag':'run','autocomplete':true,'module':resevoirCorsRouge,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15468},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15481},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 4;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15556},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EXIT({'trapCor':'trapCor','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15587},'%tag':'EXIT'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15617}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15632},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15659},'%tag':'pragma','apply':function () {
-transposition=(transposition + 3) % 9;transpose(CCTransposeCors,transposition,param);}})))),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15817},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15830},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15830},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15830},'%tag':'run','autocomplete':true,'module':resevoirBassonsRouge,'%frame':__frame}));
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15521},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EXIT({'trapCor':'trapCor','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15552},'%tag':'EXIT'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15582}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15597},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15624},'%tag':'pragma','apply':function () {
+transposition=(transposition + 3) % 9;transpose(CCTransposeCors,transposition,param);}})))),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15782},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15795},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15795},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15795},'%tag':'run','autocomplete':true,'module':resevoirBassonsRouge,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15885},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15885},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15885},'%tag':'run','autocomplete':true,'module':resevoirFlutesRouge,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15850},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15850},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15850},'%tag':'run','autocomplete':true,'module':resevoirFlutesRouge,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15939},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15939},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15939},'%tag':'run','autocomplete':true,'module':resevoirHautboisRouge,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15904},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15904},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15904},'%tag':'run','autocomplete':true,'module':resevoirHautboisRouge,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15995},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15995},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15995},'%tag':'run','autocomplete':true,'module':resevoirClarinettesRouge,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16042},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16054},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16079},'%tag':'pragma','apply':function () {
-transposition=(transposition + 3) % 9;transpose(CCTransposeClarinettes,transposition,param);transpose(CCTransposeFlutes,transposition,param);transpose(CCTransposeHaubois,transposition,param);transpose(CCTransposeBassons,transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16394},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16406},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15960},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15960},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':15960},'%tag':'run','autocomplete':true,'module':resevoirClarinettesRouge,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16007},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16019},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16044},'%tag':'pragma','apply':function () {
+transposition=(transposition + 3) % 9;transpose(CCTransposeClarinettes,transposition,param);transpose(CCTransposeFlutes,transposition,param);transpose(CCTransposeHaubois,transposition,param);transpose(CCTransposeBassons,transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16359},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16371},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16445},'%tag':'EMIT','signame':'stopReservoir'}))),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16491},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16491},'%tag':'SEQUENCE'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16509},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16410},'%tag':'EMIT','signame':'stopReservoir'}))),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16456},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16456},'%tag':'SEQUENCE'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16474},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16558},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16523},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16601},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16566},'%tag':'EMIT','signame':'violonsRouge1OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16646},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16611},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16689},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16654},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16731},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16696},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
 return [true,255];
-}})),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16786},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16799},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16799},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16799},'%tag':'run','autocomplete':true,'module':resevoirPercu,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16836},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16849},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}})),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16751},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16764},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16764},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16764},'%tag':'run','autocomplete':true,'module':resevoirPercu,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16801},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16814},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16889},'%tag':'EMIT','signame':'stopReservoir'})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16929},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Rouges',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17003},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16854},'%tag':'EMIT','signame':'stopReservoir'})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16894},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Rouges',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':16968},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17045},'%tag':'EXIT'})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17062},'%tag':'par'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17078},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
+}}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17010},'%tag':'EXIT'})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17027},'%tag':'par'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17043},'%tag':'EMIT','signame':'contrebassesRouge1OUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17120},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Contrebasses rouges',true);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17205},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17085},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Contrebasses rouges',true);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17170},'%tag':'EMIT','signame':'cellosRouge1OUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17241},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Violoncelles rouges',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17321},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('cellosRouge1IN','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17206},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Violoncelles rouges',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17286},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('cellosRouge1IN','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17364}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17377},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17402},'%tag':'pragma','apply':function () {
-}}))))),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17601},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17612},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17612},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17612},'%tag':'run','autocomplete':true,'module':resevoirTrompettesRouge,'%frame':__frame}));
+}}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17329}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17342},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17367},'%tag':'pragma','apply':function () {
+oscMidiLocal.convertAndActivateClip(MIDITrans0369plusStrings);}}))))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17462},'%tag':'pragma','apply':function () {
+oscMidiLocal.convertAndActivateClip(MIDITrans0Strings);}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17530},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17541},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17541},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17541},'%tag':'run','autocomplete':true,'module':resevoirTrompettesRouge,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17666},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17666},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17666},'%tag':'run','autocomplete':true,'module':resevoirTrombonesRouge,'%frame':__frame}));
-})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17709},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17719},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17595},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17595},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17595},'%tag':'run','autocomplete':true,'module':resevoirTrombonesRouge,'%frame':__frame}));
+})([]),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17638},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17648},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17756},'%tag':'EMIT','signame':'stopReservoir'}))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17788},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17685},'%tag':'EMIT','signame':'stopReservoir'}))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17717},'%tag':'EMIT','signame':'violonsRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17829},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17758},'%tag':'EMIT','signame':'cellosRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17869},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17798},'%tag':'EMIT','signame':'contrebassesRouge2OUT','apply':function () {
 return [false,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17910},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17972},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreON('FIN SESSION Rouge',serveur);DAW.cleanQueues();utilsSkini.removeSceneScore(2,serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18128},'%tag':'EMIT','signame':'stopEveryAbort'})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18187},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18207},'%tag':'pragma','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17839},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':17901},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreON('FIN SESSION Rouge',serveur);DAW.cleanQueues();utilsSkini.removeSceneScore(2,serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18057},'%tag':'EMIT','signame':'stopEveryAbort'})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18116},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18136},'%tag':'pragma','apply':function () {
 console.log('-- FIN SESSION Rouge --');DAW.cleanQueues();utilsSkini.removeSceneScore(2,serveur);}})))));
-const sessionNoire=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18440},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18458},'direction':'OUT','name':n});
+const sessionNoire=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18369},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18387},'direction':'OUT','name':n});
 }),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18528},'direction':'IN','name':n});
-}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18595},'direction':'IN','name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18595},'direction':'IN','name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18595},'direction':'IN','name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18661},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18661},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18661},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18705},'direction':'INOUT','name':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18729},'%tag':'pragma','apply':function () {
-console.log('-- DEBUT SESSION Noire --');utilsSkini.alertInfoScoreON('SESSION Noire',serveur);utilsSkini.addSceneScore(1,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18965},'%tag':'ABORT','immediate':true,'apply':new $$hiphop.DelaySig('abortSessionNoire','now')},$$hiphop.SUSPEND({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18994},'immediate':false,'apply':function () {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18457},'direction':'IN','name':n});
+}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18524},'direction':'IN','name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18524},'direction':'IN','name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18524},'direction':'IN','name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18590},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18590},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18590},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18634},'direction':'INOUT','name':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18658},'%tag':'pragma','apply':function () {
+console.log('-- DEBUT SESSION Noire --');utilsSkini.alertInfoScoreON('SESSION Noire',serveur);utilsSkini.addSceneScore(1,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.ABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18894},'%tag':'ABORT','immediate':true,'apply':new $$hiphop.DelaySig('abortSessionNoire','now')},$$hiphop.SUSPEND({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18923},'immediate':false,'apply':function () {
 return ((() => {
 const suspendSessionNoire=this.suspendSessionNoire;return suspendSessionNoire.nowval === true;
 })());
-}},$$hiphop.SIGACCESS({'signame':'suspendSessionNoire','pre':false,'val':true,'cnt':false}),$$hiphop.TRAP({'part1':'part1','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19008},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19022},'%tag':'FORK'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19034},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19047},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19047},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19047},'%tag':'run','autocomplete':true,'module':resevoirPianoNoir,'%frame':__frame}));
-})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19099},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19125},'%tag':'pragma','apply':function () {
-transposition=(transposition + 1) % 6;transpose(CCTransposePianos,transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19265},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19277},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}},$$hiphop.SIGACCESS({'signame':'suspendSessionNoire','pre':false,'val':true,'cnt':false}),$$hiphop.TRAP({'part1':'part1','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18937},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18951},'%tag':'FORK'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18963},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18976},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18976},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':18976},'%tag':'run','autocomplete':true,'module':resevoirPianoNoir,'%frame':__frame}));
+})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19028},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19054},'%tag':'pragma','apply':function () {
+transposition=(transposition + 1) % 6;transpose(CCTransposePianos,transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19194},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19206},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 2;
 }}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19311},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19311},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19311},'%tag':'run','autocomplete':true,'module':resevoirViolonsNoir,'%frame':__frame}));
-})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19353},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19365},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19240},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19240},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19240},'%tag':'run','autocomplete':true,'module':resevoirViolonsNoir,'%frame':__frame}));
+})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19282},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19294},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 3;
 }}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19399},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19399},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19399},'%tag':'run','autocomplete':true,'module':resevoirCellosNoir,'%frame':__frame}));
-})([]))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19447},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19458},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19328},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19328},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19328},'%tag':'run','autocomplete':true,'module':resevoirCellosNoir,'%frame':__frame}));
+})([]))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19376},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19387},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}}),$$hiphop.EXIT({'part1':'part1','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19497},'%tag':'EXIT'})))),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19534},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19552},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19564},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19564},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19564},'%tag':'run','autocomplete':true,'module':resevoirFlutesNoir,'%frame':__frame}));
+}}),$$hiphop.EXIT({'part1':'part1','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19426},'%tag':'EXIT'})))),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19463},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19481},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19493},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19493},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19493},'%tag':'run','autocomplete':true,'module':resevoirFlutesNoir,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19615},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19615},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19615},'%tag':'run','autocomplete':true,'module':resevoirBassonsNoir,'%frame':__frame}));
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19544},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19544},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19544},'%tag':'run','autocomplete':true,'module':resevoirBassonsNoir,'%frame':__frame}));
 })([]),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19667},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19667},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19667},'%tag':'run','autocomplete':true,'module':resevoirPianoNoir,'%frame':__frame}));
-})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19717},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19742},'%tag':'pragma','apply':function () {
-transposition=(transposition + 1) % 6;transposeAll(transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19861},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19872},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19596},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19596},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19596},'%tag':'run','autocomplete':true,'module':resevoirPianoNoir,'%frame':__frame}));
+})([]),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19646},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19671},'%tag':'pragma','apply':function () {
+transposition=(transposition + 1) % 6;transposeAll(transposition,param);}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19790},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19801},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 7;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19910},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19939},'%tag':'EXIT'})))))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20061},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20143},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20203},'%tag':'pragma','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19839},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19868},'%tag':'EXIT'})))))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':19990},'%tag':'EMIT','signame':'stopReservoir'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20072},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Fin',true);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20132},'%tag':'pragma','apply':function () {
 console.log('-- FIN SESSION Noire --');utilsSkini.removeSceneScore(1,serveur);utilsSkini.alertInfoScoreON('FIN SESSION Noire',serveur);}}));
 let aleaJaune=0;
-const sessionJaune=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20422},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20440},'direction':'OUT','name':n});
+const sessionJaune=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20351},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20369},'direction':'OUT','name':n});
 }),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20510},'direction':'IN','name':n});
-}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20576},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20576},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20576},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20620},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20627},'name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20642},'name':'stopReservoirSessionNoire'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20671},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20678},'name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20699},'name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20718},'name':'abortSessionRouge'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20737},'name':'stopSustainSessionNoire'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20765},'%tag':'pragma','apply':function () {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20439},'direction':'IN','name':n});
+}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20505},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20505},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20505},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20549},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20556},'name':'stopReservoir'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20571},'name':'stopReservoirSessionNoire'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20600},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20607},'name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20628},'name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20647},'name':'abortSessionRouge'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20666},'name':'stopSustainSessionNoire'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20694},'%tag':'pragma','apply':function () {
 aleaJaune=Math.floor(Math.random() * Math.floor(3));if (debug1) console.log('-- aleaJaune:',aleaJaune);
-}}),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20893},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20909},'%tag':'FORK'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20919},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20919},'%tag':'SEQUENCE'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20930},'%tag':'pragma','apply':function () {
-console.log('-- DEBUT SESSION Jaune --');utilsSkini.alertInfoScoreON('SESSION Jaune',serveur);utilsSkini.addSceneScore(4,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21190},'%tag':'if','apply':function () {
+}}),$$hiphop.TRAP({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20822},'%tag':'TRAP'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20838},'%tag':'FORK'},$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20848},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20848},'%tag':'SEQUENCE'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':20859},'%tag':'pragma','apply':function () {
+console.log('-- DEBUT SESSION Jaune --');utilsSkini.alertInfoScoreON('SESSION Jaune',serveur);utilsSkini.addSceneScore(4,serveur);transposition=0;gcs.setTimerDivision(16);transposeAll(0,param);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21119},'%tag':'if','apply':function () {
 return aleaJaune === 0;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21213},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21221},'%tag':'pragma','apply':function () {
-setTempo(200,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21262},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21142},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21150},'%tag':'pragma','apply':function () {
+setTempo(200,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21191},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21302},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21231},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21343},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21418},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21272},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21347},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21451},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21508},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21380},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21437},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21549},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21478},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21583},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21658},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21512},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21587},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21697},'%tag':'if','apply':function () {
+}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21626},'%tag':'if','apply':function () {
 return aleaJaune === 1;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21718},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21726},'%tag':'pragma','apply':function () {
-setTempo(120,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21767},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21647},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21655},'%tag':'pragma','apply':function () {
+setTempo(120,param);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21696},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21808},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21737},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21842},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21917},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21771},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21846},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21950},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22007},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21879},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21936},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22047},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':21976},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22088},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22163},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22017},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22092},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 15;
-}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22203},'%tag':'if','apply':function () {
+}})),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22132},'%tag':'if','apply':function () {
 return aleaJaune === 2;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22224},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22232},'%tag':'pragma','apply':function () {
-setTempo(160);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22266},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22153},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22161},'%tag':'pragma','apply':function () {
+setTempo(160);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22195},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22307},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22382},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22236},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22311},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 2;
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22415},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22472},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22344},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22401},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22508},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22583},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22437},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22512},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 3;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22622},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22551},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22658},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22733},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22587},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22662},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 5;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22771},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22700},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
 return [true,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22805},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22880},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22734},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',true);}}),$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22809},'%tag':'await','immediate':false,'apply':new $$hiphop.DelaySig('tick','now'),'countapply':function () {
 return 10;
-}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22927},'%tag':'pragma','apply':function () {
-console.log('aleaJaune X:',aleaJaune);}})))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22993},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
+}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22856},'%tag':'pragma','apply':function () {
+console.log('aleaJaune X:',aleaJaune);}})))),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22922},'%tag':'EMIT','signame':'cellosJauneOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23033},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':22962},'%tag':'EMIT','signame':'contrebassesJauneOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23079},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23008},'%tag':'EMIT','signame':'violonsJauneOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23120},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23049},'%tag':'EMIT','signame':'altosJauneOUT','apply':function () {
 return [false,255];
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23154},'%tag':'pragma','apply':function () {
-gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',false);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23229},'%tag':'pragma','apply':function () {
-console.log('-- FIN SESSION Jaune --');}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23280},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(4,serveur);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23376},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23083},'%tag':'pragma','apply':function () {
+gcs.informSelecteurOnMenuChange(255,'Cordes Jaunes',false);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23158},'%tag':'pragma','apply':function () {
+console.log('-- FIN SESSION Jaune --');}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23209},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(4,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23261},'%tag':'pragma','apply':function () {
+DAW.cleanQueues();}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23299},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
 return false;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23414},'%tag':'EMIT','signame':'stopReservoirSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23467},'%tag':'EMIT','signame':'abortSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23499},'%tag':'EMIT','signame':'abortSessionRouge'}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23531},'%tag':'EXIT'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25304}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25317},'%tag':'await','immediate':false,'apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23337},'%tag':'EMIT','signame':'stopReservoirSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23390},'%tag':'EMIT','signame':'abortSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23422},'%tag':'EMIT','signame':'abortSessionRouge'}),$$hiphop.EXIT({'trapTrans':'trapTrans','%location':{'filename':'./pieces/opus/opus2.hh.js','pos':23454},'%tag':'EXIT'})),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25227}},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25240},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return patternSignal.now && (patternSignal.nowval[1] === 'VioloncelleJaune1' || patternSignal.nowval[1] === 'VioloncelleJaune3' || patternSignal.nowval[1] === 'VioloncelleJaune6');
 })());
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25527},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25450},'%tag':'pragma','apply':function () {
 const patternSignal=this.patternSignal;{
-console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25623},'%tag':'FORK'},$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25636},'%tag':'if','apply':function () {
+console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25546},'%tag':'FORK'},$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25559},'%tag':'if','apply':function () {
 return aleaJaune > 1;
 }},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25664},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25664},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25664},'%tag':'run','autocomplete':true,'module':sessionRouge,'%frame':__frame}));
-})([]),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25716},'%tag':'FORK'},(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25731},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25731},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25731},'%tag':'run','autocomplete':true,'stopReservoirSessionNoire':'stopReservoir','module':sessionNoire,'%frame':__frame}));
-})([]),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25826},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25826},'%tag':'SEQUENCE'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25842},'%tag':'await','immediate':false,'apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25587},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25587},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25587},'%tag':'run','autocomplete':true,'module':sessionRouge,'%frame':__frame}));
+})([]),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25639},'%tag':'FORK'},(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25654},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25654},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25654},'%tag':'run','autocomplete':true,'stopReservoirSessionNoire':'stopReservoir','module':sessionNoire,'%frame':__frame}));
+})([]),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25749},'%tag':'FORK'},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25749},'%tag':'SEQUENCE'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25765},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return patternSignal.now && (patternSignal.nowval[1] === 'VioloncelleJaune2' || patternSignal.nowval[1] === 'VioloncelleJaune4' || patternSignal.nowval[1] === 'VioloncelleJaune5');
 })());
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26068},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':25991},'%tag':'pragma','apply':function () {
 const patternSignal=this.patternSignal;{
-console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26168},'%tag':'pragma','apply':function () {
-console.log('--- Opus2: session Jaune: Suspend Session Noire');}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26254},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
+console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26091},'%tag':'pragma','apply':function () {
+console.log('--- Opus2: session Jaune: Suspend Session Noire');}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26177},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
 return true;
-}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26300},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26315},'%tag':'await','immediate':false,'apply':function () {
+}})),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26223},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26238},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return (patternSignal.now && patternSignal.nowval[1] === 'ContrebasseJaune1');
 })());
 },'countapply':function () {
 return 5;
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26414},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26337},'%tag':'pragma','apply':function () {
 const patternSignal=this.patternSignal;{
-console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26514},'%tag':'pragma','apply':function () {
-console.log('--- Opus2: session Jaune: FIN Suspend Session Noire');}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26604},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
+console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26437},'%tag':'pragma','apply':function () {
+console.log('--- Opus2: session Jaune: FIN Suspend Session Noire');}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26527},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
 return false;
-}}))))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26669},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26681},'%tag':'await','immediate':false,'apply':function () {
+}}))))),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26592},'%tag':'par'},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26604},'%tag':'await','immediate':false,'apply':function () {
 return ((() => {
 const patternSignal=this.patternSignal;return (patternSignal.now && patternSignal.nowval[1] === 'ContrebasseJaune2');
 })());
 },'countapply':function () {
 return 5;
-}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26777},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':false,'cnt':false}),$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26700},'%tag':'pragma','apply':function () {
 const patternSignal=this.patternSignal;{
-console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26879},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
+console.log('--- Opus2: session Jaune: Pattern activé:',patternSignal.nowval[1]);}}},$$hiphop.SIGACCESS({'signame':'patternSignal','pre':false,'val':true,'cnt':false})),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26802},'%tag':'EMIT','signame':'suspendSessionNoire','apply':function () {
 return false;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26919},'%tag':'EMIT','signame':'stopReservoirSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27003},'%tag':'EMIT','signame':'abortSessionNoire','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26842},'%tag':'EMIT','signame':'stopReservoirSessionNoire'}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26926},'%tag':'EMIT','signame':'abortSessionNoire','apply':function () {
 return 1;
-}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27037},'%tag':'EMIT','signame':'abortSessionRouge','apply':function () {
+}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':26960},'%tag':'EMIT','signame':'abortSessionRouge','apply':function () {
 return 1;
-}}))))),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27093},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27117},'%tag':'pragma','apply':function () {
-transposition=(transposition + 1) % 6;transposeAll(transposition,param);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27236},'%tag':'pragma','apply':function () {
+}}))))),$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27016},'%tag':'EVERY','immediate':false,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27040},'%tag':'pragma','apply':function () {
+transposition=(transposition + 1) % 6;transposeAll(transposition,param);}})))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27159},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreON('FIN SESSION Jaune',serveur);utilsSkini.removeSceneScore(4,serveur);DAW.cleanQueues();}}))));
 let choiceRandom=0;
-const journey=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27425},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27443},'direction':'OUT','name':n});
+const journey=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27348},'%tag':'module'},utilsSkini.creationInterfacesOUT(param.groupesDesSons).map((n) => {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27366},'direction':'OUT','name':n});
 }),utilsSkini.creationInterfacesIN(param.groupesDesSons).map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27513},'direction':'IN','name':n});
-}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27579},'direction':'OUT','name':'setComputeScoreClass'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27607},'direction':'OUT','name':'setComputeScorePolicy'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27636},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27636},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27636},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27680},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27687},'name':'choixHasard','init_func':function () {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27436},'direction':'IN','name':n});
+}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27502},'direction':'OUT','name':'setComputeScoreClass'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27530},'direction':'OUT','name':'setComputeScorePolicy'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27559},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27559},'direction':'IN','name':'setTimerDivision'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27559},'direction':'IN','name':'patternSignal'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27603},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27610},'name':'choixHasard','init_func':function () {
 return 0;
-}}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27703},'name':'theEnd'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27711},'name':'stopReservoir'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27841},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27848},'name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27869},'name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27888},'name':'abortSessionRouge'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27910},'%tag':'pragma','apply':function () {
-console.log('-- DEBUT JOURNEY --');}}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27957}},$$hiphop.PAUSE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27967},'%tag':'yield'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27978},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(1,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28028},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(2,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28078},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(3,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28128},'%tag':'pragma','apply':function () {
-utilsSkini.removeSceneScore(4,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28178},'%tag':'pragma','apply':function () {
-utilsSkini.refreshSceneScore(serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28262},'%tag':'pragma','apply':function () {
-choiceRandom=0.75;}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28287},'%tag':'pragma','apply':function () {
-console.log('-- Journey random:',choiceRandom);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28346},'%tag':'if','apply':function () {
+}}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27626},'name':'theEnd'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27634},'name':'stopReservoir'}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27764},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27771},'name':'suspendSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27792},'name':'abortSessionNoire'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27811},'name':'abortSessionRouge'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27833},'%tag':'pragma','apply':function () {
+console.log('-- DEBUT JOURNEY --');}}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27879}},$$hiphop.PAUSE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27889},'%tag':'yield'}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27900},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(1,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':27950},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(2,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28000},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(3,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28050},'%tag':'pragma','apply':function () {
+utilsSkini.removeSceneScore(4,serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28100},'%tag':'pragma','apply':function () {
+utilsSkini.refreshSceneScore(serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28149},'%tag':'pragma','apply':function () {
+choiceRandom=Math.random();}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28208},'%tag':'pragma','apply':function () {
+console.log('-- Journey random:',choiceRandom);}}),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28267},'%tag':'if','apply':function () {
 return choiceRandom <= 0.25;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28372},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28378},'%tag':'pragma','apply':function () {
-utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28499},'%tag':'FORK'},$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28554},'%tag':'NOTHING'}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28567},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28567},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28567},'%tag':'run','autocomplete':true,'module':sessionJaune,'%frame':__frame}));
-})([]),$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28660},'%tag':'NOTHING'}))),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28673},'%tag':'if','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28293},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28299},'%tag':'pragma','apply':function () {
+utilsSkini.alertInfoScoreOFF(serveur);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28348},'%tag':'pragma','apply':function () {
+setTempo(100,param);}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28418},'%tag':'FORK'},$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28473},'%tag':'NOTHING'}),$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28527},'%tag':'NOTHING'}),(function (__frame) {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28540},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28540},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28540},'%tag':'run','autocomplete':true,'module':sessionRouge,'%frame':__frame}));
+})([]))),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28592},'%tag':'if','apply':function () {
 return choiceRandom <= 0.50;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28699},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28705},'%tag':'pragma','apply':function () {
-setTempo(90,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28739},'%tag':'pragma','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28618},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28624},'%tag':'pragma','apply':function () {
+setTempo(50,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28658},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreOFF(serveur);}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28788},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28788},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28788},'%tag':'run','autocomplete':true,'module':sessionRouge,'%frame':__frame}));
-})([])),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28832},'%tag':'if','apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28707},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28707},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28707},'%tag':'run','autocomplete':true,'module':sessionRouge,'%frame':__frame}));
+})([])),$$hiphop.IF({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28751},'%tag':'if','apply':function () {
 return choiceRandom <= 0.75;
-}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28858},'%tag':'sequence'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28869},'%tag':'EMIT','signame':'setTimerDivision','apply':function () {
+}},$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28777},'%tag':'sequence'},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28788},'%tag':'EMIT','signame':'setTimerDivision','apply':function () {
 return 4;
-}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28917},'%tag':'pragma','apply':function () {
-setTempo(90,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28950},'%tag':'pragma','apply':function () {
-transposeAll(0,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28987},'%tag':'pragma','apply':function () {
+}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28836},'%tag':'pragma','apply':function () {
+setTempo(50,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28869},'%tag':'pragma','apply':function () {
+transposeAll(0,param);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28906},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreOFF(serveur);}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29038},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29038},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29038},'%tag':'run','autocomplete':true,'module':sessionBleue,'%frame':__frame}));
-})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29086},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29092},'%tag':'pragma','apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28957},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28957},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':28957},'%tag':'run','autocomplete':true,'module':sessionBleue,'%frame':__frame}));
+})([])),$$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29005},'%tag':'sequence'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29011},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreOFF(serveur);}}),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29143},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29143},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29143},'%tag':'run','autocomplete':true,'module':sessionJaune,'%frame':__frame}));
-})([]))))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29204},'%tag':'pragma','apply':function () {
-console.log('-- FIN JOURNEY, ON RECOMMENCE--');}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29391},'%tag':'pragma','apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29062},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29062},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29062},'%tag':'run','autocomplete':true,'module':sessionJaune,'%frame':__frame}));
+})([]))))),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29123},'%tag':'pragma','apply':function () {
+console.log('-- FIN JOURNEY, ON RECOMMENCE--');DAW.cleanQueues();oscMidiLocal.convertAndActivateClip(300);}}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29295},'%tag':'pragma','apply':function () {
 utilsSkini.alertInfoScoreON('FIN',serveur);}})))));
-const Program=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29486},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'start'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'halt'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'DAWON'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'pulsation'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'midiSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'emptyQueueSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29500},'direction':'IN','name':'resetMatriceDesPossibles'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29613},'direction':'OUT','name':'setComputeScoreClass'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29613},'direction':'OUT','name':'setComputeScorePolicy'}),interTextOUT.map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29668},'direction':'OUT','name':n});
+const Program=$$hiphop.MODULE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29390},'%tag':'module'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'start'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'halt'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'tick'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'DAWON'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'patternSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'pulsation'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'midiSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'emptyQueueSignal'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29404},'direction':'IN','name':'resetMatriceDesPossibles'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29517},'direction':'OUT','name':'setComputeScoreClass'}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29517},'direction':'OUT','name':'setComputeScorePolicy'}),interTextOUT.map((n) => {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29572},'direction':'OUT','name':n});
 }),interTextIN.map((n) => {
-return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29696},'direction':'IN','name':n});
-}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29824},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29831},'name':'temps','init_func':function () {
+return $$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29600},'direction':'IN','name':n});
+}),$$hiphop.LOCAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29728},'%tag':'LOCAL'},$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29735},'name':'temps','init_func':function () {
 return 0;
-}}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29840},'name':'size'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29848}},$$hiphop.ABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29857},'%tag':'ABORT','immediate':false,'apply':new $$hiphop.DelaySig('halt','now')},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29868},'%tag':'await','immediate':true,'apply':new $$hiphop.DelaySig('start','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29901},'%tag':'pragma','apply':function () {
-console.log('--Démarrage automate des possibles Opus2');}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29969},'%tag':'FORK'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29980},'%tag':'EVERY','immediate':true,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30019},'%tag':'EMIT','signame':'temps','apply':function () {
+}}),$$hiphop.SIGNAL({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29744},'name':'size'}),$$hiphop.LOOP({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29752}},$$hiphop.ABORT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29761},'%tag':'ABORT','immediate':false,'apply':new $$hiphop.DelaySig('halt','now')},$$hiphop.AWAIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29772},'%tag':'await','immediate':true,'apply':new $$hiphop.DelaySig('start','now')}),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29805},'%tag':'pragma','apply':function () {
+console.log('--Démarrage automate des possibles Opus2');}}),$$hiphop.FORK({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29873},'%tag':'FORK'},$$hiphop.EVERY({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29884},'%tag':'EVERY','immediate':true,'apply':new $$hiphop.DelaySig('tick','now')},$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29923},'%tag':'EMIT','signame':'temps','apply':function () {
 return ((() => {
 const temps=this.temps;return temps.preval + 1;
 })());
-}},$$hiphop.SIGACCESS({'signame':'temps','pre':true,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30050},'%tag':'pragma','apply':function () {
+}},$$hiphop.SIGACCESS({'signame':'temps','pre':true,'val':true,'cnt':false})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':29954},'%tag':'pragma','apply':function () {
 const temps=this.temps;{
 if (debug) {
 currentTime=Date.now();console.log('--Automate des possibles: tick ',temps.nowval,'intervale du tick:',currentTime - currentTimePrev);currentTimePrev=currentTime;}
 gcs.setTickOnControler(temps.nowval);}}},$$hiphop.SIGACCESS({'signame':'temps','pre':false,'val':true,'cnt':false}),$$hiphop.SIGACCESS({'signame':'temps','pre':false,'val':true,'cnt':false}))),(function (__frame) {
-return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30399},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30399},'%tag':'hop','apply':function () {
-}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30399},'%tag':'run','autocomplete':true,'module':journey,'%frame':__frame}));
-})([]),$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30631},'%tag':'NOTHING'})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30636},'%tag':'pragma','apply':function () {
-console.log('--Arret d\'Automate Opus 2');}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30820},'%tag':'EMIT','signame':'temps','apply':function () {
+return $$hiphop.SEQUENCE({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30303},'%tag':'run'},$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30303},'%tag':'hop','apply':function () {
+}}),$$hiphop.RUN({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30303},'%tag':'run','autocomplete':true,'module':journey,'%frame':__frame}));
+})([]),$$hiphop.NOTHING({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30535},'%tag':'NOTHING'})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30540},'%tag':'pragma','apply':function () {
+console.log('--Arret d\'Automate Opus 2');DAW.cleanQueues();oscMidiLocal.convertAndActivateClip(300);}}),$$hiphop.EMIT({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30709},'%tag':'EMIT','signame':'temps','apply':function () {
 return 0;
-}})))));
+}})),$$hiphop.ATOM({'%location':{'filename':'./pieces/opus/opus2.hh.js','pos':30744},'%tag':'pragma','apply':function () {
+console.log('-- STOP Opus 2');DAW.cleanQueues();oscMidiLocal.convertAndActivateClip(300);}}))));
 const prg=new ReactiveMachine(Program,'orchestration');
 return prg;
 };export { setServ };export { setSignals };
