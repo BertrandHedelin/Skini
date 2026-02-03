@@ -2,7 +2,7 @@
  * @fileOverview OSC and Midi control
  * <BR> See: http://www.indiana.edu/~emusic/cntrlnumb.html,
  * http://www.ccarh.org/courses/253/handout/controllers/
- * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2026 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
   * @author Bertrand Petit-Hédelin <bertrand@hedelin.fr>
- * @version 1.4
+ * @version 1.5
  */
 "use strict"
 import { createRequire } from 'module';

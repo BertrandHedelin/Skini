@@ -67,7 +67,7 @@ var midimix;
 var orchestration;
 var groupesClient;
 export var matriceDesPossibles;
-var timerDivision; // Nombre de pulses par tick, doit rester undefined si pas à jour par les automates
+let timerDivision; // Nombre de pulses par tick, doit rester undefined si pas à jour par les automates
 var nbeDeGroupesSons = 0;
 var nombreDePatternsPossibleEnListe = [[1, 255]]; // init pour client memorySortable
 
@@ -341,6 +341,7 @@ export function setComputeScoreClass(scoreClass) {
  * @param {number} timer division
  */
 export function setTimerDivision(timer) {
+  if(debug1) console.log("INFO: groupecliensSons: setTimerDivision:", timer);
   timerDivision = timer;
 }
 

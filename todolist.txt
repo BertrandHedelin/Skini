@@ -3,17 +3,15 @@ Points à traiter:
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
 
-- reprendre opus2 et 3.
-
 - Dans le client standard les patterns des tanks ne disparaissent pas.
 
 Pas prioritaire:
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
-- Mise en forme HH dans VSC. Première essai fait. npm run format:hh
 
 Fait ------------------------------------------------------------------
-- reprise d'opus1
+- reprise d'opus1 (15/1/2026)
+- reprise opus2 (1/2/2026) utilisable aussi avec les clips d'opus3.
 
 - Ménage dans .npmignore et .gitignore pour les fichiers de configuration ipConfig et midiconfig.
 Laisser des exemples à modifier.(7/1/2026)

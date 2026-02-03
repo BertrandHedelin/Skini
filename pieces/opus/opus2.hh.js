@@ -1,12 +1,17 @@
 /*********************************************************************
-Opus 2, 2019-2026
-Pièce basée sur des patterns assez long sauf pour la partie Bleue.
+Opus 2 et 3, 2019-2026
+Pièce basée sur des patterns assez longs pour opus2, sauf pour la partie Bleue.
 4 sessions possibles: Bleue, dodécaphonique, transposition limitée en DO et SOL
 
 C'est le programme d'une orchestration complexe avec des évenemnts aléatoires.
 Ici on comprend l'intérêt d'écrire en HH.
 La question demeure de savoir qui
 sont les compositeurs capables de gérer ce type de complexité ?
+
+Fonctionne avec opus2 et opus3 dans Ableton.
+Opus3 possède 7 clips de transistion en plus et n'utilise pas les clips de transposition d'opus2.
+Charger opus2.csv ou opus3.csv
+
 ***/
 'use strict'
 "use hopscript"
@@ -56,6 +61,8 @@ const MIDITrans0Strings = 417;
 const CCTempo = 100;
 const tempoMax = 240;// Valeur fixé dans Ableton
 const tempoMin = 60; // Valeur fixé dans Ableton
+
+const opus3 = true;
 
 function setTempo(value, par) {
   // Assez instable sur mon PC.
@@ -279,7 +286,11 @@ export function setSignals(param) {
 			utilsSkini.alertInfoScoreON("SESSION Bleue", serveur);
 			utilsSkini.addSceneScore(3, serveur);
 			transposition = 0;
-			gcs.setTimerDivision(4);
+			if(opus3){
+				gcs.setTimerDivision(2);
+			} else {
+				gcs.setTimerDivision(4);
+			}
 			transposeAll(0, param);
 		}
 		emit  cellosBleuOUT([true, 255]);
@@ -436,7 +447,11 @@ export function setSignals(param) {
 			console.log("-- DEBUT SESSION Rouge --");
 			utilsSkini.addSceneScore(2, serveur);
 			transposition = 0;
-			gcs.setTimerDivision(16);
+			if(opus3){
+				gcs.setTimerDivision(2);
+			}else{
+				gcs.setTimerDivision(16);
+			}
 			transposeAll(0, param);
 		}
 		emit violonsRouge1OUT([true, 255]);
@@ -509,7 +524,11 @@ export function setSignals(param) {
 								transpose(CCTransposeBassons, transposition, param);
 							}
 						}par{
-							await count (2, tick.now);
+							if(opus3){
+								await count (12, tick.now);
+							}else{
+								await count (2, tick.now);
+							}
 							emit stopReservoir();
 						}
 						//yield;
@@ -525,12 +544,16 @@ export function setSignals(param) {
 							fork{
 							run ${resevoirPercu} () {*};
 							}par{
-								await count (2, tick.now);
+								if(opus3){
+									await count (12, tick.now);
+								}else{
+									await count (2, tick.now);
+								}
 								emit stopReservoir();
 							}
 						}
 						host{ gcs.informSelecteurOnMenuChange(255,"Cordes Rouges", true); }
-						await count (2, tick.now);			
+						await count (12, tick.now);			
 						break trapTrans;
 					}par{
 						emit contrebassesRouge1OUT([true, 255]);
@@ -552,7 +575,11 @@ export function setSignals(param) {
 				}par{
 					run ${resevoirTrombonesRouge} () {*};
 				}par{
-					await count (5, tick.now);
+					if(opus3){
+						await count (12, tick.now);
+					}else{
+						await count (5, tick.now);
+					}
 					emit stopReservoir();
 				}
 				emit violonsRouge2OUT([false, 255]);
@@ -564,7 +591,9 @@ export function setSignals(param) {
 					DAW.cleanQueues();
 					utilsSkini.removeSceneScore(2, serveur);
 				}
+				emit stopReservoir();
 				emit stopEveryAbort();
+				emit abortTheSession();
 			} when (abortTheSession.now);
 			emit stopReservoir();
 			host{
@@ -673,7 +702,11 @@ export function setSignals(param) {
 						utilsSkini.alertInfoScoreON("SESSION Jaune", serveur);
 						utilsSkini.addSceneScore(4, serveur);
 						transposition = 0;
-						gcs.setTimerDivision(16);
+						if(opus3){
+							gcs.setTimerDivision(2);
+						} else {
+							gcs.setTimerDivision(16);
+						}
 						transposeAll(0, param);
 					}
 
@@ -876,7 +909,7 @@ export function setSignals(param) {
 				host{utilsSkini.alertInfoScoreOFF(serveur);}
 				host{ setTempo(100, param); }
 				
-				// Polytonalités complexes
+				// Polytonalités complexes, ça met la panique entre les timerDivisions
 				fork{
 					//run ${sessionNoire} () {*}; // Dodéca
 				} par {
@@ -905,7 +938,6 @@ export function setSignals(param) {
 				oscMidiLocal.convertAndActivateClip(300); // Commande d'arrêt global Ableton
 				} 
 			host{utilsSkini.alertInfoScoreON("FIN", serveur);}
-			//yield;
 		}
 	}
 
@@ -914,8 +946,6 @@ export function setSignals(param) {
 		out setComputeScoreClass, setComputeScorePolicy;
 		out ... ${ interTextOUT };
 		in ... ${ interTextIN };
-
-		// La référence à groupesDesSons doit correspondre à la description de la configuration  de la pièce
 		signal temps=0, size;
 		loop{
 			abort{
@@ -936,11 +966,13 @@ export function setSignals(param) {
 				}par{
 					run ${journey} () {*};
 				}par{
-					//every immediate (patternSignal.now){
-					//	if (patternSignal.nowval[1] !== undefined){
-					//		host{console.log("Opus2: Pattern activé:", patternSignal.nowval[1]); }
-					//	}
-					//}
+					if(debug){
+						every immediate (patternSignal.now){
+							if (patternSignal.nowval[1] !== undefined){
+								host{console.log("Opus2: Pattern activé:", patternSignal.nowval[1]); }
+							}
+						}
+					}
 				}
 			host{
 				console.log("--Arret d'Automate Opus 2");
