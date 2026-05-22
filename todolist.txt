@@ -1,4 +1,8 @@
 Points à traiter:
+
+- Une pièce qui utilise les types verticaux et horizontaux.
+- Où en sont nos capteurs ESP32 ?
+
 - Problème de passage de paramètres à des modules HH externalisés (22/11/2025)
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
 les autres paramètres sont OK.
@@ -9,7 +13,28 @@ Pas prioritaire:
 - nettoyer le code par ecma script de groupesClientsSons.mjs
 - enlever myreact du client standard
 
+Evolutions:
+Revoir le code du simulateur :
+- mieux commenter l'utilisation des types (horizontaux)
+- nombreDePatternsPossibleEnListe, n'est en fait pas utilisé dans le simulateur. C'est un paramètres pour le client web simple.
+
+Général
+Au sujet de la longueur des FIFO
+- réflexion sur la profondeur des FIFO et une notion de "définition du futur". 
+Les FIFO sont une organisation "mobile" du futur de la pièce.
+On sait organiser ou non ce futur selon des types verticaux ou horizontaux.
+On a une vision de cette structure à travers score. 
+En simulation on pourrait imaginer de donner une longueur maximale aux FIFO.
+Aujourd'hui on sait les remettre à 0 pour repartir sur une autre ambiance par exemple.
+Mais on pourrait se demander si limiter leur longueur serait une façon de gérer autrement la longueur d'une ambiance ?
+
+
+
 Fait ------------------------------------------------------------------
+- Imaginer une représentation graphique des FIFO à la DAW
+C'est un travail de représentation graphique, pédagogiquement utile.(fait par IA QODO 22/05/2026)
+
+- revue rapide de la doc (4/2/2026)
 - reprise d'opus1 (15/1/2026)
 - reprise opus2 (1/2/2026) utilisable aussi avec les clips d'opus3.
 

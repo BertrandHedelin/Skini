@@ -1,0 +1,26 @@
+body{font-family: Arial, Helvetica, sans-serif; margin:16px; color:#222}
+header h1{margin:0 0 6px 0}
+#status{font-size:0.9rem; color:#666}
+.controls{margin:8px 0; display:flex; gap:10px; align-items:center;}
+#pauseButton{padding:6px 12px; border:1px solid #888; border-radius:4px; background:#f8f8f8; cursor:pointer;}
+#pauseButton:hover{background:#eee}
+#pauseState{font-size:0.9rem; color:#444}
+#tickInfo{font-size:0.9rem; color:#444; margin:4px 0 0 0}
+#queuesContainer{margin-top:12px; overflow-x:auto}
+table{border-collapse:collapse; width:100%; max-width:100%}
+th,td{border:1px solid #ddd; padding:8px; text-align:left}
+th{background:#f3f3f3}
+th:nth-child(2), td:nth-child(2){width:90px; white-space:nowrap}
+body{background:#fff}
+tbody tr:nth-child(odd){background:#fafafa}
+tbody tr:nth-child(odd) td:last-child,
+tbody tr:nth-child(even) td:last-child{background:#fff}
+
+.timeline{display:flex; gap:6px; align-items:center; height:28px; background:transparent; border-radius:4px;}
+.timeline.timelineEmpty{background:rgba(0,0,0,0.06); border:1px dashed rgba(0,0,0,0.15);}
+.emptySlot{flex:1; min-height:24px; display:flex; align-items:center; justify-content:center; color:#666; font-size:12px; font-style:italic;}
+.clip{height:24px; border-radius:3px; box-shadow:0 1px 0 rgba(0,0,0,0.15) inset; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.95); font-size:12px; padding:0 8px; white-space:nowrap; text-overflow:ellipsis}
+.clipPlaceholder{background:rgba(255,255,255,0.15); color:rgba(0,0,0,0.6); border:1px dashed rgba(0,0,0,0.12);}
+.clip span{display:inline-block; overflow:hidden; text-overflow:ellipsis}
+.clip:hover{transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.15)}
+

@@ -1104,96 +1104,96 @@
                                                                                 </next>
                                                                               </block>
                                                                             </statement>
-                                                                            <next>
-                                                                              <block type="hh_sequence" id="R)mWu9ey:z=ZTTY9(fy2">
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="hh_par" id=",8Dj;wol*8l%E/P4H?$L">
+                                                                            <statement name="BODY">
+                                                                              <block type="hh_abort" id="%,VuA;e-ACi@aR52_$m%">
+                                                                                <field name="TIMES">60</field>
+                                                                                <value name="SIGNAL">
+                                                                                  <block type="variables_get" id="v*ZvZe_Q:f4_ZlMzw7fH">
+                                                                                    <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
+                                                                                  </block>
+                                                                                </value>
                                                                                 <statement name="BODY">
-                                                                                  <block type="hh_abort" id="%,VuA;e-ACi@aR52_$m%">
-                                                                                    <field name="TIMES">60</field>
-                                                                                    <value name="SIGNAL">
-                                                                                      <block type="variables_get" id="v*ZvZe_Q:f4_ZlMzw7fH">
-                                                                                        <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
-                                                                                      </block>
-                                                                                    </value>
+                                                                                  <block type="hh_loop" id="iV)wkV`ik7U]I-B=%_Sx">
                                                                                     <statement name="BODY">
-                                                                                      <block type="hh_loop" id="iV)wkV`ik7U]I-B=%_Sx">
-                                                                                        <statement name="BODY">
-                                                                                          <block type="hh_wait_for" id="oEr?N;OC_88-3/wI8Aci">
-                                                                                            <field name="TIMES">5</field>
-                                                                                            <value name="SIGNAL">
-                                                                                              <block type="variables_get" id="K_D]G3=~MMN?N,e)*@th">
-                                                                                                <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
-                                                                                              </block>
-                                                                                            </value>
+                                                                                      <block type="hh_wait_for" id="oEr?N;OC_88-3/wI8Aci">
+                                                                                        <field name="TIMES">5</field>
+                                                                                        <value name="SIGNAL">
+                                                                                          <block type="variables_get" id="K_D]G3=~MMN?N,e)*@th">
+                                                                                            <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="transpose" id="2H|OIam_+iPo(;xtoT#S">
+                                                                                            <field name="channelMidi">1</field>
+                                                                                            <field name="CCInstr">65</field>
+                                                                                            <field name="valeur">1</field>
                                                                                             <next>
-                                                                                              <block type="transpose" id="2H|OIam_+iPo(;xtoT#S">
+                                                                                              <block type="transpose" id="9hx3%N[kyw2]CzB:gkK_">
                                                                                                 <field name="channelMidi">1</field>
-                                                                                                <field name="CCInstr">65</field>
+                                                                                                <field name="CCInstr">66</field>
                                                                                                 <field name="valeur">1</field>
                                                                                                 <next>
-                                                                                                  <block type="transpose" id="9hx3%N[kyw2]CzB:gkK_">
+                                                                                                  <block type="transpose" id="(hgGvI,8niy-vQ/#!+^[">
                                                                                                     <field name="channelMidi">1</field>
-                                                                                                    <field name="CCInstr">66</field>
+                                                                                                    <field name="CCInstr">67</field>
                                                                                                     <field name="valeur">1</field>
                                                                                                     <next>
-                                                                                                      <block type="transpose" id="(hgGvI,8niy-vQ/#!+^[">
+                                                                                                      <block type="transpose" id="chQjfg}97Jcd,|PJa%Mw">
                                                                                                         <field name="channelMidi">1</field>
-                                                                                                        <field name="CCInstr">67</field>
+                                                                                                        <field name="CCInstr">68</field>
                                                                                                         <field name="valeur">1</field>
                                                                                                         <next>
-                                                                                                          <block type="transpose" id="chQjfg}97Jcd,|PJa%Mw">
+                                                                                                          <block type="transpose" id="NSeOp^7y%puaY+2yLU%~">
                                                                                                             <field name="channelMidi">1</field>
-                                                                                                            <field name="CCInstr">68</field>
+                                                                                                            <field name="CCInstr">70</field>
                                                                                                             <field name="valeur">1</field>
                                                                                                             <next>
-                                                                                                              <block type="transpose" id="NSeOp^7y%puaY+2yLU%~">
+                                                                                                              <block type="transpose" id="cgOFl=nTRGzQ@sXW#g{6">
                                                                                                                 <field name="channelMidi">1</field>
-                                                                                                                <field name="CCInstr">70</field>
+                                                                                                                <field name="CCInstr">71</field>
                                                                                                                 <field name="valeur">1</field>
                                                                                                                 <next>
-                                                                                                                  <block type="transpose" id="cgOFl=nTRGzQ@sXW#g{6">
-                                                                                                                    <field name="channelMidi">1</field>
-                                                                                                                    <field name="CCInstr">71</field>
-                                                                                                                    <field name="valeur">1</field>
+                                                                                                                  <block type="hh_wait_for" id="3AiHhP~E|X/tI9~Lytm*">
+                                                                                                                    <field name="TIMES">5</field>
+                                                                                                                    <value name="SIGNAL">
+                                                                                                                      <block type="variables_get" id="zbMB(*4_XDi@-!=2hYp%">
+                                                                                                                        <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
                                                                                                                     <next>
-                                                                                                                      <block type="hh_wait_for" id="3AiHhP~E|X/tI9~Lytm*">
-                                                                                                                        <field name="TIMES">5</field>
-                                                                                                                        <value name="SIGNAL">
-                                                                                                                          <block type="variables_get" id="zbMB(*4_XDi@-!=2hYp%">
-                                                                                                                            <field name="VAR" id="-OEv*(X2k|#G.4`I8W|t">tick</field>
-                                                                                                                          </block>
-                                                                                                                        </value>
+                                                                                                                      <block type="transpose" id="RU^zH[bBlSj)RbFsLHI#">
+                                                                                                                        <field name="channelMidi">1</field>
+                                                                                                                        <field name="CCInstr">65</field>
+                                                                                                                        <field name="valeur">2</field>
                                                                                                                         <next>
-                                                                                                                          <block type="transpose" id="RU^zH[bBlSj)RbFsLHI#">
+                                                                                                                          <block type="transpose" id=".uCcAw0-Cm04SQq(goW@">
                                                                                                                             <field name="channelMidi">1</field>
-                                                                                                                            <field name="CCInstr">65</field>
+                                                                                                                            <field name="CCInstr">66</field>
                                                                                                                             <field name="valeur">2</field>
                                                                                                                             <next>
-                                                                                                                              <block type="transpose" id=".uCcAw0-Cm04SQq(goW@">
+                                                                                                                              <block type="transpose" id="L!`*C7V.`JmgqCV[=J4.">
                                                                                                                                 <field name="channelMidi">1</field>
-                                                                                                                                <field name="CCInstr">66</field>
+                                                                                                                                <field name="CCInstr">67</field>
                                                                                                                                 <field name="valeur">2</field>
                                                                                                                                 <next>
-                                                                                                                                  <block type="transpose" id="L!`*C7V.`JmgqCV[=J4.">
+                                                                                                                                  <block type="transpose" id="rv/pJd/iCrYm-CZ*UUoK">
                                                                                                                                     <field name="channelMidi">1</field>
-                                                                                                                                    <field name="CCInstr">67</field>
+                                                                                                                                    <field name="CCInstr">68</field>
                                                                                                                                     <field name="valeur">2</field>
                                                                                                                                     <next>
-                                                                                                                                      <block type="transpose" id="rv/pJd/iCrYm-CZ*UUoK">
+                                                                                                                                      <block type="transpose" id="~~Xt.n4=WWM.%a-dAF?L">
                                                                                                                                         <field name="channelMidi">1</field>
-                                                                                                                                        <field name="CCInstr">68</field>
+                                                                                                                                        <field name="CCInstr">70</field>
                                                                                                                                         <field name="valeur">2</field>
                                                                                                                                         <next>
-                                                                                                                                          <block type="transpose" id="~~Xt.n4=WWM.%a-dAF?L">
+                                                                                                                                          <block type="transpose" id="L@PM;[V6mu4;%s$[K*{_">
                                                                                                                                             <field name="channelMidi">1</field>
-                                                                                                                                            <field name="CCInstr">70</field>
+                                                                                                                                            <field name="CCInstr">71</field>
                                                                                                                                             <field name="valeur">2</field>
-                                                                                                                                            <next>
-                                                                                                                                              <block type="transpose" id="L@PM;[V6mu4;%s$[K*{_">
-                                                                                                                                                <field name="channelMidi">1</field>
-                                                                                                                                                <field name="CCInstr">71</field>
-                                                                                                                                                <field name="valeur">2</field>
-                                                                                                                                              </block>
-                                                                                                                                            </next>
                                                                                                                                           </block>
                                                                                                                                         </next>
                                                                                                                                       </block>
@@ -1219,15 +1219,15 @@
                                                                                               </block>
                                                                                             </next>
                                                                                           </block>
-                                                                                        </statement>
+                                                                                        </next>
                                                                                       </block>
                                                                                     </statement>
                                                                                   </block>
                                                                                 </statement>
                                                                               </block>
-                                                                            </next>
+                                                                            </statement>
                                                                           </block>
-                                                                        </statement>
+                                                                        </next>
                                                                       </block>
                                                                     </next>
                                                                   </block>

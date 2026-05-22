@@ -36,9 +36,9 @@
                           <block type="set_timer_division" id="vY5sy{ZO@3sE;EI]w;_j" disabled="true">
                             <field name="timer">2</field>
                             <next>
-                              <block type="activateTypeList" id="k_*G*q=-*.;]d3N3^fPn" disabled="true">
+                              <block type="activateTypeList" id="k_*G*q=-*.;]d3N3^fPn">
                                 <next>
-                                  <block type="setTypeList" id="*o6tHQH8Je5AYK4l^9NQ" disabled="true">
+                                  <block type="setTypeList" id="*o6tHQH8Je5AYK4l^9NQ">
                                     <value name="message">
                                       <block type="text" id="+U_R6S8ImDz[LX4mw|z4">
                                         <field name="TEXT">0,1,2,3,4</field>
@@ -142,7 +142,7 @@
                                         <next>
                                           <block type="set_group_during_ticks" id="iHY(d!F!E#QdxGNy9B#$">
                                             <field name="user_group">255</field>
-                                            <field name="number_of_ticks">20</field>
+                                            <field name="number_of_ticks">40</field>
                                             <value name="GROUPS">
                                               <block type="lists_create_with" id="Ai`m!]|RV!VHP3in!l[r">
                                                 <mutation items="6"></mutation>

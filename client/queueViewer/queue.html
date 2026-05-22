@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Files d'attente - Queue Viewer</title>
+  <link rel="stylesheet" href="/client/queueViewer/style.css" />
+  <meta name="robots" content="noindex" />
+</head>
+<body>
+  <header>
+    <h1>Files d'attente (dynamique)</h1>
+    <p id="status">Connexion : en attente...</p>
+    <div class="controls">
+      <button id="pauseButton" type="button">Arrêt sur image</button>
+      <span id="pauseState">En direct</span>
+    </div>
+    <p id="tickInfo">Ticks : 0</p>
+  </header>
+
+  <main>
+    <div id="queuesContainer">
+      <table id="queuesTable">
+        <thead>
+          <tr><th>File</th><th>Longueur</th><th>Contenu</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="/client/queueViewer/queue.js"></script>
+</body>
+</html>
