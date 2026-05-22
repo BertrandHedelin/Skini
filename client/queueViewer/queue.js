@@ -20,6 +20,7 @@
   const port = ipConfig.websocketServeurPort || 8383;
   let ws;
 
+  // Ce visionneur est proche du controleur fonctionnellement
   function connect(){
     statusEl().textContent = `Connexion : ws://${host}:${port}`;
     ws = new WebSocket(`ws://${host}:${port}`);
@@ -49,6 +50,9 @@
           } else {
             renderQueues(msg.value || []);
           }
+        }
+        else if (msg.type === 'setTickAutomate') {
+          tickInfoEl().textContent = `Tick : ${msg.tick}`;
         }
       } catch(e){
         console.warn('Erreur parsing message', e);
@@ -83,7 +87,7 @@
     const globalMaxTotal = queuesInfo.reduce((m, q) => Math.max(m, q.total || 0), 0);
     const displayTicks = globalMaxTotal || 0;
     const effectiveMaxTotal = globalMaxTotal || 1;
-    tickInfoEl().textContent = `Ticks : ${displayTicks}`;
+    //tickInfoEl().textContent = `Tick : ${displayTicks}`;
 
     // Fixed width for all timelines (same scale across all files)
     const FIXED_TIMELINE_WIDTH = 920;
@@ -126,7 +130,8 @@
           clipEl.style.width = widthPx + 'px';
           clipEl.title = label;
           if (label !== 'clip') {
-            clipEl.style.backgroundColor = colorFromString(label);
+            // Use queue index (vertical type) for color instead of clip name
+            clipEl.style.backgroundColor = colorFromQueueIndex(info.index);
           }
           const span = document.createElement('span'); span.textContent = label;
           clipEl.appendChild(span);
@@ -148,6 +153,12 @@
     for (let i = 0; i < s.length; i++) h = (h<<5) - h + s.charCodeAt(i);
     h = Math.abs(h) % 360;
     return `hsl(${h}, 65%, 45%)`;
+  }
+
+  // Color from queue index (vertical type)
+  function colorFromQueueIndex(idx){
+    const hue = (idx * 45) % 360;
+    return `hsl(${hue}, 70%, 50%)`;
   }
 
   function initControls(){

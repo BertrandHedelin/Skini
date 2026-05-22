@@ -130,6 +130,10 @@ function startSkini() {
     res.sendFile(path.join(__dirname + '/client/parametrage/parametrage.html'));
   });
 
+  app.get('/queueViewer', function (req, res) {
+    res.sendFile(path.join(__dirname + '/client/queueViewer/queue.html'));
+  });
+
   var port = ipConfig.webserveurPort;
   var addressServer = ipConfig.serverIPAddress;
   app.listen(port, () => {

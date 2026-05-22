@@ -491,7 +491,7 @@ export function informSelecteurOnMenuChange(groupe, sons, status) {
 }
 
 /**
- * To display the tick on the controler client.
+ * To display the tick on the controler and queueViewer clients.
  * @param {number} tick 
  */
 export function setTickOnControler(tick) {
@@ -506,6 +506,19 @@ export function setTickOnControler(tick) {
     } else {
       if (debug) console.log("ERR: groupecliensSons: informControleur: socketControleur not ready;", socketControleur.readyState);
     }
+  }
+
+  // Also send the tick to queueViewer.
+  if (serv !== undefined && serv.clients) {
+    serv.clients.forEach(function(client) {
+      if (client !== socketControleur && client.readyState === 1 && client.clientRole === 'queueViewer') {
+        try {
+          client.send(JSON.stringify(message));
+        } catch (err) {
+          if (debug) console.log("ERR: groupecliensSons: broadcast setTickAutomate", err);
+        }
+      }
+    });
   }
 }
 

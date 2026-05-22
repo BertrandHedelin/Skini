@@ -1870,6 +1870,9 @@ maybe an hiphop compile Error`);
           }
 
           ws.id = msgRecu.id;
+          // Ajoute une info sur le type de client pour différencier les comportements.
+          // C'est utilisé pour les ticks dans queueViewer.
+          ws.clientRole = msgRecu.text;
           if (debug) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
 
           // On ne permet donc qu'un seul controleur.

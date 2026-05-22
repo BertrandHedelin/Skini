@@ -19,7 +19,7 @@
             <field name="timer">1</field>
             <next>
               <block type="patternListLength" id="4fpNUL$LA|P(PfpaBL17">
-                <field name="valeur">2</field>
+                <field name="valeur">5</field>
                 <field name="groupe">255</field>
                 <next>
                   <block type="set_tempo" id="2q,@V}q(:._LVhz}RL-M">
@@ -75,7 +75,7 @@
                                                 </value>
                                                 <next>
                                                   <block type="hh_wait_for" id="8{Db)t|(]4hMN4O6U.Zu">
-                                                    <field name="TIMES">20</field>
+                                                    <field name="TIMES">50</field>
                                                     <value name="SIGNAL">
                                                       <block type="variables_get" id="{Nk(gLh$6U0+jNu.~KO!">
                                                         <field name="VAR" id="%%TFYzzIq2AJ~pd,NcNR">tick</field>
