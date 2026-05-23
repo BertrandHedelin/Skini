@@ -81,6 +81,7 @@ var groupeName = "";
 // On créé ce fichier à partir du xml de Blockly
 var myReactOrchestration = "../myReact/orchestrationHH.mjs";
 var socketControleur;
+var socketQueueViewer;
 var computeScorePolicy = 0;
 var computeScoreClass = 0;
 
@@ -354,6 +355,14 @@ export function setSocketControleur(socket) {
 }
 
 /**
+ * Set the queueViewer socket
+ * @param {socket} queueViewer socket
+ */
+export function setSocketQueueViewer(socket) {
+  socketQueueViewer = socket;
+}
+
+/**
  * Call the reset of the rcoehstration matrix.
  */
 export function resetMatrice() {
@@ -508,17 +517,17 @@ export function setTickOnControler(tick) {
     }
   }
 
-  // Also send the tick to queueViewer.
-  if (serv !== undefined && serv.clients) {
-    serv.clients.forEach(function(client) {
-      if (client !== socketControleur && client.readyState === 1 && client.clientRole === 'queueViewer') {
-        try {
-          client.send(JSON.stringify(message));
-        } catch (err) {
-          if (debug) console.log("ERR: groupecliensSons: broadcast setTickAutomate", err);
-        }
+     // Send the tick to queueViewer.
+  if (socketQueueViewer !== undefined) {
+    if (socketQueueViewer.readyState == 1) {
+      try {
+        socketQueueViewer.send(JSON.stringify(message));
+      } catch (err) {
+        if (debug) console.log("ERR: groupecliensSons: send setTickAutomate to queueViewer", err);
       }
-    });
+    } else {
+      if (debug) console.log("ERR: groupecliensSons: informControleur: socketControleur not ready;", socketControleur.readyState);
+    }
   }
 }
 

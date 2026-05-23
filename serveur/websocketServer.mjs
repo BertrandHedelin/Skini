@@ -265,6 +265,7 @@ let offsetDivision = 0;
 let compteurDivisionMesure = 0;
 let nbeDeGroupesSons = 0;
 let socketControleur;
+let socketQueueViewer;
 let groupeName = "";
 let automatePossibleMachine;
 
@@ -1870,10 +1871,15 @@ maybe an hiphop compile Error`);
           }
 
           ws.id = msgRecu.id;
-          // Ajoute une info sur le type de client pour différencier les comportements.
-          // C'est utilisé pour les ticks dans queueViewer.
-          ws.clientRole = msgRecu.text;
           if (debug) console.log("INFO: websocketserbeur: startSpectateur: ", msgRecu.id);
+
+          // On ne permet donc qu'un seul queueViewer.
+          if (msgRecu.text === "queueViewer") {
+            if (debug1) console.log("INFO: webSocketServeur: startSpectateur: un queueViewer connecté");
+            socketQueueViewer = ws;
+            groupesClientSon.setSocketQueueViewer(ws);
+            break; // Pas besoin d'aller plus loin dans ce cas
+          }
 
           // On ne permet donc qu'un seul controleur.
           // Attention: La connexion d'un deuxième contrôleur, fait perdre la première et réinitialise la matrice des possible.
@@ -1886,7 +1892,7 @@ maybe an hiphop compile Error`);
               type: "skiniParametres",
               value: par
             }));
-            break;
+            break; // Pas besoin d'aller plus loin dans ce cas
           }
 
           if (msgRecu.text === "pieceParameters") {

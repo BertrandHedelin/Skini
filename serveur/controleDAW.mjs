@@ -649,7 +649,8 @@ export function cleanQueues() {
   messageLog.type = "VIDAGE FILES ATTENTES";
   logInfoDAW(messageLog);
   if (debug) console.log("controleDAW: cleanQueues");
-  serv.broadcast(JSON.stringify({ type: "etatDeLaFileAttente", value: filesDattente }));
+  // Envoyer le même format que displayQueues() : un array vide car les files sont vidées
+  serv.broadcast(JSON.stringify({ type: "etatDeLaFileAttente", value: [] }));
 }
 
 /**

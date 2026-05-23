@@ -42,6 +42,9 @@ var PianoC, tick, PianoEb, PianoC1, PianoC2, PianoC3, PianoC4, PianoC5, PianoGb,
 //
 //
 //
+//
+//
+//
 
 "use strict";
 import { createRequire } from 'module';
@@ -81,7 +84,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
 function setTempo(value, param){
   tempoGlobal = value;
   if(midimix.getAbletonLinkStatus()) {
-    if(debug1) console.log("ORCHESTRATION: set tempo Link:", value);
+    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
     midimix.setTempoLink(value);
     return;
   }

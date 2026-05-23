@@ -2798,7 +2798,7 @@ export function setServ(ser, daw, groupeCS, oscMidi, mix){
 function setTempo(value, param){
   tempoGlobal = value;
   if(midimix.getAbletonLinkStatus()) {
-    if(debug1) console.log("ORCHESTRATION: set tempo Link:", value);
+    if(debug) console.log("ORCHESTRATION: set tempo Link:", value);
     midimix.setTempoLink(value);
     return;
   }
