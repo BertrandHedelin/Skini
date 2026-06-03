@@ -1,6 +1,6 @@
 {
   "name": "nodeskini",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Skini Tools for Interactive and Generative Music",
   "main": "skini.mjs",
   "scripts": {
