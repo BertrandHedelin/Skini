@@ -65,6 +65,10 @@ Type Horizontaux et verticaux, et reservoirs
     
     
     
+    
+    
+    
+    
     </comment>
     <statement name="MODULES">
       <block type="tank" id="Ra=yMeYG+A}-M!0kfIk~" collapsed="true">
@@ -398,7 +402,11 @@ Type Horizontaux et verticaux, et reservoirs
                                                 </value>
                                               </block>
                                             </value>
-                                            <next>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="hh_par" id="|e-xid~!};ckJKmvsr@|">
+                                            <statement name="BODY">
                                               <block type="run_tank" id="Q(2Pi%RE;uh8j#f/0w6{">
                                                 <value name="TANKS">
                                                   <block type="lists_create_with" id="K-y[`eiu5pHg+hX,mLU$">
@@ -421,18 +429,18 @@ Type Horizontaux et verticaux, et reservoirs
                                                   </block>
                                                 </value>
                                               </block>
-                                            </next>
-                                          </block>
-                                        </statement>
-                                        <next>
-                                          <block type="cleanqueues" id=";#Ly])WTNMXffp/,X/Nq">
+                                            </statement>
                                             <next>
-                                              <block type="alertInfoScoreON" id="vABS7!?S/fV2h]W|*3Q5">
-                                                <value name="message">
-                                                  <block type="text" id="iUG;+=,rvW,|!}`y2fbr">
-                                                    <field name="TEXT">Fin EtudeSkiniHarmonie5</field>
+                                              <block type="cleanqueues" id=";#Ly])WTNMXffp/,X/Nq">
+                                                <next>
+                                                  <block type="alertInfoScoreON" id="vABS7!?S/fV2h]W|*3Q5">
+                                                    <value name="message">
+                                                      <block type="text" id="iUG;+=,rvW,|!}`y2fbr">
+                                                        <field name="TEXT">Fin EtudeSkiniHarmonie5</field>
+                                                      </block>
+                                                    </value>
                                                   </block>
-                                                </value>
+                                                </next>
                                               </block>
                                             </next>
                                           </block>

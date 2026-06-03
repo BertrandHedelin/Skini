@@ -1,39 +1,10 @@
-var PianoC, tick, PianoEb, PianoC1, PianoC2, PianoC3, PianoC4, PianoC5, PianoGb, PianoEb1, PianoEb2, PianoEb3, PianoEb4, PianoEb5, PianoA, PianoGb1, PianoGb2, PianoGb3, PianoGb4, PianoGb5, PianoA1, PianoA2, PianoA3, PianoA4, PianoA5, Viol1C, Viol2C, AltoC, CelloC, Viol1Eb, Viol2Eb, AltoEb, CelloEb, Viol1Gb, Viol2Gb, AltoGb, CelloGb, Viol1A, Viol2A, AltoA, CelloA;
+var FluteC, FluteEb, FluteC1, FluteC2, FluteC3, FluteC4, FluteC5, FluteC6, FluteC7, FluteC8, FluteC9, FluteC10, FluteC11, FluteC12, FluteC13, FluteC14, FluteC15, FluteFmin, tick, FluteEb1, FluteEb2, FluteEb3, FluteEb4, FluteEb5, FluteEb6, FluteEb7, FluteEb8, FluteEb9, FluteEb10, FluteEb11, FluteEb12, FluteEb13, FluteEb14, FluteEb15, FluteFmin1, FluteFmin2, FluteFmin3, FluteFmin4, FluteFmin5, FluteFmin6, FluteFmin7, FluteFmin8, FluteFmin9, FluteFmin10, FluteFmin11, FluteFmin12, FluteFmin13, FluteFmin14, FluteFmin15, PianoC, PianoEb, PianoFmin;
 
 
-// Fonctionne avec EtudeSkiniHarmonie4.als de Live.
-// Pour les tests, j'aime bien utiliser le
-// simulateurListe pour suivre son comportement.
+// Fonctionne avec EtudeHarmonie5.als.
+// 2 simulateurs : 0 et 1.
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// Type Horizontaux et verticaux, et reservoirs
 //
 //
 //
@@ -124,68 +95,112 @@ export function setSignals(param) {
     "INTERFACEZ_RC7", "INTERFACEZ_RC8", "INTERFACEZ_RC9", "INTERFACEZ_RC10", "INTERFACEZ_RC11"];
 
 
-    const PianoC = hiphop module () {
+    const FluteC = hiphop module () {
     in stopReservoir;
-    in PianoC1IN;
-      in PianoC2IN;
-      in PianoC3IN;
-      in PianoC4IN;
-      in PianoC5IN;
-      out PianoC1OUT;
-      out PianoC2OUT;
-      out PianoC3OUT;
-      out PianoC4OUT;
-      out PianoC5OUT;
+    in FluteC1IN;
+      in FluteC2IN;
+      in FluteC3IN;
+      in FluteC4IN;
+      in FluteC5IN;
+      in FluteC6IN;
+      in FluteC7IN;
+      in FluteC8IN;
+      in FluteC9IN;
+      in FluteC10IN;
+      in FluteC11IN;
+      in FluteC12IN;
+      in FluteC13IN;
+      in FluteC14IN;
+      in FluteC15IN;
+      out FluteC1OUT;
+      out FluteC2OUT;
+      out FluteC3OUT;
+      out FluteC4OUT;
+      out FluteC5OUT;
+      out FluteC6OUT;
+      out FluteC7OUT;
+      out FluteC8OUT;
+      out FluteC9OUT;
+      out FluteC10OUT;
+      out FluteC11OUT;
+      out FluteC12OUT;
+      out FluteC13OUT;
+      out FluteC14OUT;
+      out FluteC15OUT;
 
-  	${ tank.makeReservoir(255, ["PianoC1","PianoC2","PianoC3","PianoC4","PianoC5"]) };
+  	${ tank.makeReservoir(255, ["FluteC1","FluteC2","FluteC3","FluteC4","FluteC5","FluteC6","FluteC7","FluteC8","FluteC9","FluteC10","FluteC11","FluteC12","FluteC13","FluteC14","FluteC15"]) };
   }
 
-    const PianoEb = hiphop module () {
+    const FluteEb = hiphop module () {
     in stopReservoir;
-    in PianoEb1IN;
-      in PianoEb2IN;
-      in PianoEb3IN;
-      in PianoEb4IN;
-      in PianoEb5IN;
-      out PianoEb1OUT;
-      out PianoEb2OUT;
-      out PianoEb3OUT;
-      out PianoEb4OUT;
-      out PianoEb5OUT;
+    in FluteEb1IN;
+      in FluteEb2IN;
+      in FluteEb3IN;
+      in FluteEb4IN;
+      in FluteEb5IN;
+      in FluteEb6IN;
+      in FluteEb7IN;
+      in FluteEb8IN;
+      in FluteEb9IN;
+      in FluteEb10IN;
+      in FluteEb11IN;
+      in FluteEb12IN;
+      in FluteEb13IN;
+      in FluteEb14IN;
+      in FluteEb15IN;
+      out FluteEb1OUT;
+      out FluteEb2OUT;
+      out FluteEb3OUT;
+      out FluteEb4OUT;
+      out FluteEb5OUT;
+      out FluteEb6OUT;
+      out FluteEb7OUT;
+      out FluteEb8OUT;
+      out FluteEb9OUT;
+      out FluteEb10OUT;
+      out FluteEb11OUT;
+      out FluteEb12OUT;
+      out FluteEb13OUT;
+      out FluteEb14OUT;
+      out FluteEb15OUT;
 
-  	${ tank.makeReservoir(255, ["PianoEb1","PianoEb2","PianoEb3","PianoEb4","PianoEb5"]) };
+  	${ tank.makeReservoir(255, ["FluteEb1","FluteEb2","FluteEb3","FluteEb4","FluteEb5","FluteEb6","FluteEb7","FluteEb8","FluteEb9","FluteEb10","FluteEb11","FluteEb12","FluteEb13","FluteEb14","FluteEb15"]) };
   }
 
-    const PianoGb = hiphop module () {
+    const FluteFmin = hiphop module () {
     in stopReservoir;
-    in PianoGb1IN;
-      in PianoGb2IN;
-      in PianoGb3IN;
-      in PianoGb4IN;
-      in PianoGb5IN;
-      out PianoGb1OUT;
-      out PianoGb2OUT;
-      out PianoGb3OUT;
-      out PianoGb4OUT;
-      out PianoGb5OUT;
+    in FluteFmin1IN;
+      in FluteFmin2IN;
+      in FluteFmin3IN;
+      in FluteFmin4IN;
+      in FluteFmin5IN;
+      in FluteFmin6IN;
+      in FluteFmin7IN;
+      in FluteFmin8IN;
+      in FluteFmin9IN;
+      in FluteFmin10IN;
+      in FluteFmin11IN;
+      in FluteFmin12IN;
+      in FluteFmin13IN;
+      in FluteFmin14IN;
+      in FluteFmin15IN;
+      out FluteFmin1OUT;
+      out FluteFmin2OUT;
+      out FluteFmin3OUT;
+      out FluteFmin4OUT;
+      out FluteFmin5OUT;
+      out FluteFmin6OUT;
+      out FluteFmin7OUT;
+      out FluteFmin8OUT;
+      out FluteFmin9OUT;
+      out FluteFmin10OUT;
+      out FluteFmin11OUT;
+      out FluteFmin12OUT;
+      out FluteFmin13OUT;
+      out FluteFmin14OUT;
+      out FluteFmin15OUT;
 
-  	${ tank.makeReservoir(255, ["PianoGb1","PianoGb2","PianoGb3","PianoGb4","PianoGb5"]) };
-  }
-
-    const PianoA = hiphop module () {
-    in stopReservoir;
-    in PianoA1IN;
-      in PianoA2IN;
-      in PianoA3IN;
-      in PianoA4IN;
-      in PianoA5IN;
-      out PianoA1OUT;
-      out PianoA2OUT;
-      out PianoA3OUT;
-      out PianoA4OUT;
-      out PianoA5OUT;
-
-  	${ tank.makeReservoir(255, ["PianoA1","PianoA2","PianoA3","PianoA4","PianoA5"]) };
+  	${ tank.makeReservoir(255, ["FluteFmin1","FluteFmin2","FluteFmin3","FluteFmin4","FluteFmin5","FluteFmin6","FluteFmin7","FluteFmin8","FluteFmin9","FluteFmin10","FluteFmin11","FluteFmin12","FluteFmin13","FluteFmin14","FluteFmin15"]) };
   }
 
 
@@ -210,14 +225,16 @@ export function setSignals(param) {
           }
         }par{
 
+      host{
+        serveur.broadcast(JSON.stringify({
+          type: 'setListeDesTypes',
+        }));
+      }
+
+    host{setTempo(80, param);}
+
     await immediate (tick.now);
     host{gcs.setTimerDivision(1);}
-    host{
-      gcs.setpatternListLength([3,255]);
-    }
-
-    host{setTempo(50, param);}
-
     host{
       serveur.broadcast(JSON.stringify({
             type: 'addSceneScore',
@@ -228,177 +245,33 @@ export function setSignals(param) {
 
     host{
       serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreON',
-            value:'Etude Harmonie 4'
+            type: 'listeDesTypes',
+            text:'0,1,2,3,4,5,6,7,8,9'
           }));
     }
 
-    host { DAW.putPatternInQueue('PianoC1');}
-
     host{
-      DAW.cleanQueues();
-      gcs.cleanChoiceList(255);
+      gcs.setpatternListLength([10,255]);
     }
 
-    await count(1,tick.now);
-
-    host{
-      serveur.broadcast(JSON.stringify({
-            type: 'alertInfoScoreOFF'
-          }));
-    }
-
-      host {console.log('Etude Harmonie 4');}
-
-      {
-
-      fork {
-
-              emit Viol1COUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol1C", true) }
-              emit Viol2COUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol2C", true) }
-          await count(10, tick.now);
-
-              emit Viol1COUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol1C", false) }
-              emit Viol2COUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol2C", false) }
-          yield;
-
-      }
-
-      par {
-
-              emit Viol1EbOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol1Eb", true) }
-              emit Viol2EbOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol2Eb", true) }
-          await count(10, tick.now);
-
-              emit Viol1EbOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol1Eb", false) }
-              emit Viol2EbOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," Viol2Eb", false) }
-          yield;
-
-      }
-
-      par {
-
-        abort{
-
-            signal inverseTempo;
-            host {console.log("-- Start move tempo")}
-            abort {
-              loop{
-                fork {
-                  every count( 4, tick.now) {
-                    emit inverseTempo();
-                  }
-                }par{
-                  loop{
-                    abort{
-                        every count(1, tick.now) {
-                          host{
-                          tempoGlobal += 1;
-                          setTempo(tempoGlobal, param);
-                        }
-                      }
-                    } when (inverseTempo.now);
-                    abort {
-                      every count(1, tick.now) {
-                        host{
-                          tempoGlobal -= 1;
-                          setTempo(tempoGlobal, param);
-                        }
-                      }
-                    } when (inverseTempo.now);
-                  }
-                }
-              }
-            } when immediate(stopMoveTempo.now);
-            host {console.log("-- Stop move tempo")}
-
-        } when count(10, tick.now);
-
-      }
-
-      host{
-        DAW.cleanQueues();
-        gcs.cleanChoiceList(255);
-      }
-
-      }
+      host {console.log('EtudeSkiniHarmonie5');}
 
     fork {
 
-            emit Viol1COUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1C", true) }
-            emit Viol2COUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2C", true) }
-            emit AltoCOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoC", true) }
-            emit CelloCOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloC", true) }
-            emit Viol1EbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1Eb", true) }
-            emit Viol2EbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2Eb", true) }
-            emit AltoEbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoEb", true) }
-            emit CelloEbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloEb", true) }
-            emit Viol1GbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1Gb", true) }
-            emit Viol2GbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2Gb", true) }
-            emit AltoGbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoGb", true) }
-            emit CelloGbOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloGb", true) }
-            emit Viol1AOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1A", true) }
-            emit Viol2AOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2A", true) }
-            emit AltoAOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoA", true) }
-            emit CelloAOUT([true,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloA", true) }
-        await count(30, tick.now);
+            emit PianoCOUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoC", true) }
+            emit PianoEbOUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoEb", true) }
+            emit PianoFminOUT([true,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoFmin", true) }
+        await count(200, tick.now);
 
-            emit Viol1COUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1C", false) }
-            emit Viol2COUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2C", false) }
-            emit AltoCOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoC", false) }
-            emit CelloCOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloC", false) }
-            emit Viol1EbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1Eb", false) }
-            emit Viol2EbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2Eb", false) }
-            emit AltoEbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoEb", false) }
-            emit CelloEbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloEb", false) }
-            emit Viol1GbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1Gb", false) }
-            emit Viol2GbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2Gb", false) }
-            emit AltoGbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoGb", false) }
-            emit CelloGbOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloGb", false) }
-            emit Viol1AOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol1A", false) }
-            emit Viol2AOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," Viol2A", false) }
-            emit AltoAOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," AltoA", false) }
-            emit CelloAOUT([false,255]);
-            host{gcs.informSelecteurOnMenuChange(255," CelloA", false) }
+            emit PianoCOUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoC", false) }
+            emit PianoEbOUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoEb", false) }
+            emit PianoFminOUT([false,255]);
+            host{gcs.informSelecteurOnMenuChange(255," PianoFmin", false) }
         yield;
 
     }
@@ -406,72 +279,14 @@ export function setSignals(param) {
     par {
 
       fork {
-        run ${ PianoEb} () {*};
+        run ${ FluteC} () {*};
       }
-
-    }
-
-    par {
-
-      fork {
-        run ${ PianoGb} () {*};
-      }
-
-    }
-
-    par {
-
-      fork {
-        run ${ PianoA} () {*};
-      }
-
-    }
-
-    par {
-
-      fork {
-        run ${ PianoC} () {*};
-      }
-
-    }
-
-    par {
-
-      abort{
-
-          signal inverseTempo;
-          host {console.log("-- Start move tempo")}
-          abort {
-            loop{
-              fork {
-                every count( 3, tick.now) {
-                  emit inverseTempo();
-                }
-              }par{
-                loop{
-                  abort{
-                      every count(4, tick.now) {
-                        host{
-                        tempoGlobal += 1;
-                        setTempo(tempoGlobal, param);
-                      }
-                    }
-                  } when (inverseTempo.now);
-                  abort {
-                    every count(4, tick.now) {
-                      host{
-                        tempoGlobal -= 1;
-                        setTempo(tempoGlobal, param);
-                      }
-                    }
-                  } when (inverseTempo.now);
-                }
-              }
-            }
-          } when immediate(stopMoveTempo.now);
-          host {console.log("-- Stop move tempo")}
-
-      } when count(30, tick.now);
+       par{
+          run ${ FluteEb} () {*};
+        }
+         par{
+          run ${ FluteFmin} () {*};
+        }
 
     }
 
@@ -480,51 +295,10 @@ export function setSignals(param) {
       gcs.cleanChoiceList(255);
     }
 
-      {
-
-      fork {
-
-              emit AltoAOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," AltoA", true) }
-              emit CelloAOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," CelloA", true) }
-          await count(10, tick.now);
-
-              emit AltoAOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," AltoA", false) }
-              emit CelloAOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," CelloA", false) }
-          yield;
-
-      }
-
-      par {
-
-              emit AltoCOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," AltoC", true) }
-              emit CelloCOUT([true,255]);
-              host{gcs.informSelecteurOnMenuChange(255," CelloC", true) }
-          await count(10, tick.now);
-
-              emit AltoCOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," AltoC", false) }
-              emit CelloCOUT([false,255]);
-              host{gcs.informSelecteurOnMenuChange(255," CelloC", false) }
-          yield;
-
-      }
-
-      host{
-        DAW.cleanQueues();
-        gcs.cleanChoiceList(255);
-      }
-
-      }
-
     host{
       serveur.broadcast(JSON.stringify({
             type: 'alertInfoScoreON',
-            value:'Fin Etude Harmonie 4'
+            value:'Fin EtudeSkiniHarmonie5'
           }));
     }
 
