@@ -22,7 +22,7 @@
  * <BR> - soit de la part du scrutateur (dans sa version active) via le message:  "propositionScrutateur".
  * <BR> - soit par l'automate via la fonction informSelecteurOnMenuChange() de groupeClientsSons.js. Dans l'automate c'est à la charge du compositeur
  *de signaler une mise à jour de la matrice. Ceci n'est pas automatique.
- * @copyright (C) 2022-2024 Bertrand Petit-Hédelin
+ * @copyright (C) 2022-2026 Bertrand Petit-Hédelin
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -43,9 +43,9 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-var debug = false;
-var debug1 = true;
-var par;
+let debug = false;
+let debug1 = true;
+let par;
 
 /**
  * Load the parameters and launch the start of the client group management.
@@ -61,29 +61,29 @@ import * as DAW from './controleDAW.mjs';
 import * as oscMidiLocal from './OSCandMidi.mjs'; // Pour OSC vers Game
 import * as fs from "fs";
 
-export var serv;
+export let serv;
 
-var midimix;
-var orchestration;
-var groupesClient;
-export var matriceDesPossibles;
+let midimix;
+let orchestration;
+let groupesClient;
+export let matriceDesPossibles;
 let timerDivision; // Nombre de pulses par tick, doit rester undefined si pas à jour par les automates
-var nbeDeGroupesSons = 0;
-var nombreDePatternsPossibleEnListe = [[1, 255]]; // init pour client memorySortable
+let nbeDeGroupesSons = 0;
+let nombreDePatternsPossibleEnListe = [[1, 255]]; // init pour client memorySortable
 
 // Pour les listes de clients memorySortable connectés et les infos sur les types de
 // patterns ainsi que les précédentes listes envoyées. Mis à jour dans websocketServeur.
-var clientsEnCours = [];
+let clientsEnCours = [];
 // Devient le tableau des groupes de patterns
-var groupesSon;
-var groupeName = "";
+let groupesSon;
+let groupeName = "";
 
 // On créé ce fichier à partir du xml de Blockly
-var myReactOrchestration = "../myReact/orchestrationHH.mjs";
-var socketControleur;
-var socketQueueViewer;
-var computeScorePolicy = 0;
-var computeScoreClass = 0;
+let myReactOrchestration = "../myReact/orchestrationHH.mjs";
+let socketControleur;
+let socketQueueViewer;
+let computeScorePolicy = 0;
+let computeScoreClass = 0;
 
 /**
  * Start the client group management according to the parameter file
@@ -94,7 +94,7 @@ function initGroupeClientsSons() {
   // Les tableaux en deuxième position contiennent les id des clients générés à la connexion.
   if (debug1) console.log("INFO: groupeClientsSons.mjs: initGroupeClientsSons: par.nbeDeGroupesClients", par.nbeDeGroupesClients);
   groupesClient = new Array(par.nbeDeGroupesClients);
-  for (var i = 0; i < groupesClient.length; i++) {
+  for (let i = 0; i < groupesClient.length; i++) {
     groupesClient[i] = new Array();
   }
   matriceDesPossibles = new Array(par.nbeDeGroupesClients);
@@ -167,7 +167,7 @@ export function getWinnerPseudo(index) {
   if (debug1) console.log("groupecliensSons: getWinner length:", clientsEnCours.length, index);
   console.log("groupecliensSons: getWinnerPseudo : index :", index);
 
-  var winners = rankWinners(clientsEnCours);
+  let winners = rankWinners(clientsEnCours);
 
   if (winners === -1 || index >= winners.length) {
     return '';
@@ -182,7 +182,7 @@ export function getWinnerPseudo(index) {
  */
 export function getWinnerScore(index) {
   if (debug) console.log("groupecliensSons: getWinner length:", clientsEnCours.length);
-  var winners = rankWinners(clientsEnCours);
+  let winners = rankWinners(clientsEnCours);
   if (winners === -1 || index >= winners.length) {
     return 0;
   }
@@ -195,9 +195,9 @@ export function getWinnerScore(index) {
  */
 export function getTotalGameScore() {
   if (debug) console.log("groupecliensSons: getTotalGameScore :", clientsEnCours);
-  var totalScore = 0;
+  let totalScore = 0;
 
-  for (var i = 0; i < clientsEnCours.length; i++) {
+  for (let i = 0; i < clientsEnCours.length; i++) {
     totalScore += clientsEnCours[i].score;
   }
   return totalScore;
@@ -220,25 +220,7 @@ function rankWinners(uneListe) {
     return -1;
   }
 
-  var evaluation = function (a, b) {
-    return a.score > b.score;
-  }
-
-  var liste = uneListe.slice();
-
-  for (var i = 0; i < liste.length; i++) {
-    // le tableau est trié de 0 à i-1
-    // La boucle interne recherche le min
-    // de i+1 à la fin du tableau. 
-    for (var j = i + 1; j < liste.length; j++) {
-      if (evaluation(liste[j], liste[i])) {
-        var temp = liste[j];
-        liste[j] = liste[i];
-        liste[i] = temp;
-      }
-    }
-  }
-  return liste;
+  return uneListe.slice().sort((a, b) => b.score - a.score);
 }
 
 /**
@@ -248,19 +230,19 @@ function rankWinners(uneListe) {
  */
 export function getGroupScore(rank) {
   if (debug) console.log("groupecliensSons: getGroupScore:", clientsEnCours);
-  var scores = new Array();
-  var indexMaxDeGroupe = 0;
+  let scores = new Array();
+  let indexMaxDeGroupe = 0;
 
   // On calcule l'index max pour les groupes
-  for (var i = 0; i < clientsEnCours.length; i++) {
+  for (let i = 0; i < clientsEnCours.length; i++) {
     if (clientsEnCours[i].groupe > indexMaxDeGroupe) {
       indexMaxDeGroupe = clientsEnCours[i].groupe;
     }
   }
 
   // On crée le tableau d'objet scores pour pouvoir le trier après.
-  for (var i = 0; i < indexMaxDeGroupe + 1; i++) {
-    var el = {
+  for (let i = 0; i < indexMaxDeGroupe + 1; i++) {
+    let el = {
       groupe: i,
       score: 0
     }
@@ -268,13 +250,13 @@ export function getGroupScore(rank) {
   }
   // On remplit scores avec les totaux de chaque groupe
   // score est encore organisé avec comme index les groupes.
-  for (var i = 0; i < clientsEnCours.length; i++) {
+  for (let i = 0; i < clientsEnCours.length; i++) {
     if (clientsEnCours[i].groupe >= 0) { // On ne prend pas en compte les simulateurs hors audience dont le groupe est -1
       scores[clientsEnCours[i].groupe].score += clientsEnCours[i].score;
     }
   }
   // Classement des scores
-  var winners = rankWinners(scores);
+  let winners = rankWinners(scores);
 
   if (debug) console.log("groupecliensSons: getGroupScore:scores", scores, "winners", winners);
   return winners[rank].score;
@@ -398,6 +380,41 @@ export function setpatternListLength(param) {
 
 /*********************************************************
 
+Helpers WebSocket
+
+**********************************************************/
+
+/**
+ * Send a message to a WebSocket with error handling
+ * @param {WebSocket} socket 
+ * @param {object} message 
+ * @param {string} label for error logging
+ */
+function sendToSocket(socket, message, label) {
+  if (socket === undefined) return;
+  if (socket.readyState !== 1) {
+    if (debug) console.log(`ERR: ${label} not ready (state: ${socket.readyState})`);
+    return;
+  }
+  try {
+    socket.send(JSON.stringify(message));
+  } catch (err) {
+    if (debug) console.log(`ERR: ${label} send failed:`, err);
+  }
+}
+
+/**
+ * Broadcast a message to all connected clients
+ * @param {object} message 
+ */
+function broadcastMessage(message) {
+  if (serv !== undefined) {
+    serv.broadcast(JSON.stringify(message));
+  }
+}
+
+/*********************************************************
+
 Gestion des logs de l'automate
 
 **********************************************************/
@@ -413,17 +430,17 @@ function logInfoAutomate(message) {
 }
 
 function getDateTime() {
-  var date = new Date();
-  var hour = date.getHours();
+  let date = new Date();
+  let hour = date.getHours();
   hour = (hour < 10 ? "0" : "") + hour;
-  var min = date.getMinutes();
+  let min = date.getMinutes();
   min = (min < 10 ? "0" : "") + min;
-  var sec = date.getSeconds();
+  let sec = date.getSeconds();
   sec = (sec < 10 ? "0" : "") + sec;
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
   month = (month < 10 ? "0" : "") + month;
-  var day = date.getDate();
+  let day = date.getDate();
   day = (day < 10 ? "0" : "") + day;
   return day + ":" + month + ":" + year + ":" + hour + ":" + min + ":" + sec;
 }
@@ -439,11 +456,10 @@ Gestion des info vers les clients
  * @param {number} groupe 
  */
 export function cleanChoiceList(groupe) {
-  var message = {
+  broadcastMessage({
     type: 'cleanClientChoiceList',
     group: groupe
-  };
-  serv.broadcast(JSON.stringify(message));
+  });
 }
 
 /**
@@ -451,21 +467,19 @@ export function cleanChoiceList(groupe) {
  * @param {string} text
  */
 export function alertInfoScoreON(texte) {
-  var message = {
+  broadcastMessage({
     type: 'alertInfoScoreON',
     text: texte
-  };
-  serv.broadcast(JSON.stringify(message));
+  });
 }
 
 /**
  * To clean the message on the score client.
  */
 export function alertInfoScoreOFF() {
-  var message = {
-    type: 'alertInfoScoreOFF',
-  };
-  serv.broadcast(JSON.stringify(message));
+  broadcastMessage({
+    type: 'alertInfoScoreOFF'
+  });
 }
 
 // Cette fonction est dupliquée avec Blockly, on perd le serveur avec
@@ -483,20 +497,13 @@ export function informSelecteurOnMenuChange(groupe, sons, status) {
   } else {
     groupeName = sons;
   }
-  var message = {
+  if (debug) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
+  broadcastMessage({
     type: 'groupeClientStatus',
     groupeClient: groupe,
     groupeName: groupeName,
     status: status
-  };
-  // Informe les selecteurs et simulateurs
-  if (debug) console.log("groupecliensSons:informSelecteurOnMenuChange:", groupe, sons, status);
-
-  if (serv !== undefined) {
-    serv.broadcast(JSON.stringify(message));
-  } else {
-    console.log("ERR: groupecliensSons: informSelecteurOnMenuChange: serv undefined");
-  }
+  });
 }
 
 /**
@@ -504,31 +511,12 @@ export function informSelecteurOnMenuChange(groupe, sons, status) {
  * @param {number} tick 
  */
 export function setTickOnControler(tick) {
-  var message = {
+  let message = {
     type: "setTickAutomate",
     tick: tick
   }
-  //console.log("groupecliensSons:socketControleur automate:", socketControleur);
-  if (socketControleur !== undefined) {
-    if (socketControleur.readyState == 1) {
-      socketControleur.send(JSON.stringify(message));
-    } else {
-      if (debug) console.log("ERR: groupecliensSons: informControleur: socketControleur not ready;", socketControleur.readyState);
-    }
-  }
-
-     // Send the tick to queueViewer.
-  if (socketQueueViewer !== undefined) {
-    if (socketQueueViewer.readyState == 1) {
-      try {
-        socketQueueViewer.send(JSON.stringify(message));
-      } catch (err) {
-        if (debug) console.log("ERR: groupecliensSons: send setTickAutomate to queueViewer", err);
-      }
-    } else {
-      if (debug) console.log("ERR: groupecliensSons: informControleur: socketControleur not ready;", socketControleur.readyState);
-    }
-  }
+  sendToSocket(socketControleur, message, "socketControleur");
+  sendToSocket(socketQueueViewer, message, "socketQueueViewer");
 }
 
 /**
@@ -570,10 +558,10 @@ export function putIdInGroupClient(id, groupe) {
  * @param {number} id 
  */
 export function removeIdInGroupClient(id) {
-  var position;
+  let position;
 
-  for (var i = 0; i < groupesClient.length; i++) {
-    for (var j = 0; j < groupesClient[i].length; j++) {
+  for (let i = 0; i < groupesClient.length; i++) {
+    for (let j = 0; j < groupesClient[i].length; j++) {
       if (groupesClient[i][j] == id) {
         position = groupesClient[i].splice(j, 1);
         return position; // Pour contrôle
@@ -588,8 +576,8 @@ export function removeIdInGroupClient(id) {
  * @returns {array} group of client
  */
 export function getGroupClient(id) {
-  for (var i = 0; i < groupesClient.length; i++) {
-    for (var j = 0; j < groupesClient[i].length; j++) {
+  for (let i = 0; i < groupesClient.length; i++) {
+    for (let j = 0; j < groupesClient[i].length; j++) {
       if (groupesClient[i][j] == id) {
         return i;
       }
@@ -622,8 +610,8 @@ export function getGroupesClientLength() {
   // It happends when calling this function before loading a piece
   if (par === undefined) return 0;
 
-  var longueurs = new Array(par.nbeDeGroupesClients);
-  for (var i = 0; i < groupesClient.length; i++) {
+  let longueurs = new Array(par.nbeDeGroupesClients);
+  for (let i = 0; i < groupesClient.length; i++) {
     longueurs[i] = groupesClient[i].length;
   }
   return longueurs;
@@ -651,10 +639,10 @@ export function getOnGoingGroupeSons() {
 export function getSignalFromGroup(groupe) {
   if (debug) console.log("groupecliensSons.js : getSignalFromGroup : ", groupe);
 
-  var ongoingGroupe = getOnGoingGroupeSons();
+  let ongoingGroupe = getOnGoingGroupeSons();
   if (debug) console.log("groupecliensSons.js : ongoingGroupe : ", ongoingGroupe);
 
-  for (var i = 0; i < ongoingGroupe.length; i++) {
+  for (let i = 0; i < ongoingGroupe.length; i++) {
     if (ongoingGroupe[i][1] == groupe) {
       return ongoingGroupe[i][0];
     }
@@ -679,7 +667,7 @@ export function setNbeDeGroupesSons(groupesSons) {
  * @returns {number} group number
  */
 function getGroupeSons(signal) {
-  var signalLocal = signal.slice(0, -3); // Pour enlever OUT
+  let signalLocal = signal.slice(0, -3); // Pour enlever OUT
 
   if (debug) console.log("groupeClientSons.mjs: getGroupeSons: signal:", signal, "signalLocal:", signalLocal, "nbeDeGroupesSons:", nbeDeGroupesSons);
 
@@ -721,7 +709,7 @@ function getGroupeSons(signal) {
  * @returns {string|number} name or -1
  */
 export function getNameGroupeSons(index) {
-  for (var i = 0; i < groupesSon.length; i++) {
+  for (let i = 0; i < groupesSon.length; i++) {
     if (groupesSon[i][1] == index) { // Attention pas de === ici, il y a changementde type
       return groupesSon[i][0];
     }
@@ -755,11 +743,10 @@ export function setGroupesSon(DAWState) {
     return -1;
   }
 
-  var msg = {
+  broadcastMessage({
     type: "setPatternGroups",
     text: groupesSon
-  }
-  serv.broadcast(JSON.stringify(msg));
+  });
 
   if (debug) console.log("groupeClientsSons: setGroupesSon:groupesSon ", groupesSon, "DAWStatus:", DAWState);
   return 0;
@@ -775,7 +762,7 @@ des liens entre groupes de clients et groupes de sons (patterns)
  * Create the matrix giving the status of the orchestration.
  */
 export function createMatriceDesPossibles() {
-  for (var i = 0; i < matriceDesPossibles.length; i++) {
+  for (let i = 0; i < matriceDesPossibles.length; i++) {
     if (nbeDeGroupesSons > 0) { // Protection
       matriceDesPossibles[i] = new Array(nbeDeGroupesSons);
     } else {
@@ -783,8 +770,10 @@ export function createMatriceDesPossibles() {
     }
   }
   // Info pour les scrutateurs
-  serv.broadcast(JSON.stringify({ type: "createMatriceDesPossibles",
-    matrice: matriceDesPossibles }));
+  broadcastMessage({
+    type: "createMatriceDesPossibles",
+    matrice: matriceDesPossibles
+  });
 }
 
 /**
@@ -799,7 +788,7 @@ export function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
   if (debug) console.log("groupeClientSons.mjs: setInMatriceDesPossibles:", matriceDesPossibles);
 
   if (groupeClient === 255) { // On traite tous les groupes
-    for (var i = 0; i < par.nbeDeGroupesClients; i++) {
+    for (let i = 0; i < par.nbeDeGroupesClients; i++) {
       matriceDesPossibles[i][groupeDeSons] = status;
     }
     return 0;
@@ -810,17 +799,17 @@ export function setInMatriceDesPossibles(groupeClient, groupeDeSons, status) {
   }
   matriceDesPossibles[groupeClient][groupeDeSons] = status;
 
-  var message = [groupeClient, groupeDeSons, status];
-  var msg = {
+  let msg = {
     type: "setInMatriceDesPossibles",
-    value: message
+    value: [groupeClient, groupeDeSons, status]
   }
-  serv.broadcast(JSON.stringify(msg));
+  broadcastMessage(msg);
   return 0;
 }
 
 /**
  * Get the status of group of pattern for a group of client.
+ * Pas utilisée au 9/6/2026
  * @param {number} groupeClient 
  * @param {number} groupeSon 
  * @returns {number}
@@ -835,17 +824,16 @@ export function getStatusInMatriceDesPossibles(groupeClient, groupeSon) {
  * Broadcast the matrix.
  */
 export function setMatriceDesPossibles() {
-  for (var i = 0; i < matriceDesPossibles.length; i++) {
-    for (var j = 0; j < matriceDesPossibles[i].length; j++) {
+  for (let i = 0; i < matriceDesPossibles.length; i++) {
+    for (let j = 0; j < matriceDesPossibles[i].length; j++) {
       matriceDesPossibles[i][j] = true;
     }
   }
   // Info pour les scrutateurs
-  var msg = {
+  broadcastMessage({
     type: "setMatriceDesPossibles",
     message: "Set"
-  }
-  serv.broadcast(JSON.stringify(msg));
+  });
   if (debug) console.log("groupeClientSons:setMatriceDesPossibles:", matriceDesPossibles);
 }
 
@@ -860,18 +848,17 @@ export function resetMatriceDesPossibles() {
     return;
   }
   
-  for (var i = 0; i < matriceDesPossibles.length; i++) {
-    for (var j = 0; j < matriceDesPossibles[i].length; j++) {
+  for (let i = 0; i < matriceDesPossibles.length; i++) {
+    for (let j = 0; j < matriceDesPossibles[i].length; j++) {
       matriceDesPossibles[i][j] = false;
     }
   }
   if (debug) console.log("groupeClientSons:resetMatriceDesPossibles:", matriceDesPossibles);
   // Info pour les scrutateurs
-  var msg = {
+  broadcastMessage({
     type: "resetMatriceDesPossibles",
     message: "Reset"
-  }
-  serv.broadcast(JSON.stringify(msg));
+  });
 }
 
 /**
@@ -892,7 +879,7 @@ AUTOMATE DE GESTION DE LA MATRICE DES POSSIBLES
  * To get the HH machine. But should be useless.
  * @returns {object} the HipHop.js machine
  */
-var machine;
+let machine;
 export function getMachine() {
   return machine;
 }
@@ -901,7 +888,7 @@ export function getMachine() {
  * Create and compile the hipHop.js orchestration from the blocky generated code 
  * or HH file
  */
-var tempIndex = 0;
+let tempIndex = 0;
 
 export async function makeOneAutomatePossibleMachine() {
   if (debug) console.log("groupeClientsSons.js: makeOneAutomatePossibleMachine", par.groupesDesSons);
@@ -936,10 +923,10 @@ let messageLog = {
  */
 function makeSignalsListeners(machine) {
   // Création des listeners des signaux
-  for (var i = 0; i < par.groupesDesSons.length; i++) {
+  for (let i = 0; i < par.groupesDesSons.length; i++) {
 
     if (par.groupesDesSons[i][0] !== "") {
-      var signal = par.groupesDesSons[i][0] + "OUT";
+      let signal = par.groupesDesSons[i][0] + "OUT";
 
       if (debug) console.log("Addeventlisterner:signal:", signal);
 
@@ -947,7 +934,7 @@ function makeSignalsListeners(machine) {
         // Rappel: setInMatriceDesPossibles(groupeClient, groupeSon, status)
         if (debug) console.log("groupeClientSons: listerner:signal:", evt.signame, evt);
 
-        var groupeSonLocal = getGroupeSons(evt?.signame || evt.signame);
+        let groupeSonLocal = getGroupeSons(evt?.signame || evt.signame);
         if (groupeSonLocal == -1) {
           console.log("ERR: groupeClientsSons.js:Addeventlisterner: signal inconnu:", evt.signame);
           return;
@@ -963,27 +950,18 @@ function makeSignalsListeners(machine) {
         }
 
         // INFORMATION VERS CLIENT CONTROLEUR POUR AFFICHAGE (son, groupe, status)
-        var message = {
+        let message = {
           type: "setInMatrix",
           son: groupeSonLocal,
           groupe: evt.nowval[1],
           status: evt.nowval[0]
         }
-        //console.log("groupecliensSons:socketControleur automate:", socketControleur);
-        if (socketControleur !== undefined) {
-          if (socketControleur.readyState == 1) {
-            socketControleur.send(JSON.stringify(message));
-          } else {
-            if (debug) console.log("WARN: groupecliensSons:socketControleur: status:", socketControleur.readyState);
-          }
-        }
+        sendToSocket(socketControleur, message, "socketControleur");
         // Info pour les scrutateurs et score [groupeClient, groupeDeSons, status];
-        var messageScrut = [evt.nowval[1], groupeSonLocal, evt.nowval[0]];
-        var msg = {
+        broadcastMessage({
           type: "setInMatriceDesPossibles",
-          value: messageScrut
-        }
-        serv.broadcast(JSON.stringify(msg));
+          value: [evt.nowval[1], groupeSonLocal, evt.nowval[0]]
+        });
         messageLog.type = "signal";
         messageLog.value = evt.type;
         logInfoAutomate(messageLog);

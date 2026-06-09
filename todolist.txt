@@ -1,7 +1,6 @@
 Points à traiter:
 
-- Une pièce qui utilise les types verticaux et horizontaux.
-- Où en sont nos capteurs ESP32 ?
+- Pièces avec capteurs ESP32 ?
 
 - Problème de passage de paramètres à des modules HH externalisés (22/11/2025)
 le paramètre "serveur" ne passe pas dans makeReservoir(groupeClient, instrument, gcs, serveur) de makeReservoir.hh.js
@@ -16,7 +15,9 @@ Pas prioritaire:
 Evolutions:
 Revoir le code du simulateur :
 - mieux commenter l'utilisation des types (horizontaux)
-- nombreDePatternsPossibleEnListe, n'est en fait pas utilisé dans le simulateur. C'est un paramètres pour le client web simple.
+- nombreDePatternsPossibleEnListe, n'est en fait pas utilisé dans le simulateur.
+C'est un paramètres pour le client web simple. C'est le message 'nombreDePatternsPossible'
+qui est utilisé.
 
 Général
 Au sujet de la longueur des FIFO
@@ -28,9 +29,9 @@ En simulation on pourrait imaginer de donner une longueur maximale aux FIFO.
 Aujourd'hui on sait les remettre à 0 pour repartir sur une autre ambiance par exemple.
 Mais on pourrait se demander si limiter leur longueur serait une façon de gérer autrement la longueur d'une ambiance ?
 
-
-
 Fait ------------------------------------------------------------------
+
+- Une pièce qui utilise les types verticaux et horizontaux -> Harmonie5.
 - Imaginer une représentation graphique des FIFO à la DAW
 C'est un travail de représentation graphique, pédagogiquement utile.(fait par IA QODO 22/05/2026)
 
@@ -83,7 +84,7 @@ Commandes utiles -----------------------------------------------------
 Mise à jour HH:
 install https://www-sop.inria.fr/members/Manuel.Serrano/software/npmx/hiphop-unstable.tgz
 
-Packaging npm Skini:
+Packaging npm Skini: (pb au 3/6/2026, ne fonctionne plus quand on installe sur Mac)
 Modifier le numéro de version dans package.json, puis:
 npm publish
 Si pb npm logout et npm login
